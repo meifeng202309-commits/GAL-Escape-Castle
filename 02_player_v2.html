@@ -84,8 +84,8 @@ async function joinGame(){
     document.getElementById("status").textContent = "Connecting...";
     const rows = await getRoomRows();
 
-    const s1 = rows.filter(r => r.scene === 1).length;
-    const s2 = rows.filter(r => r.scene === 2).length;
+    const s1 = submittedPlayerCount(rows, 1);
+    const s2 = submittedPlayerCount(rows, 2);
     currentScene = s2 >= 3 ? 3 : (s1 >= 3 ? 2 : 1);
 
     document.getElementById("joinCard").classList.add("hidden");
@@ -111,6 +111,14 @@ async function refresh(){
 function render(rows){
   const game = document.getElementById("game");
 
+  if(rows.length === 0 && currentScene !== 1){
+    currentScene = 1;
+    if(transitionTimer){
+      clearTimeout(transitionTimer);
+      transitionTimer = null;
+    }
+  }
+
   if(currentScene === 3){
     game.innerHTML = "<h2>Mission complete</h2><p class='good'>Scene transition and data logging worked.</p>";
     return;
@@ -118,12 +126,15 @@ function render(rows){
 
   const sceneRows = rows.filter(r => r.scene === currentScene);
   const mine = sceneRows.find(r => r.player_name === player);
+  const allPlayersSubmitted = ["GAL-A","GAL-B","GAL-C"].every(p =>
+    sceneRows.some(r => r.player_name === p)
+  );
 
   const sceneData = currentScene === 1
     ? {title:"Scene 1 — Three Doors", text:"You are trapped in a room. Choose privately.", opts:["Red Door","Blue Door","Black Door"]}
     : {title:"Scene 2 — Footsteps", text:"Footsteps are getting closer behind you. What do you do?", opts:["Run","Hide","Call the others"]};
 
-  if(sceneRows.length >= 3){
+  if(allPlayersSubmitted){
     const ordered = ["GAL-A","GAL-B","GAL-C"].map(p => sceneRows.find(r => r.player_name === p));
     game.innerHTML = "<h2>" + sceneData.title + "</h2><h3>Choices revealed</h3>" +
       ordered.map(r => "<p>" + r.player_name + " → <b>" + escapeHtml(r.choice) + "</b></p>").join("") +
@@ -143,12 +154,12 @@ function render(rows){
 
   if(mine){
     html += "<p class='good'>You chose: <b>" + escapeHtml(mine.choice) + "</b></p>";
-    html += "<p class='wait'>Waiting for the other players... (" + sceneRows.length + "/3)</p>";
+    html += "<p class='wait'>Waiting for the other players... (" + submittedPlayerNames(sceneRows).length + "/3)</p>";
   } else {
     html += sceneData.opts.map(opt =>
       "<button class='option' data-choice='" + escapeAttr(opt) + "'>" + escapeHtml(opt) + "</button>"
     ).join("");
-    html += "<p class='muted'>" + sceneRows.length + "/3 submitted</p>";
+    html += "<p class='muted'>" + submittedPlayerNames(sceneRows).length + "/3 submitted</p>";
   }
 
   game.innerHTML = html;
@@ -195,6 +206,12 @@ function escapeHtml(s){
 }
 function escapeAttr(s){
   return escapeHtml(s);
+}
+function submittedPlayerNames(rows){
+  return ["GAL-A","GAL-B","GAL-C"].filter(p => rows.some(r => r.player_name === p));
+}
+function submittedPlayerCount(rows, scene){
+  return submittedPlayerNames(rows.filter(r => r.scene === scene)).length;
 }
 function networkHint(err){
   const detail = err && err.message ? err.message : String(err);
