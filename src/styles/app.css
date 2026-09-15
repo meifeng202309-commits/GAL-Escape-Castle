@@ -1,0 +1,46 @@
+:root{
+  color-scheme: dark;
+  --bg:#111827;
+  --panel:#1f2937;
+  --panel-soft:#263244;
+  --text:#f9fafb;
+  --muted:#b7c0cf;
+  --line:#405066;
+  --accent:#8dd3ff;
+  --good:#86efac;
+  --warn:#fde68a;
+  --bad:#fca5a5;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
+.shell{max-width:760px;margin:0 auto;padding:28px 16px}
+.shell.wide{max-width:1040px}
+.panel{background:var(--panel);border:1px solid #2c394d;border-radius:8px;padding:22px;margin-bottom:16px}
+.title-panel{margin-top:8px}
+.eyebrow{margin:0 0 8px;color:var(--accent);font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+h1,h2{margin:0 0 12px}
+.muted{color:var(--muted)}
+.hidden{display:none}
+.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:16px}
+.teacher-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+label{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:14px}
+input{width:100%;font-size:16px;padding:11px 12px;border-radius:6px;border:1px solid var(--line);background:#0f172a;color:var(--text)}
+button{font-size:16px;padding:11px 14px;border:1px solid #7db7d5;border-radius:6px;background:#dff5ff;color:#0f172a;cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
+button.secondary{background:var(--panel-soft);color:var(--text);border-color:var(--line)}
+button.danger{background:#ffe4e6;color:#7f1d1d;border-color:#fda4af}
+.button-row{display:flex;gap:10px;flex-wrap:wrap}
+.status{min-height:22px}
+.topline{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
+.choice-list{display:grid;gap:10px;margin:18px 0}
+.choice-list button{text-align:left;background:#eff6ff}
+.notice{border:1px solid var(--line);background:var(--panel-soft);padding:14px;border-radius:6px;margin:12px 0}
+.good{color:var(--good)}
+.warn{color:var(--warn)}
+.bad{color:var(--bad)}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-align:top}
+@media(max-width:720px){
+  .field-grid,.teacher-grid{grid-template-columns:1fr}
+  .topline{display:block}
+}

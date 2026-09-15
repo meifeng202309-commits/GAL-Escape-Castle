@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GAL Castle Escape</title>
+<link rel="stylesheet" href="./src/styles/app.css">
+</head>
+<body>
+<main class="shell">
+  <section class="panel title-panel">
+    <p class="eyebrow">GAL Castle Escape</p>
+    <h1>The clock is ticking.</h1>
+    <p class="muted">Join with the room code and role code your teacher gives you.</p>
+  </section>
+
+  <section id="joinPanel" class="panel">
+    <div class="field-grid">
+      <label>
+        Room code
+        <input id="roomCode" autocomplete="off" placeholder="e.g. TEST1001">
+      </label>
+      <label>
+        Join code
+        <input id="joinCode" autocomplete="off" placeholder="Teacher assigned">
+      </label>
+    </div>
+    <button id="joinButton">Join</button>
+    <p id="joinStatus" class="status muted"></p>
+  </section>
+
+  <section id="gamePanel" class="panel hidden">
+    <div class="topline">
+      <div>
+        <p id="playerLabel" class="eyebrow"></p>
+        <h2 id="sceneTitle"></h2>
+      </div>
+      <button id="leaveButton" class="secondary">Switch session</button>
+    </div>
+    <p id="sceneText"></p>
+    <div id="choiceArea"></div>
+    <div id="revealArea"></div>
+    <p id="gameStatus" class="status muted"></p>
+  </section>
+</main>
+
+<script type="module" src="./src/game/app.js"></script>
+</body>
+</html>

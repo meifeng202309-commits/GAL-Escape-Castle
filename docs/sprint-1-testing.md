@@ -1,0 +1,86 @@
+# Sprint 1 Testing
+
+## Database Setup
+
+Run this migration in Supabase SQL editor:
+
+```text
+database/001_sprint1_core.sql
+```
+
+## Teacher Flow
+
+Open:
+
+```text
+teacher.html
+```
+
+Create a room:
+
+- room code: any classroom code, for example `S1TEST`
+- teacher token: a room-specific secret chosen by the teacher
+- Gitte join code: give only to the Gitte student
+- Anna join code: give only to the Anna student
+- Linda join code: give only to the Linda student
+
+Then click:
+
+```text
+Create room
+```
+
+## Student Flow
+
+Open:
+
+```text
+index.html
+```
+
+Each student enters:
+
+- same room code
+- their own assigned join code
+
+Each student submits one private choice.
+
+Expected behavior:
+
+- before all three submit, teacher sees only submitted/waiting
+- after all three submit, reveal happens
+- students see all three choices
+- teacher sees all three choices
+
+## Reconnect Test
+
+After joining and submitting:
+
+1. Refresh one student browser.
+2. Confirm the student is restored without entering the join code again.
+3. Confirm the locked choice cannot be changed.
+
+## Teacher Reset Test
+
+1. Open teacher console.
+2. Enter the same room code and teacher token.
+3. Click Reset room.
+4. Confirm decisions are cleared and scene returns to collecting.
+
+## Local Static Check
+
+Run:
+
+```text
+node tests/sprint1-static-check.js
+```
+
+This does not require npm packages.
+
+## Not Covered In Sprint 1
+
+- DiscussionRoom
+- Agent analysis
+- Asset Manager
+- production authentication
+- full 17 ACT story flow

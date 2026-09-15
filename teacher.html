@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GAL Castle Escape Teacher Console</title>
+<link rel="stylesheet" href="./src/styles/app.css">
+</head>
+<body class="teacher">
+<main class="shell wide">
+  <section class="panel title-panel">
+    <p class="eyebrow">Teacher Console</p>
+    <h1>GAL Castle Escape</h1>
+    <p class="muted">Prototype access is protected by a room-specific teacher token. Do not share it with students.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Create or reconnect room</h2>
+    <div class="field-grid teacher-grid">
+      <label>Room code <input id="roomCode" autocomplete="off" placeholder="TEST1001"></label>
+      <label>Teacher token <input id="teacherToken" autocomplete="off" placeholder="Choose or reuse a room token"></label>
+      <label>Gitte join code <input id="codeGitte" autocomplete="off" placeholder="Give to GAL-A"></label>
+      <label>Anna join code <input id="codeAnna" autocomplete="off" placeholder="Give to GAL-B"></label>
+      <label>Linda join code <input id="codeLinda" autocomplete="off" placeholder="Give to GAL-C"></label>
+    </div>
+    <div class="button-row">
+      <button id="createRoomButton">Create room</button>
+      <button id="watchButton" class="secondary">Watch room</button>
+      <button id="advanceButton" class="secondary">Advance scene</button>
+      <button id="resetButton" class="danger">Reset room</button>
+    </div>
+    <p id="teacherStatus" class="status muted"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Room state</h2>
+    <div id="roomState">Not connected.</div>
+  </section>
+</main>
+
+<script type="module" src="./src/teacher/teacher-console.js"></script>
+</body>
+</html>
