@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teacher Console V2</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f3f4f6;margin:0;color:#111827}
+.wrap{max-width:900px;margin:40px auto;padding:20px}
+.card{background:white;border-radius:14px;padding:22px;margin-bottom:18px}
+input,button{font-size:16px;padding:10px 12px;margin-right:8px}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{padding:10px;border-bottom:1px solid #ddd;text-align:left}
+.muted{color:#666}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Teacher Console V2</h1>
+    <input id="room" value="5832" placeholder="Room code">
+    <button id="watchBtn">Watch room</button>
+    <button id="resetBtn">Reset room</button>
+    <p id="status" class="muted"></p>
+  </div>
+  <div class="card">
+    <div id="log">Not connected.</div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = "https://qdcbdcjobzytzhnhfwyn.supabase.co";
+const SUPABASE_KEY = "sb_publishable_h5mCF6rkaYWw12ssP4-1NA_KzzPJOwY";
+const API = SUPABASE_URL + "/rest/v1/game_choices";
+let room = "";
+let pollTimer = null;
+
+function headers(extra={}){
+  return Object.assign({
+    "apikey": SUPABASE_KEY,
+    "Authorization": "Bearer " + SUPABASE_KEY,
+    "Content-Type": "application/json"
+  }, extra);
+}
+
+document.getElementById("watchBtn").addEventListener("click", watchRoom);
+document.getElementById("resetBtn").addEventListener("click", resetRoom);
+
+async function watchRoom(){
+  room = document.getElementById("room").value.trim().toUpperCase();
+  if(!room) return;
+  document.getElementById("status").textContent = "Watching room " + room;
+  await load();
+  if(pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(load, 1000);
+}
+
+async function load(){
+  try {
+    let res;
+    try {
+      res = await fetch(API + "?room_code=eq." + encodeURIComponent(room) + "&select=*&order=created_at.asc", {
+        method:"GET", headers:headers()
+      });
+    } catch(err) {
+      throw new Error(networkHint(err));
+    }
+    if(!res.ok) throw new Error(await res.text());
+    const rows = await res.json();
+
+    if(!rows.length){
+      document.getElementById("log").innerHTML = "<p>No choices yet.</p>";
+      return;
+    }
+
+    document.getElementById("log").innerHTML =
+      "<table><tr><th>Player</th><th>Scene</th><th>Choice</th><th>Time</th></tr>" +
+      rows.map(r => "<tr><td>"+escapeHtml(r.player_name)+"</td><td>"+escapeHtml(r.scene)+"</td><td>"+escapeHtml(r.choice)+"</td><td>"+new Date(r.created_at).toLocaleTimeString()+"</td></tr>").join("") +
+      "</table>";
+  } catch(err) {
+    document.getElementById("log").textContent = "Error: " + err.message;
+  }
+}
+
+async function resetRoom(){
+  room = document.getElementById("room").value.trim().toUpperCase();
+  if(!room) return;
+  if(!confirm("Delete all test data for room " + room + "?")) return;
+
+  let res;
+  try {
+    res = await fetch(API + "?room_code=eq." + encodeURIComponent(room), {
+      method:"DELETE",
+      headers:headers({"Prefer":"return=minimal"})
+    });
+  } catch(err) {
+    alert("Reset failed: " + networkHint(err));
+    return;
+  }
+
+  if(!res.ok) alert(await res.text());
+  else await load();
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]);
+}
+function networkHint(err){
+  const detail = err && err.message ? err.message : String(err);
+  return detail + ". Network request could not reach Supabase. Run 04_start_server.bat and open http://127.0.0.1:8000/03_teacher_v2.html. If it still fails, check DNS/proxy/firewall access to qdcbdcjobzytzhnhfwyn.supabase.co.";
+}
+</script>
+</body>
+</html>
