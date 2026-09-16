@@ -8,3 +8,14 @@
 - Added reconnect through browser `localStorage` session token.
 - Added documentation for Sprint 1 architecture and testing.
 - Kept `02_player_v2.html` and `03_teacher_v2.html` as validated fallback prototypes.
+
+## Sprint 1 Hardening
+
+- Changed room creation to create-only: an existing room can no longer be overwritten by `s1_create_room`.
+- Added server-side join-code validation for non-empty and mutually distinct codes.
+- Added database uniqueness for room join-code hashes.
+- Prevented already claimed roles from silently rotating their active session token.
+- Added teacher-authenticated player-session release as the Sprint 1 recovery mechanism.
+- Required `s1_advance_scene` to run only after the room is in `revealed` phase.
+- Added `s1_scene_choices` and server-side canonical choice validation.
+- Changed Teacher Console token input to password mode with show/hide control.

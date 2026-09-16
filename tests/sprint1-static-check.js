@@ -34,6 +34,7 @@ const requiredFunctions = [
   "s1_submit_private_choice",
   "s1_get_teacher_state",
   "s1_advance_scene",
+  "s1_release_player_session",
   "s1_reset_room",
 ];
 

@@ -18,7 +18,12 @@
     <h2>Create or reconnect room</h2>
     <div class="field-grid teacher-grid">
       <label>Room code <input id="roomCode" autocomplete="off" placeholder="TEST1001"></label>
-      <label>Teacher token <input id="teacherToken" autocomplete="off" placeholder="Choose or reuse a room token"></label>
+      <label>Teacher token
+        <span class="password-row">
+          <input id="teacherToken" type="password" autocomplete="off" placeholder="Choose or reuse a room token">
+          <button id="toggleTeacherToken" class="secondary small" type="button">Show</button>
+        </span>
+      </label>
       <label>Gitte join code <input id="codeGitte" autocomplete="off" placeholder="Give to GAL-A"></label>
       <label>Anna join code <input id="codeAnna" autocomplete="off" placeholder="Give to GAL-B"></label>
       <label>Linda join code <input id="codeLinda" autocomplete="off" placeholder="Give to GAL-C"></label>
@@ -35,6 +40,16 @@
   <section class="panel">
     <h2>Room state</h2>
     <div id="roomState">Not connected.</div>
+  </section>
+
+  <section class="panel">
+    <h2>Prototype recovery</h2>
+    <p class="muted">Use only when a student lost their original browser session. This clears that role's session token and logs a teacher recovery event.</p>
+    <div class="button-row">
+      <button class="secondary release-session" data-role-slot="GAL-A">Release Gitte session</button>
+      <button class="secondary release-session" data-role-slot="GAL-B">Release Anna session</button>
+      <button class="secondary release-session" data-role-slot="GAL-C">Release Linda session</button>
+    </div>
   </section>
 </main>
 

@@ -5,6 +5,84 @@ Local branch at report time: `master`
 Repository remote at report time: `NOT CONFIGURED`  
 Sprint 2 status: `NOT STARTED`
 
+Hardening revision status: `IMPLEMENTED LOCALLY, NOT YET DEPLOYED OR END-TO-END VERIFIED`
+
+Important status note:
+
+Sprint 1 must not be considered approved for Sprint 2 until the hardened migration is deployed to Supabase and the real multiplayer/security test matrix passes.
+
+## 0. Sprint 1 Hardening Revision
+
+Hardening changes implemented after the initial Sprint 1 completion report:
+
+- `s1_create_room` is now create-only. It raises a clear room-exists error instead of overwriting an existing room.
+- Join codes are validated server-side for non-empty values and mutual distinctness.
+- `s1_room_players` now enforces unique join-code hashes within a room.
+- Reusing an already claimed join code no longer rotates the active session token or takes over a role.
+- Prototype recovery is teacher-authenticated: the teacher must explicitly release a role session before that join code can be used again.
+- `s1_advance_scene` now requires the room phase to be `revealed`.
+- Emergency advance from `collecting` is not included in Sprint 1.
+- Choices are canonicalized server-side through `s1_scene_choices`; browser-supplied labels are no longer trusted.
+- Teacher token input is now `type="password"` with a show/hide control.
+
+Hardening files modified:
+
+| File | Purpose |
+|---|---|
+| `database/001_sprint1_core.sql` | Create-only room creation, join-code uniqueness, claimed-role protection, session release RPC, advance guard, canonical choices. |
+| `teacher.html` | Password/show-hide teacher token input and recovery controls. |
+| `src/teacher/teacher-console.js` | Show/hide teacher token and teacher-authenticated session release calls. |
+| `src/styles/app.css` | Password row and small button styling. |
+| `docs/sprint-1-architecture.md` | Documents hardening architecture. |
+| `docs/sprint-1-testing.md` | Adds hardening tests. |
+| `CHANGELOG.md` | Adds Sprint 1 Hardening entry. |
+| `tests/sprint1-static-check.js` | Checks the new release-session RPC. |
+
+Additional database object:
+
+```text
+s1_scene_choices
+```
+
+Purpose:
+
+- Server-side canonical choice validation for Sprint 1 scenes.
+- Primary key: `(scene_id, choice_id)`.
+- RLS enabled.
+- No broad public table policy added.
+
+Hardening security status:
+
+| Check | Status |
+|---|---|
+| Existing room cannot be overwritten by create-room | NOT VERIFIED |
+| Already claimed join code cannot take over active session | NOT VERIFIED |
+| Teacher can release a lost student session | NOT VERIFIED |
+| Advance from collecting is rejected | NOT VERIFIED |
+| Invalid browser-supplied choice is rejected | NOT VERIFIED |
+| Teacher token is password/show-hide UI | NOT VERIFIED |
+
+Hardening Devil Check:
+
+| Issue | Severity | Cause | Fix | Retest result |
+|---|---|---|---|---|
+| Create-room could overwrite teacher token, room state, and join codes | Critical | `on conflict do update` in `s1_create_room` | Create-only semantics; existing room raises error | NOT TESTED |
+| Reused join code could rotate active session token | Critical | `s1_join_player` generated a new token every time | Reject already claimed role; require teacher release | NOT TESTED |
+| Teacher could accidentally advance from collecting | Major | `s1_advance_scene` did not require reveal | Require `phase = revealed` | NOT TESTED |
+| Empty/duplicate join codes were not rejected server-side | Major | Missing validation and uniqueness | Non-empty/distinct validation plus unique room join-code hash | NOT TESTED |
+| Browser-supplied choice label was trusted | Major | `s1_submit_private_choice` stored client label | Validate `choice_id`; store canonical server label | NOT TESTED |
+| Teacher token was visible as ordinary text | Minor | Input type was text | Password input plus show/hide | NOT TESTED |
+
+Current overall Sprint 1 status after hardening:
+
+```text
+FAIL / NOT VERIFIED
+```
+
+Reason:
+
+The hardening code and migration are implemented locally and static checks pass, but Supabase deployment and real multiplayer/security tests are still not complete.
+
 ## 1. Sprint 1 Scope
 
 Sprint 1 was approved to implement only:
@@ -337,12 +415,12 @@ Retest result: NOT TESTED
 Overall Sprint 1 status:
 
 ```text
-PASS WITH KNOWN ISSUES
+FAIL / NOT VERIFIED
 ```
 
 Reason:
 
-The Sprint 1 code and migration are implemented and static checks pass, but database deployment and end-to-end browser tests are not yet complete.
+The Sprint 1 code, migration, and hardening changes are implemented locally and static checks pass, but database deployment and end-to-end browser/security tests are not yet complete. Sprint 1 must not be marked PASS until those real tests pass.
 
 ## 9. Known Issues / Technical Debt
 

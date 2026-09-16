@@ -28,6 +28,28 @@ create table if not exists public.s1_room_players (
   unique (room_code, role_slot)
 );
 
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_constraint
+    where conname = 's1_room_players_room_join_code_hash_unique'
+      and conrelid = 'public.s1_room_players'::regclass
+  ) then
+    alter table public.s1_room_players
+      add constraint s1_room_players_room_join_code_hash_unique unique (room_code, join_code_hash);
+  end if;
+end;
+$$;
+
+create table if not exists public.s1_scene_choices (
+  scene_id integer not null,
+  choice_id text not null,
+  choice_label text not null,
+  active boolean not null default true,
+  primary key (scene_id, choice_id)
+);
+
 create table if not exists public.s1_room_state (
   room_code text primary key references public.s1_rooms(room_code) on delete cascade,
   current_scene integer not null default 1,
@@ -58,12 +80,25 @@ create table if not exists public.s1_game_events (
 
 alter table public.s1_rooms enable row level security;
 alter table public.s1_room_players enable row level security;
+alter table public.s1_scene_choices enable row level security;
 alter table public.s1_room_state enable row level security;
 alter table public.s1_player_decisions enable row level security;
 alter table public.s1_game_events enable row level security;
 
 -- No broad table policies are added in Sprint 1. Browser access goes through
 -- SECURITY DEFINER functions below.
+
+insert into public.s1_scene_choices(scene_id, choice_id, choice_label, active)
+values
+  (1, 'map', 'Study the map on the wall', true),
+  (1, 'keys', 'Check the old keys on the desk', true),
+  (1, 'door', 'Go straight to the door', true),
+  (2, 'run', 'Run toward the corridor', true),
+  (2, 'hide', 'Hide and listen', true),
+  (2, 'call', 'Call for the others', true)
+on conflict (scene_id, choice_id) do update
+set choice_label = excluded.choice_label,
+    active = excluded.active;
 
 create or replace function public.s1_hash_token(value text)
 returns text
@@ -119,24 +154,31 @@ as $$
 declare
   v_room_code text := upper(trim(p_room_code));
 begin
-  if v_room_code = '' or p_teacher_token = '' then
+  if v_room_code = '' or trim(coalesce(p_teacher_token, '')) = '' then
     raise exception 'Room code and teacher token are required.';
   end if;
 
+  if trim(coalesce(p_gitte_join_code, '')) = ''
+     or trim(coalesce(p_anna_join_code, '')) = ''
+     or trim(coalesce(p_linda_join_code, '')) = '' then
+    raise exception 'All three join codes are required.';
+  end if;
+
+  if public.s1_hash_token(p_gitte_join_code) = public.s1_hash_token(p_anna_join_code)
+     or public.s1_hash_token(p_gitte_join_code) = public.s1_hash_token(p_linda_join_code)
+     or public.s1_hash_token(p_anna_join_code) = public.s1_hash_token(p_linda_join_code) then
+    raise exception 'Join codes must be mutually distinct.';
+  end if;
+
+  if exists (select 1 from public.s1_rooms where room_code = v_room_code) then
+    raise exception 'Room already exists. Use Watch room with the existing teacher token, or use a future teacher-authenticated reinitialize action.';
+  end if;
+
   insert into public.s1_rooms(room_code, teacher_token_hash)
-  values (v_room_code, public.s1_hash_token(p_teacher_token))
-  on conflict (room_code) do update
-    set teacher_token_hash = excluded.teacher_token_hash,
-        updated_at = now();
+  values (v_room_code, public.s1_hash_token(p_teacher_token));
 
   insert into public.s1_room_state(room_code, current_scene, phase)
-  values (v_room_code, 1, 'collecting')
-  on conflict (room_code) do update
-    set current_scene = 1,
-        phase = 'collecting',
-        updated_at = now();
-
-  delete from public.s1_room_players where room_code = v_room_code;
+  values (v_room_code, 1, 'collecting');
 
   insert into public.s1_room_players(room_code, role_slot, display_name, join_code_hash)
   values
@@ -162,6 +204,10 @@ declare
   v_player public.s1_room_players%rowtype;
   v_token text := gen_random_uuid()::text;
 begin
+  if v_room_code = '' or trim(coalesce(p_join_code, '')) = '' then
+    raise exception 'Room code and join code are required.';
+  end if;
+
   select *
   into v_player
   from public.s1_room_players
@@ -170,6 +216,10 @@ begin
 
   if not found then
     raise exception 'Invalid room code or join code.';
+  end if;
+
+  if v_player.session_token_hash is not null then
+    raise exception 'This role is already claimed. Reopen the original browser session, or ask the teacher to release this player session.';
   end if;
 
   update public.s1_room_players
@@ -301,6 +351,7 @@ declare
   v_player public.s1_room_players%rowtype;
   v_state public.s1_room_state%rowtype;
   v_submitted_count integer;
+  v_choice_label text;
 begin
   v_player := public.s1_get_player_by_session(v_room_code, p_session_token);
 
@@ -314,8 +365,19 @@ begin
     raise exception 'This scene is no longer accepting private choices.';
   end if;
 
+  select choice_label
+  into v_choice_label
+  from public.s1_scene_choices
+  where scene_id = v_state.current_scene
+    and choice_id = p_choice_id
+    and active = true;
+
+  if not found then
+    raise exception 'Invalid choice for the current scene.';
+  end if;
+
   insert into public.s1_player_decisions(room_code, scene_id, player_id, decision_type, choice_id, choice_label)
-  values (v_room_code, v_state.current_scene, v_player.player_id, 'private_choice', p_choice_id, p_choice_label);
+  values (v_room_code, v_state.current_scene, v_player.player_id, 'private_choice', p_choice_id, v_choice_label);
 
   insert into public.s1_game_events(room_code, event_type, actor_player_id, details)
   values (v_room_code, 'private_choice_locked', v_player.player_id, jsonb_build_object('scene_id', v_state.current_scene));
@@ -428,6 +490,10 @@ begin
   where room_code = v_room_code
   for update;
 
+  if v_state.phase <> 'revealed' then
+    raise exception 'Scene can only advance after reveal. Emergency override is intentionally not part of Sprint 1.';
+  end if;
+
   if v_state.current_scene >= 2 then
     update public.s1_room_state
     set phase = 'completed',
@@ -445,6 +511,46 @@ begin
   values (v_room_code, 'teacher_advanced_scene', jsonb_build_object('from_scene', v_state.current_scene));
 
   return jsonb_build_object('ok', true);
+end;
+$$;
+
+create or replace function public.s1_release_player_session(p_room_code text, p_teacher_token text, p_role_slot text)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_room_code text := upper(trim(p_room_code));
+  v_role_slot text := upper(trim(p_role_slot));
+  v_player_id uuid;
+begin
+  perform public.s1_assert_teacher(v_room_code, p_teacher_token);
+
+  if v_role_slot not in ('GAL-A','GAL-B','GAL-C') then
+    raise exception 'Invalid role slot.';
+  end if;
+
+  select player_id
+  into v_player_id
+  from public.s1_room_players
+  where room_code = v_room_code
+    and role_slot = v_role_slot;
+
+  if not found then
+    raise exception 'Player slot not found.';
+  end if;
+
+  update public.s1_room_players
+  set session_token_hash = null,
+      joined_at = null,
+      last_seen_at = null
+  where player_id = v_player_id;
+
+  insert into public.s1_game_events(room_code, event_type, actor_player_id, details)
+  values (v_room_code, 'teacher_released_player_session', v_player_id, jsonb_build_object('role_slot', v_role_slot));
+
+  return jsonb_build_object('ok', true, 'role_slot', v_role_slot);
 end;
 $$;
 
@@ -484,6 +590,7 @@ revoke execute on function public.s1_get_player_state(text,text) from public;
 revoke execute on function public.s1_submit_private_choice(text,text,text,text) from public;
 revoke execute on function public.s1_get_teacher_state(text,text) from public;
 revoke execute on function public.s1_advance_scene(text,text) from public;
+revoke execute on function public.s1_release_player_session(text,text,text) from public;
 revoke execute on function public.s1_reset_room(text,text) from public;
 
 grant execute on function public.s1_create_room(text,text,text,text,text) to anon, authenticated;
@@ -492,4 +599,5 @@ grant execute on function public.s1_get_player_state(text,text) to anon, authent
 grant execute on function public.s1_submit_private_choice(text,text,text,text) to anon, authenticated;
 grant execute on function public.s1_get_teacher_state(text,text) to anon, authenticated;
 grant execute on function public.s1_advance_scene(text,text) to anon, authenticated;
+grant execute on function public.s1_release_player_session(text,text,text) to anon, authenticated;
 grant execute on function public.s1_reset_room(text,text) to anon, authenticated;

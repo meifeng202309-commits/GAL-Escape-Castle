@@ -30,6 +30,13 @@ Then click:
 Create room
 ```
 
+Expected hardening behavior:
+
+- Creating the same room code again must fail with "Room already exists".
+- Empty join codes must fail.
+- Duplicate join codes must fail.
+- If a student has already claimed a role, entering the same join code in another browser must fail until the teacher releases that role's session.
+
 ## Student Flow
 
 Open:
@@ -66,6 +73,24 @@ After joining and submitting:
 2. Enter the same room code and teacher token.
 3. Click Reset room.
 4. Confirm decisions are cleared and scene returns to collecting.
+
+## Recovery Test
+
+1. Join as one player.
+2. Try the same room code + join code in another browser.
+3. Confirm takeover is rejected.
+4. In Teacher Console, click the matching "Release session" button.
+5. Try joining again with the same join code.
+6. Confirm rejoin succeeds only after teacher release.
+
+## Advance Test
+
+1. Create a fresh room.
+2. Before all three private choices are submitted, click Advance scene.
+3. Confirm it fails.
+4. Submit all three choices and wait for reveal.
+5. Click Advance scene.
+6. Confirm it advances only after reveal.
 
 ## Local Static Check
 

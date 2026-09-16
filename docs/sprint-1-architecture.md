@@ -47,6 +47,8 @@ room code + assigned join code
 
 Supabase returns a generated `session_token`. The browser stores it in `localStorage`. The token is never hard-coded in the frontend.
 
+If a role is already claimed, the same join code cannot silently rotate the token or take over that role. The student must use the original browser session, or the teacher must explicitly release that role's session from the Teacher Console. That recovery action is logged as a teacher event.
+
 ## Reconnect
 
 On refresh, the student page loads the saved session token from `localStorage` and calls:
@@ -83,6 +85,8 @@ updated_at
 
 The browser does not decide reveal. Supabase updates the phase to `revealed` after all three private choices are locked.
 
+Teacher scene advance is allowed only from `revealed`. Sprint 1 does not include emergency advance from `collecting`; any future emergency override must be a separate logged intervention RPC.
+
 ## Private-Choice Storage
 
 Private choices are stored in:
@@ -98,6 +102,8 @@ room_code + scene_id + player_id + decision_type
 ```
 
 This enforces first-choice lock.
+
+Choice labels are canonicalized server-side using `s1_scene_choices`. The browser may send a label for UI convenience, but Supabase validates `choice_id` against the current scene and stores the server-owned label.
 
 ## Reveal Rule
 
@@ -125,6 +131,8 @@ room_code + teacher_token
 
 This is a simple safe prototype mechanism. It is not a full authentication system.
 
+The teacher token input is a password field with a show/hide control.
+
 ## RLS Policy Direction
 
 Tables have RLS enabled and no broad public table policies.
@@ -137,6 +145,7 @@ Browser access goes through `SECURITY DEFINER` RPC functions:
 - `s1_submit_private_choice`
 - `s1_get_teacher_state`
 - `s1_advance_scene`
+- `s1_release_player_session`
 - `s1_reset_room`
 
 No service-role or secret key is used in browser code.
@@ -147,6 +156,7 @@ Public unrestricted DELETE/reset is not used.
 
 - Join codes are classroom credentials. Anyone with a join code can join that role.
 - Teacher token is room-specific but manually handled.
+- Teacher can explicitly release a lost student session; this is a prototype recovery mechanism.
 - There is no full account system.
 - The story content is still placeholder-level.
 - DiscussionRoom and Agent features are intentionally postponed.

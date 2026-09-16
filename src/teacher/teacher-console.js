@@ -3,6 +3,7 @@ import { escapeHtml } from "../utils/html.js";
 
 const roomCodeInput = document.getElementById("roomCode");
 const teacherTokenInput = document.getElementById("teacherToken");
+const toggleTeacherTokenButton = document.getElementById("toggleTeacherToken");
 const codeGitteInput = document.getElementById("codeGitte");
 const codeAnnaInput = document.getElementById("codeAnna");
 const codeLindaInput = document.getElementById("codeLinda");
@@ -12,6 +13,7 @@ const advanceButton = document.getElementById("advanceButton");
 const resetButton = document.getElementById("resetButton");
 const teacherStatus = document.getElementById("teacherStatus");
 const roomState = document.getElementById("roomState");
+const releaseSessionButtons = document.querySelectorAll(".release-session");
 
 let pollTimer = null;
 
@@ -19,6 +21,10 @@ createRoomButton.addEventListener("click", createRoom);
 watchButton.addEventListener("click", watchRoom);
 advanceButton.addEventListener("click", advanceScene);
 resetButton.addEventListener("click", resetRoom);
+toggleTeacherTokenButton.addEventListener("click", toggleTeacherToken);
+releaseSessionButtons.forEach((button) => {
+  button.addEventListener("click", () => releasePlayerSession(button.dataset.roleSlot));
+});
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -87,6 +93,22 @@ async function resetRoom() {
   }
 }
 
+async function releasePlayerSession(roleSlot) {
+  const payload = baseTeacherPayload();
+  if (!payload) return;
+  if (!confirm(`Release ${roleSlot} session? The student will need to rejoin with their assigned join code.`)) return;
+  try {
+    await rpc("s1_release_player_session", {
+      ...payload,
+      p_role_slot: roleSlot,
+    });
+    teacherStatus.textContent = `${roleSlot} session released.`;
+    await loadState();
+  } catch (error) {
+    teacherStatus.textContent = `Release failed: ${error.message}`;
+  }
+}
+
 function renderTeacherState(state) {
   const playerRows = state.players.map((player) => {
     const decision = state.decisions.find((item) => item.player_id === player.player_id);
@@ -117,4 +139,10 @@ function baseTeacherPayload(showMessage = true) {
     p_room_code: roomCode,
     p_teacher_token: teacherToken,
   };
+}
+
+function toggleTeacherToken() {
+  const isHidden = teacherTokenInput.type === "password";
+  teacherTokenInput.type = isHidden ? "text" : "password";
+  toggleTeacherTokenButton.textContent = isHidden ? "Hide" : "Show";
 }
