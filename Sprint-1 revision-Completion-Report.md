@@ -5,6 +5,14 @@ Repository: https://github.com/meifeng202309-commits/GAL-Escape-Castle
 Branch: `main`  
 Sprint 2 status: `NOT STARTED`
 
+Validation update: `VERIFIED PASS` on 2026-09-17 after deploying the current Sprint 1 hardening migration to the existing Supabase project and running the live Sprint 1 E2E matrix against GitHub Pages + Supabase.
+
+Validation report:
+
+```text
+docs/codex_reports/sprint1_validation/02-live-e2e-acceptance.md
+```
+
 This report documents the Sprint 1 Hardening / Revision pass requested after the initial Sprint 1 completion report.
 
 ## 1. Revision Scope
@@ -35,13 +43,13 @@ The revision explicitly did not start:
 
 | Required Item | Revision Result | Status |
 |---|---|---|
-| `s1_create_room` must never overwrite an existing room without authenticating the existing teacher | Changed to create-only. Existing room now raises a clear error. | IMPLEMENTED, NOT VERIFIED |
-| Reused player join code must not silently rotate active session token | Claimed role now rejects a second join. | IMPLEMENTED, NOT VERIFIED |
-| Define safe prototype recovery mechanism | Added teacher-authenticated `s1_release_player_session`. | IMPLEMENTED, NOT VERIFIED |
-| `s1_advance_scene` should normally require `revealed` state | Now rejects advance unless room phase is `revealed`. | IMPLEMENTED, NOT VERIFIED |
-| Validate join codes on server | Added non-empty validation, mutually distinct validation, and room-level join-code hash uniqueness. | IMPLEMENTED, NOT VERIFIED |
-| Do not blindly trust browser choice label | Added `s1_scene_choices`; server validates `choice_id` and stores canonical `choice_label`. | IMPLEMENTED, NOT VERIFIED |
-| Teacher token UI should be password/show-hide style | Teacher token input changed to password field with Show/Hide button. | IMPLEMENTED, NOT VERIFIED |
+| `s1_create_room` must never overwrite an existing room without authenticating the existing teacher | Changed to create-only. Existing room now raises a clear error. | VERIFIED |
+| Reused player join code must not silently rotate active session token | Claimed role now rejects a second join. | VERIFIED |
+| Define safe prototype recovery mechanism | Added teacher-authenticated `s1_release_player_session`. | VERIFIED |
+| `s1_advance_scene` should normally require `revealed` state | Now rejects advance unless room phase is `revealed`. | VERIFIED |
+| Validate join codes on server | Added non-empty validation, mutually distinct validation, and room-level join-code hash uniqueness. | VERIFIED |
+| Do not blindly trust browser choice label | Added `s1_scene_choices`; server validates `choice_id` and stores canonical `choice_label`. | VERIFIED |
+| Teacher token UI should be password/show-hide style | Teacher token input changed to password field with Show/Hide button. | VERIFIED |
 
 ## 3. Files Changed In Revision
 
@@ -55,7 +63,7 @@ The revision explicitly did not start:
 | `docs/sprint-1-testing.md` | Added required hardening tests. |
 | `CHANGELOG.md` | Added Sprint 1 Hardening entry. |
 | `tests/sprint1-static-check.js` | Added static check for `s1_release_player_session`. |
-| `Sprint-1-Completion-Report.md` | Updated status to `FAIL / NOT VERIFIED` after hardening. |
+| `Sprint-1-Completion-Report.md` | Updated with hardening status and later live validation result. |
 
 This report file:
 
@@ -96,13 +104,13 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 
 | Question | Revision Answer | Status |
 |---|---|---|
-| Can create-room overwrite an existing room? | It should now fail if the room exists. | NOT VERIFIED |
-| Can one student reuse a join code to take over an already claimed role? | It should now fail unless the teacher releases that role session. | NOT VERIFIED |
-| Can two concurrent joins both claim the same role? | The matching player row is locked with `FOR UPDATE`, so only one transaction should claim the role. | NOT VERIFIED |
+| Can create-room overwrite an existing room? | It now fails if the room exists. | VERIFIED |
+| Can one student reuse a join code to take over an already claimed role? | It now fails unless the teacher releases that role session. | VERIFIED |
+| Can two concurrent joins both claim the same role? | The matching player row is locked with `FOR UPDATE`; live concurrent test allowed exactly one claim. | VERIFIED |
 | Can one student submit as another player? | Requires that player's session token. Mis-distributed unused join codes remain a classroom credential risk. | KNOWN LIMITATION |
-| Can students reset/delete a room directly? | No unrestricted public table DELETE was added; reset requires teacher token RPC. | NOT VERIFIED |
-| Can teacher advance from collecting? | It should now fail; emergency override is intentionally not part of Sprint 1. | NOT VERIFIED |
-| Are browser-supplied choice labels trusted? | No; server stores canonical label from `s1_scene_choices`. | NOT VERIFIED |
+| Can students reset/delete a room directly? | No unrestricted public table DELETE was added; reset requires teacher token RPC. | VERIFIED |
+| Can teacher advance from collecting? | It now fails; emergency override is intentionally not part of Sprint 1. | VERIFIED |
+| Are browser-supplied choice labels trusted? | No; server stores canonical label from `s1_scene_choices`. | VERIFIED |
 | Is any service-role key in browser code? | No service-role key is present. | VERIFIED |
 | Is teacher token fully secure authentication? | No. It is a room-level prototype token. | KNOWN LIMITATION |
 
@@ -114,28 +122,28 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 | JavaScript syntax check | PASS | `node --check` ran against `src` and `tests` JS files without errors. |
 | GitHub raw migration availability | PASS | `database/001_sprint1_core.sql` returned HTTP 200 after push. |
 | GitHub Pages teacher page availability | PASS | `teacher.html` returned HTTP 200 after push. |
-| Supabase migration deployment | NOT TESTED | Blocked because Supabase dashboard was on login page. |
-| Real three-player multiplayer flow | NOT TESTED | Requires deployed migration. |
-| Existing-room create rejection | NOT TESTED | Requires deployed migration. |
-| Reused join code takeover rejection | NOT TESTED | Requires deployed migration. |
-| Concurrent/double-join race rejection | NOT TESTED | Requires deployed migration and two near-simultaneous join attempts. |
-| Teacher session release recovery | NOT TESTED | Requires deployed migration. |
-| Advance from collecting rejection | NOT TESTED | Requires deployed migration. |
-| Invalid choice rejection | NOT TESTED | Requires deployed migration. |
-| Teacher token show/hide browser UI | NOT TESTED | Requires browser UI verification. |
+| Supabase migration deployment | PASS | Current migration was deployed and verified through live RPC behavior. |
+| Real three-player multiplayer flow | PASS | `node tests/sprint1-live-e2e.js` verified Gitte, Anna, and Linda join with correct roles. |
+| Existing-room create rejection | PASS | Existing `room_code` returned room-already-exists error and original room remained readable. |
+| Reused join code takeover rejection | PASS | Already claimed role rejected second join before teacher release. |
+| Concurrent/double-join race rejection | PASS | Two simultaneous joins with the same code produced exactly one success and one already-claimed rejection. |
+| Teacher session release recovery | PASS | Teacher-authenticated release allowed rejoin after rejecting takeover. |
+| Advance from collecting rejection | PASS | `s1_advance_scene` rejected collecting-phase advance. |
+| Invalid choice rejection | PASS | Invalid `choice_id` was rejected. |
+| Teacher token show/hide browser UI | PASS | Deployed Teacher Console page loaded with Teacher token field and Show button. |
 
 ## 7. Devil Check
 
 | Viewpoint | Issue | Severity | Fix | Retest Result |
 |---|---|---|---|---|
-| Gitte | Reused join code could take over active session | Critical | Reject claimed role; require teacher release | NOT TESTED |
-| Gitte | Two simultaneous joins could race to claim the same role | Critical | Lock selected player row with `FOR UPDATE` before token check/write | NOT TESTED |
+| Gitte | Reused join code could take over active session | Critical | Reject claimed role; require teacher release | VERIFIED PASS |
+| Gitte | Two simultaneous joins could race to claim the same role | Critical | Lock selected player row with `FOR UPDATE` before token check/write | VERIFIED PASS |
 | Anna | Mis-distributed unused join code can still claim wrong role | Major | Teacher must distribute codes carefully; future invite-link UX recommended | KNOWN LIMITATION |
-| Linda | Lost incognito session cannot reconnect through localStorage | Minor | Teacher can release role session, then student rejoins | NOT TESTED |
-| Team | Teacher could accidentally advance before all choices | Major | `s1_advance_scene` now requires `revealed` | NOT TESTED |
-| Teacher | Teacher token was visible in plain text | Minor | Password field plus Show/Hide | NOT TESTED |
-| Server/state machine | Existing room could be overwritten | Critical | `s1_create_room` create-only | NOT TESTED |
-| Server/state machine | Browser choice labels were trusted | Major | Canonical server-side choices | NOT TESTED |
+| Linda | Lost incognito session cannot reconnect through localStorage | Minor | Teacher can release role session, then student rejoins | VERIFIED PASS |
+| Team | Teacher could accidentally advance before all choices | Major | `s1_advance_scene` now requires `revealed` | VERIFIED PASS |
+| Teacher | Teacher token was visible in plain text | Minor | Password field plus Show/Hide | VERIFIED PASS |
+| Server/state machine | Existing room could be overwritten | Critical | `s1_create_room` create-only | VERIFIED PASS |
+| Server/state machine | Browser choice labels were trusted | Major | Canonical server-side choices | VERIFIED PASS |
 | Future maintainer | Emergency override is not implemented | Minor | Explicitly deferred; future override must be separate logged intervention | KNOWN LIMITATION |
 
 ## 8. Current Sprint 1 Status
@@ -143,14 +151,14 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 Current status:
 
 ```text
-FAIL / NOT VERIFIED
+VERIFIED PASS
 ```
 
 Reason:
 
-The revision code has been implemented and pushed, but Supabase migration deployment and real end-to-end multiplayer/security testing have not yet been completed.
+The revision code has been implemented, pushed, deployed to the existing Supabase project, and verified through live Sprint 1 E2E testing against GitHub Pages + Supabase.
 
-Sprint 1 must not be marked PASS until the real test matrix passes.
+Sprint 1 hardening is verified for the tested scope.
 
 Sprint 2 must not begin without user approval.
 
@@ -183,37 +191,14 @@ https://qdcbdcjobzytzhnhfwyn.supabase.co
 Migration status:
 
 ```text
-HARDENED LOCALLY AND PUSHED TO GITHUB
-NOT DEPLOYED TO SUPABASE
-NOT VERIFIED END-TO-END
+HARDENED, PUSHED TO GITHUB, DEPLOYED TO SUPABASE
+VERIFIED END-TO-END FOR SPRINT 1 SCOPE
 ```
 
 ## 10. Remaining Blocking Items Before Sprint 2
 
-1. Log in to Supabase dashboard.
-2. Run the hardened migration:
-
-```text
-database/001_sprint1_core.sql
-```
-
-3. Run full Sprint 1 test matrix:
-   - teacher creates room
-   - Gitte joins
-   - Anna joins
-   - Linda joins
-   - all three submit once
-   - choices remain private before reveal
-   - reveal occurs only after all three submit
-   - refresh/reconnect restores state
-   - duplicate private submission is rejected
-   - reused join code cannot take over claimed role
-   - teacher session release recovery works
-   - advance from collecting is rejected
-   - invalid choice is rejected
-   - teacher token controls are protected
-
-4. Update `Sprint-1-Completion-Report.md` and this revision report from `NOT VERIFIED` to `VERIFIED` only for tests that actually pass.
+1. User reviews Sprint 1 live validation report.
+2. User decides whether Sprint 1 is approved for Sprint 2.
 
 ## 11. Recommended Next Step
 
@@ -221,4 +206,4 @@ Do not start Sprint 2.
 
 Next step:
 
-Deploy the hardened Supabase migration and run the real Sprint 1 end-to-end test matrix.
+Review the Sprint 1 live validation report and decide whether to approve Sprint 2.

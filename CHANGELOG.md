@@ -21,3 +21,8 @@
 - Added `s1_scene_choices` and server-side canonical choice validation.
 - Changed Teacher Console token input to password mode with show/hide control.
 - Fixed Supabase `pgcrypto` lookup by using `extensions.digest` in `s1_hash_token`.
+
+## Sprint 1 Live Validation
+
+- Added `tests/sprint1-live-e2e.js` to verify the deployed GitHub Pages frontend and Supabase backend.
+- Verified room creation hardening, three-player join, private-choice privacy, canonical choice storage, reconnect, reset, teacher release recovery, invalid choice rejection, and concurrent double-join protection.

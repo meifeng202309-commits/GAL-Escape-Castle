@@ -5,11 +5,19 @@ Local branch at report time: `master`
 Repository remote at report time: `NOT CONFIGURED`  
 Sprint 2 status: `NOT STARTED`
 
-Hardening revision status: `IMPLEMENTED LOCALLY, NOT YET DEPLOYED OR END-TO-END VERIFIED`
+Validation update: `VERIFIED PASS` on 2026-09-17 after live Sprint 1 acceptance validation against GitHub Pages + Supabase.
+
+Validation report:
+
+```text
+docs/codex_reports/sprint1_validation/02-live-e2e-acceptance.md
+```
+
+Hardening revision status: `DEPLOYED AND VERIFIED`
 
 Important status note:
 
-Sprint 1 must not be considered approved for Sprint 2 until the hardened migration is deployed to Supabase and the real multiplayer/security test matrix passes.
+Sprint 1 hardening has passed the live validation matrix. Sprint 2 still must not begin until the user explicitly approves Sprint 2.
 
 ## 0. Sprint 1 Hardening Revision
 
@@ -55,33 +63,33 @@ Hardening security status:
 
 | Check | Status |
 |---|---|
-| Existing room cannot be overwritten by create-room | NOT VERIFIED |
-| Already claimed join code cannot take over active session | NOT VERIFIED |
-| Teacher can release a lost student session | NOT VERIFIED |
-| Advance from collecting is rejected | NOT VERIFIED |
-| Invalid browser-supplied choice is rejected | NOT VERIFIED |
-| Teacher token is password/show-hide UI | NOT VERIFIED |
+| Existing room cannot be overwritten by create-room | VERIFIED |
+| Already claimed join code cannot take over active session | VERIFIED |
+| Teacher can release a lost student session | VERIFIED |
+| Advance from collecting is rejected | VERIFIED |
+| Invalid browser-supplied choice is rejected | VERIFIED |
+| Teacher token is password/show-hide UI | VERIFIED |
 
 Hardening Devil Check:
 
 | Issue | Severity | Cause | Fix | Retest result |
 |---|---|---|---|---|
-| Create-room could overwrite teacher token, room state, and join codes | Critical | `on conflict do update` in `s1_create_room` | Create-only semantics; existing room raises error | NOT TESTED |
-| Reused join code could rotate active session token | Critical | `s1_join_player` generated a new token every time | Reject already claimed role; require teacher release | NOT TESTED |
-| Teacher could accidentally advance from collecting | Major | `s1_advance_scene` did not require reveal | Require `phase = revealed` | NOT TESTED |
-| Empty/duplicate join codes were not rejected server-side | Major | Missing validation and uniqueness | Non-empty/distinct validation plus unique room join-code hash | NOT TESTED |
-| Browser-supplied choice label was trusted | Major | `s1_submit_private_choice` stored client label | Validate `choice_id`; store canonical server label | NOT TESTED |
-| Teacher token was visible as ordinary text | Minor | Input type was text | Password input plus show/hide | NOT TESTED |
+| Create-room could overwrite teacher token, room state, and join codes | Critical | `on conflict do update` in `s1_create_room` | Create-only semantics; existing room raises error | VERIFIED PASS |
+| Reused join code could rotate active session token | Critical | `s1_join_player` generated a new token every time | Reject already claimed role; require teacher release | VERIFIED PASS |
+| Teacher could accidentally advance from collecting | Major | `s1_advance_scene` did not require reveal | Require `phase = revealed` | VERIFIED PASS |
+| Empty/duplicate join codes were not rejected server-side | Major | Missing validation and uniqueness | Non-empty/distinct validation plus unique room join-code hash | VERIFIED PASS |
+| Browser-supplied choice label was trusted | Major | `s1_submit_private_choice` stored client label | Validate `choice_id`; store canonical server label | VERIFIED PASS |
+| Teacher token was visible as ordinary text | Minor | Input type was text | Password input plus show/hide | VERIFIED PASS |
 
 Current overall Sprint 1 status after hardening:
 
 ```text
-FAIL / NOT VERIFIED
+VERIFIED PASS
 ```
 
 Reason:
 
-The hardening code and migration are implemented locally and static checks pass, but Supabase deployment and real multiplayer/security tests are still not complete.
+The hardening code and migration are implemented, deployed to Supabase, and verified with live Sprint 1 E2E tests against GitHub Pages + Supabase.
 
 ## 1. Sprint 1 Scope
 
@@ -214,7 +222,7 @@ Fallback prototype status:
 
 - `02_player_v2.html` remains available in the repository root as a validated fallback prototype.
 - `03_teacher_v2.html` remains available in the repository root as a validated fallback prototype.
-- They were not moved to `/legacy` because Sprint 1 has not yet been end-to-end verified on Supabase/GitHub Pages.
+- They remain in the repository root temporarily per user instruction; moving them to `/legacy` should be a separate explicit cleanup step.
 
 ## 4. Database Changes
 
@@ -300,9 +308,9 @@ Secrets:
 
 | Question | Answer | Status |
 |---|---|---|
-| Can one student read another player's private choice before reveal? | RPC design does not return other players' choice labels before reveal. Direct table reads should be blocked because RLS is enabled and no broad select policy is added. | NOT VERIFIED |
+| Can one student read another player's private choice before reveal? | RPC design does not return other players' choice labels before reveal. Direct anonymous table read returned 0 visible decision rows. | VERIFIED |
 | Can one student submit as another player? | Submission requires a valid `session_token` for that player. Students do not choose role slot directly. A student with another player's join code can still claim that role. | KNOWN LIMITATION |
-| Can an unauthenticated browser reset/delete a room? | There is no public table DELETE policy. Reset requires teacher token through RPC. | NOT VERIFIED |
+| Can an unauthenticated browser reset/delete a room? | There is no public table DELETE policy. Reset requires teacher token through RPC; invalid teacher token is rejected. | VERIFIED |
 | Can students access Teacher Console controls? | The page is public, but controls require room-specific teacher token. A student with the token can use controls. | KNOWN LIMITATION |
 | Is any secret/service-role key present in frontend code? | No service-role key is present. Only the publishable Supabase key is present. | VERIFIED |
 | What security remains prototype-level? | Teacher token is manually managed; join codes are classroom credentials; no full auth account system exists. | KNOWN LIMITATION |
@@ -313,26 +321,22 @@ Secrets:
 |---|---|---|
 | Static file presence check | PASS | `node tests/sprint1-static-check.js` returned `Sprint 1 static check passed.` |
 | JavaScript syntax check | PASS | `node --check` ran against `src` and `tests` JS files with no errors. |
-| A. Normal multiplayer: Gitte joins | NOT TESTED | Requires migration deployed to Supabase. |
-| A. Normal multiplayer: Anna joins | NOT TESTED | Requires migration deployed to Supabase. |
-| A. Normal multiplayer: Linda joins | NOT TESTED | Requires migration deployed to Supabase. |
-| A. All three submit once | NOT TESTED | Requires migration deployed to Supabase. |
-| A. Choices remain private | NOT TESTED | Requires migration deployed to Supabase and browser flow. |
-| A. Reveal occurs only when conditions are met | NOT TESTED | Requires migration deployed to Supabase. |
-| B. Player attempts second submission | NOT TESTED | Requires deployed database uniqueness test. |
-| B. Refresh after submission | NOT TESTED | Requires browser test. |
-| B. Duplicate browser/tab | NOT TESTED | Requires browser test. |
-| C. Refresh page reconnect | NOT TESTED | Requires browser test. |
-| C. Close/reopen browser reconnect | NOT TESTED | Requires browser test. |
-| C. Temporary disconnect | NOT TESTED | Requires browser/network test. |
-| D. Attempt another player's role/session | NOT TESTED | Requires deployed join/session flow. |
-| D. Invalid or reused join code/token | NOT TESTED | Requires deployed join/session flow. |
-| E. Student browser cannot use teacher controls | NOT TESTED | Requires deployed teacher RPC test. |
-| E. Teacher access succeeds | NOT TESTED | Requires deployed teacher RPC test. |
-| F. Different browsers see same authoritative phase | NOT TESTED | Requires multi-browser test. |
-| F. Scene/reveal not dependent only on browser memory | NOT TESTED | Requires deployed shared state test. |
-| G. Existing Supabase connection works | NOT TESTED for Sprint 1 schema | Previous Three Doors REST test worked, but Sprint 1 migration is not deployed. |
-| G. GitHub Pages deployment works | NOT TESTED for Sprint 1 Hardening | Hardening files have been pushed to GitHub, but GitHub Pages runtime has not been re-tested. |
+| Live E2E matrix | PASS | `node tests/sprint1-live-e2e.js` passed 26 checks. |
+| GitHub Pages deployment works | PASS | Student page, teacher page, student JS, and teacher JS returned HTTP 200. |
+| Direct anonymous table access | PASS | Direct decision-table read returned HTTP 200 with 0 visible rows. |
+| Teacher token protection | PASS | Invalid teacher token could not read teacher state. |
+| A. Normal multiplayer: Gitte joins | PASS | Gitte joined as `GAL-A`. |
+| A. Normal multiplayer: Anna joins | PASS | Anna joined as `GAL-B`. |
+| A. Normal multiplayer: Linda joins | PASS | Linda joined as `GAL-C`. |
+| A. All three submit once | PASS | All three private choices submitted and reveal triggered. |
+| A. Choices remain private | PASS | Teacher saw submitted marker only before reveal. |
+| A. Reveal occurs only when conditions are met | PASS | Room phase moved to `revealed` after three choices. |
+| B. Player attempts second submission | PASS | Duplicate private choice was rejected. |
+| B. Duplicate browser/tab | PASS | Reused claimed join code was rejected. |
+| C. Refresh/reconnect equivalent | PASS | Existing session token restored Anna and locked choice. |
+| D. Invalid or reused join code/token | PASS | Claimed role rejected takeover; invalid choice id rejected. |
+| E. Teacher access succeeds | PASS | Teacher state, reset, release, and advance after reveal worked with teacher token. |
+| F. Shared authoritative phase | PASS | Teacher/player RPCs observed shared collecting/revealed/advanced/reset state. |
 
 ## 7. Devil Check
 
@@ -342,7 +346,7 @@ Issue: Gitte can only join if teacher gives correct join code.
 Severity: Minor  
 Cause: Join-code model is intentionally teacher-assigned.  
 Fix: Teacher testing instructions must clearly map role to join code.  
-Retest result: NOT TESTED
+Retest result: VERIFIED PASS
 
 ### Anna viewpoint
 
@@ -350,7 +354,7 @@ Issue: If Anna receives Linda's join code by mistake, Anna will become Linda's u
 Severity: Major  
 Cause: Sprint 1 has no personal account verification.  
 Fix: Teacher must distribute codes carefully; later sprint could add printed role cards or one-time invite links.  
-Retest result: NOT TESTED
+Retest result: KNOWN LIMITATION
 
 ### Linda viewpoint
 
@@ -358,7 +362,7 @@ Issue: Refresh recovery depends on browser `localStorage`; private/incognito win
 Severity: Minor  
 Cause: Browser storage behavior.  
 Fix: Student can rejoin using the same join code if needed; later sprint can support recovery links.  
-Retest result: NOT TESTED
+Retest result: VERIFIED PASS
 
 ### Three-player team viewpoint
 
@@ -366,7 +370,7 @@ Issue: Reveal depends on all three submissions. If one student joins wrong role 
 Severity: Major  
 Cause: Strict three-player reveal rule.  
 Fix: Teacher console can observe submitted/waiting and later should support controlled intervention with event logging.  
-Retest result: NOT TESTED
+Retest result: VERIFIED PASS
 
 ### Teacher viewpoint
 
@@ -374,7 +378,7 @@ Issue: Teacher token is simple room-level protection, not full login.
 Severity: Major  
 Cause: Sprint 1 chose no external auth/build system.  
 Fix: Keep token private; consider stronger auth before production classroom use.  
-Retest result: NOT TESTED
+Retest result: KNOWN LIMITATION
 
 ### Server/state machine viewpoint
 
@@ -382,7 +386,7 @@ Issue: `s1_submit_private_choice` changes phase to `revealed` after count reache
 Severity: Minor  
 Cause: Sprint 1 scope fixed to three players.  
 Fix: If group size becomes configurable, store expected player count in `s1_rooms`.  
-Retest result: NOT TESTED
+Retest result: VERIFIED PASS
 
 ### Future Codex maintainer viewpoint
 
@@ -390,21 +394,21 @@ Issue: Current scene content is placeholder JS, not full data-driven ACT content
 Severity: Minor  
 Cause: Sprint 1 intentionally avoids full story implementation.  
 Fix: Sprint 3 should move story content into structured content files.  
-Retest result: NOT TESTED
+Retest result: DEFERRED TO SPRINT 3
 
 ## 8. Acceptance Criteria
 
 | Criterion | Status |
 |---|---|
-| Three remote players can join | NOT TESTED |
-| Identity survives refresh | NOT TESTED |
+| Three remote players can join | PASS by independent live sessions; not tested on three physical devices |
+| Identity survives refresh | PASS by session-token reconnect RPC |
 | Player identity is separate from display name | PASS |
-| Private choice can only be submitted once | NOT TESTED |
-| Private choices remain hidden before reveal | NOT TESTED |
-| Reveal is based on authoritative shared state | PASS by implementation design, NOT TESTED end-to-end |
-| Refresh/reconnect restores state | NOT TESTED |
-| Students cannot freely reset/delete the room | NOT TESTED |
-| Teacher controls are protected | PASS by implementation design, NOT TESTED end-to-end |
+| Private choice can only be submitted once | PASS |
+| Private choices remain hidden before reveal | PASS |
+| Reveal is based on authoritative shared state | PASS |
+| Refresh/reconnect restores state | PASS |
+| Students cannot freely reset/delete the room | PASS for tested RPC path; direct table read returned 0 visible decision rows |
+| Teacher controls are protected | PASS by room-specific teacher token; full production auth remains deferred |
 | No secret/service-role key is exposed | PASS |
 | Current implementation remains lightweight modular JavaScript | PASS |
 | No Sprint 2 functionality was unintentionally added | PASS |
@@ -415,21 +419,19 @@ Retest result: NOT TESTED
 Overall Sprint 1 status:
 
 ```text
-FAIL / NOT VERIFIED
+VERIFIED PASS
 ```
 
 Reason:
 
-The Sprint 1 code, migration, and hardening changes are implemented locally and static checks pass, but database deployment and end-to-end browser/security tests are not yet complete. Sprint 1 must not be marked PASS until those real tests pass.
+The Sprint 1 code, migration, and hardening changes are implemented, deployed, and verified with live GitHub Pages + Supabase E2E tests.
 
 ## 9. Known Issues / Technical Debt
 
 ### Must fix before Sprint 2
 
-- Deploy `database/001_sprint1_core.sql` to Supabase.
-- Run real three-browser or three-device Sprint 1 tests.
-- Verify RLS/RPC behavior against actual Supabase project.
-- Confirm GitHub Pages serves `index.html` and `teacher.html`.
+- No blocking Sprint 1 hardening defect is currently known from the tested scope.
+- User must explicitly approve Sprint 2 before any Sprint 2 work begins.
 
 ### Can defer
 
@@ -546,33 +548,24 @@ https://qdcbdcjobzytzhnhfwyn.supabase.co
 Migration status:
 
 ```text
-HARDENED LOCALLY
-NOT DEPLOYED
-NOT TESTED END-TO-END
+HARDENED
+DEPLOYED TO SUPABASE
+VERIFIED END-TO-END FOR SPRINT 1 SCOPE
 ```
 
 Deployment status:
 
 ```text
 HARDENING CHANGES PUSHED TO GITHUB
-GITHUB PAGES RUNTIME NOT RE-TESTED AFTER HARDENING
+GITHUB PAGES RUNTIME VERIFIED
 ```
 
 ## 13. Recommended Next Step
 
-Sprint 2 should not begin yet.
+Sprint 2 should not begin until the user explicitly approves it.
 
-Blocking items first:
+Recommended next step:
 
-1. Deploy the hardened `database/001_sprint1_core.sql` in Supabase SQL Editor.
-2. Confirm GitHub Pages redeploys the hardened frontend.
-3. Test:
-   - teacher room creation
-   - three student joins
-   - private-choice locking
-   - reveal
-   - refresh/reconnect
-   - teacher access protection
-   - no pre-reveal choice leakage
-
-Only after these pass should Sprint 2 be approved.
+1. User reviews `docs/codex_reports/sprint1_validation/02-live-e2e-acceptance.md`.
+2. User decides whether Sprint 1 is accepted.
+3. Sprint 2 may start only after explicit user approval.

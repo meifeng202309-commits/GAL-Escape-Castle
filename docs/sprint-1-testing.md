@@ -122,6 +122,16 @@ node tests/sprint1-static-check.js
 
 This does not require npm packages.
 
+## Live E2E Check
+
+Run only after the current migration has been deployed to Supabase:
+
+```text
+node tests/sprint1-live-e2e.js
+```
+
+This uses the deployed GitHub Pages URLs and the existing Supabase project. It creates fresh random test rooms and verifies room creation hardening, three-player joins, pre-reveal privacy, canonical choice storage, reconnect, reset, teacher release recovery, invalid choice rejection, and the concurrent double-join race.
+
 ## Not Covered In Sprint 1
 
 - DiscussionRoom
