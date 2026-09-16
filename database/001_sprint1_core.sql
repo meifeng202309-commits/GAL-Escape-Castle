@@ -7,7 +7,8 @@
 -- - teacher actions require a room-specific teacher token
 -- - private choices are hidden from teacher until reveal
 
-create extension if not exists pgcrypto;
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
 
 create table if not exists public.s1_rooms (
   room_code text primary key,
@@ -105,7 +106,7 @@ returns text
 language sql
 stable
 as $$
-  select encode(digest(value, 'sha256'), 'hex')
+  select encode(extensions.digest(coalesce(value, ''), 'sha256'), 'hex')
 $$;
 
 create or replace function public.s1_touch_room(p_room_code text)

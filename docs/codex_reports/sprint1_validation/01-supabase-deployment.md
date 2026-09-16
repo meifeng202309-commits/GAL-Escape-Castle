@@ -5,7 +5,7 @@ Repository: `meifeng202309-commits/GAL-Escape-Castle`
 Branch: `main`  
 Tested commit: `f187e3f Make Sprint 1 player join atomic`  
 Step: Step 1 — Deploy Hardened Migration  
-Status: BLOCKED
+Status: FAIL
 
 ## 1. Objective
 
@@ -55,25 +55,20 @@ Expected:
 
 ## 4. Actual Result
 
-Supabase redirected to the sign-in page:
+After the user logged in and ran the migration in Supabase SQL Editor, RPC verification was attempted through Supabase REST.
 
-```text
-https://supabase.com/dashboard/sign-in?returnTo=%2Fproject%2Fqdcbdcjobzytzhnhfwyn%2Fsql%2Fnew
+Verification failed on the first RPC call because `s1_hash_token` could not resolve `digest()`:
+
+```json
+{
+  "code": "42883",
+  "details": null,
+  "hint": "No function matches the given name and argument types. You might need to add explicit type casts.",
+  "message": "function digest(text, unknown) does not exist"
+}
 ```
 
-The page displayed:
-
-```text
-Welcome back
-Sign in to your account
-Continue with GitHub
-Continue with ChatGPT
-Email
-Password
-Sign in
-```
-
-Migration was not deployed.
+Migration deployment is therefore not accepted.
 
 ## 5. Evidence
 
@@ -89,10 +84,10 @@ SQL Editor attempted:
 https://supabase.com/dashboard/project/qdcbdcjobzytzhnhfwyn/sql/new
 ```
 
-Observed blocker URL:
+RPC verification command used Supabase REST endpoint:
 
 ```text
-https://supabase.com/dashboard/sign-in?returnTo=%2Fproject%2Fqdcbdcjobzytzhnhfwyn%2Fsql%2Fnew
+https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_create_room
 ```
 
 GitHub migration source:
@@ -108,7 +103,7 @@ Verified GitHub main migration includes:
 - `s1_join_player`
 - `for update`
 
-No password, teacher token, session token, service-role key, or secret was entered or committed.
+No password, real teacher token, real session token, service-role key, or secret was entered or committed. Temporary generated verification values were not written to reports.
 
 ## 6. Tests
 
@@ -117,26 +112,42 @@ No password, teacher token, session token, service-role key, or secret was enter
 | Intended Supabase project confirmed | Project URL is `qdcbdcjobzytzhnhfwyn.supabase.co` | Confirmed from repository config and dashboard URL | VERIFIED PASS |
 | GitHub main migration reachable | Raw migration returns content | Raw migration content was read | VERIFIED PASS |
 | Current migration contains `FOR UPDATE` | `s1_join_player` includes row lock | `for update` found in GitHub main migration | VERIFIED PASS |
-| Supabase SQL Editor accessible | SQL Editor opens without login blocker | Redirected to sign-in page | VERIFIED FAIL |
-| Migration deployed | SQL runs successfully | Not attempted because login is required | NOT TESTED |
+| Supabase SQL Editor accessible | SQL Editor opens after user login | User reported execution success | VERIFIED PASS |
+| Migration deployed | SQL runs successfully | User reported `执行成功` | VERIFIED PASS |
+| First RPC verification | `s1_create_room` succeeds | Failed: `function digest(text, unknown) does not exist` | VERIFIED FAIL |
 | Required tables exist | All Sprint 1 tables exist after migration | Not tested | NOT TESTED |
 | Required RPC/functions exist | All Sprint 1 RPC functions exist after migration | Not tested | NOT TESTED |
 
 ## 7. Problems Found
 
-Severity: Critical blocker  
+Severity: Critical  
 
 Root cause:
 
-Supabase dashboard requires interactive user login. The agent must not enter or handle the user's password, OAuth login, CAPTCHA, or 2FA.
+`s1_hash_token` used unqualified `digest(value, 'sha256')`. In this Supabase project, the `pgcrypto` function is not resolved through the function's current search path.
 
 Fix required:
 
-User must log in to Supabase dashboard.
+Qualify the pgcrypto function with the `extensions` schema and ensure that schema/extension exists.
 
 Fix implemented:
 
-No code fix required. Deployment is blocked on user login.
+Updated `database/001_sprint1_core.sql`:
+
+```sql
+create schema if not exists extensions;
+create extension if not exists pgcrypto with schema extensions;
+
+create or replace function public.s1_hash_token(value text)
+returns text
+language sql
+stable
+as $$
+  select encode(extensions.digest(coalesce(value, ''), 'sha256'), 'hex')
+$$;
+```
+
+Updated `CHANGELOG.md`.
 
 Retest result:
 
@@ -144,14 +155,15 @@ NOT TESTED
 
 ## 8. Files Changed
 
+- `database/001_sprint1_core.sql`
+- `CHANGELOG.md`
 - `docs/codex_reports/STATUS.md`
 - `docs/codex_reports/sprint1_validation/01-supabase-deployment.md`
 
 ## 9. What Was NOT Changed
 
-- Did not deploy migration.
-- Did not run SQL.
-- Did not verify Supabase tables/functions.
+- Did not complete accepted migration deployment.
+- Did not verify Supabase tables/functions after the fix.
 - Did not run GitHub Pages health check.
 - Did not run three-player validation.
 - Did not run security/failure-path validation.
@@ -163,6 +175,6 @@ NOT TESTED
 
 ## 10. Next Step
 
-BLOCKED_USER_ACTION_REQUIRED
+Next allowed step:
 
-Log in to the Supabase dashboard and return control.
+Commit and push the `pgcrypto` lookup fix, then rerun the updated migration in Supabase SQL Editor.

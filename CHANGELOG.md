@@ -20,3 +20,4 @@
 - Required `s1_advance_scene` to run only after the room is in `revealed` phase.
 - Added `s1_scene_choices` and server-side canonical choice validation.
 - Changed Teacher Console token input to password mode with show/hide control.
+- Fixed Supabase `pgcrypto` lookup by using `extensions.digest` in `s1_hash_token`.
