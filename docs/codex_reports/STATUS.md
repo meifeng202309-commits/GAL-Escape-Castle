@@ -3,10 +3,10 @@
 Current phase: Sprint 1 Deployment and Acceptance Validation  
 Current sprint: Sprint 1  
 Current step: Step 1 — Deploy Hardened Migration  
-Status: FAIL  
-Tested code commit: `f187e3f Make Sprint 1 player join atomic`  
+Status: PASS  
+Tested code commit: `e940838 Fix Supabase pgcrypto hash lookup`  
 Latest report: `docs/codex_reports/sprint1_validation/01-supabase-deployment.md`  
-Critical blockers: Supabase verification failed because `s1_hash_token` could not resolve `digest(text, unknown)` in the deployed environment. Fix has been implemented locally and must be redeployed.  
-Known limitations: Sprint 1 is not accepted; Supabase migration and end-to-end validation are still pending.  
-Next authorized action: Commit/push the migration fix, then rerun the updated `database/001_sprint1_core.sql` in Supabase SQL Editor.  
+Critical blockers: None for Step 1.  
+Known limitations: Sprint 1 is not accepted; browser health check and end-to-end validation are still pending. Direct anonymous REST table access returned 404 while RPC validation passed; direct table access remains unavailable by design/protection.  
+Next authorized action: Step 2 — Connection / Deployment Health Check.  
 Sprint 2 authorized: NO

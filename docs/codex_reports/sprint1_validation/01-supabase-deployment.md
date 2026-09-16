@@ -3,9 +3,9 @@
 Date/time: 2026-09-17 Asia/Shanghai  
 Repository: `meifeng202309-commits/GAL-Escape-Castle`  
 Branch: `main`  
-Tested commit: `f187e3f Make Sprint 1 player join atomic`  
+Tested commit: `e940838 Fix Supabase pgcrypto hash lookup`  
 Step: Step 1 — Deploy Hardened Migration  
-Status: FAIL
+Status: PASS
 
 ## 1. Objective
 
@@ -21,73 +21,69 @@ to the existing Supabase project:
 https://qdcbdcjobzytzhnhfwyn.supabase.co
 ```
 
-The deployed migration must include the `s1_join_player` `FOR UPDATE` fix and all Sprint 1 hardening changes.
+The deployed migration must include the Sprint 1 hardening pass, the atomic `s1_join_player` fix, and the Supabase `pgcrypto` lookup fix.
 
 ## 2. Actions Performed
 
-1. Confirmed current local Git commit:
+1. Confirmed GitHub `main` contains the hardened migration.
+2. User ran the updated migration in Supabase SQL Editor and reported:
 
 ```text
-git log -1 --oneline
+重新执行成功
 ```
 
-2. Confirmed GitHub `main` migration content is readable and includes hardening markers:
-
-```text
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/meifeng202309-commits/GAL-Escape-Castle/main/database/001_sprint1_core.sql' -UseBasicParsing
-```
-
-3. Opened Supabase SQL Editor URL:
-
-```text
-https://supabase.com/dashboard/project/qdcbdcjobzytzhnhfwyn/sql/new
-```
-
-4. Observed that Supabase requires interactive login before SQL Editor can be used.
+3. Ran Supabase REST/RPC verification against the current project.
+4. Checked direct anonymous REST access to the Sprint 1 tables.
+5. Confirmed Step 1 is deployed and callable through the intended RPC interface.
 
 ## 3. Expected Result
 
 Expected:
 
-- Supabase SQL Editor opens for project `qdcbdcjobzytzhnhfwyn`.
-- Migration SQL can be pasted and run.
-- Tables and functions can be verified.
+- Supabase SQL Editor accepts the updated migration.
+- Hardened Sprint 1 RPC functions are callable.
+- `s1_create_room` no longer fails on `extensions.digest(...)`.
+- `s1_join_player` is deployed with row locking.
+- Students and teacher can use RPCs without service-role keys in browser code.
+- Direct anonymous table access remains unavailable or restricted.
 
 ## 4. Actual Result
 
-After the user logged in and ran the migration in Supabase SQL Editor, RPC verification was attempted through Supabase REST.
+The updated migration was rerun successfully by the user.
 
-Verification failed on the first RPC call because `s1_hash_token` could not resolve `digest()`:
+RPC verification passed:
 
 ```json
 {
-  "code": "42883",
-  "details": null,
-  "hint": "No function matches the given name and argument types. You might need to add explicit type casts.",
-  "message": "function digest(text, unknown) does not exist"
+  "create_room": 200,
+  "get_teacher_state": 200,
+  "teacher_players_count": 3,
+  "join_player": 200,
+  "get_player_state": 200,
+  "player_display_name": "Gitte",
+  "submit_private_choice": 200,
+  "canonical_choice_label": "Study the map on the wall",
+  "advance_from_collecting": "rejected",
+  "release_player_session": 200,
+  "reset_room": 200,
+  "room": "VERIFY0917012108"
 }
 ```
 
-Migration deployment is therefore not accepted.
+Direct anonymous REST checks for all six Sprint 1 tables returned `404 Not Found`. This is acceptable for Step 1 because RPC access passed and the formal browser implementation is expected to use RPCs, not unrestricted direct table access.
 
 ## 5. Evidence
 
-Target project:
+Target Supabase project:
 
 ```text
 https://qdcbdcjobzytzhnhfwyn.supabase.co
 ```
 
-SQL Editor attempted:
+SQL Editor:
 
 ```text
 https://supabase.com/dashboard/project/qdcbdcjobzytzhnhfwyn/sql/new
-```
-
-RPC verification command used Supabase REST endpoint:
-
-```text
-https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_create_room
 ```
 
 GitHub migration source:
@@ -96,62 +92,80 @@ GitHub migration source:
 https://raw.githubusercontent.com/meifeng202309-commits/GAL-Escape-Castle/main/database/001_sprint1_core.sql
 ```
 
-Verified GitHub main migration includes:
+The first deployment attempt exposed this error:
 
-- `s1_scene_choices`
-- `s1_release_player_session`
-- `s1_join_player`
-- `for update`
+```json
+{
+  "code": "42883",
+  "message": "function digest(text, unknown) does not exist"
+}
+```
 
-No password, real teacher token, real session token, service-role key, or secret was entered or committed. Temporary generated verification values were not written to reports.
+The migration was corrected by qualifying `digest` through the `extensions` schema:
+
+```sql
+select encode(extensions.digest(coalesce(value, ''), 'sha256'), 'hex')
+```
+
+Direct anonymous REST table checks:
+
+```json
+{
+  "s1_rooms": "ERROR: Response status code does not indicate success: 404 (Not Found).",
+  "s1_room_players": "ERROR: Response status code does not indicate success: 404 (Not Found).",
+  "s1_room_state": "ERROR: Response status code does not indicate success: 404 (Not Found).",
+  "s1_player_decisions": "ERROR: Response status code does not indicate success: 404 (Not Found).",
+  "s1_game_events": "ERROR: Response status code does not indicate success: 404 (Not Found).",
+  "s1_scene_choices": "ERROR: Response status code does not indicate success: 404 (Not Found)."
+}
+```
+
+No service-role key, real teacher token, real player session token, or reusable secret was written to source control or this report.
 
 ## 6. Tests
 
 | Test | Expected | Actual | Result |
 |---|---|---|---|
-| Intended Supabase project confirmed | Project URL is `qdcbdcjobzytzhnhfwyn.supabase.co` | Confirmed from repository config and dashboard URL | VERIFIED PASS |
+| Intended Supabase project confirmed | Project URL is `qdcbdcjobzytzhnhfwyn.supabase.co` | Confirmed from dashboard and repository config | VERIFIED PASS |
 | GitHub main migration reachable | Raw migration returns content | Raw migration content was read | VERIFIED PASS |
-| Current migration contains `FOR UPDATE` | `s1_join_player` includes row lock | `for update` found in GitHub main migration | VERIFIED PASS |
-| Supabase SQL Editor accessible | SQL Editor opens after user login | User reported execution success | VERIFIED PASS |
-| Migration deployed | SQL runs successfully | User reported `执行成功` | VERIFIED PASS |
-| First RPC verification | `s1_create_room` succeeds | Failed: `function digest(text, unknown) does not exist` | VERIFIED FAIL |
-| Required tables exist | All Sprint 1 tables exist after migration | Not tested | NOT TESTED |
-| Required RPC/functions exist | All Sprint 1 RPC functions exist after migration | Not tested | NOT TESTED |
+| Migration includes `FOR UPDATE` | `s1_join_player` locks the target player row | Migration contains row lock | VERIFIED PASS |
+| Migration deployed | SQL runs successfully in Supabase SQL Editor | User reported `重新执行成功` | VERIFIED PASS |
+| `s1_create_room` | Creates a new room through RPC | HTTP 200 | VERIFIED PASS |
+| `s1_get_teacher_state` | Teacher state is returned through RPC | HTTP 200; 3 players returned | VERIFIED PASS |
+| `s1_join_player` | Valid join code claims one role | HTTP 200; returned player state for Gitte | VERIFIED PASS |
+| `s1_get_player_state` | Player state is available after join | HTTP 200 | VERIFIED PASS |
+| `s1_submit_private_choice` | Stores canonical choice | HTTP 200; label returned from server | VERIFIED PASS |
+| `s1_advance_scene` from collecting | Must reject accidental advance before reveal | Rejected as expected | VERIFIED PASS |
+| `s1_release_player_session` | Releases active player session for prototype recovery | HTTP 200 | VERIFIED PASS |
+| `s1_reset_room` | Teacher-authenticated reset works | HTTP 200 | VERIFIED PASS |
+| Required tables exist indirectly | RPCs can create/read/write across Sprint 1 tables | Verified through RPC behavior | VERIFIED PASS |
+| Direct anonymous table access | Should not be unrestricted | Returned 404 for all checked tables | VERIFIED PASS |
 
 ## 7. Problems Found
 
-Severity: Critical  
+### Resolved
 
-Root cause:
+Severity: Critical
 
-`s1_hash_token` used unqualified `digest(value, 'sha256')`. In this Supabase project, the `pgcrypto` function is not resolved through the function's current search path.
+Problem:
 
-Fix required:
+`s1_hash_token` originally used an unqualified `digest(...)` call. In the deployed Supabase environment this failed with:
 
-Qualify the pgcrypto function with the `extensions` schema and ensure that schema/extension exists.
-
-Fix implemented:
-
-Updated `database/001_sprint1_core.sql`:
-
-```sql
-create schema if not exists extensions;
-create extension if not exists pgcrypto with schema extensions;
-
-create or replace function public.s1_hash_token(value text)
-returns text
-language sql
-stable
-as $$
-  select encode(extensions.digest(coalesce(value, ''), 'sha256'), 'hex')
-$$;
+```text
+function digest(text, unknown) does not exist
 ```
 
-Updated `CHANGELOG.md`.
+Fix:
+
+`database/001_sprint1_core.sql` now creates the `extensions` schema if needed, installs `pgcrypto` there if needed, and calls:
+
+```sql
+extensions.digest(...)
+```
 
 Retest result:
 
-NOT TESTED
+VERIFIED PASS
 
 ## 8. Files Changed
 
@@ -162,11 +176,9 @@ NOT TESTED
 
 ## 9. What Was NOT Changed
 
-- Did not complete accepted migration deployment.
-- Did not verify Supabase tables/functions after the fix.
-- Did not run GitHub Pages health check.
-- Did not run three-player validation.
-- Did not run security/failure-path validation.
+- Did not run GitHub Pages browser health check.
+- Did not run three independent browser session validation.
+- Did not run full Sprint 1 acceptance validation.
 - Did not start Sprint 2.
 - Did not add DiscussionRoom.
 - Did not add Agent analysis.
@@ -177,4 +189,6 @@ NOT TESTED
 
 Next allowed step:
 
-Commit and push the `pgcrypto` lookup fix, then rerun the updated migration in Supabase SQL Editor.
+Step 2 — Connection / Deployment Health Check.
+
+Sprint 2 remains unauthorized.
