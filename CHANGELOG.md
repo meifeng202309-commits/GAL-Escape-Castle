@@ -15,6 +15,7 @@
 - Added server-side join-code validation for non-empty and mutually distinct codes.
 - Added database uniqueness for room join-code hashes.
 - Prevented already claimed roles from silently rotating their active session token.
+- Made role claiming atomic by locking the selected player row during `s1_join_player`.
 - Added teacher-authenticated player-session release as the Sprint 1 recovery mechanism.
 - Required `s1_advance_scene` to run only after the room is in `revealed` phase.
 - Added `s1_scene_choices` and server-side canonical choice validation.

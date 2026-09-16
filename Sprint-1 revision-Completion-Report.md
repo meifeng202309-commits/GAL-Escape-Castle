@@ -86,6 +86,7 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 - A compatibility `DO` block adds the unique constraint if an earlier Sprint 1 migration had already created the table.
 - `s1_join_player` rejects empty join code.
 - `s1_join_player` rejects joins for already claimed roles.
+- `s1_join_player` now locks the selected `s1_room_players` row with `FOR UPDATE` before checking and writing `session_token_hash`, so concurrent joins cannot both claim the same role.
 - `s1_release_player_session` allows teacher-authenticated recovery of a lost browser session.
 - `s1_advance_scene` requires `phase = 'revealed'`.
 - `s1_scene_choices` stores canonical Sprint 1 choice labels.
@@ -97,6 +98,7 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 |---|---|---|
 | Can create-room overwrite an existing room? | It should now fail if the room exists. | NOT VERIFIED |
 | Can one student reuse a join code to take over an already claimed role? | It should now fail unless the teacher releases that role session. | NOT VERIFIED |
+| Can two concurrent joins both claim the same role? | The matching player row is locked with `FOR UPDATE`, so only one transaction should claim the role. | NOT VERIFIED |
 | Can one student submit as another player? | Requires that player's session token. Mis-distributed unused join codes remain a classroom credential risk. | KNOWN LIMITATION |
 | Can students reset/delete a room directly? | No unrestricted public table DELETE was added; reset requires teacher token RPC. | NOT VERIFIED |
 | Can teacher advance from collecting? | It should now fail; emergency override is intentionally not part of Sprint 1. | NOT VERIFIED |
@@ -116,6 +118,7 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 | Real three-player multiplayer flow | NOT TESTED | Requires deployed migration. |
 | Existing-room create rejection | NOT TESTED | Requires deployed migration. |
 | Reused join code takeover rejection | NOT TESTED | Requires deployed migration. |
+| Concurrent/double-join race rejection | NOT TESTED | Requires deployed migration and two near-simultaneous join attempts. |
 | Teacher session release recovery | NOT TESTED | Requires deployed migration. |
 | Advance from collecting rejection | NOT TESTED | Requires deployed migration. |
 | Invalid choice rejection | NOT TESTED | Requires deployed migration. |
@@ -126,6 +129,7 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 | Viewpoint | Issue | Severity | Fix | Retest Result |
 |---|---|---|---|---|
 | Gitte | Reused join code could take over active session | Critical | Reject claimed role; require teacher release | NOT TESTED |
+| Gitte | Two simultaneous joins could race to claim the same role | Critical | Lock selected player row with `FOR UPDATE` before token check/write | NOT TESTED |
 | Anna | Mis-distributed unused join code can still claim wrong role | Major | Teacher must distribute codes carefully; future invite-link UX recommended | KNOWN LIMITATION |
 | Linda | Lost incognito session cannot reconnect through localStorage | Minor | Teacher can release role session, then student rejoins | NOT TESTED |
 | Team | Teacher could accidentally advance before all choices | Major | `s1_advance_scene` now requires `revealed` | NOT TESTED |

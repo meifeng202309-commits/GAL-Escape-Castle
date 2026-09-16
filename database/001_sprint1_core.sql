@@ -212,7 +212,8 @@ begin
   into v_player
   from public.s1_room_players
   where room_code = v_room_code
-    and join_code_hash = public.s1_hash_token(p_join_code);
+    and join_code_hash = public.s1_hash_token(p_join_code)
+  for update;
 
   if not found then
     raise exception 'Invalid room code or join code.';

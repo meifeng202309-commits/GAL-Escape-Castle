@@ -83,6 +83,26 @@ After joining and submitting:
 5. Try joining again with the same join code.
 6. Confirm rejoin succeeds only after teacher release.
 
+## Concurrent / Double-Join Race Test
+
+This test verifies that claiming a player role is atomic.
+
+1. Create a fresh room with a unique room code.
+2. Use the same role join code in two independent browsers or tabs at nearly the same time.
+3. Confirm exactly one join succeeds.
+4. Confirm the other join fails with the already-claimed role message.
+5. Refresh the successful browser.
+6. Confirm it remains attached to the claimed role.
+7. In Teacher Console, confirm only one role session was claimed for that join code.
+8. Release the role session from Teacher Console.
+9. Confirm the join code works again only after release.
+
+Expected database behavior:
+
+- `s1_join_player` locks the matching `s1_room_players` row with `FOR UPDATE`.
+- The second concurrent transaction waits for the first transaction to finish.
+- After the first transaction writes `session_token_hash`, the second transaction sees the role as claimed and fails.
+
 ## Advance Test
 
 1. Create a fresh room.
