@@ -332,7 +332,7 @@ Secrets:
 | F. Different browsers see same authoritative phase | NOT TESTED | Requires multi-browser test. |
 | F. Scene/reveal not dependent only on browser memory | NOT TESTED | Requires deployed shared state test. |
 | G. Existing Supabase connection works | NOT TESTED for Sprint 1 schema | Previous Three Doors REST test worked, but Sprint 1 migration is not deployed. |
-| G. GitHub Pages deployment works | NOT TESTED for Sprint 1 | Files have not been pushed/uploaded to GitHub Pages yet. |
+| G. GitHub Pages deployment works | NOT TESTED for Sprint 1 Hardening | Hardening files have been pushed to GitHub, but GitHub Pages runtime has not been re-tested. |
 
 ## 7. Devil Check
 
@@ -516,13 +516,13 @@ Polling/realtime strategy:
 Branch:
 
 ```text
-master
+main
 ```
 
 Latest commit hash:
 
 ```text
-NOT AVAILABLE BEFORE INITIAL COMMIT
+06729b6 Harden Sprint 1 room and session security
 ```
 
 GitHub Pages student URL:
@@ -546,7 +546,7 @@ https://qdcbdcjobzytzhnhfwyn.supabase.co
 Migration status:
 
 ```text
-CREATED LOCALLY
+HARDENED LOCALLY
 NOT DEPLOYED
 NOT TESTED END-TO-END
 ```
@@ -554,9 +554,8 @@ NOT TESTED END-TO-END
 Deployment status:
 
 ```text
-LOCAL FILES CREATED
-NOT PUSHED TO GITHUB
-NOT DEPLOYED TO GITHUB PAGES
+HARDENING CHANGES PUSHED TO GITHUB
+GITHUB PAGES RUNTIME NOT RE-TESTED AFTER HARDENING
 ```
 
 ## 13. Recommended Next Step
@@ -565,11 +564,9 @@ Sprint 2 should not begin yet.
 
 Blocking items first:
 
-1. Commit Sprint 1 files and this report.
-2. Configure GitHub remote if repository push is desired.
-3. Push/upload Sprint 1 files to GitHub.
-4. Run `database/001_sprint1_core.sql` in Supabase SQL Editor.
-5. Test:
+1. Deploy the hardened `database/001_sprint1_core.sql` in Supabase SQL Editor.
+2. Confirm GitHub Pages redeploys the hardened frontend.
+3. Test:
    - teacher room creation
    - three student joins
    - private-choice locking
