@@ -5,7 +5,7 @@ Local branch at report time: `master`
 Repository remote at report time: `NOT CONFIGURED`  
 Sprint 2 status: `NOT STARTED`
 
-Validation update: `VERIFIED PASS` on 2026-09-17 after live Sprint 1 acceptance validation against GitHub Pages + Supabase.
+Validation update: `VERIFIED PASS` on 2026-09-17 after the full Sprint 1 acceptance gap-closure matrix against GitHub Pages + Supabase.
 
 Validation report:
 
@@ -17,7 +17,7 @@ Hardening revision status: `DEPLOYED AND VERIFIED`
 
 Important status note:
 
-Sprint 1 hardening has passed the live validation matrix. Sprint 2 still must not begin until the user explicitly approves Sprint 2.
+Sprint 1 hardening has passed 40 automated live checks, actual browser Show/Hide interaction, and a trusted database-side recovery-event check. Sprint 2 still must not begin until the user explicitly approves Sprint 2.
 
 ## 0. Sprint 1 Hardening Revision
 
@@ -68,7 +68,7 @@ Hardening security status:
 | Teacher can release a lost student session | VERIFIED |
 | Advance from collecting is rejected | VERIFIED |
 | Invalid browser-supplied choice is rejected | VERIFIED |
-| Teacher token is password/show-hide UI | VERIFIED |
+| Teacher token password/show-hide behavior | VERIFIED by actual browser interaction |
 
 Hardening Devil Check:
 
@@ -217,6 +217,7 @@ Teacher access:
 | `src/teacher/teacher-console.js` | Created | Teacher room creation, watch, advance, and reset UI. |
 | `src/utils/html.js` | Created | HTML escaping helper. |
 | `tests/sprint1-static-check.js` | Created | No-dependency static project check. |
+| `tests/sprint1-live-e2e.js` | Created/Modified | Forty live acceptance checks against deployed GitHub Pages and Supabase. |
 
 Fallback prototype status:
 
@@ -308,7 +309,7 @@ Secrets:
 
 | Question | Answer | Status |
 |---|---|---|
-| Can one student read another player's private choice before reveal? | RPC design does not return other players' choice labels before reveal. Direct anonymous table read returned 0 visible decision rows. | VERIFIED |
+| Can one student read another player's private choice before reveal? | Independent Gitte, Anna, and Linda state checks confirmed only Gitte could see her own locked choice; all `revealed_decisions` arrays remained empty. Direct anonymous table read returned 0 visible decision rows. | VERIFIED |
 | Can one student submit as another player? | Submission requires a valid `session_token` for that player. Students do not choose role slot directly. A student with another player's join code can still claim that role. | KNOWN LIMITATION |
 | Can an unauthenticated browser reset/delete a room? | There is no public table DELETE policy. Reset requires teacher token through RPC; invalid teacher token is rejected. | VERIFIED |
 | Can students access Teacher Console controls? | The page is public, but controls require room-specific teacher token. A student with the token can use controls. | KNOWN LIMITATION |
@@ -321,7 +322,7 @@ Secrets:
 |---|---|---|
 | Static file presence check | PASS | `node tests/sprint1-static-check.js` returned `Sprint 1 static check passed.` |
 | JavaScript syntax check | PASS | `node --check` ran against `src` and `tests` JS files with no errors. |
-| Live E2E matrix | PASS | `node tests/sprint1-live-e2e.js` passed 26 checks. |
+| Live E2E matrix | PASS | `node tests/sprint1-live-e2e.js` passed 40 checks; all original 26 checks remain. |
 | GitHub Pages deployment works | PASS | Student page, teacher page, student JS, and teacher JS returned HTTP 200. |
 | Direct anonymous table access | PASS | Direct decision-table read returned HTTP 200 with 0 visible rows. |
 | Teacher token protection | PASS | Invalid teacher token could not read teacher state. |
@@ -337,6 +338,12 @@ Secrets:
 | D. Invalid or reused join code/token | PASS | Claimed role rejected takeover; invalid choice id rejected. |
 | E. Teacher access succeeds | PASS | Teacher state, reset, release, and advance after reveal worked with teacher token. |
 | F. Shared authoritative phase | PASS | Teacher/player RPCs observed shared collecting/revealed/advanced/reset state. |
+| Student-side privacy | PASS | Gitte saw only her own locked choice; Anna and Linda could not see it; no player received revealed decisions early. |
+| Student-side reveal | PASS | All three players received the same three canonical revealed decisions. |
+| Final state transition | PASS | Scene 2 revealed, then teacher and all player states reported `current_scene = 2`, `phase = completed`. |
+| Released-token invalidation | PASS | Old token was rejected; a distinct replacement token rejoined successfully. |
+| Recovery event logging | PASS | Authenticated SQL Editor found `teacher_released_player_session` for test room `RUZ88TA5D3`. |
+| Teacher token Show/Hide interaction | PASS | Actual clicks produced `password/Show` -> `text/Hide` -> `password/Show`. |
 
 ## 7. Devil Check
 
@@ -404,8 +411,11 @@ Retest result: DEFERRED TO SPRINT 3
 | Identity survives refresh | PASS by session-token reconnect RPC |
 | Player identity is separate from display name | PASS |
 | Private choice can only be submitted once | PASS |
-| Private choices remain hidden before reveal | PASS |
-| Reveal is based on authoritative shared state | PASS |
+| Private choices remain hidden before reveal | PASS for teacher and all three independent player states |
+| Reveal is based on authoritative shared state | PASS for teacher and all three matching player reveal states |
+| Final Scene 2 transition reaches `completed` | PASS for teacher and all three players |
+| Released old session token becomes invalid | PASS |
+| Teacher recovery action is logged | PASS by trusted database-side query |
 | Refresh/reconnect restores state | PASS |
 | Students cannot freely reset/delete the room | PASS for tested RPC path; direct table read returned 0 visible decision rows |
 | Teacher controls are protected | PASS by room-specific teacher token; full production auth remains deferred |
@@ -521,10 +531,10 @@ Branch:
 main
 ```
 
-Latest commit hash:
+Tested code baseline before this acceptance gap-closure commit:
 
 ```text
-06729b6 Harden Sprint 1 room and session security
+dc94864 Verify Sprint 1 hardening live E2E
 ```
 
 GitHub Pages student URL:

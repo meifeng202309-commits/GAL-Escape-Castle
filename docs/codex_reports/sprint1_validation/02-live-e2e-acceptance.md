@@ -1,40 +1,80 @@
-# Execution Report
+# Sprint 1 Live End-to-End Acceptance Report
 
-Date/time: 2026-09-17 Asia/Shanghai  
-Repository: `meifeng202309-commits/GAL-Escape-Castle`  
-Branch: `main`  
-Tested migration: `database/001_sprint1_core.sql`  
-Step: Sprint 1 Live End-to-End Acceptance Validation  
-Status: PASS
-
-## 1. Objective
-
-Verify the current Sprint 1 hardening deployment against the existing Supabase project and deployed GitHub Pages frontend.
-
-Supabase project:
-
-```text
-https://qdcbdcjobzytzhnhfwyn.supabase.co
-```
-
-GitHub Pages frontend:
-
-```text
-https://meifeng202309-commits.github.io/GAL-Escape-Castle/index.html
-https://meifeng202309-commits.github.io/GAL-Escape-Castle/teacher.html
-```
+Date: 2026-09-17 Asia/Shanghai
+Repository: `meifeng202309-commits/GAL-Escape-Castle`
+Branch: `main`
+Supabase project: `qdcbdcjobzytzhnhfwyn`
+Status: `VERIFIED PASS`
 
 Sprint 2 was not started.
 
-## 2. Deployment Status
+## 1. Scope
 
-The migration was not modified during this validation pass.
+This acceptance pass verifies the deployed Sprint 1 hardening migration and closes the remaining gaps in the original acceptance matrix. No migration or application behavior was changed because the added checks found no defect.
 
-The current repository migration had already been applied in Supabase SQL Editor after the `extensions.digest(...)` fix. Live RPC verification now confirms that the deployed database matches the current Sprint 1 hardening behavior.
+Evidence is separated into automated RPC E2E checks, actual browser interaction checks, and trusted database-side checks.
 
-## 3. Tests Run
+## 2. Automated RPC E2E
 
-Commands:
+Command:
+
+```text
+node tests/sprint1-live-e2e.js
+```
+
+Result:
+
+```text
+Sprint 1 live E2E passed: 40 checks.
+```
+
+The original 26 checks remain in place. Fourteen additional checks cover the acceptance gaps:
+
+| Area | Verified result |
+|---|---|
+| Student privacy before reveal | Gitte sees only her own locked decision; Anna and Linda cannot see it; all three receive an empty `revealed_decisions` array. |
+| Student reveal | All three players report `revealed`, receive all three decisions and canonical labels, and receive identical reveal state. |
+| Final state transition | Three valid Scene 2 choices trigger reveal; teacher advance keeps `current_scene = 2` and sets `phase = completed`; all player states and teacher state report `completed`. |
+| Session recovery security | After teacher release, the old Gitte session token is rejected as invalid/expired; rejoin creates a distinct token and the new session succeeds. |
+| Event-table privacy | Anonymous direct access to `s1_game_events` returns zero visible rows. |
+
+The 40 checks also continue to verify GitHub Pages availability, create-only room behavior, join-code validation, correct role assignment, claimed-role takeover rejection, teacher-side privacy, canonical choices, one-choice locking, collecting-phase advance rejection, teacher-side reveal, reconnect, reset, concurrent join locking, and invalid-choice rejection.
+
+## 3. Actual Browser Interaction
+
+Deployed page tested:
+
+```text
+https://meifeng202309-commits.github.io/GAL-Escape-Castle/teacher.html
+```
+
+The Teacher token control was exercised in a real browser:
+
+| Step | Input type | Button text | Result |
+|---|---|---|---|
+| Initial | `password` | `Show` | VERIFIED |
+| Click Show | `text` | `Hide` | VERIFIED |
+| Click Hide | `password` | `Show` | VERIFIED |
+
+This is a behavioral interaction test, not an HTML-presence check.
+
+## 4. Database-Side Event Check
+
+The automated recovery test generated room `RUZ88TA5D3`. A trusted read-only query was run in the authenticated Supabase SQL Editor against `public.s1_game_events`.
+
+Observed row:
+
+| event_id | room_code | event_type | details | created_at |
+|---|---|---|---|---|
+| 87 | `RUZ88TA5D3` | `teacher_released_player_session` | `{"role_slot":"GAL-A"}` | `2026-09-17 01:36:20.227991+00` |
+
+Result: `VERIFIED`.
+
+No public event-read policy or browser event-reading RPC was added. Direct anonymous event-table access remains blocked by RLS.
+
+## 5. Regression
+
+Required commands:
 
 ```text
 node tests/sprint1-static-check.js
@@ -42,104 +82,50 @@ node --check tests/sprint1-live-e2e.js
 node tests/sprint1-live-e2e.js
 ```
 
-Browser checks:
+Results:
 
-- Opened deployed Teacher Console through GitHub Pages.
-- Opened deployed Student page through GitHub Pages.
-- Confirmed visible Teacher Console controls, including teacher token Show button.
-- Confirmed visible Student Join form.
-
-## 4. Live E2E Result
-
-`node tests/sprint1-live-e2e.js` passed 26 checks.
-
-Verified checks:
-
-| Area | Check | Result |
-|---|---|---|
-| GitHub Pages | Student page, teacher page, student JS, and teacher JS return HTTP 200 | VERIFIED |
-| Direct table access | Anonymous direct table access returns 0 visible decision rows | VERIFIED |
-| Room creation | Teacher can create a new room | VERIFIED |
-| Teacher access | Invalid teacher token cannot read teacher state | VERIFIED |
-| Room creation | Empty join codes are rejected | VERIFIED |
-| Room creation | Duplicate join codes are rejected | VERIFIED |
-| Room creation | Existing `room_code` is rejected | VERIFIED |
-| Room creation | Existing room data is not overwritten | VERIFIED |
-| Three-player join | Gitte joins with assigned code | VERIFIED |
-| Three-player join | Anna joins with assigned code | VERIFIED |
-| Three-player join | Linda joins with assigned code | VERIFIED |
-| Three-player join | Each player receives correct role | VERIFIED |
-| Join hardening | Used join code cannot take over active player | VERIFIED |
-| Privacy | Teacher sees submitted marker only before reveal | VERIFIED |
-| Choice validation | Browser-supplied label is canonicalized server-side | VERIFIED |
-| Choice lock | Duplicate private choice is rejected | VERIFIED |
-| State machine | Advance from collecting is rejected | VERIFIED |
-| Reveal | Reveal occurs after all three private choices | VERIFIED |
-| Reconnect | Existing session token restores player and locked choice | VERIFIED |
-| Advance | Teacher can advance after reveal | VERIFIED |
-| Reset | Teacher reset clears decisions and returns to scene 1 | VERIFIED |
-| Recovery | Claimed role rejects rejoin before release | VERIFIED |
-| Recovery | Teacher release allows prototype recovery rejoin | VERIFIED |
-| Race hardening | Concurrent double-join allows exactly one claim | VERIFIED |
-| Race hardening | Teacher state shows only one claimed role | VERIFIED |
-| Invalid choice | Invalid choice id is rejected | VERIFIED |
-
-## 5. Evidence Summary
-
-The live E2E test generated fresh random rooms and test credentials. No real classroom tokens, teacher tokens, student session tokens, or service-role keys were written to this report.
-
-Representative output:
-
-```text
-Sprint 1 live E2E passed: 26 checks.
-```
-
-Important pass lines:
-
-```text
-PASS A4 creating an existing room_code is rejected
-PASS A5 existing room data is not overwritten
-PASS B5 used join code cannot take over active player
-PASS C1 private choice hidden before reveal
-PASS C2 browser-supplied choice label is canonicalized
-PASS C4 advance from collecting is rejected
-PASS E1 concurrent double-join allows exactly one claim
-PASS F1 invalid choice id is rejected
-```
-
-## 6. Devil Check Findings
-
-| Risk | Result |
+| Test | Result |
 |---|---|
-| Existing room overwrite | VERIFIED mitigated by create-only room creation. |
-| Silent join-code takeover | VERIFIED mitigated by claimed-role rejection. |
-| Concurrent double-join race | VERIFIED mitigated; exactly one concurrent claim succeeded. |
-| Teacher accidental advance | VERIFIED mitigated; collecting-phase advance is rejected. |
-| Browser choice-label tampering | VERIFIED mitigated; canonical server label is stored. |
-| Lost student incognito session | VERIFIED recoverable through teacher-authenticated release. |
-| Public teacher page | KNOWN LIMITATION; controls still require room-specific teacher token, but this is not full production authentication. |
-| Mis-shared unused join code | KNOWN LIMITATION; Sprint 1 has no personal account system. |
+| Static project check | VERIFIED PASS |
+| Live E2E JavaScript syntax | VERIFIED PASS |
+| Live GitHub Pages + Supabase E2E | VERIFIED PASS, 40 checks |
+| Teacher token browser interaction | VERIFIED PASS |
+| Database-side recovery event | VERIFIED PASS |
 
-## 7. Known Limitations
+## 6. Defect Handling
 
-- This validation used automated independent RPC sessions and browser page-load checks, not three physical student devices.
-- Teacher access is still prototype-level room token protection, not full account authentication.
-- Join codes remain classroom credentials; a mis-shared unused join code can claim the wrong role.
-- GitHub Pages is public; secrets must not be placed in frontend source.
-- Sprint 1 still uses polling, not Supabase Realtime.
+No defect was found by the gap-closure tests. Therefore:
 
-## 8. What Was NOT Changed
+- `database/001_sprint1_core.sql` was not modified;
+- no Supabase redeployment was required;
+- no Sprint 1 runtime code was modified;
+- no Sprint 2 functionality was introduced.
 
-- No migration changes were made during this validation pass.
-- No Sprint 2 functionality was added.
-- No DiscussionRoom was added.
-- No Agent analysis was added.
-- No behavior aggregation or prediction system was added.
-- No Asset Manager was added.
-- No full story scenes, final vote, inventory system, or clue engine was added.
+## 7. Required Acceptance Outcomes
+
+| Requirement | Status |
+|---|---|
+| Teacher-side privacy | VERIFIED |
+| Student-side privacy | VERIFIED |
+| Teacher-side reveal | VERIFIED |
+| Student-side reveal | VERIFIED |
+| Scene 1 to Scene 2 transition | VERIFIED |
+| Final Scene 2 to `completed` transition | VERIFIED |
+| Old released session invalidation | VERIFIED |
+| Successful recovery rejoin | VERIFIED |
+| Recovery event logging | VERIFIED |
+| Actual Teacher token Show/Hide interaction | VERIFIED |
+| Existing 26 E2E checks still pass | VERIFIED |
+
+## 8. Known Limitations
+
+- Automated tests use independent session tokens rather than three physical student devices.
+- Teacher access remains prototype-level room-token protection, not production account authentication.
+- An unused join code is still a classroom credential and can be mis-shared.
+- Sprint 1 uses polling rather than Supabase Realtime.
 
 ## 9. Conclusion
 
-Sprint 1 hardening deployment and live acceptance validation are VERIFIED PASS for the tested scope.
+Sprint 1 acceptance gap closure is `VERIFIED PASS` for the complete requested Sprint 1 scope.
 
-Sprint 2 remains unauthorized until the user explicitly approves it.
+Sprint 2 remains unauthorized pending explicit user approval.

@@ -26,3 +26,6 @@
 
 - Added `tests/sprint1-live-e2e.js` to verify the deployed GitHub Pages frontend and Supabase backend.
 - Verified room creation hardening, three-player join, private-choice privacy, canonical choice storage, reconnect, reset, teacher release recovery, invalid choice rejection, and concurrent double-join protection.
+- Expanded the live E2E suite from 26 to 40 checks to cover student-side pre-reveal privacy, three-player reveal consistency, the final Scene 2 `completed` transition, released-token invalidation, and event-table RLS.
+- Behaviorally verified the deployed Teacher token Show/Hide control in a real browser.
+- Verified `teacher_released_player_session` with a trusted read-only Supabase SQL Editor query; no public event-log access was added.

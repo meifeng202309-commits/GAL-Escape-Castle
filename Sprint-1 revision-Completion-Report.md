@@ -5,7 +5,7 @@ Repository: https://github.com/meifeng202309-commits/GAL-Escape-Castle
 Branch: `main`  
 Sprint 2 status: `NOT STARTED`
 
-Validation update: `VERIFIED PASS` on 2026-09-17 after deploying the current Sprint 1 hardening migration to the existing Supabase project and running the live Sprint 1 E2E matrix against GitHub Pages + Supabase.
+Validation update: `VERIFIED PASS` on 2026-09-17 after deploying the current Sprint 1 hardening migration and completing the full acceptance gap-closure matrix against GitHub Pages + Supabase.
 
 Validation report:
 
@@ -49,7 +49,7 @@ The revision explicitly did not start:
 | `s1_advance_scene` should normally require `revealed` state | Now rejects advance unless room phase is `revealed`. | VERIFIED |
 | Validate join codes on server | Added non-empty validation, mutually distinct validation, and room-level join-code hash uniqueness. | VERIFIED |
 | Do not blindly trust browser choice label | Added `s1_scene_choices`; server validates `choice_id` and stores canonical `choice_label`. | VERIFIED |
-| Teacher token UI should be password/show-hide style | Teacher token input changed to password field with Show/Hide button. | VERIFIED |
+| Teacher token UI should be password/show-hide style | Actual browser interaction verified `password/Show` -> `text/Hide` -> `password/Show`. | VERIFIED |
 
 ## 3. Files Changed In Revision
 
@@ -128,9 +128,14 @@ Room already exists. Use Watch room with the existing teacher token, or use a fu
 | Reused join code takeover rejection | PASS | Already claimed role rejected second join before teacher release. |
 | Concurrent/double-join race rejection | PASS | Two simultaneous joins with the same code produced exactly one success and one already-claimed rejection. |
 | Teacher session release recovery | PASS | Teacher-authenticated release allowed rejoin after rejecting takeover. |
+| Released old session invalidation | PASS | The old token was rejected as invalid/expired; a distinct new session succeeded. |
 | Advance from collecting rejection | PASS | `s1_advance_scene` rejected collecting-phase advance. |
 | Invalid choice rejection | PASS | Invalid `choice_id` was rejected. |
-| Teacher token show/hide browser UI | PASS | Deployed Teacher Console page loaded with Teacher token field and Show button. |
+| Student-side pre-reveal privacy | PASS | Three independent player-state calls confirmed no cross-player choice disclosure. |
+| Student-side reveal consistency | PASS | All three players received the same three canonical revealed choices. |
+| Final state transition | PASS | Scene 2 reached `revealed`, then teacher and all players reached `completed` while remaining on Scene 2. |
+| Recovery event logging | PASS | Authenticated SQL Editor returned `teacher_released_player_session` for room `RUZ88TA5D3`. |
+| Teacher token show/hide browser UI | PASS | Actual browser clicks verified both transitions and final restoration. |
 
 ## 7. Devil Check
 
@@ -156,7 +161,7 @@ VERIFIED PASS
 
 Reason:
 
-The revision code has been implemented, pushed, deployed to the existing Supabase project, and verified through live Sprint 1 E2E testing against GitHub Pages + Supabase.
+The revision code has been implemented, pushed, deployed to the existing Supabase project, and verified by 40 automated live checks, actual browser interaction, and a trusted database-side event query.
 
 Sprint 1 hardening is verified for the tested scope.
 
@@ -164,12 +169,10 @@ Sprint 2 must not begin without user approval.
 
 ## 9. Repository / Deployment State
 
-Latest pushed commits at revision time:
+Tested code baseline before this acceptance gap-closure commit:
 
 ```text
-def7227 Update Sprint 1 hardening report status
-06729b6 Harden Sprint 1 room and session security
-08f39b6 Merge remote-tracking branch 'origin/main'
+dc94864 Verify Sprint 1 hardening live E2E
 ```
 
 GitHub Pages URLs:

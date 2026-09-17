@@ -82,6 +82,9 @@ After joining and submitting:
 4. In Teacher Console, click the matching "Release session" button.
 5. Try joining again with the same join code.
 6. Confirm rejoin succeeds only after teacher release.
+7. Confirm the old session token is rejected after release.
+8. Confirm the replacement session token is different and succeeds.
+9. In authenticated Supabase SQL Editor, confirm the release created a `teacher_released_player_session` event. Do not expose the event table publicly for this check.
 
 ## Concurrent / Double-Join Race Test
 
@@ -111,6 +114,24 @@ Expected database behavior:
 4. Submit all three choices and wait for reveal.
 5. Click Advance scene.
 6. Confirm it advances only after reveal.
+7. Submit all three valid Scene 2 choices and confirm Scene 2 reveals.
+8. Advance again and confirm the room remains on Scene 2 with phase `completed` for teacher and all three players.
+
+## Student Privacy And Reveal Test
+
+1. In a fresh room, have only Gitte submit a private choice.
+2. Fetch player state independently for Gitte, Anna, and Linda.
+3. Confirm Gitte sees her own locked choice and no revealed choices.
+4. Confirm Anna and Linda cannot see Gitte's choice and have empty `revealed_decisions`.
+5. Submit Anna and Linda's choices.
+6. Confirm every player reports `revealed`, receives all three canonical labels, and receives the same reveal state.
+
+## Teacher Token Show/Hide Browser Test
+
+1. Open the deployed `teacher.html` in a real browser.
+2. Confirm the initial token input type is `password` and the button says `Show`.
+3. Click Show and confirm the input type becomes `text` and the button says `Hide`.
+4. Click Hide and confirm the input returns to `password` and the button says `Show`.
 
 ## Local Static Check
 
@@ -130,7 +151,7 @@ Run only after the current migration has been deployed to Supabase:
 node tests/sprint1-live-e2e.js
 ```
 
-This uses the deployed GitHub Pages URLs and the existing Supabase project. It creates fresh random test rooms and verifies room creation hardening, three-player joins, pre-reveal privacy, canonical choice storage, reconnect, reset, teacher release recovery, invalid choice rejection, and the concurrent double-join race.
+This uses the deployed GitHub Pages URLs and the existing Supabase project. It creates fresh random test rooms and runs 40 checks covering room creation hardening, three-player joins, teacher and student pre-reveal privacy, canonical choice storage, three-player reveal consistency, Scene 2 completion, reconnect, reset, teacher release recovery, old-token invalidation, event-table RLS, invalid choice rejection, and the concurrent double-join race.
 
 ## Not Covered In Sprint 1
 
