@@ -1,0 +1,20 @@
+{
+  "master_id": "MASTER-05",
+  "role": "canonical_visual_reference",
+  "runtime_asset": false,
+  "approval_status": "APPROVED",
+  "reference_file": "MASTER-05-reference.webp",
+  "reference_copy_note": "Full-resolution canonical visual reference copy for cross-Agent continuity review; WebP-compressed at original pixel dimensions. Non-runtime; not registered in Asset Registry.",
+  "reference_dimensions": {
+    "width": 1535,
+    "height": 1024
+  },
+  "reference_sha256": "7c1be7b061846eada37018730cc71634961c4b3a9c0d0489fe8c3dac1ecbd447",
+  "approved_source_file": "wide_cinematic_moody_night_scene_of_an_old_gothic.png",
+  "approved_source_dimensions": {
+    "width": 1535,
+    "height": 1024
+  },
+  "approved_source_sha256": "fbc81ee8fd2f2685dde07ed11f5d5374a05405df2493076bc799a1ca2510f225",
+  "canon_notes": "Approved West Tower continuity master. Large main entrance is sealed with old brick and retains an old municipal seal. Smaller half-open pointed-arch servants' passage at the side carries all locked recognition features: obvious upper-right missing stone, long black fork-shaped strap hinges, and a small quatrefoil on the stone left of the frame. Cold blue-grey moonlight only."
+}
