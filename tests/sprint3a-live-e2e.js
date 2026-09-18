@@ -36,12 +36,15 @@ async function main(){
   assert(states.every(s=>s.scene.display_mode==="ACTION_SCREEN"&&s.scene.text_key==="common.001"),"Scene foundation restore failed.");
   pass("A2 fixture restores isolated pocket, observation, knowledge, group and scene state");
 
-  await reject("A3 invalid view is rejected",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-B",p_source_item_key:"fixture.physical_item",p_source_view:"back"}),"Invalid or non-shareable");
   await rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-B",p_source_item_key:"fixture.physical_item",p_source_view:"front"});
+  await reject("A3 back share before FLIP is rejected",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"back"}),"current server-authoritative");
+  await rpc("s3_set_item_view",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_item_key:"fixture.physical_item",p_target_view:"back"});
+  await rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"back"});
   const sender=await playerState(f,0),recipient=await playerState(f,1);
   assert(sender.items.length===1&&recipient.items.length===0&&recipient.shared_photos.length===1,"Photo share transferred ownership or failed copy delivery.");
   assert(recipient.knowledge.length===0,"Photo share silently transferred knowledge.");
-  pass("A4 SHARE PHOTO preserves ownership and delivers only the copy");
+  assert(sender.items[0].current_view==="back"&&(await playerState(f,2)).shared_photos[0].source_view==="back","FLIP/back share or reconnect view restore failed.");
+  pass("A4 current-view SHARE PHOTO preserves ownership and delivers only the current copy");
   await reject("A5 recipient cannot re-share as physical owner",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[1].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"front"}),"not the physical owner");
   const reconnect=await playerState(f,1); assert(reconnect.shared_photos.length===1,"Reconnect lost photo copy."); pass("A6 reconnect restores all foundation state categories");
 
@@ -50,10 +53,18 @@ async function main(){
   assert(JSON.stringify(teacher).includes("fixture.private_observation")===false,"Teacher state leaked private content.");
   pass("A7 Teacher receives metadata counts without private clue content");
 
+  for (const [name,expected] of [
+    ["outside_holder","does not belong to this run room"],
+    ["unowned_item","physically owned by the holder"],
+    ["missing_photo","actual received copy"],
+    ["absent_group","present in this run"],
+    ["cross_room_source","source player does not belong"],
+  ]) await reject(`A7 provenance rejects ${name}`,()=>rpc("s3_audit_provenance_probe",{p_room_code:f.room,p_teacher_token:f.teacher,p_case:name}),expected);
+
   const other=await fixture("audit"); await rpc("s3_initialize_audit_fixture",{p_room_code:other.room,p_teacher_token:other.teacher});
   assert((await playerState(other,1)).shared_photos.length===0,"Run isolation failed."); pass("A8 independent run state is isolated");
 
-  const tables=["s3_runtime_scene_state","s3_item_catalog","s3_observation_catalog","s3_knowledge_catalog","s3_player_items","s3_player_observations","s3_player_knowledge","s3_shared_photos","s3_group_items"];
+  const tables=["s3_runtime_scene_state","s3_item_catalog","s3_observation_catalog","s3_knowledge_catalog","s3_player_items","s3_player_item_view_state","s3_player_observations","s3_player_knowledge","s3_shared_photos","s3_group_items"];
   for(const table of tables){const response=await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*`,{headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`}});const rows=await response.json();assert(response.ok&&Array.isArray(rows)&&rows.length===0,`RLS read exposed ${table}`);}
   pass("B1 anonymous direct reads are blocked",`${tables.length} tables`);
   const write=await fetch(`${SUPABASE_URL}/rest/v1/s3_group_items`,{method:"POST",headers:{apikey:SUPABASE_KEY,Authorization:`Bearer ${SUPABASE_KEY}`,"Content-Type":"application/json"},body:"{}"});

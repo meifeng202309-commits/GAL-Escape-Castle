@@ -5,8 +5,11 @@ const { execFileSync } = require("node:child_process");
 const root = path.resolve(__dirname, "..");
 const migrationPath = path.join(root, "database/005_sprint3a_scene_pocket_knowledge_foundation.sql");
 if (!fs.existsSync(migrationPath)) throw new Error("Missing Sprint 3A migration.");
+const correctionPath = path.join(root, "database/006_sprint3a_provenance_view_integrity_fix.sql");
+if (!fs.existsSync(correctionPath)) throw new Error("Missing Sprint 3A integrity correction migration.");
 if (!fs.existsSync(path.join(root, "tests/sprint3a-live-e2e.js"))) throw new Error("Missing Sprint 3A live suite.");
 const sql = fs.readFileSync(migrationPath, "utf8");
+const correction = fs.readFileSync(correctionPath, "utf8");
 
 for (const fragment of [
   "s3_runtime_scene_state", "s3_player_items", "s3_player_observations", "s3_player_knowledge",
@@ -17,6 +20,9 @@ for (const fragment of [
 
 if (!sql.includes("enable row level security")) throw new Error("Sprint 3A tables lack RLS.");
 if (/service[_-]?role/i.test(sql)) throw new Error("Service-role reference is forbidden.");
+for (const fragment of ["s3_player_item_view_state","s3_set_item_view","Only the current server-authoritative item view","Knowledge holder does not belong","Shared-photo provenance requires an actual received copy","Group-item provenance requires an item present"]) {
+  if (!correction.includes(fragment)) throw new Error(`Sprint 3A integrity correction missing: ${fragment}`);
+}
 
 execFileSync(process.execPath, [path.join(root, "scripts/generate-localization.js")], { stdio: "inherit" });
 const generated = path.join(root, "src/content/localization.generated.js");
