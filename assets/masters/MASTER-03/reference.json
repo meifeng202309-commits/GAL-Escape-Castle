@@ -1,0 +1,20 @@
+{
+  "master_id": "MASTER-03",
+  "role": "canonical_visual_reference",
+  "runtime_asset": false,
+  "approval_status": "APPROVED",
+  "reference_file": "MASTER-03-reference.webp",
+  "reference_copy_note": "Full-resolution canonical visual reference copy for cross-Agent continuity review; WebP-compressed at original pixel dimensions. Non-runtime; not registered in Asset Registry.",
+  "reference_dimensions": {
+    "width": 1447,
+    "height": 1087
+  },
+  "reference_sha256": "e8cfca16dffd59eae8208d68bcdf14eeb06f1dc120d3997ac44ebf4a5315d0d5",
+  "approved_source_file": "MASTER-03_Castle_Map_Approved.png",
+  "approved_source_dimensions": {
+    "width": 1447,
+    "height": 1087
+  },
+  "approved_source_sha256": "c1452b75709016e01d21e30e57a192eb9fae1ba71db7219c94a3ccebd942a13b",
+  "canon_notes": "Approved Castle Map / Spatial Master. Library positioned in the northwest garden zone; informal shortcut retained; central neo-Gothic tower added; north arrow and scale retained; no Unknown Passage shown."
+}
