@@ -399,4 +399,4 @@ Sprint 0 audit is complete.
 
 Do not begin Sprint 1 until the user confirms the questions above.
 
-User approved Sprint 0 on 2026-09-16 and authorized Sprint 1 with the constraints recorded in `docs/sprint-1-architecture.md`.
+User approved Sprint 0 on 2026-09-16 and authorized Sprint 1 with the constraints recorded in `docs/reports/sprint-1/sprint-1-architecture.md`.
