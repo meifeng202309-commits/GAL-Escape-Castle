@@ -1,0 +1,21 @@
+{
+  "asset_key": "shared.library",
+  "display_name": "Library",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-02", "MASTER-03"],
+  "required_anchors": ["library_unknown_door"],
+  "filename": "shared.library__v001.webp",
+  "width_px": 1536,
+  "height_px": 1024,
+  "sha256": "1744eadaa32a5b5827004f70d7c420fb23a8c279875901adb7c09cbb64b045a3",
+  "source_png_sha256": "42b7866356520b120de636b8abb7a62cc6f1f950b35ebf728c1896af64dd033c",
+  "ui_anchor_notes": {
+    "library_unknown_door": "small unobtrusive old door on back wall, right of center; stable for ACT 4 crop/overlay"
+  },
+  "revision_note": "Targeted regeneration after compliance review: reduced and visually de-emphasized the back-wall door while keeping it crop-readable for ACT 4; retained central dark-oak table, five-digit lock box, moonlight-only lighting, and right/lower UI-safe negative space.",
+  "technical_notes": "Full-resolution WebP candidate at original 1536x1024 pixel dimensions. Non-ACTIVE; CD/Asset Manager handles Supabase publication and runtime activation."
+}

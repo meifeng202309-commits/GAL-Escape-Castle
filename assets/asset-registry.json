@@ -16,11 +16,16 @@
     {
       "asset_key": "opening.gitte_room",
       "display_name": "Gitte's Room",
-      "aliases": ["Gitte Room", "Gitte opening room"],
+      "aliases": [
+        "Gitte Room",
+        "Gitte opening room"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-02"],
+      "continuity_refs": [
+        "MASTER-02"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -28,11 +33,16 @@
     {
       "asset_key": "opening.anna_room",
       "display_name": "Anna's Room",
-      "aliases": ["Anna Room", "Anna opening room"],
+      "aliases": [
+        "Anna Room",
+        "Anna opening room"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-02"],
+      "continuity_refs": [
+        "MASTER-02"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -40,11 +50,17 @@
     {
       "asset_key": "opening.linda_study",
       "display_name": "Linda's Study",
-      "aliases": ["Linda Study", "Linda opening study"],
+      "aliases": [
+        "Linda Study",
+        "Linda opening study"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-02", "MASTER-04"],
+      "continuity_refs": [
+        "MASTER-02",
+        "MASTER-04"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -52,11 +68,16 @@
     {
       "asset_key": "prop_gitte_castle_map",
       "display_name": "Castle Map",
-      "aliases": ["Gitte castle map", "Castle spatial map"],
+      "aliases": [
+        "Gitte castle map",
+        "Castle spatial map"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-03"],
+      "continuity_refs": [
+        "MASTER-03"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -64,11 +85,16 @@
     {
       "asset_key": "prop_gitte_number_note_front",
       "display_name": "Number Note Front",
-      "aliases": ["Gitte number note front", "Number note front"],
+      "aliases": [
+        "Gitte number note front",
+        "Number note front"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": "gitte_number_note",
       "required_anchors": [],
       "runtime_required": true
@@ -76,11 +102,16 @@
     {
       "asset_key": "prop_gitte_number_note_back",
       "display_name": "Number Note Back",
-      "aliases": ["Gitte number note back", "Number note back"],
+      "aliases": [
+        "Gitte number note back",
+        "Number note back"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": "gitte_number_note",
       "required_anchors": [],
       "runtime_required": true
@@ -88,11 +119,16 @@
     {
       "asset_key": "prop_anna_diary_open",
       "display_name": "Anna's Open Diary",
-      "aliases": ["Anna diary", "Open diary"],
+      "aliases": [
+        "Anna diary",
+        "Open diary"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -100,11 +136,16 @@
     {
       "asset_key": "prop_linda_watch_face",
       "display_name": "Linda's Watch Face",
-      "aliases": ["Linda watch face", "Pocket watch face"],
+      "aliases": [
+        "Linda watch face",
+        "Pocket watch face"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": "linda_pocket_watch",
       "required_anchors": [],
       "runtime_required": true
@@ -112,11 +153,16 @@
     {
       "asset_key": "prop_linda_watch_back",
       "display_name": "Linda's Watch Back",
-      "aliases": ["Linda watch back", "Pocket watch back"],
+      "aliases": [
+        "Linda watch back",
+        "Pocket watch back"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": "linda_pocket_watch",
       "required_anchors": [],
       "runtime_required": true
@@ -124,11 +170,17 @@
     {
       "asset_key": "prop_linda_closure_order",
       "display_name": "Laarne Closure Order",
-      "aliases": ["Linda closure order", "Municipal closure order", "1897 closure order"],
+      "aliases": [
+        "Linda closure order",
+        "Municipal closure order",
+        "1897 closure order"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -136,11 +188,17 @@
     {
       "asset_key": "prop_linda_star_key",
       "display_name": "Silver Star Key",
-      "aliases": ["Silver Key", "Star Key", "Linda silver key"],
+      "aliases": [
+        "Silver Key",
+        "Star Key",
+        "Linda silver key"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -148,23 +206,37 @@
     {
       "asset_key": "shared.library",
       "display_name": "Library",
-      "aliases": ["Shared Library", "Castle library"],
+      "aliases": [
+        "Shared Library",
+        "Castle library"
+      ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
-      "continuity_refs": ["MASTER-02", "MASTER-03"],
+      "continuity_refs": [
+        "MASTER-02",
+        "MASTER-03"
+      ],
       "paired_asset_group": null,
-      "required_anchors": ["library_unknown_door"],
+      "required_anchors": [
+        "library_unknown_door"
+      ],
       "runtime_required": true
     },
     {
       "asset_key": "prop.photo_1897",
       "display_name": "1897 Photograph",
-      "aliases": ["1897 photo", "West Tower photograph", "Library photograph"],
+      "aliases": [
+        "1897 photo",
+        "West Tower photograph",
+        "Library photograph"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-05"],
+      "continuity_refs": [
+        "MASTER-05"
+      ],
       "paired_asset_group": "photo_1897_west_tower_payoff",
       "required_anchors": [],
       "runtime_required": true
@@ -172,11 +244,17 @@
     {
       "asset_key": "prop.library_clock_clue_note",
       "display_name": "Library Clock Clue Note",
-      "aliases": ["Torn Note", "Clock clue note", "Library torn note"],
+      "aliases": [
+        "Torn Note",
+        "Clock clue note",
+        "Library torn note"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -184,47 +262,78 @@
     {
       "asset_key": "shared.portrait_hall",
       "display_name": "Portrait Hall",
-      "aliases": ["Shared Portrait Hall", "Portrait Hall base"],
+      "aliases": [
+        "Shared Portrait Hall",
+        "Portrait Hall base"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-02"],
+      "continuity_refs": [
+        "MASTER-02"
+      ],
       "paired_asset_group": "portrait_hall_eye_overlay",
-      "required_anchors": ["portrait_main_face"],
+      "required_anchors": [
+        "portrait_main_face"
+      ],
       "runtime_required": true
     },
     {
       "asset_key": "overlay.portrait_eyes_open",
       "display_name": "Portrait Open-Eyes Overlay",
-      "aliases": ["Portrait eyes open", "Portrait eye overlay", "Open-eyes overlay"],
+      "aliases": [
+        "Portrait eyes open",
+        "Portrait eye overlay",
+        "Open-eyes overlay"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["shared.portrait_hall"],
+      "continuity_refs": [
+        "shared.portrait_hall"
+      ],
       "paired_asset_group": "portrait_hall_eye_overlay",
-      "required_anchors": ["portrait_main_face"],
+      "required_anchors": [
+        "portrait_main_face"
+      ],
       "runtime_required": true
     },
     {
       "asset_key": "shared.clock_room",
       "display_name": "Clock Room",
-      "aliases": ["Shared Clock Room", "Castle clock room"],
+      "aliases": [
+        "Shared Clock Room",
+        "Castle clock room"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-02", "MASTER-03"],
+      "continuity_refs": [
+        "MASTER-02",
+        "MASTER-03"
+      ],
       "paired_asset_group": null,
-      "required_anchors": ["clock_A_face", "clock_B_face", "clock_C_face"],
+      "required_anchors": [
+        "clock_A_face",
+        "clock_B_face",
+        "clock_C_face"
+      ],
       "runtime_required": true
     },
     {
       "asset_key": "shared.west_tower_payoff",
       "display_name": "West Tower Payoff",
-      "aliases": ["West Tower", "Present West Tower", "West Tower servants passage"],
+      "aliases": [
+        "West Tower",
+        "Present West Tower",
+        "West Tower servants passage"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-05"],
+      "continuity_refs": [
+        "MASTER-05"
+      ],
       "paired_asset_group": "photo_1897_west_tower_payoff",
       "required_anchors": [],
       "runtime_required": true
@@ -232,23 +341,38 @@
     {
       "asset_key": "shared.great_hall",
       "display_name": "Great Hall",
-      "aliases": ["Shared Great Hall", "Castle great hall"],
+      "aliases": [
+        "Shared Great Hall",
+        "Castle great hall"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-02", "MASTER-03"],
+      "continuity_refs": [
+        "MASTER-02",
+        "MASTER-03"
+      ],
       "paired_asset_group": null,
-      "required_anchors": ["great_hall_red_door", "great_hall_blue_door", "great_hall_black_door"],
+      "required_anchors": [
+        "great_hall_red_door",
+        "great_hall_blue_door",
+        "great_hall_black_door"
+      ],
       "runtime_required": true
     },
     {
       "asset_key": "prop.golden_key",
       "display_name": "Golden Key",
-      "aliases": ["Gold key", "Great Hall golden key"],
+      "aliases": [
+        "Gold key",
+        "Great Hall golden key"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-04"],
+      "continuity_refs": [
+        "MASTER-04"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -256,23 +380,41 @@
     {
       "asset_key": "shared.main_gate",
       "display_name": "Main Gate",
-      "aliases": ["Shared Main Gate", "Castle main gate", "Final mechanism gate"],
+      "aliases": [
+        "Shared Main Gate",
+        "Castle main gate",
+        "Final mechanism gate"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-01", "MASTER-03"],
+      "continuity_refs": [
+        "MASTER-01",
+        "MASTER-03"
+      ],
       "paired_asset_group": null,
-      "required_anchors": ["main_gate_station_A", "main_gate_station_B", "main_gate_station_C", "main_gate_watcher_corridor"],
+      "required_anchors": [
+        "main_gate_station_A",
+        "main_gate_station_B",
+        "main_gate_station_C",
+        "main_gate_watcher_corridor"
+      ],
       "runtime_required": true
     },
     {
       "asset_key": "ending.castle_exterior",
       "display_name": "Final Castle Exterior",
-      "aliases": ["Ending castle exterior", "Final Exterior", "Escape exterior"],
+      "aliases": [
+        "Ending castle exterior",
+        "Final Exterior",
+        "Escape exterior"
+      ],
       "asset_type": "image",
       "latest_version": 0,
       "active_version": null,
-      "continuity_refs": ["MASTER-01"],
+      "continuity_refs": [
+        "MASTER-01"
+      ],
       "paired_asset_group": null,
       "required_anchors": [],
       "runtime_required": true
@@ -280,7 +422,10 @@
     {
       "asset_key": "audio.wet_scraping",
       "display_name": "Wet Scraping",
-      "aliases": ["Wet scraping sound", "ACT12 wet scraping"],
+      "aliases": [
+        "Wet scraping sound",
+        "ACT12 wet scraping"
+      ],
       "asset_type": "audio",
       "latest_version": 0,
       "active_version": null,
@@ -292,7 +437,10 @@
     {
       "asset_key": "audio.snakes_approaching",
       "display_name": "Snakes Approaching",
-      "aliases": ["Approaching snakes", "ACT12 snakes approaching"],
+      "aliases": [
+        "Approaching snakes",
+        "ACT12 snakes approaching"
+      ],
       "asset_type": "audio",
       "latest_version": 0,
       "active_version": null,
@@ -304,7 +452,10 @@
     {
       "asset_key": "audio.old_alarm_bell",
       "display_name": "Old Alarm Bell",
-      "aliases": ["Alarm bell", "Golden Key alarm"],
+      "aliases": [
+        "Alarm bell",
+        "Golden Key alarm"
+      ],
       "asset_type": "audio",
       "latest_version": 0,
       "active_version": null,
@@ -316,7 +467,10 @@
     {
       "asset_key": "audio.snake_hiss_short",
       "display_name": "Short Snake Hiss",
-      "aliases": ["Snake hiss", "Great Hall snake hiss"],
+      "aliases": [
+        "Snake hiss",
+        "Great Hall snake hiss"
+      ],
       "asset_type": "audio",
       "latest_version": 0,
       "active_version": null,
@@ -328,7 +482,10 @@
     {
       "asset_key": "audio.mechanism_clang",
       "display_name": "Mechanism Clang",
-      "aliases": ["Final mechanism clang", "ACT12 mechanism clang"],
+      "aliases": [
+        "Final mechanism clang",
+        "ACT12 mechanism clang"
+      ],
       "asset_type": "audio",
       "latest_version": 0,
       "active_version": null,
@@ -340,7 +497,10 @@
     {
       "asset_key": "audio.gate_opening",
       "display_name": "Gate Opening",
-      "aliases": ["Main gate opening", "Final gate opening"],
+      "aliases": [
+        "Main gate opening",
+        "Final gate opening"
+      ],
       "asset_type": "audio",
       "latest_version": 0,
       "active_version": null,
