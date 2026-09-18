@@ -1,0 +1,19 @@
+{
+  "master_id": "MASTER-01",
+  "role": "canonical_visual_reference",
+  "runtime_asset": false,
+  "approval_status": "APPROVED",
+  "reference_file": "MASTER-01-reference.webp",
+  "reference_copy_note": "Compressed GitHub reference copy for cross-Agent visual access; not a runtime asset and not a replacement for the approved full-resolution source.",
+  "reference_dimensions": {
+    "width": 320,
+    "height": 180
+  },
+  "reference_sha256": "46d86098b84086a1b86c5dfe86ffe0f24ce3ec4af00011a984f35f85802eafc9",
+  "approved_source_dimensions": {
+    "width": 1672,
+    "height": 941
+  },
+  "approved_source_sha256": "dc06c332eafaf691c14bbbae1dad8d6171a59465955b760e02bca332164f7540",
+  "canon_notes": "Approved castle exterior visual canon. Cold blue-grey moonlight only; no warm-lit windows, torches, or sunset glow."
+}

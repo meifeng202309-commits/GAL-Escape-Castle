@@ -1,0 +1,19 @@
+{
+  "master_id": "MASTER-02",
+  "role": "canonical_visual_reference",
+  "runtime_asset": false,
+  "approval_status": "APPROVED",
+  "reference_file": "MASTER-02-reference.webp",
+  "reference_copy_note": "Compressed GitHub reference copy for cross-Agent visual access; not a runtime asset and not a replacement for the approved full-resolution source.",
+  "reference_dimensions": {
+    "width": 320,
+    "height": 213
+  },
+  "reference_sha256": "f19ec1672c26d350c3f1c877d157ee287329ca83c36c886e630cf5b0b19f77f2",
+  "approved_source_dimensions": {
+    "width": 1536,
+    "height": 1024
+  },
+  "approved_source_sha256": "a2e50632a116a3e7a150d70de3fa40c6792e559398576da71432b1cc05f7a502",
+  "canon_notes": "Approved interior visual canon. Abandoned, decayed, damp neo-Gothic interior; cold blue-grey moonlight only."
+}
