@@ -6,6 +6,7 @@ const requiredFiles = [
   "database/001_sprint1_core.sql",
   "database/002_runtime_runs_discussion.sql",
   "database/003_sprint2_discussionroom_audit_fix.sql",
+  "database/004_sprint2_fallback_resolution_semantics.sql",
   "index.html",
   "teacher.html",
   "src/game/app.js",
@@ -21,6 +22,7 @@ for (const file of requiredFiles) {
 
 const migration = fs.readFileSync(path.join(root, "database/002_runtime_runs_discussion.sql"), "utf8");
 const correction = fs.readFileSync(path.join(root, "database/003_sprint2_discussionroom_audit_fix.sql"), "utf8");
+const fallbackSemantics = fs.readFileSync(path.join(root, "database/004_sprint2_fallback_resolution_semantics.sql"), "utf8");
 const student = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 const teacher = fs.readFileSync(path.join(root, "src/teacher/teacher-console.js"), "utf8");
 const indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
@@ -67,6 +69,22 @@ if (correction.includes("fallback_resolution must match a configured vote option
 
 if ((correction.match(/m\.discussion_session_id = v_session\.discussion_session_id/g) || []).length < 2) {
   throw new Error("Current transcript must be session-scoped for both player and teacher state.");
+}
+
+for (const fragment of [
+  "create or replace function public.s2_submit_vote",
+  "'resolution_id', v_session.fallback_resolution",
+  "'resolution_source', 'system_fallback'",
+]) {
+  if (!fallbackSemantics.includes(fragment)) throw new Error(`Fallback semantics migration missing: ${fragment}`);
+}
+
+const fallbackOutcome = fallbackSemantics.slice(
+  fallbackSemantics.indexOf("if v_session.fallback_resolution is not null then"),
+  fallbackSemantics.indexOf("raise exception 'Unexpected vote tally state.'"),
+);
+if (fallbackOutcome.includes("'choice_id', v_session.fallback_resolution")) {
+  throw new Error("System fallback must not be represented as a player choice_id.");
 }
 
 if (migration.includes("delete from public.game_runs") || migration.includes("delete from public.runtime_player_decisions")) {

@@ -266,7 +266,7 @@ async function testSingleRevoteFallbackAndIsolation() {
   assert(state.messages.length === 0, "Re-vote current transcript accidentally inherited the previous session transcript.");
   await openVote(f);
   const act2Fallback = await submitThreeWayTie(f);
-  assert(act2Fallback.resolution === "fallback" && act2Fallback.choice_id === "known", "ACT2-style option fallback did not resolve after one re-vote.");
+  assert(act2Fallback.resolution === "fallback" && act2Fallback.resolution_id === "known" && act2Fallback.resolution_source === "system_fallback", "ACT2-style option fallback contract is incorrect.");
   pass("E1 ACT2-style tie allows one re-vote then option fallback", act2.discussion_session_id);
 
   const act6 = await openDiscussion(f, {
@@ -291,7 +291,10 @@ async function testSingleRevoteFallbackAndIsolation() {
   assert(act6Tie.status === "discussion" && state.discussion.round_no === 2, "ACT6 first tie skipped its allowed re-vote.");
   await openVote(f);
   const act6Fallback = await submitThreeWayTie(f);
-  assert(act6Fallback.resolution === "fallback" && act6Fallback.choice_id === "portrait_fixed_fallback", "ACT6 non-option fallback failed.");
+  assert(act6Fallback.resolution === "fallback" && act6Fallback.resolution_id === "portrait_fixed_fallback" && act6Fallback.resolution_source === "system_fallback", "ACT6 non-option fallback contract is incorrect.");
+  const act6Resolved = await playerState(f, 0);
+  assert(act6Resolved.discussion.outcome.resolution_id === "portrait_fixed_fallback" && act6Resolved.discussion.outcome.resolution_source === "system_fallback", "Persisted ACT6 outcome lacks explicit system fallback semantics.");
+  assert(act6Resolved.discussion.outcome.choice_id === undefined, "Persisted ACT6 fallback is still represented as choice_id.");
   pass("E3 ACT6 supports a non-option fallback after exactly one re-vote");
 
   const act5Fixture = await createFixture();
@@ -305,7 +308,7 @@ async function testSingleRevoteFallbackAndIsolation() {
   await submitThreeWayTie(act5Fixture);
   await openVote(act5Fixture);
   const act5Fallback = await submitThreeWayTie(act5Fixture);
-  assert(act5Fallback.resolution === "fallback" && act5Fallback.choice_id === "inspect", "ACT5-style fallback failed.");
+  assert(act5Fallback.resolution === "fallback" && act5Fallback.resolution_id === "inspect" && act5Fallback.resolution_source === "system_fallback", "ACT5-style fallback contract is incorrect.");
   pass("E4 ACT5-style option fallback resolves after one re-vote");
 
   const invalidFixture = await createFixture();
