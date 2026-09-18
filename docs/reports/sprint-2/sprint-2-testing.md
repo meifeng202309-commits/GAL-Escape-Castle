@@ -7,6 +7,7 @@ Apply in order:
 ```text
 database/001_sprint1_core.sql
 database/002_runtime_runs_discussion.sql
+database/003_sprint2_discussionroom_audit_fix.sql
 ```
 
 Do not edit or replace the deployed Sprint 1 migration.
@@ -23,7 +24,7 @@ node --check tests/sprint2-live-e2e.js
 
 ## Live E2E
 
-After deploying `002_runtime_runs_discussion.sql` and publishing the frontend:
+After deploying migrations through `003_sprint2_discussionroom_audit_fix.sql`:
 
 ```text
 node tests/sprint1-live-e2e.js
@@ -51,6 +52,13 @@ The Sprint 2 live suite creates fresh random rooms and verifies:
 - server deadline transition to `WAITING_FOR_MISSING_PLAYER`;
 - teacher Add 30 seconds;
 - direct anonymous reads blocked by RLS.
+- ACT2- and ACT5-style option fallback after exactly one re-vote;
+- ACT6 non-option `portrait_fixed_fallback` after exactly one re-vote;
+- local `round_no = 1` for a second independent discussion in one run;
+- current transcript isolation by `discussion_session_id`;
+- preservation of earlier messages in teacher-only `message_history`;
+- invalid `choice_id` rejection;
+- direct anonymous write rejection.
 
 ## Manual Browser Matrix
 
@@ -78,3 +86,12 @@ Sprint 2 stores metadata required by the future Sprint 8 export. It does not cre
 - Sprint 2 live E2E: **VERIFIED**, 17/17 checks passed.
 - GitHub Pages frontend smoke: **VERIFIED**, student and teacher pages loaded with no console errors/warnings.
 - Three separate physical student devices: **NOT VERIFIED**.
+
+## Audit-Fix Deployment Acceptance Result — 2026-09-19
+
+- Correction commit: `a74a5b25d5cf9081cdd0f7320c0c724b47ae08b6`.
+- Additive migration: `database/003_sprint2_discussionroom_audit_fix.sql`.
+- Supabase migration: **VERIFIED BY USER**, SQL Editor returned `Success. No rows returned`.
+- Sprint 1 live regression after deployment: **VERIFIED**, 40/40 checks passed.
+- Expanded Sprint 2 live E2E after deployment: **VERIFIED**, 23/23 checks passed.
+- Physical three-student-device plus teacher-device walkthrough: **NOT VERIFIED**.

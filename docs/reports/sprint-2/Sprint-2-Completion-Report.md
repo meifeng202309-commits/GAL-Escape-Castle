@@ -1,11 +1,27 @@
 # Sprint 2 Completion Report — Reusable DiscussionRoom
 
-Status: **READY_FOR_CA_AUDIT**
+Status: **READY_FOR_CA RE-AUDIT**
 
 Implementation commit: `24ebea418c93d76038c477783970df4c53dd3d90`
+Audit-fix commit: `a74a5b25d5cf9081cdd0f7320c0c724b47ae08b6`
 
 Supabase project: `qdcbdcjobzytzhnhfwyn`
 Scope: Sprint 2 only
+
+## 0. CA Audit Corrections
+
+**VERIFIED AFTER DEPLOYMENT**
+
+- Added `database/003_sprint2_discussionroom_audit_fix.sql`; deployed history in `001` and `002` remains unchanged.
+- `fallback_resolution` is now a server-authored resolution identifier and may be a non-option value such as `portrait_fixed_fallback`; player `choice_id` validation remains canonical and unchanged.
+- Each independent discussion starts with local `round_no = 1`; re-votes increment local `round_no`, while run-wide `vote_round` remains monotonic and preserves decision identity.
+- Player and teacher `messages` now contain only the current `discussion_session_id` transcript.
+- Teacher `message_history` separately preserves the run-wide transcript for audit/history use.
+- Expanded live coverage includes ACT2/ACT5 option fallbacks, ACT6 non-option fallback, exactly one re-vote, a second independent discussion in the same run, transcript isolation/history preservation, invalid choice rejection, and anonymous direct-write rejection.
+- Post-deployment evidence: Sprint 1 **40/40 PASS**; Sprint 2 **23/23 PASS**.
+- Physical multi-device classroom verification remains **NOT VERIFIED**.
+
+Localization boundary acknowledged: `docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv` is canonical for later ACT 1–14 text binding. Localization was intentionally not mixed into this Sprint 2 correction.
 
 ## 1. What I Changed
 

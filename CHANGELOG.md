@@ -43,3 +43,12 @@
 - Added Sprint 2 static and live E2E suites; updated Sprint 1 static paths after the repository documentation move.
 - Removed the stale non-canonical Asset Registry `audit_status` field after CA's recorded PASS.
 - Did not add full story scenes, Pocket, Asset Manager runtime publishing, Agent analysis, final exports, prediction, or audio systems.
+
+## Sprint 2 — CA Audit Corrections
+
+- Added additive migration `003_sprint2_discussionroom_audit_fix.sql` without rewriting deployed `001` or `002` history.
+- Allowed server-authored non-option fallback identifiers while preserving canonical player vote validation.
+- Decoupled local discussion `round_no` from run-wide `vote_round`.
+- Scoped current transcripts to the active `discussion_session_id` and exposed teacher-only run-wide message history separately.
+- Expanded Sprint 2 live E2E from 17 to 23 checks, including ACT2/ACT5/ACT6 fallback semantics, sequential discussions, transcript isolation, invalid choice rejection, and anonymous direct-write rejection.
+- Reverified Sprint 1 at 40/40 and Sprint 2 at 23/23 after deploying migration `003`.
