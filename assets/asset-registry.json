@@ -1,7 +1,6 @@
 {
   "schema_version": "1.0",
   "registry_role": "canonical_asset_identity_and_version_authority",
-  "audit_status": "PENDING_CA_AUDIT",
   "source_documents": [
     "docs/specs/current/古堡逃脱游戏脚本 V4.0.md",
     "docs/specs/current/Castle Visual V2.1.md",

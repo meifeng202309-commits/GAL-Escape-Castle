@@ -15,8 +15,8 @@ const requiredFiles = [
   "src/utils/html.js",
   "src/styles/app.css",
   "database/001_sprint1_core.sql",
-  "docs/sprint-1-architecture.md",
-  "docs/sprint-1-testing.md",
+  "docs/reports/sprint-1/sprint-1-architecture.md",
+  "docs/reports/sprint-1/sprint-1-testing.md",
 ];
 
 for (const file of requiredFiles) {

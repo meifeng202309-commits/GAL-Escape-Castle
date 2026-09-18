@@ -51,6 +51,64 @@
       <button class="secondary release-session" data-role-slot="GAL-C">Release Linda session</button>
     </div>
   </section>
+
+  <section class="panel">
+    <div class="topline">
+      <div>
+        <p class="eyebrow">Sprint 2</p>
+        <h2>Reusable DiscussionRoom</h2>
+      </div>
+      <span id="runBadge" class="badge">No active run</span>
+    </div>
+    <div class="field-grid teacher-grid">
+      <label>Run mode
+        <select id="runMode">
+          <option value="normal">NORMAL</option>
+          <option value="audit">AUDIT</option>
+        </select>
+      </label>
+      <label>Discussion seconds <input id="discussionSeconds" type="number" min="5" max="3600" value="90"></label>
+      <label>Vote seconds <input id="voteSeconds" type="number" min="5" max="3600" value="60"></label>
+    </div>
+    <div class="button-row">
+      <button id="startRunButton" type="button">Start formal run</button>
+    </div>
+    <hr>
+    <div class="field-grid teacher-grid">
+      <label class="span-two">Topic <input id="discussionTopicInput" value="Choose the safest route out of the castle"></label>
+      <label>Tie policy
+        <select id="tiePolicy">
+          <option value="REPEAT_UNTIL_MAJORITY">Repeat until majority</option>
+          <option value="SINGLE_REVOTE_THEN_FALLBACK">One re-vote then fallback</option>
+          <option value="NO_TIE_POSSIBLE">No tie possible</option>
+        </select>
+      </label>
+      <label>Re-vote seconds <input id="revoteSeconds" type="number" min="5" max="3600" value="30"></label>
+      <label>Maximum re-votes <input id="maxRevotes" type="number" min="0" value="1"></label>
+      <label>Fallback choice ID <input id="fallbackResolution" value="inspect" placeholder="Required for single re-vote"></label>
+      <label class="span-two">Vote options, one <code>id|label</code> per line
+        <textarea id="voteOptions" rows="4">known|Take the known route
+unknown|Try the unknown passage
+inspect|Inspect before deciding</textarea>
+      </label>
+    </div>
+    <div class="check-row">
+      <label><input id="showInitialChoices" type="checkbox" checked> Reveal configured initial choices</label>
+      <label><input id="requireFinalVote" type="checkbox" checked> Require final vote</label>
+      <label><input id="silentTextingMode" type="checkbox"> Silent texting mode</label>
+    </div>
+    <div class="button-row">
+      <button id="openDiscussionButton" type="button">Open discussion</button>
+      <button id="openVoteButton" class="secondary" type="button">Open vote now</button>
+      <button id="addTimeButton" class="secondary" type="button">Add 30 seconds</button>
+    </div>
+    <p id="discussionTeacherStatus" class="status muted"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Discussion observation</h2>
+    <div id="discussionState">No active formal run.</div>
+  </section>
 </main>
 
 <script type="module" src="./src/teacher/teacher-console.js"></script>

@@ -29,3 +29,17 @@
 - Expanded the live E2E suite from 26 to 40 checks to cover student-side pre-reveal privacy, three-player reveal consistency, the final Scene 2 `completed` transition, released-token invalidation, and event-table RLS.
 - Behaviorally verified the deployed Teacher token Show/Hide control in a real browser.
 - Verified `teacher_released_player_session` with a trusted read-only Supabase SQL Editor query; no public event-log access was added.
+
+## Sprint 2 — Reusable DiscussionRoom
+
+- Added the additive `002_runtime_runs_discussion.sql` migration without changing Sprint 1 schema or reset semantics.
+- Added server-generated formal run identity with immutable `run_mode` and persisted `behavior_dataset_eligible`.
+- Added reusable discussion sessions, authoritative deadlines, persistent ordered transcripts, and server-timestamped messages.
+- Added canonical server-side vote validation, one vote per player per round, and privacy-safe pre-reveal state.
+- Added 3:0 and 2:1 majority resolution.
+- Added 1:1:1 `NO CONSENSUS. NO ACTION.` handling with a new discussion session and vote round, preserving earlier rounds.
+- Added `WAITING_FOR_MISSING_PLAYER` timeout behavior and teacher-authenticated time extension without synthesized player input.
+- Added student reconnect restoration and Teacher Console observation/configuration controls.
+- Added Sprint 2 static and live E2E suites; updated Sprint 1 static paths after the repository documentation move.
+- Removed the stale non-canonical Asset Registry `audit_status` field after CA's recorded PASS.
+- Did not add full story scenes, Pocket, Asset Manager runtime publishing, Agent analysis, final exports, prediction, or audio systems.

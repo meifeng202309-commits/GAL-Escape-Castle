@@ -41,6 +41,27 @@
     <div id="choiceArea"></div>
     <div id="revealArea"></div>
     <p id="gameStatus" class="status muted"></p>
+
+    <section id="discussionPanel" class="discussion-room hidden" aria-live="polite">
+      <div class="topline">
+        <div>
+          <p class="eyebrow">DiscussionRoom</p>
+          <h3 id="discussionTopic"></h3>
+        </div>
+        <div id="discussionDeadline" class="deadline"></div>
+      </div>
+      <p id="discussionMeta" class="muted"></p>
+      <div id="initialChoiceArea"></div>
+      <div id="transcript" class="transcript"></div>
+      <div id="messageComposer" class="composer hidden">
+        <label class="sr-only" for="messageText">Message</label>
+        <input id="messageText" maxlength="1000" autocomplete="off" placeholder="Write to the group">
+        <button id="sendMessageButton" type="button">Send</button>
+      </div>
+      <div id="voteArea"></div>
+      <div id="voteHistory"></div>
+      <p id="discussionStatus" class="status muted"></p>
+    </section>
   </section>
 </main>
 

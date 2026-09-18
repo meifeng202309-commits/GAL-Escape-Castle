@@ -14,6 +14,25 @@ const resetButton = document.getElementById("resetButton");
 const teacherStatus = document.getElementById("teacherStatus");
 const roomState = document.getElementById("roomState");
 const releaseSessionButtons = document.querySelectorAll(".release-session");
+const runModeInput = document.getElementById("runMode");
+const discussionSecondsInput = document.getElementById("discussionSeconds");
+const voteSecondsInput = document.getElementById("voteSeconds");
+const discussionTopicInput = document.getElementById("discussionTopicInput");
+const tiePolicyInput = document.getElementById("tiePolicy");
+const revoteSecondsInput = document.getElementById("revoteSeconds");
+const maxRevotesInput = document.getElementById("maxRevotes");
+const fallbackResolutionInput = document.getElementById("fallbackResolution");
+const voteOptionsInput = document.getElementById("voteOptions");
+const showInitialChoicesInput = document.getElementById("showInitialChoices");
+const requireFinalVoteInput = document.getElementById("requireFinalVote");
+const silentTextingModeInput = document.getElementById("silentTextingMode");
+const startRunButton = document.getElementById("startRunButton");
+const openDiscussionButton = document.getElementById("openDiscussionButton");
+const openVoteButton = document.getElementById("openVoteButton");
+const addTimeButton = document.getElementById("addTimeButton");
+const runBadge = document.getElementById("runBadge");
+const discussionTeacherStatus = document.getElementById("discussionTeacherStatus");
+const discussionState = document.getElementById("discussionState");
 
 let pollTimer = null;
 
@@ -25,6 +44,10 @@ toggleTeacherTokenButton.addEventListener("click", toggleTeacherToken);
 releaseSessionButtons.forEach((button) => {
   button.addEventListener("click", () => releasePlayerSession(button.dataset.roleSlot));
 });
+startRunButton.addEventListener("click", startRun);
+openDiscussionButton.addEventListener("click", openDiscussion);
+openVoteButton.addEventListener("click", openVote);
+addTimeButton.addEventListener("click", addTime);
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -64,10 +87,147 @@ async function loadState() {
   try {
     const state = await rpc("s1_get_teacher_state", payload);
     renderTeacherState(state);
+    await loadDiscussionState();
     teacherStatus.textContent = `Watching room ${state.room_code}`;
   } catch (error) {
     roomState.innerHTML = `<p class="bad">${escapeHtml(error.message)}</p>`;
   }
+}
+
+async function startRun() {
+  const payload = baseTeacherPayload();
+  if (!payload) return;
+  discussionTeacherStatus.textContent = "Starting formal run...";
+  try {
+    const run = await rpc("s2_start_run", {
+      ...payload,
+      p_run_mode: runModeInput.value,
+    });
+    discussionTeacherStatus.textContent = `Run started: ${run.run_id}`;
+    await loadDiscussionState();
+  } catch (error) {
+    discussionTeacherStatus.textContent = `Start failed: ${error.message}`;
+  }
+}
+
+async function openDiscussion() {
+  const payload = baseTeacherPayload();
+  if (!payload) return;
+  let voteOptions;
+  try {
+    voteOptions = parseVoteOptions(voteOptionsInput.value);
+  } catch (error) {
+    discussionTeacherStatus.textContent = error.message;
+    return;
+  }
+
+  try {
+    await rpc("s2_open_discussion", {
+      ...payload,
+      p_topic: discussionTopicInput.value.trim(),
+      p_discussion_time_limit_sec: Number(discussionSecondsInput.value),
+      p_vote_time_limit_sec: Number(voteSecondsInput.value),
+      p_show_initial_choices: showInitialChoicesInput.checked,
+      p_require_final_vote: requireFinalVoteInput.checked,
+      p_vote_options: voteOptions,
+      p_tie_policy: tiePolicyInput.value,
+      p_revote_window_sec: Number(revoteSecondsInput.value),
+      p_max_revotes: Number(maxRevotesInput.value),
+      p_fallback_resolution: fallbackResolutionInput.value.trim() || null,
+      p_silent_texting_mode: silentTextingModeInput.checked,
+    });
+    discussionTeacherStatus.textContent = "Discussion opened.";
+    await loadDiscussionState();
+  } catch (error) {
+    discussionTeacherStatus.textContent = `Open failed: ${error.message}`;
+  }
+}
+
+async function openVote() {
+  const payload = baseTeacherPayload();
+  if (!payload) return;
+  try {
+    await rpc("s2_open_vote", payload);
+    discussionTeacherStatus.textContent = "Voting opened.";
+    await loadDiscussionState();
+  } catch (error) {
+    discussionTeacherStatus.textContent = `Open vote failed: ${error.message}`;
+  }
+}
+
+async function addTime() {
+  const payload = baseTeacherPayload();
+  if (!payload) return;
+  try {
+    await rpc("s2_add_time", { ...payload, p_seconds: 30 });
+    discussionTeacherStatus.textContent = "Added 30 seconds.";
+    await loadDiscussionState();
+  } catch (error) {
+    discussionTeacherStatus.textContent = `Add time failed: ${error.message}`;
+  }
+}
+
+async function loadDiscussionState() {
+  const payload = baseTeacherPayload(false);
+  if (!payload) return;
+  try {
+    const state = await rpc("s2_get_teacher_state", payload);
+    renderDiscussionState(state);
+  } catch (error) {
+    runBadge.textContent = "Unavailable";
+    discussionState.innerHTML = `<p class="bad">${escapeHtml(error.message)}</p>`;
+  }
+}
+
+function renderDiscussionState(state) {
+  if (!state.active) {
+    runBadge.textContent = "No active run";
+    discussionState.innerHTML = "<p class='muted'>Join all three players, then start a formal run.</p>";
+    return;
+  }
+
+  runBadge.textContent = state.run.run_mode.toUpperCase();
+  runModeInput.disabled = true;
+  startRunButton.disabled = true;
+  if (!state.discussion) {
+    discussionState.innerHTML = `<p><b>Run:</b> ${escapeHtml(state.run.run_id)}</p><p class="muted">No discussion opened yet.</p>`;
+    return;
+  }
+
+  const discussion = state.discussion;
+  const voteRows = state.current_votes.map((vote) => `
+    <tr><td>${escapeHtml(vote.display_name)}</td><td>${escapeHtml(vote.role_slot)}</td><td>${vote.submitted ? "<span class='good'>submitted</span>" : "<span class='muted'>waiting</span>"}</td>${discussion.status === "resolved" ? `<td>${escapeHtml(vote.choice_label || "missing")}</td>` : ""}</tr>`
+  ).join("");
+
+  discussionState.innerHTML = `
+    <p><b>Run:</b> ${escapeHtml(state.run.run_id)} · <b>Eligible:</b> ${state.run.behavior_dataset_eligible ? "yes" : "no"}</p>
+    <p><b>Session:</b> ${escapeHtml(discussion.discussion_session_id)} · <b>Round:</b> ${discussion.vote_round}</p>
+    <p><b>Status:</b> ${escapeHtml(discussion.status)} · <b>Deadline:</b> ${escapeHtml(formatDeadline(discussion.phase_deadline))}</p>
+    <p><b>Topic:</b> ${escapeHtml(discussion.topic)}</p>
+    <div class="transcript teacher-transcript">${state.messages.length ? state.messages.map((message) => `
+      <article class="message"><div><b>${escapeHtml(message.display_name)}</b><time>${escapeHtml(formatTime(message.created_at))}</time></div><p>${escapeHtml(message.message_text)}</p></article>
+    `).join("") : "<p class='muted'>No messages yet.</p>"}</div>
+    <table><thead><tr><th>Player</th><th>Role</th><th>Vote</th>${discussion.status === "resolved" ? "<th>Revealed choice</th>" : ""}</tr></thead><tbody>${voteRows}</tbody></table>
+    ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
+  `;
+}
+
+function parseVoteOptions(raw) {
+  const options = raw.split(/\r?\n/).map((line) => line.trim()).filter(Boolean).map((line) => {
+    const separator = line.indexOf("|");
+    if (separator < 1) throw new Error("Each vote option must use id|label.");
+    return { id: line.slice(0, separator).trim(), label: line.slice(separator + 1).trim() };
+  });
+  if (options.some((option) => !option.id || !option.label)) throw new Error("Vote option IDs and labels cannot be empty.");
+  return options;
+}
+
+function formatDeadline(value) {
+  return value ? new Date(value).toLocaleString() : "none";
+}
+
+function formatTime(value) {
+  return new Date(value).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
 }
 
 async function advanceScene() {

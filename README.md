@@ -26,3 +26,11 @@ See `docs/README.md` for storage rules.
 
 Inter-Agent communication must use the highest ACTIVE:
 `agent-comms/inter_agent_talk_protocol V*.md`.
+
+## Current implementation
+
+- Sprint 1: verified room/session, private-choice lock, reveal, and reconnect baseline.
+- Sprint 2: reusable generic DiscussionRoom implementation in `database/002_runtime_runs_discussion.sql` and the existing student/teacher pages.
+- The legacy `02_player_v2.html` and `03_teacher_v2.html` files remain fallback prototypes.
+
+Apply database migrations in numeric order. Sprint 2 is intentionally a generic discussion test scene; it does not implement the complete ACT 1-14 story.
