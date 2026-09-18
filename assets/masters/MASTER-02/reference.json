@@ -4,12 +4,12 @@
   "runtime_asset": false,
   "approval_status": "APPROVED",
   "reference_file": "MASTER-02-reference.webp",
-  "reference_copy_note": "Compressed GitHub reference copy for cross-Agent visual access; not a runtime asset and not a replacement for the approved full-resolution source.",
+  "reference_copy_note": "Full-resolution high-quality GitHub reference copy for cross-Agent visual continuity; archival/reference only, not a runtime asset.",
   "reference_dimensions": {
-    "width": 320,
-    "height": 213
+    "width": 1536,
+    "height": 1024
   },
-  "reference_sha256": "f19ec1672c26d350c3f1c877d157ee287329ca83c36c886e630cf5b0b19f77f2",
+  "reference_sha256": "fe85d9f90dd26dd8cdc206f6219536ae5d56e71be7ce9521879b6132a391c991",
   "approved_source_dimensions": {
     "width": 1536,
     "height": 1024
