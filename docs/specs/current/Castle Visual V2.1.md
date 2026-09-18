@@ -79,7 +79,28 @@ assets/asset-registry.json
 - MASTER-01–05是视觉canon，不自动等于runtime `asset_key`；
 - VA不得自行发明、翻译、缩写或normalize `asset_key`。
 
-## 0.1.2 Production candidate workflow — HARD RULE
+## 0.1.2 Initial Registry Audit Gate — BEFORE FORMAL PRODUCTION
+
+在 `assets/asset-registry.json` 首次由CD建立后：
+
+```text
+CD commit + GitHub reread
+→ CA audit
+→ CA PASS message to VA
+→ VA starts formal production
+```
+
+VA在收到CA明确PASS / production-start message之前：
+- 可以review MASTER-01–05；
+- 可以准备prompt；
+- 可以准备paired-asset方案；
+- **不得正式生成 / 命名 / commit production candidate。**
+
+如果CA要求修复registry，VA等待CD修复并等待CA重新PASS。
+
+该gate只针对registry首次bootstrap / 重大identity结构重建，不要求CA逐张审核VA后续candidate。
+
+## 0.1.3 Production candidate workflow — HARD RULE
 
 正式production image必须：
 
@@ -123,13 +144,13 @@ APPROVED
 → fallback / telemetry
 ```
 
-## 0.1.3 Existing MASTER-01–05
+## 0.1.4 Existing MASTER-01–05
 
 V2.1不要求为了新的registry/staging流程重新命名、重新生成或重新上传已经批准的MASTER-01–05。
 
 只有当某个Master以后正式映射为runtime candidate时，才进入canonical registry / staging workflow。
 
-## 0.1.4 ~5% Rule-Change Threshold
+## 0.1.5 ~5% Rule-Change Threshold
 
 除hard invariant例外：
 
@@ -148,7 +169,7 @@ V2.1不要求为了新的registry/staging流程重新命名、重新生成或重
 
 > 暂不引入atomic reservation / CAS。fresh registry read + pre-commit reread + immutable staging + post-upload verification足够。只有真实multi-writer collision风险约超过5%时再升级。
 
-## 0.1.5 Inter-Agent communication
+## 0.1.6 Inter-Agent communication
 
 VA进行跨Agent通信前必须读取并遵守：
 
