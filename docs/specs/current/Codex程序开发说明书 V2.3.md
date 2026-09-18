@@ -397,6 +397,35 @@ Codex不得根据文案自行猜 mode。
 
 ## 4.4 Student Text / Localization Contract — HARD REQUIREMENT
 
+### 4.4.0 Canonical catalog
+
+唯一批准的runtime localization source：
+
+```text
+docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
+```
+
+该文件由GA维护、Teacher review后批准。
+
+CD implementation contract：
+- scene/content config引用 `text_key`；
+- runtime renderer按 `text_key` 从canonical catalog解析；
+- 不得在scene code中另写一套Dutch/Chinese hardcoded translations；
+- 不得调用runtime auto-translation；
+- 不得自行改写已批准Dutch/Chinese文案；
+- `template` 必须进行变量插值而不是复制developer example；
+- `internal` / `future_analysis` 不得进入ACT 1–14 GAL UI；
+- `nl_only_artifact` 只渲染Nederlands。
+
+如果实现需要JS/JSON形式：
+
+```text
+canonical CSV
+→ generated / validated runtime representation
+```
+
+derived representation不得成为第二套人工source of truth。
+
 所有GAL-facing runtime text默认：
 
 ```text
@@ -2310,6 +2339,24 @@ Formal Castle Escape：
 6. CD可在不破坏registry修复工作的前提下继续：
 
 > **Sprint 2 — Reusable DiscussionRoom。**
+
+### Localization sequencing — do not mix into Sprint 2 correction
+
+当前Sprint 2 audit correction只修DiscussionRoom被CA指出的问题。  
+**不得为了localization重新扩大Sprint 2 correction scope。**
+
+进入任何开始大量绑定ACT 1–14 scene/content text的后续Sprint前，必须确认：
+
+```text
+docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
+exists on main
++ canonical specs reference it
++ CD uses text_key resolution contract
+```
+
+因此：
+
+> **Localization Catalog V1.0 is a prerequisite for scene-text integration, not a reason to reopen Sprint 2.**
 
 说明：
 - VA等待CA时可以准备prompt / review MASTER-01–05 / paired-asset planning；
