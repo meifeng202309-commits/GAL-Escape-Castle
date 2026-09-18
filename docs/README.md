@@ -17,6 +17,7 @@ Current set:
 - Castle Visual V2.1.md
 - Codex程序开发说明书 V2.3.md
 - 从创意到游戏成品的研发流程V1.0.md
+- localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv — canonical English→Dutch/Chinese runtime text catalog
 
 Agents must read these before acting in their domain.
 
