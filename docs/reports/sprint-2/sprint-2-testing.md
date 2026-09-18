@@ -70,3 +70,11 @@ Use three independent browser sessions plus the Teacher Console.
 ## Final Export Boundary
 
 Sprint 2 stores metadata required by the future Sprint 8 export. It does not create JSON/CSV export files.
+
+## Deployment Acceptance Result — 2026-09-18
+
+- Supabase migration: **VERIFIED**, SQL Editor returned `Success. No rows returned`.
+- Sprint 1 live regression: **VERIFIED**, 40/40 checks passed.
+- Sprint 2 live E2E: **VERIFIED**, 17/17 checks passed.
+- GitHub Pages frontend smoke: **VERIFIED**, student and teacher pages loaded with no console errors/warnings.
+- Three separate physical student devices: **NOT VERIFIED**.
