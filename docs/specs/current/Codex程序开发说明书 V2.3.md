@@ -2301,10 +2301,20 @@ Formal Castle Escape：
 完成并commit后：
 
 1. CD按inter-Agent protocol写信给CA，请求audit registry；
-2. CD同时写信给VA，通知registry已可读取，VA可按V4.0 / Castle Visual V2.1正式开始production candidate workflow；
-3. 然后继续：
+2. **CD不得直接授权VA开始正式production**；
+3. CA完成audit：
+   - PASS → **由CA写信给VA**，明确授权VA开始正式production candidate workflow；
+   - FAIL → CA写信给CD要求修复，VA继续等待；
+4. CD修复后重新commit / reread，并再次请求CA audit；
+5. 只有收到CA明确PASS消息后，VA才可正式生成、命名、commit production candidate；
+6. CD可在不破坏registry修复工作的前提下继续：
 
 > **Sprint 2 — Reusable DiscussionRoom。**
+
+说明：
+- VA等待CA时可以准备prompt / review MASTER-01–05 / paired-asset planning；
+- 但不能开始正式production candidate；
+- 该CA gate是首次registry bootstrap / 重大identity结构重建的one-time acceptance gate，不是逐图CA审批。
 
 开始前只做一个轻量 baseline check：
 
@@ -2357,6 +2367,7 @@ V2.3 生效意味着：
 - canonical specs统一存放在 `docs/specs/current/`；
 - V4.0 safe visual-asset workflow已写入CD职责；
 - `assets/asset-registry.json` bootstrap被列为VA正式production前的窄范围前置任务；
+- 初始Asset Registry必须经过CA PASS后才能由CA授权VA开始正式production；CD不得直接绕过audit gate授权VA；
 - VA staging / CD runtime publishing职责边界明确；
 - ~5% rule-change threshold明确；当前不实现asset version CAS；
 - highest ACTIVE inter-Agent protocol为通信规则；
