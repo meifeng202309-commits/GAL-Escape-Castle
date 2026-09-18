@@ -1,8 +1,10 @@
 # Sprint 2 Completion Report — Reusable DiscussionRoom
 
-Status: **READY_FOR_CA_AUDIT**  
-Implementation commit: `24ebea418c93d76038c477783970df4c53dd3d90`  
-Supabase project: `qdcbdcjobzytzhnhfwyn`  
+Status: **READY_FOR_CA_AUDIT**
+
+Implementation commit: `24ebea418c93d76038c477783970df4c53dd3d90`
+
+Supabase project: `qdcbdcjobzytzhnhfwyn`
 Scope: Sprint 2 only
 
 ## 1. What I Changed
