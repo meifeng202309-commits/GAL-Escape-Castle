@@ -53,3 +53,11 @@
 - Expanded Sprint 2 live E2E from 17 to 23 checks, including ACT2/ACT5/ACT6 fallback semantics, sequential discussions, transcript isolation, invalid choice rejection, and anonymous direct-write rejection.
 - Reverified Sprint 1 at 40/40 and Sprint 2 at 23/23 after deploying migration `003`.
 - Added additive migration `004_sprint2_fallback_resolution_semantics.sql` to distinguish system fallback `resolution_id`/`resolution_source` from genuine player `choice_id`; reverified Sprint 1 at 40/40 and Sprint 2 at 23/23 after deployment.
+
+## Sprint 3A — Scene / Pocket / Knowledge Foundation
+
+- Added additive migration `005_sprint3a_scene_pocket_knowledge_foundation.sql` with run-scoped scene, item, observation, photo-copy, group-item, and knowledge provenance state.
+- Restricted observation/knowledge writers to trusted server paths and the fixture to AUDIT runs.
+- Added server-validated SHARE PHOTO semantics without ownership or implicit knowledge transfer.
+- Added deterministic generation of 310 runtime localization entries from the canonical CSV.
+- Added Sprint 3A static and live suites; verified Sprint 1 40/40, Sprint 2 23/23, and Sprint 3A 10/10 after deployment.
