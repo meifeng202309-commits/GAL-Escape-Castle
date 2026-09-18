@@ -8,6 +8,7 @@ Apply in order:
 database/001_sprint1_core.sql
 database/002_runtime_runs_discussion.sql
 database/003_sprint2_discussionroom_audit_fix.sql
+database/004_sprint2_fallback_resolution_semantics.sql
 ```
 
 Do not edit or replace the deployed Sprint 1 migration.
@@ -95,3 +96,11 @@ Sprint 2 stores metadata required by the future Sprint 8 export. It does not cre
 - Sprint 1 live regression after deployment: **VERIFIED**, 40/40 checks passed.
 - Expanded Sprint 2 live E2E after deployment: **VERIFIED**, 23/23 checks passed.
 - Physical three-student-device plus teacher-device walkthrough: **NOT VERIFIED**.
+
+## Fallback Semantic Cleanup — 2026-09-19
+
+- Migration `database/004_sprint2_fallback_resolution_semantics.sql`: **VERIFIED BY USER**, SQL Editor returned `Success. No rows returned`.
+- System fallback outcomes now use canonical `resolution_id` plus `resolution_source = system_fallback`; fallback `choice_id` was removed rather than retained as a deprecated alias.
+- ACT2, ACT5, and ACT6 live assertions verify the explicit fallback contract; the persisted ACT6 outcome also verifies that `choice_id` is absent.
+- Post-deployment Sprint 1 live regression: **40/40 PASS**.
+- Post-deployment Sprint 2 live E2E: **23/23 PASS**.

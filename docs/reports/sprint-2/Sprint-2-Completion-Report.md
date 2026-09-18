@@ -23,6 +23,13 @@ Scope: Sprint 2 only
 
 Localization boundary acknowledged: `docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv` is canonical for later ACT 1–14 text binding. Localization was intentionally not mixed into this Sprint 2 correction.
 
+### Accepted follow-up semantic cleanup
+
+- Added and deployed `database/004_sprint2_fallback_resolution_semantics.sql` after Sprint 2 acceptance.
+- System-authored fallbacks now persist and return `resolution_id` with `resolution_source = system_fallback`.
+- Fallback `choice_id` was removed entirely; genuine majority outcomes retain player-choice `choice_id` and `choice_label` semantics.
+- Post-deployment live regression remains Sprint 1 **40/40 PASS** and Sprint 2 **23/23 PASS**.
+
 ## 1. What I Changed
 
 **VERIFIED**
