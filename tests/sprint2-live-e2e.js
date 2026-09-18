@@ -119,6 +119,20 @@ async function vote(fixture, playerIndex, choiceId) {
   });
 }
 
+async function sendMessage(fixture, playerIndex, messageText) {
+  return rpc("s2_send_message", {
+    p_room_code: fixture.room,
+    p_session_token: fixture.players[playerIndex].session_token,
+    p_message_text: messageText,
+  });
+}
+
+async function submitThreeWayTie(fixture) {
+  await vote(fixture, 0, "known");
+  await vote(fixture, 1, "unknown");
+  return vote(fixture, 2, "inspect");
+}
+
 async function testChatPrivacyAndThreeZero() {
   const f = await createFixture("normal");
   assert(/^[0-9a-f-]{36}$/i.test(f.run.run_id), "run_id was not server-generated UUID.");
@@ -235,6 +249,71 @@ async function testDeadlineAndAudit() {
   pass("D4 teacher adds time and reconnect restores voting");
 }
 
+async function testSingleRevoteFallbackAndIsolation() {
+  const f = await createFixture();
+
+  const act2 = await openDiscussion(f, {
+    topic: "ACT2-style meeting vote",
+    tiePolicy: "SINGLE_REVOTE_THEN_FALLBACK",
+    maxRevotes: 1,
+    fallback: "known",
+  });
+  await sendMessage(f, 0, "ACT2 transcript marker");
+  await openVote(f);
+  const act2Tie = await submitThreeWayTie(f);
+  let state = await playerState(f, 0);
+  assert(act2Tie.status === "discussion" && state.discussion.round_no === 2, "ACT2-style tie did not open exactly one local re-vote.");
+  assert(state.messages.length === 0, "Re-vote current transcript accidentally inherited the previous session transcript.");
+  await openVote(f);
+  const act2Fallback = await submitThreeWayTie(f);
+  assert(act2Fallback.resolution === "fallback" && act2Fallback.choice_id === "known", "ACT2-style option fallback did not resolve after one re-vote.");
+  pass("E1 ACT2-style tie allows one re-vote then option fallback", act2.discussion_session_id);
+
+  const act6 = await openDiscussion(f, {
+    topic: "ACT6 portrait question",
+    tiePolicy: "SINGLE_REVOTE_THEN_FALLBACK",
+    maxRevotes: 1,
+    fallback: "portrait_fixed_fallback",
+  });
+  state = await playerState(f, 1);
+  assert(state.discussion.round_no === 1, "Second independent discussion did not reset local round_no to 1.");
+  assert(state.discussion.vote_round > 2, "Second independent discussion did not keep a distinct run-wide vote_round.");
+  assert(state.messages.length === 0, "Independent discussion current transcript contains earlier messages.");
+  await sendMessage(f, 1, "ACT6 transcript marker");
+  const teacher = await teacherState(f);
+  assert(teacher.messages.length === 1 && teacher.messages[0].message_text === "ACT6 transcript marker", "Teacher current transcript is not isolated to ACT6.");
+  assert(teacher.message_history.some((item) => item.message_text === "ACT2 transcript marker"), "Earlier transcript was not preserved in teacher audit history.");
+  pass("E2 sequential discussion resets local round and isolates transcript", act6.discussion_session_id);
+
+  await openVote(f);
+  const act6Tie = await submitThreeWayTie(f);
+  state = await playerState(f, 2);
+  assert(act6Tie.status === "discussion" && state.discussion.round_no === 2, "ACT6 first tie skipped its allowed re-vote.");
+  await openVote(f);
+  const act6Fallback = await submitThreeWayTie(f);
+  assert(act6Fallback.resolution === "fallback" && act6Fallback.choice_id === "portrait_fixed_fallback", "ACT6 non-option fallback failed.");
+  pass("E3 ACT6 supports a non-option fallback after exactly one re-vote");
+
+  const act5Fixture = await createFixture();
+  await openDiscussion(act5Fixture, {
+    topic: "ACT5-style route vote",
+    tiePolicy: "SINGLE_REVOTE_THEN_FALLBACK",
+    maxRevotes: 1,
+    fallback: "inspect",
+  });
+  await openVote(act5Fixture);
+  await submitThreeWayTie(act5Fixture);
+  await openVote(act5Fixture);
+  const act5Fallback = await submitThreeWayTie(act5Fixture);
+  assert(act5Fallback.resolution === "fallback" && act5Fallback.choice_id === "inspect", "ACT5-style fallback failed.");
+  pass("E4 ACT5-style option fallback resolves after one re-vote");
+
+  const invalidFixture = await createFixture();
+  await openDiscussion(invalidFixture);
+  await openVote(invalidFixture);
+  await expectReject("E5 invalid choice_id is rejected", () => vote(invalidFixture, 0, "not_configured"), "Invalid vote option");
+}
+
 async function testRls() {
   for (const table of ["game_runs", "discussion_sessions", "dialogue_messages", "runtime_player_decisions", "runtime_events"]) {
     const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*`, {
@@ -243,7 +322,20 @@ async function testRls() {
     const rows = await response.json();
     assert(response.ok && Array.isArray(rows) && rows.length === 0, `Anonymous direct read exposed ${table}.`);
   }
-  pass("E1 Sprint 2 tables are hidden from anonymous direct reads", "5 tables");
+  pass("F1 Sprint 2 tables are hidden from anonymous direct reads", "5 tables");
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/dialogue_messages`, {
+    method: "POST",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`,
+      "Content-Type": "application/json",
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify({ message_text: "anonymous direct write must fail" }),
+  });
+  assert(!response.ok, "Anonymous direct write unexpectedly succeeded.");
+  pass("F2 anonymous direct table write is rejected", `HTTP ${response.status}`);
 }
 
 async function main() {
@@ -251,6 +343,7 @@ async function main() {
   await testTwoOne();
   await testTieAndRevote();
   await testDeadlineAndAudit();
+  await testSingleRevoteFallbackAndIsolation();
   await testRls();
 
   for (const item of results) console.log(`PASS ${item.name}${item.detail ? ` — ${item.detail}` : ""}`);

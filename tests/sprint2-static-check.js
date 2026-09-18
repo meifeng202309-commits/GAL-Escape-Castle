@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, "..");
 const requiredFiles = [
   "database/001_sprint1_core.sql",
   "database/002_runtime_runs_discussion.sql",
+  "database/003_sprint2_discussionroom_audit_fix.sql",
   "index.html",
   "teacher.html",
   "src/game/app.js",
@@ -19,6 +20,7 @@ for (const file of requiredFiles) {
 }
 
 const migration = fs.readFileSync(path.join(root, "database/002_runtime_runs_discussion.sql"), "utf8");
+const correction = fs.readFileSync(path.join(root, "database/003_sprint2_discussionroom_audit_fix.sql"), "utf8");
 const student = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 const teacher = fs.readFileSync(path.join(root, "src/teacher/teacher-console.js"), "utf8");
 const indexHtml = fs.readFileSync(path.join(root, "index.html"), "utf8");
@@ -45,6 +47,26 @@ const requiredSql = [
 
 for (const fragment of requiredSql) {
   if (!migration.includes(fragment)) throw new Error(`Sprint 2 migration missing: ${fragment}`);
+}
+
+for (const fragment of [
+  "create or replace function public.s2_open_discussion",
+  "create or replace function public.s2_submit_vote",
+  "create or replace function public.s2_get_player_state",
+  "create or replace function public.s2_get_teacher_state",
+  "1, v_round, trim(p_topic)",
+  "m.discussion_session_id = v_session.discussion_session_id",
+  "'message_history', v_message_history",
+]) {
+  if (!correction.includes(fragment)) throw new Error(`Sprint 2 correction migration missing: ${fragment}`);
+}
+
+if (correction.includes("fallback_resolution must match a configured vote option id")) {
+  throw new Error("Correction migration still restricts fallback_resolution to a vote option.");
+}
+
+if ((correction.match(/m\.discussion_session_id = v_session\.discussion_session_id/g) || []).length < 2) {
+  throw new Error("Current transcript must be session-scoped for both player and teacher state.");
 }
 
 if (migration.includes("delete from public.game_runs") || migration.includes("delete from public.runtime_player_decisions")) {
