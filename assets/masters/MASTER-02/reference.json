@@ -4,12 +4,13 @@
   "runtime_asset": false,
   "approval_status": "APPROVED",
   "reference_file": "MASTER-02-reference.webp",
-  "reference_copy_note": "Full-resolution high-quality GitHub reference copy for cross-Agent visual continuity; archival/reference only, not a runtime asset.",
+  "reference_copy_note": "Full-resolution canonical visual reference copy for cross-Agent continuity review; WebP-compressed at original pixel dimensions. Non-runtime; not registered in Asset Registry.",
   "reference_dimensions": {
     "width": 1536,
     "height": 1024
   },
-  "reference_sha256": "fe85d9f90dd26dd8cdc206f6219536ae5d56e71be7ce9521879b6132a391c991",
+  "reference_sha256": "6c5b307a6c7d508cb4d716544afcffec12e692d96961e6fb5bef5236177715bb",
+  "approved_source_file": "MASTER-02 Castle Interior Master 似乎更合适.png",
   "approved_source_dimensions": {
     "width": 1536,
     "height": 1024
