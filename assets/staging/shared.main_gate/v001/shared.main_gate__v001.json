@@ -1,0 +1,32 @@
+{
+  "asset_key": "shared.main_gate",
+  "display_name": "Main Gate",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-01",
+    "MASTER-03"
+  ],
+  "required_anchors": [
+    "main_gate_station_A",
+    "main_gate_station_B",
+    "main_gate_station_C",
+    "main_gate_watcher_corridor"
+  ],
+  "filename": "shared.main_gate__v001.webp",
+  "width_px": 1536,
+  "height_px": 1152,
+  "sha256": "eb2e113d1dfe05d5b9a5d05c3fa4c15dec97a3326f07ae78e0de7d98df5d4f55",
+  "source_png_sha256": "ddc02862a0bbd9427ce5c1a050f55a429d27cd481ba9ce7a48fe726cc1d015bf",
+  "ui_anchor_notes": {
+    "main_gate_station_A": "large number-wheel mechanism in left foreground",
+    "main_gate_station_B": "lever mechanism on raised stone base, right of center",
+    "main_gate_station_C": "key-mechanism box on right foreground stone base",
+    "main_gate_watcher_corridor": "dark approach/corridor zone on outer side of gate scene"
+  },
+  "revision_note": "Teacher approved the submitted No.21 image for staging after formal visual audit.",
+  "technical_notes": "1536x1152 WebP staging candidate derived from the Teacher-approved 2048x1536 PNG. Non-ACTIVE; CD/Asset Manager handles publication/runtime activation."
+}
