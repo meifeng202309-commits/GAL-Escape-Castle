@@ -4,7 +4,10 @@ Sprint 3A is an additive foundation slice. It does not complete Sprint 3 or bind
 
 ## Database boundary
 
-Migration: `database/005_sprint3a_scene_pocket_knowledge_foundation.sql`.
+Migrations:
+
+- `database/005_sprint3a_scene_pocket_knowledge_foundation.sql` establishes the foundation.
+- `database/006_sprint3a_provenance_view_integrity_fix.sql` adds server-authoritative item-view state and factual provenance validation following CA audit.
 
 All formal state is keyed by `run_id`. New RLS-protected state separates:
 
@@ -21,11 +24,13 @@ All formal state is keyed by `run_id`. New RLS-protected state separates:
 
 `s3_record_observation` and `s3_record_knowledge` are internal functions with execution revoked from browser roles. The only foundation fixture is teacher-authenticated and rejects NORMAL runs. NORMAL Teacher state returns scene metadata and aggregate counts, not private clue content.
 
-SHARE PHOTO validates the sender's physical ownership and a server-known shareable view. It creates a recipient copy with source provenance and does not transfer the item or associated knowledge. A recipient cannot re-share the copy as the original.
+SHARE PHOTO validates the sender's physical ownership and requires the submitted view to equal the item's server-authoritative current view. `s3_set_item_view` permits only the defined front/back transition, and player state restores that current view after reconnect. Sharing creates a recipient copy with source provenance and does not transfer the item or associated knowledge. A recipient cannot re-share the copy as the original.
 
 ## Idempotency and provenance
 
 Observation identity is unique by run, player, and observation key. Knowledge uses acquisition history keyed by holder, fact, source, scene, source player, and source item. Repeating the same provenance is idempotent; learning the same fact through a distinct source is retained as a distinct acquisition.
+
+Knowledge provenance is validated against current run facts, rather than accepted merely because its fields have the correct shape. The holder and source player must belong to the run room; pocket provenance requires current physical ownership; shared-photo provenance requires an existing received copy and uses its stored sender; group provenance requires an existing group item. Direct/private acquisition rejects irrelevant item or player provenance. The audit-only negative-probe surface is restricted to AUDIT runs.
 
 ## Localization
 

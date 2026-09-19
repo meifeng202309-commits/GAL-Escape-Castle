@@ -10,18 +10,23 @@
 
 ## Deployment
 
-The user applied `database/005_sprint3a_scene_pocket_knowledge_foundation.sql` to Supabase project `qdcbdcjobzytzhnhfwyn` and reported `Success. No rows returned`.
+The user applied both Sprint 3A migrations to Supabase project `qdcbdcjobzytzhnhfwyn` and reported `Success. No rows returned` for each:
+
+- `database/005_sprint3a_scene_pocket_knowledge_foundation.sql`
+- `database/006_sprint3a_provenance_view_integrity_fix.sql`
 
 ## Live results
 
 - Sprint 1: 40/40 PASS
 - Sprint 2: 23/23 PASS
-- Sprint 3A: 10/10 PASS
+- Sprint 3A: 15/15 PASS
 
-Sprint 3A verifies NORMAL fixture rejection, owner-only inventory, private/idempotent observation, distinct knowledge provenance, group visibility, valid and invalid photo sharing, ownership preservation, no implicit knowledge transfer, reconnect, Teacher privacy counts, run isolation, and direct anonymous read/write RLS protection.
+Sprint 3A verifies NORMAL fixture rejection, owner-only inventory, private/idempotent observation, distinct knowledge provenance, group visibility, server-authoritative current-view photo sharing, rejection of a back-view share before FLIP, ownership preservation, recipient re-share rejection, no implicit knowledge transfer, reconnect restoration, Teacher privacy counts, run isolation, and direct anonymous read/write RLS protection.
+
+The correction suite also rejects five factually invalid provenance cases: an outside holder, an unowned pocket item, a missing shared-photo copy, an absent group item, and a cross-room source player.
 
 ## Not verified
 
-- physical three-student plus teacher device walkthrough;
+- physical three-student plus teacher device walkthrough (NOT VERIFIED);
 - classroom latency/packet loss;
 - production ACT scene and Pocket UI, which remain later Sprint 3 work.

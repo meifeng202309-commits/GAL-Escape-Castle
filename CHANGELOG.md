@@ -61,3 +61,6 @@
 - Added server-validated SHARE PHOTO semantics without ownership or implicit knowledge transfer.
 - Added deterministic generation of 310 runtime localization entries from the canonical CSV.
 - Added Sprint 3A static and live suites; verified Sprint 1 40/40, Sprint 2 23/23, and Sprint 3A 10/10 after deployment.
+- Added additive migration `006_sprint3a_provenance_view_integrity_fix.sql` after CA audit, introducing server-authoritative front/back item-view state and rejecting SHARE PHOTO requests that do not match it.
+- Strengthened knowledge acquisition so provenance must correspond to current run facts: room membership, physical ownership, received photo copies, stored senders, and existing group items.
+- Expanded Sprint 3A live coverage to 15/15, including premature back-view sharing and five invalid-provenance cases; reverified Sprint 1 at 40/40 and Sprint 2 at 23/23.
