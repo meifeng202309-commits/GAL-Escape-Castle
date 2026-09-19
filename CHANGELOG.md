@@ -72,3 +72,5 @@
 - Preserved private stance versus group result, player choice versus system fallback, owner-only Pocket state, and personal Observation privacy.
 - Verified Sprint 1 40/40, Sprint 2 23/23, Sprint 3A 15/15, and Sprint 3B 15/15 after deployment.
 - Kept Teacher Override / Safe Deblock deferred to Sprint 3C.
+- Added migration 010 after CA audit to enforce server phase authority, make fold-back idempotent, correct Inspect First as an intermediate state, implement GA-approved 90–150 second puzzle fallback, and bind dedicated canonical item-label keys.
+- Expanded Sprint 3B live coverage to 29/29 and regenerated the canonical localization module with 323 entries.
