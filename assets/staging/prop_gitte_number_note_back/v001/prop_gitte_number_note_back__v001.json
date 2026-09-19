@@ -1,0 +1,19 @@
+{
+  "asset_key": "prop_gitte_number_note_back",
+  "display_name": "Number Note Back",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "paired_asset_group": "gitte_number_note",
+  "required_anchors": [],
+  "filename": "prop_gitte_number_note_back__v001.webp",
+  "width_px": 1536,
+  "height_px": 1024,
+  "sha256": "9321736c733f4d092ae010cc6142e395017d101cb90934245a6878d8cc95665c",
+  "source_png_sha256": "9b50b9701b86d91381d7edbdedb8409a312624884f167d0e6d8a2e880fe2590d",
+  "source_note": "Teacher-approved back side of the same number note, with centered hand-drawn star motif.",
+  "compliance_note": "Paired with the approved front note. Exact star UI may be overlaid by runtime if needed. Teacher-approved; not ACTIVE."
+}
