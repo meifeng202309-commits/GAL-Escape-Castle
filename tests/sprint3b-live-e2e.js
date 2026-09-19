@@ -18,6 +18,7 @@ async function main(){
   const f=await fixture();
   await reject("B1 role-specific ACT 1 identity enforced",()=>rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"read_diary"}),"canonical ACT 1");
   await rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"study_map"});
+  await reject("B1a ACT 2 submission before global ACT 1 gate rejected",()=>rpc("s3b_submit_first_meeting",{...auth(f,0),p_choice_id:"library"}),"out of phase");
   assert((await state(f,1)).me.act1_choice_id===null,"ACT 1 privacy leaked");pass("B2 ACT 1 choice remains private");
   await Promise.all([rpc("s3b_submit_act1_choice",{...auth(f,1),p_choice_id:"read_diary"}),rpc("s3b_submit_act1_choice",{...auth(f,2),p_choice_id:"study_watch"})]);
   assert((await state(f)).scene.scene_id==="act2_first_contact","ACT 1 gate failed");pass("B3 all-three ACT 1 gate advances once");
@@ -27,8 +28,9 @@ async function main(){
   await Promise.all([0,1,2].map(i=>rpc("s3b_grab",auth(f,i)))); await Promise.all([0,1,2].map(i=>rpc("s3b_leave_start_room",auth(f,i))));
   assert((await state(f)).queued_first_messages.length===3,"Queued reveal missing");pass("B5 GRAB/leave gate reveals once and initializes Pocket");
   await vote(f,["library","library","great_hall"]); await rpc("s3b_apply_meeting_resolution",auth(f,0));
+  await reject("B6a FOLLOW SIGN before wayfinding rejected",()=>rpc("s3b_follow_sign",auth(f,0)),"out of phase");
   let s=await state(f);assert(s.flow.final_meeting_result==="library"&&s.scene.current_route_target==="library","Meeting majority not applied");pass("B6 majority writes distinct final meeting/current route");
-  await rpc("s3b_complete_foldback",auth(f,0)); await Promise.all([0,1].map(i=>rpc("s3b_follow_sign",auth(f,i))));
+  await rpc("s3b_complete_foldback",auth(f,0));await reject("B6b duplicate fold-back rejected",()=>rpc("s3b_complete_foldback",auth(f,0)),"already complete"); await Promise.all([0,1].map(i=>rpc("s3b_follow_sign",auth(f,i))));
   assert(!(await state(f)).flow.party_physically_reunited,"Reunion occurred early");await rpc("s3b_follow_sign",auth(f,2));s=await state(f);assert(s.flow.party_physically_reunited&&s.flow.puzzle_deadline,"Reunion/deadline missing");pass("B7 all FOLLOW SIGN actions start server puzzle deadline");
   const expired=await rpc("s3b_audit_expire_puzzle",{p_room_code:f.room,p_teacher_token:f.teacher});assert(expired.hint_stage===4,"Deadline hint did not advance");pass("B8 90-second deadline advances monotonic hint stage");
   await rpc("s3b_submit_library_code",{...auth(f,0),p_code:"11111"});await rpc("s3b_submit_library_code",{...auth(f,1),p_code:"22222"});await rpc("s3b_submit_library_code",{...auth(f,2),p_code:"41739"});s=await state(f);assert(s.flow.puzzle_attempt_number===3&&s.flow.puzzle_resolved_at,"Puzzle ordering failed");pass("B9 ordered attempts resolve canonical code");
@@ -36,7 +38,8 @@ async function main(){
   const g=await fixture();await act1and2(g,["great_hall","great_hall","library"]);await vote(g,["great_hall","great_hall","library"]);await rpc("s3b_apply_meeting_resolution",auth(g,0));await rpc("s3b_complete_foldback",auth(g,0));const gs=await state(g);assert(gs.flow.final_meeting_result==="great_hall"&&gs.scene.current_route_target==="library"&&gs.scene.wayfinding_target==="library","Fold-back semantics failed");pass("B11 failed rendezvous preserves history and folds route to Library");
   const h=await fixture();await act1and2(h,["library","library","great_hall"]);await vote(h,["library","library","great_hall"]);await rpc("s3b_apply_meeting_resolution",auth(h,0));await rpc("s3b_complete_foldback",auth(h,0));await Promise.all([0,1,2].map(i=>rpc("s3b_follow_sign",auth(h,i))));await rpc("s3b_submit_library_code",{...auth(h,0),p_code:"41739"});
   await Promise.all(["known","unknown","ask"].map((p_choice_id,i)=>rpc("s3b_submit_act4_choice",{...auth(h,i),p_choice_id})));let hs=await state(h);assert(hs.scene.scene_id==="act5_route_discussion"&&hs.act4_revealed.length===3,"ACT 5 discussion/reveal not opened");pass("B12 disagreement opens ACT 5 without overwriting private stance");
-  await vote(h,["known","unknown","inspect_first"]);await vote(h,["known","unknown","inspect_first"]);await rpc("s3b_apply_act5_resolution",auth(h,0));hs=await state(h);assert(hs.flow.group_route==="inspect_first"&&hs.flow.unknown_passage_inspected&&hs.flow.terminal_state==="SPRINT3B_COMPLETE","ACT 5 fallback integration failed");pass("B13 ACT 5 re-vote applies inspect_first system fallback and terminal boundary");
+  await vote(h,["known","unknown","inspect_first"]);await vote(h,["known","unknown","inspect_first"]);await rpc("s3b_apply_act5_resolution",auth(h,0));hs=await state(h);assert(hs.flow.group_route===null&&hs.flow.unknown_passage_inspected&&hs.flow.pending_post_inspection_route&&hs.flow.terminal_state===null,"Inspect First incorrectly became terminal");pass("B13 ACT 5 fallback enters non-terminal Inspect First sequence");
+  await rpc("s3b_choose_post_inspection_route",{...auth(h,0),p_route:"unknown"});hs=await state(h);assert(hs.flow.group_route==="unknown"&&!hs.flow.pending_post_inspection_route&&hs.flow.terminal_state==="SPRINT3B_COMPLETE","Post-inspection route failed");pass("B13a post-inspection Game Track route reaches terminal without private choice");
   for(const table of ["s3b_run_state","s3b_player_progress","s3b_library_attempts","s3b_player_facts"]){const r=await fetch(`${URL}/rest/v1/${table}?select=*`,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`}}),rows=await r.json();assert(r.ok&&rows.length===0,`RLS leak ${table}`)}pass("B14 anonymous direct reads blocked");
   console.log(`Sprint 3B live E2E passed: ${results.length} checks.`);
 }

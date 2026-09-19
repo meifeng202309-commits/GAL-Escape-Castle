@@ -139,20 +139,20 @@ function renderSprint3b(state) {
   if (!state.active || !state.scene || !state.flow || !state.me) { sprint3bPanel.classList.add("hidden"); choiceArea.classList.remove("hidden"); revealArea.classList.remove("hidden"); return; }
   choiceArea.classList.add("hidden"); revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
-  sprint3bText.innerHTML=`<h3>${escapeHtml(state.scene.scene_id.replaceAll("_"," "))}</h3><div class="bilingual">${localizedHtml(state.scene.text_key)}</div>`;
+  sprint3bText.innerHTML=`<div class="bilingual">${localizedHtml(state.scene.text_key)}</div>${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`;
   const me=state.me, scene=state.scene; let html="";
   if (!me.act1_locked_at) html=actionButtons(ACT1_CHOICES[session.role_slot]||[],"s3b_submit_act1_choice");
-  else if (scene.scene_id==="act1_wake_up") html="<p class='warn'>Waiting for the other players…</p>";
+  else if (scene.scene_id==="act1_wake_up") html=`<p class="warn">${localizedHtml("act01-g.031")}</p>`;
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
   else if (!me.grab_complete) html=`<button type="button" data-s3b-rpc="s3b_grab">${localizedHtml("act02.014")}</button>`;
   else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
-  else if (scene.phase_key==="route_consequence") html="<button type='button' data-s3b-rpc='s3b_complete_foldback'>Continue toward Library</button>";
+  else if (scene.phase_key==="route_consequence") html=`<button type="button" data-s3b-rpc="s3b_complete_foldback">${localizedHtml("act02.042")}</button>`;
   else if (scene.phase_key==="wayfinding" && me.player_location!=="library") html=`<button type="button" data-s3b-rpc="s3b_follow_sign">${localizedHtml("act03.003")}</button>`;
-  else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) html=`<form id="libraryCodeForm" class="composer"><input id="libraryCode" inputmode="numeric" maxlength="5" pattern="[0-9]{5}" aria-label="5-digit lock"><button>Submit</button></form><p class="muted">Attempt ${state.flow.puzzle_attempt_number+1} · hint stage ${state.flow.puzzle_hint_stage} · deadline ${formatDeadline(state.flow.puzzle_deadline,"puzzle")}</p>`;
+  else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) html=`<form id="libraryCodeForm" class="composer"><input id="libraryCode" inputmode="numeric" maxlength="5" pattern="[0-9]{5}"><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014"][state.flow.puzzle_hint_stage])}</div>` : ""}`;
   else if (scene.scene_id==="act4_known_unknown" && !me.act4_locked_at) html=actionButtons(ROUTE_CHOICES,"s3b_submit_act4_choice");
-  else if (state.flow.terminal_state) html="<div class='notice good'>Sprint 3B flow complete. ACT 6 is not active.</div>";
-  else html="<p class='muted'>Waiting for the group state to advance.</p>";
-  if (state.queued_first_messages?.length) html+=`<div class="notice">${state.queued_first_messages.map(x=>`<p>${escapeHtml(x.role_slot)}: ${escapeHtml(x.choice_id)}</p>`).join("")}</div>`;
+  else if (scene.phase_key==="post_inspection_route") html=actionButtons([["known","act04-05.010"],["unknown","act04-05.011"]],"s3b_choose_post_inspection_route");
+  else html="";
+  if (state.queued_first_messages?.length) html+=`<div class="notice">${state.queued_first_messages.map(x=>`<p>${localizedHtml((MEETING_CHOICES.find(([id])=>id===x.choice_id)||[])[1]||"act02.009")}</p>`).join("")}</div>`;
   sprint3bActions.innerHTML=html;
   sprint3bActions.querySelectorAll("[data-s3b-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint3bAction(button)));
   document.getElementById("libraryCodeForm")?.addEventListener("submit",submitLibraryCode);
@@ -160,7 +160,7 @@ function renderSprint3b(state) {
 
 async function runSprint3bAction(button) {
   button.disabled=true; const payload={p_room_code:session.room_code,p_session_token:session.session_token};
-  if (button.dataset.s3bChoice) payload.p_choice_id=button.dataset.s3bChoice;
+  if (button.dataset.s3bChoice) payload[button.dataset.s3bRpc==="s3b_choose_post_inspection_route" ? "p_route" : "p_choice_id"]=button.dataset.s3bChoice;
   try { await rpc(button.dataset.s3bRpc,payload); await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false;}
 }
