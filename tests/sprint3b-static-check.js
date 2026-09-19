@@ -4,6 +4,9 @@ const root = path.resolve(__dirname, "..");
 const file = path.join(root, "database/007_sprint3b_act1_5_placeholder_flow.sql");
 if (!fs.existsSync(file)) throw new Error("Missing Sprint 3B migration.");
 const sql = fs.readFileSync(file, "utf8");
+const concurrencyFile = path.join(root, "database/008_sprint3b_gate_concurrency_fix.sql");
+if (!fs.existsSync(concurrencyFile)) throw new Error("Missing Sprint 3B gate concurrency correction.");
+const concurrency = fs.readFileSync(concurrencyFile, "utf8");
 const student = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 const teacher = fs.readFileSync(path.join(root, "src/teacher/teacher-console.js"), "utf8");
 for (const fragment of [
@@ -17,6 +20,9 @@ for (const fragment of [
 ]) if (!sql.includes(fragment)) throw new Error(`Sprint 3B contract missing: ${fragment}`);
 if (/teacher_override|RESOLVE & CONTINUE|SKIP CURRENT INTERACTION/i.test(sql)) throw new Error("Sprint 3C Teacher Override leaked into Sprint 3B.");
 if (/service[_-]?role/i.test(sql)) throw new Error("Service-role reference is forbidden.");
+for (const fragment of ["s3b_player_progress_serialize_gate", "for update", "Sprint 3B run state is not initialized"]) {
+  if (!concurrency.includes(fragment)) throw new Error(`Sprint 3B concurrency correction missing: ${fragment}`);
+}
 for (const fragment of ["resolveLocalizedText", "s3b_get_player_state", "s3b_submit_act1_choice", "s3b_submit_library_code", "s3b_apply_act5_resolution"]) {
   if (!student.includes(fragment)) throw new Error(`Sprint 3B student binding missing: ${fragment}`);
 }

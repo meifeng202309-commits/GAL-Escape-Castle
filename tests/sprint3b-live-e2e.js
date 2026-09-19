@@ -13,7 +13,7 @@ async function act1and2(f,meeting=["library","great_hall","main_gate"]){
   await Promise.all([0,1,2].map(i=>rpc("s3b_grab",auth(f,i))));
   await Promise.all([0,1,2].map(i=>rpc("s3b_leave_start_room",auth(f,i))));
 }
-async function vote(f,choices){await rpc("s2_open_vote",{p_room_code:f.room,p_teacher_token:f.teacher});for(let i=0;i<3;i++)await rpc("s2_submit_vote",{...auth(f,i),p_choice_id:choices[i]})}
+async function vote(f,choices){const before=await rpc("s2_get_teacher_state",{p_room_code:f.room,p_teacher_token:f.teacher});assert(before.discussion,`Discussion missing before vote in ${f.room}`);assert(before.discussion.status==="discussion",`Discussion status before vote is ${before.discussion.status}`);await rpc("s2_open_vote",{p_room_code:f.room,p_teacher_token:f.teacher});for(let i=0;i<3;i++)await rpc("s2_submit_vote",{...auth(f,i),p_choice_id:choices[i]})}
 async function main(){
   const f=await fixture();
   await reject("B1 role-specific ACT 1 identity enforced",()=>rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"read_diary"}),"canonical ACT 1");
