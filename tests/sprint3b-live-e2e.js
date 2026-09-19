@@ -24,7 +24,7 @@ async function main(){
   await Promise.all([0,1,2].map(i=>rpc("s3b_ack_act1_opening",auth(f,i))));
   await reject("B1 role-specific ACT 1 identity enforced",()=>rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"read_diary"}),"canonical ACT 1");
   await rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"study_map"});
-  await reject("B1a ACT 2 submission before global ACT 1 gate rejected",()=>rpc("s3b_submit_first_meeting",{...auth(f,0),p_choice_id:"library"}),"out of phase");
+  await reject("B1a ACT 2 submission before global ACT 1 gate rejected",()=>rpc("s3b_submit_first_meeting",{...auth(f,0),p_choice_id:"library"}),"unavailable");
   assert((await state(f,1)).me.act1_choice_id===null,"ACT 1 privacy leaked");pass("B2 ACT 1 choice remains private");
   await Promise.all([rpc("s3b_submit_act1_choice",{...auth(f,1),p_choice_id:"read_diary"}),rpc("s3b_submit_act1_choice",{...auth(f,2),p_choice_id:"study_watch"})]);
   await Promise.all([0,1,2].map(i=>rpc("s3b_complete_act1",auth(f,i))));
@@ -38,7 +38,7 @@ async function main(){
   const fPocket=await rpc("s3_get_player_state",auth(f,0));assert(!fPocket.items.some(x=>x.item_key==="gitte_flashlight"),"Undiscovered flashlight was granted");pass("B5a optional flashlight is excluded when not discovered");
   await vote(f,["library","library","great_hall"]); await rpc("s3b_apply_meeting_resolution",auth(f,0));
   await reject("B6r meeting-resolution replay rejected",()=>rpc("s3b_apply_meeting_resolution",auth(f,0)),"unavailable");
-  await reject("B6a FOLLOW SIGN before wayfinding rejected",()=>rpc("s3b_follow_sign",auth(f,0)),"out of phase");
+  await reject("B6a FOLLOW SIGN before wayfinding rejected",()=>rpc("s3b_follow_sign",auth(f,0)),"unavailable");
   let s=await state(f);assert(s.flow.final_meeting_result==="library"&&s.scene.phase_key==="route_update"&&s.scene.text_key==="act02.032","Meeting route update was not persisted for reconnect");pass("B6 majority writes a reconnect-safe route update");
   await rpc("s3b_ack_route_update",auth(f,0));await reject("B6u route-update replay rejected",()=>rpc("s3b_ack_route_update",auth(f,0)),"unavailable");s=await state(f);assert(s.scene.current_route_target==="library"&&s.scene.phase_key==="route_consequence","Route update acknowledgement did not advance");pass("B6v route update delivers before route consequence");
   await rpc("s3b_complete_foldback",auth(f,0));await reject("B6b duplicate fold-back rejected",()=>rpc("s3b_complete_foldback",auth(f,0)),"already complete"); await Promise.all([0,1].map(i=>rpc("s3b_follow_sign",auth(f,i))));await reject("B6c FOLLOW SIGN replay rejected",()=>rpc("s3b_follow_sign",auth(f,0)),"unavailable");

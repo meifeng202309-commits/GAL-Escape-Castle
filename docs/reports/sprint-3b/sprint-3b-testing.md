@@ -2,7 +2,7 @@
 
 ## Deployment
 
-The user applied migrations 007, 008, 009, and 010 to Supabase project `qdcbdcjobzytzhnhfwyn`; each returned `Success. No rows returned`.
+The user applied migrations 007, 008, 009, 010, and 011 to Supabase project `qdcbdcjobzytzhnhfwyn`; each returned `Success. No rows returned`.
 
 ## Static
 
@@ -10,7 +10,7 @@ The user applied migrations 007, 008, 009, and 010 to Supabase project `qdcbdcjo
 - Sprint 2 static: PASS
 - Sprint 3A static: PASS
 - Sprint 3B static: PASS
-- localization generation: deterministic 323-entry PASS
+- localization generation: deterministic 333-entry PASS
 - relevant JavaScript syntax and `git diff --check`: PASS
 
 ## Live
@@ -18,11 +18,13 @@ The user applied migrations 007, 008, 009, and 010 to Supabase project `qdcbdcjo
 - Sprint 1: 40/40 PASS
 - Sprint 2: 23/23 PASS
 - Sprint 3A: 15/15 PASS
-- Sprint 3B: 29/29 PASS
+- Sprint 3B: 39/39 PASS
 
-Sprint 3B live coverage includes role-specific identity rejection, out-of-phase rejection, ACT 1 privacy/consequences, all-three gates, queued ACT 2 reveal, optional-item inclusion/exclusion, ACT 2 majority and system fallback, idempotent fold-back, per-player wayfinding/reunion, ordered and concurrent puzzle attempts, complete 90–150 second auto-fallback, canonical item labels, unanimous ACT 4 known/unknown, ACT 5 known/unknown majority, non-terminal Inspect First and post-inspection route, run isolation, terminal ACT 6 boundary, and anonymous RLS reads/writes.
+Sprint 3B live coverage includes initialization and public-transition replay rejection, role-specific ACT 1 opening/action/consequence/completion delivery, ACT 1 privacy and all-three completion gate, queued ACT 2 sender-aware canonical templates, reconnect-safe route-update delivery and acknowledgement replay rejection, optional-item inclusion/exclusion, ACT 2 majority and system fallback, idempotent fold-back, per-player wayfinding/reunion, server-owned locked-wheel prefixes at 90/105/120/135/150 seconds, reconnect restoration, locked-position mutation rejection, sub-90-second deadline preservation, ordered and concurrent puzzle attempts, final auto-resolution with zero synthetic attempts, unanimous ACT 4 known/unknown, ACT 5 known/unknown majority, non-terminal Inspect First and post-inspection route, run isolation, terminal ACT 6 boundary, and anonymous RLS reads/writes.
 
-The first combined run exposed an intermittent concurrent gate race. Migration 008 serialized player-progress mutations per run. The complete regression set passed after deployment.
+The active GAL-facing DiscussionRoom now uses the ten GA-approved `discussion.*` localization keys. The four GA-designated developer/status labels are absent from the student UI. Vote privacy, missing-player blocking, re-vote visibility, and system-fallback provenance remain server-authoritative.
+
+The first post-011 Sprint 3B run stopped on an obsolete negative-test error-message substring: the server correctly rejected the premature request as `unavailable`, while the test expected the earlier `out of phase` wording. The assertion was aligned with the guarded RPC contract, and the complete 39-check suite then passed with exit code 0.
 
 ## Not verified
 
