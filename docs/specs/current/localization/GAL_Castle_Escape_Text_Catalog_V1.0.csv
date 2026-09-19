@@ -328,3 +328,13 @@ item.silver_star_key,ACT 1–5 — Item label,static,bilingual,★ Silver Key,�
 item.municipal_closure_order,ACT 1–5 — Item label,static,bilingual,Municipal Closure Order,Gemeentelijk sluitingsbevel,市政封闭令,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
 item.photo_1897,ACT 3+ — Group item label,static,bilingual,1897 Photograph,Foto uit 1897,1897年照片,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical GROUP FOUND ITEMS display label.
 item.torn_note,ACT 3+ — Group item label,static,bilingual,Torn Note,Gescheurd briefje,撕破的纸条,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical GROUP FOUND ITEMS display label.
+discussion.initial_choices,Shared DiscussionRoom,static,bilingual,Initial choices,Eerste keuzes,初始选择,ADDED_DISCUSSIONROOM_LOCALIZATION,Student-facing section label; replaces "Initial choices revealed".
+discussion.no_messages,Shared DiscussionRoom,static,bilingual,No messages yet.,Nog geen berichten.,暂无消息。,ADDED_DISCUSSIONROOM_LOCALIZATION,Empty DiscussionRoom state.
+discussion.voting_after_discussion,Shared DiscussionRoom,static,bilingual,Voting opens after the discussion.,De stemming opent na de bespreking.,讨论结束后开放投票。,ADDED_DISCUSSIONROOM_LOCALIZATION,Student instruction.
+discussion.waiting_missing_player,Shared DiscussionRoom,static,bilingual,WAITING FOR MISSING PLAYER,WACHTEN OP EEN SPELER DIE NOG NIET HEEFT INGEDIEND,等待尚未提交的玩家,ADDED_DISCUSSIONROOM_LOCALIZATION,Do not synthesize missing player input.
+discussion.vote_locked,Shared DiscussionRoom,static,bilingual,Your vote is locked.,Je stem is vergrendeld.,你的投票已锁定。,ADDED_DISCUSSIONROOM_LOCALIZATION,Shown after the player's vote is submitted.
+discussion.final_vote,Shared DiscussionRoom,static,bilingual,Final vote,Eindstemming,最终投票,ADDED_DISCUSSIONROOM_LOCALIZATION,Final vote section title.
+discussion.previous_vote_rounds,Shared DiscussionRoom,static,bilingual,Previous vote rounds,Vorige stemrondes,之前的投票轮次,ADDED_DISCUSSIONROOM_LOCALIZATION,Needed for re-vote visibility.
+discussion.vote_round,Shared DiscussionRoom,template,bilingual,Vote round {round_no},Stemronde {round_no},第 {round_no} 轮投票,ADDED_DISCUSSIONROOM_LOCALIZATION,Current vote-round label.
+discussion.submitted_progress,Shared DiscussionRoom,template,bilingual,{submitted}/3 submitted,{submitted}/3 ingediend,已提交 {submitted}/3,ADDED_DISCUSSIONROOM_LOCALIZATION,Generic submission progress.
+discussion.votes_received_progress,Shared DiscussionRoom,template,bilingual,{submitted}/3 votes received.,{submitted}/3 stemmen ontvangen.,已收到 {submitted}/3 票。,ADDED_DISCUSSIONROOM_LOCALIZATION,Student-facing vote progress; developer phrase about synthesis removed.
