@@ -1,0 +1,19 @@
+{
+  "asset_key": "prop_gitte_number_note_front",
+  "display_name": "Number Note Front",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "paired_asset_group": "gitte_number_note",
+  "required_anchors": [],
+  "filename": "prop_gitte_number_note_front__v001.webp",
+  "width_px": 1536,
+  "height_px": 1024,
+  "sha256": "e2fd0b3ae97b9c423312bf8f8d4ed455591eb8e2a6bc291cf26199fdce50e556",
+  "source_png_sha256": "eb7ace05b2bed03a4516a12a4772f17e97e10dc787689bec7ce0c18ca1b75963",
+  "source_note": "Teacher-selected front side of the number note. Blank central writing area retained for exact HTML/UI digits.",
+  "compliance_note": "No readable digits, letters, warning text, or star are baked into the image. Exact 4-1-7-3-9 is UI-only. Teacher-approved; not ACTIVE."
+}
