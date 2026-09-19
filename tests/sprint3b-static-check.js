@@ -13,6 +13,9 @@ const consequence = fs.readFileSync(consequenceFile, "utf8");
 const integrityFile = path.join(root, "database/010_sprint3b_flow_integrity_and_inspect_fix.sql");
 if (!fs.existsSync(integrityFile)) throw new Error("Missing Sprint 3B flow-integrity correction.");
 const integrity = fs.readFileSync(integrityFile, "utf8");
+const deliveryFile = path.join(root, "database/011_sprint3b_transition_and_act1_delivery_integrity.sql");
+if (!fs.existsSync(deliveryFile)) throw new Error("Missing Sprint 3B transition/content-delivery correction.");
+const delivery = fs.readFileSync(deliveryFile, "utf8");
 const student = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 const teacher = fs.readFileSync(path.join(root, "src/teacher/teacher-console.js"), "utf8");
 for (const fragment of [
@@ -28,6 +31,9 @@ if (/teacher_override|RESOLVE & CONTINUE|SKIP CURRENT INTERACTION/i.test(sql)) t
 if (/service[_-]?role/i.test(sql)) throw new Error("Service-role reference is forbidden.");
 for (const fragment of ["s3b_player_progress_serialize_gate", "for update", "Sprint 3B run state is not initialized"]) {
   if (!concurrency.includes(fragment)) throw new Error(`Sprint 3B concurrency correction missing: ${fragment}`);
+}
+for (const fragment of ["s3b_initialize_flow_pre011", "act1_stage", "s3b_ack_act1_opening", "s3b_complete_act1", "puzzle_locked_prefix", "Locked puzzle wheels cannot be changed", "s3b_follow_sign_pre011"]) {
+  if (!delivery.includes(fragment)) throw new Error(`Sprint 3B transition/content-delivery correction missing: ${fragment}`);
 }
 for (const fragment of ["s3b_player_progress_phase_guard", "Fold-back is out of phase or already complete", "pending_post_inspection_route", "s3b_choose_post_inspection_route", "Post-inspection route is out of phase", "act03.017", "act03.020", "puzzle_resolved_system_fallback", "item.castle_map", "item.torn_note"]) {
   if (!integrity.includes(fragment)) throw new Error(`Sprint 3B flow-integrity correction missing: ${fragment}`);

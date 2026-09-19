@@ -119,9 +119,9 @@ async function refreshSprint3b() {
 }
 
 const ACT1_CHOICES = {
-  "GAL-A": [["study_map","act01-g.010"],["check_sound","act01-g.011"],["study_number_note","act01-g.012"],["search_room","act01-g.013"]],
-  "GAL-B": [["read_diary","act01-a.007"],["check_door","act01-a.009"],["check_phone","act01-a.011"],["check_vent","act01-a.014"]],
-  "GAL-C": [["read_notice","act01-l.009"],["study_watch","act01-l.012"],["try_star_key","act01-l.018"],["check_mirror","act01-l.020"]],
+  "GAL-A": [["study_map","act01-g.019"],["check_sound","act01-g.020"],["study_number_note","act01-g.021"],["search_room","act01-g.022"]],
+  "GAL-B": [["read_diary","act01-a.006"],["check_door","act01-a.007"],["check_phone","act01-a.008"],["check_vent","act01-a.009"]],
+  "GAL-C": [["read_notice","act01-l.012"],["study_watch","act01-l.013"],["try_star_key","act01-l.014"],["check_mirror","act01-l.015"]],
 };
 const MEETING_CHOICES = [["library","act02.004"],["great_hall","act02.005"],["main_gate","act02.006"],["west_tower","act02.007"],["chapel","act02.008"],["help","act02.009"]];
 const ROUTE_CHOICES = [["known","act04-05.005"],["unknown","act04-05.006"],["inspect","act04-05.007"],["ask","act04-05.008"]];
@@ -135,20 +135,24 @@ function actionButtons(items, rpcName) {
   return `<div class="choice-list">${items.map(([id,key])=>`<button type="button" data-s3b-rpc="${rpcName}" data-s3b-choice="${escapeHtml(id)}">${localizedHtml(key)}</button>`).join("")}</div>`;
 }
 
+function localizedKeys(keys=[]) { return keys.map(localizedHtml).join(""); }
+
 function renderSprint3b(state) {
   if (!state.active || !state.scene || !state.flow || !state.me) { sprint3bPanel.classList.add("hidden"); choiceArea.classList.remove("hidden"); revealArea.classList.remove("hidden"); return; }
   choiceArea.classList.add("hidden"); revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
   sprint3bText.innerHTML=`<div class="bilingual">${localizedHtml(state.scene.text_key)}</div>${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`;
   const me=state.me, scene=state.scene; let html="";
-  if (!me.act1_locked_at) html=actionButtons(ACT1_CHOICES[session.role_slot]||[],"s3b_submit_act1_choice");
+  if (scene.scene_id==="act1_wake_up" && me.act1_stage==="opening") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_ack_act1_opening">${localizedHtml("common.004")}</button>`;
+  else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="action") html=actionButtons(ACT1_CHOICES[session.role_slot]||[],"s3b_submit_act1_choice");
+  else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="consequence") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_complete_act1">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up") html=`<p class="warn">${localizedHtml("act01-g.031")}</p>`;
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
   else if (!me.grab_complete) html=`<button type="button" data-s3b-rpc="s3b_grab">${localizedHtml("act02.014")}</button>`;
   else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
   else if (scene.phase_key==="route_consequence") html=`<button type="button" data-s3b-rpc="s3b_complete_foldback">${localizedHtml("act02.042")}</button>`;
   else if (scene.phase_key==="wayfinding" && me.player_location!=="library") html=`<button type="button" data-s3b-rpc="s3b_follow_sign">${localizedHtml("act03.003")}</button>`;
-  else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) html=`<form id="libraryCodeForm" class="composer"><input id="libraryCode" inputmode="numeric" maxlength="5" pattern="[0-9]{5}"><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`;
+  else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) { const locked=state.flow.puzzle_locked_prefix||""; const remaining=5-locked.length; html=`<form id="libraryCodeForm" class="composer"><div class="locked-wheels"><b>${escapeHtml(locked)}</b><input id="libraryCode" inputmode="numeric" maxlength="${remaining}" pattern="[0-9]{${remaining}}" data-locked-prefix="${escapeHtml(locked)}"></div><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`; }
   else if (scene.scene_id==="act4_known_unknown" && !me.act4_locked_at) html=actionButtons(ROUTE_CHOICES,"s3b_submit_act4_choice");
   else if (scene.phase_key==="post_inspection_route") html=actionButtons([["known","act04-05.010"],["unknown","act04-05.011"]],"s3b_choose_post_inspection_route");
   else html="";
@@ -167,7 +171,7 @@ async function runSprint3bAction(button) {
 
 async function submitLibraryCode(event) {
   event.preventDefault(); const input=document.getElementById("libraryCode");
-  try { await rpc("s3b_submit_library_code",{p_room_code:session.room_code,p_session_token:session.session_token,p_code:input.value}); await refreshState(); }
+  try { await rpc("s3b_submit_library_code",{p_room_code:session.room_code,p_session_token:session.session_token,p_code:`${input.dataset.lockedPrefix||""}${input.value}`}); await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;}
 }
 

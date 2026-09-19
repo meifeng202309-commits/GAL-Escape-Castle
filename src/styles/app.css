@@ -49,6 +49,7 @@ hr{border:0;border-top:1px solid var(--line);margin:22px 0}
 .bilingual{display:grid;gap:8px;margin:12px 0;white-space:pre-line}
 .bilingual [lang="nl"]{font-weight:700}
 .bilingual [lang="zh"]{color:var(--muted)}
+.locked-wheels{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px}.locked-wheels b{font-size:22px;letter-spacing:.18em;color:var(--good)}
 .deadline{font-variant-numeric:tabular-nums;color:var(--warn);white-space:nowrap}
 .transcript{display:grid;gap:8px;max-height:320px;overflow:auto;border:1px solid var(--line);background:#101827;padding:10px;border-radius:6px;margin:14px 0}
 .message{padding:9px 10px;background:var(--panel-soft);border-left:3px solid #6ab4d8}
