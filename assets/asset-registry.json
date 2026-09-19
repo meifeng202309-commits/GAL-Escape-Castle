@@ -73,7 +73,7 @@
         "Castle spatial map"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-03"
@@ -90,7 +90,7 @@
         "Number note front"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-04"
@@ -107,7 +107,7 @@
         "Number note back"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-04"
