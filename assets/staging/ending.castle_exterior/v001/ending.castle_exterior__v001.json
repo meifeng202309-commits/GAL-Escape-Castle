@@ -1,0 +1,21 @@
+{
+  "asset_key": "ending.castle_exterior",
+  "display_name": "Final Castle Exterior",
+  "asset_type": "image",
+  "version": 1,
+  "status": "PLACEHOLDER",
+  "teacher_review": "TEMPORARY_PLACEHOLDER",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-01"
+  ],
+  "required_anchors": [],
+  "filename": "ending.castle_exterior__v001.svg",
+  "width_px": 1024,
+  "height_px": 576,
+  "placeholder": true,
+  "production_owner": "GAL/student",
+  "replacement_required": true,
+  "revision_note": "Temporary Teacher-requested placeholder for Codex/runtime testing. Replace with GAL-produced final art before final visual sign-off.",
+  "technical_notes": "Temporary SVG placeholder only. Non-ACTIVE; CD/Asset Manager may publish/activate for testing as appropriate."
+}

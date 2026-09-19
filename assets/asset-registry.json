@@ -21,7 +21,7 @@
         "Gitte opening room"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-02"
@@ -38,7 +38,7 @@
         "Anna opening room"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-02"
@@ -55,7 +55,7 @@
         "Linda opening study"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-02",
@@ -410,7 +410,7 @@
         "Escape exterior"
       ],
       "asset_type": "image",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [
         "MASTER-01"
