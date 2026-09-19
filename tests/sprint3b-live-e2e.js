@@ -21,6 +21,7 @@ async function main(){
   assert((await state(f,1)).me.act1_choice_id===null,"ACT 1 privacy leaked");pass("B2 ACT 1 choice remains private");
   await Promise.all([rpc("s3b_submit_act1_choice",{...auth(f,1),p_choice_id:"read_diary"}),rpc("s3b_submit_act1_choice",{...auth(f,2),p_choice_id:"study_watch"})]);
   assert((await state(f)).scene.scene_id==="act2_first_contact","ACT 1 gate failed");pass("B3 all-three ACT 1 gate advances once");
+  const facts=await Promise.all([0,1,2].map(i=>rpc("s3b_get_my_facts",auth(f,i))));assert(facts[0].includes("gitte_map_detail")&&facts[1].includes("anna_knows_snake_rule")&&facts[2].includes("linda_knows_watch_message"),"ACT 1 consequences missing");pass("B3a canonical ACT 1 consequences are private and persisted");
   await Promise.all(["library","great_hall","help"].map((p_choice_id,i)=>rpc("s3b_submit_first_meeting",{...auth(f,i),p_choice_id})));
   assert((await state(f)).queued_first_messages.length===0,"Queued choices revealed early");pass("B4 ACT 2 messages hidden before three-condition gate");
   await Promise.all([0,1,2].map(i=>rpc("s3b_grab",auth(f,i)))); await Promise.all([0,1,2].map(i=>rpc("s3b_leave_start_room",auth(f,i))));
@@ -33,7 +34,7 @@ async function main(){
   await rpc("s3b_submit_library_code",{...auth(f,0),p_code:"11111"});await rpc("s3b_submit_library_code",{...auth(f,1),p_code:"22222"});await rpc("s3b_submit_library_code",{...auth(f,2),p_code:"41739"});s=await state(f);assert(s.flow.puzzle_attempt_number===3&&s.flow.puzzle_resolved_at,"Puzzle ordering failed");pass("B9 ordered attempts resolve canonical code");
   await Promise.all(["known","known","known"].map((p_choice_id,i)=>rpc("s3b_submit_act4_choice",{...auth(f,i),p_choice_id})));s=await state(f);assert(s.flow.group_route==="known"&&s.flow.terminal_state==="SPRINT3B_COMPLETE","Direct route terminal failed");pass("B10 unanimous ACT 4 resolves without ACT 6");
   const g=await fixture();await act1and2(g,["great_hall","great_hall","library"]);await vote(g,["great_hall","great_hall","library"]);await rpc("s3b_apply_meeting_resolution",auth(g,0));await rpc("s3b_complete_foldback",auth(g,0));const gs=await state(g);assert(gs.flow.final_meeting_result==="great_hall"&&gs.scene.current_route_target==="library"&&gs.scene.wayfinding_target==="library","Fold-back semantics failed");pass("B11 failed rendezvous preserves history and folds route to Library");
-  for(const table of ["s3b_run_state","s3b_player_progress","s3b_library_attempts"]){const r=await fetch(`${URL}/rest/v1/${table}?select=*`,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`}}),rows=await r.json();assert(r.ok&&rows.length===0,`RLS leak ${table}`)}pass("B12 anonymous direct reads blocked");
+  for(const table of ["s3b_run_state","s3b_player_progress","s3b_library_attempts","s3b_player_facts"]){const r=await fetch(`${URL}/rest/v1/${table}?select=*`,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`}}),rows=await r.json();assert(r.ok&&rows.length===0,`RLS leak ${table}`)}pass("B12 anonymous direct reads blocked");
   console.log(`Sprint 3B live E2E passed: ${results.length} checks.`);
 }
 main().catch(e=>{console.error(`FAIL ${e.stack||e.message}`);process.exitCode=1});

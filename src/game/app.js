@@ -136,7 +136,8 @@ function actionButtons(items, rpcName) {
 }
 
 function renderSprint3b(state) {
-  if (!state.active || !state.scene || !state.flow || !state.me) { sprint3bPanel.classList.add("hidden"); return; }
+  if (!state.active || !state.scene || !state.flow || !state.me) { sprint3bPanel.classList.add("hidden"); choiceArea.classList.remove("hidden"); revealArea.classList.remove("hidden"); return; }
+  choiceArea.classList.add("hidden"); revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
   sprint3bText.innerHTML=`<h3>${escapeHtml(state.scene.scene_id.replaceAll("_"," "))}</h3><div class="bilingual">${localizedHtml(state.scene.text_key)}</div>`;
   const me=state.me, scene=state.scene; let html="";
