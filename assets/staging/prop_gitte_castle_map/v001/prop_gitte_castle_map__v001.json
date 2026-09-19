@@ -1,0 +1,18 @@
+{
+  "asset_key": "prop_gitte_castle_map",
+  "display_name": "Castle Map",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-03"],
+  "required_anchors": [],
+  "filename": "prop_gitte_castle_map__v001.webp",
+  "width_px": 1447,
+  "height_px": 1087,
+  "sha256": "1239994a4292744ba92523115378b5481e1d7c019168ca8525ed1fd51cc50672",
+  "source_png_sha256": "00163c3d88c3ca77ff97f45d66a81b2d7d28e738ee8d92002c25fdf5c1f574f2",
+  "source_note": "Direct runtime use of the user-approved MASTER-03 map image. Venue labels, route arrows, north arrow and scale are intentionally preserved exactly as approved by the Teacher.",
+  "compliance_note": "Unknown Passage is not shown. Spatial relationships remain the approved MASTER-03 canon. This candidate is teacher-approved but not ACTIVE; CD/Asset Manager controls runtime activation."
+}
