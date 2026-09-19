@@ -124,11 +124,20 @@ const ACT1_CHOICES = {
   "GAL-C": [["read_notice","act01-l.012"],["study_watch","act01-l.013"],["try_star_key","act01-l.014"],["check_mirror","act01-l.015"]],
 };
 const MEETING_CHOICES = [["library","act02.004"],["great_hall","act02.005"],["main_gate","act02.006"],["west_tower","act02.007"],["chapel","act02.008"],["help","act02.009"]];
+const LOCATION_KEYS = {library:"act01-g.009",great_hall:"act01-g.010",main_gate:"act01-g.011",west_tower:"act01-g.012",chapel:"act01-g.013"};
 const ROUTE_CHOICES = [["known","act04-05.005"],["unknown","act04-05.006"],["inspect","act04-05.007"],["ask","act04-05.008"]];
 
 function localizedHtml(key) {
   try { const value=resolveLocalizedText(key); return `<span lang="nl">${escapeHtml(value.nl)}</span>${value.zh ? `<span lang="zh">${escapeHtml(value.zh)}</span>` : ""}`; }
   catch { return `<span class="bad">Missing text: ${escapeHtml(key)}</span>`; }
+}
+
+function localizedTemplateHtml(key, replacements={}) {
+  try {
+    const value=resolveLocalizedText(key);
+    const apply=(text,language)=>Object.entries(replacements).reduce((result,[token,replacement])=>result.replaceAll(`{${token}}`,typeof replacement==="object" ? replacement[language]||"" : replacement||""),text||"");
+    return `<span lang="nl">${escapeHtml(apply(value.nl,"nl"))}</span>${value.zh ? `<span lang="zh">${escapeHtml(apply(value.zh,"zh"))}</span>` : ""}`;
+  } catch { return `<span class="bad">Missing text: ${escapeHtml(key)}</span>`; }
 }
 
 function actionButtons(items, rpcName) {
@@ -141,8 +150,11 @@ function renderSprint3b(state) {
   if (!state.active || !state.scene || !state.flow || !state.me) { sprint3bPanel.classList.add("hidden"); choiceArea.classList.remove("hidden"); revealArea.classList.remove("hidden"); return; }
   choiceArea.classList.add("hidden"); revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
-  sprint3bText.innerHTML=`<div class="bilingual">${localizedHtml(state.scene.text_key)}</div>${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`;
   const me=state.me, scene=state.scene; let html="";
+  const routeLocationKey=LOCATION_KEYS[scene.current_route_target];
+  sprint3bText.innerHTML=scene.phase_key==="route_update"
+    ? `<div class="bilingual">${localizedTemplateHtml("act02.032",{location:routeLocationKey ? resolveLocalizedText(routeLocationKey) : ""})}${localizedHtml("act02.033")}</div>`
+    : `<div class="bilingual">${localizedHtml(state.scene.text_key)}</div>${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`;
   if (scene.scene_id==="act1_wake_up" && me.act1_stage==="opening") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_ack_act1_opening">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="action") html=actionButtons(ACT1_CHOICES[session.role_slot]||[],"s3b_submit_act1_choice");
   else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="consequence") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_complete_act1">${localizedHtml("common.004")}</button>`;
@@ -150,13 +162,17 @@ function renderSprint3b(state) {
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
   else if (!me.grab_complete) html=`<button type="button" data-s3b-rpc="s3b_grab">${localizedHtml("act02.014")}</button>`;
   else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
+  else if (scene.phase_key==="route_update") html=`<button type="button" data-s3b-rpc="s3b_ack_route_update">${localizedHtml("common.004")}</button>`;
   else if (scene.phase_key==="route_consequence") html=`<button type="button" data-s3b-rpc="s3b_complete_foldback">${localizedHtml("act02.042")}</button>`;
   else if (scene.phase_key==="wayfinding" && me.player_location!=="library") html=`<button type="button" data-s3b-rpc="s3b_follow_sign">${localizedHtml("act03.003")}</button>`;
   else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) { const locked=state.flow.puzzle_locked_prefix||""; const remaining=5-locked.length; html=`<form id="libraryCodeForm" class="composer"><div class="locked-wheels"><b>${escapeHtml(locked)}</b><input id="libraryCode" inputmode="numeric" maxlength="${remaining}" pattern="[0-9]{${remaining}}" data-locked-prefix="${escapeHtml(locked)}"></div><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`; }
   else if (scene.scene_id==="act4_known_unknown" && !me.act4_locked_at) html=actionButtons(ROUTE_CHOICES,"s3b_submit_act4_choice");
   else if (scene.phase_key==="post_inspection_route") html=actionButtons([["known","act04-05.010"],["unknown","act04-05.011"]],"s3b_choose_post_inspection_route");
   else html="";
-  if (state.queued_first_messages?.length) html+=`<div class="notice">${state.queued_first_messages.map(x=>`<p>${localizedHtml((MEETING_CHOICES.find(([id])=>id===x.choice_id)||[])[1]||"act02.009")}</p>`).join("")}</div>`;
+  if (state.queued_first_messages?.length) html+=`<div class="notice">${state.queued_first_messages.map(x=>{
+    const location=x.location_text_key ? resolveLocalizedText(x.location_text_key) : {nl:"",zh:""};
+    return `<p>${localizedTemplateHtml(x.template_text_key,{player_display_name:x.display_name,location})}</p>`;
+  }).join("")}</div>`;
   sprint3bActions.innerHTML=html;
   sprint3bActions.querySelectorAll("[data-s3b-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint3bAction(button)));
   document.getElementById("libraryCodeForm")?.addEventListener("submit",submitLibraryCode);
