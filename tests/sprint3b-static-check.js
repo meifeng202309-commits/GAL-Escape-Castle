@@ -29,7 +29,7 @@ if (/service[_-]?role/i.test(sql)) throw new Error("Service-role reference is fo
 for (const fragment of ["s3b_player_progress_serialize_gate", "for update", "Sprint 3B run state is not initialized"]) {
   if (!concurrency.includes(fragment)) throw new Error(`Sprint 3B concurrency correction missing: ${fragment}`);
 }
-for (const fragment of ["s3b_player_progress_phase_guard", "Fold-back is out of phase or already complete", "pending_post_inspection_route", "s3b_choose_post_inspection_route", "Post-inspection route is out of phase"]) {
+for (const fragment of ["s3b_player_progress_phase_guard", "Fold-back is out of phase or already complete", "pending_post_inspection_route", "s3b_choose_post_inspection_route", "Post-inspection route is out of phase", "act03.017", "act03.020", "puzzle_resolved_system_fallback", "item.castle_map", "item.torn_note"]) {
   if (!integrity.includes(fragment)) throw new Error(`Sprint 3B flow-integrity correction missing: ${fragment}`);
 }
 for (const fragment of ["s3b_player_facts", "s3b_act1_consequence", "chapel_warning", "great_hall_outer_lock", "warm_air_warning", "gitte_flashlight_found", "s3b_optional_grab_item"]) {

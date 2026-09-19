@@ -2170,6 +2170,97 @@ export const LOCALIZATION_CATALOG = {
     "englishMaster": "Check server configuration or internet connection.",
     "nl": "Controleer de serverconfiguratie of de internetverbinding.",
     "zh": "请检查服务器配置或网络连接。"
+  },
+  "act03.017": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "A second wheel clicks into place.",
+    "nl": "Een tweede wieltje klikt op zijn plaats.",
+    "zh": "第二个转轮咔哒一声卡入正确位置。"
+  },
+  "act03.018": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "A third wheel clicks into place.",
+    "nl": "Een derde wieltje klikt op zijn plaats.",
+    "zh": "第三个转轮咔哒一声卡入正确位置。"
+  },
+  "act03.019": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "A fourth wheel clicks into place.",
+    "nl": "Een vierde wieltje klikt op zijn plaats.",
+    "zh": "第四个转轮咔哒一声卡入正确位置。"
+  },
+  "act03.020": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "The final wheel turns and clicks into place.",
+    "nl": "Het laatste wieltje draait en klikt op zijn plaats.",
+    "zh": "最后一个转轮转动并咔哒一声卡入正确位置。"
+  },
+  "item.castle_map": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Castle Map",
+    "nl": "Kasteelkaart",
+    "zh": "城堡地图"
+  },
+  "item.number_note": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Number Note",
+    "nl": "Briefje met cijfers",
+    "zh": "数字纸条"
+  },
+  "item.flashlight": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Flashlight",
+    "nl": "Zaklamp",
+    "zh": "手电筒"
+  },
+  "item.servant_diary": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Servant Diary",
+    "nl": "Dagboek van een bediende",
+    "zh": "仆人日记"
+  },
+  "item.stopped_watch": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Stopped Watch",
+    "nl": "Stilstaand zakhorloge",
+    "zh": "停走的怀表"
+  },
+  "item.silver_star_key": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "★ Silver Key",
+    "nl": "★ zilveren sleutel",
+    "zh": "★银钥匙"
+  },
+  "item.municipal_closure_order": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Municipal Closure Order",
+    "nl": "Gemeentelijk sluitingsbevel",
+    "zh": "市政封闭令"
+  },
+  "item.photo_1897": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "1897 Photograph",
+    "nl": "Foto uit 1897",
+    "zh": "1897年照片"
+  },
+  "item.torn_note": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Torn Note",
+    "nl": "Gescheurd briefje",
+    "zh": "撕破的纸条"
   }
 };
 

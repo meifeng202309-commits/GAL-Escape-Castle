@@ -148,7 +148,7 @@ function renderSprint3b(state) {
   else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
   else if (scene.phase_key==="route_consequence") html=`<button type="button" data-s3b-rpc="s3b_complete_foldback">${localizedHtml("act02.042")}</button>`;
   else if (scene.phase_key==="wayfinding" && me.player_location!=="library") html=`<button type="button" data-s3b-rpc="s3b_follow_sign">${localizedHtml("act03.003")}</button>`;
-  else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) html=`<form id="libraryCodeForm" class="composer"><input id="libraryCode" inputmode="numeric" maxlength="5" pattern="[0-9]{5}"><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014"][state.flow.puzzle_hint_stage])}</div>` : ""}`;
+  else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) html=`<form id="libraryCodeForm" class="composer"><input id="libraryCode" inputmode="numeric" maxlength="5" pattern="[0-9]{5}"><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`;
   else if (scene.scene_id==="act4_known_unknown" && !me.act4_locked_at) html=actionButtons(ROUTE_CHOICES,"s3b_submit_act4_choice");
   else if (scene.phase_key==="post_inspection_route") html=actionButtons([["known","act04-05.010"],["unknown","act04-05.011"]],"s3b_choose_post_inspection_route");
   else html="";

@@ -4,6 +4,35 @@
 
 alter table public.s3b_run_state
   add column if not exists pending_post_inspection_route boolean not null default false;
+alter table public.s3b_run_state drop constraint if exists s3b_run_state_puzzle_hint_stage_check;
+alter table public.s3b_run_state add constraint s3b_run_state_puzzle_hint_stage_check check(puzzle_hint_stage between 0 and 8);
+
+update public.s3_item_catalog set name_text_key=case item_key
+  when 'gitte_castle_map' then 'item.castle_map'
+  when 'gitte_number_note' then 'item.number_note'
+  when 'gitte_flashlight' then 'item.flashlight'
+  when 'anna_servant_diary' then 'item.servant_diary'
+  when 'linda_stopped_watch' then 'item.stopped_watch'
+  when 'linda_star_key' then 'item.silver_star_key'
+  when 'linda_closure_order' then 'item.municipal_closure_order'
+  when 'library_photo_1897' then 'item.photo_1897'
+  when 'library_torn_note' then 'item.torn_note'
+  else name_text_key end
+where item_key in ('gitte_castle_map','gitte_number_note','gitte_flashlight','anna_servant_diary','linda_stopped_watch','linda_star_key','linda_closure_order','library_photo_1897','library_torn_note');
+
+update public.s3_group_items set label_text_key=case item_key when 'library_photo_1897' then 'item.photo_1897' when 'library_torn_note' then 'item.torn_note' else label_text_key end
+where item_key in ('library_photo_1897','library_torn_note');
+
+create or replace function public.s3b_canonicalize_group_item_label()
+returns trigger language plpgsql security definer set search_path=public as $$
+begin
+  if new.item_key='library_photo_1897' then new.label_text_key:='item.photo_1897';
+  elsif new.item_key='library_torn_note' then new.label_text_key:='item.torn_note'; end if;
+  return new;
+end; $$;
+drop trigger if exists s3b_group_item_label_guard on public.s3_group_items;
+create trigger s3b_group_item_label_guard before insert or update on public.s3_group_items
+for each row execute function public.s3b_canonicalize_group_item_label();
 
 create or replace function public.s3b_guard_player_progress_phase()
 returns trigger language plpgsql security definer set search_path=public as $$
@@ -48,6 +77,40 @@ end; $$;
 drop trigger if exists s3b_library_attempt_phase_guard on public.s3b_library_attempts;
 create trigger s3b_library_attempt_phase_guard before insert on public.s3b_library_attempts
 for each row execute function public.s3b_guard_library_attempt_phase();
+
+create or replace function public.s3b_refresh_puzzle(p_run uuid)
+returns void language plpgsql security definer set search_path=public as $$
+declare v_state public.s3b_run_state%rowtype; v_target int; v_stage int; v_room text; v_key text;
+begin
+  select * into v_state from public.s3b_run_state where run_id=p_run for update;
+  if not found or v_state.puzzle_resolved_at is not null or v_state.puzzle_deadline is null or now()<v_state.puzzle_deadline then return; end if;
+  v_target:=least(8,4+floor(extract(epoch from (now()-v_state.puzzle_deadline))/15)::int);
+  select room_code into strict v_room from public.game_runs where run_id=p_run;
+  for v_stage in v_state.puzzle_hint_stage+1..v_target loop
+    if v_stage<4 then continue; end if;
+    v_key:=case v_stage when 4 then 'act03.014' when 5 then 'act03.017' when 6 then 'act03.018' when 7 then 'act03.019' else 'act03.020' end;
+    update public.s3b_run_state set puzzle_hint_stage=v_stage,updated_at=now() where run_id=p_run;
+    perform public.s2_log_event(p_run,v_room,null,'puzzle_fallback_hint',null,jsonb_build_object('hint_stage',v_stage,'text_key',v_key,'resolution_source','system_fallback','escape_penalty_event','puzzle_hint_used','behavior_scoring',false));
+  end loop;
+  if v_target=8 then
+    update public.s3b_run_state set puzzle_resolved_at=coalesce(puzzle_resolved_at,now()),updated_at=now() where run_id=p_run;
+    insert into public.s3_group_items(run_id,item_key,label_text_key) values(p_run,'library_photo_1897','item.photo_1897'),(p_run,'library_torn_note','item.torn_note') on conflict do nothing;
+    perform public.s2_log_event(p_run,v_room,null,'puzzle_resolved_system_fallback',null,jsonb_build_object('resolution_source','system_fallback','behavior_scoring',false,'text_key','act03.015'));
+    perform public.s3b_set_scene(p_run,'act4_known_unknown','private_route_choice','initial','ACTION_SCREEN','act03.015');
+  end if;
+end; $$;
+
+create or replace function public.s3b_audit_set_puzzle_elapsed(p_room_code text,p_teacher_token text,p_elapsed_seconds integer)
+returns jsonb language plpgsql security definer set search_path=public as $$
+declare v_room text:=upper(trim(p_room_code)); v_run public.game_runs%rowtype;
+begin
+  perform public.s1_assert_teacher(v_room,p_teacher_token); v_run:=public.s2_get_active_run(v_room);
+  if v_run.run_mode<>'audit' then raise exception 'Puzzle elapsed-time probe is restricted to AUDIT runs.'; end if;
+  if p_elapsed_seconds not between 0 and 600 then raise exception 'Invalid audit elapsed seconds.'; end if;
+  update public.s3b_run_state set puzzle_started_at=now()-make_interval(secs=>p_elapsed_seconds),puzzle_deadline=now()-make_interval(secs=>greatest(0,p_elapsed_seconds-90)) where run_id=v_run.run_id and puzzle_resolved_at is null;
+  perform public.s3b_refresh_puzzle(v_run.run_id);
+  return (select jsonb_build_object('ok',true,'hint_stage',puzzle_hint_stage,'attempt_number',puzzle_attempt_number,'resolved',puzzle_resolved_at is not null) from public.s3b_run_state where run_id=v_run.run_id);
+end; $$;
 
 create or replace function public.s3b_apply_act5_resolution(p_room_code text,p_session_token text)
 returns jsonb language plpgsql security definer set search_path=public as $$
@@ -104,5 +167,6 @@ begin
   return jsonb_build_object('ok',true,'final_meeting_result',v_result,'current_route_target','library');
 end; $$;
 
-revoke execute on function public.s3b_guard_player_progress_phase(),public.s3b_guard_run_state_phase(),public.s3b_guard_library_attempt_phase() from public,anon,authenticated;
+revoke execute on function public.s3b_guard_player_progress_phase(),public.s3b_guard_run_state_phase(),public.s3b_guard_library_attempt_phase(),public.s3b_canonicalize_group_item_label() from public,anon,authenticated;
 grant execute on function public.s3b_choose_post_inspection_route(text,text,text) to anon,authenticated;
+grant execute on function public.s3b_audit_set_puzzle_elapsed(text,text,integer) to anon,authenticated;
