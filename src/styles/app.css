@@ -45,6 +45,10 @@ hr{border:0;border-top:1px solid var(--line);margin:22px 0}
 .choice-list button{text-align:left;background:#eff6ff}
 .notice{border:1px solid var(--line);background:var(--panel-soft);padding:14px;border-radius:6px;margin:12px 0}
 .discussion-room{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
+.story-flow{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
+.bilingual{display:grid;gap:8px;margin:12px 0;white-space:pre-line}
+.bilingual [lang="nl"]{font-weight:700}
+.bilingual [lang="zh"]{color:var(--muted)}
 .deadline{font-variant-numeric:tabular-nums;color:var(--warn);white-space:nowrap}
 .transcript{display:grid;gap:8px;max-height:320px;overflow:auto;border:1px solid var(--line);background:#101827;padding:10px;border-radius:6px;margin:14px 0}
 .message{padding:9px 10px;background:var(--panel-soft);border-left:3px solid #6ab4d8}

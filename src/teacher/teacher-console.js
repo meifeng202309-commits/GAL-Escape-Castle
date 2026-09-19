@@ -33,6 +33,7 @@ const addTimeButton = document.getElementById("addTimeButton");
 const runBadge = document.getElementById("runBadge");
 const discussionTeacherStatus = document.getElementById("discussionTeacherStatus");
 const discussionState = document.getElementById("discussionState");
+const initializeSprint3bButton = document.getElementById("initializeSprint3bButton");
 
 let pollTimer = null;
 
@@ -48,6 +49,7 @@ startRunButton.addEventListener("click", startRun);
 openDiscussionButton.addEventListener("click", openDiscussion);
 openVoteButton.addEventListener("click", openVote);
 addTimeButton.addEventListener("click", addTime);
+initializeSprint3bButton.addEventListener("click", initializeSprint3b);
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -108,6 +110,12 @@ async function startRun() {
   } catch (error) {
     discussionTeacherStatus.textContent = `Start failed: ${error.message}`;
   }
+}
+
+async function initializeSprint3b() {
+  const payload=baseTeacherPayload(); if(!payload)return;
+  try { const result=await rpc("s3b_initialize_flow",payload); discussionTeacherStatus.textContent=`ACT 1–5 flow initialized: ${result.run_id}`; await loadDiscussionState(); }
+  catch(error){discussionTeacherStatus.textContent=`Sprint 3B initialization failed: ${error.message}`;}
 }
 
 async function openDiscussion() {
