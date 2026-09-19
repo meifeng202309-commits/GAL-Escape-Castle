@@ -198,6 +198,17 @@ begin
   where run_id=p_run and puzzle_resolved_at is null and puzzle_deadline<=now() and puzzle_hint_stage<4;
 end; $$;
 
+create or replace function public.s3b_audit_expire_puzzle(p_room_code text,p_teacher_token text)
+returns jsonb language plpgsql security definer set search_path=public as $$
+declare v_room text:=upper(trim(p_room_code)); v_run public.game_runs%rowtype;
+begin
+  perform public.s1_assert_teacher(v_room,p_teacher_token); v_run:=public.s2_get_active_run(v_room);
+  if v_run.run_mode<>'audit' then raise exception 'Puzzle deadline probe is restricted to AUDIT runs.'; end if;
+  update public.s3b_run_state set puzzle_deadline=now()-interval '1 second' where run_id=v_run.run_id and puzzle_resolved_at is null;
+  perform public.s3b_refresh_puzzle(v_run.run_id);
+  return jsonb_build_object('ok',true,'hint_stage',(select puzzle_hint_stage from public.s3b_run_state where run_id=v_run.run_id));
+end; $$;
+
 create or replace function public.s3b_submit_library_code(p_room_code text,p_session_token text,p_code text)
 returns jsonb language plpgsql security definer set search_path=public as $$
 declare v_room text:=upper(trim(p_room_code)); v_player public.s1_room_players%rowtype; v_run public.game_runs%rowtype; v_n int; v_correct boolean:=p_code='41739'; v_hint int;
@@ -281,4 +292,4 @@ end; $$;
 
 revoke execute on function public.s3b_set_scene(uuid,text,text,text,text,text) from public,anon,authenticated;
 revoke execute on function public.s3b_refresh_puzzle(uuid) from public,anon,authenticated;
-grant execute on function public.s3b_initialize_flow(text,text),public.s3b_submit_act1_choice(text,text,text),public.s3b_submit_first_meeting(text,text,text),public.s3b_grab(text,text),public.s3b_leave_start_room(text,text),public.s3b_apply_meeting_resolution(text,text),public.s3b_complete_foldback(text,text),public.s3b_follow_sign(text,text),public.s3b_submit_library_code(text,text,text),public.s3b_submit_act4_choice(text,text,text),public.s3b_apply_act5_resolution(text,text),public.s3b_get_player_state(text,text) to anon,authenticated;
+grant execute on function public.s3b_initialize_flow(text,text),public.s3b_audit_expire_puzzle(text,text),public.s3b_submit_act1_choice(text,text,text),public.s3b_submit_first_meeting(text,text,text),public.s3b_grab(text,text),public.s3b_leave_start_room(text,text),public.s3b_apply_meeting_resolution(text,text),public.s3b_complete_foldback(text,text),public.s3b_follow_sign(text,text),public.s3b_submit_library_code(text,text,text),public.s3b_submit_act4_choice(text,text,text),public.s3b_apply_act5_resolution(text,text),public.s3b_get_player_state(text,text) to anon,authenticated;

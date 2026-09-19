@@ -11,7 +11,7 @@ for (const fragment of [
   "s3b_submit_act1_choice", "s3b_submit_first_meeting", "s3b_grab", "s3b_leave_start_room",
   "SINGLE_REVOTE_THEN_FALLBACK", "final_meeting_result", "current_route_target", "wayfinding_target",
   "failed_rendezvous", "s3b_follow_sign", "party_physically_reunited", "silent_texting_mode",
-  "puzzle_started_at", "puzzle_deadline", "interval '90 seconds'", "puzzle_hint_stage",
+  "puzzle_started_at", "puzzle_deadline", "interval '90 seconds'", "puzzle_hint_stage", "s3b_audit_expire_puzzle",
   "41739", "library_photo_1897", "library_torn_note", "s3b_submit_act4_choice", "s3b_apply_act5_resolution",
   "SPRINT3B_COMPLETE", "enable row level security", "act04-05.009",
 ]) if (!sql.includes(fragment)) throw new Error(`Sprint 3B contract missing: ${fragment}`);
