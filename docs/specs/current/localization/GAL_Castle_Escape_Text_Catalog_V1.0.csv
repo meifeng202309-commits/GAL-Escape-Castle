@@ -315,3 +315,16 @@ act14.005,ACT 14 — Final Reveal,static,bilingual,End,Einde,结束,UPDATED_V4,A
 system.001,Connection / system error,static,bilingual,Failed to fetch,Ophalen mislukt,获取失败,REUSED_REVIEWED,
 system.002,Connection / system error,static,bilingual,Unable to connect to the game server.,Kan geen verbinding maken met de gameserver.,无法连接到游戏服务器。,REUSED_REVIEWED,
 system.003,Connection / system error,static,bilingual,Check server configuration or internet connection.,Controleer de serverconfiguratie of de internetverbinding.,请检查服务器配置或网络连接。,REUSED_REVIEWED,
+act03.017,ACT 3 — Library,static,bilingual,A second wheel clicks into place.,Een tweede wieltje klikt op zijn plaats.,第二个转轮咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback stage 5.
+act03.018,ACT 3 — Library,static,bilingual,A third wheel clicks into place.,Een derde wieltje klikt op zijn plaats.,第三个转轮咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback stage 6.
+act03.019,ACT 3 — Library,static,bilingual,A fourth wheel clicks into place.,Een vierde wieltje klikt op zijn plaats.,第四个转轮咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback stage 7.
+act03.020,ACT 3 — Library,static,bilingual,The final wheel turns and clicks into place.,Het laatste wieltje draait en klikt op zijn plaats.,最后一个转轮转动并咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback final stage; followed by existing act03.015.
+item.castle_map,ACT 1–5 — Item label,static,bilingual,Castle Map,Kasteelkaart,城堡地图,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
+item.number_note,ACT 1–5 — Item label,static,bilingual,Number Note,Briefje met cijfers,数字纸条,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
+item.flashlight,ACT 1–5 — Item label,static,bilingual,Flashlight,Zaklamp,手电筒,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical optional Pocket item display label.
+item.servant_diary,ACT 1–5 — Item label,static,bilingual,Servant Diary,Dagboek van een bediende,仆人日记,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
+item.stopped_watch,ACT 1–5 — Item label,static,bilingual,Stopped Watch,Stilstaand zakhorloge,停走的怀表,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
+item.silver_star_key,ACT 1–5 — Item label,static,bilingual,★ Silver Key,★ zilveren sleutel,★银钥匙,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
+item.municipal_closure_order,ACT 1–5 — Item label,static,bilingual,Municipal Closure Order,Gemeentelijk sluitingsbevel,市政封闭令,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
+item.photo_1897,ACT 3+ — Group item label,static,bilingual,1897 Photograph,Foto uit 1897,1897年照片,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical GROUP FOUND ITEMS display label.
+item.torn_note,ACT 3+ — Group item label,static,bilingual,Torn Note,Gescheurd briefje,撕破的纸条,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical GROUP FOUND ITEMS display label.
