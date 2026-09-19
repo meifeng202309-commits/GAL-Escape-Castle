@@ -26,7 +26,7 @@ Migration 012 evidence additionally proves that representative renamed internal 
 
 The active GAL-facing DiscussionRoom now uses the ten GA-approved `discussion.*` localization keys. The four GA-designated developer/status labels are absent from the student UI. Vote privacy, missing-player blocking, re-vote visibility, and system-fallback provenance remain server-authoritative.
 
-The first post-011 Sprint 3B run stopped on an obsolete negative-test error-message substring: the server correctly rejected the premature request as `unavailable`, while the test expected the earlier `out of phase` wording. The assertion was aligned with the guarded RPC contract, and the complete 39-check suite then passed with exit code 0.
+The first post-011 Sprint 3B run stopped on an obsolete negative-test error-message substring: the server correctly rejected the premature request as `unavailable`, while the test expected the earlier `out of phase` wording. The assertion was aligned with the guarded RPC contract, and the post-011 39-check suite passed; migration 012 later expanded the current suite to 44/44.
 
 ## Not verified
 
