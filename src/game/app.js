@@ -201,7 +201,7 @@ async function refreshDiscussion() {
   } catch (error) {
     discussionPanel.classList.add("hidden");
     if (!String(error.message).includes("Could not find the function")) {
-      discussionStatus.textContent = `DiscussionRoom unavailable: ${error.message}`;
+      discussionStatus.textContent = error.message;
     }
   }
 }
@@ -215,13 +215,13 @@ function renderDiscussion(state) {
   const discussion = state.discussion;
   discussionPanel.classList.remove("hidden");
   discussionTopic.innerHTML = discussion.topic.includes(".") ? localizedHtml(discussion.topic) : escapeHtml(discussion.topic);
-  discussionMeta.textContent = `${state.run.run_mode.toUpperCase()} · vote round ${discussion.vote_round}${discussion.silent_texting_mode ? " · silent texting" : ""}`;
+  discussionMeta.innerHTML = localizedTemplateHtml("discussion.vote_round", {round_no:String(discussion.vote_round)});
   discussionDeadline.textContent = formatDeadline(discussion.phase_deadline, discussion.status);
   discussionStatus.textContent = "";
 
   initialChoiceArea.innerHTML = state.initial_choices.length
-    ? `<div class="notice"><h4>Initial choices revealed</h4>${state.initial_choices.map((choice) =>
-      `<p>${escapeHtml(choice.display_name)}: <b>${escapeHtml(choice.choice_label)}</b></p>`
+    ? `<div class="notice"><h4>${localizedHtml("discussion.initial_choices")}</h4>${state.initial_choices.map((choice) =>
+      `<p>${escapeHtml(choice.display_name)}: <b>${choice.choice_label.includes(".") ? localizedHtml(choice.choice_label) : escapeHtml(choice.choice_label)}</b></p>`
     ).join("")}</div>`
     : "";
 
@@ -231,7 +231,7 @@ function renderDiscussion(state) {
         <div><b>${escapeHtml(message.display_name)}</b><time>${escapeHtml(formatTime(message.created_at))}</time></div>
         <p>${escapeHtml(message.message_text)}</p>
       </article>`).join("")
-    : "<p class='muted'>No messages yet.</p>";
+    : `<p class="muted">${localizedHtml("discussion.no_messages")}</p>`;
   transcript.scrollTop = transcript.scrollHeight;
 
   messageComposer.classList.toggle("hidden", discussion.status !== "discussion");
@@ -242,42 +242,38 @@ function renderDiscussion(state) {
 function renderVote(state) {
   const discussion = state.discussion;
   if (!discussion.require_final_vote) {
-    voteArea.innerHTML = discussion.status === "resolved"
-      ? "<div class='notice good'>Discussion complete.</div>"
-      : "";
+    voteArea.innerHTML = "";
     return;
   }
 
   if (discussion.status === "discussion") {
-    voteArea.innerHTML = "<p class='muted'>Voting opens after the discussion.</p>";
+    voteArea.innerHTML = `<p class="muted">${localizedHtml("discussion.voting_after_discussion")}</p>`;
     return;
   }
 
   if (discussion.status === "waiting_for_missing_player") {
-    voteArea.innerHTML = `<div class="notice warn"><b>WAITING FOR MISSING PLAYER</b><p>${state.submitted_vote_count}/3 votes received. No vote has been synthesized.</p></div>`;
+    voteArea.innerHTML = `<div class="notice warn"><b>${localizedHtml("discussion.waiting_missing_player")}</b><p>${localizedTemplateHtml("discussion.votes_received_progress", {submitted:String(state.submitted_vote_count)})}</p></div>`;
     return;
   }
 
   if (discussion.status === "resolved") {
-    const outcome = discussion.outcome || {};
-    const heading = outcome.type === "no_consensus" ? "NO CONSENSUS. NO ACTION." : "Vote resolved";
-    voteArea.innerHTML = `<div class="notice"><h4>${escapeHtml(heading)}</h4>${state.revealed_votes.map((vote) =>
-      `<p>${escapeHtml(vote.display_name)}: <b>${escapeHtml(vote.choice_label)}</b></p>`
-    ).join("")}</div>`;
+    voteArea.innerHTML = state.revealed_votes.length ? `<div class="notice">${state.revealed_votes.map((vote) =>
+      `<p>${escapeHtml(vote.display_name)}: <b>${vote.choice_label.includes(".") ? localizedHtml(vote.choice_label) : escapeHtml(vote.choice_label)}</b></p>`
+    ).join("")}</div>` : "";
     return;
   }
 
   if (state.my_vote) {
-    voteArea.innerHTML = `<div class="notice"><p class="good">Your vote is locked: <b>${escapeHtml(state.my_vote.choice_label)}</b></p><p class="muted">${state.submitted_vote_count}/3 submitted. Other votes remain private.</p></div>`;
+    voteArea.innerHTML = `<div class="notice"><p class="good">${localizedHtml("discussion.vote_locked")} <b>${state.my_vote.choice_label.includes(".") ? localizedHtml(state.my_vote.choice_label) : escapeHtml(state.my_vote.choice_label)}</b></p><p class="muted">${localizedTemplateHtml("discussion.submitted_progress", {submitted:String(state.submitted_vote_count)})}</p></div>`;
     return;
   }
 
   voteArea.innerHTML = `
-    <h4>Final vote</h4>
+    <h4>${localizedHtml("discussion.final_vote")}</h4>
     <div class="choice-list">${discussion.vote_options.map((option) =>
       `<button type="button" data-vote-id="${escapeHtml(option.id)}">${option.label.includes(".") ? localizedHtml(option.label) : escapeHtml(option.label)}</button>`
     ).join("")}</div>
-    <p class="muted">${state.submitted_vote_count}/3 submitted.</p>`;
+    <p class="muted">${localizedTemplateHtml("discussion.submitted_progress", {submitted:String(state.submitted_vote_count)})}</p>`;
   voteArea.querySelectorAll("[data-vote-id]").forEach((button) => {
     button.addEventListener("click", () => submitVote(button.dataset.voteId));
   });
@@ -285,8 +281,8 @@ function renderVote(state) {
 
 function renderVoteHistory(history) {
   voteHistory.innerHTML = history.length
-    ? `<details><summary>Previous vote rounds</summary>${history.map((round) => `
-      <div class="history-round"><b>Round ${round.vote_round}</b><span>${escapeHtml(round.outcome?.type || "resolved")}</span></div>`
+    ? `<details><summary>${localizedHtml("discussion.previous_vote_rounds")}</summary>${history.map((round) => `
+      <div class="history-round"><b>${localizedTemplateHtml("discussion.vote_round", {round_no:String(round.vote_round)})}</b></div>`
     ).join("")}</details>`
     : "";
 }
@@ -304,7 +300,7 @@ async function sendMessage() {
     messageText.value = "";
     await refreshDiscussion();
   } catch (error) {
-    discussionStatus.innerHTML = `<span class="bad">Send failed: ${escapeHtml(error.message)}</span>`;
+    discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   } finally {
     sendMessageButton.disabled = false;
   }
@@ -326,15 +322,15 @@ async function submitVote(choiceId) {
     await refreshDiscussion();
     await refreshSprint3b();
   } catch (error) {
-    discussionStatus.innerHTML = `<span class="bad">Vote failed: ${escapeHtml(error.message)}</span>`;
+    discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
     voteArea.querySelectorAll("button").forEach((button) => { button.disabled = false; });
   }
 }
 
 function formatDeadline(value, status) {
-  if (!value) return status.replaceAll("_", " ");
+  if (!value) return "";
   const seconds = Math.max(0, Math.ceil((new Date(value).getTime() - Date.now()) / 1000));
-  return `${status.replaceAll("_", " ")} · ${seconds}s`;
+  return `${seconds}s`;
 }
 
 function formatTime(value) {

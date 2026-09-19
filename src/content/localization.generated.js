@@ -2261,6 +2261,76 @@ export const LOCALIZATION_CATALOG = {
     "englishMaster": "Torn Note",
     "nl": "Gescheurd briefje",
     "zh": "撕破的纸条"
+  },
+  "discussion.initial_choices": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Initial choices",
+    "nl": "Eerste keuzes",
+    "zh": "初始选择"
+  },
+  "discussion.no_messages": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "No messages yet.",
+    "nl": "Nog geen berichten.",
+    "zh": "暂无消息。"
+  },
+  "discussion.voting_after_discussion": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Voting opens after the discussion.",
+    "nl": "De stemming opent na de bespreking.",
+    "zh": "讨论结束后开放投票。"
+  },
+  "discussion.waiting_missing_player": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "WAITING FOR MISSING PLAYER",
+    "nl": "WACHTEN OP EEN SPELER DIE NOG NIET HEEFT INGEDIEND",
+    "zh": "等待尚未提交的玩家"
+  },
+  "discussion.vote_locked": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Your vote is locked.",
+    "nl": "Je stem is vergrendeld.",
+    "zh": "你的投票已锁定。"
+  },
+  "discussion.final_vote": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Final vote",
+    "nl": "Eindstemming",
+    "zh": "最终投票"
+  },
+  "discussion.previous_vote_rounds": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Previous vote rounds",
+    "nl": "Vorige stemrondes",
+    "zh": "之前的投票轮次"
+  },
+  "discussion.vote_round": {
+    "textType": "template",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Vote round {round_no}",
+    "nl": "Stemronde {round_no}",
+    "zh": "第 {round_no} 轮投票"
+  },
+  "discussion.submitted_progress": {
+    "textType": "template",
+    "displayPolicy": "bilingual",
+    "englishMaster": "{submitted}/3 submitted",
+    "nl": "{submitted}/3 ingediend",
+    "zh": "已提交 {submitted}/3"
+  },
+  "discussion.votes_received_progress": {
+    "textType": "template",
+    "displayPolicy": "bilingual",
+    "englishMaster": "{submitted}/3 votes received.",
+    "nl": "{submitted}/3 stemmen ontvangen.",
+    "zh": "已收到 {submitted}/3 票。"
   }
 };
 

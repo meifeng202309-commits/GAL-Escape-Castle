@@ -99,6 +99,19 @@ for (const fragment of ["s2_get_player_state", "s2_send_message", "s2_submit_vot
   if (!student.includes(fragment) && !indexHtml.includes(fragment)) throw new Error(`Student DiscussionRoom missing: ${fragment}`);
 }
 
+for (const textKey of [
+  "discussion.initial_choices", "discussion.no_messages", "discussion.voting_after_discussion",
+  "discussion.waiting_missing_player", "discussion.vote_locked", "discussion.final_vote",
+  "discussion.previous_vote_rounds", "discussion.vote_round", "discussion.submitted_progress",
+  "discussion.votes_received_progress",
+]) {
+  if (!student.includes(textKey)) throw new Error(`Student DiscussionRoom localization binding missing: ${textKey}`);
+}
+
+for (const removedLabel of ["Vote resolved", "Discussion complete.", "silent texting", "No vote has been synthesized."]) {
+  if (student.includes(removedLabel)) throw new Error(`Removed DiscussionRoom developer label is still student-visible: ${removedLabel}`);
+}
+
 for (const fragment of ["s2_start_run", "s2_open_discussion", "s2_open_vote", "s2_add_time", "discussionState"]) {
   if (!teacher.includes(fragment) && !teacherHtml.includes(fragment)) throw new Error(`Teacher DiscussionRoom missing: ${fragment}`);
 }
