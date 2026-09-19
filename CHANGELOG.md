@@ -64,3 +64,11 @@
 - Added additive migration `006_sprint3a_provenance_view_integrity_fix.sql` after CA audit, introducing server-authoritative front/back item-view state and rejecting SHARE PHOTO requests that do not match it.
 - Strengthened knowledge acquisition so provenance must correspond to current run facts: room membership, physical ownership, received photo copies, stored senders, and existing group items.
 - Expanded Sprint 3A live coverage to 15/15, including premature back-view sharing and five invalid-provenance cases; reverified Sprint 1 at 40/40 and Sprint 2 at 23/23.
+
+## Sprint 3B — ACT 1–5 Placeholder Flow / Route / Fold-Back
+
+- Added migrations 007–009 for canonical ACT 1–5 flow state, multiplayer gate serialization, role-specific consequences, route/fold-back, wayfinding, the server-timed Library Box, and the ACT 5 terminal boundary.
+- Added canonical localization-backed exercise UI while keeping production asset resolution deferred to Asset Manager work.
+- Preserved private stance versus group result, player choice versus system fallback, owner-only Pocket state, and personal Observation privacy.
+- Verified Sprint 1 40/40, Sprint 2 23/23, Sprint 3A 15/15, and Sprint 3B 15/15 after deployment.
+- Kept Teacher Override / Safe Deblock deferred to Sprint 3C.
