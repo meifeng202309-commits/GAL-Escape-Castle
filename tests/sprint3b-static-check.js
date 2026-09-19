@@ -16,6 +16,9 @@ const integrity = fs.readFileSync(integrityFile, "utf8");
 const deliveryFile = path.join(root, "database/011_sprint3b_transition_and_act1_delivery_integrity.sql");
 if (!fs.existsSync(deliveryFile)) throw new Error("Missing Sprint 3B transition/content-delivery correction.");
 const delivery = fs.readFileSync(deliveryFile, "utf8");
+const lockdownFile = path.join(root, "database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql");
+if (!fs.existsSync(lockdownFile)) throw new Error("Missing Sprint 3B internal-wrapper/route-delivery correction.");
+const lockdown = fs.readFileSync(lockdownFile, "utf8");
 const student = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 const teacher = fs.readFileSync(path.join(root, "src/teacher/teacher-console.js"), "utf8");
 for (const fragment of [
@@ -34,6 +37,12 @@ for (const fragment of ["s3b_player_progress_serialize_gate", "for update", "Spr
 }
 for (const fragment of ["s3b_initialize_flow_pre011", "s3b_get_player_state_pre011", "act1_stage", "s3b_ack_act1_opening", "s3b_complete_act1", "puzzle_locked_prefix", "Locked puzzle wheels cannot be changed", "s3b_ack_route_update", "template_text_key", "display_name", "s3b_follow_sign_pre011"]) {
   if (!delivery.includes(fragment)) throw new Error(`Sprint 3B transition/content-delivery correction missing: ${fragment}`);
+}
+for (const helper of ["s3b_initialize_flow_pre011", "s3b_submit_first_meeting_pre011", "s3b_grab_pre011", "s3b_leave_start_room_pre011", "s3b_apply_meeting_resolution_pre011", "s3b_complete_foldback_pre011", "s3b_follow_sign_pre011", "s3b_submit_library_code_pre011", "s3b_submit_act4_choice_pre011", "s3b_apply_act5_resolution_pre011", "s3b_choose_post_inspection_route_pre011", "s3b_get_player_state_pre011"]) {
+  if (!lockdown.includes(`revoke execute on function public.${helper}`)) throw new Error(`Internal Sprint 3B helper revoke missing: ${helper}`);
+}
+for (const fragment of ["route_update_ack_at", "v_ack_count=3", "Route update is already acknowledged for this player."]) {
+  if (!lockdown.includes(fragment)) throw new Error(`Per-player route-update delivery missing: ${fragment}`);
 }
 for (const fragment of ["s3b_player_progress_phase_guard", "Fold-back is out of phase or already complete", "pending_post_inspection_route", "s3b_choose_post_inspection_route", "Post-inspection route is out of phase", "act03.017", "act03.020", "puzzle_resolved_system_fallback", "item.castle_map", "item.torn_note"]) {
   if (!integrity.includes(fragment)) throw new Error(`Sprint 3B flow-integrity correction missing: ${fragment}`);

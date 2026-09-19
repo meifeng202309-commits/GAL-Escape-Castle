@@ -3,6 +3,7 @@ const assert=(v,m)=>{if(!v)throw new Error(m)}; const pass=n=>{results.push(n);c
 const unique=p=>`${p}${Date.now().toString(36)}${Math.random().toString(36).slice(2,6)}`.toUpperCase().slice(0,14);
 async function rpc(name,body){const r=await fetch(`${URL}/rest/v1/rpc/${name}`,{method:"POST",headers:{apikey:KEY,Authorization:`Bearer ${KEY}`,"Content-Type":"application/json"},body:JSON.stringify(body)});const t=await r.text(),j=t?JSON.parse(t):null;if(!r.ok)throw new Error(j?.message||j?.details||t);return j}
 async function reject(name,fn,text){try{await fn();throw new Error("expected rejection")}catch(e){assert(e.message.includes(text),e.message);pass(name)}}
+async function rejectAny(name,fn,texts){try{await fn();throw new Error("expected rejection")}catch(e){assert(texts.some(text=>e.message.includes(text)),e.message);pass(name)}}
 async function fixture(mode="audit"){const room=unique("B"),teacher=unique("T"),joins=[unique("G"),unique("A"),unique("L")];await rpc("s1_create_room",{p_room_code:room,p_teacher_token:teacher,p_gitte_join_code:joins[0],p_anna_join_code:joins[1],p_linda_join_code:joins[2]});const players=await Promise.all(joins.map(p_join_code=>rpc("s1_join_player",{p_room_code:room,p_join_code})));await rpc("s2_start_run",{p_room_code:room,p_teacher_token:teacher,p_run_mode:mode});await rpc("s3b_initialize_flow",{p_room_code:room,p_teacher_token:teacher});return{room,teacher,players}}
 const auth=(f,i)=>({p_room_code:f.room,p_session_token:f.players[i].session_token});
 const state=(f,i=0)=>rpc("s3b_get_player_state",auth(f,i));
@@ -16,11 +17,12 @@ async function act1and2(f,meeting=["library","great_hall","main_gate"]){
   await Promise.all([0,1,2].map(i=>rpc("s3b_leave_start_room",auth(f,i))));
 }
 async function vote(f,choices){const before=await rpc("s2_get_teacher_state",{p_room_code:f.room,p_teacher_token:f.teacher});assert(before.discussion,`Discussion missing before vote in ${f.room}`);assert(before.discussion.status==="discussion",`Discussion status before vote is ${before.discussion.status}`);await rpc("s2_open_vote",{p_room_code:f.room,p_teacher_token:f.teacher});for(let i=0;i<3;i++)await rpc("s2_submit_vote",{...auth(f,i),p_choice_id:choices[i]})}
-async function resolveMeeting(f){await rpc("s3b_apply_meeting_resolution",auth(f,0));await rpc("s3b_ack_route_update",auth(f,0))}
+async function resolveMeeting(f){await rpc("s3b_apply_meeting_resolution",auth(f,0));for(let i=0;i<3;i++)await rpc("s3b_ack_route_update",auth(f,i))}
 async function progressToAct4(f){await act1and2(f,["library","library","great_hall"]);await vote(f,["library","library","great_hall"]);await resolveMeeting(f);await rpc("s3b_complete_foldback",auth(f,0));await Promise.all([0,1,2].map(i=>rpc("s3b_follow_sign",auth(f,i))));await rpc("s3b_submit_library_code",{...auth(f,0),p_code:"41739"})}
 async function main(){
   const f=await fixture();
   await reject("B0 flow initialization replay rejected",()=>rpc("s3b_initialize_flow",{p_room_code:f.room,p_teacher_token:f.teacher}),"already initialized");
+  for(const [name,body] of [["s3b_follow_sign_pre011",auth(f,0)],["s3b_apply_meeting_resolution_pre011",auth(f,0)],["s3b_submit_library_code_pre011",{...auth(f,0),p_code:"41739"}]])await rejectAny(`B0p ${name} is not browser-executable`,()=>rpc(name,body),["permission denied","Could not find the function","not exist"]);
   await Promise.all([0,1,2].map(i=>rpc("s3b_ack_act1_opening",auth(f,i))));
   await reject("B1 role-specific ACT 1 identity enforced",()=>rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"read_diary"}),"canonical ACT 1");
   await rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"study_map"});
@@ -40,7 +42,10 @@ async function main(){
   await reject("B6r meeting-resolution replay rejected",()=>rpc("s3b_apply_meeting_resolution",auth(f,0)),"unavailable");
   await reject("B6a FOLLOW SIGN before wayfinding rejected",()=>rpc("s3b_follow_sign",auth(f,0)),"unavailable");
   let s=await state(f);assert(s.flow.final_meeting_result==="library"&&s.scene.phase_key==="route_update"&&s.scene.text_key==="act02.032","Meeting route update was not persisted for reconnect");pass("B6 majority writes a reconnect-safe route update");
-  await rpc("s3b_ack_route_update",auth(f,0));await reject("B6u route-update replay rejected",()=>rpc("s3b_ack_route_update",auth(f,0)),"unavailable");s=await state(f);assert(s.scene.current_route_target==="library"&&s.scene.phase_key==="route_consequence","Route update acknowledgement did not advance");pass("B6v route update delivers before route consequence");
+  const ackA=await rpc("s3b_ack_route_update",auth(f,0));s=await state(f,1);assert(ackA.ack_count===1&&!ackA.all_acknowledged&&s.scene.phase_key==="route_update"&&!s.me.route_update_ack_at,"First ACK advanced early or hid update from player B");pass("B6u one ACK keeps route update visible to unacknowledged reconnect");
+  await reject("B6ur duplicate route-update ACK rejected",()=>rpc("s3b_ack_route_update",auth(f,0)),"already acknowledged");
+  const ackB=await rpc("s3b_ack_route_update",auth(f,1));s=await state(f,2);assert(ackB.ack_count===2&&!ackB.all_acknowledged&&s.scene.phase_key==="route_update"&&!s.me.route_update_ack_at&&s.scene.current_route_target==="library","Second ACK advanced early or changed resolved location");pass("B6v two ACKs preserve the same route update for player C");
+  const ackC=await rpc("s3b_ack_route_update",auth(f,2));s=await state(f);assert(ackC.ack_count===3&&ackC.all_acknowledged&&s.scene.current_route_target==="library"&&s.scene.phase_key==="route_consequence","Third ACK did not advance exactly once");pass("B6w third distinct ACK advances to route consequence");
   await rpc("s3b_complete_foldback",auth(f,0));await reject("B6b duplicate fold-back rejected",()=>rpc("s3b_complete_foldback",auth(f,0)),"already complete"); await Promise.all([0,1].map(i=>rpc("s3b_follow_sign",auth(f,i))));await reject("B6c FOLLOW SIGN replay rejected",()=>rpc("s3b_follow_sign",auth(f,0)),"unavailable");
   assert(!(await state(f)).flow.party_physically_reunited,"Reunion occurred early");await rpc("s3b_follow_sign",auth(f,2));s=await state(f);assert(s.flow.party_physically_reunited&&s.flow.puzzle_deadline,"Reunion/deadline missing");pass("B7 all FOLLOW SIGN actions start server puzzle deadline");
   const expired=await rpc("s3b_audit_expire_puzzle",{p_room_code:f.room,p_teacher_token:f.teacher});assert(expired.hint_stage===4,"Deadline hint did not advance");pass("B8 90-second deadline advances monotonic hint stage");
