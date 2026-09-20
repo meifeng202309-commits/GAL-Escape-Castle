@@ -1,5 +1,22 @@
 # Repository Documentation Layout
 
+## 0. Onboarding / cold start
+
+New GA / CA / VA / CD sessions should start with:
+
+    docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
+    docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md
+
+These are navigation / operational-orientation documents. They do not replace the canonical specifications below.
+
+Default cold-start rule:
+
+- read the onboarding guide;
+- read CURRENT STATUS;
+- read only the role-specific current canonical files needed for the task;
+- check the latest relevant agent-comms messages;
+- do not review full chat history or archived specs unless current sources are insufficient.
+
 This directory separates canonical specifications, historical specifications, reports, and setup documentation.
 
 ## 1. Canonical specifications
