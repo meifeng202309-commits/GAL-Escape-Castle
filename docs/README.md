@@ -2,20 +2,32 @@
 
 ## 0. Onboarding / cold start
 
-New GA / CA / VA / CD sessions should start with:
+Universal entry point for every newly started GA / CA / CD / VA chat:
 
+    docs/onboarding/START_HERE.md
+
+The onboarding system consists of:
+
+    docs/onboarding/START_HERE.md
     docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
     docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md
+    docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
+    docs/logs/{GA|CA|CD|VA}_ACTION_LOG.csv
 
-These are navigation / operational-orientation documents. They do not replace the canonical specifications below.
+These are navigation / operational-memory documents. They do not replace the canonical specifications below.
 
 Default cold-start rule:
 
-- read the onboarding guide;
+- enter through START_HERE;
+- complete the New Member Guide;
 - read CURRENT STATUS;
-- read only the role-specific current canonical files needed for the task;
-- check the latest relevant agent-comms messages;
+- learn the Action Log / Status Sync rule;
+- read only role-specific current canonical files;
+- read only post-checkpoint / unresolved Action Log entries relevant to the role;
+- check latest relevant agent-comms;
 - do not review full chat history or archived specs unless current sources are insufficient.
+
+Agent identity is role-based, not chat-session-based. Replacing a slow chat does not create GA-II / CA-II / CD-II / VA-II.
 
 This directory separates canonical specifications, historical specifications, reports, and setup documentation.
 
