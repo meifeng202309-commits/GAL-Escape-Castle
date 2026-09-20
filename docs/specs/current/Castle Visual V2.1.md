@@ -677,7 +677,7 @@ overlay.portrait_eyes_open
 必须：
 
 - round / polygonal stone room；
-- 12 old clocks；
+- **不要求 12 只钟；优先保证 3 只关键钟 A/B/C 足够大、清楚、可供 overlay；其他背景钟数量不作硬性要求；**
 - 3 key clocks clearly placed；
 - A/B/C faces足够大；
 - 尽量 front-facing；

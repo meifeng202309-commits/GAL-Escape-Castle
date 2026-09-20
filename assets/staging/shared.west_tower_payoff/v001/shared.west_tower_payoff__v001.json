@@ -1,0 +1,21 @@
+{
+  "asset_key": "shared.west_tower_payoff",
+  "display_name": "West Tower Payoff",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-05"
+  ],
+  "paired_asset_group": "photo_1897_west_tower_payoff",
+  "required_anchors": [],
+  "filename": "shared.west_tower_payoff__v001.webp",
+  "width_px": 1280,
+  "height_px": 720,
+  "sha256": "070143681fc49f93399e35bf0a6e29d9e1797c23e7ef2883d9d3437aa64dbe38",
+  "source_png_sha256": "621812324adac80db9fc37870a3ea9864ebf18a3dd8d50a4f7afea17f3316089",
+  "source_note": "Teacher-approved present-day West Tower candidate derived from the master/reference; Teacher confirmed the recognition-feature structure is effectively consistent with the master.",
+  "compliance_note": "Paired with prop.photo_1897. Teacher accepted the recognition geometry for the setup/payoff relationship. APPROVED is not ACTIVE."
+}
