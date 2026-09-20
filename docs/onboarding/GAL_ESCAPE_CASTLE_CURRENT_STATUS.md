@@ -1,360 +1,205 @@
 # GAL ESCAPE CASTLE — CURRENT STATUS
 
-> Operational snapshot for GA / CA / VA / CD  
-> Last refreshed: 2026-09-20  
-> This file is a fast orientation aid, not a canonical gameplay/spec source.
+> L3 operational snapshot.  
+> Not a canonical gameplay/spec source.  
+> Last refreshed: 2026-09-20T15:31:00Z  
+> Updated by: GA
 
 ---
 
-# 1. 当前一句话状态
+## 1. Project dashboard
 
-    Core development:
-    Sprint 3B = ACCEPTED
-    Sprint 3C = READY FOR IMPLEMENTATION
-    GA canonical safe-resolution dependency = SATISFIED
-    CD migration 013 implementation / audit handoff = NEXT
+```text
+CURRENT_SPRINT        = Sprint 3C
+CURRENT_GATE          = READY_FOR_IMPLEMENTATION
+CURRENT_OWNER         = CD
+NEXT_REQUIRED_ACTION  = CD implements Sprint 3C migration 013, runs tests, then sends CA audit request
 
-Visual production与程序开发并行进行。
+MEMORY_SYSTEM         = ACTIVE
+MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
+```
 
----
-
-# 2. Current canonical sources
-
-当前current spec set：
-
-    docs/specs/current/古堡逃脱游戏脚本 V4.0.md
-    docs/specs/current/Codex程序开发说明书 V2.3.md
-    docs/specs/current/Castle Visual V2.1.md
-    docs/specs/current/从创意到游戏成品的研发流程V1.0.md
-    docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
-    assets/asset-registry.json
-    agent-comms/inter_agent_talk_protocol V1.md
-
-Operational onboarding：
-
-    docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
-    docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md
+Visual production continues in parallel with core development.
 
 ---
 
-# 3. Sprint status
+## 2. Action Log checkpoints
 
-## Sprint 0 — CLOSED
+No role has yet reached its first 10-action checkpoint.
 
-Repository Audit完成。
+```text
+GA_CHECKPOINT = NONE
+CA_CHECKPOINT = NONE
+CD_CHECKPOINT = NONE
+VA_CHECKPOINT = NONE
+```
 
-不要重做。
+Until a checkpoint exists, a replacement chat reads that role's Action Log from its first post-adoption row.
 
-## Sprint 1 — VERIFIED PASS
+Universal cold-start entry:
 
-Core multiplayer baseline。
-
-Latest repeatedly reported regression：
-
-    40/40 PASS
-
-## Sprint 2 — PASS
-
-Reusable DiscussionRoom / run metadata。
-
-Latest repeatedly reported regression：
-
-    23/23 PASS
-
-## Sprint 3A — PASS
-
-Scene / Pocket / Knowledge foundation。
-
-Latest repeatedly reported regression：
-
-    15/15 PASS
-
-## Sprint 3B — ACCEPTED
-
-ACT 1–5 placeholder flow / route / fold-back / Library Box / ACT4–5 route logic。
-
-CA final acceptance message：
-
-    agent-comms/CA_to_CD_20260919T174200Z_sprint3b-migration012-reaudit-pass.md
-
-Result：
-
-    PASS — SPRINT 3B ACCEPTED
-
-Latest reported live regression：
-
-    Sprint 3B: 44/44 PASS
-
-Database deployed history currently reaches：
-
-    database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql
-
-## Sprint 3C — READY FOR IMPLEMENTATION
-
-Scope：
-
-    Minimal Safe Teacher Deblock / Override
-
-CA authorization：
-
-    agent-comms/CA_to_CD_20260919T175900Z_sprint3c-scope-review.md
-
-Result：
-
-    READY_FOR_IMPLEMENTATION
-
-GA canonical safe-resolution map has now been added to V4.0 §5.5.
-
-Canonical V4.0 update commit：
-
-    529f042e96d93593034d8d7f61a19a6c4ffce4e5
-
-GA→CD handoff：
-
-    agent-comms/GA_to_CD_20260919T180500Z_sprint3c-safe-resolution-map-response.md
-
-At this snapshot：
-
-    database/013_... DOES NOT YET EXIST
-
-Therefore current next owner is:
-
-**CD**
-
-Expected next sequence：
-
-    CD implements migration 013
-    → tests/regressions
-    → CD sends CA audit request
-    → CA audits Sprint 3C
-
-Do not begin Sprint 4 until the appropriate Sprint 3C gate is satisfied.
+```text
+docs/onboarding/START_HERE.md
+```
 
 ---
 
-# 4. Sprint 3C canonical map — orientation only
+## 3. Current canonical / governance set
 
-Do not implement from this summary alone; use V4.0 §5.5.
+```text
+L1 / current canonical:
+docs/specs/current/古堡逃脱游戏脚本 V4.0.md
+docs/specs/current/Codex程序开发说明书 V2.3.md
+docs/specs/current/Castle Visual V2.1.md
+docs/specs/current/从创意到游戏成品的研发流程V1.0.md
+docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
+assets/asset-registry.json
 
-High-level mapping：
-
-    ACT1 private first action
-      SKIP only
-      never choose for student
-
-    ACT2 private first meeting
-      SKIP only
-      missing choice stays null + invalid_teacher_override
-
-    ACT2 meeting discussion
-      RESOLVE_AND_CONTINUE
-      safe resolution = Library
-
-    ACT2 route update
-      SKIP only
-
-    ACT2 route consequence
-      SKIP only
-      apply canonical fold-back
-
-    ACT3 wayfinding
-      SKIP only
-
-    ACT3 Library Box
-      RESOLVE_AND_CONTINUE
-      safe resolution = 41739
-      no fabricated player attempt
-
-    ACT4 private route choice
-      SKIP only
-      missing choice stays null + invalid_teacher_override
-
-    ACT5 route discussion
-      RESOLVE_AND_CONTINUE
-      safe resolution = Inspect First
-
-    ACT5 post-inspection Game Track route
-      RESOLVE_AND_CONTINUE
-      safe resolution = Known Route
-
-All unlisted combinations：
-
-    UNSUPPORTED → server reject
+L2 / governance:
+agent-comms/inter_agent_talk_protocol V1.md
+docs/onboarding/START_HERE.md
+docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
+docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
+```
 
 ---
 
-# 5. Localization status
+## 4. Sprint / verification snapshot
 
-Canonical source：
+```text
+Sprint 0  = CLOSED
+Sprint 1  = VERIFIED PASS
+Sprint 2  = PASS
+Sprint 3A = PASS
+Sprint 3B = ACCEPTED
+Sprint 3C = READY FOR IMPLEMENTATION
+```
 
-    docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
+Latest repeatedly reported regression counts:
 
-Recent canonical additions already include：
+```text
+Sprint 1  = 40/40 PASS
+Sprint 2  = 23/23 PASS
+Sprint 3A = 15/15 PASS
+Sprint 3B = 44/44 PASS
+```
 
-- Library Box progressive fallback text；
-- exact item-label item.* keys；
-- shared DiscussionRoom discussion.* keys。
+Current deployed migration history in repository reaches:
 
-Important runtime contract：
+```text
+database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql
+```
 
-    English = master/review only
-    Dutch + Chinese = normal GAL display
+No `database/013_...` exists at this snapshot.
 
-1897 Municipal Closure Order：
+Important gate evidence:
 
-    nl_only_artifact
+```text
+Sprint 3B acceptance:
+agent-comms/CA_to_CD_20260919T174200Z_sprint3b-migration012-reaudit-pass.md
 
-No runtime auto-translation。
+Sprint 3C scope authorization:
+agent-comms/CA_to_CD_20260919T175900Z_sprint3c-scope-review.md
 
----
-
-# 6. Visual / Asset status
-
-Asset registry currently contains：
-
-    28 runtime-required assets
-
-Current registry snapshot：
-
-    active_version != null: 0
-
-So no production asset is yet ACTIVE in runtime authority.
-
-Candidates currently registered (latest_version = 1)：
-
-    opening.gitte_room
-    opening.anna_room
-    opening.linda_study
-    prop_gitte_castle_map
-    prop_gitte_number_note_front
-    prop_gitte_number_note_back
-    shared.library
-    shared.main_gate
-    ending.castle_exterior
-
-These currently also exist as staging asset directories.
-
-Assets with no candidate yet include, among others：
-
-    prop_anna_diary_open
-    prop_linda_watch_face
-    prop_linda_watch_back
-    prop_linda_closure_order
-    prop_linda_star_key
-    prop.photo_1897
-    prop.library_clock_clue_note
-    shared.portrait_hall
-    overlay.portrait_eyes_open
-    shared.clock_room
-    shared.west_tower_payoff
-    shared.great_hall
-    prop.golden_key
-    audio.*
-
-Important governance already settled：
-
-    MASTER-01 / MASTER-02 etc.
-    = canonical visual references
-    ≠ automatically runtime asset_key
-
-Initial Asset Registry audit previously passed and VA formal production was authorized.
-
-Visual production may continue in parallel with code as allowed by the visual workflow.
+GA Sprint 3C canonical safe-resolution handoff:
+agent-comms/GA_to_CD_20260919T180500Z_sprint3c-safe-resolution-map-response.md
+```
 
 ---
 
-# 7. Current important visual rules
+## 5. Current unresolved cross-Agent blockers
 
-Use Castle Visual V2.1, not this summary, for production.
+```text
+None recorded for GA.
+Core development is waiting on CD implementation of Sprint 3C.
+```
 
-High-risk continuity points：
-
-- moonlight is scene artwork's only active light unless a scene explicitly says otherwise；
-- abandoned / decayed / damp；
-- worn dark oak；
-- rusted black iron；
-- aged brass；
-- no random warm lights；
-- no readable AI text；
-- exact text/numbers/labels belong to HTML/UI；
-- Main Gate requires stable Station A/B/C + Watcher corridor anchors；
-- Great Hall requires stable Red/Blue/Black door anchors；
-- Portrait Hall main face must support eye overlay；
-- 1897 Photograph ↔ West Tower payoff must preserve locked recognition features；
-- Final Exterior must derive from MASTER-01 rather than invent a new castle。
+If a newer Action Log entry or valid agent-comms message creates a blocker, use the newer shared record and update this snapshot according to the Action Log rules.
 
 ---
 
-# 8. Recent critical communication chain
+## 6. Visual / asset snapshot
 
-## Sprint 3B acceptance
+Asset registry currently contains:
 
-    CA_to_CD_20260919T174200Z_sprint3b-migration012-reaudit-pass.md
+```text
+28 runtime-required assets
+ACTIVE runtime assets = 0
+```
 
-## Sprint 3C request from CD to GA
+Registered v1 candidates currently include:
 
-    CD_to_GA_20260919T175000Z_sprint3c-safe-resolution-map-request.md
+```text
+opening.gitte_room
+opening.anna_room
+opening.linda_study
+prop_gitte_castle_map
+prop_gitte_number_note_front
+prop_gitte_number_note_back
+shared.library
+shared.main_gate
+ending.castle_exterior
+```
 
-## Sprint 3C scope approval from CA
+Key governance:
 
-    CA_to_CD_20260919T175900Z_sprint3c-scope-review.md
+```text
+MASTER identities = canonical visual references
+MASTER identities ≠ automatic runtime asset_keys
+```
 
-## GA canonical response
-
-    GA_to_CD_20260919T180500Z_sprint3c-safe-resolution-map-response.md
-
-New sessions normally do not need to read older Sprint 3B FAIL chains unless debugging a regression.
-
----
-
-# 9. Current known boundaries / NOT VERIFIED
-
-Still not verified as a full classroom production system：
-
-    physical 3-student + Teacher multi-device end-to-end run
-    full ACT 1–14
-    Sprint 4+ runtime asset manager
-    ACT 6–14 implementation
-    final export
-    full production asset activation
-    3-player release candidate
-
-Physical multi-device classroom verification remains：
-
-    NOT VERIFIED
-
-until it is actually performed.
+Use Castle Visual V2.1 and asset-registry.json for production truth.
 
 ---
 
-# 10. Next expected handoffs
+## 7. Major NOT VERIFIED boundaries
 
-Immediate development：
+Still not verified as a complete production classroom system:
 
-    CD → implement Sprint 3C migration 013
-    CD → run regressions + Sprint 3C tests
-    CD → CA audit request
-    CA → PASS / exact corrections
+```text
+physical 3-student + Teacher multi-device end-to-end run
+full ACT 1–14 implementation
+Sprint 4+ Asset Manager runtime
+ACT 6–14 runtime
+final export
+full production asset activation
+3-player release candidate
+```
 
-Parallel visual work：
-
-    VA / Teacher → produce/revise staging candidates
-    → visual review
-    → later Asset Manager/runtime integration
-
-GA currently has no unresolved narrative blocker recorded in this snapshot.
+Do not upgrade these to VERIFIED without actual evidence.
 
 ---
 
-# 11. If this file becomes stale
+## 8. Memory-system adoption
 
-Do not debate the stale snapshot.
+Active adoption message:
 
-Check in this order：
+```text
+agent-comms/GA_to_ALL_20260920T153000Z_project-memory-system-adopted.md
+```
 
-1. latest relevant agent-comms gate message；
-2. current canonical specs；
-3. current database / code / test state；
-4. update this file。
+Role Action Logs:
 
-This file should remain short enough that a new Agent can understand project position in a few minutes。
+```text
+docs/logs/GA_ACTION_LOG.csv
+docs/logs/CA_ACTION_LOG.csv
+docs/logs/CD_ACTION_LOG.csv
+docs/logs/VA_ACTION_LOG.csv
+```
+
+Historical boundary:
+
+> Do not retroactively reconstruct the complete project chat history. The Action Log system starts at adoption. Earlier history is represented by canonical specs, accepted reports, existing agent-comms, and repository state.
+
+---
+
+## 9. When this snapshot is stale
+
+Use, in order:
+
+1. newer relevant Action Log entries after the recorded checkpoint;
+2. newer valid agent-comms gate/handoff messages;
+3. current canonical specs / repository state;
+4. then refresh this L3 snapshot.
+
+CURRENT STATUS must remain a short dashboard, not a development diary.
