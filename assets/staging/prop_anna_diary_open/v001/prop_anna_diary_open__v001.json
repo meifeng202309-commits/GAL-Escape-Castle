@@ -1,0 +1,20 @@
+{
+  "asset_key": "prop_anna_diary_open",
+  "display_name": "Anna's Open Diary",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "required_anchors": [],
+  "filename": "prop_anna_diary_open__v001.webp",
+  "width_px": 2048,
+  "height_px": 1282,
+  "sha256": "ed91d7d3bcc074f8526d326472416d23d3d94527639d5ab6d5647717a68bd78f",
+  "source_png_sha256": "f0c93403bfdd7db2d044d2d4c87f06e8bf10e6a86026aa27b5b507a9c17d9ba9",
+  "source_note": "Teacher-approved uploaded candidate for No.7. The open late-19th-century diary is preserved as the visual base; exact diary clue text is intentionally not burned into the image and remains a runtime HTML/CSS overlay.",
+  "compliance_note": "Worn leather-bound open diary, aged blank pages, cold moonlit abandoned-castle atmosphere, no modern objects and no exact clue text. Explicitly approved by the Teacher in the current VA review. APPROVED is not ACTIVE; CD/Asset Manager controls runtime activation."
+}
