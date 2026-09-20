@@ -8,6 +8,14 @@
 
 # 0. 这份指南的用途
 
+新开的 GA / CA / CD / VA 聊天必须首先从：
+
+    docs/onboarding/START_HERE.md
+
+进入项目。
+
+START_HERE 定义完整的 Cold Start 顺序；本文件是其中的项目培训主手册。
+
 本项目已经从“依赖长聊天历史推进”进入“依赖当前规范与仓库状态推进”的阶段。
 
 本指南的目标是：
@@ -36,9 +44,15 @@
 
 # 1. 10分钟上岗：Cold-Start Procedure
 
-任何新开的 GA / CA / VA / CD 对话，先执行：
+完整 Cold Start 以 `START_HERE.md` 为准。
 
-## Step 1 — 阅读本文件
+任何新开的 GA / CA / VA / CD 对话，核心顺序是：
+
+## Step 0 — 进入统一入口
+
+    docs/onboarding/START_HERE.md
+
+## Step 1 — 阅读本培训主手册
 
     docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 
@@ -53,19 +67,25 @@
 - 现在轮到哪个 Agent；
 - 当前有哪些未解决 blocker。
 
-## Step 3 — 只读取自己角色所需的 canonical files
+## Step 3 — 阅读 Action Log / Status Sync 规则
+
+    docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
+
+然后读取 CURRENT STATUS 指定checkpoint之后的本角色 Action Log，以及 `next_owner` 指向本角色的未结事项。
+
+## Step 4 — 只读取自己角色所需的 canonical files
 
 见本指南第6节。
 
 **不要因为“可能有用”而一次性读完整仓库。**
 
-## Step 4 — 检查 Agent 通信协议
+## Step 5 — 检查 Agent 通信协议
 
 读取最高版本且标记 ACTIVE 的：
 
     agent-comms/inter_agent_talk_protocol V*.md
 
-## Step 5 — 检查最新来信
+## Step 6 — 检查最新来信
 
 只优先读取：
 
@@ -76,7 +96,7 @@
 
 通常只需要最近与当前任务有关的几封，不需要遍历全部通信历史。
 
-## Step 6 — 确认任务是否已被 canonicalized / authorized
+## Step 7 — 确认任务是否已被 canonicalized / authorized
 
 开始工作前确认：
 
@@ -86,7 +106,7 @@
 - GAL-facing wording 是否有 canonical text_key；
 - 当前 Sprint 是否已被允许开始。
 
-## Step 7 — 开始工作
+## Step 8 — 开始工作
 
 如果 current sources 已经回答问题：
 
@@ -1031,3 +1051,36 @@ CURRENT STATUS不是canonical spec。
 目标：
 
 **让历史聊天成为archive，而不是日常运行依赖。**
+
+
+---
+
+# 20. Persistent Role / Chat Lifecycle
+
+项目身份属于角色，不属于聊天窗口。
+
+永久角色只有：
+
+- GA
+- CA
+- CD
+- VA
+
+如果某个承担Agent任务的聊天变慢或被放弃：
+
+1. 旧聊天停止project-writing；
+2. 新聊天按 `START_HERE.md` 完成Cold Start；
+3. 新聊天继续同一个角色；
+4. 继续同一份角色Action Log及其编号；
+5. 不创建 GA-II / CA-II / CD-II / VA-II。
+
+同一角色任何时刻只能有一个 **Active Writer chat**。
+
+被替换的旧聊天视为 retired / read-only for project-writing purposes。
+
+区分：
+
+- **Cold Start** = 新聊天第一次加入/接管该角色；
+- **Warm Continuation** = 已受训的现有聊天继续工作。
+
+Warm Continuation 不需要重复完整培训，但必须持续遵守 Action Log / Status Sync Rules。
