@@ -1,1 +1,2 @@
 action_id,timestamp_utc,triggered_by,action_brief,refers_to,outcome_brief,status,next_owner,follow_up,commit_ref
+GA-001,2026-09-20T15:30:00Z,USER,"Adopt shared L1-L4 project memory system and broadcast active governance","user approval in GA chat","START_HERE, onboarding guide, Action Log rules and per-role logs installed; adoption broadcast sent",SETTLED,ALL,"All roles begin logging from first post-adoption Recordable Action",63e3768360dae83f80349eddc76eae9ae683eb27
