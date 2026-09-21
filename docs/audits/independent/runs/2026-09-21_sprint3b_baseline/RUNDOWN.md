@@ -320,13 +320,19 @@ Output: FAILURE_MATRIX.md
 
 ## J — Method 9: Data-Forensics Audit
 
-### [ ] J1 Define representative controlled histories
-ACT1, ACT2 discussion, fold-back, puzzle, ACT4/5.
+### [x] J1 Define representative controlled histories
+Reconstructed ACT1, ACT2 discussion/route, fold-back, puzzle and ACT4/5 histories.
 
-### [ ] J2 Reconstruct player behavior evidence
-### [ ] J3 Reconstruct system/fallback evidence
-### [ ] J4 Reconstruct run/provenance identity
-### [ ] J5 Record ambiguity or NOT VERIFIED
+### [x] J2 Reconstruct player behavior evidence
+Mapped choices, messages, votes/re-votes and timestamps; broadened IDA-006 for canonical latency evidence and retained IDA-009/010/011 forensic ambiguity.
+### [x] J3 Reconstruct system/fallback evidence
+Verified DiscussionRoom fallback, failed rendezvous and puzzle fallback attribution; puzzle fallback has strong system event evidence.
+### [x] J4 Reconstruct run/provenance identity
+Verified first-class run identity and Sprint3A provenance model; route/scene chronology gap confirmed as IDA-012.
+### [x] J5 Record ambiguity or NOT VERIFIED
+Recorded IDA-012 HIGH for missing append-only Sprint3B action/scene chronology; IDA-007 remains NOT_VERIFIED pending GA; future Teacher Override/final export validity remains outside frozen baseline.
+
+**Method 9 COMPLETE.**
 
 Output: DATA_FORENSICS.md + FINDINGS.md
 

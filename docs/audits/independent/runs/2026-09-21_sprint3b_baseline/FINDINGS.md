@@ -16,12 +16,13 @@ Status: IN PROGRESS
 | IDA-004 | MEDIUM | CONFIRMED | Library Box locked-prefix enforcement has a TOCTOU window: wrapper validates against a stale prefix before delegated timeout refresh can lock additional wheels. | Let puzzle deadline elapse while persisted prefix is still stale; submit code incompatible with the prefix that refresh should lock. Wrapper validates old prefix, delegated body refreshes prefix, then records attempt without revalidation. Static control-flow proof complete; live timing reproduction pending. | database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/007_sprint3b_act1_5_placeholder_flow.sql | s3b_submit_library_code(...) migration011 line 92; delegated pre011 body migration007 lines 212–230; s3b_refresh_puzzle(...) migration011 lines 98–100 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Locked Game Track state can advance between validation and write, allowing an attempt inconsistent with newly locked wheels and producing internally inconsistent puzzle evidence. | Refresh/lock authoritative puzzle state before prefix validation, then validate and record attempt under the same locked transaction. | Method 1/B3 + later Method 8 verification | CD | — | NOT YET RETESTED |
 
 | IDA-005 | HIGH | CONFIRMED | Teacher can open a generic DiscussionRoom during canonical private Sprint3B phases because s2_open_discussion is not bound to s3_runtime_scene_state. | During an active NORMAL Sprint3B run, invoke Teacher “Open discussion” while ACT1/private_first_action is active. s2_open_discussion accepts active run + teacher auth and creates a real discussion; player polling renders it. V4.0 §38 requires DiscussionRoom locked in private phase. | teacher.html; src/teacher/teacher-console.js; database/003_sprint2_discussionroom_audit_fix.sql; src/game/app.js | Teacher openDiscussion(); s2_open_discussion(...); app.js refreshDiscussion()/renderDiscussion() | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Breaks independent/private measurement conditions and can persist noncanonical messages/votes in a NORMAL behavior-eligible run; also enables IDA-002 multi-open-session state later. | Bind generic DiscussionRoom opening to explicit allowed scene config / AUDIT-only test mode, or remove/disable generic Teacher control during formal canonical gameplay. | Method 1/B5 + Method 2/C4 + Method 3/I10 | CD | — | NOT YET RETESTED |
-| IDA-006 | HIGH | CONFIRMED | Canonical ACT1 response time cannot be reliably reconstructed because the per-player transition from opening to actionable choice has no persisted timestamp. | V4.0 ACT1 requires first choice + response time. Player-specific s3b_ack_act1_opening changes act1_stage opening→action but stores no timestamp; only act1_locked_at is stored at choice submission. Players may acknowledge opening at different times, so global scene time is not a valid per-player action-start time. | database/007_sprint3b_act1_5_placeholder_flow.sql; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; src/game/app.js | s3b_player_progress schema lines 20–33; s3b_ack_act1_opening(...) migration011 lines 36–45; s3b_submit_act1_choice(...) migration011 lines 47–58 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Permanently loses a canonical Behavior Track evidence feature used for planning/spontaneity; later export cannot recreate a valid latency from available persisted timestamps. | Persist server timestamp when each player's ACT1 action choices become available (or equivalent decision_started_at) and derive/store latency against act1_locked_at. | Method 1/B5 + later Method 9 | CD | — | NOT YET RETESTED |
+| IDA-006 | HIGH | CONFIRMED | Canonical response-latency evidence for implemented private behavior choices is not durably reconstructable: ACT1 lacks a per-player actionable-start timestamp; ACT2 first-meeting likewise stores only submission time, and ACT4 has no durable choice-start timestamp despite canonical latency semantics. | ACT1 opening→action is per-player via s3b_ack_act1_opening but persists no start time; ACT2 first-meeting stores first_meeting_locked_at only; ACT4 stores act4_locked_at only. Later scene transitions overwrite s3_runtime_scene_state.updated_at, so post-game latency cannot be reconstructed reliably. | database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/007_sprint3b_act1_5_placeholder_flow.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | s3b_ack_act1_opening / s3b_submit_act1_choice migration011 lines 37–57; s3b_player_progress + s3b_submit_first_meeting / s3b_submit_act4_choice migration007 lines 20–32, 102–112, 233–256; V4 §9 behavior evidence, §10.9 and §5.5 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Silent loss of response-latency evidence used by post-game behavior analysis; later export cannot recover a valid duration from submission timestamps alone. | Persist server-owned decision/action-start timestamps (or explicit latency) for each canonical latency-bearing interaction and preserve them through reconnect/export. | Method 1 + Method 5 + Method 9 | CD | — | NOT YET RETESTED |
 | IDA-007 | OBSERVATION | NOT_VERIFIED | ACT5 post-inspection group-route submit authority is not defined canonically, while current code lets any valid player submit p_route and first successful call commits the shared route. | V4.0 §14.4 defines one Game Track Known/Unknown choice but does not identify the submitting actor/consensus rule. Current app renders both buttons to every player; s3b_choose_post_inspection_route accepts any player session and writes group_route from client p_route. | src/game/app.js; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/010_sprint3b_flow_integrity_and_inspect_fix.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | app.js renderSprint3b() lines 149–177, especially line 170; migration011 s3b_choose_post_inspection_route line 95; migration010 function lines 136–150; V4 §14.4 lines ~3221–3243 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | A shared Game Track result currently uses implicit first-valid-player-wins authority; correctness cannot be determined because canonical actor authority is missing. | GA must canonicalize who/what owns this single group Game Track choice; then CA can judge the implementation without inventing a rule. | Method 2/C3 | GA | — | PENDING CANONICAL CLARIFICATION |
 | IDA-008 | HIGH | CONFIRMED | SHARE PHOTO lacks the canonical server-side scene permission: s3_share_photo can persist shared photos whenever the caller owns a shareable item view, even when allow_share_photo should be false or DiscussionRoom is locked. | In ACT2 private_first_meeting, after Gitte GRABs Map/Number Note but before the meeting discussion opens, call s3_share_photo directly. Function checks ownership/current view/recipient only and inserts s3_shared_photos; database has no allow_share_photo state to enforce V4.0's scene flag. | database/006_sprint3a_provenance_view_integrity_fix.sql; database/005_sprint3a_scene_pocket_knowledge_foundation.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | s3_share_photo(...) migration006 lines 79–98; V4 SHARE PHOTO rule lines ~2073–2092; V4 Multiplayer Execution Rules lines ~5856–5869 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Players can share private information outside canonically allowed discussion scenes, altering information-sharing timing/provenance and contaminating behavior evidence in NORMAL runs. | Persist scene-level allow_share_photo (or equivalent server-derived permission) and reject SHARE PHOTO unless current authoritative scene permits it; UI gating alone is insufficient. | Method 2/C4 + later Methods 4/5/9 | CD | — | NOT YET RETESTED |
 | IDA-009 | HIGH | CONFIRMED | DiscussionRoom player mutations do not carry expected discussion identity; stale message/vote requests are applied to the server's newest discussion/round instead of being rejected. | Keep an old DiscussionRoom request in flight, create a higher vote_round, then deliver the old request. s2_send_message/s2_submit_vote select latest discussion by vote_round. In a re-vote with same options, a stale old-round vote can lock as the new-round vote. | database/002_runtime_runs_discussion.sql; database/004_sprint2_fallback_resolution_semantics.sql; src/game/app.js | s2_send_message(...) lines 546–604; final s2_submit_vote(...) migration004 lines 6–60; app.js sendMessage()/submitVote() lines 290–327 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Real player behavior can be attributed to the wrong discussion_session_id/vote_round/scene, violating stale-phase rejection and evidence identity. | Include expected discussion_session_id/vote_round (or opaque interaction identity) in mutating requests and reject if it is not the current authoritative interaction. | Method 2/C5 + later Methods 5/8/9 | CD | — | NOT YET RETESTED |
 | IDA-010 | HIGH | CONFIRMED | Dialogue message submission has no idempotency identity; if server commit succeeds but response is lost, retry creates a second apparently genuine player message/event. | Let s2_send_message insert/commit, drop the response, then retry identical UI submission. dialogue_messages has only generated message_id and no request key; client clears text only after success, so retry inserts again. | database/002_runtime_runs_discussion.sql; src/game/app.js | dialogue_messages schema lines 55–68; s2_send_message(...) lines 546–604; app.js sendMessage() lines 290–306 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | One real behavior can become two persisted messages, corrupting message count, initiative, timing and information-sharing evidence. | Add client-generated submission/request identity with per-run/session/player uniqueness; retry must return the original committed result rather than insert again. | Method 2/C5 + later Methods 6/8/9 | CD | — | NOT YET RETESTED |
 | IDA-011 | MEDIUM | CONFIRMED | Wrong Library puzzle attempts are not idempotent; response-loss retry records the same real attempt again and may advance hint stage. | Submit an incorrect code, allow transaction to commit, drop response, then retry before scene changes. Each call increments puzzle_attempt_number and inserts a new (run_id, attempt_number) row. | database/007_sprint3b_act1_5_placeholder_flow.sql; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; src/game/app.js | s3b_library_attempts schema lines 35–43; delegated s3b_submit_library_code(...) lines 212–230; final wrapper migration011 line 92; app.js submitLibraryCode() lines 188–192 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Game Track attempt history can overcount a real action and reveal hints prematurely. | Add per-submission idempotency identity or server retry token so an uncertain retry returns/reuses the prior attempt instead of incrementing. | Method 2/C5 + later Methods 6/8 | CD | — | NOT YET RETESTED |
+| IDA-012 | HIGH | CONFIRMED | Sprint3B formal gameplay lacks an append-only event trace for many player actions and scene/Game Track transitions; mutable current-state rows overwrite chronology, so the complete run cannot be reconstructed after progression. | s3b_set_scene only upserts s3_runtime_scene_state; ACT1 completion, GRAB/leave, FOLLOW SIGN, meeting apply, route-update transition, ACT4 direct resolution and ACT5 apply generally mutate current state without a corresponding runtime_events row. V2.3 requires gameplay state to be event-log traceable and AUDIT to record player actions, route and scene transition. | database/007_sprint3b_act1_5_placeholder_flow.sql; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql; docs/specs/current/Codex程序开发说明书 V2.3.md | s3b_set_scene migration007 lines 61–69; ACT1/meeting/route/follow/apply wrappers migration011 lines 60–100; route ACK migration012 lines 21–73; V2.3 §5.1/§5.2 lines ~575–580 and ~647–670 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Later current-state values prove where the run ended but not the full timestamped actor/transition sequence; Teacher debug and future session export must guess or infer context, and cross-layer gaps such as IDA-001 cannot be forensically timed after later progression. | Add append-only formal events for every material player/Game Track action and scene transition with run_id, scene/phase/step, actor/source, timestamp, payload and validity; state tables remain current-state authority but not historical ledger. | Method 4 + Method 5 + Method 8 + Method 9 | CD | — | NOT YET RETESTED |
 # 2. Detailed Findings
 
 ## IDA-001 — Non-atomic DiscussionRoom → Sprint 3B progression
@@ -150,40 +151,49 @@ Formal canonical gameplay should use a server-side scene allowlist for discussio
 During every canonical private phase, both UI and direct RPC attempts to open a generic discussion must be rejected without creating a session/event. Canonical scene-triggered discussions must continue to work.
 
 
-## IDA-006 — ACT1 response time is not reconstructable
+## IDA-006 — Canonical response-latency evidence is not durably reconstructable
 
 Severity: HIGH  
 Status: CONFIRMED by schema/flow/spec comparison.
 
 ### Problem
 
-ACT1's canonical Behavior Track requires response time.
+The canonical behavior model treats response latency as an evidence feature. In the implemented ACT1–5 baseline, the private-choice tables persist **submission timestamps** but do not durably persist the corresponding **actionable-start timestamps** needed to compute response time later.
 
-The implementation stores the submission timestamp (`act1_locked_at`) but does not store when each player's actionable ACT1 choice interval begins.
+Confirmed examples:
 
-That interval begins only after the player individually acknowledges the private opening through `s3b_ack_act1_opening`. The acknowledgement changes only `act1_stage`; no server timestamp is persisted.
+- **ACT1**: `s3b_ack_act1_opening` moves each player independently from `opening` → `action`, but stores no timestamp. `s3b_submit_act1_choice` stores only `act1_locked_at`.
+- **ACT2 first meeting**: V4.0 §10.9 explicitly requires `first meeting choice + response time`. The implementation stores `first_meeting_locked_at`, but no durable first-meeting actionable-start timestamp.
+- **ACT4 private route choice**: the Sprint3C canonical safe-resolution contract explicitly treats ACT4 private choice `timestamp / latency` as behavior fields. The implementation stores `act4_locked_at`, but no durable choice-start timestamp.
 
-### Why existing timestamps are insufficient
+### Why current scene timestamps are insufficient
 
-`s3_runtime_scene_state.updated_at` is shared/global and predates each player's independent acknowledgement. Two players may read the opening for different durations before reaching the action choices.
+`s3_runtime_scene_state.updated_at` is a single mutable current-scene timestamp:
+- ACT1 is especially invalid because each player individually acknowledges the opening at a different time;
+- later scene transitions overwrite the row, so even a global ACT2/ACT4 scene-start timestamp is not durably retained for post-game reconstruction;
+- client polling/render timing is not a server-persisted behavioral start boundary.
 
-Therefore:
-
-`act1_locked_at - global_scene_time`
-
-mixes opening-reading time with choice-response time and is not the canonical per-player response latency.
+Therefore a future Sprint8 export cannot reliably derive canonical latency from the persisted submission timestamps alone.
 
 ### Risk
 
-The missing start timestamp cannot be reconstructed later by Sprint8 export or post-game analysis. This is silent loss of a core evidence feature rather than a display defect.
+This is silent loss of a core evidence feature used by post-game analysis. Once the run advances, the missing start boundary cannot be reconstructed without guessing.
 
 ### Recommended fix
 
-Persist a server-owned per-player timestamp such as `act1_action_started_at` when `s3b_ack_act1_opening` successfully moves opening→action. Compute/store or export response latency using that timestamp and `act1_locked_at`.
+Persist a server-owned start timestamp (or explicit latency) for every canonical latency-bearing interaction, for example:
+- `act1_action_started_at`;
+- `first_meeting_started_at`;
+- `act4_choice_started_at`.
+
+The exact schema may differ, but the start boundary must be server-authoritative, durable, reconnect-safe and exportable.
 
 ### Closure condition
 
-For three players acknowledging at different times, exported/reconstructed ACT1 response latency must use each player's own server-persisted actionable start time and remain stable across reconnect.
+Run three players through the relevant interactions with intentionally different exposure/acknowledgement times. Export/reconstruct each response latency solely from persisted server data and verify:
+- no global/current-scene timestamp guess is required;
+- reconnect does not change the computed latency;
+- missing/override cases preserve explicit null + validity semantics rather than fabricated timing.
 
 
 ## IDA-007 — Canonical authority missing for ACT5 post-inspection group route
@@ -301,3 +311,78 @@ A wrong puzzle attempt leaves the same action screen active. If its successful s
 ### Closure condition
 
 Commit a wrong attempt while dropping its response, retry the same logical submission, and verify attempt_number, hint stage and attempt ledger advance exactly once.
+
+
+## IDA-012 — Sprint3B formal history is not append-only reconstructable
+
+Severity: HIGH  
+Status: CONFIRMED by deterministic schema/control-flow comparison.
+
+### Problem
+
+V2.3 states that once a state enters gameplay it must be server-authoritative, reconnect-restorable **and event-log traceable**. It also requires AUDIT to fully record player actions, route, reconnect and scene transition using the same runtime event writer/schema as NORMAL.
+
+Sprint3B persists authoritative current state, but many formal actions and transitions are not appended to `runtime_events`.
+
+Examples:
+
+- `s3b_set_scene` only UPSERTs the single `s3_runtime_scene_state` row. The previous scene/phase/step and its transition timestamp disappear from current state.
+- ACT1 opening acknowledgement/completion mutate `s3b_player_progress` but have no append-only action event.
+- GRAB / leave / FOLLOW SIGN are represented mainly by booleans or current location; no durable action timestamp/event is written.
+- ACT2 DiscussionRoom resolution is evented inside DiscussionRoom, but the later `s3b_apply_meeting_resolution` Game Track apply/route-update transition has no dedicated event.
+- route-update ACK has a per-player timestamp, but the resulting third-ACK scene transition has no transition event.
+- ACT4 unanimous direct route and ACT5 Game Track apply update current run/scene state without a complete transition event.
+- some exceptional paths **are** evented (`failed_rendezvous`, puzzle fallback hints, post-inspection group route), showing that the event infrastructure exists but coverage is incomplete.
+
+### Why final state is insufficient
+
+A final row can answer “what is true now,” but not reliably:
+- when each prior scene started/ended;
+- when a Game Track apply occurred after a resolved discussion;
+- which player action triggered a transition where no per-action timestamp exists;
+- how long the run remained in an intermediate state;
+- whether a historical split-state window such as IDA-001 occurred once later state has overwritten it.
+
+This prevents deterministic chronological reconstruction from persisted evidence alone.
+
+### Risk
+
+The gap is irreversible after the current-state row advances. Sprint8 export cannot manufacture historical timestamps/events later without guessing.
+
+It weakens:
+- post-game scene context;
+- Teacher/debug forensics;
+- AUDIT completeness;
+- session-integrity verification;
+- attribution of later behavior to the correct preceding Game Track context.
+
+### Recommended fix
+
+Keep current state tables as state authority, but append a formal event for every material:
+- player Game Track action;
+- group/system application;
+- route/fold-back transition;
+- scene/phase/step transition.
+
+Minimum event semantics should support the future flat ledger contract:
+- timestamp;
+- event_type;
+- run_id;
+- scene_id;
+- phase_key;
+- step_key;
+- actor/source;
+- payload;
+- validity / behavior_scoring where relevant.
+
+Do not synthesize historical events retroactively for old runs.
+
+### Closure condition
+
+Execute a representative ACT1→ACT5 run, then reconstruct the full chronological sequence **using persisted data only**, after the run has already advanced to terminal:
+- all material scene transitions have timestamps;
+- actor/system attribution is explicit;
+- route/fold-back/puzzle context can be ordered without using mutable final-row timestamps as proxies;
+- NORMAL and AUDIT use the same event writer;
+- reconnect does not change or duplicate the ledger.
+
