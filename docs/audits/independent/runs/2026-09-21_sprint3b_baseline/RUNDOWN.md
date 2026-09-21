@@ -45,11 +45,13 @@ Existing evidence in IMPLEMENTED_SYSTEM_MODEL.md:
 - Sprint3B flow/progress state
 - current client refresh composition
 
-### [~] B2 RPC call graph
-Required remaining work:
-- enumerate all public in-scope RPCs, not only currently suspicious ones;
-- map helper delegation and writes;
-- identify effective final wrapper after migration 012.
+### [x] B2 RPC call graph
+Completed:
+- enumerated all public in-scope Sprint1/Sprint2/Sprint3A/Sprint3B RPC families;
+- mapped helper delegation and principal writes;
+- mapped player/Teacher frontend callers, including dynamic Sprint3B dispatch;
+- identified migration-011 wrapper → pre011 topology and migration-012 final route-ACK wrapper.
+Evidence: IMPLEMENTED_SYSTEM_MODEL.md §7.
 Output: IMPLEMENTED_SYSTEM_MODEL.md
 
 ### [~] B3 Implemented transition graph

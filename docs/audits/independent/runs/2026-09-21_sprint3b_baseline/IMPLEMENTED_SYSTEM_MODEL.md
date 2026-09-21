@@ -143,3 +143,171 @@ Still to complete:
 - reconnect and stale-session paths;
 - audit-only RPC exposure;
 - dynamic reproduction where tooling permits.
+
+# 7. B2 — Complete RPC Call Graph (v1.1 rundown)
+
+Baseline: `3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe`
+
+This section records the effective call graph after migrations 001–012.  
+“Final wrapper” means the browser-facing/current public function body after all CREATE OR REPLACE / rename operations in the frozen baseline.  
+Final database ACL verification is deferred to Method 4; this section records code-level call topology and grant intent only.
+
+## 7.1 Sprint 1 public/runtime surface
+
+| RPC | Caller in current runtime | Delegates / key helpers | Principal writes |
+|---|---|---|---|
+| `s1_create_room` | Teacher Console | `s1_hash_token` | `s1_rooms`, `s1_room_state`, `s1_room_players`, `s1_game_events` |
+| `s1_join_player` | Player | `s1_hash_token` | `s1_room_players`, `s1_game_events` |
+| `s1_get_player_state` | Player | `s1_get_player_by_session` | read-only except session helper updates last-seen metadata |
+| `s1_submit_private_choice` | Player legacy UI | `s1_get_player_by_session`, `s1_touch_room` | `s1_player_decisions`, `s1_game_events`, `s1_room_state` |
+| `s1_get_teacher_state` | Teacher Console | `s1_assert_teacher` | read-only |
+| `s1_advance_scene` | Teacher Console | `s1_assert_teacher` | `s1_room_state`, `s1_game_events` |
+| `s1_release_player_session` | Teacher Console | `s1_assert_teacher` | `s1_room_players`, `s1_game_events` |
+| `s1_reset_room` | Teacher Console | `s1_assert_teacher` | deletes legacy `s1_player_decisions`; resets `s1_room_state`; logs event |
+
+Internal Sprint 1 helpers:
+- `s1_hash_token`
+- `s1_touch_room`
+- `s1_assert_teacher`
+- `s1_get_player_by_session`
+
+These are code-level dependencies for later Sprint RPCs and are not intended as direct browser mutation surfaces.
+
+## 7.2 Sprint 2 formal-run / DiscussionRoom surface
+
+| RPC | Caller | Delegates / key helpers | Principal writes |
+|---|---|---|---|
+| `s2_start_run` | Teacher Console | `s1_assert_teacher`, `s2_log_event` | `game_runs`, `runtime_events` |
+| `s2_open_discussion` | Teacher Console | `s1_assert_teacher`, `s2_log_event` | `discussion_sessions`, `game_runs.silent_texting_mode`, events |
+| `s2_open_vote` | Teacher Console | `s1_assert_teacher`, `s2_get_active_run`, `s2_log_event` | `discussion_sessions`, events |
+| `s2_add_time` | Teacher Console | same authority helpers | `discussion_sessions`, events |
+| `s2_send_message` | Player | session auth, active run, `s2_refresh_discussion`, `s2_log_event` | `dialogue_messages`, events |
+| `s2_submit_vote` | Player | session auth, active run, `s2_refresh_discussion`, `s2_log_event` | `runtime_player_decisions`, `discussion_sessions`; may create a re-vote `discussion_sessions` row |
+| `s2_get_player_state` | Player | session auth, active run, `s2_refresh_discussion` | nominal read, but refresh helper can advance discussion timeout state |
+| `s2_get_teacher_state` | Teacher | teacher auth, active run, `s2_refresh_discussion` | nominal read, but refresh helper can advance timeout state |
+
+Internal:
+- `s2_get_active_run`
+- `s2_log_event`
+- `s2_refresh_discussion`
+- `s2_protect_run_identity` trigger
+
+Important call-graph property:
+`s2_get_player_state` and `s2_get_teacher_state` are observational APIs whose helper may perform authoritative timeout transitions. They are therefore not purely read-only in system effect.
+
+## 7.3 Sprint 3A Pocket / Knowledge surface
+
+Browser/test-facing functions in the frozen baseline include:
+- `s3_share_photo`
+- `s3_set_item_view`
+- `s3_get_player_state`
+- `s3_get_teacher_state`
+- `s3_initialize_audit_fixture`
+- `s3_audit_provenance_probe`
+
+Internal helpers:
+- `s3_record_observation`
+- `s3_record_knowledge`
+
+Final implementations of `s3_share_photo`, `s3_initialize_audit_fixture`, `s3_get_player_state`, and `s3_record_knowledge` are the migration-006 versions where redefined.
+
+Principal state:
+- `s3_runtime_scene_state`
+- `s3_player_items`
+- `s3_player_item_view_state`
+- `s3_player_observations`
+- `s3_player_knowledge`
+- `s3_shared_photos`
+- `s3_group_items`
+
+## 7.4 Sprint 3B wrapper topology after migration 011/012
+
+Migration 011 renames the then-deployed implementations to `*_pre011` and installs guarded public wrappers.
+
+Final public wrapper topology:
+
+| Public RPC | Final definition | Delegation | Main effective mutation |
+|---|---|---|---|
+| `s3b_initialize_flow` | migration 011 | → `s3b_initialize_flow_pre011` | creates Sprint3B run/player state + runtime scene, then adds ACT1 delivery metadata |
+| `s3b_ack_act1_opening` | migration 011 | direct | player ACT1 stage |
+| `s3b_submit_act1_choice` | migration 011 | direct | locked ACT1 choice/stage; trigger adds ACT1 consequences |
+| `s3b_complete_act1` | migration 011 | direct + `s3b_set_scene` | player ACT1 stage; all-three gate advances scene |
+| `s3b_submit_first_meeting` | migration 011 | → `*_pre011` | locked first-meeting choice |
+| `s3b_grab` | migration 011 | → `*_pre011` | player items/view state + grab progress; trigger may add optional flashlight |
+| `s3b_leave_start_room` | migration 011 | → `*_pre011` | player location/progress; all-three gate directly inserts ACT2 DiscussionRoom |
+| `s3b_apply_meeting_resolution` | migration 011 | → `*_pre011`, then `s3b_set_scene` | persists meeting result/route then moves to route_update |
+| `s3b_ack_route_update` | migration 012 | direct + `s3b_set_scene` | per-player ACK; all-three gate moves to route_consequence |
+| `s3b_complete_foldback` | migration 011 | → `*_pre011` | fold-back route/scene/event |
+| `s3b_follow_sign` | migration 011 | → `*_pre011` | player location; all-three gate starts Library puzzle |
+| `s3b_submit_library_code` | migration 011 | → `*_pre011` | attempt counter/history, puzzle state, group items, next scene |
+| `s3b_submit_act4_choice` | migration 011 | → `*_pre011` | locked ACT4 choice; may terminally resolve or directly insert ACT5 DiscussionRoom |
+| `s3b_apply_act5_resolution` | migration 011 | → migration-010 `*_pre011` implementation | applies resolved DiscussionRoom result; terminal or Inspect First |
+| `s3b_choose_post_inspection_route` | migration 011 | → migration-010 `*_pre011` | Game Track Known/Unknown terminal route |
+| `s3b_get_player_state` | migration 011 | → `*_pre011` then decorates queued messages | state read; pre011 also invokes puzzle refresh |
+| `s3b_get_my_facts` | migration 009 | direct read | private ACT1 fact read |
+
+Audit-only Sprint3B helpers:
+- `s3b_audit_expire_puzzle` — migration 007 implementation remains present; teacher token + AUDIT mode checked in body.
+- `s3b_audit_set_puzzle_elapsed` — final migration 011 implementation; teacher token + AUDIT mode checked.
+
+Internal non-browser helpers/triggers:
+- `s3b_set_scene`
+- `s3b_refresh_puzzle`
+- `s3b_lock_run_for_player_progress`
+- `s3b_apply_act1_consequence`
+- `s3b_add_optional_grab_item`
+- `s3b_canonicalize_group_item_label`
+- `s3b_guard_player_progress_phase`
+- `s3b_guard_run_state_phase`
+- `s3b_guard_library_attempt_phase`
+- all `*_pre011` implementations
+
+Migration 012 explicitly revokes browser roles from the renamed `*_pre011` functions and redefines `s3b_ack_route_update` as the final public implementation.
+
+## 7.5 Current browser orchestration
+
+### Player app
+
+Direct/static RPC calls:
+- Sprint1: `s1_join_player`, `s1_get_player_state`, `s1_submit_private_choice`
+- Sprint2: `s2_get_player_state`, `s2_send_message`, `s2_submit_vote`
+- Sprint3B: `s3b_get_player_state`, `s3b_submit_library_code`, `s3b_apply_meeting_resolution`, `s3b_apply_act5_resolution`
+
+Dynamic Sprint3B button dispatch additionally calls:
+- `s3b_ack_act1_opening`
+- `s3b_submit_act1_choice`
+- `s3b_complete_act1`
+- `s3b_submit_first_meeting`
+- `s3b_grab`
+- `s3b_leave_start_room`
+- `s3b_ack_route_update`
+- `s3b_complete_foldback`
+- `s3b_follow_sign`
+- `s3b_submit_act4_choice`
+- `s3b_choose_post_inspection_route`
+
+### Teacher Console
+
+Calls:
+- Sprint1: `s1_create_room`, `s1_get_teacher_state`, `s1_advance_scene`, `s1_reset_room`, `s1_release_player_session`
+- Sprint2: `s2_start_run`, `s2_open_discussion`, `s2_open_vote`, `s2_add_time`, `s2_get_teacher_state`
+- Sprint3B: `s3b_initialize_flow`
+
+## 7.6 B2 conclusions
+
+1. The current system exposes three generations of callable runtime surface concurrently: Sprint1 legacy, Sprint2 formal DiscussionRoom, Sprint3B formal flow.
+2. Sprint3B's effective implementation is intentionally layered: public guarded wrappers in 011/012 delegate to renamed historical bodies.
+3. Several “get state” APIs have side effects through timeout refresh helpers, so a call graph that classifies them as read-only would be inaccurate.
+4. Game-specific DiscussionRoom creation bypasses `s2_open_discussion` and occurs inside Sprint3B mutation paths; this supports existing finding IDA-002.
+5. Discussion resolution and Game Track application are separate public calls; this supports existing finding IDA-001.
+6. No new finding is opened solely from B2 beyond IDA-001/002/003. Authentication, final ACL exposure, stale/replay behavior and concurrency guarantees are explicitly deferred to Methods 2–4.
+
+## 7.7 B2 completion status
+
+B2 requirements satisfied:
+- all in-scope public runtime/test RPC families enumerated;
+- helper delegation mapped;
+- principal writes mapped;
+- player/Teacher frontend callers mapped;
+- final Sprint3B wrapper layer after migration 012 identified.
+
