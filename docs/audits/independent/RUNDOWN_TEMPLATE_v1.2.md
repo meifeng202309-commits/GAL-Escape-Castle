@@ -214,7 +214,7 @@ If not approving:
 
 ### [ ] K1 Finalize Master Findings List
 Output: FINDINGS.md
-Requirement: exact full table schema from Protocol v1.1.
+Requirement: exact full table schema from Protocol v1.2.
 
 ### [ ] K2 Verify detailed section for every finding
 ### [ ] K3 Produce EXECUTIVE_SUMMARY.md

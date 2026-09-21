@@ -416,6 +416,10 @@ CD不得：
 
 ## 5.3 CA — Coding Audit Agent
 
+CA coding audit必须同时遵守：
+
+    docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.0.md
+
 负责：
 
 - code/spec compliance；
