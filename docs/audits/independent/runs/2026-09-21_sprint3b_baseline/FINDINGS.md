@@ -17,6 +17,9 @@ Status: IN PROGRESS
 
 | IDA-007 | OBSERVATION | NOT_VERIFIED | ACT5 post-inspection group-route submit authority is not defined canonically, while current code lets any valid player submit p_route and first successful call commits the shared route. | V4.0 §14.4 defines one Game Track Known/Unknown choice but does not identify the submitting actor/consensus rule. Current app renders both buttons to every player; s3b_choose_post_inspection_route accepts any player session and writes group_route from client p_route. | src/game/app.js; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/010_sprint3b_flow_integrity_and_inspect_fix.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | app.js renderSprint3b() lines 149–177, especially line 170; migration011 s3b_choose_post_inspection_route line 95; migration010 function lines 136–150; V4 §14.4 lines ~3221–3243 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | A shared Game Track result currently uses implicit first-valid-player-wins authority; correctness cannot be determined because canonical actor authority is missing. | GA must canonicalize who/what owns this single group Game Track choice; then CA can judge the implementation without inventing a rule. | Method 2/C3 | GA | — | PENDING CANONICAL CLARIFICATION |
 | IDA-008 | HIGH | CONFIRMED | SHARE PHOTO lacks the canonical server-side scene permission: s3_share_photo can persist shared photos whenever the caller owns a shareable item view, even when allow_share_photo should be false or DiscussionRoom is locked. | In ACT2 private_first_meeting, after Gitte GRABs Map/Number Note but before the meeting discussion opens, call s3_share_photo directly. Function checks ownership/current view/recipient only and inserts s3_shared_photos; database has no allow_share_photo state to enforce V4.0's scene flag. | database/006_sprint3a_provenance_view_integrity_fix.sql; database/005_sprint3a_scene_pocket_knowledge_foundation.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | s3_share_photo(...) migration006 lines 79–98; V4 SHARE PHOTO rule lines ~2073–2092; V4 Multiplayer Execution Rules lines ~5856–5869 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Players can share private information outside canonically allowed discussion scenes, altering information-sharing timing/provenance and contaminating behavior evidence in NORMAL runs. | Persist scene-level allow_share_photo (or equivalent server-derived permission) and reject SHARE PHOTO unless current authoritative scene permits it; UI gating alone is insufficient. | Method 2/C4 + later Methods 4/5/9 | CD | — | NOT YET RETESTED |
+| IDA-009 | HIGH | CONFIRMED | DiscussionRoom player mutations do not carry expected discussion identity; stale message/vote requests are applied to the server's newest discussion/round instead of being rejected. | Keep an old DiscussionRoom request in flight, create a higher vote_round, then deliver the old request. s2_send_message/s2_submit_vote select latest discussion by vote_round. In a re-vote with same options, a stale old-round vote can lock as the new-round vote. | database/002_runtime_runs_discussion.sql; database/004_sprint2_fallback_resolution_semantics.sql; src/game/app.js | s2_send_message(...) lines 546–604; final s2_submit_vote(...) migration004 lines 6–60; app.js sendMessage()/submitVote() lines 290–327 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Real player behavior can be attributed to the wrong discussion_session_id/vote_round/scene, violating stale-phase rejection and evidence identity. | Include expected discussion_session_id/vote_round (or opaque interaction identity) in mutating requests and reject if it is not the current authoritative interaction. | Method 2/C5 + later Methods 5/8/9 | CD | — | NOT YET RETESTED |
+| IDA-010 | HIGH | CONFIRMED | Dialogue message submission has no idempotency identity; if server commit succeeds but response is lost, retry creates a second apparently genuine player message/event. | Let s2_send_message insert/commit, drop the response, then retry identical UI submission. dialogue_messages has only generated message_id and no request key; client clears text only after success, so retry inserts again. | database/002_runtime_runs_discussion.sql; src/game/app.js | dialogue_messages schema lines 55–68; s2_send_message(...) lines 546–604; app.js sendMessage() lines 290–306 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | One real behavior can become two persisted messages, corrupting message count, initiative, timing and information-sharing evidence. | Add client-generated submission/request identity with per-run/session/player uniqueness; retry must return the original committed result rather than insert again. | Method 2/C5 + later Methods 6/8/9 | CD | — | NOT YET RETESTED |
+| IDA-011 | MEDIUM | CONFIRMED | Wrong Library puzzle attempts are not idempotent; response-loss retry records the same real attempt again and may advance hint stage. | Submit an incorrect code, allow transaction to commit, drop response, then retry before scene changes. Each call increments puzzle_attempt_number and inserts a new (run_id, attempt_number) row. | database/007_sprint3b_act1_5_placeholder_flow.sql; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; src/game/app.js | s3b_library_attempts schema lines 35–43; delegated s3b_submit_library_code(...) lines 212–230; final wrapper migration011 line 92; app.js submitLibraryCode() lines 188–192 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Game Track attempt history can overcount a real action and reveal hints prematurely. | Add per-submission idempotency identity or server retry token so an uncertain retry returns/reuses the prior attempt instead of incrementing. | Method 2/C5 + later Methods 6/8 | CD | — | NOT YET RETESTED |
 # 2. Detailed Findings
 
 ## IDA-001 — Non-atomic DiscussionRoom → Sprint 3B progression
@@ -246,3 +249,53 @@ Make share permission server-authoritative. The RPC must derive the current scen
 ### Closure condition
 
 For every scene with `allow_share_photo=false` or private-phase DiscussionRoom lock, direct RPC attempts must fail without creating a shared-photo row or sharing event. Canonically allowed discussion scenes must continue to share the current server-authoritative view.
+
+
+## IDA-009 — Stale DiscussionRoom request can be written into a newer interaction
+
+Severity: HIGH  
+Status: CONFIRMED by server request-routing proof; live delayed-request reproduction pending.
+
+### Problem
+
+DiscussionRoom message/vote mutations do not carry the interaction identity visible when the user acted. The server chooses the latest discussion at processing time.
+
+This turns some stale requests into valid new-round actions rather than rejecting them.
+
+### Highest-risk reproduction
+
+Use a 1:1:1 vote to create a re-vote with the same options. Hold a vote request from the old round until the new round is voting, then deliver it. The server can treat that old intent as the player's vote in the new round.
+
+### Closure condition
+
+Every behavior mutation must address an expected interaction identity. A request created for an earlier discussion/round must be rejected after the server advances, even when the same choice ID remains valid.
+
+---
+
+## IDA-010 — Response-loss retry can duplicate dialogue behavior
+
+Severity: HIGH  
+Status: CONFIRMED by schema/client/server control-flow proof; network fault injection pending.
+
+### Problem
+
+There is no request idempotency key for messages. Server-generated `message_id` cannot tell whether two identical inserts are two real messages or one retry.
+
+### Closure condition
+
+Drop the response after a committed message, retry the same logical submission, and verify exactly one dialogue row/event exists and the retry receives the original committed result.
+
+---
+
+## IDA-011 — Response-loss retry can double-count wrong Library attempts
+
+Severity: MEDIUM  
+Status: CONFIRMED by control-flow proof; network fault injection pending.
+
+### Problem
+
+A wrong puzzle attempt leaves the same action screen active. If its successful server response is lost, retry is indistinguishable from a new attempt and advances attempt/hint counters again.
+
+### Closure condition
+
+Commit a wrong attempt while dropping its response, retry the same logical submission, and verify attempt_number, hint stage and attempt ledger advance exactly once.

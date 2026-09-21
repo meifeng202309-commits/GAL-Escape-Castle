@@ -124,8 +124,15 @@ Completed:
 - noted an AUDIT-only puzzle timing helper phase-scope weakness for later Method6/8, not promoted to a production finding.
 Evidence: MUTATION_AUTHORITY_REGISTRY.md §C4; FINDINGS.md IDA-008.
 
-### [ ] C5 Replay/stale review
-Required: duplicate/old-phase/post-terminal/cross-session behavior.
+### [x] C5 Replay/stale review
+Completed:
+- reviewed duplicate, old-phase, post-terminal and cross-session behavior;
+- confirmed locked Sprint3B choices/progression reject ordinary replay;
+- recorded IDA-009 HIGH: stale DiscussionRoom message/vote requests can be retargeted to the latest session/round because requests carry no expected discussion identity;
+- recorded IDA-010 HIGH: response-loss retry can duplicate dialogue behavior evidence;
+- recorded IDA-011 MEDIUM: response-loss retry can double-count wrong Library attempts and advance hint state;
+- noted non-idempotent Teacher Add Time for later failure testing without a separate player-evidence finding.
+Evidence: MUTATION_AUTHORITY_REGISTRY.md §C5; FINDINGS.md IDA-009/010/011.
 
 ### [ ] C6 Concurrency semantics review
 Required: row locks/idempotency for each group gate/resolution.
