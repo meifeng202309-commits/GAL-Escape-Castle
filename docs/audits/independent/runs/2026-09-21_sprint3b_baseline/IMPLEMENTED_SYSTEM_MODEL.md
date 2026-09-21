@@ -382,3 +382,156 @@ B3 is complete for the frozen implementation:
 - normal duplicate/stale outcomes are recorded;
 - one new transition-boundary defect, IDA-004, was identified.
 
+# 9. B4 — Reconnect Model
+
+Baseline: `3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe`
+
+## 9.1 Client-local session lifecycle
+
+`src/state/session.js` stores one object under `gal_castle_escape_session_v1` in browser `localStorage`.
+
+Persisted client fields:
+- room_code
+- player_id
+- display_name
+- role_slot
+- session_token
+
+On page load, if room_code + session_token exist:
+1. player UI enters game view;
+2. `refreshState()` runs;
+3. polling begins every 1200 ms.
+
+The local object is identity/cache only. Authoritative gameplay state is re-read from server RPCs.
+
+Manual “Switch session”:
+- clears localStorage;
+- stops polling;
+- returns to join screen.
+
+## 9.2 Server token lifecycle and Teacher release
+
+`s1_join_player`:
+- validates room + hashed join code;
+- refuses if role already has a session token;
+- creates a fresh bearer session token;
+- preserves the same `player_id`.
+
+`s1_release_player_session`:
+- teacher-authenticated;
+- clears `session_token_hash`, `joined_at`, `last_seen_at`;
+- does not delete formal run evidence or change `player_id`.
+
+Therefore intended recovery is:
+1. Teacher releases role;
+2. replacement browser uses same assigned join code;
+3. server issues new token for the same player_id;
+4. formal Sprint2/3/3B evidence remains attached to that player_id/run_id and is restored by state RPCs.
+
+The old token becomes invalid immediately at the first server-authenticated call.
+
+## 9.3 Stale token behavior
+
+Every normal player refresh starts with `s1_get_player_state`, which calls `s1_get_player_by_session`.
+
+After Teacher release:
+- old token is rejected as “Invalid or expired player session.”
+- no formal mutation using that token can pass the shared session helper.
+- current UI does not automatically clear localStorage or return to join screen; it displays the error and continues polling.
+- user can manually use “Switch session.”
+
+This is a recovery UX weakness but not opened as a separate defect in B4 because stale credentials fail closed server-side and a manual recovery path exists.
+
+## 9.4 Discussion reconnect
+
+`s2_get_player_state` reconstructs the active formal run and latest DiscussionRoom from server persistence:
+- status/deadline;
+- messages;
+- submitted vote count;
+- player's locked vote;
+- revealed votes when resolved;
+- prior resolved rounds.
+
+It also invokes `s2_refresh_discussion`, so a reconnect/read can advance deadline-driven DiscussionRoom state.
+
+Exception:
+If DiscussionRoom is already resolved but the separate Sprint3B apply RPC was never committed, reconnect restores the resolved discussion **without repairing Game Track progression**. This is existing IDA-001.
+
+## 9.5 Route-update reconnect
+
+Server persistence includes per-player `route_update_ack_at`.
+
+On reconnect:
+- `s3b_get_player_state` returns runtime scene + player progress;
+- UI shows ACK only if scene is route_update and this player's ACK is still NULL;
+- already acknowledged players do not need to repeat;
+- third persisted ACK advances the shared scene.
+
+Reconnect semantics are server-derived and deterministic for this barrier.
+
+## 9.6 Wayfinding / Library reconnect
+
+Server persistence includes:
+- player_location;
+- party_physically_reunited;
+- puzzle_started_at;
+- puzzle_deadline;
+- puzzle_hint_stage;
+- puzzle_locked_prefix;
+- puzzle_attempt_number;
+- puzzle_resolved_at.
+
+`s3b_get_player_state` delegates to a state getter that invokes final `s3b_refresh_puzzle`.
+
+Therefore after offline time:
+- reconnect can advance overdue hint/locked-wheel stages;
+- >150-second timeout can system-resolve the puzzle;
+- group items and ACT4 scene are restored from server state rather than browser memory.
+
+The timeout-boundary submission race discovered in B3 is IDA-004, but ordinary reconnect restoration itself is server-authoritative.
+
+## 9.7 ACT4 / ACT5 / terminal reconnect
+
+Persisted:
+- `act4_choice_id` / `act4_locked_at`;
+- DiscussionRoom messages/votes/outcome;
+- `unknown_passage_inspected`;
+- `pending_post_inspection_route`;
+- `group_route`;
+- `terminal_state`;
+- `s3_runtime_scene_state`.
+
+A valid reconnected browser therefore reconstructs the current ACT4/ACT5/terminal phase and suppresses already completed per-player choices.
+
+At Sprint3B terminal:
+- scene/flow remain reconstructable;
+- no further Sprint3B action button is produced by current renderer.
+
+## 9.8 Layer-failure reconnect behavior
+
+`refreshState()` fetches layers sequentially:
+1. Sprint1 state;
+2. DiscussionRoom;
+3. Sprint3B state.
+
+There is no atomic composite reconnect snapshot.
+
+If Sprint1 succeeds but Sprint3B fails:
+- the previously rendered legacy Sprint1 controls may remain exposed.
+- this is existing IDA-003.
+
+If Sprint2 retrieval fails:
+- Discussion panel hides;
+- Sprint3B retrieval still runs only if failure occurred inside `refreshDiscussion()` itself (it catches internally), so formal flow can continue rendering.
+
+## 9.9 B4 conclusion
+
+Reconnect capability is generally persistence-based rather than browser-state-based for the implemented formal flow.
+
+Confirmed exceptions/risks already tracked:
+- IDA-001: resolved DiscussionRoom cannot self-heal missing Game Track apply.
+- IDA-003: partial-layer failure can expose legacy interaction.
+- IDA-004: puzzle submit/timeout boundary can validate against stale prefix.
+
+No additional issue ID was opened solely from B4.
+

@@ -63,12 +63,14 @@ Completed:
 Evidence: IMPLEMENTED_SYSTEM_MODEL.md §8; FINDINGS.md IDA-004.
 Output: IMPLEMENTED_SYSTEM_MODEL.md
 
-### [ ] B4 Reconnect model
-Required:
-- localStorage session lifecycle;
-- session release/rejoin;
-- reconnect in discussion, route update, puzzle and terminal;
-- stale token handling.
+### [x] B4 Reconnect model
+Completed:
+- traced localStorage session lifecycle;
+- traced Teacher release and rejoin under the same player_id;
+- verified stale-token server rejection;
+- traced reconnect through DiscussionRoom, route update, wayfinding/puzzle, ACT4/5 and terminal;
+- documented the non-atomic reconnect exceptions already tracked as IDA-001/003/004.
+Evidence: IMPLEMENTED_SYSTEM_MODEL.md §9.
 Output: IMPLEMENTED_SYSTEM_MODEL.md
 
 ### [ ] B5 Compare complete derived model to canonical specs
