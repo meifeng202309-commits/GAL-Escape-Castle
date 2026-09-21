@@ -338,15 +338,23 @@ Output: DATA_FORENSICS.md + FINDINGS.md
 
 ---
 
-## [ ] Integration Checkpoint III
-Read:
-- all nine method artifacts
-- FINDINGS.md
-Required:
-- one canonical ID per issue;
-- deduplicate;
-- finalize severity/status;
-- define NOT VERIFIED boundaries.
+## [x] Integration Checkpoint III
+Re-read all nine method artifacts plus FINDINGS.md.
+
+Final reconciliation:
+- 12 canonical issue IDs: IDA-001…IDA-012;
+- no duplicate findings merged and no unresolved evidence contradiction remains;
+- final severity distribution: 7 HIGH, 4 MEDIUM, 1 OBSERVATION;
+- final status distribution: 11 CONFIRMED, 1 NOT_VERIFIED (IDA-007);
+- IDA-006 broadened to the full implemented response-latency evidence problem rather than creating duplicate ACT2/ACT4 issues;
+- IDA-012 added as the distinct append-only formal-history/event-ledger gap;
+- every Master Findings row now lists all audit methods that materially found or supported it;
+- deployment-effective PostgreSQL catalog ACL remains NOT_VERIFIED;
+- actual mutation/network fault injection remains NOT_VERIFIED DYNAMICALLY;
+- physical three-student + Teacher multi-device end-to-end remains NOT VERIFIED;
+- IDA-007 remains pending GA canonical authority clarification.
+
+Severity/status are finalized for this frozen baseline unless new baseline evidence is introduced.
 
 ---
 
