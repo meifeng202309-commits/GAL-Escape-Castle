@@ -287,13 +287,16 @@ Reconciliation:
 
 ## H — Method 7: Dead / Legacy Path Audit
 
-### [ ] H1 Enumerate legacy/replaced objects
-Targets include pre011 wrappers, Sprint1 prototype controls, placeholder scenes and obsolete fields.
+### [x] H1 Enumerate legacy/replaced objects
+Enumerated pre011 wrappers, Sprint1 prototype controls, generic DiscussionRoom controls, placeholder content, audit helpers and obsolete state semantics.
 
-### [ ] H2 Classify each object
-ACTIVE / INTERNAL / TEST-ONLY / LEGACY-BUT-REQUIRED / DEAD / DANGEROUSLY-REACHABLE / UNKNOWN
+### [x] H2 Classify each object
+Classified every suspect path using ACTIVE / INTERNAL / TEST-ONLY / LEGACY-BUT-REQUIRED / DEAD / DANGEROUSLY-REACHABLE / UNKNOWN semantics.
 
-### [ ] H3 Trace DANGEROUSLY-REACHABLE paths
+### [x] H3 Trace DANGEROUSLY-REACHABLE paths
+Traced formal-player fail-open to Sprint1 legacy UI and generic Teacher DiscussionRoom coexistence; linked to IDA-003/005/002.
+
+**Method 7 COMPLETE.**
 
 Output: LEGACY_PATHS.md + FINDINGS.md
 
