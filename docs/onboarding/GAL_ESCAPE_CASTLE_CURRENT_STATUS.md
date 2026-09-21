@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-21T08:36:00Z
+> Last refreshed: 2026-09-21T08:40:51Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 3C
-CURRENT_GATE          = READY_FOR_IMPLEMENTATION
+CURRENT_SPRINT        = Sprint 3C (PAUSED)
+CURRENT_GATE          = BLOCKED_BY_INDEPENDENT_SPRINT3B_AUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements Sprint 3C migration 013, runs tests, then sends CA audit request
+NEXT_REQUIRED_ACTION  = CD submits additive remediation plan for confirmed IDA findings; no Sprint 3C migration 013 implementation until CA re-test clears the gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -71,8 +71,8 @@ Sprint 0  = CLOSED
 Sprint 1  = VERIFIED PASS
 Sprint 2  = PASS
 Sprint 3A = PASS
-Sprint 3B = ACCEPTED
-Sprint 3C = READY FOR IMPLEMENTATION
+Sprint 3B = REOPENED BY INDEPENDENT AUDIT — REMEDIATION REQUIRED
+Sprint 3C = PAUSED / BLOCKED
 ```
 
 Latest repeatedly reported regression counts:
@@ -110,8 +110,9 @@ agent-comms/GA_to_CD_20260919T180500Z_sprint3c-safe-resolution-map-response.md
 ## 5. Current unresolved cross-Agent blockers
 
 ```text
-None recorded for GA.
-Core development is waiting on CD implementation of Sprint 3C.
+GA: IDA-007 canonical post-inspection group-route submit authority remains NOT VERIFIED and needs clarification.
+CD: independent Sprint3B snapshot audit has 11 CONFIRMED findings (7 HIGH, 4 MEDIUM) requiring additive remediation/re-test.
+Core runtime/data development is BLOCKED before Sprint3C implementation. Visual production may continue in parallel.
 ```
 
 If a newer Action Log entry or valid agent-comms message creates a blocker, use the newer shared record and update this snapshot according to the Action Log rules.

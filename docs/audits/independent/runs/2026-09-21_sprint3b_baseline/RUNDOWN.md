@@ -360,10 +360,14 @@ Severity/status are finalized for this frozen baseline unless new baseline evide
 
 ## K — Finalization
 
-### [ ] K1 Finalize Master Findings List
-FINDINGS.md must start with the complete 14-column schema required by protocol v1.1.
+### [x] K1 Finalize Master Findings List
+Verified exact 14-column protocol schema; 12 canonical rows IDA-001…IDA-012; FINDINGS status finalized as CORE DEVELOPMENT BLOCKED.
 
-### [ ] K2 Verify detailed section for every finding
-### [ ] K3 Produce EXECUTIVE_SUMMARY.md
-### [ ] K4 Verify every rundown step is [x], [N/A], or [!] with reason
+### [x] K2 Verify detailed section for every finding
+Verified 12/12 detailed finding sections exist with evidence, risk, recommended fix and closure/re-test condition.
+### [x] K3 Produce EXECUTIVE_SUMMARY.md
+Produced required eight-section final summary; counts agree with FINDINGS.md.
+### [x] K4 Verify every rundown step is [x], [N/A], or [!] with reason
+All Methods 1–9 and Integration Checkpoints I–III are complete; unavailable dynamic/catalog checks are explicitly documented inside completed method steps as NOT VERIFIED boundaries.
 ### [ ] K5 Record audit completion in CA Action Log
+Pending immediate post-commit Action Log entry after final report/gate/handoff commit.
