@@ -369,5 +369,5 @@ Verified 12/12 detailed finding sections exist with evidence, risk, recommended 
 Produced required eight-section final summary; counts agree with FINDINGS.md.
 ### [x] K4 Verify every rundown step is [x], [N/A], or [!] with reason
 All Methods 1–9 and Integration Checkpoints I–III are complete; unavailable dynamic/catalog checks are explicitly documented inside completed method steps as NOT VERIFIED boundaries.
-### [ ] K5 Record audit completion in CA Action Log
-Pending immediate post-commit Action Log entry after final report/gate/handoff commit.
+### [x] K5 Record audit completion in CA Action Log
+Completed as CA-035 with final BLOCKED disposition, CD handoff, L3 gate update and substantive commit reference.
