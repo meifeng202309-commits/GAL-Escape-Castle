@@ -86,9 +86,13 @@ Output: IMPLEMENTED_SYSTEM_MODEL.md + FINDINGS.md
 
 ## C — Method 2: State Mutation / Authority Audit
 
-### [~] C1 External mutation inventory
-Partial inventory exists from migrations 001–012.
-Required: complete table of every player/Teacher browser-executable mutation.
+### [x] C1 External mutation inventory
+Completed:
+- enumerated all browser-executable gameplay/evidence/session mutations across Sprint1/2/3A/3B;
+- included read APIs with authoritative timeout/heartbeat side effects;
+- classified player, Teacher and AUDIT-only mutation classes.
+Evidence: MUTATION_AUTHORITY_REGISTRY.md §C1.
+No new issue opened solely by enumeration.
 
 ### [~] C2 Internal/helper exposure inventory
 Known pre011 wrappers and internal helpers examined partially.
