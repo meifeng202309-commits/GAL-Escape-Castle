@@ -54,11 +54,13 @@ Completed:
 Evidence: IMPLEMENTED_SYSTEM_MODEL.md §7.
 Output: IMPLEMENTED_SYSTEM_MODEL.md
 
-### [~] B3 Implemented transition graph
-Existing ACT1–5 high-level path derived.
-Required remaining work:
-- document every gate with exact server predicate;
-- document all accepted stale/replay outcomes.
+### [x] B3 Implemented transition graph
+Completed:
+- mapped every implemented ACT1–5 gate with exact effective server predicate;
+- documented mutations, resulting state and next accepted actions;
+- documented normal duplicate/stale/replay outcomes;
+- identified timeout-boundary locked-prefix TOCTOU as IDA-004.
+Evidence: IMPLEMENTED_SYSTEM_MODEL.md §8; FINDINGS.md IDA-004.
 Output: IMPLEMENTED_SYSTEM_MODEL.md
 
 ### [ ] B4 Reconnect model

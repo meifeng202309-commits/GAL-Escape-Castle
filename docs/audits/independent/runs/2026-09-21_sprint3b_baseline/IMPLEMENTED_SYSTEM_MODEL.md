@@ -311,3 +311,74 @@ B2 requirements satisfied:
 - player/Teacher frontend callers mapped;
 - final Sprint3B wrapper layer after migration 012 identified.
 
+# 8. B3 — Implemented ACT 1–5 Transition Graph
+
+Baseline: `3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe`
+
+The graph below uses the effective post-migration-012 public wrappers plus the preserved `*_pre011` bodies they delegate to.
+
+| Current state | Accepted action | Exact effective server gate | Mutation / result | Replay / stale result |
+|---|---|---|---|---|
+| Active formal run; no Sprint3B state | Teacher `s3b_initialize_flow` | teacher auth; active run; wrapper rejects if `s3b_run_state` already exists | creates run/player flow state; sets scene `act1_wake_up/private_first_action`; installs role text metadata | replay rejected: “flow already initialized” |
+| ACT1 `opening` | player `s3b_ack_act1_opening` | authenticated player; runtime scene = ACT1/private_first_action; player's `act1_stage='opening'` | stage → `action` | duplicate rejected by stage predicate |
+| ACT1 `action` | `s3b_submit_act1_choice` | exact ACT1/private_first_action scene; role-specific canonical choice; stage=`action`; choice NULL | locks choice/time; stage → `consequence`; ACT1 consequence trigger writes facts/observations | duplicate/stale rejected by stage/choice/scene guard |
+| ACT1 `consequence` | `s3b_complete_act1` | scene_id=`act1_wake_up`; player's stage=`consequence` | stage → complete; when count(complete)=3, scene → ACT2/private_first_meeting | duplicate rejected; after global advance, scene guard rejects |
+| ACT2 private first meeting | `s3b_submit_first_meeting` | exact ACT2/private_first_meeting; player's first_meeting choice NULL; delegated body also requires prior ACT1 choice | locks first-meeting choice | duplicate rejected |
+| ACT2 private first meeting | `s3b_grab` | exact ACT2/private_first_meeting; grab=false; delegated body requires first-meeting choice | creates mandatory items/view state; grab=true; optional-item trigger may add flashlight | duplicate rejected |
+| ACT2 private first meeting | `s3b_leave_start_room` | exact ACT2/private_first_meeting; left=false; delegated body requires choice+grab | location→corridor; when all 3 ready, direct INSERT ACT2 DiscussionRoom and scene→meeting_discussion | duplicate rejected; after global transition, phase guard rejects |
+| ACT2 meeting discussion | Sprint2 message/vote RPCs | DiscussionRoom status/deadline/vote guards | persisted messages/votes; final result becomes authoritative in `discussion_sessions.outcome` | duplicate vote rejected by decision uniqueness |
+| ACT2 meeting discussion resolved | `s3b_apply_meeting_resolution` | authenticated player; lock formal run; runtime scene still ACT2/meeting_discussion; `final_meeting_result IS NULL`; resolved ACT2 discussion required by delegated body | persists `final_meeting_result`; route metadata; wrapper finally sets scene→route_update | replay rejected once result/scene changes; missing second RPC creates IDA-001 split state |
+| ACT2 route_update | `s3b_ack_route_update` | authenticated player; formal-run lock; exact route_update scene; player's `route_update_ack_at IS NULL` | records ACK; third ACK sets scene→route_consequence | duplicate ACK rejected; post-transition stale call rejected |
+| ACT2 route_consequence | `s3b_complete_foldback` | delegated migration-010 body locks runtime scene and requires exact route_consequence | preserves original meeting result; failed route event at most once; target→Library; scene→ACT3/wayfinding | replay rejected after scene changes |
+| ACT3 wayfinding | `s3b_follow_sign` | exact ACT3/wayfinding; player not already in Library | location→Library; serialized player-progress trigger; third arrival sets reunited, puzzle deadline and scene→library_box | duplicate/stale rejected |
+| ACT3 library_box | `s3b_submit_library_code` | public wrapper authenticates, reads run state, requires exact library_box + unresolved; validates submitted code against **currently read** locked prefix; delegated body refreshes timeout, locks run state, records attempt | wrong: increments attempt/hint; correct: resolves, creates group items, scene→ACT4/private_route_choice | post-resolution replay rejected; timeout-boundary prefix TOCTOU = IDA-004 |
+| ACT3 library_box timeout | `s3b_refresh_puzzle` indirectly via state reads/submission/audit helper | run-state row lock; unresolved; deadline elapsed | monotonic prefix stages; at stage 8 system-resolves, creates items, scene→ACT4 | later refresh returns because resolved |
+| ACT4 private_route_choice | `s3b_submit_act4_choice` | exact ACT4/private_route_choice; player's choice NULL; puzzle already resolved in delegated body | locks private choice; serialized trigger. If all three same known/unknown: terminal route. Otherwise direct INSERT ACT5 DiscussionRoom + scene→ACT5/discussion | duplicate/stale rejected |
+| ACT5 discussion | Sprint2 message/vote RPCs | DiscussionRoom rules | final vote/fallback outcome in DiscussionRoom | duplicate vote rejected |
+| ACT5 discussion resolved | `s3b_apply_act5_resolution` | wrapper exact ACT5/discussion; delegated migration-010 body locks runtime scene and rechecks exact phase + resolved session | known/unknown→terminal; inspect_first→post_inspection_route, nonterminal | concurrent/replay caller sees changed scene and rejects; missing second RPC is same IDA-001 class |
+| ACT5 post_inspection_route | `s3b_choose_post_inspection_route` | exact post_inspection_route; pending=true; group_route NULL; delegated body locks scene and repeats phase check; conditional update | known/unknown Game Track result; terminal `SPRINT3B_COMPLETE` | duplicate/concurrent later call rejected |
+| terminal | any earlier Sprint3B mutation | scene/field guards no longer match | no intended mutation | stale calls reject |
+
+## 8.1 Serialization mechanisms that affect the graph
+
+- `s3b_player_progress` INSERT/UPDATE is serialized per run by `s3b_lock_run_for_player_progress()`, which locks the corresponding `s3b_run_state` row.
+- migration-010 phase-guard triggers reject player-progress, run-state and puzzle-attempt mutations inconsistent with `s3_runtime_scene_state`.
+- route-update ACK additionally locks the formal `game_runs` row.
+- puzzle timeout/submission paths lock `s3b_run_state`.
+- ACT5 apply and post-inspection route resolution lock `s3_runtime_scene_state` in their delegated migration-010 bodies.
+
+These mechanisms make several all-three gates effectively serialized despite client concurrency.
+
+## 8.2 Transition-graph anomaly found: puzzle locked-prefix TOCTOU
+
+Effective public `s3b_submit_library_code` in migration 011 performs this order:
+
+1. read `s3b_run_state` into local variable `s` without a row lock;
+2. validate `p_code` against `s.puzzle_locked_prefix`;
+3. delegate to `s3b_submit_library_code_pre011`;
+4. delegated body first calls the **new final** `s3b_refresh_puzzle`;
+5. refresh can lock the row and advance `puzzle_locked_prefix` because the deadline has just elapsed;
+6. delegated body then records the attempt without re-checking the submitted code against the newly advanced prefix.
+
+Reachable example:
+
+- persisted prefix = empty;
+- deadline is already elapsed but no refresh has run yet;
+- player submits `99999`;
+- wrapper checks against empty prefix and accepts;
+- delegated refresh changes locked prefix to `4`;
+- the same request can still record attempt `99999`.
+
+The existing locked-wheel test first forces/reads the refreshed prefix and only then submits an incompatible code, so it does not cover this check-then-refresh window.
+
+This is recorded as IDA-004.
+
+## 8.3 B3 completion
+
+B3 is complete for the frozen implementation:
+- every implemented ACT1–5 gate is mapped;
+- exact authoritative phase/field predicates are recorded;
+- result states and next accepted actions are recorded;
+- normal duplicate/stale outcomes are recorded;
+- one new transition-boundary defect, IDA-004, was identified.
+
