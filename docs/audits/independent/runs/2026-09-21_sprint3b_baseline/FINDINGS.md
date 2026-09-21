@@ -16,6 +16,7 @@ Status: IN PROGRESS
 | IDA-004 | MEDIUM | CONFIRMED | Library Box locked-prefix enforcement has a TOCTOU window: wrapper validates against a stale prefix before delegated timeout refresh can lock additional wheels. | Let puzzle deadline elapse while persisted prefix is still stale; submit code incompatible with the prefix that refresh should lock. Wrapper validates old prefix, delegated body refreshes prefix, then records attempt without revalidation. Static control-flow proof complete; live timing reproduction pending. | database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/007_sprint3b_act1_5_placeholder_flow.sql | s3b_submit_library_code(...) migration011 line 92; delegated pre011 body migration007 lines 212–230; s3b_refresh_puzzle(...) migration011 lines 98–100 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Locked Game Track state can advance between validation and write, allowing an attempt inconsistent with newly locked wheels and producing internally inconsistent puzzle evidence. | Refresh/lock authoritative puzzle state before prefix validation, then validate and record attempt under the same locked transaction. | Method 1/B3 + later Method 8 verification | CD | — | NOT YET RETESTED |
 
 | IDA-007 | OBSERVATION | NOT_VERIFIED | ACT5 post-inspection group-route submit authority is not defined canonically, while current code lets any valid player submit p_route and first successful call commits the shared route. | V4.0 §14.4 defines one Game Track Known/Unknown choice but does not identify the submitting actor/consensus rule. Current app renders both buttons to every player; s3b_choose_post_inspection_route accepts any player session and writes group_route from client p_route. | src/game/app.js; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/010_sprint3b_flow_integrity_and_inspect_fix.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | app.js renderSprint3b() lines 149–177, especially line 170; migration011 s3b_choose_post_inspection_route line 95; migration010 function lines 136–150; V4 §14.4 lines ~3221–3243 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | A shared Game Track result currently uses implicit first-valid-player-wins authority; correctness cannot be determined because canonical actor authority is missing. | GA must canonicalize who/what owns this single group Game Track choice; then CA can judge the implementation without inventing a rule. | Method 2/C3 | GA | — | PENDING CANONICAL CLARIFICATION |
+| IDA-008 | HIGH | CONFIRMED | SHARE PHOTO lacks the canonical server-side scene permission: s3_share_photo can persist shared photos whenever the caller owns a shareable item view, even when allow_share_photo should be false or DiscussionRoom is locked. | In ACT2 private_first_meeting, after Gitte GRABs Map/Number Note but before the meeting discussion opens, call s3_share_photo directly. Function checks ownership/current view/recipient only and inserts s3_shared_photos; database has no allow_share_photo state to enforce V4.0's scene flag. | database/006_sprint3a_provenance_view_integrity_fix.sql; database/005_sprint3a_scene_pocket_knowledge_foundation.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | s3_share_photo(...) migration006 lines 79–98; V4 SHARE PHOTO rule lines ~2073–2092; V4 Multiplayer Execution Rules lines ~5856–5869 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Players can share private information outside canonically allowed discussion scenes, altering information-sharing timing/provenance and contaminating behavior evidence in NORMAL runs. | Persist scene-level allow_share_photo (or equivalent server-derived permission) and reject SHARE PHOTO unless current authoritative scene permits it; UI gating alone is insufficient. | Method 2/C4 + later Methods 4/5/9 | CD | — | NOT YET RETESTED |
 # 2. Detailed Findings
 
 ## IDA-001 — Non-atomic DiscussionRoom → Sprint 3B progression
@@ -203,3 +204,45 @@ CA therefore does not classify the current implementation as correct or defectiv
 ### Required resolution
 
 GA should define one canonical authority model for this interaction. After that, CA should reclassify IDA-007 and audit the code against the clarified rule.
+
+
+## IDA-008 — SHARE PHOTO is not server-gated by scene permission
+
+Severity: HIGH  
+Status: CONFIRMED by source/spec comparison; live RPC reproduction pending.
+
+### Problem
+
+V4.0 defines `allow_share_photo` as a scene/runtime permission and explicitly gates the sender-side action on it.
+
+The final `s3_share_photo` implementation validates:
+- authenticated sender;
+- active run;
+- physical ownership;
+- current server view;
+- shareable view;
+- recipient in same room.
+
+It never verifies that the current scene permits photo sharing. The database model contains no inspected `allow_share_photo` state to enforce the canonical rule.
+
+### Reachable violation
+
+During ACT2 private_first_meeting:
+1. a player can complete first-meeting choice and GRAB;
+2. progression-critical items now exist in Pocket;
+3. DiscussionRoom has not yet opened and private-phase information separation still applies;
+4. direct RPC `s3_share_photo` can persist a copy to another player.
+
+The recipient can therefore receive private object information before the canonical sharing phase.
+
+### Risk
+
+This changes the timing and availability of information that later behavior analysis is supposed to attribute to active sharing during DiscussionRoom. In a NORMAL run, the persisted evidence can no longer be assumed to obey the scene's information-sharing conditions.
+
+### Recommended fix
+
+Make share permission server-authoritative. The RPC must derive the current scene/discussion configuration and reject unless sharing is allowed. Do not rely solely on whether the UI happens to show a SHARE PHOTO button.
+
+### Closure condition
+
+For every scene with `allow_share_photo=false` or private-phase DiscussionRoom lock, direct RPC attempts must fail without creating a shared-photo row or sharing event. Canonically allowed discussion scenes must continue to share the current server-authoritative view.

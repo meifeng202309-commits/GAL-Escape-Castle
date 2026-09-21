@@ -114,8 +114,15 @@ Completed:
 - recorded IDA-007 OBSERVATION/NOT_VERIFIED because canonical authority for the post-inspection group route is unspecified and requested GA clarification.
 Evidence: MUTATION_AUTHORITY_REGISTRY.md §C3; FINDINGS.md IDA-007; agent-comms/CA_to_GA_20260921T065435Z_post-inspection-route-authority-clarification.md.
 
-### [ ] C4 Phase/state guard review
-Required per mutating RPC: exact authoritative state re-check.
+### [x] C4 Phase/state guard review
+Completed:
+- reviewed exact authoritative state/phase preconditions for every mutation class;
+- confirmed Sprint2 DiscussionRoom internal status guards but lack of Sprint3B scene binding (IDA-005);
+- confirmed guarded Sprint3B transition wrappers/triggers;
+- distinguished allowed object inspection from scene-controlled information sharing;
+- recorded IDA-008 HIGH because s3_share_photo has no server-side allow_share_photo/scene guard;
+- noted an AUDIT-only puzzle timing helper phase-scope weakness for later Method6/8, not promoted to a production finding.
+Evidence: MUTATION_AUTHORITY_REGISTRY.md §C4; FINDINGS.md IDA-008.
 
 ### [ ] C5 Replay/stale review
 Required: duplicate/old-phase/post-terminal/cross-session behavior.

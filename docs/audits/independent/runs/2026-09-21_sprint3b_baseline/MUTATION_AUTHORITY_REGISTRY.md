@@ -357,3 +357,139 @@ Existing authorization-related defect:
 Unresolved canonical authority:
 - IDA-007: ownership of the post-inspection shared route submission.
 
+# C4 — Phase / State Guard Review
+
+## C4.1 Sprint 1 legacy mutations
+
+Sprint1 functions enforce their own legacy state machine:
+- `s1_submit_private_choice` checks current legacy room scene/phase and per-player uniqueness;
+- `s1_advance_scene` requires legacy phase `revealed`;
+- `s1_reset_room` intentionally resets only legacy Sprint1 state;
+- session release is a recovery action rather than a scene transition.
+
+They do **not** inspect formal Sprint3B scene state. This coexistence is canonical-compatible only because Sprint1 is a preserved legacy boundary. The formal UI exposure problem remains IDA-003; C4 does not create a duplicate finding.
+
+## C4.2 Sprint 2 DiscussionRoom guards
+
+`s2_start_run`:
+- locks room;
+- rejects if an active formal run already exists;
+- requires exactly three claimed player sessions.
+
+`s2_open_discussion`:
+- locks active run;
+- rejects if another discussion is open;
+- validates discussion configuration;
+- **does not validate current Sprint3B scene/phase**.
+
+This is existing IDA-005.
+
+`s2_open_vote`:
+- locks latest DiscussionRoom;
+- requires status=`discussion`;
+- requires final vote configured.
+
+`s2_add_time`:
+- locks latest DiscussionRoom;
+- requires status in `discussion|voting|waiting_for_missing_player`.
+
+`s2_send_message`:
+- refreshes timeout state;
+- requires current latest session status=`discussion`;
+- requires `allow_free_text`.
+
+`s2_submit_vote`:
+- refreshes timeout state;
+- locks latest session;
+- requires status=`voting`;
+- validates option against server-stored vote options.
+
+DiscussionRoom's internal phase guards are present, but they are not bound to canonical Sprint3B scene authority. IDA-005/IDA-002 capture the resulting cross-layer defects.
+
+## C4.3 Sprint 3A object/view state guards
+
+`s3_set_item_view`:
+- active formal run required;
+- authenticated player must physically own the item;
+- target view must be catalog-allowed;
+- current view row is locked;
+- only front↔back transitions are accepted.
+
+No canonical scene restriction is required merely to inspect an already owned physical item; V4.0 explicitly allows later real-object inspection.
+
+`s3_share_photo`:
+- active formal run required;
+- authenticated sender must physically own item;
+- shared view must equal current server-authoritative view;
+- catalog must mark view shareable;
+- recipient must be another player in same room.
+
+However, it does **not** check:
+- current canonical scene/phase;
+- whether a DiscussionRoom is active;
+- scene parameter `allow_share_photo`.
+
+No `allow_share_photo` state field exists in the inspected database schema.
+
+Canonical V4.0 requires the SHARE PHOTO action only when:
+- `allow_share_photo == true`;
+- current view is shareable;
+- current player physically owns the source item.
+
+It also states private phases lock DiscussionRoom and First Contact information sharing occurs during DiscussionRoom.
+
+Therefore server-side phase permission is missing: **IDA-008**.
+
+Reachable example:
+1. ACT2 private_first_meeting;
+2. Gitte locks first-meeting choice and presses GRAB;
+3. Map / Number Note now exist as owned items;
+4. before all players leave rooms / before First Contact Discussion opens, direct RPC `s3_share_photo` can send an item view to another player;
+5. recipient receives persisted `s3_shared_photos` evidence outside an allowed sharing scene.
+
+## C4.4 Sprint 3B formal guards
+
+Final post-011/012 wrappers generally re-check authoritative runtime scene before mutation:
+
+- ACT1 opening ACK: exact `act1_wake_up/private_first_action` plus stage=`opening`;
+- ACT1 choice: exact ACT1/private phase plus stage=`action` and no existing choice;
+- ACT1 complete: ACT1 scene plus stage=`consequence`;
+- first meeting / GRAB / leave: exact ACT2/private_first_meeting plus per-player completion flag;
+- meeting apply: exact ACT2/meeting_discussion plus no existing meeting result; delegated body requires resolved ACT2 DiscussionRoom;
+- route ACK: exact route_update plus per-player unacknowledged;
+- fold-back: delegated migration010 locks and requires exact route_consequence;
+- FOLLOW SIGN: exact wayfinding plus player not already in Library;
+- Library submit: exact library_box + unresolved, with IDA-004 stale-prefix ordering defect;
+- ACT4 choice: exact ACT4/private_route_choice plus no existing player choice;
+- ACT5 apply: exact ACT5/discussion; delegated body re-locks/rechecks and requires resolved discussion;
+- post-inspection route: exact post_inspection_route + pending=true + group_route NULL; actor authority remains IDA-007 pending GA.
+
+Trigger guards additionally restrict:
+- player-progress mutation phases;
+- run-state mutation phases;
+- Library attempt insertion phase.
+
+## C4.5 AUDIT helper phase behavior
+
+AUDIT helpers require AUDIT mode but are not uniformly bound to the target scene.
+
+Notably `s3b_audit_set_puzzle_elapsed` can write `puzzle_started_at/puzzle_deadline` while the run is outside library_box if the chosen elapsed value does not cause the refresh helper to mutate guarded puzzle fields immediately.
+
+Because:
+- this surface is Teacher-only;
+- it is AUDIT-only;
+- it is explicitly test instrumentation rather than NORMAL gameplay;
+
+C4 records it as a test-harness scope weakness for later Method6/8 review, not as a production defect at this stage.
+
+## C4.6 C4 conclusion
+
+Server-side phase/state guards are strong across most Sprint3B transitions.
+
+Confirmed cross-layer state authorization defects:
+- IDA-005: generic DiscussionRoom can be opened outside canonical discussion scenes.
+- IDA-008: SHARE PHOTO ignores canonical `allow_share_photo` scene permission.
+- IDA-004 remains a state-ordering defect inside an otherwise correctly phase-gated Library submission.
+
+No other new production finding is opened in C4.
+
