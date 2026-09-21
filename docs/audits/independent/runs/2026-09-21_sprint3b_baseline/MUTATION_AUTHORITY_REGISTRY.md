@@ -666,3 +666,128 @@ New confirmed findings:
 
 Existing IDA-001 remains the special final-vote response-loss case where retry is not merely duplicate: the vote is locked but the separate Game Track apply may never occur.
 
+# C6 — Concurrency Semantics Review
+
+## C6.1 Sprint 1 room/session concurrency
+
+Existing Sprint1 baseline protections remain authoritative and were already live-verified before this snapshot:
+- room creation/join claim hardening;
+- private choice single-submit uniqueness;
+- Teacher session release recovery.
+
+An already-authenticated in-flight request may complete if Teacher releases the session after that request passed authentication. C6 does not classify this as a new defect because the canonical recovery contract invalidates subsequent token use but does not define cancellation of already-running transactions.
+
+## C6.2 DiscussionRoom concurrency
+
+### Open discussion
+`s2_open_discussion` locks the active `game_runs` row before checking for another open session. Concurrent Teacher opens serialize.
+
+### Discussion → voting
+`s2_open_vote` locks the latest `discussion_sessions` row.
+
+`s2_send_message` appears at first glance to re-read the session without `FOR UPDATE`, but it first calls `s2_refresh_discussion`, whose `SELECT ... FOR UPDATE` lock is retained for the remainder of the same RPC transaction. Therefore concurrent vote-open/timeout transitions cannot pass between the final status check and message insert.
+
+No separate message-vs-open-vote race is opened.
+
+### Vote resolution / re-vote
+Final `s2_submit_vote`:
+- selects latest session `FOR UPDATE`;
+- refreshes under the same row lock;
+- inserts the authenticated player's vote;
+- counts votes and resolves/re-votes while retaining the lock.
+
+Concurrent votes in the same authoritative session therefore serialize and only one final voter performs the resolution/re-vote transition.
+
+The remaining problem is **identity of the intended session**, not simultaneous resolution:
+- IDA-009: stale requests can target the wrong latest round.
+
+## C6.3 Sprint3B player-progress group gates
+
+Migration 008 installs a BEFORE INSERT/UPDATE trigger on every `s3b_player_progress` row that locks the single `s3b_run_state` row for that run.
+
+The lock is held until the RPC transaction completes.
+
+This serializes otherwise independent per-player row updates and makes subsequent count-based gates observe previously committed players:
+
+- ACT1 complete → ACT2;
+- all three first-meeting/grab/leave → ACT2 discussion;
+- all three FOLLOW SIGN → reunion/puzzle start;
+- all three ACT4 choices → direct route or ACT5 discussion.
+
+Exactly-once outcome:
+- only the transaction that observes the third committed player executes the group transition;
+- earlier transactions return with count < 3;
+- later replay is blocked by field/scene guards.
+
+This is a sound per-run serialization pattern.
+
+## C6.4 Route-update ACK
+
+Final migration-012 `s3b_ack_route_update` locks the formal `game_runs` row before:
+- checking route_update scene;
+- writing this player's ACK;
+- counting all ACKs;
+- advancing on count=3.
+
+All concurrent ACK RPCs for the run therefore serialize. The third distinct ACK advances once.
+
+## C6.5 Meeting resolution / fold-back
+
+`s3b_apply_meeting_resolution` final wrapper locks `game_runs`; the first successful call commits `final_meeting_result` and scene advance. Concurrent duplicates serialize and then reject once the result/scene has changed.
+
+`s3b_complete_foldback` delegated migration-010 body locks `s3_runtime_scene_state`, then `s3b_run_state`. Concurrent calls serialize; only the first sees route_consequence.
+
+## C6.6 Library puzzle
+
+### Timeout refresh
+Final `s3b_refresh_puzzle` locks `s3b_run_state`.
+
+Concurrent reconnect/get-state refreshes:
+- serialize;
+- observe the latest persisted `puzzle_hint_stage`;
+- fill only missing later stages;
+- do not duplicate group items because item insertion is idempotent.
+
+This matches V4.0's requirement that concurrent clients not duplicate wheel locks/events/items.
+
+### Correct solve
+Delegated submission path locks `s3b_run_state` before attempt increment/resolution. Concurrent correct solves:
+- first resolver advances puzzle and scene;
+- later queued calls see resolved state and reject.
+
+Existing B20 live test covers this case.
+
+### Known boundary defect
+The public wrapper performs locked-prefix validation **before** the delegated refresh/row lock. That check-before-lock ordering is IDA-004.
+
+## C6.7 ACT5 resolution
+
+`s3b_apply_act5_resolution` delegated migration-010 body locks `s3_runtime_scene_state`. Only the first caller can apply the resolved DiscussionRoom outcome; later concurrent callers observe the advanced scene and reject.
+
+`s3b_choose_post_inspection_route` also locks runtime scene and conditionally updates `s3b_run_state`. Only one route commit succeeds.
+
+Whether “first valid player may own this group action” is canonical remains IDA-007, but the current implementation's database race itself is exactly-once.
+
+## C6.8 Pocket view/share concurrency
+
+`s3_set_item_view` locks the player's item-view row.
+
+`s3_share_photo` reads the current view without taking the same explicit row lock. A concurrent FLIP and SHARE can be linearized according to which state the SHARE actually reads:
+- if SHARE reads front before FLIP commits, persisted front-photo semantics correspond to SHARE-before-FLIP;
+- if SHARE reads after FLIP, mismatched stale client `p_source_view` rejects.
+
+C6 does not open a separate concurrency finding from this ordering. The material SHARE PHOTO defect is instead IDA-008: scene permission is not enforced.
+
+## C6.9 Method 2 conclusion
+
+Concurrency mechanisms are substantially stronger than the surface code suggests because row locks are acquired by shared helpers/triggers and retained to transaction end.
+
+No new finding is opened solely from C6.
+
+Concurrency/replay defects already tracked:
+- IDA-004 — puzzle prefix check-before-refresh/lock;
+- IDA-009 — stale request retargeting across discussion rounds;
+- IDA-010 / IDA-011 — post-commit response-loss retry lacks request identity.
+
+**Method 2 (C1–C6) is complete.**
+

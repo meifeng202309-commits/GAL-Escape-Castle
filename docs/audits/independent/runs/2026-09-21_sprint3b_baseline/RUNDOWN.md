@@ -134,8 +134,17 @@ Completed:
 - noted non-idempotent Teacher Add Time for later failure testing without a separate player-evidence finding.
 Evidence: MUTATION_AUTHORITY_REGISTRY.md §C5; FINDINGS.md IDA-009/010/011.
 
-### [ ] C6 Concurrency semantics review
-Required: row locks/idempotency for each group gate/resolution.
+### [x] C6 Concurrency semantics review
+Completed:
+- traced row-lock serialization for Sprint2 discussion/vote transitions;
+- verified migration-008 per-run trigger serialization for player-progress group gates;
+- verified route ACK, meeting/fold-back, puzzle, ACT5 and post-inspection exactly-once mutation boundaries;
+- confirmed existing B20 covers concurrent correct puzzle solve;
+- retained IDA-004/009/010/011 as the material concurrency/retry defects;
+- no additional production finding opened solely from C6.
+Evidence: MUTATION_AUTHORITY_REGISTRY.md §C6.
+
+**Method 2 COMPLETE.**
 
 Output for C1–C6: MUTATION_AUTHORITY_REGISTRY.md + FINDINGS.md
 
