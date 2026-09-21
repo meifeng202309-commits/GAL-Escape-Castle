@@ -246,19 +246,22 @@ Output: CROSS_LAYER_TRACES.md + FINDINGS.md
 
 ## G — Method 6: Test-Suite Blind-Spot / Mutation-Lite Audit
 
-### [~] G1 Test inventory
-Sprint1/2/3A/3B static/live files identified; full per-test inventory still required.
+### [x] G1 Test inventory
+Completed Sprint1/2/3A/3B static/live behavioral inventory and coverage classification.
 
-### [~] G2 Test-to-invariant mapping
-Initial IDA-001/002/003 blind spots recorded; full map pending.
+### [x] G2 Test-to-invariant mapping
+Mapped all mandatory invariants and current HIGH-risk findings to existing or missing test scenarios.
 
-### [~] G3 Static-vs-behavior classification
-Initial distinction documented in TEST_BLIND_SPOTS.md; complete classification pending.
+### [x] G3 Static-vs-behavior classification
+Classified source-fragment assertions separately from live RPC behavior and browser/distributed failure semantics.
 
-### [~] G4 Counterfactual mutation review
-Initial questions recorded; all mandatory guards still need answers.
+### [x] G4 Counterfactual mutation review
+Answered mandatory run-id, phase, row-lock, duplicate, fallback, helper-revoke, reconnect and cross-layer atomicity counterfactuals.
 
-### [ ] G5 Selected actual mutation tests or explicit NOT VERIFIED
+### [x] G5 Selected actual mutation tests or explicit NOT VERIFIED
+Actual mutation injection evaluated but NOT VERIFIED/not executed because no isolated mutable Supabase/PostgreSQL runtime is available. High-value future fault/mutation tests are specified.
+
+**Method 6 COMPLETE (actual mutation execution boundary NOT VERIFIED).**
 
 Output: TEST_BLIND_SPOTS.md + FINDINGS.md
 
