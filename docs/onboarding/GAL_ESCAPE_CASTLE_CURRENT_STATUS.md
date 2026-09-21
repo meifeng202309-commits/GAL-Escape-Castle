@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-20T15:31:00Z  
-> Updated by: GA
+> Last refreshed: 2026-09-21T08:36:00Z
+> Updated by: CA
 
 ---
 
@@ -25,11 +25,11 @@ Visual production continues in parallel with core development.
 
 ## 2. Action Log checkpoints
 
-No role has yet reached its first 10-action checkpoint.
+CA has completed its latest 10-action checkpoint through CA-030.
 
 ```text
 GA_CHECKPOINT = NONE
-CA_CHECKPOINT = NONE
+CA_CHECKPOINT = CA-030
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ```
