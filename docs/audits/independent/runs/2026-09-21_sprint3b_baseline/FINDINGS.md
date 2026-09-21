@@ -15,6 +15,7 @@ Status: IN PROGRESS
 
 | IDA-004 | MEDIUM | CONFIRMED | Library Box locked-prefix enforcement has a TOCTOU window: wrapper validates against a stale prefix before delegated timeout refresh can lock additional wheels. | Let puzzle deadline elapse while persisted prefix is still stale; submit code incompatible with the prefix that refresh should lock. Wrapper validates old prefix, delegated body refreshes prefix, then records attempt without revalidation. Static control-flow proof complete; live timing reproduction pending. | database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/007_sprint3b_act1_5_placeholder_flow.sql | s3b_submit_library_code(...) migration011 line 92; delegated pre011 body migration007 lines 212–230; s3b_refresh_puzzle(...) migration011 lines 98–100 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Locked Game Track state can advance between validation and write, allowing an attempt inconsistent with newly locked wheels and producing internally inconsistent puzzle evidence. | Refresh/lock authoritative puzzle state before prefix validation, then validate and record attempt under the same locked transaction. | Method 1/B3 + later Method 8 verification | CD | — | NOT YET RETESTED |
 
+| IDA-007 | OBSERVATION | NOT_VERIFIED | ACT5 post-inspection group-route submit authority is not defined canonically, while current code lets any valid player submit p_route and first successful call commits the shared route. | V4.0 §14.4 defines one Game Track Known/Unknown choice but does not identify the submitting actor/consensus rule. Current app renders both buttons to every player; s3b_choose_post_inspection_route accepts any player session and writes group_route from client p_route. | src/game/app.js; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/010_sprint3b_flow_integrity_and_inspect_fix.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | app.js renderSprint3b() lines 149–177, especially line 170; migration011 s3b_choose_post_inspection_route line 95; migration010 function lines 136–150; V4 §14.4 lines ~3221–3243 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | A shared Game Track result currently uses implicit first-valid-player-wins authority; correctness cannot be determined because canonical actor authority is missing. | GA must canonicalize who/what owns this single group Game Track choice; then CA can judge the implementation without inventing a rule. | Method 2/C3 | GA | — | PENDING CANONICAL CLARIFICATION |
 # 2. Detailed Findings
 
 ## IDA-001 — Non-atomic DiscussionRoom → Sprint 3B progression
@@ -177,3 +178,28 @@ Persist a server-owned per-player timestamp such as `act1_action_started_at` whe
 ### Closure condition
 
 For three players acknowledging at different times, exported/reconstructed ACT1 response latency must use each player's own server-persisted actionable start time and remain stable across reconnect.
+
+
+## IDA-007 — Canonical authority missing for ACT5 post-inspection group route
+
+Severity: OBSERVATION  
+Status: NOT_VERIFIED — GA clarification requested.
+
+### Current implementation
+
+At `act5_inspect_first / post_inspection_route`:
+- all player clients render Known/Unknown buttons;
+- any valid player may call `s3b_choose_post_inspection_route`;
+- client supplies `p_route`;
+- the first successful request writes the shared `group_route`;
+- later requests reject because the route is already resolved.
+
+### Canonical gap
+
+V4.0 says this is one Game Track-only Known/Unknown choice and explicitly says it is not a new private behavior choice. It does not specify who owns the submission or whether first-click-wins is intended.
+
+CA therefore does not classify the current implementation as correct or defective yet.
+
+### Required resolution
+
+GA should define one canonical authority model for this interaction. After that, CA should reclassify IDA-007 and audit the code against the clarified rule.

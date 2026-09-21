@@ -203,3 +203,157 @@ No new source-level helper-exposure defect is opened in C2.
 
 Deployment-effective ACL is **NOT VERIFIED here by design** and will be independently reconstructed/queried in Method 4.
 
+# C3 — Authentication / Authorization Review
+
+## C3.1 Authentication primitives
+
+The frozen baseline has three practical authority mechanisms:
+
+1. **Room creation bootstrap**
+   - `s1_create_room` is intentionally not authenticated by a pre-existing account.
+   - the caller supplies the initial Teacher token and role join codes when creating a new prototype room.
+   - this is the existing prototype trust model, not treated as a new authorization defect in this audit.
+
+2. **Player authority**
+   - player RPCs call `s1_get_player_by_session(room_code, session_token)`.
+   - the session token hash must belong to a player row in the same normalized room.
+   - this binds every valid player call to one concrete `player_id` + `role_slot` + room.
+   - formal-run RPCs then obtain the active `run_id` server-side from that room through `s2_get_active_run`.
+
+3. **Teacher authority**
+   - Teacher RPCs call `s1_assert_teacher(room_code, teacher_token)`.
+   - this binds the Teacher capability to the specified room.
+   - Teacher formal-run operations resolve the active run server-side rather than accepting client `run_id`.
+
+No reviewed formal mutation RPC accepts an arbitrary client-supplied `run_id` or `player_id`.
+
+## C3.2 Sprint 1 authorization
+
+| RPC class | Credential / binding | Role/mode restriction | C3 result |
+|---|---|---|---|
+| room create | bootstrap room + new Teacher token | setup-only trust model | expected prototype model |
+| join | room + assigned join code | claims exactly one configured role slot | bound |
+| player state / legacy choice | room + player session | exact player identity from token | bound |
+| advance/reset/release/Teacher state | room + Teacher token | Teacher only | bound |
+
+The fact that legacy Teacher controls remain present during formal runtime is not an authentication failure: the Teacher is correctly authenticated. Whether those controls are valid in a formal scene is a state/phase issue handled in C4/Method7.
+
+## C3.3 Sprint 2 authorization
+
+| RPC | Credential | Run binding | Restrictions | Result |
+|---|---|---|---|---|
+| `s2_start_run` | Teacher token | creates run for authenticated room | mode must be normal/audit | bound |
+| `s2_open_discussion` | Teacher token | active run resolved by room | no canonical Sprint3B phase restriction | identity bound; scene authorization defect already IDA-005 |
+| `s2_open_vote`, `s2_add_time` | Teacher token | active run by room | operates latest/current DiscussionRoom | identity bound |
+| `s2_send_message` | player session | active run by player's room | submitting player from token | bound |
+| `s2_submit_vote` | player session | active run by player's room | vote row attributed to authenticated player | bound |
+| player/Teacher state getters | matching credential | active run by room | timeout refresh uses same bound run | bound |
+
+## C3.4 Sprint 3A authorization
+
+### Player object operations
+
+`s3_set_item_view`:
+- authenticates player session;
+- derives active run by room;
+- requires the authenticated player to physically own the item;
+- target view must be in server catalog.
+
+`s3_share_photo`:
+- authenticates sender session;
+- derives active run by room;
+- requires sender to physically own source item;
+- only current server-authoritative view may be shared;
+- recipient is looked up by role slot **within the same room**;
+- sender cannot choose an arbitrary player UUID.
+
+C3 result: sender/recipient/run authority is server-bound.
+
+### AUDIT-only operations
+
+`s3_initialize_audit_fixture` and `s3_audit_provenance_probe`:
+- require Teacher token;
+- derive active run by room;
+- explicitly reject unless `run_mode='audit'`.
+
+C3 result: mode authorization is present in the inspected function bodies.
+
+## C3.5 Sprint 3B player mutations
+
+All ordinary player-facing Sprint3B mutations authenticate via `s1_get_player_by_session` and derive the active run by the authenticated room.
+
+Additional authority rules:
+
+- ACT1 choice: server uses authenticated player's `role_slot` to validate the role-specific choice allowlist.
+- GRAB: server uses authenticated player's role to select that player's canonical object set.
+- first meeting / ACT4: submission is written only to authenticated player's progress row.
+- route ACK / FOLLOW SIGN: updates only authenticated player's row.
+- Library attempts: `submitted_by` comes from authenticated player, not client input.
+
+C3 result: no ordinary player RPC accepts a client-supplied actor identity.
+
+## C3.6 Player-callable group progression resolvers
+
+Several Game Track resolvers can be invoked by **any valid player in the room**:
+
+- `s3b_apply_meeting_resolution`
+- `s3b_complete_foldback`
+- `s3b_apply_act5_resolution`
+
+For these functions:
+- the player only supplies room + session;
+- the substantive group result is read from authoritative server state;
+- the caller cannot supply the meeting/vote outcome;
+- the operation is operational progression rather than player-authored Behavior Track evidence.
+
+C3 does not classify this pattern as an authorization defect by itself. Replay/state safety is handled in C4–C6.
+
+## C3.7 Unresolved authority: post-inspection group route
+
+`s3b_choose_post_inspection_route(room, session, p_route)` is qualitatively different:
+
+- any valid player session in the room is accepted;
+- client directly supplies `p_route = known | unknown`;
+- the first successful call writes the shared `group_route` and terminal state;
+- the event records `submitted_by = authenticated player_id`;
+- `src/game/app.js` renders the Known/Unknown buttons to every player in `post_inspection_route`.
+
+Canonical V4.0 states only:
+> after Inspect First, perform one Game Track Known Route / Unknown Passage choice; it is not a new private behavior choice.
+
+It does **not** specify:
+- whether all three clients may race and first click wins;
+- whether one designated actor submits;
+- whether the choice is a shared/group UI action;
+- whether consensus/acknowledgement is required.
+
+Therefore CA cannot determine whether the implemented first-valid-player-wins authority is correct without inventing gameplay semantics.
+
+Recorded as:
+- **IDA-007 — OBSERVATION / NOT_VERIFIED**
+- canonical clarification requested from GA.
+
+## C3.8 Sprint 3B AUDIT helpers
+
+`s3b_audit_expire_puzzle` and `s3b_audit_set_puzzle_elapsed`:
+- require Teacher token;
+- derive active run by room;
+- reject non-AUDIT run.
+
+C3 result: expected mode gate exists.
+
+## C3.9 C3 conclusion
+
+Authentication/identity binding is generally strong in the frozen baseline:
+- no arbitrary client `player_id`;
+- no arbitrary client `run_id`;
+- player tokens are room/player bound;
+- Teacher tokens are room bound;
+- AUDIT mutators have explicit mode checks.
+
+Existing authorization-related defect:
+- IDA-005: Teacher is authenticated but is authorized too broadly with respect to canonical scene state.
+
+Unresolved canonical authority:
+- IDA-007: ownership of the post-inspection shared route submission.
+

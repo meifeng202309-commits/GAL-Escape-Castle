@@ -104,8 +104,15 @@ Completed:
 Evidence: MUTATION_AUTHORITY_REGISTRY.md §C2.
 No new source-level exposure defect opened.
 
-### [ ] C3 Authentication/authorization review
-Required per RPC: token type, room/run binding, role/mode restrictions.
+### [x] C3 Authentication/authorization review
+Completed:
+- reviewed token type, room/run binding and role/mode restrictions for all mutation classes;
+- confirmed player identity and active run are server-derived rather than client-supplied;
+- confirmed Teacher mutation identity is room-token bound;
+- confirmed Sprint3A/3B audit helpers reject NORMAL runs;
+- retained IDA-005 as a scene-authorization defect, not an authentication failure;
+- recorded IDA-007 OBSERVATION/NOT_VERIFIED because canonical authority for the post-inspection group route is unspecified and requested GA clarification.
+Evidence: MUTATION_AUTHORITY_REGISTRY.md §C3; FINDINGS.md IDA-007; agent-comms/CA_to_GA_20260921T065435Z_post-inspection-route-authority-clarification.md.
 
 ### [ ] C4 Phase/state guard review
 Required per mutating RPC: exact authoritative state re-check.
