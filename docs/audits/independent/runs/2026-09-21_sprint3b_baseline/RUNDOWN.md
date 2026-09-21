@@ -152,12 +152,20 @@ Output for C1–C6: MUTATION_AUTHORITY_REGISTRY.md + FINDINGS.md
 
 ## D — Method 3: Invariant Protection Matrix
 
-### [ ] D1 Build mandatory invariant matrix
-Include all 12 invariants from protocol v1.1.
+### [x] D1 Build mandatory invariant matrix
+Completed all 12 protocol-v1.1 invariants.
+Evidence: INVARIANT_MATRIX.md.
 
-### [ ] D2 Identify server-side protection for each invariant
-### [ ] D3 Identify tests for each invariant
-### [ ] D4 Record unprotected/NOT VERIFIED invariants
+### [x] D2 Identify server-side protection for each invariant
+Recorded DB/trigger, RPC, transaction/lock, RLS and client layers for all 12 invariants.
+### [x] D3 Identify tests for each invariant
+Mapped relevant Sprint1/2/3A/3B live-test evidence; gaps explicitly retained.
+### [x] D4 Record unprotected/NOT VERIFIED invariants
+Invariant 10 is violated by existing IDA-003/005/008/009.
+Invariant 11 is PARTIAL/NOT_VERIFIED because complete formal finalization/restart is outside current implementation.
+No duplicate issue opened.
+
+**Method 3 COMPLETE.**
 
 Output: INVARIANT_MATRIX.md + FINDINGS.md
 
