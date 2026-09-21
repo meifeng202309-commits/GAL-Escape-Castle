@@ -217,24 +217,28 @@ Output: DB_RPC_RLS_AUDIT.md + FINDINGS.md
 
 ## F — Method 5: Cross-Layer Contract Audit
 
-### [ ] F1 Room creation/join trace
+### [x] F1 Room creation/join trace
+Completed UI→session RPC→server identity→localStorage→release/rejoin recovery trace.
 
-### [ ] F2 First behavior choice trace
+### [x] F2 First behavior choice trace
+Completed ACT1 opening→action→locked choice→consequence→reconnect trace; response-time evidence gap remains IDA-006.
 
 ### [x] F3 Discussion resolution → Game Track trace
-Existing evidence:
-- IDA-001
-- app.js submitVote()
-- s2_submit_vote
-- s3b_apply_meeting_resolution / s3b_apply_act5_resolution
-Still requires dynamic failure-injection later under Method 8, but cross-layer static trace itself is complete.
+Completed full UI→vote RPC→resolved outcome→second apply RPC→formal scene trace.
+IDA-001 captures post-vote/pre-apply failure. Dynamic fault injection remains Method 8 work.
 
-### [ ] F4 Route update trace
-### [ ] F5 Puzzle trace
-### [ ] F6 Later group-route trace
-### [ ] F7 Reconnect trace
-### [~] F8 Teacher observation/control trace
-Initial legacy/formal coexistence examined; complete trace still required.
+### [x] F4 Route update trace
+Completed three-player persisted ACK barrier, response-loss/reconnect and concurrent ACK semantics.
+### [x] F5 Puzzle trace
+Completed UI locked-prefix→submit→timeout refresh→attempt/group-item/ACT4 trace. IDA-004 and IDA-011 retained.
+### [x] F6 Later group-route trace
+Completed ACT4 direct route, ACT5 discussion route and post-inspection route trace. IDA-001 and IDA-007 retained.
+### [x] F7 Reconnect trace
+Completed local session→Sprint1/2/3B layered refresh→formal state restoration trace. IDA-001/003 retained.
+### [x] F8 Teacher observation/control trace
+Completed Teacher observation/privacy and legacy/formal/generic control trace. IDA-005/002 capture unsafe canonical interaction control.
+
+**Method 5 COMPLETE.**
 
 Output: CROSS_LAYER_TRACES.md + FINDINGS.md
 
