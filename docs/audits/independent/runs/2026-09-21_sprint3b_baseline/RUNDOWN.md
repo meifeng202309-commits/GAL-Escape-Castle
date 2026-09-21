@@ -192,18 +192,24 @@ Checkpoint evidence: all four Method 1–3 artifacts re-read after completion.
 
 ## E — Method 4: Final Database / RLS / RPC Audit
 
-### [ ] E1 Resolve effective final function definitions
-Target: migrations 001–012.
+### [x] E1 Resolve effective final function definitions
+Completed source-level effective replay of migrations 001–012, including all migration-011 renames and final migration-012 replacement.
 
-### [ ] E2 Resolve effective privileges
-Include PUBLIC, anon, authenticated, old wrappers and overloads.
+### [x] E2 Resolve effective privileges
+Completed source-level PUBLIC/anon/authenticated reconstruction. All twelve *_pre011 functions are explicitly revoked. Sprint3B default-PUBLIC hygiene is documented; deployed catalog ACL remains NOT VERIFIED.
 
-### [ ] E3 Audit RLS for every state/evidence table
-### [ ] E4 Audit constraints
-### [ ] E5 Audit SECURITY DEFINER safety
-### [ ] E6 Audit duplicate truths
-### [ ] E7 Clean-schema/deployment-effective verification
-If a clean DB cannot be built with available tooling, record deployment-effective privilege claims as NOT VERIFIED.
+### [x] E3 Audit RLS for every state/evidence table
+All application state/evidence tables in 001–012 enable RLS; no CREATE POLICY exists in the included migrations. Representative live direct-access rejection tests exist.
+### [x] E4 Audit constraints
+Reviewed PK/FK/UNIQUE/CHECK/partial indexes/triggers and business-state protection. Existing gaps map to current findings; no new issue opened.
+### [x] E5 Audit SECURITY DEFINER safety
+All inspected definitions set search_path=public; no dynamic SQL found; cross-room/run authority helpers reviewed. public-schema CREATE privilege remains deployment-effective NOT VERIFIED.
+### [x] E6 Audit duplicate truths
+Defined authority for legacy vs formal scene, game_runs generic scene fields vs s3 runtime scene, discussion outcome vs Game Track result, historical vs operational route, silent mode and item labels.
+### [x] E7 Clean-schema/deployment-effective verification
+Evaluated available evidence. No catalog connection / isolated clean DB is available in this audit session, so deployment-effective pg_proc/pg_policies/schema ACL claims are explicitly NOT VERIFIED. Required future catalog queries are recorded.
+
+**Method 4 COMPLETE (with deployment-effective ACL/catalog boundary NOT VERIFIED).**
 
 Output: DB_RPC_RLS_AUDIT.md + FINDINGS.md
 
