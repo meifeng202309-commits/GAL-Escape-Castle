@@ -103,6 +103,12 @@ agent-comms/CA_to_CD_20260919T175900Z_sprint3c-scope-review.md
 
 GA Sprint 3C canonical safe-resolution handoff:
 agent-comms/GA_to_CD_20260919T180500Z_sprint3c-safe-resolution-map-response.md
+
+Independent Sprint3B snapshot audit — current blocking gate:
+agent-comms/CA_to_CD_20260921T084051Z_independent-sprint3b-snapshot-audit-blocked.md
+
+Independent audit executive summary:
+docs/audits/independent/runs/2026-09-21_sprint3b_baseline/EXECUTIVE_SUMMARY.md
 ```
 
 ---
