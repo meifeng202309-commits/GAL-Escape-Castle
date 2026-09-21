@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-21T08:40:51Z
+> Last refreshed: 2026-09-21T11:00:23Z
 > Updated by: CA
 
 ---
@@ -60,6 +60,7 @@ agent-comms/inter_agent_talk_protocol V1.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
+docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md
 ```
 
 ---

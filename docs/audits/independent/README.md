@@ -10,12 +10,14 @@ Purpose:
 
 ## Active execution standard
 
-- `Independent_Development_Snapshot_Audit_Protocol_v1.2.md` — current mandatory protocol.
-- `RUNDOWN_TEMPLATE_v1.2.md` — mandatory per-run execution checklist template.
+- `Independent_Development_Snapshot_Audit_Protocol_v1.3.md` — current mandatory protocol.
+- `RUNDOWN_TEMPLATE_v1.3.md` — mandatory per-run execution checklist template.
 
-All independent audits also inherit `docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.0.md`, including the recurring-error pattern scan and the conditional pre-approval next-scope forecast.
+All independent audits also inherit `docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md`, including the recurring-error pattern scan and the conditional pre-approval next-scope forecast.
 
-The v1.2 execution rule is:
+Risk forecast is intentionally risk-only: it names dangerous areas and invariants/failure classes, but does not prescribe CD implementation or reveal CA's future adversarial attack plan.
+
+The v1.3 execution rule is:
 
     read protocol once
     → freeze baseline
@@ -28,7 +30,7 @@ The v1.2 execution rule is:
     → run integration checkpoints
     → finalize findings and executive summary
 
-`Independent_Development_Snapshot_Audit_Protocol_v1.0.md` and `Independent_Development_Snapshot_Audit_Protocol_v1.1.md` are retained as historical versions.
+`Independent_Development_Snapshot_Audit_Protocol_v1.0.md`, `v1.1.md`, and `v1.2.md` are retained as historical versions.
 
 Other documents:
 - `Independent_Audit_Proposal_v1.0.md` — future full-system/release-oriented independent audit concept.

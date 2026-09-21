@@ -418,7 +418,7 @@ CD不得：
 
 CA coding audit必须同时遵守：
 
-    docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.0.md
+    docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md
 
 负责：
 
@@ -521,7 +521,7 @@ VA不得：
 
 1. 本Guide
 2. CURRENT STATUS
-3. docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.0.md
+3. docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md
 4. CD当前audit request
 5. 当前Sprint的V2.3章节
 6. 当前功能相关V4.0章节
@@ -742,7 +742,9 @@ Sprint 3可拆成经过CA批准的窄slice，例如3A / 3B / 3C。
     → CA audits current scope
     → CA performs mandatory Codex recurring-error pattern scan
     → if otherwise PASS-ready: CA performs Next-Scope Failure Forecast
-    → CA includes next-scope precautions in CD handoff
+    → CA tells CD only high-risk areas + invariants/failure classes, not implementation solutions
+    → CD independently designs/implements
+    → CA later independently reverse-audits the implementation
     → PASS: next authorized slice may proceed
     → FAIL/BLOCKED: CD fixes exact current blockers
     → re-audit
