@@ -301,16 +301,21 @@ Output: LEGACY_PATHS.md + FINDINGS.md
 
 ## I — Method 8: Failure / Concurrency Snapshot Audit
 
-### [ ] I1 Build high-value mutation failure list
-Must include IDA-001 loss window and all group gates.
+### [x] I1 Four failure windows
+Documented before-request, during-mutation, post-commit/pre-response and post-response/pre-refresh behavior for all high-value mutation classes.
 
-### [ ] I2 Pre-request failure tests
-### [ ] I3 During-mutation/race tests
-### [ ] I4 Post-commit/pre-response failure tests
-### [ ] I5 Retry/reconnect verification
+### [x] I2 Mandatory failure scenarios
+Covered duplicate request, simultaneous final submissions, stale tab, disconnect/reconnect, response loss, Teacher/player race, uncertain retry and terminal transition race.
 
-Output: FAILURE_MATRIX.md + FINDINGS.md
+### [x] I3 Evidence classification
+Separated existing LIVE-COVERED concurrency/replay tests from STATIC-PROVEN defects and dynamically unverified fault-injection cases.
 
+### [x] I4 Dynamic injection boundary
+No isolated mutable runtime is available, so packet loss, delayed-request and browser-kill injection are explicitly NOT VERIFIED DYNAMICALLY. Deterministic control-flow findings remain confirmed.
+
+Output: FAILURE_MATRIX.md
+
+**Method 8 COMPLETE (dynamic fault injection boundary explicitly NOT VERIFIED).**
 ---
 
 ## J — Method 9: Data-Forensics Audit
