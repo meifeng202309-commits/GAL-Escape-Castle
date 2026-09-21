@@ -267,13 +267,21 @@ Output: TEST_BLIND_SPOTS.md + FINDINGS.md
 
 ---
 
-## [ ] Integration Checkpoint II
-Read only:
+## [x] Integration Checkpoint II
+Completed explicit read of:
 - DB_RPC_RLS_AUDIT.md
 - CROSS_LAYER_TRACES.md
 - TEST_BLIND_SPOTS.md
 - FINDINGS.md
-Required: reconcile static/runtime evidence, update finding status/severity.
+
+Reconciliation:
+- source-level DB review, cross-layer traces and test blind-spot analysis are mutually consistent;
+- no finding was duplicated or contradicted;
+- no severity/status changed;
+- database review strengthens IDA-002/004/008/009/010/011;
+- cross-layer review strengthens IDA-001/003/005/006/007;
+- test review explains why the current green regression suites do not invalidate these findings;
+- deployment catalog ACL and actual mutation/fault injection remain explicit NOT_VERIFIED boundaries.
 
 ---
 
