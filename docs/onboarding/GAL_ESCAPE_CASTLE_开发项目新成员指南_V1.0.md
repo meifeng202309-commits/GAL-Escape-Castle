@@ -517,10 +517,11 @@ VA不得：
 
 1. 本Guide
 2. CURRENT STATUS
-3. CD当前audit request
-4. 当前Sprint的V2.3章节
-5. 当前功能相关V4.0章节
-6. implementation diff / migrations / tests
+3. docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.0.md
+4. CD当前audit request
+5. 当前Sprint的V2.3章节
+6. 当前功能相关V4.0章节
+7. implementation diff / migrations / tests
 
 按需：
 
@@ -734,9 +735,12 @@ Sprint 3可拆成经过CA批准的窄slice，例如3A / 3B / 3C。
 
     CD implements
     → CD sends CA audit request
-    → CA audits
+    → CA audits current scope
+    → CA performs mandatory Codex recurring-error pattern scan
+    → if otherwise PASS-ready: CA performs Next-Scope Failure Forecast
+    → CA includes next-scope precautions in CD handoff
     → PASS: next authorized slice may proceed
-    → FAIL: CD fixes exact blockers
+    → FAIL/BLOCKED: CD fixes exact current blockers
     → re-audit
 
 如果发现 narrative / wording canonical gap：
