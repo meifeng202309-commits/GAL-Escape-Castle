@@ -171,13 +171,22 @@ Output: INVARIANT_MATRIX.md + FINDINGS.md
 
 ---
 
-## [ ] Integration Checkpoint I
-Read only:
+## [x] Integration Checkpoint I
+Completed explicit read of:
 - IMPLEMENTED_SYSTEM_MODEL.md
 - MUTATION_AUTHORITY_REGISTRY.md
 - INVARIANT_MATRIX.md
 - FINDINGS.md
-Required: deduplicate, reconcile authority contradictions, update severity/evidence.
+
+Reconciliation:
+- restored missing Master-table rows IDA-005 and IDA-006; detailed sections already existed;
+- 11 unique issues now tracked in sequence IDA-001…IDA-011;
+- no finding pairs were merged: TOCTOU vs retry, stale-retarget vs duplicate retry, scene authorization vs discussion uniqueness, and cross-layer atomicity remain distinct failure classes;
+- no severity changed at this checkpoint;
+- IDA-007 remains OBSERVATION / NOT_VERIFIED pending GA canonical clarification;
+- Invariant 11 remains PARTIAL / NOT_VERIFIED without current formal finalization/restart implementation.
+
+Checkpoint evidence: all four Method 1–3 artifacts re-read after completion.
 
 ---
 
