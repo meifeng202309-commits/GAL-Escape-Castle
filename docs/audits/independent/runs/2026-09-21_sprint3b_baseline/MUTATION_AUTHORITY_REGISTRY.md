@@ -93,3 +93,113 @@ This count is a code-surface inventory, not a safety score. Several are intentio
 - IDA-001: group resolution requires a second player-callable resolver after `s2_submit_vote`.
 
 No additional finding is opened solely by enumeration in C1.
+
+# C2 — Internal / Helper Exposure Inventory
+
+This is the code-derived effective exposure after migration 012.  
+Actual deployed PostgreSQL ACL introspection remains a Method 4 task.
+
+## C2.1 Internal helpers explicitly removed from browser roles
+
+### Sprint 1
+- `s1_hash_token(text)`
+- `s1_touch_room(text)`
+- `s1_assert_teacher(text,text)`
+- `s1_get_player_by_session(text,text)`
+
+Migration 001 explicitly revokes EXECUTE from PUBLIC / anon / authenticated.
+
+### Sprint 2
+- `s2_protect_run_identity()`
+- `s2_get_active_run(text)`
+- `s2_log_event(uuid,text,uuid,text,uuid,jsonb)`
+- `s2_refresh_discussion(uuid)`
+
+Migration 002 explicitly revokes browser-role execution.
+
+### Sprint 3A
+- `s3_record_observation(uuid,uuid,text,text)`
+- `s3_record_knowledge(uuid,uuid,text,text,text,uuid,text)`
+
+Migration 005 explicitly revokes browser-role execution. Migration 006 replaces `s3_record_knowledge` without recreating a new function identity, so the existing ACL should be retained.
+
+### Sprint 3B core helpers / trigger functions
+- `s3b_set_scene(uuid,text,text,text,text,text)`
+- `s3b_refresh_puzzle(uuid)`
+- `s3b_lock_run_for_player_progress()`
+- `s3b_apply_act1_consequence()`
+- `s3b_add_optional_grab_item()`
+- `s3b_canonicalize_group_item_label()`
+- `s3b_guard_player_progress_phase()`
+- `s3b_guard_run_state_phase()`
+- `s3b_guard_library_attempt_phase()`
+
+Each has an explicit revoke in its introducing migration. Later CREATE OR REPLACE operations on `s3b_refresh_puzzle` preserve the same function identity/ACL.
+
+## C2.2 Migration-011 historical implementation layer
+
+Migration 011 renames these then-public implementations to historical helpers:
+
+- `s3b_initialize_flow_pre011(text,text)`
+- `s3b_submit_first_meeting_pre011(text,text,text)`
+- `s3b_grab_pre011(text,text)`
+- `s3b_leave_start_room_pre011(text,text)`
+- `s3b_apply_meeting_resolution_pre011(text,text)`
+- `s3b_complete_foldback_pre011(text,text)`
+- `s3b_follow_sign_pre011(text,text)`
+- `s3b_submit_library_code_pre011(text,text,text)`
+- `s3b_submit_act4_choice_pre011(text,text,text)`
+- `s3b_apply_act5_resolution_pre011(text,text)`
+- `s3b_choose_post_inspection_route_pre011(text,text,text)`
+- `s3b_get_player_state_pre011(text,text)`
+
+A PostgreSQL function rename retains the existing ACL; therefore these renamed functions would have retained their former public/anon/authenticated executability immediately after migration 011.
+
+Migration 012 explicitly revokes EXECUTE on **all twelve** from:
+- PUBLIC
+- anon
+- authenticated
+
+The final source-level baseline therefore closes the direct browser bypass to the unguarded historical bodies.
+
+Important audit note:
+- the transient state between deploying migration 011 and migration 012 is not part of the frozen final baseline;
+- whether the production database actually has the expected final ACL must be checked by Method 4 rather than inferred only from SQL source.
+
+## C2.3 Intentionally browser-executable AUDIT helpers
+
+These are not internal-only; they are test surfaces protected in their function bodies:
+
+- `s3_initialize_audit_fixture(text,text)`
+- `s3_audit_provenance_probe(text,text,text)`
+- `s3b_audit_expire_puzzle(text,text)`
+- `s3b_audit_set_puzzle_elapsed(text,text,integer)`
+
+Each requires Teacher authentication; the inspected body also requires `run_mode='audit'`.
+
+Their authorization correctness is reviewed in C3; direct privilege state is rechecked in Method 4.
+
+## C2.4 Trigger-only helpers
+
+The following are invoked through triggers and are not intended as direct client APIs:
+- run identity protection;
+- Sprint3B per-run serialization;
+- ACT1 consequence generation;
+- optional-item grant;
+- phase guards;
+- group-item label canonicalization.
+
+The SQL source contains explicit EXECUTE revokes where required. Trigger invocation remains valid because PostgreSQL executes the trigger function as part of the table operation rather than requiring the browser role to call the helper directly.
+
+## C2.5 C2 conclusion
+
+Code-derived post-012 exposure shows:
+- guarded public wrappers remain browser-facing;
+- historical `*_pre011` implementations are explicitly locked down;
+- internal authority helpers are explicitly revoked;
+- AUDIT helpers remain intentionally callable but are expected to self-authorize.
+
+No new source-level helper-exposure defect is opened in C2.
+
+Deployment-effective ACL is **NOT VERIFIED here by design** and will be independently reconstructed/queried in Method 4.
+

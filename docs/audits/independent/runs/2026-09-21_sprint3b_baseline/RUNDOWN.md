@@ -94,9 +94,15 @@ Completed:
 Evidence: MUTATION_AUTHORITY_REGISTRY.md §C1.
 No new issue opened solely by enumeration.
 
-### [~] C2 Internal/helper exposure inventory
-Known pre011 wrappers and internal helpers examined partially.
-Required: complete effective exposure list after migration 012.
+### [x] C2 Internal/helper exposure inventory
+Completed:
+- enumerated Sprint1/2/3A/3B internal helpers and trigger functions;
+- verified source-level explicit revokes;
+- traced all twelve migration-011 *_pre011 renamed implementations and migration-012 lockdown;
+- separated intentionally browser-executable AUDIT helpers from internal helpers;
+- deferred deployed ACL introspection to Method 4.
+Evidence: MUTATION_AUTHORITY_REGISTRY.md §C2.
+No new source-level exposure defect opened.
 
 ### [ ] C3 Authentication/authorization review
 Required per RPC: token type, room/run binding, role/mode restrictions.
