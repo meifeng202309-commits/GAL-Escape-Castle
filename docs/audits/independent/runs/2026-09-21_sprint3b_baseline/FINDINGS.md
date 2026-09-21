@@ -113,3 +113,67 @@ Acquire/refresh the authoritative puzzle row first, then perform locked-prefix v
 ### Closure condition
 
 Create a test where the deadline is elapsed but the stored prefix has not yet been refreshed; submit a code incompatible with the newly due prefix. The request must reject without inserting an attempt or mutating player evidence.
+
+
+## IDA-005 — Generic DiscussionRoom can bypass canonical private-phase lock
+
+Severity: HIGH  
+Status: CONFIRMED by implementation/spec comparison; live browser reproduction pending.
+
+### Problem
+
+V4.0's multiplayer execution rule requires DiscussionRoom to be locked during private phases. The current Teacher generic DiscussionRoom path is not coupled to Sprint3B scene/phase.
+
+`s2_open_discussion` authenticates the Teacher and active run, then checks only whether another discussion is already open. It does not check `s3_runtime_scene_state`.
+
+The Teacher Console exposes the generic control while the formal run is active, and player polling renders any returned DiscussionRoom.
+
+### Consequence
+
+A Teacher can open a real, behavior-persisting generic discussion before ACT1 independent first choices are complete. Students can communicate before the intended private measurement, and messages/votes are attached to the behavior-eligible run.
+
+It also creates the precondition for IDA-002 when a canonical ACT2/ACT5 discussion later opens by a separate creation path.
+
+### Recommended fix
+
+Formal canonical gameplay should use a server-side scene allowlist for discussion creation. Generic Sprint2 test controls should be unavailable in NORMAL canonical flow (or explicitly restricted to an isolated AUDIT/test context).
+
+### Closure condition
+
+During every canonical private phase, both UI and direct RPC attempts to open a generic discussion must be rejected without creating a session/event. Canonical scene-triggered discussions must continue to work.
+
+
+## IDA-006 — ACT1 response time is not reconstructable
+
+Severity: HIGH  
+Status: CONFIRMED by schema/flow/spec comparison.
+
+### Problem
+
+ACT1's canonical Behavior Track requires response time.
+
+The implementation stores the submission timestamp (`act1_locked_at`) but does not store when each player's actionable ACT1 choice interval begins.
+
+That interval begins only after the player individually acknowledges the private opening through `s3b_ack_act1_opening`. The acknowledgement changes only `act1_stage`; no server timestamp is persisted.
+
+### Why existing timestamps are insufficient
+
+`s3_runtime_scene_state.updated_at` is shared/global and predates each player's independent acknowledgement. Two players may read the opening for different durations before reaching the action choices.
+
+Therefore:
+
+`act1_locked_at - global_scene_time`
+
+mixes opening-reading time with choice-response time and is not the canonical per-player response latency.
+
+### Risk
+
+The missing start timestamp cannot be reconstructed later by Sprint8 export or post-game analysis. This is silent loss of a core evidence feature rather than a display defect.
+
+### Recommended fix
+
+Persist a server-owned per-player timestamp such as `act1_action_started_at` when `s3b_ack_act1_opening` successfully moves opening→action. Compute/store or export response latency using that timestamp and `act1_locked_at`.
+
+### Closure condition
+
+For three players acknowledging at different times, exported/reconstructed ACT1 response latency must use each player's own server-persisted actionable start time and remain stable across reconnect.

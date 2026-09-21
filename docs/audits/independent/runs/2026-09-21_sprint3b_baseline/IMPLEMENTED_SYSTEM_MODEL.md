@@ -535,3 +535,98 @@ Confirmed exceptions/risks already tracked:
 
 No additional issue ID was opened solely from B4.
 
+# 10. B5 — Comparison of Derived Implementation Model to Canonical Specs
+
+Canonical comparison performed only after B2–B4 reconstruction.
+
+Primary canonical references:
+- `docs/specs/current/Codex程序开发说明书 V2.3.md`
+- `docs/specs/current/古堡逃脱游戏脚本 V4.0.md`
+
+## 10.1 Areas where the derived implementation matches the canonical model
+
+Confirmed structural matches:
+- formal runtime is additive and does not replace verified Sprint1 RPC semantics;
+- formal run identity uses server-generated `run_id`;
+- NORMAL/AUDIT metadata is persisted on `game_runs`;
+- Sprint3B authoritative scene is server persisted in `s3_runtime_scene_state`;
+- ACT1 private choice is single-submit locked;
+- ACT2 final result preserves original group decision through fold-back;
+- route update uses a server-persisted per-player barrier;
+- player location / reunion / puzzle deadline / locked prefix / group items are persisted and reconnectable;
+- ACT4 private choices are locked;
+- DiscussionRoom re-votes preserve vote-round identity;
+- system fallback is represented separately from player vote rows;
+- legacy `s1_reset_room` does not delete formal run tables.
+
+## 10.2 Implementation-created semantic: unrestricted generic DiscussionRoom inside formal gameplay
+
+V2.3 describes the Sprint2 generic discussion as a reusable test/generic component.
+
+V4.0 later defines scene-controlled runtime behavior:
+- private phase: `DiscussionRoom locked`;
+- formal discussions open at canonical scene conditions;
+- ACT2/ACT5 use the reusable component but the scene controls when it opens.
+
+Actual implementation:
+- Teacher Console keeps a permanently available generic “Open discussion” control once a formal run exists.
+- `s2_open_discussion` validates Teacher + active run + no already-open discussion, but it does not inspect `s3_runtime_scene_state`.
+- `game_runs.scene_id/phase_key/step_key` remain the Sprint2 generic defaults rather than mirroring the Sprint3B scene.
+- therefore Teacher can open a real DiscussionRoom during ACT1/private_first_action or ACT2/private_first_meeting.
+- player `refreshDiscussion()` will render it.
+- messages/votes are persisted under the NORMAL run even though the canonical scene says discussion is locked.
+
+This is not merely unused legacy UI; it is a reachable noncanonical state transition and is recorded as IDA-005.
+
+## 10.3 Missing authority: ACT1 response-time measurement
+
+V4.0 ACT1 Behavior Track explicitly requires:
+- first choice
+- response time
+
+Actual persistence:
+- `s3b_player_progress.act1_choice_id`
+- `s3b_player_progress.act1_locked_at`
+- `act1_stage`
+
+Flow:
+1. player receives role-specific opening;
+2. player independently acknowledges opening;
+3. `s3b_ack_act1_opening` changes that player's stage from `opening` to `action`;
+4. only then does the action-choice UI become available;
+5. the acknowledgement/action-start timestamp is not persisted.
+
+A global scene timestamp cannot reconstruct the intended per-player decision latency because different players may spend different time in their private opening before acknowledging it.
+
+Therefore the server can reconstruct when the choice was submitted, but not when that player's actionable choice interval began.
+
+This permanently loses the canonical ACT1 response-time evidence and is recorded as IDA-006.
+
+First-meeting and ACT4 latencies require later data-forensics review: their locked timestamps exist and a global scene transition timestamp may provide a derivable start point. They are not included in IDA-006 at this stage.
+
+## 10.4 Previously found mismatch strengthened by canonical comparison
+
+IDA-004 is directly confirmed against V4.0 §12.4.1:
+- each timeout-locked Library wheel is server-owned/fixed;
+- player may operate only unlocked wheels.
+
+The check-before-refresh ordering can persist an attempt incompatible with a wheel that became locked earlier in the same request.
+
+## 10.5 Intentional dual-state boundary vs defect
+
+The existence of both legacy Sprint1 state and formal Sprint3B state is canonical-compatible under the “extend, do not replace” rule.
+
+The dual layers become defects only when:
+- formal UI falls back into callable legacy interaction (IDA-003), or
+- legacy/generic controls create noncanonical formal-run behavior (IDA-005).
+
+Therefore the audit does not classify the mere presence of `s1_room_state` alongside `s3_runtime_scene_state` as a defect.
+
+## 10.6 B5 completion
+
+Implementation-created semantics / missing authorities identified:
+- IDA-005 unrestricted generic DiscussionRoom during canonical private phases;
+- IDA-006 missing per-player ACT1 action-start timestamp / unreconstructable response time.
+
+Method 1 (B1–B5) is now complete for the frozen baseline.
+

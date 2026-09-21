@@ -73,10 +73,13 @@ Completed:
 Evidence: IMPLEMENTED_SYSTEM_MODEL.md §9.
 Output: IMPLEMENTED_SYSTEM_MODEL.md
 
-### [ ] B5 Compare complete derived model to canonical specs
-Required:
-- only after B2–B4;
-- identify implementation-created semantics and missing authorities.
+### [x] B5 Compare complete derived model to canonical specs
+Completed after B2–B4:
+- compared derived authority/transition/reconnect model to V2.3 and V4.0;
+- distinguished intentional legacy/formal coexistence from reachable cross-boundary defects;
+- recorded IDA-005 for unrestricted generic DiscussionRoom in canonical private phases;
+- recorded IDA-006 for unreconstructable ACT1 response time.
+Evidence: IMPLEMENTED_SYSTEM_MODEL.md §10; FINDINGS.md IDA-005/006.
 Output: IMPLEMENTED_SYSTEM_MODEL.md + FINDINGS.md
 
 ---
