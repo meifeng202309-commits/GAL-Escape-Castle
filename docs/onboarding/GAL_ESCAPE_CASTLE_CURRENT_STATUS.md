@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-22T01:37:35Z
+> Last refreshed: 2026-09-22T14:30:00Z
 > Updated by: CA
 
 ---
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = Sprint 3C (PAUSED)
 CURRENT_GATE          = BLOCKED_BY_INDEPENDENT_SPRINT3B_AUDIT
-CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements approved Sprint3B remediation in additive migrations 013/014 + associated client/tests; Sprint3C remains blocked until CA re-audit verifies closure
+CURRENT_OWNER         = CA
+NEXT_REQUIRED_ACTION  = CA performs Level 2 Targeted Independent Remediation Closure Audit on frozen baseline 20f03c3a52116ba74361c5bc6f7574c9c700c02f; Sprint3C remains blocked until closure disposition
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -60,7 +60,7 @@ agent-comms/inter_agent_talk_protocol V1.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
-docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md
+docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.2.md
 ```
 
 ---
@@ -72,44 +72,53 @@ Sprint 0  = CLOSED
 Sprint 1  = VERIFIED PASS
 Sprint 2  = PASS
 Sprint 3A = PASS
-Sprint 3B = REOPENED BY INDEPENDENT AUDIT — REMEDIATION REQUIRED
+Sprint 3B = REMEDIATION IMPLEMENTED — TARGETED CA CLOSURE AUDIT IN PROGRESS
 Sprint 3C = PAUSED / BLOCKED
 ```
 
-Latest repeatedly reported regression counts:
+CD-reported regression counts for the remediation baseline:
 
 ```text
 Sprint 1  = 40/40 PASS
 Sprint 2  = 23/23 PASS
 Sprint 3A = 15/15 PASS
 Sprint 3B = 44/44 PASS
+Remediation live security = 11/11 PASS
 ```
 
-Current deployed migration history in repository reaches:
+These remain CD-reported evidence until CA closure review finishes.
+
+Current remediation migration chain in repository:
 
 ```text
-database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql
+database/013_sprint3b_discussion_authority_and_request_identity.sql
+database/014_sprint3b_evidence_and_puzzle_integrity.sql
+database/014a_sprint3b_inspect_reconnect_idempotency_fix.sql
 ```
 
-No `database/013_...` exists at this snapshot.
+Frozen Level 2 audit baseline:
+
+```text
+20f03c3a52116ba74361c5bc6f7574c9c700c02f
+```
+
+Targeted audit run:
+
+```text
+docs/audits/independent/runs/2026-09-22_sprint3b_remediation_closure/
+```
 
 Important gate evidence:
 
 ```text
-Sprint 3B acceptance:
-agent-comms/CA_to_CD_20260919T174200Z_sprint3b-migration012-reaudit-pass.md
-
-Sprint 3C scope authorization:
-agent-comms/CA_to_CD_20260919T175900Z_sprint3c-scope-review.md
-
-GA Sprint 3C canonical safe-resolution handoff:
-agent-comms/GA_to_CD_20260919T180500Z_sprint3c-safe-resolution-map-response.md
-
-Independent Sprint3B snapshot audit — current blocking gate:
+Original independent Sprint3B snapshot audit:
 agent-comms/CA_to_CD_20260921T084051Z_independent-sprint3b-snapshot-audit-blocked.md
 
-Independent audit executive summary:
-docs/audits/independent/runs/2026-09-21_sprint3b_baseline/EXECUTIVE_SUMMARY.md
+Remediation scope authorization:
+agent-comms/CA_to_CD_20260922T013714Z_sprint3b-remediation-scope-approved.md
+
+CD remediation re-audit request:
+agent-comms/CD_to_CA_20260922T030500Z_sprint3b-remediation-ready-for-reaudit.md
 ```
 
 ---
@@ -117,8 +126,9 @@ docs/audits/independent/runs/2026-09-21_sprint3b_baseline/EXECUTIVE_SUMMARY.md
 ## 5. Current unresolved cross-Agent blockers
 
 ```text
-GA: no unresolved IDA-007 clarification; GA resolved post-inspection route authority on 2026-09-22.
-CD: all-12-finding Sprint3B remediation scope is approved for implementation in migrations 013/014 + associated client/tests; CA re-test required before Sprint3C.
+GA: no unresolved IDA-007 clarification.
+CA: Level 2 remediation closure audit is active; preliminary review has not cleared the gate.
+CD: wait for CA closure disposition before Sprint3C implementation.
 Core runtime/data development is BLOCKED before Sprint3C implementation. Visual production may continue in parallel.
 ```
 
