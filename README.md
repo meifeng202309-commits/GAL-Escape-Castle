@@ -2,6 +2,22 @@
 
 Three-player classroom escape game hosted with GitHub Pages and Supabase.
 
+## New Agent / Replacement Chat — Start Here
+
+If you are a new project Agent or a replacement chat for an existing role, do not reconstruct project state from chat history or assumptions.
+
+Start onboarding here:
+
+[`docs/onboarding/START_HERE.md`](docs/onboarding/START_HERE.md)
+
+Follow the cold-start sequence defined there before performing project work.
+
+Persistent project roles:
+- GA — Game Design and Planning Agent
+- CA — Code Audit Agent
+- CD — Code Development Agent
+- VA — Visual Agent
+
 ## Current canonical specifications
 
 - `docs/specs/current/古堡逃脱游戏脚本 V4.0.md`
@@ -20,6 +36,7 @@ Three-player classroom escape game hosted with GitHub Pages and Supabase.
 - `docs/specs/archive/` — superseded specification versions; read-only history
 - `docs/reports/` — audits, sprint reports, validation reports
 - `docs/setup/` — setup/deployment notes
+- `docs/onboarding/` — mandatory cold-start and project-memory entry point for new/replacement Agents
 - `agent-comms/` — inter-Agent messages/protocol only; never production assets
 
 See `docs/README.md` for storage rules.
