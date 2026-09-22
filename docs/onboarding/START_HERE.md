@@ -32,7 +32,7 @@ Read in this order:
 CA-specific version rule:
 
 - if the New Member Guide names an older `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V*.md`, CA must use the **highest version marked ACTIVE** in `docs/onboarding/`;
-- as of the current project state, the active CA rule is `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.2.md`.
+- as of the current project state, the active CA rule is `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.3.md`.
 
 Then answer internally:
 
@@ -56,7 +56,8 @@ Continue from current chat context while obeying:
 - important project actions must be externalized to the Action Log;
 - GitHub writes require commit-time log reconciliation;
 - L3 CURRENT STATUS is updated only by the checkpoint/gate rules;
-- if current chat memory conflicts with newer shared project records, the shared records win.
+- if current chat memory conflicts with newer shared project records, the shared records win;
+- when the governing workflow already defines the next owner, next action, permitted scope and closure condition, execute that procedural step without waiting for duplicate user approval.
 
 ---
 
