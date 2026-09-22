@@ -2,51 +2,63 @@
 
 Baseline: `20f03c3a52116ba74361c5bc6f7574c9c700c02f`
 
+Audit level: **Level 2 — Targeted Independent Closure Audit**
+
 This matrix records CA closure status independently from CD self-test claims.
 
-| Finding | Original severity | Current closure status | Independent first-pass note |
+## 1. Original IDA finding closure
+
+| Finding | Original severity | Closure result | CA evidence / boundary |
 |---|---:|---|---|
-| IDA-001 | HIGH | IN PROGRESS | migration 013 moves canonical discussion resolution apply into the vote transaction and adds reconnect reconciliation; failure/retry edges still under review |
-| IDA-002 | MEDIUM | IN PROGRESS | partial unique index enforces at most one open discussion row; pre-canonical generic-discussion carryover is being reviewed as an adjacent lifecycle issue |
-| IDA-003 | MEDIUM | IN PROGRESS | player client now fails closed when formal state cannot be obtained; full boundary review pending |
-| IDA-004 | MEDIUM | IN PROGRESS | replacement Library submit path refreshes timeout state before locked-prefix validation under server serialization; concurrent semantics pending final check |
-| IDA-005 | HIGH | **FAIL — PRELIMINARY CONFIRMED** | generic discussion can still be opened before `s3b_initialize_flow`; initialization does not reject/close it, so the open generic DiscussionRoom can survive into ACT1 private canonical gameplay |
-| IDA-006 | HIGH | IN PROGRESS | durable server-owned action-start fields and timing validity added; completeness/semantics pending |
-| IDA-007 | MEDIUM | IN PROGRESS | dedicated three-player Game-only vote path appears canonical; concurrency/privacy/reconnect checks pending |
-| IDA-008 | HIGH | IN PROGRESS | SHARE PHOTO now requires authoritative `allow_share_photo` plus open canonical discussion; adjacent phase races pending |
-| IDA-009 | HIGH | IN PROGRESS | message/vote requests carry exact discussion identity and stale-round rejection; retry ordering pending |
-| IDA-010 | HIGH | IN PROGRESS | stable message request identity + unique DB identity prevents duplicate message insertion; late retry behavior pending |
-| IDA-011 | MEDIUM | IN PROGRESS | Library request identity + unique DB identity prevents duplicate attempt insertion; final race check pending |
-| IDA-012 | HIGH | **FAIL — PRELIMINARY CONFIRMED** | action wrappers log formal player events after delegated mutations; when the delegated action triggers `s3b_set_scene`, `scene_transition` is inserted first and the triggering player event is then tagged with the *new* scene/phase, reversing causal/context chronology at several boundaries |
+| IDA-001 | HIGH | **FIXED_VERIFIED** | migration 013 makes final vote resolution and canonical ACT2/ACT5 Game Track apply part of the same server transaction; reconnect re-application is idempotent. Updated Sprint3B live flow reaches route-update state without any browser apply RPC. |
+| IDA-002 | MEDIUM | **FIXED_VERIFIED** | partial unique index `discussion_sessions_one_open_per_run` makes the one-open-session property a database invariant across generic/canonical insert paths. The remaining generic→canonical carryover problem is IDA-005, not duplicate-open persistence. |
+| IDA-003 | MEDIUM | **FIXED_VERIFIED** | formal player refresh now determines formal-run status before rendering interactive legacy controls and hides all interaction surfaces on formal-state failure. Deterministic client control-flow re-test passes; physical browser fault injection was not independently repeated by CA. |
+| IDA-004 | MEDIUM | **FIXED_VERIFIED** | replacement Library submission acquires the run serialization boundary, refreshes timeout state, then re-reads/locks `s3b_run_state` before locked-prefix validation and attempt insertion. The original check-before-refresh TOCTOU path is removed. |
+| IDA-005 | HIGH | **REMAINS_OPEN** | a generic Sprint2 discussion can still be opened after formal run start but before `s3b_initialize_flow`; initialization does not reject/close it, so that discussion survives into canonical ACT1 private gameplay and is returned/rendered alongside the private phase. |
+| IDA-006 | HIGH | **FIXED_VERIFIED** | durable server-owned start timestamps + validity fields now exist for ACT1/ACT2/ACT4. ACT1 start is per-player acknowledgement; ACT2/ACT4 starts are written when the authoritative phase becomes actionable; reconnect state returns persisted values. CD live evidence verifies authoritative timing persistence; CA did not repeat the original three-player staggered timing experiment independently. |
+| IDA-007 | MEDIUM | **FIXED_VERIFIED** | old one-player route-commit authority is revoked. Dedicated per-player Game-only votes remain unresolved after 1–2 submissions and server majority resolves only after the third. Updated Sprint3B live suite exercises a 2:1 terminal result and conflicting replay rejection. |
+| IDA-008 | HIGH | **FIXED_VERIFIED** | SHARE PHOTO now requires authoritative `allow_share_photo=true`, a matching open canonical discussion, physical ownership/current view/shareability, and recipient validity. Existing live evidence covers allowed canonical sharing and direct-RPC rejection outside the allowed scene. Exact packet-level race injection against discussion closure was not independently repeated by CA. |
+| IDA-009 | HIGH | **FIXED_VERIFIED** | message/vote mutations now carry exact `discussion_session_id` + `vote_round`; server compares them to the current authoritative interaction before mutation. Old signatures are revoked. A stale request can no longer be silently retargeted into a newer round. |
+| IDA-010 | HIGH | **FIXED_VERIFIED** | dialogue messages now carry stable client request identity with DB uniqueness; same logical retry returns the original committed message result instead of inserting a duplicate. CD live remediation suite exercises the commit/retry identity behavior. |
+| IDA-011 | MEDIUM | **FIXED_VERIFIED** | Library submissions now carry stable request identity; server checks committed identity before new attempt mutation and DB uniqueness prevents duplicate logical attempts. Response-loss retry cannot increment attempt/hint state twice. |
+| IDA-012 | HIGH | **REMAINS_OPEN** | append-only event coverage was added, but boundary-triggering player actions are logged *after* delegated mutation/scene transition. `s3b_log_formal_event` reads current scene context at log time, so the transition event can precede the causal player action and the action can be tagged with the new scene/phase. Full chronological reconstruction is therefore still semantically incorrect. |
 
-## Preliminary closure blockers
+### Closure total
 
-### IDA-005 carryover path
+- **10 / 12 original findings FIXED_VERIFIED**
+- **2 / 12 remain open: IDA-005, IDA-012**
 
-Deterministic sequence from current code:
+## 2. IDA-005 deterministic carryover reproduction
 
-1. start formal run;
-2. before Sprint3B initialization, Teacher opens generic Sprint2 DiscussionRoom — allowed because no canonical scene exists yet;
-3. Teacher calls `s3b_initialize_flow` — current wrapper checks only whether Sprint3B run state already exists; it does not reject/resolve the open generic discussion;
-4. canonical ACT1 private scene is created while the generic discussion remains open;
-5. student `s2_get_player_state` still returns that discussion and the browser renders DiscussionRoom together with the private canonical flow.
+1. Start a formal run.
+2. Before Sprint3B initialization, Teacher opens a generic Sprint2 DiscussionRoom. This is allowed because no canonical `s3_runtime_scene_state` exists yet.
+3. Teacher calls `s3b_initialize_flow`.
+4. Initialization creates the ACT1 private canonical scene but does not reject/resolve the already-open generic discussion.
+5. `s2_get_player_state` still returns the generic open discussion.
+6. Formal student refresh renders both the DiscussionRoom and Sprint3B private scene.
 
-The server now prevents *new* generic discussions after canonical initialization, but it does not prevent this carryover path.
+The remediation prevents **new** generic discussions after canonical initialization but does not prevent this carryover across the initialization boundary.
 
-### IDA-012 action/transition chronology
+## 3. IDA-012 deterministic chronology failure
 
 `public.s3b_log_formal_event(...)` derives scene/phase/step from the current `s3_runtime_scene_state` at logging time.
 
 The remediation wrappers generally execute:
 
-`delegated mutation → possible s3b_set_scene transition → s3b_log_formal_event(player action)`
+`delegated mutation → possible s3b_set_scene transition/event → s3b_log_formal_event(player action)`
 
-Therefore boundary-triggering actions can be persisted with post-transition context. Examples include:
+Boundary examples include:
 - third ACT1 consequence completion;
-- third leave-start-room action that opens the ACT2 discussion;
+- third leave-start-room action opening meeting discussion;
 - third route-update ACK;
 - fold-back completion;
 - third FOLLOW SIGN arrival;
-- ACT4 choice when the delegated function advances the group state.
+- ACT4 choice when group state advances.
 
-Because `s3b_set_scene` itself appends the `scene_transition` before control returns to the wrapper, event ordering can represent the transition before the player action that caused it. This weakens causal reconstruction and keeps IDA-012 open pending final closure determination.
+For these paths, persisted event order/context can say the scene transitioned before the causal player action, and can place that player action in the destination scene. This fails the original requirement that the completed run be chronologically reconstructable from persisted evidence alone.
+
+## 4. Evidence boundaries
+
+CA did not repeat the complete CD live suite from an independently controlled Supabase environment in this Level 2 audit. CD's reported real-backend test results were reconciled against source/test control flow after CA first-pass hypotheses were frozen.
+
+The gate failure is not based on missing dynamic evidence: IDA-005, IDA-012, RCA-001 and RCA-002 are deterministic source/history proofs.
