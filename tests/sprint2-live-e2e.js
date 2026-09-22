@@ -112,17 +112,24 @@ async function openVote(fixture) {
 }
 
 async function vote(fixture, playerIndex, choiceId) {
+  const state = await playerState(fixture, playerIndex);
   return rpc("s2_submit_vote", {
     p_room_code: fixture.room,
     p_session_token: fixture.players[playerIndex].session_token,
+    p_expected_discussion_session_id: state.discussion.discussion_session_id,
+    p_expected_vote_round: state.discussion.vote_round,
     p_choice_id: choiceId,
   });
 }
 
 async function sendMessage(fixture, playerIndex, messageText) {
+  const state = await playerState(fixture, playerIndex);
   return rpc("s2_send_message", {
     p_room_code: fixture.room,
     p_session_token: fixture.players[playerIndex].session_token,
+    p_expected_discussion_session_id: state.discussion.discussion_session_id,
+    p_expected_vote_round: state.discussion.vote_round,
+    p_client_request_id: crypto.randomUUID(),
     p_message_text: messageText,
   });
 }
@@ -151,11 +158,7 @@ async function testChatPrivacyAndThreeZero() {
   pass("A3 shared session, initial reveal, and silent mode restore", opened.discussion_session_id);
 
   for (let index = 0; index < 3; index += 1) {
-    await rpc("s2_send_message", {
-      p_room_code: f.room,
-      p_session_token: f.players[index].session_token,
-      p_message_text: `message-${index + 1}`,
-    });
+    await sendMessage(f, index, `message-${index + 1}`);
   }
   const chatState = await playerState(f, 1);
   assert(chatState.messages.length === 3, "Transcript did not persist all three messages.");
@@ -215,11 +218,7 @@ async function testTieAndRevote() {
   assert(afterTie.submitted_vote_count === 0 && afterTie.my_vote == null, "Old votes leaked into the new round.");
   pass("C1 1:1:1 creates a new discussion session and vote round", tie.discussion_session_id);
 
-  await rpc("s2_send_message", {
-    p_room_code: f.room,
-    p_session_token: f.players[2].session_token,
-    p_message_text: "Let us reconsider.",
-  });
+  await sendMessage(f, 2, "Let us reconsider.");
   await openVote(f);
   await vote(f, 0, "inspect");
   await vote(f, 1, "inspect");

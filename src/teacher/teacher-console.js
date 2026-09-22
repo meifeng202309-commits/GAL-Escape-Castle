@@ -188,6 +188,10 @@ async function loadDiscussionState() {
 }
 
 function renderDiscussionState(state) {
+  const canonicalFlowActive = Boolean(state.canonical_flow_active);
+  openDiscussionButton.disabled = canonicalFlowActive;
+  discussionTopicInput.disabled = canonicalFlowActive;
+  voteOptionsInput.disabled = canonicalFlowActive;
   if (!state.active) {
     runBadge.textContent = "No active run";
     discussionState.innerHTML = "<p class='muted'>Join all three players, then start a formal run.</p>";
@@ -197,6 +201,9 @@ function renderDiscussionState(state) {
   runBadge.textContent = state.run.run_mode.toUpperCase();
   runModeInput.disabled = true;
   startRunButton.disabled = true;
+  if (canonicalFlowActive) {
+    discussionTeacherStatus.textContent = "Canonical gameplay controls the discussion phases.";
+  }
   if (!state.discussion) {
     discussionState.innerHTML = `<p><b>Run:</b> ${escapeHtml(state.run.run_id)}</p><p class="muted">No discussion opened yet.</p>`;
     return;

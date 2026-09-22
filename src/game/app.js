@@ -36,6 +36,21 @@ const sprint3bStatus = document.getElementById("sprint3bStatus");
 
 let session = loadSession();
 let pollTimer = null;
+let currentDiscussion = null;
+
+function requestIdentity(kind, identity, payload) {
+  const key = `gal.pending.${kind}.${identity}`;
+  const encoded = JSON.stringify(payload);
+  const existing = JSON.parse(sessionStorage.getItem(key) || "null");
+  if (existing?.payload === encoded && existing?.requestId) return { key, requestId: existing.requestId };
+  const requestId = crypto.randomUUID();
+  sessionStorage.setItem(key, JSON.stringify({ payload: encoded, requestId }));
+  return { key, requestId };
+}
+
+function clearRequestIdentity(key) {
+  sessionStorage.removeItem(key);
+}
 
 joinButton.addEventListener("click", joinRoom);
 sendMessageButton.addEventListener("click", sendMessage);
@@ -96,14 +111,33 @@ async function joinRoom() {
 async function refreshState() {
   if (!session) return;
   try {
-    const state = await rpc("s1_get_player_state", {
+    const sprint1State = await rpc("s1_get_player_state", {
       p_room_code: session.room_code,
       p_session_token: session.session_token,
     });
-    renderState(state);
-    await refreshDiscussion();
-    await refreshSprint3b();
+    const discussionState = await rpc("s2_get_player_state", {
+      p_room_code: session.room_code,
+      p_session_token: session.session_token,
+    });
+    if (discussionState.active) {
+      const sprint3bState = await rpc("s3b_get_player_state", {
+        p_room_code: session.room_code,
+        p_session_token: session.session_token,
+      });
+      if (!sprint3bState.active || !sprint3bState.scene) throw new Error("Formal game state is unavailable. Retry before taking another action.");
+      renderDiscussion(discussionState);
+      renderSprint3b(sprint3bState);
+      return;
+    }
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    sprint3bPanel.classList.add("hidden");
+    renderState(sprint1State);
   } catch (error) {
+    choiceArea.classList.add("hidden");
+    revealArea.classList.add("hidden");
+    discussionPanel.classList.add("hidden");
+    sprint3bPanel.classList.add("hidden");
     gameStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   }
 }
@@ -167,7 +201,13 @@ function renderSprint3b(state) {
   else if (scene.phase_key==="wayfinding" && me.player_location!=="library") html=`<button type="button" data-s3b-rpc="s3b_follow_sign">${localizedHtml("act03.003")}</button>`;
   else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) { const locked=state.flow.puzzle_locked_prefix||""; const remaining=5-locked.length; html=`<form id="libraryCodeForm" class="composer"><div class="locked-wheels"><b>${escapeHtml(locked)}</b><input id="libraryCode" inputmode="numeric" maxlength="${remaining}" pattern="[0-9]{${remaining}}" data-locked-prefix="${escapeHtml(locked)}"></div><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`; }
   else if (scene.scene_id==="act4_known_unknown" && !me.act4_locked_at) html=actionButtons(ROUTE_CHOICES,"s3b_submit_act4_choice");
-  else if (scene.phase_key==="post_inspection_route") html=actionButtons([["known","act04-05.010"],["unknown","act04-05.011"]],"s3b_choose_post_inspection_route");
+  else if (scene.phase_key==="post_inspection_route") {
+    if (state.my_post_inspection_vote) {
+      html=`<div class="notice"><p class="good">${localizedHtml("discussion.vote_locked")}</p><p class="muted">${escapeHtml(String(state.post_inspection_vote_count || 0))}/3</p></div>`;
+    } else {
+      html=actionButtons([["known","act04-05.010"],["unknown","act04-05.011"]],"s3b_submit_post_inspection_route_vote");
+    }
+  }
   else html="";
   if (state.queued_first_messages?.length) html+=`<div class="notice">${state.queued_first_messages.map(x=>{
     const location=x.location_text_key ? resolveLocalizedText(x.location_text_key) : {nl:"",zh:""};
@@ -180,14 +220,16 @@ function renderSprint3b(state) {
 
 async function runSprint3bAction(button) {
   button.disabled=true; const payload={p_room_code:session.room_code,p_session_token:session.session_token};
-  if (button.dataset.s3bChoice) payload[button.dataset.s3bRpc==="s3b_choose_post_inspection_route" ? "p_route" : "p_choice_id"]=button.dataset.s3bChoice;
+  if (button.dataset.s3bChoice) payload.p_choice_id=button.dataset.s3bChoice;
   try { await rpc(button.dataset.s3bRpc,payload); await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false;}
 }
 
 async function submitLibraryCode(event) {
   event.preventDefault(); const input=document.getElementById("libraryCode");
-  try { await rpc("s3b_submit_library_code",{p_room_code:session.room_code,p_session_token:session.session_token,p_code:`${input.dataset.lockedPrefix||""}${input.value}`}); await refreshState(); }
+  const code=`${input.dataset.lockedPrefix||""}${input.value}`;
+  const request=requestIdentity("library",session.room_code,{code});
+  try { await rpc("s3b_submit_library_code",{p_room_code:session.room_code,p_session_token:session.session_token,p_client_request_id:request.requestId,p_code:code}); clearRequestIdentity(request.key); await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;}
 }
 
@@ -208,11 +250,16 @@ async function refreshDiscussion() {
 
 function renderDiscussion(state) {
   if (!state.active || !state.discussion) {
+    currentDiscussion = null;
     discussionPanel.classList.add("hidden");
     return;
   }
 
   const discussion = state.discussion;
+  currentDiscussion = {
+    discussion_session_id: discussion.discussion_session_id,
+    vote_round: discussion.vote_round,
+  };
   discussionPanel.classList.remove("hidden");
   discussionTopic.innerHTML = discussion.topic.includes(".") ? localizedHtml(discussion.topic) : escapeHtml(discussion.topic);
   discussionMeta.innerHTML = localizedTemplateHtml("discussion.vote_round", {round_no:String(discussion.vote_round)});
@@ -289,14 +336,19 @@ function renderVoteHistory(history) {
 
 async function sendMessage() {
   const text = messageText.value.trim();
-  if (!text || !session) return;
+  if (!text || !session || !currentDiscussion) return;
+  const request = requestIdentity("message", currentDiscussion.discussion_session_id, { text });
   sendMessageButton.disabled = true;
   try {
     await rpc("s2_send_message", {
       p_room_code: session.room_code,
       p_session_token: session.session_token,
+      p_expected_discussion_session_id: currentDiscussion.discussion_session_id,
+      p_expected_vote_round: currentDiscussion.vote_round,
+      p_client_request_id: request.requestId,
       p_message_text: text,
     });
+    clearRequestIdentity(request.key);
     messageText.value = "";
     await refreshDiscussion();
   } catch (error) {
@@ -307,20 +359,17 @@ async function sendMessage() {
 }
 
 async function submitVote(choiceId) {
+  if (!currentDiscussion) return;
   voteArea.querySelectorAll("button").forEach((button) => { button.disabled = true; });
   try {
-    const result = await rpc("s2_submit_vote", {
+    await rpc("s2_submit_vote", {
       p_room_code: session.room_code,
       p_session_token: session.session_token,
+      p_expected_discussion_session_id: currentDiscussion.discussion_session_id,
+      p_expected_vote_round: currentDiscussion.vote_round,
       p_choice_id: choiceId,
     });
-    if (result.status === "resolved") {
-      const flow = await rpc("s3b_get_player_state", { p_room_code: session.room_code, p_session_token: session.session_token });
-      if (flow.scene?.scene_id === "act2_first_contact") await rpc("s3b_apply_meeting_resolution", { p_room_code: session.room_code, p_session_token: session.session_token });
-      if (flow.scene?.scene_id === "act5_route_discussion") await rpc("s3b_apply_act5_resolution", { p_room_code: session.room_code, p_session_token: session.session_token });
-    }
-    await refreshDiscussion();
-    await refreshSprint3b();
+    await refreshState();
   } catch (error) {
     discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
     voteArea.querySelectorAll("button").forEach((button) => { button.disabled = false; });

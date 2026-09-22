@@ -50,7 +50,7 @@ for (const fragment of ["s3b_player_progress_phase_guard", "Fold-back is out of 
 for (const fragment of ["s3b_player_facts", "s3b_act1_consequence", "chapel_warning", "great_hall_outer_lock", "warm_air_warning", "gitte_flashlight_found", "s3b_optional_grab_item"]) {
   if (!consequence.includes(fragment)) throw new Error(`Sprint 3B ACT 1 consequence missing: ${fragment}`);
 }
-for (const fragment of ["resolveLocalizedText", "localizedTemplateHtml", "s3b_get_player_state", "s3b_submit_act1_choice", "s3b_ack_route_update", "s3b_submit_library_code", "s3b_apply_act5_resolution"]) {
+for (const fragment of ["resolveLocalizedText", "localizedTemplateHtml", "s3b_get_player_state", "s3b_submit_act1_choice", "s3b_ack_route_update", "s3b_submit_library_code", "s3b_submit_post_inspection_route_vote"]) {
   if (!student.includes(fragment)) throw new Error(`Sprint 3B student binding missing: ${fragment}`);
 }
 if (!teacher.includes("s3b_initialize_flow") || /teacher_override/i.test(teacher)) throw new Error("Sprint 3B Teacher binding is missing or exceeds scope.");
