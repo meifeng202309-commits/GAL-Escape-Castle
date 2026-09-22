@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-22T14:39:00Z
+> Last refreshed: 2026-09-22T16:26:00Z
 > Updated by: CA
 
 ---
@@ -10,16 +10,16 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 3C (PAUSED)
-CURRENT_GATE          = BLOCKED_BY_TARGETED_SPRINT3B_REMEDIATION_CLOSURE
+CURRENT_SPRINT        = Sprint 3C
+CURRENT_GATE          = READY_FOR_SPRINT3C_IMPLEMENTATION
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD makes a narrow correction for IDA-005, IDA-012, RCA-001 and RCA-002, then requests another Level 2 targeted CA closure re-test; Sprint3C remains blocked
+NEXT_REQUIRED_ACTION  = CD implements the already approved Sprint3C Minimal Safe Teacher Deblock / Override scope using additive migration 015+ and then submits it for normal Level 1 CA audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
 ```
 
-Visual production continues in parallel with core development.
+Visual production continues in parallel.
 
 ---
 
@@ -58,7 +58,7 @@ agent-comms/inter_agent_talk_protocol V1.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
-docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.2.md
+docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.3.md
 ```
 
 CA audit cadence:
@@ -67,6 +67,13 @@ CA audit cadence:
 Level 1 = Regular CA Audit
 Level 2 = Targeted Independent Closure Audit
 Level 3 = Full Independent Snapshot Audit at accumulated/milestone scope
+```
+
+Procedural autonomy rule:
+
+```text
+When the governing workflow already defines next owner + next action + permitted scope + closure condition,
+execute the step without duplicate user approval.
 ```
 
 ---
@@ -78,14 +85,14 @@ Sprint 0  = CLOSED
 Sprint 1  = VERIFIED PASS
 Sprint 2  = PASS
 Sprint 3A = PASS
-Sprint 3B = TARGETED REMEDIATION CLOSURE FAIL — NARROW CORRECTION REQUIRED
-Sprint 3C = PAUSED / BLOCKED
+Sprint 3B = REMEDIATION CLOSURE PASS
+Sprint 3C = READY_FOR_IMPLEMENTATION
 ```
 
-Frozen remediation baseline audited:
+Sprint3B final targeted correction baseline:
 
 ```text
-20f03c3a52116ba74361c5bc6f7574c9c700c02f
+7046812061de6223b5b442859920c96759b89a52
 ```
 
 Current remediation migration chain:
@@ -94,61 +101,58 @@ Current remediation migration chain:
 database/013_sprint3b_discussion_authority_and_request_identity.sql
 database/014_sprint3b_evidence_and_puzzle_integrity.sql
 database/014a_sprint3b_inspect_reconnect_idempotency_fix.sql
+database/014b_sprint3b_targeted_closure_corrections.sql
 ```
 
-CD-reported regression results for that baseline:
+CA Level 2 re-test result:
 
 ```text
-Sprint 1  = 40/40 PASS
-Sprint 2  = 23/23 PASS
-Sprint 3A = 15/15 PASS
-Sprint 3B = 44/44 PASS
-Remediation live security = 11/11 PASS
-Remediation static = PASS
+IDA-005 HIGH = FIXED_VERIFIED
+IDA-012 HIGH = FIXED_VERIFIED
+RCA-001 MEDIUM = FIXED_VERIFIED
+RCA-002 HIGH = FIXED_VERIFIED
+Sprint3B remediation gate = PASS
 ```
 
-CA Level 2 closure result:
+Targeted re-test artifacts:
 
 ```text
-Original IDA findings closed = 10 / 12
-Remain open                  = IDA-005 HIGH, IDA-012 HIGH
-New findings                 = RCA-001 MEDIUM, RCA-002 HIGH
-Gate                         = FAIL / BLOCKED
+docs/audits/independent/runs/2026-09-22_sprint3b_targeted_closure_retest/
 ```
 
-Targeted audit artifacts:
+Formal CA→CD release handoff:
 
 ```text
-docs/audits/independent/runs/2026-09-22_sprint3b_remediation_closure/
-```
-
-Formal CA→CD handoff:
-
-```text
-agent-comms/CA_to_CD_20260922T143700Z_sprint3b-remediation-targeted-closure-fail.md
+agent-comms/CA_to_CD_20260922T162600Z_sprint3b-targeted-closure-retest-pass-sprint3c-released.md
 ```
 
 ---
 
-## 5. Current unresolved blockers
+## 5. Sprint3C implementation boundary
+
+Approved scope remains:
 
 ```text
-IDA-005 HIGH:
-Generic Sprint2 DiscussionRoom can be opened before canonical initialization and survive into ACT1 private gameplay.
-
-IDA-012 HIGH:
-Transition-triggering player actions can be evented after the scene transition and under destination-scene context, so causal chronology remains incorrect.
-
-RCA-001 MEDIUM:
-Repository migration 013 was modified by the post-live correction commit after the remediation deployment sequence had begun; deployed-migration immutability / forensic replay consistency is not preserved.
-
-RCA-002 HIGH:
-Teacher NORMAL state returns private behavior event details, including unrevealed private choice evidence, through the new event ledger.
+Sprint 3C — Minimal Safe Teacher Deblock / Override
 ```
 
-GA has no unresolved IDA-007 clarification.
+Canonical allowlist:
 
-Core runtime/data development remains blocked before Sprint3C. Visual production may continue in parallel.
+```text
+docs/specs/current/古堡逃脱游戏脚本 V4.0.md §5.5
+```
+
+The previous Sprint3C scope review remains substantively valid, but its historical migration number 013 is superseded by Sprint3B remediation history.
+
+Next unused migration number:
+
+```text
+015
+```
+
+Do not modify migrations 013 / 014 / 014a / 014b.
+
+The CA PASS handoff includes the required risk-only Sprint3C forecast. CD retains implementation freedom.
 
 ---
 
@@ -166,15 +170,18 @@ full production asset activation
 3-player release candidate
 ```
 
-The Level 2 audit did not independently re-run CD's full Supabase live suite; current blockers are deterministic source/history findings and do not depend on that limitation.
+For the Sprint3B closure re-test specifically:
+- CA independently established source/control-flow closure;
+- CD-reported targeted live suite = 15/15 PASS;
+- CA did not independently execute the Supabase live suite in the available audit runtime.
+
+This limitation does not reopen the deterministic Sprint3B closure findings.
 
 ---
 
 ## 7. Visual / asset snapshot
 
-Visual production remains outside the current core-code block and may continue under Castle Visual V2.1 + `assets/asset-registry.json` governance.
-
-Key rule:
+Visual production may continue under Castle Visual V2.1 + `assets/asset-registry.json` governance.
 
 ```text
 MASTER identities = canonical visual references
@@ -199,10 +206,6 @@ docs/logs/CA_ACTION_LOG.csv
 docs/logs/CD_ACTION_LOG.csv
 docs/logs/VA_ACTION_LOG.csv
 ```
-
-Historical boundary:
-
-> Do not retroactively reconstruct the complete project chat history. Earlier history is represented by canonical specs, accepted reports, existing agent-comms, and repository state.
 
 ---
 
