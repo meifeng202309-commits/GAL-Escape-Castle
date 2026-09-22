@@ -29,6 +29,11 @@ Read in this order:
 7. unresolved Action Log items whose `next_owner` is your role
 8. newer relevant `agent-comms` addressed to your role or ALL
 
+CA-specific version rule:
+
+- if the New Member Guide names an older `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V*.md`, CA must use the **highest version marked ACTIVE** in `docs/onboarding/`;
+- as of the current project state, the active CA rule is `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.2.md`.
+
 Then answer internally:
 
 - What is my role?
