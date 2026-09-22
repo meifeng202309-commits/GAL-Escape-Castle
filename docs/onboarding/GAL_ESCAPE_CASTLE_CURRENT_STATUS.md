@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-22T16:26:00Z
+> Last refreshed: 2026-09-22T17:19:00Z  
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 3C
-CURRENT_GATE          = READY_FOR_SPRINT3C_IMPLEMENTATION
+CURRENT_GATE          = BLOCKED_BY_SPRINT3C_LEVEL1_AUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements the already approved Sprint3C Minimal Safe Teacher Deblock / Override scope using additive migration 015+ and then submits it for normal Level 1 CA audit
+NEXT_REQUIRED_ACTION  = CD makes narrow corrections for S3C-CA-001 and S3C-CA-002, preserves deployed migration 015 immutability, adds adjacent regression coverage, and submits the correction for focused Level 1 CA re-audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -25,11 +25,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-CA has completed its latest 10-action checkpoint through CA-040.
+CA has completed its latest 10-action checkpoint through CA-050.
 
 ```text
 GA_CHECKPOINT = NONE
-CA_CHECKPOINT = CA-040
+CA_CHECKPOINT = CA-050
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ```
@@ -69,11 +69,11 @@ Level 2 = Targeted Independent Closure Audit
 Level 3 = Full Independent Snapshot Audit at accumulated/milestone scope
 ```
 
-Procedural autonomy rule:
+Procedural autonomy:
 
 ```text
-When the governing workflow already defines next owner + next action + permitted scope + closure condition,
-execute the step without duplicate user approval.
+When workflow already defines next owner + next action + permitted scope + closure condition,
+execute without duplicate user approval.
 ```
 
 ---
@@ -86,82 +86,65 @@ Sprint 1  = VERIFIED PASS
 Sprint 2  = PASS
 Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
-Sprint 3C = READY_FOR_IMPLEMENTATION
+Sprint 3C = LEVEL 1 AUDIT FAIL — NARROW CORRECTION REQUIRED
 ```
 
-Sprint3B final targeted correction baseline:
+Sprint3C audited baseline:
 
 ```text
-7046812061de6223b5b442859920c96759b89a52
+c8387242b086732560c5f807080cb1a80d963a3e
 ```
 
-Current remediation migration chain:
+Sprint3C migration:
 
 ```text
-database/013_sprint3b_discussion_authority_and_request_identity.sql
-database/014_sprint3b_evidence_and_puzzle_integrity.sql
-database/014a_sprint3b_inspect_reconnect_idempotency_fix.sql
-database/014b_sprint3b_targeted_closure_corrections.sql
+database/015_sprint3c_minimal_safe_teacher_override.sql
 ```
 
-CA Level 2 re-test result:
-
-```text
-IDA-005 HIGH = FIXED_VERIFIED
-IDA-012 HIGH = FIXED_VERIFIED
-RCA-001 MEDIUM = FIXED_VERIFIED
-RCA-002 HIGH = FIXED_VERIFIED
-Sprint3B remediation gate = PASS
-```
-
-Targeted re-test artifacts:
-
-```text
-docs/audits/independent/runs/2026-09-22_sprint3b_targeted_closure_retest/
-```
-
-Formal CA→CD release handoff:
-
-```text
-agent-comms/CA_to_CD_20260922T162600Z_sprint3b-targeted-closure-retest-pass-sprint3c-released.md
-```
+Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
 ---
 
-## 5. Sprint3C implementation boundary
-
-Approved scope remains:
+## 5. Current Sprint3C blockers
 
 ```text
-Sprint 3C — Minimal Safe Teacher Deblock / Override
+S3C-CA-001 MEDIUM:
+ACT1 SKIP can preserve a real first choice but leave that player in act1_stage=consequence while the authoritative run advances to ACT2. Canonical override semantics require every unfinished ACT1 player to reach ACT1-complete Game Track state without fabricating behavior.
+
+S3C-CA-002 HIGH:
+Migration 015 adds upstream Teacher Override provenance only to s3b_log_formal_event_at_context. Later genuine DiscussionRoom behavior still uses s2_log_event, so those behavior events can lack required context_provenance.upstream_teacher_override=true.
 ```
 
-Canonical allowlist:
+Full Level 1 report:
 
 ```text
-docs/specs/current/古堡逃脱游戏脚本 V4.0.md §5.5
+docs/audits/regular/runs/2026-09-23_sprint3c_level1/AUDIT_REPORT.md
 ```
 
-The previous Sprint3C scope review remains substantively valid, but its historical migration number 013 is superseded by Sprint3B remediation history.
-
-Next unused migration number:
+Formal CA→CD handoff:
 
 ```text
-015
+agent-comms/CA_to_CD_20260922T171700Z_sprint3c-level1-audit-fail-narrow-corrections.md
 ```
 
-Do not modify migrations 013 / 014 / 014a / 014b.
+CD-reported verification for the failed baseline remains supporting evidence only:
 
-The CA PASS handoff includes the required risk-only Sprint3C forecast. CD retains implementation freedom.
+```text
+Static suites = PASS
+Sprint1 live  = 40/40 PASS
+Sprint2 live  = 23/23 PASS
+Sprint3A live = 15/15 PASS
+Sprint3B live = 44/44 PASS
+Sprint3C live = 14/14 PASS
+```
 
 ---
 
 ## 6. Major NOT VERIFIED boundaries
 
-Still not verified as a complete production classroom system:
-
 ```text
 physical 3-student + Teacher multi-device end-to-end run
+CA-independent execution of the deployed Supabase live suites
 full ACT 1–14 implementation
 Sprint 4+ Asset Manager runtime
 ACT 6–14 runtime
@@ -170,12 +153,7 @@ full production asset activation
 3-player release candidate
 ```
 
-For the Sprint3B closure re-test specifically:
-- CA independently established source/control-flow closure;
-- CD-reported targeted live suite = 15/15 PASS;
-- CA did not independently execute the Supabase live suite in the available audit runtime.
-
-This limitation does not reopen the deterministic Sprint3B closure findings.
+The current Sprint3C FAIL does not depend on these NOT VERIFIED boundaries; both blockers are deterministic source/control-flow findings.
 
 ---
 
