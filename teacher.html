@@ -74,7 +74,7 @@
       <button id="startRunButton" type="button">Start formal run</button>
       <button id="initializeSprint3bButton" class="secondary" type="button">Initialize ACT 1–5 flow</button>
     </div>
-    <p class="muted">Sprint 3B initialization only. Teacher Override remains deferred to Sprint 3C.</p>
+    <p class="muted">Initialize the canonical ACT 1–5 flow after starting a formal run.</p>
     <hr>
     <div class="field-grid teacher-grid">
       <label class="span-two">Topic <input id="discussionTopicInput" value="Choose the safest route out of the castle"></label>
@@ -105,6 +105,18 @@ inspect|Inspect before deciding</textarea>
       <button id="addTimeButton" class="secondary" type="button">Add 30 seconds</button>
     </div>
     <p id="discussionTeacherStatus" class="status muted"></p>
+  </section>
+
+  <section class="panel">
+    <details id="overridePanel">
+      <summary>Advanced / Emergency Override</summary>
+      <div class="field-grid teacher-grid">
+        <label class="span-two">Reason <textarea id="overrideReason" rows="3" maxlength="500"></textarea></label>
+      </div>
+      <div id="overrideActions" class="button-row"></div>
+      <p id="overrideStatus" class="status muted"></p>
+      <div id="overrideHistory"></div>
+    </details>
   </section>
 
   <section class="panel">

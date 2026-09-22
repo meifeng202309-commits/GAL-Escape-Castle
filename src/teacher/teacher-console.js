@@ -34,6 +34,10 @@ const runBadge = document.getElementById("runBadge");
 const discussionTeacherStatus = document.getElementById("discussionTeacherStatus");
 const discussionState = document.getElementById("discussionState");
 const initializeSprint3bButton = document.getElementById("initializeSprint3bButton");
+const overrideReasonInput = document.getElementById("overrideReason");
+const overrideActions = document.getElementById("overrideActions");
+const overrideStatus = document.getElementById("overrideStatus");
+const overrideHistory = document.getElementById("overrideHistory");
 
 let pollTimer = null;
 
@@ -188,6 +192,7 @@ async function loadDiscussionState() {
 }
 
 function renderDiscussionState(state) {
+  renderOverrideState(state.teacher_override);
   const canonicalFlowActive = Boolean(state.canonical_flow_active);
   openDiscussionButton.disabled = canonicalFlowActive;
   discussionTopicInput.disabled = canonicalFlowActive;
@@ -225,6 +230,31 @@ function renderDiscussionState(state) {
     <table><thead><tr><th>Player</th><th>Role</th><th>Vote</th>${discussion.status === "resolved" ? "<th>Revealed choice</th>" : ""}</tr></thead><tbody>${voteRows}</tbody></table>
     ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
   `;
+}
+
+function renderOverrideState(override) {
+  const actions = override?.allowed_actions || [];
+  overrideActions.innerHTML = actions.map((action) => `<button type="button" class="danger override-action" data-action="${escapeHtml(action)}">${escapeHtml(action.replaceAll("_", " "))}</button>`).join("");
+  overrideActions.querySelectorAll(".override-action").forEach((button) => button.addEventListener("click", () => applyTeacherOverride(button.dataset.action)));
+  const history = override?.history || [];
+  overrideHistory.innerHTML = history.length ? history.map((item) => `<div class="notice"><b>OVERRIDE USED</b><p>${escapeHtml(item.override_action)} · ${escapeHtml(item.source_scene)} / ${escapeHtml(item.source_phase)}</p><p>${escapeHtml(item.reason)} · ${escapeHtml(formatTime(item.created_at))}</p></div>`).join("") : "";
+  if (!actions.length) overrideActions.innerHTML = "<span class='muted'>No override is available for the current interaction.</span>";
+}
+
+async function applyTeacherOverride(action) {
+  const payload = baseTeacherPayload();
+  const reason = overrideReasonInput.value.trim();
+  if (!payload) return;
+  if (!reason) { overrideStatus.textContent = "A reason is required."; return; }
+  if (!confirm("This action may invalidate behavior data for the current phase. Continue?")) return;
+  try {
+    const result = await rpc("teacher_apply_override", { ...payload, p_override_action: action, p_reason: reason });
+    overrideStatus.textContent = `OVERRIDE USED: ${result.override_action} at ${result.source_scene} / ${result.source_phase}`;
+    overrideReasonInput.value = "";
+    await loadDiscussionState();
+  } catch (error) {
+    overrideStatus.textContent = `Override failed: ${error.message}`;
+  }
 }
 
 function parseVoteOptions(raw) {

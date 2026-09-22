@@ -53,5 +53,5 @@ for (const fragment of ["s3b_player_facts", "s3b_act1_consequence", "chapel_warn
 for (const fragment of ["resolveLocalizedText", "localizedTemplateHtml", "s3b_get_player_state", "s3b_submit_act1_choice", "s3b_ack_route_update", "s3b_submit_library_code", "s3b_submit_post_inspection_route_vote"]) {
   if (!student.includes(fragment)) throw new Error(`Sprint 3B student binding missing: ${fragment}`);
 }
-if (!teacher.includes("s3b_initialize_flow") || /teacher_override/i.test(teacher)) throw new Error("Sprint 3B Teacher binding is missing or exceeds scope.");
+if (!teacher.includes("s3b_initialize_flow")) throw new Error("Sprint 3B Teacher binding is missing.");
 console.log("Sprint 3B static checks passed.");
