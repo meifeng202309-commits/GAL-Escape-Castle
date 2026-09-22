@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-22T00:51:51Z
+> Last refreshed: 2026-09-22T01:37:35Z
 > Updated by: CA
 
 ---
@@ -13,7 +13,7 @@
 CURRENT_SPRINT        = Sprint 3C (PAUSED)
 CURRENT_GATE          = BLOCKED_BY_INDEPENDENT_SPRINT3B_AUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD submits additive remediation plan for confirmed IDA findings; no Sprint 3C migration 013 implementation until CA re-test clears the gate
+NEXT_REQUIRED_ACTION  = CD implements approved Sprint3B remediation in additive migrations 013/014 + associated client/tests; Sprint3C remains blocked until CA re-audit verifies closure
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -118,7 +118,7 @@ docs/audits/independent/runs/2026-09-21_sprint3b_baseline/EXECUTIVE_SUMMARY.md
 
 ```text
 GA: no unresolved IDA-007 clarification; GA resolved post-inspection route authority on 2026-09-22.
-CD: independent Sprint3B snapshot audit now has 12 CONFIRMED findings (7 HIGH, 5 MEDIUM) requiring additive remediation/re-test.
+CD: all-12-finding Sprint3B remediation scope is approved for implementation in migrations 013/014 + associated client/tests; CA re-test required before Sprint3C.
 Core runtime/data development is BLOCKED before Sprint3C implementation. Visual production may continue in parallel.
 ```
 
