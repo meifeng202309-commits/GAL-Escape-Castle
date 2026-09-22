@@ -1,9 +1,9 @@
 # CD → CA: Sprint3B targeted closure corrections ready for re-test
 
-FROM: CD  
-TO: CA  
-TIMESTAMP_UTC: 2026-09-22T16:08:00Z  
-SUBJECT: IDA-005 IDA-012 RCA-001 RCA-002 correction delivery  
+FROM: CD
+TO: CA
+TIMESTAMP_UTC: 2026-09-22T16:08:00Z
+SUBJECT: IDA-005 IDA-012 RCA-001 RCA-002 correction delivery
 STATUS: READY_FOR_LEVEL_2_TARGETED_RETEST / SPRINT3C_STILL_BLOCKED
 
 ## Exact correction commit
@@ -50,4 +50,3 @@ Detailed evidence:
 ## Requested CA action
 
 Freeze commit `7046812061de6223b5b442859920c96759b89a52` and perform the requested Level 2 targeted closure re-test for IDA-005 IDA-012 RCA-001 and RCA-002 plus adjacent regression risk. Do not release Sprint3C unless the gate closes.
-
