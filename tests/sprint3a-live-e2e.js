@@ -19,6 +19,21 @@ async function fixture(mode="audit"){
   return {room,teacher,players,run};
 }
 const playerState=(f,i)=>rpc("s3_get_player_state",{p_room_code:f.room,p_session_token:f.players[i].session_token});
+const auth=(f,i)=>({p_room_code:f.room,p_session_token:f.players[i].session_token});
+
+async function enterCanonicalSharePhase(f){
+  await rpc("s3b_initialize_flow",{p_room_code:f.room,p_teacher_token:f.teacher});
+  await Promise.all([0,1,2].map(i=>rpc("s3b_ack_act1_opening",auth(f,i))));
+  await Promise.all([
+    rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"study_map"}),
+    rpc("s3b_submit_act1_choice",{...auth(f,1),p_choice_id:"read_diary"}),
+    rpc("s3b_submit_act1_choice",{...auth(f,2),p_choice_id:"study_watch"}),
+  ]);
+  await Promise.all([0,1,2].map(i=>rpc("s3b_complete_act1",auth(f,i))));
+  await Promise.all([0,1,2].map(i=>rpc("s3b_submit_first_meeting",{...auth(f,i),p_choice_id:"library"})));
+  await Promise.all([0,1,2].map(i=>rpc("s3b_grab",auth(f,i))));
+  await Promise.all([0,1,2].map(i=>rpc("s3b_leave_start_room",auth(f,i))));
+}
 
 async function main(){
   const normal=await fixture("normal");
@@ -35,22 +50,23 @@ async function main(){
   assert(states.every(s=>s.group_items.length===1),"Group item is not visible to all players.");
   assert(states.every(s=>s.scene.display_mode==="ACTION_SCREEN"&&s.scene.text_key==="common.001"),"Scene foundation restore failed.");
   pass("A2 fixture restores isolated pocket, observation, knowledge, group and scene state");
+  const foundationTeacher=await rpc("s3_get_teacher_state",{p_room_code:f.room,p_teacher_token:f.teacher});
 
+  await enterCanonicalSharePhase(f);
   await rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-B",p_source_item_key:"fixture.physical_item",p_source_view:"front"});
   await reject("A3 back share before FLIP is rejected",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"back"}),"current server-authoritative");
   await rpc("s3_set_item_view",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_item_key:"fixture.physical_item",p_target_view:"back"});
   await rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"back"});
   const sender=await playerState(f,0),recipient=await playerState(f,1);
-  assert(sender.items.length===1&&recipient.items.length===0&&recipient.shared_photos.length===1,"Photo share transferred ownership or failed copy delivery.");
+  assert(sender.items.some(item=>item.item_key==="fixture.physical_item")&&!recipient.items.some(item=>item.item_key==="fixture.physical_item")&&recipient.shared_photos.some(photo=>photo.source_item_key==="fixture.physical_item"),"Photo share transferred ownership or failed copy delivery.");
   assert(recipient.knowledge.length===0,"Photo share silently transferred knowledge.");
-  assert(sender.items[0].current_view==="back"&&(await playerState(f,2)).shared_photos[0].source_view==="back","FLIP/back share or reconnect view restore failed.");
+  assert(sender.items.find(item=>item.item_key==="fixture.physical_item")?.current_view==="back"&&(await playerState(f,2)).shared_photos.some(photo=>photo.source_item_key==="fixture.physical_item"&&photo.source_view==="back"),"FLIP/back share or reconnect view restore failed.");
   pass("A4 current-view SHARE PHOTO preserves ownership and delivers only the current copy");
   await reject("A5 recipient cannot re-share as physical owner",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[1].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"front"}),"not the physical owner");
   const reconnect=await playerState(f,1); assert(reconnect.shared_photos.length===1,"Reconnect lost photo copy."); pass("A6 reconnect restores all foundation state categories");
 
-  const teacher=await rpc("s3_get_teacher_state",{p_room_code:f.room,p_teacher_token:f.teacher});
-  assert(teacher.counts.observations===1&&teacher.counts.knowledge_acquisitions===2,"Teacher counts are incorrect.");
-  assert(JSON.stringify(teacher).includes("fixture.private_observation")===false,"Teacher state leaked private content.");
+  assert(foundationTeacher.counts.observations===1&&foundationTeacher.counts.knowledge_acquisitions===2,"Teacher counts are incorrect.");
+  assert(JSON.stringify(foundationTeacher).includes("fixture.private_observation")===false,"Teacher state leaked private content.");
   pass("A7 Teacher receives metadata counts without private clue content");
 
   for (const [name,expected] of [
