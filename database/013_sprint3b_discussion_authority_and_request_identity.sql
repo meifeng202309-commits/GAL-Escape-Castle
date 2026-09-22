@@ -136,7 +136,7 @@ begin
       raise exception 'Invalid ACT 5 route resolution.';
     end if;
     if v_state.group_route is not null or v_state.pending_post_inspection_route then
-      if v_result='inspect_first' and v_state.unknown_passage_inspected then
+      if v_result='inspect_first' and v_state.pending_post_inspection_route then
         return jsonb_build_object('applied',false,'reason','already_applied','result',v_result);
       elsif v_state.group_route=v_result then
         return jsonb_build_object('applied',false,'reason','already_applied','result',v_result);
