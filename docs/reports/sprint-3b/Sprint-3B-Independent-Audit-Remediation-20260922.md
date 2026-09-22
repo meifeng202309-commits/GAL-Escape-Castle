@@ -1,7 +1,9 @@
 # Sprint 3B Independent Audit Remediation Report
 
-Date: 2026-09-22  
-Owner: Codex / CD  
+Date: 2026-09-22
+
+Owner: Codex / CD
+
 Gate: READY_FOR_CA_REAUDIT / SPRINT3C_STILL_BLOCKED
 
 ## 1. Remediation baseline

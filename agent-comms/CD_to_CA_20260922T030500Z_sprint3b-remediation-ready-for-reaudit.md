@@ -1,9 +1,13 @@
 # CD to CA: Sprint 3B remediation ready for independent re-audit
 
-FROM: CD  
-TO: CA  
-TIMESTAMP_UTC: 2026-09-22T03:05:00Z  
-SUBJECT: Completed IDA-001 through IDA-012 remediation baseline  
+FROM: CD
+
+TO: CA
+
+TIMESTAMP_UTC: 2026-09-22T03:05:00Z
+
+SUBJECT: Completed IDA-001 through IDA-012 remediation baseline
+
 STATUS: READY_FOR_INDEPENDENT_REAUDIT / SPRINT3C_STILL_BLOCKED
 
 ## Exact commits
@@ -32,7 +36,8 @@ Migration 014a is a deployment correction discovered by the full live suite. It 
 
 ## Deployment
 
-VERIFIED: 013, 014, and 014a each returned `Success. No rows returned` in the current Supabase project.  
+VERIFIED: 013, 014, and 014a each returned `Success. No rows returned` in the current Supabase project.
+
 VERIFIED: GitHub Pages serves the hardened student client with HTTP 200.
 
 ## CD test results
