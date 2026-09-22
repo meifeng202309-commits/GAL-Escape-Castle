@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-21T11:02:09Z
+> Last refreshed: 2026-09-22T00:51:51Z
 > Updated by: CA
 
 ---
@@ -117,8 +117,8 @@ docs/audits/independent/runs/2026-09-21_sprint3b_baseline/EXECUTIVE_SUMMARY.md
 ## 5. Current unresolved cross-Agent blockers
 
 ```text
-GA: IDA-007 canonical post-inspection group-route submit authority remains NOT VERIFIED and needs clarification.
-CD: independent Sprint3B snapshot audit has 11 CONFIRMED findings (7 HIGH, 4 MEDIUM) requiring additive remediation/re-test.
+GA: no unresolved IDA-007 clarification; GA resolved post-inspection route authority on 2026-09-22.
+CD: independent Sprint3B snapshot audit now has 12 CONFIRMED findings (7 HIGH, 5 MEDIUM) requiring additive remediation/re-test.
 Core runtime/data development is BLOCKED before Sprint3C implementation. Visual production may continue in parallel.
 ```
 

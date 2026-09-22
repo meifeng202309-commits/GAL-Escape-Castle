@@ -15,7 +15,7 @@ Status: FINAL — CORE DEVELOPMENT BLOCKED PENDING REMEDIATION
 | IDA-004 | MEDIUM | CONFIRMED | Library Box locked-prefix enforcement has a TOCTOU window: wrapper validates against a stale prefix before delegated timeout refresh can lock additional wheels. | Let puzzle deadline elapse while persisted prefix is still stale; submit code incompatible with the prefix that refresh should lock. Wrapper validates old prefix, delegated body refreshes prefix, then records attempt without revalidation. Static control-flow proof complete; live timing reproduction pending. | database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/007_sprint3b_act1_5_placeholder_flow.sql | s3b_submit_library_code(...) migration011 line 92; delegated pre011 body migration007 lines 212–230; s3b_refresh_puzzle(...) migration011 lines 98–100 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Locked Game Track state can advance between validation and write, allowing an attempt inconsistent with newly locked wheels and producing internally inconsistent puzzle evidence. | Refresh/lock authoritative puzzle state before prefix validation, then validate and record attempt under the same locked transaction. | Methods 1, 2, 4, 5, 6, 8 | CD | — | NOT YET RETESTED |
 | IDA-005 | HIGH | CONFIRMED | Teacher can open a generic DiscussionRoom during canonical private Sprint3B phases because s2_open_discussion is not bound to s3_runtime_scene_state. | During an active NORMAL Sprint3B run, invoke Teacher “Open discussion” while ACT1/private_first_action is active. s2_open_discussion accepts active run + teacher auth and creates a real discussion; player polling renders it. V4.0 §38 requires DiscussionRoom locked in private phase. | teacher.html; src/teacher/teacher-console.js; database/003_sprint2_discussionroom_audit_fix.sql; src/game/app.js | Teacher openDiscussion(); s2_open_discussion(...); app.js refreshDiscussion()/renderDiscussion() | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Breaks independent/private measurement conditions and can persist noncanonical messages/votes in a NORMAL behavior-eligible run; also enables IDA-002 multi-open-session state later. | Bind generic DiscussionRoom opening to explicit allowed scene config / AUDIT-only test mode, or remove/disable generic Teacher control during formal canonical gameplay. | Methods 1, 2, 3, 4, 5, 6, 7, 8 | CD | — | NOT YET RETESTED |
 | IDA-006 | HIGH | CONFIRMED | Canonical response-latency evidence for implemented private behavior choices is not durably reconstructable: ACT1 lacks a per-player actionable-start timestamp; ACT2 first-meeting likewise stores only submission time, and ACT4 has no durable choice-start timestamp despite canonical latency semantics. | ACT1 opening→action is per-player via s3b_ack_act1_opening but persists no start time; ACT2 first-meeting stores first_meeting_locked_at only; ACT4 stores act4_locked_at only. Later scene transitions overwrite s3_runtime_scene_state.updated_at, so post-game latency cannot be reconstructed reliably. | database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/007_sprint3b_act1_5_placeholder_flow.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | s3b_ack_act1_opening / s3b_submit_act1_choice migration011 lines 37–57; s3b_player_progress + s3b_submit_first_meeting / s3b_submit_act4_choice migration007 lines 20–32, 102–112, 233–256; V4 §9 behavior evidence, §10.9 and §5.5 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Silent loss of response-latency evidence used by post-game behavior analysis; later export cannot recover a valid duration from submission timestamps alone. | Persist server-owned decision/action-start timestamps (or explicit latency) for each canonical latency-bearing interaction and preserve them through reconnect/export. | Methods 1, 3, 5, 6, 9 | CD | — | NOT YET RETESTED |
-| IDA-007 | OBSERVATION | NOT_VERIFIED | ACT5 post-inspection group-route submit authority is not defined canonically, while current code lets any valid player submit p_route and first successful call commits the shared route. | V4.0 §14.4 defines one Game Track Known/Unknown choice but does not identify the submitting actor/consensus rule. Current app renders both buttons to every player; s3b_choose_post_inspection_route accepts any player session and writes group_route from client p_route. | src/game/app.js; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; database/010_sprint3b_flow_integrity_and_inspect_fix.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | app.js renderSprint3b() lines 149–177, especially line 170; migration011 s3b_choose_post_inspection_route line 95; migration010 function lines 136–150; V4 §14.4 lines ~3221–3243 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | A shared Game Track result currently uses implicit first-valid-player-wins authority; correctness cannot be determined because canonical actor authority is missing. | GA must canonicalize who/what owns this single group Game Track choice; then CA can judge the implementation without inventing a rule. | Methods 2, 5, 8, 9 | GA | — | PENDING CANONICAL CLARIFICATION |
+| IDA-007 | MEDIUM | CONFIRMED | ACT5 post-inspection route is canonically a three-player Game-only Step Vote, but current implementation lets the first valid player request directly commit the shared group_route. | GA clarification and V4.0 §14.4 now require all three GAL players to submit one locked known/unknown vote and the server to resolve only after all three real votes exist; current s3b_choose_post_inspection_route(...) writes group_route from one caller's p_route on the first successful request. Canonical clarification commit: 12d20f65ec02a8c60b777c66760bdccb7f31f945. | src/game/app.js; database/010_sprint3b_flow_integrity_and_inspect_fix.sql; database/011_sprint3b_transition_and_act1_delivery_integrity.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | app.js renderSprint3b() lines 149–177; migration010 s3b_choose_post_inspection_route(...) lines 136–150; migration011 wrapper line 95; V4 §14.4 lines ~3239–3261 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | One player can unilaterally determine a shared route that canonically belongs to a three-player majority vote; first/second submissions can prematurely terminate the step and discard the other players' Game-only votes/provenance. | Conform to the canonical Game-only Step Vote contract: preserve one locked vote per real player, do not commit group_route from 1–2 votes, and derive the shared result only after all three votes are present; Teacher safe resolution remains separate from player votes. | Methods 2, 5, 8, 9 + GA canonical clarification 2026-09-22 | CD | — | NOT YET RETESTED |
 | IDA-008 | HIGH | CONFIRMED | SHARE PHOTO lacks the canonical server-side scene permission: s3_share_photo can persist shared photos whenever the caller owns a shareable item view, even when allow_share_photo should be false or DiscussionRoom is locked. | In ACT2 private_first_meeting, after Gitte GRABs Map/Number Note but before the meeting discussion opens, call s3_share_photo directly. Function checks ownership/current view/recipient only and inserts s3_shared_photos; database has no allow_share_photo state to enforce V4.0's scene flag. | database/006_sprint3a_provenance_view_integrity_fix.sql; database/005_sprint3a_scene_pocket_knowledge_foundation.sql; docs/specs/current/古堡逃脱游戏脚本 V4.0.md | s3_share_photo(...) migration006 lines 79–98; V4 SHARE PHOTO rule lines ~2073–2092; V4 Multiplayer Execution Rules lines ~5856–5869 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Players can share private information outside canonically allowed discussion scenes, altering information-sharing timing/provenance and contaminating behavior evidence in NORMAL runs. | Persist scene-level allow_share_photo (or equivalent server-derived permission) and reject SHARE PHOTO unless current authoritative scene permits it; UI gating alone is insufficient. | Methods 2, 3, 4, 5, 6, 8, 9 | CD | — | NOT YET RETESTED |
 | IDA-009 | HIGH | CONFIRMED | DiscussionRoom player mutations do not carry expected discussion identity; stale message/vote requests are applied to the server's newest discussion/round instead of being rejected. | Keep an old DiscussionRoom request in flight, create a higher vote_round, then deliver the old request. s2_send_message/s2_submit_vote select latest discussion by vote_round. In a re-vote with same options, a stale old-round vote can lock as the new-round vote. | database/002_runtime_runs_discussion.sql; database/004_sprint2_fallback_resolution_semantics.sql; src/game/app.js | s2_send_message(...) lines 546–604; final s2_submit_vote(...) migration004 lines 6–60; app.js sendMessage()/submitVote() lines 290–327 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | Real player behavior can be attributed to the wrong discussion_session_id/vote_round/scene, violating stale-phase rejection and evidence identity. | Include expected discussion_session_id/vote_round (or opaque interaction identity) in mutating requests and reject if it is not the current authoritative interaction. | Methods 2, 3, 4, 5, 6, 8, 9 | CD | — | NOT YET RETESTED |
 | IDA-010 | HIGH | CONFIRMED | Dialogue message submission has no idempotency identity; if server commit succeeds but response is lost, retry creates a second apparently genuine player message/event. | Let s2_send_message insert/commit, drop the response, then retry identical UI submission. dialogue_messages has only generated message_id and no request key; client clears text only after success, so retry inserts again. | database/002_runtime_runs_discussion.sql; src/game/app.js | dialogue_messages schema lines 55–68; s2_send_message(...) lines 546–604; app.js sendMessage() lines 290–306 | 3be0e6ad8395f05bbab13ca41e6b91dac57eb4fe | One real behavior can become two persisted messages, corrupting message count, initiative, timing and information-sharing evidence. | Add client-generated submission/request identity with per-run/session/player uniqueness; retry must return the original committed result rather than insert again. | Methods 2, 4, 6, 8, 9 | CD | — | NOT YET RETESTED |
@@ -194,29 +194,69 @@ Run three players through the relevant interactions with intentionally different
 - missing/override cases preserve explicit null + validity semantics rather than fabricated timing.
 
 
-## IDA-007 — Canonical authority missing for ACT5 post-inspection group route
+## IDA-007 — ACT5 post-inspection route uses non-canonical first-player authority
 
-Severity: OBSERVATION  
-Status: NOT_VERIFIED — GA clarification requested.
+Severity: MEDIUM  
+Status: CONFIRMED after GA canonical clarification on 2026-09-22.
+
+### Post-audit canonical clarification
+
+GA resolved the original ambiguity in:
+
+`agent-comms/GA_to_CA_20260922T003700Z_post-inspection-route-authority-response.md`
+
+and canonicalized V4.0 §14.4 in commit:
+
+`12d20f65ec02a8c60b777c66760bdccb7f31f945`
+
+Canonical meaning:
+
+- `act5_inspect_first / post_inspection_route` is a **Game-only Step Vote**;
+- `behavior_scoring = false`;
+- all three GAL players may each submit exactly one locked `known | unknown` vote;
+- one player's vote must not directly set `group_route`;
+- the server waits for all three real votes;
+- 3:0 or 2:1 majority resolves the shared route;
+- with only 1–2 votes, no majority/group route is committed;
+- the final group result has no single player decision owner;
+- Teacher Override `safe_resolution = known` remains a separate Teacher/system resolution, not a fabricated player vote.
 
 ### Current implementation
 
-At `act5_inspect_first / post_inspection_route`:
-- all player clients render Known/Unknown buttons;
-- any valid player may call `s3b_choose_post_inspection_route`;
-- client supplies `p_route`;
-- the first successful request writes the shared `group_route`;
-- later requests reject because the route is already resolved.
+The current baseline implementation still does:
 
-### Canonical gap
+1. any valid player calls `s3b_choose_post_inspection_route(..., p_route)`;
+2. the function locks the scene;
+3. the first successful request writes:
+   `group_route = p_route`,
+   `pending_post_inspection_route = false`,
+   `terminal_state = SPRINT3B_COMPLETE`;
+4. later requests are rejected because the route is already resolved.
 
-V4.0 says this is one Game Track-only Known/Unknown choice and explicitly says it is not a new private behavior choice. It does not specify who owns the submission or whether first-click-wins is intended.
+Therefore the first valid player request effectively chooses the team's route.
 
-CA therefore does not classify the current implementation as correct or defective yet.
+### Why this is a defect
 
-### Required resolution
+The implementation violates the clarified canonical authority model:
 
-GA should define one canonical authority model for this interaction. After that, CA should reclassify IDA-007 and audit the code against the clarified rule.
+- first/second individual votes can prematurely become the team result;
+- the other two players' votes are never collected;
+- a 2:1 majority can be replaced by whichever player clicks first;
+- `submitted_by` is attached to the shared route event even though canonical group resolution has no single player owner.
+
+Because this is Game Track-only and `behavior_scoring=false`, CA classifies it as **MEDIUM**, not HIGH. It remains a deterministic, reachable gameplay-authority defect.
+
+### Closure condition
+
+Re-test must demonstrate:
+
+- first player vote alone leaves `group_route` unresolved;
+- second player vote alone still leaves `group_route` unresolved;
+- each player's first valid vote is locked and cannot be changed;
+- the third real vote triggers exactly one server-derived 3:0 or 2:1 result;
+- stale/later submissions cannot alter the resolved route;
+- the final group result is not attributed as a single player's decision;
+- Teacher Override resolution remains separately attributable and does not fabricate missing player votes.
 
 
 ## IDA-008 — SHARE PHOTO is not server-gated by scene permission

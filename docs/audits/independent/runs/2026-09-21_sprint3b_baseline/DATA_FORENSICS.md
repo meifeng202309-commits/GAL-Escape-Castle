@@ -225,10 +225,15 @@ Game Track apply to Known/Unknown/Inspect First lacks a dedicated append-only ap
 Post-inspection route is better:
 - `post_inspection_group_route` event records route and `submitted_by`.
 
-Attribution semantics remain canonically unresolved:
-- current code accepts first valid player as shared Game Track submitter.
+Post-audit canonical clarification (2026-09-22):
+- V4.0 §14.4 now defines this as a three-player Game-only Step Vote;
+- all three real players submit one locked known/unknown vote;
+- shared route resolves only after all three votes, by 3:0 or 2:1 majority;
+- no single player owns the final group resolution.
 
-Finding: **IDA-007 NOT_VERIFIED** pending GA.
+Current implementation still accepts the first valid player's p_route as the shared group route.
+
+Finding: **IDA-007 MEDIUM / CONFIRMED**.
 
 ## J4.5 Pocket / knowledge provenance
 

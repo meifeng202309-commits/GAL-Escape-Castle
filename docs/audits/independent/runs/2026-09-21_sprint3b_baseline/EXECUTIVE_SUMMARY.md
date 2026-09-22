@@ -51,16 +51,16 @@ Total findings: **12**
 
 By severity:
 - HIGH: **7**
-- MEDIUM: **4**
-- OBSERVATION: **1**
+- MEDIUM: **5**
+- OBSERVATION: **0**
 - CRITICAL: **0**
 - LOW: **0**
 
 By status:
-- CONFIRMED: **11**
-- NOT_VERIFIED: **1**
+- CONFIRMED: **12**
+- NOT_VERIFIED: **0**
 
-The single NOT_VERIFIED item is IDA-007, pending GA canonical clarification.
+Post-audit canonical addendum (2026-09-22): GA resolved IDA-007 in `GA_to_CA_20260922T003700Z_post-inspection-route-authority-response.md` and V4.0 §14.4 commit `12d20f65ec02a8c60b777c66760bdccb7f31f945`. IDA-007 is now MEDIUM / CONFIRMED.
 
 ## 4. Highest-risk findings
 
@@ -77,6 +77,7 @@ MEDIUM findings:
 - IDA-003 — formal player UI can fail open to legacy Sprint1 controls.
 - IDA-004 — Library Box locked-prefix validation has a timeout-refresh TOCTOU.
 - IDA-011 — uncertain retry can double-count wrong Library attempts.
+- IDA-007 — ACT5 post-inspection Known/Unknown is canonically a three-player Game-only Step Vote, but current code lets the first valid player directly commit the team route.
 
 ## 5. Systemic patterns
 
@@ -100,7 +101,6 @@ RLS and SECURITY DEFINER discipline are generally sound at source level. No new 
 
 ## 6. NOT VERIFIED boundaries
 
-- IDA-007: canonical submit authority for ACT5 post-inspection Known/Unknown group route; GA clarification pending.
 - exact deployed PostgreSQL function/table/schema ACL catalog state;
 - destructive mutation testing on an isolated runtime database;
 - packet-loss / delayed-request / browser-termination fault injection;

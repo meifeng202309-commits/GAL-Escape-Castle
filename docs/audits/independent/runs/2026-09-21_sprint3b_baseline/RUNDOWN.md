@@ -374,3 +374,21 @@ Produced required eight-section final summary; counts agree with FINDINGS.md.
 All Methods 1–9 and Integration Checkpoints I–III are complete; unavailable dynamic/catalog checks are explicitly documented inside completed method steps as NOT VERIFIED boundaries.
 ### [x] K5 Record audit completion in CA Action Log
 Completed as CA-035 with final BLOCKED disposition, CD handoff, L3 gate update and substantive commit reference.
+
+
+---
+
+## Post-audit canonical addendum — IDA-007 (2026-09-22)
+
+GA resolved the previously open canonical authority question in:
+`agent-comms/GA_to_CA_20260922T003700Z_post-inspection-route-authority-response.md`
+
+Canonical spec update:
+`12d20f65ec02a8c60b777c66760bdccb7f31f945`
+
+Result:
+- IDA-007 is reclassified from OBSERVATION / NOT_VERIFIED to **MEDIUM / CONFIRMED**;
+- current implementation's first-valid-player-wins behavior is non-conformant;
+- updated current finding distribution: **7 HIGH, 5 MEDIUM, 0 OBSERVATION**;
+- updated current status distribution: **12 CONFIRMED, 0 NOT_VERIFIED** among the 12 IDA findings;
+- original Integration Checkpoint III text is retained as the historical state at audit close; this addendum supersedes only its IDA-007 pending-clarification count.
