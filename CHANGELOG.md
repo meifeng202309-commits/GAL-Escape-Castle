@@ -74,3 +74,13 @@
 - Kept Teacher Override / Safe Deblock deferred to Sprint 3C.
 - Added migration 010 after CA audit to enforce server phase authority, make fold-back idempotent, correct Inspect First as an intermediate state, implement GA-approved 90–150 second puzzle fallback, and bind dedicated canonical item-label keys.
 - Expanded Sprint 3B live coverage to 29/29 and regenerated the canonical localization module with 323 entries.
+
+## Sprint 3B — Independent Audit Remediation
+
+- Added migrations 013 and 014 to close IDA-001 through IDA-012 across discussion authority, exact request identity, idempotency, timing evidence, scene gates, event reconstruction, puzzle integrity, and private Game-only route voting.
+- Made canonical discussion resolution atomic with Game Track updates and removed browser authority to apply ACT2/ACT5 results.
+- Added one-open-discussion enforcement, stable message and Library request identities, stale discussion rejection, and fail-closed formal client rendering.
+- Replaced first-player post-inspection route selection with three locked player votes and server-side 3:0/2:1 majority resolution.
+- Added migration 014a after live testing found a post-inspection reconnect idempotency defect; clean deployments also carry the corrected condition in migration 013.
+- Deployed 013, 014, and 014a to the current Supabase project and verified Sprint 1 40/40, Sprint 2 23/23, Sprint 3A 15/15, Sprint 3B 44/44, and the remediation security suite 11/11.
+- Confirmed the hardened GitHub Pages student client is deployed. Sprint 3C remains blocked pending independent CA re-audit.
