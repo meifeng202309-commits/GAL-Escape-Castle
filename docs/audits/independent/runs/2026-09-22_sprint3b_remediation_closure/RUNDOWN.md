@@ -16,7 +16,7 @@ This run intentionally does **not** repeat the full Method 1–9 snapshot protoc
 
 - [x] A1 Freeze final remediation SHA and verify ancestry to primary remediation commit.
 - [x] A2 Inventory remediation migrations/runtime/test files.
-- [~] A3 Check additive migration ordering, deployed-migration immutability and clean-replay consistency.
+- [!] A3 Additive ordering is executable, but deployed-migration immutability is violated: commit `20f03c3...` modifies migration 013 after the primary remediation commit and adds 014a as an explicit post-deployment correction. Recorded RCA-001.
 
 ## B — Independent implementation reconstruction
 
@@ -28,46 +28,46 @@ This run intentionally does **not** repeat the full Method 1–9 snapshot protoc
 
 ## C — Original finding closure
 
-- [~] C1 IDA-001 atomic DiscussionRoom → Game Track progression.
-- [~] C2 IDA-002 one-open-discussion invariant.
-- [~] C3 IDA-003 formal UI fail-closed.
-- [~] C4 IDA-004 Library locked-prefix TOCTOU.
-- [!] C5 IDA-005 generic DiscussionRoom/private-phase boundary.
-- [~] C6 IDA-006 durable response-latency evidence.
-- [~] C7 IDA-007 canonical three-player post-inspection Game-only vote.
-- [~] C8 IDA-008 server-authoritative SHARE PHOTO permission.
-- [~] C9 IDA-009 stale DiscussionRoom mutation identity.
-- [~] C10 IDA-010 dialogue response-loss idempotency.
-- [~] C11 IDA-011 Library-attempt response-loss idempotency.
-- [!] C12 IDA-012 append-only formal history reconstruction.
+- [x] C1 IDA-001 — FIXED_VERIFIED.
+- [x] C2 IDA-002 — FIXED_VERIFIED.
+- [x] C3 IDA-003 — FIXED_VERIFIED (deterministic client control-flow; physical browser fault injection not independently repeated).
+- [x] C4 IDA-004 — FIXED_VERIFIED.
+- [!] C5 IDA-005 — REMAINS_OPEN: pre-initialization generic discussion can survive into ACT1 private canonical gameplay.
+- [x] C6 IDA-006 — FIXED_VERIFIED (persisted timing model verified; original three-player stagger experiment not independently repeated).
+- [x] C7 IDA-007 — FIXED_VERIFIED.
+- [x] C8 IDA-008 — FIXED_VERIFIED (server guards + allowed/disallowed live evidence; exact closure-race injection not independently repeated).
+- [x] C9 IDA-009 — FIXED_VERIFIED.
+- [x] C10 IDA-010 — FIXED_VERIFIED.
+- [x] C11 IDA-011 — FIXED_VERIFIED.
+- [!] C12 IDA-012 — REMAINS_OPEN: event causal ordering/context is incorrect at transition-triggering action boundaries.
 
 ## D — Recurring-error Pattern Scan
 
-- [~] D1 Pattern A — local correctness / cross-module handoff.
-- [~] D2 Pattern B — response loss / retry / stale / reconnect / concurrency.
-- [~] D3 Pattern C — UI rule vs server invariant.
-- [~] D4 Pattern D — current state vs historical evidence.
-- [~] D5 Pattern E — authority accretion / legacy reachability.
-- [~] D6 Pattern F — self-confirming tests / blind spots.
+- [!] D1 Pattern A — FINDING: IDA-005 is a cross-lifecycle handoff failure (generic run tooling → canonical initialization); IDA-012 is a mutation→event/transition causality failure.
+- [x] D2 Pattern B — PASS for the original stale/retry defects: exact interaction identity and request idempotency now protect IDA-009/010/011; 014a also closes the post-inspection reconnect conflict found by CD live testing. Independent packet-loss injection remains an evidence boundary, not a confirmed defect.
+- [!] D3 Pattern C — FINDING: the Teacher UI disables generic discussion only after canonical state exists, so UI/server gating does not protect the pre-initialization carryover path in IDA-005.
+- [!] D4 Pattern D — FINDING: IDA-012 remains open, and RCA-002 shows that adding richer evidence created a new NORMAL Teacher privacy leak.
+- [x] D5 Pattern E — PASS for executable authority: superseded browser apply/one-player route signatures are revoked and pre014 helper layers are not browser-executable. No second active Game Track authority was found in this remediation baseline.
+- [!] D6 Pattern F — FINDING: CD suites do not challenge the generic-before-initialize carryover path, NORMAL Teacher private-event exposure, transition-before-action ledger causality, or deployed-migration mutation.
 
 ## E — Regression and test adequacy
 
-- [~] E1 Challenge remediation static suite against independently identified risks.
-- [~] E2 Challenge remediation live suite against independently identified risks.
-- [ ] E3 Reconcile Sprint1/2/3A/3B regression evidence after first-pass reconstruction.
-- [ ] E4 Read CD detailed remediation report only after independent hypotheses are frozen.
+- [x] E1 Static suite challenged against independent risks. It confirms expected fragments/revocations but is self-confirming for several design assumptions and misses all four current blockers.
+- [x] E2 Live suite challenged against independent risks. It exercises message idempotency, stale identity, post-init generic rejection, timing persistence and RLS, but uses an AUDIT fixture for event-ledger visibility and misses the NORMAL privacy boundary and pre-init carryover path.
+- [x] E3 Reconciled CD-reported regression evidence: Sprint1 40/40, Sprint2 23/23, Sprint3A 15/15, Sprint3B 44/44, remediation live 11/11, static PASS. These support non-regression but do not close the independently confirmed blockers.
+- [x] E4 Read CD detailed remediation report only after first-pass implementation model and hypotheses were frozen. Report confirms 014a was a post-deployment live-test correction and acknowledges manual migration deployment.
 
 ## F — Adjacent/new defects introduced by remediation
 
-- [!] F1 Deployed migration-history immutability / repository clean-replay consistency.
-- [!] F2 Teacher NORMAL privacy exposure through new append-only behavior events.
-- [~] F3 Check wrapper event ordering/context at state-transition boundaries.
-- [ ] F4 Check privilege/RLS impact of newly introduced tables/functions.
+- [!] F1 RCA-001 MEDIUM CONFIRMED — deployed migration-history immutability / clean-replay forensic consistency violated.
+- [!] F2 RCA-002 HIGH CONFIRMED — Teacher NORMAL RPC now exposes unrevealed private behavior event details.
+- [!] F3 IDA-012 remains open — wrapper event ordering/context is causally reversed at transition-triggering actions; `s2_log_event` also labels null-actor system/fallback events generically as `server`, so event-source precision is not uniformly strong.
+- [x] F4 Source-level privilege/RLS review — new post-inspection vote table has RLS and no direct anonymous policy; internal event/apply helpers are explicitly revoked from browser roles; superseded route/apply signatures are revoked. No additional confirmed direct privilege bypass found.
 
 ## G — Final disposition
 
-- [ ] G1 Complete closure matrix with PASS / FAIL / NOT VERIFIED per IDA.
-- [ ] G2 Resolve severity/status of any new remediation findings.
-- [ ] G3 Decide remediation gate: PASS / FAIL / BLOCKED / NOT VERIFIED.
-- [ ] G4 If PASS/READY, issue risk-only next-scope forecast for Sprint3C.
-- [ ] G5 Update CURRENT STATUS, FINDINGS closure results, action log and CD handoff.
+- [x] G1 Closure matrix finalized: 10/12 original IDA findings FIXED_VERIFIED; IDA-005 and IDA-012 remain open.
+- [x] G2 New findings finalized: RCA-001 MEDIUM CONFIRMED; RCA-002 HIGH CONFIRMED.
+- [x] G3 Gate decision: **FAIL / BLOCKED**. Sprint3C remains blocked.
+- [N/A] G4 Next-scope Sprint3C risk forecast is not issued because this audit is not PASS/READY.
+- [x] G5 Final disposition artifact, CURRENT STATUS, CA Action Log and CD handoff to be synchronized with this result.
