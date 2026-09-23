@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-23T01:46:00Z
+> Last refreshed: 2026-09-23T03:16:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 4 (IMPLEMENTATION)
-CURRENT_GATE          = SPRINT4_SCOPE_APPROVED__IMPLEMENTATION_AUTHORIZED
+CURRENT_SPRINT        = Sprint 4
+CURRENT_GATE          = BLOCKED_BY_SPRINT4_LEVEL1_AUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements bounded Sprint4 Asset Manager V2 under approved canonical-coverage conditions using additive migration 018+; when complete, submit exact commits/deployment/tests/limitations for Level 1 CA audit
+NEXT_REQUIRED_ACTION  = CD makes narrow additive corrections for S4-CA-001..007 using migration 024+ as needed, preserves deployed 018–023, runs adjacent regressions, and submits correction for focused Level 1 CA re-audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -87,6 +87,7 @@ Sprint 2  = PASS
 Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
+Sprint 4  = LEVEL 1 AUDIT FAIL — NARROW CORRECTION REQUIRED
 ```
 
 Sprint3C verified correction baseline:
@@ -148,20 +149,31 @@ S4-SCOPE-02 = V4.0 §50.3 metadata + §50.7.5 sidecar minimum contracts preserve
 S4-SCOPE-03 = registry/runtime identity+version authority must not silently split
 ```
 
-## 6. Major NOT VERIFIED boundaries
+## 6. Current Sprint4 blockers
 
 ```text
-physical 3-student + Teacher multi-device end-to-end run
-CA-independent execution of the deployed Supabase live suites
-full ACT 1–14 implementation
-Sprint 4+ Asset Manager runtime
-ACT 6–14 runtime
-final export
-full production asset activation
-3-player release candidate
+S4-CA-001 HIGH   = global Asset Manager Teacher authority can be self-issued via ordinary room creation
+S4-CA-002 HIGH   = publisher automatically manufactures semantic APPROVED decision
+S4-CA-003 HIGH   = paired activation can expose one-sided ACTIVE runtime state
+S4-CA-004 HIGH   = registry hash/projection drift evidence can silently be stale/mixed
+S4-CA-005 MEDIUM = Teacher anchor UI handles only required[0]
+S4-CA-006 MEDIUM = register-before-upload can strand non-retriable PENDING_REVIEW state / incomplete lifecycle
+S4-CA-007 MEDIUM = reusable publication path lacks stored-object SHA verification before publication record
 ```
 
-The current Sprint3C FAIL does not depend on these NOT VERIFIED boundaries; both blockers are deterministic source/control-flow findings.
+Full Level 1 report:
+
+```text
+docs/audits/regular/runs/2026-09-23_sprint4_level1/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260923T031419Z_sprint4-level1-audit-fail-narrow-corrections.md
+```
+
+Deployed migrations `018–023` are verified unchanged and are immutable. Any DB correction begins at `024+`.
 
 ---
 
