@@ -38,6 +38,7 @@ const overrideReasonInput = document.getElementById("overrideReason");
 const overrideActions = document.getElementById("overrideActions");
 const overrideStatus = document.getElementById("overrideStatus");
 const overrideHistory = document.getElementById("overrideHistory");
+const loadAssetsButton=document.getElementById("loadAssetsButton"),assetReadyBadge=document.getElementById("assetReadyBadge"),assetStatus=document.getElementById("assetStatus"),assetManagerState=document.getElementById("assetManagerState");
 
 let pollTimer = null;
 
@@ -54,6 +55,7 @@ openDiscussionButton.addEventListener("click", openDiscussion);
 openVoteButton.addEventListener("click", openVote);
 addTimeButton.addEventListener("click", addTime);
 initializeSprint3bButton.addEventListener("click", initializeSprint3b);
+loadAssetsButton.addEventListener("click",loadAssets);
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -350,4 +352,26 @@ function toggleTeacherToken() {
   const isHidden = teacherTokenInput.type === "password";
   teacherTokenInput.type = isHidden ? "text" : "password";
   toggleTeacherTokenButton.textContent = isHidden ? "Hide" : "Show";
+}
+
+async function loadAssets(){
+  const token=teacherTokenInput.value.trim();if(!token){assetStatus.textContent="Enter a Teacher token.";return;}
+  try{const state=await rpc("asset_manager_state",{p_teacher_token:token});renderAssets(state.assets||[]);assetStatus.textContent="Asset registry projection loaded.";}
+  catch(error){assetStatus.textContent=`Assets unavailable: ${error.message}`;}
+}
+
+function renderAssets(assets){
+  const ready=assets.length>0&&assets.filter(a=>a.runtime_required).every(a=>a.active_version&&a.candidates.some(c=>c.status==="ACTIVE"&&c.version===a.active_version));
+  assetReadyBadge.textContent=`GAME READY: ${ready?"YES":"NO"}`;
+  const groups={image:assets.filter(a=>a.asset_type==="image"),audio:assets.filter(a=>a.asset_type==="audio")};
+  assetManagerState.innerHTML=[['Images',groups.image],['Audio',groups.audio]].map(([name,items])=>`<section><h3>${name}</h3>${items.length?items.map(a=>{
+    const latest=a.candidates[0],status=latest?.status||(a.latest_version?"UPLOADED":"MISSING");
+    return `<article class="notice"><div class="topline"><div><b>${escapeHtml(a.display_name)}</b><p><code>${escapeHtml(a.asset_key)}</code></p></div><span class="badge">${escapeHtml(status)}</span></div><p>Latest v${a.latest_version} · ACTIVE ${a.active_version||"none"}</p>${latest?`<p>${escapeHtml(latest.revision_note||latest.technical_notes||"")}</p>`:""}${latest?.status==="PENDING_REVIEW"?`<div class="button-row"><button class="asset-review" data-id="${latest.asset_id}" data-decision="APPROVED">Approve</button><button class="danger asset-review" data-id="${latest.asset_id}" data-decision="REJECTED">Reject</button></div>`:""}</article>`}).join(''):"<p class='muted'>No assets.</p>"}</section>`).join('');
+  assetManagerState.querySelectorAll('.asset-review').forEach(b=>b.addEventListener('click',()=>reviewAsset(b.dataset.id,b.dataset.decision)));
+}
+
+async function reviewAsset(assetId,decision){
+  const token=teacherTokenInput.value.trim();if(!confirm(`${decision} this immutable candidate?`))return;
+  try{await rpc("asset_manager_review",{p_teacher_token:token,p_asset_id:assetId,p_decision:decision,p_reviewer:"Teacher"});await loadAssets();}
+  catch(error){assetStatus.textContent=`Review failed: ${error.message}`;}
 }
