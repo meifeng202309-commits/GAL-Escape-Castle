@@ -39,6 +39,7 @@ const overrideActions = document.getElementById("overrideActions");
 const overrideStatus = document.getElementById("overrideStatus");
 const overrideHistory = document.getElementById("overrideHistory");
 const loadAssetsButton=document.getElementById("loadAssetsButton"),assetReadyBadge=document.getElementById("assetReadyBadge"),assetStatus=document.getElementById("assetStatus"),assetManagerState=document.getElementById("assetManagerState");
+const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.getElementById('anchorStage'),anchorImage=document.getElementById('anchorImage'),anchorBox=document.getElementById('anchorBox'),anchorPrompt=document.getElementById('anchorPrompt'),anchorStatus=document.getElementById('anchorStatus'),saveAnchorButton=document.getElementById('saveAnchorButton');let anchorDraft=null,anchorCandidate=null,anchorStart=null;
 
 let pollTimer = null;
 
@@ -366,8 +367,9 @@ function renderAssets(assets){
   const groups={image:assets.filter(a=>a.asset_type==="image"),audio:assets.filter(a=>a.asset_type==="audio")};
   assetManagerState.innerHTML=[['Images',groups.image],['Audio',groups.audio]].map(([name,items])=>`<section><h3>${name}</h3>${items.length?items.map(a=>{
     const latest=a.candidates[0],status=latest?.status||(a.latest_version?"UPLOADED":"MISSING");
-    return `<article class="notice"><div class="topline"><div><b>${escapeHtml(a.display_name)}</b><p><code>${escapeHtml(a.asset_key)}</code></p></div><span class="badge">${escapeHtml(status)}</span></div><p>Latest v${a.latest_version} · ACTIVE ${a.active_version||"none"}</p>${latest?`<p>${escapeHtml(latest.revision_note||latest.technical_notes||"")}</p>`:""}${latest?.status==="PENDING_REVIEW"?`<div class="button-row"><button class="asset-review" data-id="${latest.asset_id}" data-decision="APPROVED">Approve</button><button class="danger asset-review" data-id="${latest.asset_id}" data-decision="REJECTED">Reject</button></div>`:""}</article>`}).join(''):"<p class='muted'>No assets.</p>"}</section>`).join('');
+    return `<article class="notice"><div class="topline"><div><b>${escapeHtml(a.display_name)}</b><p><code>${escapeHtml(a.asset_key)}</code></p></div><span class="badge">${escapeHtml(status)}</span></div><p>Latest v${a.latest_version} · ACTIVE ${a.active_version||"none"}</p>${latest?`<p>${escapeHtml(latest.revision_note||latest.technical_notes||"")}</p>`:""}<div class="button-row">${latest?.asset_type==="image"&&latest?.storage_path&&a.required_anchors?.length?`<button class="secondary mark-anchor" data-candidate='${escapeHtml(JSON.stringify({id:latest.asset_id,path:latest.storage_path,required:a.required_anchors,anchors:latest.ui_anchors||[]}))}'>Mark anchors</button>`:""}${latest?.status==="PENDING_REVIEW"?`<button class="asset-review" data-id="${latest.asset_id}" data-decision="APPROVED">Approve</button><button class="danger asset-review" data-id="${latest.asset_id}" data-decision="REJECTED">Reject</button>`:""}</div></article>`}).join(''):"<p class='muted'>No assets.</p>"}</section>`).join('');
   assetManagerState.querySelectorAll('.asset-review').forEach(b=>b.addEventListener('click',()=>reviewAsset(b.dataset.id,b.dataset.decision)));
+  assetManagerState.querySelectorAll('.mark-anchor').forEach(b=>b.addEventListener('click',()=>openAnchor(JSON.parse(b.dataset.candidate))));
 }
 
 async function reviewAsset(assetId,decision){
@@ -375,3 +377,9 @@ async function reviewAsset(assetId,decision){
   try{await rpc("asset_manager_review",{p_teacher_token:token,p_asset_id:assetId,p_decision:decision,p_reviewer:"Teacher"});await loadAssets();}
   catch(error){assetStatus.textContent=`Review failed: ${error.message}`;}
 }
+
+function openAnchor(candidate){anchorCandidate=candidate;anchorDraft=null;anchorBox.hidden=true;anchorPrompt.textContent=`Drag a rectangle around ${candidate.required[0]}.`;anchorImage.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${candidate.path}`;anchorDialog.showModal()}
+anchorStage.addEventListener('pointerdown',e=>{const r=anchorStage.getBoundingClientRect();anchorStart={x:e.clientX-r.left,y:e.clientY-r.top};anchorBox.hidden=false});
+anchorStage.addEventListener('pointermove',e=>{if(!anchorStart)return;const r=anchorStage.getBoundingClientRect(),x=Math.max(0,Math.min(anchorStart.x,e.clientX-r.left)),y=Math.max(0,Math.min(anchorStart.y,e.clientY-r.top)),w=Math.abs(e.clientX-r.left-anchorStart.x),h=Math.abs(e.clientY-r.top-anchorStart.y);Object.assign(anchorBox.style,{left:`${x}px`,top:`${y}px`,width:`${w}px`,height:`${h}px`});anchorDraft={anchor_name:anchorCandidate.required[0],x_percent:x/r.width*100,y_percent:y/r.height*100,width_percent:w/r.width*100,height_percent:h/r.height*100}});
+anchorStage.addEventListener('pointerup',()=>anchorStart=null);
+saveAnchorButton.addEventListener('click',async()=>{if(!anchorDraft){anchorStatus.textContent='Draw an anchor first.';return}try{const anchors=[...anchorCandidate.anchors.filter(a=>a.anchor_name!==anchorDraft.anchor_name),anchorDraft];await rpc('asset_manager_save_anchors',{p_teacher_token:teacherTokenInput.value.trim(),p_asset_id:anchorCandidate.id,p_ui_anchors:anchors});anchorStatus.textContent='Anchor saved.';await loadAssets()}catch(e){anchorStatus.textContent=`Save failed: ${e.message}`}});
