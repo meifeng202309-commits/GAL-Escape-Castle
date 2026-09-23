@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-23T11:17:00Z
+> Last refreshed: 2026-09-23T16:03:01Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 4
-CURRENT_GATE          = BLOCKED_BY_SPRINT4_FOCUSED_LEVEL1_REAUDIT
+CURRENT_GATE          = BLOCKED_BY_SPRINT4_SECOND_FOCUSED_LEVEL1_REAUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD makes narrow additive corrections for S4-CA-006 and S4-RC-001 using migration 025+ as needed, preserves deployed 018–024, runs adjacent regressions, and submits correction for focused Level 1 CA re-audit
+NEXT_REQUIRED_ACTION  = CD makes narrow additive corrections for S4-RC-002 and S4-RC-003 using migration 026+ as needed, preserves deployed 018–025, runs adjacent regressions, and submits correction for focused Level 1 CA re-audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -87,7 +87,7 @@ Sprint 2  = PASS
 Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
-Sprint 4  = FOCUSED LEVEL 1 RE-AUDIT FAIL — 2 NARROW BLOCKERS
+Sprint 4  = SECOND FOCUSED LEVEL 1 RE-AUDIT FAIL — 2 ADJACENT BLOCKERS
 ```
 
 Sprint3C verified correction baseline:
@@ -157,24 +157,26 @@ S4-CA-002 HIGH   = FIXED_VERIFIED
 S4-CA-003 HIGH   = FIXED_VERIFIED
 S4-CA-004 HIGH   = FIXED_VERIFIED
 S4-CA-005 MEDIUM = FIXED_VERIFIED
-S4-CA-006 MEDIUM = OPEN — lifecycle/replay identity not fully closed
+S4-CA-006 MEDIUM = FIXED_VERIFIED
 S4-CA-007 MEDIUM = FIXED_VERIFIED
-S4-RC-001 MEDIUM = OPEN — group activation/rollback lacks durable operational history
+S4-RC-001 MEDIUM = FIXED_VERIFIED
+S4-RC-002 MEDIUM = OPEN — group transition can false-succeed on NULL/nonexistent targets
+S4-RC-003 MEDIUM = OPEN — registry sync can race transition and split active_version from ACTIVE candidate
 ```
 
-Focused Level 1 re-audit:
+Second focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-23_sprint4_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-23_sprint4_second_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260923T111525Z_sprint4-focused-level1-reaudit-fail-two-narrow-blockers.md
+agent-comms/CA_to_CD_20260923T160301Z_sprint4-second-focused-level1-reaudit-fail-adjacent-blockers.md
 ```
 
-Deployed migrations `018–024` are immutable. Any DB correction begins at `025+`.
+Deployed migrations `018–025` are immutable. Any DB correction begins at `026+`.
 
 ---
 
