@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-23T03:16:00Z
+> Last refreshed: 2026-09-23T11:17:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 4
-CURRENT_GATE          = BLOCKED_BY_SPRINT4_LEVEL1_AUDIT
+CURRENT_GATE          = BLOCKED_BY_SPRINT4_FOCUSED_LEVEL1_REAUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD makes narrow additive corrections for S4-CA-001..007 using migration 024+ as needed, preserves deployed 018–023, runs adjacent regressions, and submits correction for focused Level 1 CA re-audit
+NEXT_REQUIRED_ACTION  = CD makes narrow additive corrections for S4-CA-006 and S4-RC-001 using migration 025+ as needed, preserves deployed 018–024, runs adjacent regressions, and submits correction for focused Level 1 CA re-audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -87,7 +87,7 @@ Sprint 2  = PASS
 Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
-Sprint 4  = LEVEL 1 AUDIT FAIL — NARROW CORRECTION REQUIRED
+Sprint 4  = FOCUSED LEVEL 1 RE-AUDIT FAIL — 2 NARROW BLOCKERS
 ```
 
 Sprint3C verified correction baseline:
@@ -152,28 +152,29 @@ S4-SCOPE-03 = registry/runtime identity+version authority must not silently spli
 ## 6. Current Sprint4 blockers
 
 ```text
-S4-CA-001 HIGH   = global Asset Manager Teacher authority can be self-issued via ordinary room creation
-S4-CA-002 HIGH   = publisher automatically manufactures semantic APPROVED decision
-S4-CA-003 HIGH   = paired activation can expose one-sided ACTIVE runtime state
-S4-CA-004 HIGH   = registry hash/projection drift evidence can silently be stale/mixed
-S4-CA-005 MEDIUM = Teacher anchor UI handles only required[0]
-S4-CA-006 MEDIUM = register-before-upload can strand non-retriable PENDING_REVIEW state / incomplete lifecycle
-S4-CA-007 MEDIUM = reusable publication path lacks stored-object SHA verification before publication record
+S4-CA-001 HIGH   = FIXED_VERIFIED
+S4-CA-002 HIGH   = FIXED_VERIFIED
+S4-CA-003 HIGH   = FIXED_VERIFIED
+S4-CA-004 HIGH   = FIXED_VERIFIED
+S4-CA-005 MEDIUM = FIXED_VERIFIED
+S4-CA-006 MEDIUM = OPEN — lifecycle/replay identity not fully closed
+S4-CA-007 MEDIUM = FIXED_VERIFIED
+S4-RC-001 MEDIUM = OPEN — group activation/rollback lacks durable operational history
 ```
 
-Full Level 1 report:
+Focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-23_sprint4_level1/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-23_sprint4_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260923T031419Z_sprint4-level1-audit-fail-narrow-corrections.md
+agent-comms/CA_to_CD_20260923T111525Z_sprint4-focused-level1-reaudit-fail-two-narrow-blockers.md
 ```
 
-Deployed migrations `018–023` are verified unchanged and are immutable. Any DB correction begins at `024+`.
+Deployed migrations `018–024` are immutable. Any DB correction begins at `025+`.
 
 ---
 
