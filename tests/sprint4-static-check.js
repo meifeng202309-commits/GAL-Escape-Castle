@@ -5,6 +5,7 @@ const storage=read('database/020_sprint4_controlled_storage_publication.sql'),pu
 const anchors=read('database/021_sprint4_anchor_and_activation_controls.sql');
 const paired=read('database/022_sprint4_paired_activation_gate.sql');
 const rollback=read('database/023_sprint4_rollback_state_correction.sql');
+const narrow=read('database/024_sprint4_level1_narrow_corrections.sql'),importer=read('scripts/import-asset-candidate.mjs');
 for(const x of ['ASSIGNED','MISSING','UPLOADED','PENDING_REVIEW','APPROVED','REJECTED','ACTIVE','SUPERSEDED','asset_registry_projection','asset_candidates_one_active','registry_sha256','asset_manager_mark_published','asset_manager_activate','asset_resolve','asset_load_failed','Required anchor is missing','Canonical registry active_version'])if(!sql.includes(x))throw Error('missing '+x);
 if(/service_role|service-role key/i.test(read('src/teacher/teacher-console.js')))throw Error('browser secret boundary violated');
 const html=read('teacher.html'),js=read('src/teacher/teacher-console.js');for(const x of ['Game Assets','assetReadyBadge','assetManagerState'])if(!html.includes(x))throw Error('UI missing '+x);for(const x of ['asset_manager_state','asset_manager_review','GAME READY'])if(!js.includes(x))throw Error('client missing '+x);
@@ -13,4 +14,9 @@ for(const x of ["'game-assets'",'to service_role','from public,anon,authenticate
 for(const x of ['asset_manager_save_anchors','Invalid percentage anchor','asset_manager_rollback','to service_role'])if(!anchors.includes(x))throw Error('021 missing '+x);for(const x of ['anchorStage','pointerdown','asset_manager_save_anchors'])if(!js.includes(x))throw Error('anchor UI missing '+x);
 for(const x of ['asset_manager_activate_pre022','paired_asset_group','Paired asset is not activation-ready','to service_role'])if(!paired.includes(x))throw Error('022 missing '+x);
 for(const x of ["status='APPROVED'",'asset_manager_activate(p_teacher_token,p_asset_id)','Rollback target is not eligible'])if(!rollback.includes(x))throw Error('023 missing '+x);
+for(const x of ['asset_manager_reviewers','asset_manager_assert_reviewer','count(distinct','extensions.digest','Registry content hash mismatch','delete from public.asset_registry_projection','asset_manager_import_candidate','asset_manager_submit_for_review',"'UPLOADED'",'asset_manager_activate_group','Complete paired activation group is required','Required anchor is missing','asset_manager_rollback_group'])if(!narrow.includes(x))throw Error('024 missing '+x);
+for(const x of ['asset_manager_import_candidate','asset_manager_submit_for_review'])if(!importer.includes(x))throw Error('importer missing '+x);
+if(publisher.includes("rpc('asset_manager_review'")||publisher.includes('asset_manager_register_candidate'))throw Error('publisher must not review or register candidates');
+for(const x of ['already-APPROVED','storedBytes','Published object SHA-256 mismatch'])if(!publisher.includes(x))throw Error('publisher separation missing '+x);
+for(const x of ['anchorNameSelect','candidate.required.map','anchorNameSelect.value'])if(!js.includes(x)||!html.includes('anchorNameSelect'))throw Error('multi-anchor UI missing '+x);
 console.log('Sprint 4 static checks passed.');
