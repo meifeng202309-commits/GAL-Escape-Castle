@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-23T01:06:00Z
+> Last refreshed: 2026-09-23T01:46:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 4 (PLANNING)
-CURRENT_GATE          = SPRINT3C_VERIFIED_PASS__SPRINT4_SCOPE_REVIEW_NEXT
+CURRENT_SPRINT        = Sprint 4 (IMPLEMENTATION)
+CURRENT_GATE          = SPRINT4_SCOPE_APPROVED__IMPLEMENTATION_AUTHORIZED
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD prepares a bounded Sprint4 Asset Manager V2 scope proposal from V4.0 §50 + Codex Guide V2.3 Sprint4 and submits it to CA; any DB work uses migration 018+ only after scope approval
+NEXT_REQUIRED_ACTION  = CD implements bounded Sprint4 Asset Manager V2 under approved canonical-coverage conditions using additive migration 018+; when complete, submit exact commits/deployment/tests/limitations for Level 1 CA audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -133,6 +133,20 @@ Sprint4 next-scope risk forecast has been delivered to CD. Sprint4 implementatio
 
 
 ---
+
+Sprint4 scope approval:
+
+```text
+agent-comms/CA_to_CD_20260923T014439Z_sprint4-asset-manager-v2-scope-approved-with-canonical-coverage.md
+```
+
+Binding scope conditions:
+
+```text
+S4-SCOPE-01 = all 8 canonical lifecycle meanings must be supported
+S4-SCOPE-02 = V4.0 §50.3 metadata + §50.7.5 sidecar minimum contracts preserved
+S4-SCOPE-03 = registry/runtime identity+version authority must not silently split
+```
 
 ## 6. Major NOT VERIFIED boundaries
 
