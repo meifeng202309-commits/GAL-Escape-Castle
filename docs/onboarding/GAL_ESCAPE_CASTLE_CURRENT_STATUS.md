@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-22T17:19:00Z  
+> Last refreshed: 2026-09-23T01:06:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 3C
-CURRENT_GATE          = BLOCKED_BY_SPRINT3C_LEVEL1_AUDIT
+CURRENT_SPRINT        = Sprint 4 (PLANNING)
+CURRENT_GATE          = SPRINT3C_VERIFIED_PASS__SPRINT4_SCOPE_REVIEW_NEXT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD makes narrow corrections for S3C-CA-001 and S3C-CA-002, preserves deployed migration 015 immutability, adds adjacent regression coverage, and submits the correction for focused Level 1 CA re-audit
+NEXT_REQUIRED_ACTION  = CD prepares a bounded Sprint4 Asset Manager V2 scope proposal from V4.0 §50 + Codex Guide V2.3 Sprint4 and submits it to CA; any DB work uses migration 018+ only after scope approval
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -86,57 +86,51 @@ Sprint 1  = VERIFIED PASS
 Sprint 2  = PASS
 Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
-Sprint 3C = LEVEL 1 AUDIT FAIL — NARROW CORRECTION REQUIRED
+Sprint 3C = VERIFIED PASS
 ```
 
-Sprint3C audited baseline:
+Sprint3C verified correction baseline:
 
 ```text
-c8387242b086732560c5f807080cb1a80d963a3e
+401a65847e94c534cd5e5458b865a304e510b74c
 ```
 
-Sprint3C migration:
+Sprint3C migration chain:
 
 ```text
 database/015_sprint3c_minimal_safe_teacher_override.sql
+database/016_sprint3c_level1_narrow_corrections.sql
+database/017_sprint3c_override_act2_entry_correction.sql
 ```
+
+Do not modify deployed migrations 001–017. Next unused migration is 018.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
 ---
 
-## 5. Current Sprint3C blockers
+## 5. Sprint3C closure / Sprint4 next gate
 
 ```text
-S3C-CA-001 MEDIUM:
-ACT1 SKIP can preserve a real first choice but leave that player in act1_stage=consequence while the authoritative run advances to ACT2. Canonical override semantics require every unfinished ACT1 player to reach ACT1-complete Game Track state without fabricating behavior.
-
-S3C-CA-002 HIGH:
-Migration 015 adds upstream Teacher Override provenance only to s3b_log_formal_event_at_context. Later genuine DiscussionRoom behavior still uses s2_log_event, so those behavior events can lack required context_provenance.upstream_teacher_override=true.
+S3C-CA-001 MEDIUM = FIXED_VERIFIED
+S3C-CA-002 HIGH   = FIXED_VERIFIED
+Sprint3C gate     = PASS
 ```
 
-Full Level 1 report:
+Focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-23_sprint3c_level1/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-23_sprint3c_level1_reaudit/AUDIT_REPORT.md
 ```
 
-Formal CA→CD handoff:
+Formal CA→CD PASS handoff:
 
 ```text
-agent-comms/CA_to_CD_20260922T171700Z_sprint3c-level1-audit-fail-narrow-corrections.md
+agent-comms/CA_to_CD_20260923T010444Z_sprint3c-focused-level1-reaudit-pass.md
 ```
 
-CD-reported verification for the failed baseline remains supporting evidence only:
+Sprint4 next-scope risk forecast has been delivered to CD. Sprint4 implementation is not yet broadly authorized; next step is bounded scope review.
 
-```text
-Static suites = PASS
-Sprint1 live  = 40/40 PASS
-Sprint2 live  = 23/23 PASS
-Sprint3A live = 15/15 PASS
-Sprint3B live = 44/44 PASS
-Sprint3C live = 14/14 PASS
-```
 
 ---
 
