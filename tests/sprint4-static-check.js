@@ -7,6 +7,8 @@ const paired=read('database/022_sprint4_paired_activation_gate.sql');
 const rollback=read('database/023_sprint4_rollback_state_correction.sql');
 const narrow=read('database/024_sprint4_level1_narrow_corrections.sql'),importer=read('scripts/import-asset-candidate.mjs');
 const blockers=read('database/025_sprint4_two_narrow_blockers.sql');
+const adjacent=read('database/026_sprint4_group_target_and_registry_lock.sql');
+const adjacentDbTest=read('tests/sprint4-026-db-regression.sql');
 for(const x of ['ASSIGNED','MISSING','UPLOADED','PENDING_REVIEW','APPROVED','REJECTED','ACTIVE','SUPERSEDED','asset_registry_projection','asset_candidates_one_active','registry_sha256','asset_manager_mark_published','asset_manager_activate','asset_resolve','asset_load_failed','Required anchor is missing','Canonical registry active_version'])if(!sql.includes(x))throw Error('missing '+x);
 if(/service_role|service-role key/i.test(read('src/teacher/teacher-console.js')))throw Error('browser secret boundary violated');
 const html=read('teacher.html'),js=read('src/teacher/teacher-console.js');for(const x of ['Game Assets','assetReadyBadge','assetManagerState'])if(!html.includes(x))throw Error('UI missing '+x);for(const x of ['asset_manager_state','asset_manager_review','GAME READY'])if(!js.includes(x))throw Error('client missing '+x);
@@ -22,4 +24,6 @@ for(const x of ['already-APPROVED','storedBytes','Published object SHA-256 misma
 for(const x of ['anchorNameSelect','candidate.required.map','anchorNameSelect.value'])if(!js.includes(x)||!html.includes('anchorNameSelect'))throw Error('multi-anchor UI missing '+x);
 for(const x of ['revoke execute on function public.asset_manager_register_candidate(text,jsonb) from service_role','Conflicting candidate replay identity','asset_manager_transition_group',"'candidate_uploaded'","'activated','rolled_back'",'previous_active_version','group_asset_ids'])if(!blockers.includes(x))throw Error('025 missing '+x);
 if(!js.includes('anchorCandidate.anchors=anchors'))throw Error('anchor dialog snapshot is not refreshed');
+for(const x of ['p_asset_ids is null','array_position(p_asset_ids,null)','count(distinct id)','Activation group target does not exist','asset_registry_projection r','order by r.asset_key for update','Activation group target changed during transition'])if(!adjacent.includes(x))throw Error('026 missing '+x);
+for(const x of ['null::uuid[]',"'{}'::uuid[]",'array[existing,existing]','array[existing,gen_random_uuid()]','asset_manager_rollback_group','55P03'])if(!adjacentDbTest.includes(x))throw Error('026 DB regression missing '+x);
 console.log('Sprint 4 static checks passed.');
