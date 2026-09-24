@@ -7,6 +7,7 @@ const triggerFix = fs.readFileSync(path.join(root, "database/038_level3_cross_sp
 const discussionFix = fs.readFileSync(path.join(root, "database/039_level3_s5_canonical_discussion_fix.sql"), "utf8");
 const verificationSupport = fs.readFileSync(path.join(root, "database/040_level2_closure_verification_support.sql"), "utf8");
 const normalS5Support = fs.readFileSync(path.join(root, "database/041_level2_normal_s5_verification_support.sql"), "utf8");
+const authorityCleanup = fs.readFileSync(path.join(root, "database/042_remove_ungoverned_normal_deadline_helpers.sql"), "utf8");
 const app = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 
 function requireAll(source, label, fragments) {
@@ -70,12 +71,23 @@ requireAll(normalS5Support, "IDA-004 NORMAL boundary verification", [
   "g.run_mode<>'normal'",
   "perform public.s2_refresh_discussion",
 ]);
+requireAll(authorityCleanup, "IDA-006 authority cleanup", [
+  "revoke execute on function public.s6_verify_expire_discussion",
+  "revoke execute on function public.s5_verify_expire_discussion",
+  "drop function public.s6_verify_expire_discussion",
+  "drop function public.s5_verify_expire_discussion",
+]);
 requireAll(app, "IDA-002 durable retry outbox", [
   "SPRINT6_AUDIO_OUTBOX_KEY",
   "flushSprint6AudioConsumptions",
   "Sprint6 audio consumption remains queued",
   "locallyConsumed=Boolean(sprint6AudioOutbox()[identity])",
 ]);
+const localSuppressor = app.indexOf("locallyConsumed=Boolean(sprint6AudioOutbox()[identity])");
+const outboxFlush = app.indexOf("await flushSprint6AudioConsumptions()", localSuppressor);
+if (localSuppressor < 0 || outboxFlush < localSuppressor) {
+  throw new Error("IDA-002 hydration must capture the local suppressor before flushing the outbox.");
+}
 
 requireAll(migration, "IDA-005 append-only chronology", [
   "create table public.act6_13_event_ledger",
