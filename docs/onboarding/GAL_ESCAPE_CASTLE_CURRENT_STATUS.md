@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T11:24:00Z
-> Updated by: CA
+> Last refreshed: 2026-09-24T11:43:00Z
+> Updated by: GA
 
 ---
 
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = Sprint 6
 CURRENT_GATE          = BLOCKED_BY_SPRINT6_THIRD_FOCUSED_LEVEL1_REAUDIT
-CURRENT_OWNER         = CD + GA / Teacher
-NEXT_REQUIRED_ACTION  = CD closes remaining S6-CA-004 technical audio-coverage gap while GA/Teacher resolves canonical approval for runtime.audio.full/reduced/mute/blocked; preserve deployed migrations 001–036; after both are closed submit final Sprint6 focused Level 1 CA re-audit request
+CURRENT_OWNER         = CD
+NEXT_REQUIRED_ACTION  = CD closes the remaining S6-CA-004 technical all-Sprint6 audio-coverage gap, preserves deployed migrations 001–036, runs adjacent regressions, then submits the final Sprint6 focused Level 1 CA re-audit request; GA/Teacher localization authority is already resolved
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -226,7 +226,7 @@ Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is 
 S6-CA-001 HIGH   = FIXED_VERIFIED
 S6-CA-002 HIGH   = FIXED_VERIFIED
 S6-CA-003 HIGH   = FIXED_VERIFIED
-S6-CA-004 HIGH   = PARTIALLY_FIXED / OPEN — all-Sprint6 audio accessibility coverage incomplete; four new audio-control text keys await GA/Teacher canonical approval
+S6-CA-004 HIGH   = PARTIALLY_FIXED / OPEN — GA/Teacher localization authority is resolved; remaining blocker is technical all-Sprint6 audio accessibility coverage
 S6-RC-001 HIGH   = FIXED_VERIFIED
 S6-RC-002 MEDIUM = FIXED_VERIFIED
 Golden Key item identity = FIXED_VERIFIED
@@ -245,10 +245,17 @@ Formal CA→CD handoff:
 agent-comms/CA_to_CD_20260924T112200Z_sprint6-third-focused-reaudit-blocked-one-finding.md
 ```
 
-Canonical localization review request:
+Canonical localization review request and resolution:
 
 ```text
 agent-comms/CA_to_GA_20260924T112300Z_audio-accessibility-localization-review-request.md
+agent-comms/GA_to_CA_20260924T114100Z_audio-accessibility-localization-review-response.md
+```
+
+Approved/revised canonical audio text catalog commit:
+
+```text
+13e89a09ae80a3cadd2b930275896a9ae558600f
 ```
 
 Migrations `033–036` remain immutable. No migration `037` is currently required unless the remaining technical correction genuinely needs one.
