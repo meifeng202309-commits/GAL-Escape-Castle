@@ -30,6 +30,7 @@ const creationRestore = fs.readFileSync("database/032_sprint5_discussion_creatio
 for (const text of ["allow_share_photo=p_phase in('act6_vote','act8_final_vote')", "s5_get_teacher_discussion_state", "s5_teacher_open_vote", "s5_teacher_add_time", "idempotent_replay"]) if (!focused.includes(text)) throw new Error(`Missing focused re-audit correction: ${text}`);
 for (const text of ["counterclockwise", "prop_gitte_castle_map", "prop.photo_1897", "pocket.observations", "pocket.shared_photos", "data-share-item"]) if (!app.includes(text)) throw new Error(`Missing Sprint 5 evidence UI: ${text}`);
 for (const text of ["sprint5EvidencePanel", "data-s5-evidence-phase", "data-flip-item", "s3_set_item_view", "library_torn_note", "linda_stopped_watch", "s.phase_key.startsWith(\"act6\")||s.phase_key.startsWith(\"act7\")"]) if (!app.includes(text)) throw new Error(`Missing mounted ACT6/ACT7 interaction: ${text}`);
+for (const text of ["const activeSession=session", "if(session!==activeSession)return"]) if (!app.includes(text)) throw new Error(`Missing reconnect/session-switch guard: ${text}`);
 for (const text of ["insert into public.discussion_sessions", "allow_share_photo=p_phase in('act6_vote','act8_final_vote')"]) if (!creationRestore.includes(text)) throw new Error(`Missing Sprint 5 discussion creation restore: ${text}`);
 if (/database\/02[0-6]_/.test("database/027_sprint5_act6_8_runtime.sql")) throw new Error("Immutable migration range touched.");
 console.log("Sprint 5 static checks passed.");

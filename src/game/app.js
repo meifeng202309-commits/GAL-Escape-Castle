@@ -110,25 +110,29 @@ async function joinRoom() {
 }
 
 async function refreshState() {
-  if (!session) return;
+  const activeSession=session;
+  if (!activeSession) return;
   try {
     const sprint1State = await rpc("s1_get_player_state", {
-      p_room_code: session.room_code,
-      p_session_token: session.session_token,
+      p_room_code: activeSession.room_code,
+      p_session_token: activeSession.session_token,
     });
     const discussionState = await rpc("s2_get_player_state", {
-      p_room_code: session.room_code,
-      p_session_token: session.session_token,
+      p_room_code: activeSession.room_code,
+      p_session_token: activeSession.session_token,
     });
+    if(session!==activeSession)return;
     if (discussionState.active) {
       const sprint3bState = await rpc("s3b_get_player_state", {
-        p_room_code: session.room_code,
-        p_session_token: session.session_token,
+        p_room_code: activeSession.room_code,
+        p_session_token: activeSession.session_token,
       });
-      const sprint5State = await rpc("s5_get_player_state", {p_room_code:session.room_code,p_session_token:session.session_token}).catch(()=>({active:false}));
-      const pocketState = sprint5State.active ? await rpc("s3_get_player_state", {p_room_code:session.room_code,p_session_token:session.session_token}) : null;
+      const sprint5State = await rpc("s5_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
+      const pocketState = sprint5State.active ? await rpc("s3_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}) : null;
+      if(session!==activeSession)return;
       if (!sprint3bState.active || !sprint3bState.scene) throw new Error("Formal game state is unavailable. Retry before taking another action.");
-      renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", {p_room_code:session.room_code,p_session_token:session.session_token}) : discussionState);
+      renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}) : discussionState);
+      if(session!==activeSession)return;
       if(sprint5State.active)renderSprint5(sprint5State,pocketState);else renderSprint3b(sprint3bState);
       return;
     }
