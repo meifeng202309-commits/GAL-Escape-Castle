@@ -6,6 +6,7 @@ const migration = fs.readFileSync(path.join(root, "database/037_level3_independe
 const triggerFix = fs.readFileSync(path.join(root, "database/038_level3_cross_sprint_trigger_fix.sql"), "utf8");
 const discussionFix = fs.readFileSync(path.join(root, "database/039_level3_s5_canonical_discussion_fix.sql"), "utf8");
 const verificationSupport = fs.readFileSync(path.join(root, "database/040_level2_closure_verification_support.sql"), "utf8");
+const normalS5Support = fs.readFileSync(path.join(root, "database/041_level2_normal_s5_verification_support.sql"), "utf8");
 const app = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 
 function requireAll(source, label, fragments) {
@@ -63,6 +64,11 @@ requireAll(verificationSupport, "IDA-001 NORMAL deadline verification", [
   "g.run_mode<>'normal'",
   "scene_id='sprint6'",
   "phase_deadline=clock_timestamp()-interval '1 second'",
+]);
+requireAll(normalS5Support, "IDA-004 NORMAL boundary verification", [
+  "function public.s5_verify_expire_discussion",
+  "g.run_mode<>'normal'",
+  "perform public.s2_refresh_discussion",
 ]);
 requireAll(app, "IDA-002 durable retry outbox", [
   "SPRINT6_AUDIO_OUTBOX_KEY",

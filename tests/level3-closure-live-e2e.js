@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const { rpc, assert, id, auth, oldVote, vote, state, s6state, s6id, s6group, s6private } = require("./sprint5-live-e2e");
+const { rpc, assert, id, auth, oldVote, state, s6state, s6id, s6group, s6private } = require("./sprint5-live-e2e");
 
 async function fixture() {
   const room = id("L3");
@@ -48,20 +48,41 @@ async function expireByPoll(f, expectedPhase) {
   assert(reconnect.state.phase_key === expectedNext && !reconnect.discussion, `${expectedPhase} reconnect diverged`);
 }
 
+async function voteNormal(f, choices) {
+  const before = await rpc("s5_get_discussion_state", auth(f, 0));
+  assert(before.discussion?.status === "discussion", "NORMAL Sprint5 discussion was not open");
+  await rpc("s5_verify_expire_discussion", {
+    p_room_code: f.room,
+    p_teacher_token: f.teacher,
+    p_expected_discussion_session_id: before.discussion.discussion_session_id,
+  });
+  const voting = await rpc("s5_get_discussion_state", auth(f, 1));
+  assert(voting.discussion.status === "voting", "NORMAL Sprint5 deadline did not open voting");
+  for (let i = 0; i < 3; i++) {
+    await rpc("s5_submit_vote", {
+      ...auth(f, i),
+      p_expected_discussion_session_id: voting.discussion.discussion_session_id,
+      p_expected_vote_round: voting.discussion.vote_round,
+      p_client_request_id: crypto.randomUUID(),
+      p_choice_id: choices[i],
+    });
+  }
+}
+
 async function completeSprint5(f) {
   let s = await state(f);
   assert(s.state.phase_key === "act6_vote" && s.discussion, "ACT5→6 automatic entry failed");
   const reconnect = await state(f, 2);
   assert(reconnect.discussion.discussion_session_id === s.discussion.discussion_session_id, "ACT6 reconnect created a second discussion");
-  await vote(f, ["escape", "1897", "trapped"]);
-  await vote(f, ["escape", "1897", "trapped"]);
+  await voteNormal(f, ["escape", "1897", "trapped"]);
+  await voteNormal(f, ["escape", "1897", "trapped"]);
   await rpc("s5_advance", auth(f, 0));
-  await vote(f, ["clock_c", "clock_c", "clock_b"]);
+  await voteNormal(f, ["clock_c", "clock_c", "clock_b"]);
   await rpc("s5_advance", auth(f, 0));
   for (const [i, choice] of ["main_gate", "west_tower", "compare"].entries()) {
     await rpc("s5_submit_private_choice", { ...auth(f, i), p_client_request_id: crypto.randomUUID(), p_choice_id: choice });
   }
-  await vote(f, ["west_tower", "west_tower", "main_gate"]);
+  await voteNormal(f, ["west_tower", "west_tower", "main_gate"]);
   await rpc("s5_advance", auth(f, 0));
   s = await s6state(f);
   assert(s.active && s.state.phase_key === "act9_discussion", "ACT8→9 automatic entry failed");
