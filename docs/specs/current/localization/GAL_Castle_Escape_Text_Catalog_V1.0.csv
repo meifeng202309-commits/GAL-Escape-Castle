@@ -340,7 +340,7 @@ discussion.previous_vote_rounds,Shared DiscussionRoom,static,bilingual,Previous 
 discussion.vote_round,Shared DiscussionRoom,template,bilingual,Vote round {round_no},Stemronde {round_no},第 {round_no} 轮投票,ADDED_DISCUSSIONROOM_LOCALIZATION,Current vote-round label.
 discussion.submitted_progress,Shared DiscussionRoom,template,bilingual,{submitted}/3 submitted,{submitted}/3 ingediend,已提交 {submitted}/3,ADDED_DISCUSSIONROOM_LOCALIZATION,Generic submission progress.
 discussion.votes_received_progress,Shared DiscussionRoom,template,bilingual,{submitted}/3 votes received.,{submitted}/3 stemmen ontvangen.,已收到 {submitted}/3 票。,ADDED_DISCUSSIONROOM_LOCALIZATION,Student-facing vote progress; developer phrase about synthesis removed.
-runtime.audio.full,Sprint 6 audio controls,static,bilingual,Full volume,Volledig volume,正常音量,ADDED_RUNTIME_ACCESSIBILITY,Restores canonical audio level.
-runtime.audio.reduced,Sprint 6 audio controls,static,bilingual,Reduced volume,Lager volume,低音量,ADDED_RUNTIME_ACCESSIBILITY,Reduced-volume accessibility control.
-runtime.audio.mute,Sprint 6 audio controls,static,bilingual,Mute sound,Geluid dempen,静音,ADDED_RUNTIME_ACCESSIBILITY,Mute accessibility control.
-runtime.audio.blocked,Sprint 6 audio controls,static,bilingual,Sound is paused. Use an audio control to retry.,Geluid is gepauzeerd. Gebruik een audioknop om opnieuw te proberen.,声音已暂停。请使用音频控制重试。,ADDED_RUNTIME_ACCESSIBILITY,Visible recovery path when browser playback is blocked.
+runtime.audio.full,Sprint 6 audio controls,static,bilingual,Normal volume,Normaal volume,正常音量,ADDED_RUNTIME_ACCESSIBILITY,GA/Teacher reviewed 2026-09-24; restores canonical audio level.
+runtime.audio.reduced,Sprint 6 audio controls,static,bilingual,Reduced volume,Lager volume,较低音量,ADDED_RUNTIME_ACCESSIBILITY,GA/Teacher reviewed 2026-09-24; reduced-volume accessibility control.
+runtime.audio.mute,Sprint 6 audio controls,static,bilingual,Mute,Geluid uit,静音,ADDED_RUNTIME_ACCESSIBILITY,GA/Teacher reviewed 2026-09-24; mute accessibility control.
+runtime.audio.blocked,Sprint 6 audio controls,static,bilingual,Sound couldn't start. Choose a volume setting to try again.,Het geluid kon niet starten. Kies een volume-instelling om het opnieuw te proberen.,声音未能播放。请选择一个音量设置后重试。,ADDED_RUNTIME_ACCESSIBILITY,GA/Teacher reviewed 2026-09-24; visible recovery path when browser playback is blocked.
