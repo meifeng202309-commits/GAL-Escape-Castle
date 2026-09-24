@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T05:24:30Z
+> Last refreshed: 2026-09-24T08:34:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 6
-CURRENT_GATE          = READY_FOR_SPRINT6_IMPLEMENTATION
+CURRENT_GATE          = BLOCKED_BY_SPRINT6_LEVEL1_AUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements canonical Sprint6 ACT 9–13, preserves verified Sprint1–5 baselines and deployed migrations 001–032, runs required regressions, and submits completed Sprint6 scope for normal Level 1 CA audit
+NEXT_REQUIRED_ACTION  = CD closes S6-CA-001/002/003/004 and S6-RC-001/002 within Sprint6 ACT9–13 scope, preserves deployed migrations 001–034, runs adjacent regressions, and submits a focused Level 1 CA re-audit request
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -89,7 +89,7 @@ Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
-Sprint 6  = READY FOR IMPLEMENTATION
+Sprint 6  = LEVEL 1 AUDIT FAIL — 6 FINDINGS
 ```
 
 Sprint3C verified correction baseline:
@@ -106,7 +106,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 033.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 035.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -179,7 +179,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–032` are immutable. Next unused migration is `033`.
+Deployed migrations `018–034` are immutable. Next unused migration is `035`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -214,13 +214,43 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–032` are immutable. Next unused migration is `033`.
+Migrations `027–034` are immutable. Next unused migration is `035`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
 ---
 
-## 8. Visual / asset snapshot
+## 8. Current Sprint6 blockers
+
+```text
+S6-CA-001 HIGH   = OPEN — canonical ACT9/10/11 DiscussionRoom behavior missing; client still coupled to Sprint5 discussion authority
+S6-CA-002 HIGH   = OPEN — Great Hall no-consensus/soft-failure presentation incorrect or absent
+S6-CA-003 HIGH   = OPEN — ACT11/12 station-specific allocation/task semantics omitted
+S6-CA-004 HIGH   = OPEN — ACT12 cinematic/audio + ACT13 visual/browser boundary incomplete
+S6-RC-001 HIGH   = OPEN — stale action/step/round requests can retarget current state
+S6-RC-002 MEDIUM = OPEN — allocation/private-choice/provenance evidence durability gaps
+Sprint6 gate     = FAIL / BLOCKED
+```
+
+Level 1 audit:
+
+```text
+docs/audits/regular/runs/2026-09-24_sprint6_level1/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260924T083300Z_sprint6-level1-audit-fail-six-findings.md
+```
+
+Migrations `033–034` are deployed history and must remain immutable. Any DB correction begins at `035+`.
+
+Sprint7 is not authorized while this gate remains open.
+
+---
+
+## 9. Visual / asset snapshot
 
 Visual production may continue under Castle Visual V2.1 + `assets/asset-registry.json` governance.
 
@@ -231,7 +261,7 @@ MASTER identities ≠ automatic runtime asset_keys
 
 ---
 
-## 9. Memory-system adoption
+## 10. Memory-system adoption
 
 Active adoption message:
 
@@ -250,7 +280,7 @@ docs/logs/VA_ACTION_LOG.csv
 
 ---
 
-## 10. When this snapshot is stale
+## 11. When this snapshot is stale
 
 Use, in order:
 
