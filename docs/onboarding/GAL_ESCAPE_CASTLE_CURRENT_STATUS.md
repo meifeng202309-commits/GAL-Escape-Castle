@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T16:23:00Z
+> Last refreshed: 2026-09-24T17:49:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = ACT1–13 Level2 residual closure remediation
-CURRENT_GATE          = LEVEL2_RESIDUAL_CLOSURE_REAUDIT_FAIL
+CURRENT_SPRINT        = Sprint 7 — Teacher Console expansion
+CURRENT_GATE          = SPRINT7_IMPLEMENTATION_AUTHORIZED
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes IDA-002, residual IDA-005 audio-forensic dependency, and new IDA-006 Teacher verification-authority regression on correction baseline 69fcf8fc998e8a5622dbd5e2b69447a2a2cb37d9; preserves deployed migrations 001–041; adds adjacent regressions; then submits another Level2 targeted closure request; Sprint7 remains blocked
+NEXT_REQUIRED_ACTION  = CD implements canonical Sprint7 Teacher Console expansion under Codex V2.4, preserves migrations 001–042, keeps Sprint8 ACT14/finalization/export out of scope, then submits Sprint7 for regular Level1 CA audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -100,7 +100,7 @@ Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
 Sprint 6  = VERIFIED PASS
-Sprint 7  = BLOCKED PENDING LEVEL2 CLOSURE PASS
+Sprint 7  = AUTHORIZED / IMPLEMENTATION
 ```
 
 Sprint3C verified correction baseline:
@@ -117,7 +117,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 042.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 043.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -190,7 +190,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `042`.
+Deployed migrations `018–036` are immutable. Next unused migration is `043`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -225,49 +225,50 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `042`.
+Migrations `027–036` are immutable. Next unused migration is `043`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
 ---
 
-## 8. Sprint6 historical closure / current Level2 gate
+## 8. Sprint6 historical closure / Level3 remediation closure
 
-Sprint6 focused Level1 remains a historical bounded PASS. The higher-level ACT1–13 integrated gate remains BLOCKED after the second Level2 targeted closure re-audit.
+Sprint6 focused Level1 remains VERIFIED PASS. The higher-level ACT1–13 Level3 finding set has now been fully closed by targeted Level2 re-audits.
 
 ```text
 IDA-001 HIGH   = FIXED_VERIFIED
-IDA-002 MEDIUM = PARTIALLY_FIXED / OPEN
+IDA-002 MEDIUM = FIXED_VERIFIED
 IDA-003 HIGH   = FIXED_VERIFIED
 IDA-004 HIGH   = FIXED_VERIFIED
-IDA-005 HIGH   = PARTIALLY_FIXED / OPEN
-IDA-006 HIGH   = NEW / CONFIRMED — NORMAL Teacher verification RPCs alter canonical deadlines without intervention provenance
+IDA-005 HIGH   = FIXED_VERIFIED
+IDA-006 HIGH   = FIXED_VERIFIED
 
-Level2 gate = FAIL / BLOCKED
-Sprint7 gate = BLOCKED
+Level2 final closure gate = PASS
+ACT1–13 integrated gate = CLOSED
+Sprint7 gate = RELEASED
 ```
 
-Second Level2 re-audit report:
+Final Level2 closure report:
 
 ```text
-docs/audits/independent/runs/2026-09-24_level2_residual_ida_closure_reaudit/AUDIT_REPORT.md
+docs/audits/independent/runs/2026-09-24_level2_final_ida_closure/AUDIT_REPORT.md
 ```
 
-Formal CA→CD handoff:
+Formal CA→CD PASS / Sprint7 release:
 
 ```text
-agent-comms/CA_to_CD_20260924T162200Z_level2-residual-closure-fail-ida002-005-006.md
+agent-comms/CA_to_CD_20260924T174800Z_level2-final-closure-pass-release-sprint7.md
 ```
 
-Correction baseline audited:
+Final correction baseline:
 
 ```text
-69fcf8fc998e8a5622dbd5e2b69447a2a2cb37d9
+96dd6a867aa0edab25cd3a68a30b2710a99fdcbe
 ```
 
-Migrations `001–041` are deployed history and immutable. Next unused migration is `042`.
+Migrations `001–042` are deployed history and immutable. Next unused migration is `043`.
 
-CD must close IDA-002, the remaining IDA-005 audio-forensic dependency, and IDA-006, then request another Level2 targeted closure audit. Sprint7 may be released only after Level2 PASS.
+Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized.
 
 ---
 
