@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T13:46:00Z
+> Last refreshed: 2026-09-24T16:03:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = ACT1–13 Level3 remediation
-CURRENT_GATE          = LEVEL3_FULL_INDEPENDENT_SNAPSHOT_AUDIT_FAIL
+CURRENT_SPRINT        = ACT1–13 Level2 closure remediation
+CURRENT_GATE          = LEVEL2_TARGETED_INDEPENDENT_CLOSURE_AUDIT_FAIL
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD remediates IDA-001..005 on frozen baseline 2acfe324d05c8bea2fb96d7132ba29f894270b38, preserves deployed migrations 001–036, adds directly adjacent regressions/deployment proof, then submits a Level2 Targeted Independent Closure Audit request; Sprint7 remains blocked
+NEXT_REQUIRED_ACTION  = CD closes residual IDA-001, IDA-002, IDA-004 and IDA-005 gaps on correction baseline b4248132842a2e660ca1ba4e15605eff75c78dff, preserves deployed migrations 001–039, adds required runtime closure evidence/regressions, then submits another Level2 Targeted Independent Closure Audit request; Sprint7 remains blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -100,7 +100,7 @@ Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
 Sprint 6  = VERIFIED PASS
-Sprint 7  = BLOCKED PENDING LEVEL2 CLOSURE OF LEVEL3 FINDINGS
+Sprint 7  = BLOCKED PENDING LEVEL2 CLOSURE PASS
 ```
 
 Sprint3C verified correction baseline:
@@ -231,51 +231,42 @@ Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is 
 
 ---
 
-## 8. Sprint6 historical closure / current Level3 gate
+## 8. Sprint6 historical closure / current Level2 gate
 
-Sprint6 focused Level1 remains a historical bounded PASS, but the higher-level integrated ACT1–13 snapshot gate is now BLOCKED.
+Sprint6 focused Level1 remains a historical bounded PASS. The higher-level ACT1–13 integrated gate remains BLOCKED after the first Level2 targeted closure audit.
 
 ```text
-Sprint6 focused Level1 = VERIFIED PASS (historical bounded gate)
+IDA-001 HIGH   = PARTIALLY_FIXED / NOT VERIFIED
+IDA-002 MEDIUM = PARTIALLY_FIXED / OPEN
+IDA-003 HIGH   = FIXED_VERIFIED
+IDA-004 HIGH   = PARTIALLY_FIXED / NOT VERIFIED
+IDA-005 HIGH   = PARTIALLY_FIXED / OPEN
 
-ACT1–13 Level3:
-IDA-001 HIGH   = CONFIRMED — generic Sprint2 deadline refresh can deadlock Sprint6 ACT9/10/11 discussions
-IDA-002 MEDIUM = CONFIRMED — critical one-shot audio can replay after reload/reconnect
-IDA-003 HIGH   = NOT_VERIFIED — s6_station_b_progress lacks RLS; deployed direct browser-role privileges unverified
-IDA-004 HIGH   = CONFIRMED — ACT5→6 and ACT8→9 require out-of-band Teacher initialization
-IDA-005 HIGH   = CONFIRMED — ACT6–13 phase/cinematic/audio chronology is not fully append-only/durable
-
-Level3 gate = FAIL / BLOCKED
+Level2 gate = FAIL / BLOCKED
 Sprint7 gate = BLOCKED
 ```
 
-Level3 audit run:
+Level2 audit report:
 
 ```text
-docs/audits/independent/runs/2026-09-24_act1-13_post-sprint6/
+docs/audits/independent/runs/2026-09-24_level2_ida001-005_closure/AUDIT_REPORT.md
 ```
 
-Executive summary:
+Formal CA→CD handoff:
 
 ```text
-docs/audits/independent/runs/2026-09-24_act1-13_post-sprint6/EXECUTIVE_SUMMARY.md
+agent-comms/CA_to_CD_20260924T160200Z_level2-ida-closure-fail-four-not-closed.md
 ```
 
-Formal CA→CD remediation handoff:
+Correction baseline audited:
 
 ```text
-agent-comms/CA_to_CD_20260924T134500Z_level3-act1-13-independent-audit-fail-five-findings.md
+b4248132842a2e660ca1ba4e15605eff75c78dff
 ```
 
-Frozen Level3 product baseline:
+Migrations `001–039` are deployed history and immutable. Next unused migration is `040`.
 
-```text
-2acfe324d05c8bea2fb96d7132ba29f894270b38
-```
-
-Migrations `001–036` remain immutable. Next unused migration is `037`.
-
-After correction, CA performs a Level2 Targeted Independent Closure Audit of IDA-001..005. Sprint7 may be released only after that closure PASS.
+CD must close residual IDA-001/002/004/005 and request another Level2 targeted closure audit. Sprint7 may be released only after Level2 PASS.
 
 ---
 
