@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T13:07:00Z
+> Last refreshed: 2026-09-24T13:46:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 6 closure / Level 3 milestone audit
-CURRENT_GATE          = LEVEL3_FULL_INDEPENDENT_SNAPSHOT_AUDIT_IN_PROGRESS
-CURRENT_OWNER         = CA
-NEXT_REQUIRED_ACTION  = CA freezes the completed ACT1–13 baseline and executes the milestone-triggered Level3 Full Independent Snapshot Audit; Sprint7 remains blocked until a Level3 PASS releases it
+CURRENT_SPRINT        = ACT1–13 Level3 remediation
+CURRENT_GATE          = LEVEL3_FULL_INDEPENDENT_SNAPSHOT_AUDIT_FAIL
+CURRENT_OWNER         = CD
+NEXT_REQUIRED_ACTION  = CD remediates IDA-001..005 on frozen baseline 2acfe324d05c8bea2fb96d7132ba29f894270b38, preserves deployed migrations 001–036, adds directly adjacent regressions/deployment proof, then submits a Level2 Targeted Independent Closure Audit request; Sprint7 remains blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -100,7 +100,7 @@ Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
 Sprint 6  = VERIFIED PASS
-Sprint 7  = BLOCKED PENDING LEVEL3 INDEPENDENT AUDIT
+Sprint 7  = BLOCKED PENDING LEVEL2 CLOSURE OF LEVEL3 FINDINGS
 ```
 
 Sprint3C verified correction baseline:
@@ -231,41 +231,51 @@ Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is 
 
 ---
 
-## 8. Sprint6 closure / Level3 gate
+## 8. Sprint6 historical closure / current Level3 gate
+
+Sprint6 focused Level1 remains a historical bounded PASS, but the higher-level integrated ACT1–13 snapshot gate is now BLOCKED.
 
 ```text
-S6-CA-001 HIGH   = FIXED_VERIFIED
-S6-CA-002 HIGH   = FIXED_VERIFIED
-S6-CA-003 HIGH   = FIXED_VERIFIED
-S6-CA-004 HIGH   = FIXED_VERIFIED
-S6-RC-001 HIGH   = FIXED_VERIFIED
-S6-RC-002 MEDIUM = FIXED_VERIFIED
-Golden Key item identity = FIXED_VERIFIED
-Sprint6 gate     = VERIFIED PASS
-Sprint7 gate     = BLOCKED PENDING LEVEL3 FULL INDEPENDENT SNAPSHOT AUDIT
+Sprint6 focused Level1 = VERIFIED PASS (historical bounded gate)
+
+ACT1–13 Level3:
+IDA-001 HIGH   = CONFIRMED — generic Sprint2 deadline refresh can deadlock Sprint6 ACT9/10/11 discussions
+IDA-002 MEDIUM = CONFIRMED — critical one-shot audio can replay after reload/reconnect
+IDA-003 HIGH   = NOT_VERIFIED — s6_station_b_progress lacks RLS; deployed direct browser-role privileges unverified
+IDA-004 HIGH   = CONFIRMED — ACT5→6 and ACT8→9 require out-of-band Teacher initialization
+IDA-005 HIGH   = CONFIRMED — ACT6–13 phase/cinematic/audio chronology is not fully append-only/durable
+
+Level3 gate = FAIL / BLOCKED
+Sprint7 gate = BLOCKED
 ```
 
-Final focused Level 1 Sprint6 report:
+Level3 audit run:
 
 ```text
-docs/audits/regular/runs/2026-09-24_sprint6_final_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/independent/runs/2026-09-24_act1-13_post-sprint6/
 ```
 
-Formal CA→CD PASS handoff:
+Executive summary:
 
 ```text
-agent-comms/CA_to_CD_20260924T130600Z_sprint6-final-focused-reaudit-pass-level3-before-sprint7.md
+docs/audits/independent/runs/2026-09-24_act1-13_post-sprint6/EXECUTIVE_SUMMARY.md
 ```
 
-Verified Sprint6 handoff baseline:
+Formal CA→CD remediation handoff:
 
 ```text
-87977163806a572da6a64279543650178ff91b9b
+agent-comms/CA_to_CD_20260924T134500Z_level3-act1-13-independent-audit-fail-five-findings.md
 ```
 
-Migrations `033–036` remain immutable. Next unused migration remains `037`.
+Frozen Level3 product baseline:
 
-Current next owner is CA for the Level3 milestone audit. CD must not begin Sprint7 until Level3 explicitly releases it.
+```text
+2acfe324d05c8bea2fb96d7132ba29f894270b38
+```
+
+Migrations `001–036` remain immutable. Next unused migration is `037`.
+
+After correction, CA performs a Level2 Targeted Independent Closure Audit of IDA-001..005. Sprint7 may be released only after that closure PASS.
 
 ---
 
