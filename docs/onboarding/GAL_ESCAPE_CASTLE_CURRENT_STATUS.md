@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T11:00:30Z
+> Last refreshed: 2026-09-24T11:24:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 6
-CURRENT_GATE          = BLOCKED_BY_SPRINT6_SECOND_FOCUSED_LEVEL1_REAUDIT
-CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes remaining S6-CA-002, S6-CA-003 and S6-CA-004 within Sprint6 ACT9–13 scope, preserves deployed migrations 001–036, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
+CURRENT_GATE          = BLOCKED_BY_SPRINT6_THIRD_FOCUSED_LEVEL1_REAUDIT
+CURRENT_OWNER         = CD + GA / Teacher
+NEXT_REQUIRED_ACTION  = CD closes remaining S6-CA-004 technical audio-coverage gap while GA/Teacher resolves canonical approval for runtime.audio.full/reduced/mute/blocked; preserve deployed migrations 001–036; after both are closed submit final Sprint6 focused Level 1 CA re-audit request
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -25,11 +25,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-CA has completed its latest 10-action checkpoint through CA-070.
+CA has completed its latest 10-action checkpoint through CA-080.
 
 ```text
 GA_CHECKPOINT = NONE
-CA_CHECKPOINT = CA-070
+CA_CHECKPOINT = CA-080
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ```
@@ -89,7 +89,7 @@ Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
-Sprint 6  = SECOND FOCUSED LEVEL 1 RE-AUDIT FAIL — 3 OPEN FINDINGS
+Sprint 6  = THIRD FOCUSED LEVEL 1 RE-AUDIT BLOCKED — 1 OPEN FINDING
 ```
 
 Sprint3C verified correction baseline:
@@ -224,28 +224,34 @@ Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is 
 
 ```text
 S6-CA-001 HIGH   = FIXED_VERIFIED
-S6-CA-002 HIGH   = PARTIALLY_FIXED / OPEN — Great Hall anchors/assets fixed; door labels still bypass HARD localization contract
-S6-CA-003 HIGH   = PARTIALLY_FIXED / OPEN — TAKE bypass fixed; Station B UI gets ahead of authoritative center state and uses noncanonical/mislocalized status
-S6-CA-004 HIGH   = PARTIALLY_FIXED / OPEN — countdown/payoff order improved; fade/full-black/audio accessibility runtime still incomplete
+S6-CA-002 HIGH   = FIXED_VERIFIED
+S6-CA-003 HIGH   = FIXED_VERIFIED
+S6-CA-004 HIGH   = PARTIALLY_FIXED / OPEN — all-Sprint6 audio accessibility coverage incomplete; four new audio-control text keys await GA/Teacher canonical approval
 S6-RC-001 HIGH   = FIXED_VERIFIED
 S6-RC-002 MEDIUM = FIXED_VERIFIED
 Golden Key item identity = FIXED_VERIFIED
-Sprint6 gate     = FAIL / BLOCKED — 3 findings remain open
+Sprint6 gate     = BLOCKED — 1 finding remains open
 ```
 
-Second focused Level 1 re-audit:
+Third focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-24_sprint6_second_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-24_sprint6_third_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260924T110000Z_sprint6-second-focused-reaudit-fail-three-open-findings.md
+agent-comms/CA_to_CD_20260924T112200Z_sprint6-third-focused-reaudit-blocked-one-finding.md
 ```
 
-Migrations `033–036` are deployed history and must remain immutable. Any DB correction begins at `037+`.
+Canonical localization review request:
+
+```text
+agent-comms/CA_to_GA_20260924T112300Z_audio-accessibility-localization-review-request.md
+```
+
+Migrations `033–036` remain immutable. No migration `037` is currently required unless the remaining technical correction genuinely needs one.
 
 Sprint7 is not authorized while this gate remains open.
 
