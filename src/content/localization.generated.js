@@ -2262,6 +2262,13 @@ export const LOCALIZATION_CATALOG = {
     "nl": "Gescheurd briefje",
     "zh": "撕破的纸条"
   },
+  "item.golden_key": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Golden Key",
+    "nl": "Gouden sleutel",
+    "zh": "金钥匙"
+  },
   "discussion.initial_choices": {
     "textType": "static",
     "displayPolicy": "bilingual",

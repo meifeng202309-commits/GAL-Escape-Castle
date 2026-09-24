@@ -328,6 +328,7 @@ item.silver_star_key,ACT 1–5 — Item label,static,bilingual,★ Silver Key,�
 item.municipal_closure_order,ACT 1–5 — Item label,static,bilingual,Municipal Closure Order,Gemeentelijk sluitingsbevel,市政封闭令,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
 item.photo_1897,ACT 3+ — Group item label,static,bilingual,1897 Photograph,Foto uit 1897,1897年照片,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical GROUP FOUND ITEMS display label.
 item.torn_note,ACT 3+ — Group item label,static,bilingual,Torn Note,Gescheurd briefje,撕破的纸条,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical GROUP FOUND ITEMS display label.
+item.golden_key,ACT 10 — Group item label,static,bilingual,Golden Key,Gouden sleutel,金钥匙,ADDED_SPRINT6_CA_CORRECTION,Canonical Golden Key identity; never reuse the TAKE action label.
 discussion.initial_choices,Shared DiscussionRoom,static,bilingual,Initial choices,Eerste keuzes,初始选择,ADDED_DISCUSSIONROOM_LOCALIZATION,Student-facing section label; replaces "Initial choices revealed".
 discussion.no_messages,Shared DiscussionRoom,static,bilingual,No messages yet.,Nog geen berichten.,暂无消息。,ADDED_DISCUSSIONROOM_LOCALIZATION,Empty DiscussionRoom state.
 discussion.voting_after_discussion,Shared DiscussionRoom,static,bilingual,Voting opens after the discussion.,De stemming opent na de bespreking.,讨论结束后开放投票。,ADDED_DISCUSSIONROOM_LOCALIZATION,Student instruction.
