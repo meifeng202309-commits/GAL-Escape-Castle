@@ -37,6 +37,7 @@ const sprint3bStatus = document.getElementById("sprint3bStatus");
 let session = loadSession();
 let pollTimer = null;
 let currentDiscussion = null;
+let currentSprint5State = null;
 
 function requestIdentity(kind, identity, payload) {
   const key = `gal.pending.${kind}.${identity}`;
@@ -124,9 +125,10 @@ async function refreshState() {
         p_room_code: session.room_code,
         p_session_token: session.session_token,
       });
+      const sprint5State = await rpc("s5_get_player_state", {p_room_code:session.room_code,p_session_token:session.session_token}).catch(()=>({active:false}));
       if (!sprint3bState.active || !sprint3bState.scene) throw new Error("Formal game state is unavailable. Retry before taking another action.");
       renderDiscussion(discussionState);
-      renderSprint3b(sprint3bState);
+      if(sprint5State.active)renderSprint5(sprint5State);else renderSprint3b(sprint3bState);
       return;
     }
     currentDiscussion = null;
@@ -160,6 +162,8 @@ const ACT1_CHOICES = {
 const MEETING_CHOICES = [["library","act02.004"],["great_hall","act02.005"],["main_gate","act02.006"],["west_tower","act02.007"],["chapel","act02.008"],["help","act02.009"]];
 const LOCATION_KEYS = {library:"act01-g.009",great_hall:"act01-g.010",main_gate:"act01-g.011",west_tower:"act01-g.012",chapel:"act01-g.013"};
 const ROUTE_CHOICES = [["known","act04-05.005"],["unknown","act04-05.006"],["inspect","act04-05.007"],["ask","act04-05.008"]];
+const S5_VOTES={act6_vote:[["escape","How do we escape?"],["1897","What happened here in 1897?"],["time_stopped","Where is the room where time stopped?"],["trapped","Who trapped us here?"]],act7_vote:[["clock_a","Touch Clock A"],["clock_b","Touch Clock B"],["clock_c","Touch Clock C"]],act8_final_vote:[["main_gate","Main Gate"],["west_tower","West Tower"]]};
+const S5_PRIVATE=[["main_gate","Head for the Main Gate."],["west_tower","Try the West Tower route."],["compare","Compare all the evidence before choosing."],["follow_group","Follow the group's final decision."]];
 
 function localizedHtml(key) {
   try { const value=resolveLocalizedText(key); return `<span lang="nl">${escapeHtml(value.nl)}</span>${value.zh ? `<span lang="zh">${escapeHtml(value.zh)}</span>` : ""}`; }
@@ -217,6 +221,25 @@ function renderSprint3b(state) {
   sprint3bActions.querySelectorAll("[data-s3b-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint3bAction(button)));
   document.getElementById("libraryCodeForm")?.addEventListener("submit",submitLibraryCode);
 }
+
+function s5Buttons(items,rpcName){return `<div class="choice-list">${items.map(([id,label])=>`<button type="button" data-s5-rpc="${rpcName}" data-s5-choice="${id}">${escapeHtml(label)}</button>`).join("")}</div>`}
+function renderSprint5(payload){
+  currentSprint5State=payload;
+  choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");sprint3bStatus.textContent="";
+  const s=payload.state;let visual="",actions="";
+  if(s.phase_key.startsWith("act6"))visual=`<div class="portrait-stage"><img id="s5SceneImage" alt="Portrait Hall"><img id="s5OverlayImage" class="portrait-overlay" alt=""><div class="portrait-eyes" aria-hidden="true">● &nbsp; ●</div></div><p><b>“One question. Only one.”</b></p>`;
+  if(s.phase_key.startsWith("act7"))visual=`<img id="s5SceneImage" class="s5-scene" alt="Clock Room"><div class="clock-wall"><div class="clock"><b>A</b><span>23:54</span><i class="hand clockwise"></i></div><div class="clock"><b>B</b><span>11:54</span><i class="hand counter"></i></div><div class="clock"><b>C</b><span>23:49</span><i class="hand stopped"></i></div></div><p>ONE SHOWS NOW. ONE RUNS BACKWARD. ONE REMEMBERS WHEN THE WATCH STOPPED.</p>${s.act7_wrong_attempts?`<p class="warn">${s.act7_wrong_attempts===1?"Nothing happens.":"Compare the stopped watch with the clocks."}</p>`:""}`;
+  if(s.phase_key.startsWith("act8"))visual=`<img id="s5SceneImage" class="s5-scene" alt="Route destination"><div class="route-board"><b>MAIN GATE</b><span>or</span><b>WEST TOWER</b></div>${payload.private_choices_revealed.length?`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${escapeHtml(x.choice_id)}`).join("<br>")}</div>`:""}`;
+  if(S5_VOTES[s.phase_key])actions=payload.my_vote?`<p class="good">Vote locked. ${payload.submitted_vote_count}/3</p>`:s5Buttons(S5_VOTES[s.phase_key],"s5_submit_vote");
+  else if(s.phase_key==="act8_private")actions=payload.my_private_choice?`<p class="good">Private first choice locked.</p>`:s5Buttons(S5_PRIVATE,"s5_submit_private_choice");
+  else if(["act6_answer","act7_solved","act8_route"].includes(s.phase_key))actions=`<button type="button" data-s5-rpc="s5_advance">Continue</button>`;
+  else actions=`<p class="good">Sprint 5 complete. Route: ${escapeHtml(s.route_taken_act8||"")}</p>`;
+  sprint3bText.innerHTML=`<p class="eyebrow">ACT ${s.act_no}</p>${visual}`;sprint3bActions.innerHTML=actions;
+  hydrateS5Assets(s);
+  sprint3bActions.querySelectorAll("[data-s5-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint5Action(button)));
+}
+async function hydrateS5Assets(s){const key=s.act_no===6?"shared.portrait_hall":s.act_no===7?"shared.clock_room":s.route_taken_act8==="west_tower"?"shared.west_tower_payoff":s.route_taken_act8==="main_gate"?"shared.main_gate":null;if(!key)return;const result=await rpc("asset_resolve",{p_asset_key:key}).catch(()=>null);const image=document.getElementById("s5SceneImage");if(image&&result?.ok)image.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${result.storage_path}`;if(s.act_no===6){const overlay=await rpc("asset_resolve",{p_asset_key:"overlay.portrait_eyes_open"}).catch(()=>null),node=document.getElementById("s5OverlayImage");if(node&&overlay?.ok){node.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${overlay.storage_path}`;node.classList.add("ready")}}}
+async function runSprint5Action(button){button.disabled=true;const payload={p_room_code:session.room_code,p_session_token:session.session_token};let request;if(button.dataset.s5Choice){payload.p_choice_id=button.dataset.s5Choice;request=requestIdentity("s5",`${button.dataset.s5Rpc}.${currentSprint5State.state.phase_key}.${currentSprint5State.state.vote_round}`,{choice:payload.p_choice_id});payload.p_client_request_id=request.requestId}if(button.dataset.s5Rpc==="s5_submit_vote"){payload.p_expected_discussion_session_id=currentSprint5State.discussion.discussion_session_id;payload.p_expected_vote_round=currentSprint5State.discussion.vote_round}try{await rpc(button.dataset.s5Rpc,payload);if(request)clearRequestIdentity(request.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
 
 async function runSprint3bAction(button) {
   button.disabled=true; const payload={p_room_code:session.room_code,p_session_token:session.session_token};

@@ -34,6 +34,7 @@ const runBadge = document.getElementById("runBadge");
 const discussionTeacherStatus = document.getElementById("discussionTeacherStatus");
 const discussionState = document.getElementById("discussionState");
 const initializeSprint3bButton = document.getElementById("initializeSprint3bButton");
+const initializeSprint5Button = document.getElementById("initializeSprint5Button");
 const overrideReasonInput = document.getElementById("overrideReason");
 const overrideActions = document.getElementById("overrideActions");
 const overrideStatus = document.getElementById("overrideStatus");
@@ -53,6 +54,7 @@ releaseSessionButtons.forEach((button) => {
 });
 startRunButton.addEventListener("click", startRun);
 openDiscussionButton.addEventListener("click", openDiscussion);
+initializeSprint5Button.addEventListener("click",initializeSprint5);
 openVoteButton.addEventListener("click", openVote);
 addTimeButton.addEventListener("click", addTime);
 initializeSprint3bButton.addEventListener("click", initializeSprint3b);
@@ -234,6 +236,7 @@ function renderDiscussionState(state) {
     ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
   `;
 }
+async function initializeSprint5(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s5_initialize",payload);discussionTeacherStatus.textContent=`ACT 6–8 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 5 initialization failed: ${error.message}`}}
 
 function renderOverrideState(override) {
   const actions = override?.allowed_actions || [];

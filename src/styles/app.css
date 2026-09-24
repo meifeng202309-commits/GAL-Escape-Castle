@@ -71,3 +71,7 @@ th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-
   .span-two{grid-column:auto}
   .composer{grid-template-columns:1fr}
 }
+.portrait-stage{position:relative;min-height:220px;display:grid;place-items:center;background:#171719;border:1px solid #626268;overflow:hidden}.portrait-face{font-family:serif;font-size:2rem;color:#aaa}.portrait-eyes{position:absolute;top:42%;color:#d9e8ef;animation:eyes-open 1s ease 1s both}@keyframes eyes-open{from{opacity:0}to{opacity:1}}
+.portrait-stage>img,.s5-scene{display:block;width:100%;max-height:420px;object-fit:contain}.portrait-overlay{position:absolute;inset:0;opacity:0;transition:opacity 1s 1s}.portrait-overlay.ready{opacity:1}
+.clock-wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.clock{position:relative;aspect-ratio:1;border:3px solid #787b7f;border-radius:50%;display:grid;place-content:center;text-align:center;background:#111;color:#eee}.clock b,.clock span{display:block}.clock .hand{position:absolute;width:2px;height:36%;left:50%;bottom:50%;background:#ddd;transform-origin:bottom}.clockwise{animation:clock-turn 4s linear infinite}.counter{animation:clock-turn 4s linear infinite reverse}.stopped{transform:rotate(294deg)}@keyframes clock-turn{to{transform:rotate(360deg)}}
+.route-board{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;padding:20px;border-block:1px solid #666;text-align:center}@media(max-width:560px){.clock-wall{gap:6px}.clock{font-size:.75rem}.route-board{grid-template-columns:1fr}}
