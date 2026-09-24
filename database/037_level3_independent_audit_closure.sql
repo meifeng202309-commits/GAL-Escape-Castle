@@ -55,14 +55,14 @@ revoke execute on function public.act6_13_capture_s5_transition() from public,an
 create trigger act6_13_capture_s5 after insert or update on public.s5_run_state for each row execute function public.act6_13_capture_s5_transition();
 
 create function public.act6_13_prepare_s6_state() returns trigger language plpgsql security definer set search_path=public as $$
-declare oid uuid;
+declare audio_occurrence uuid;
 begin
  if new.feedback_audio_key is null then
   new.feedback_audio_occurrence_id:=null;
  elsif tg_op='INSERT' or old.feedback_audio_key is distinct from new.feedback_audio_key or old.feedback_audio_occurrence_id is null then
   insert into public.s6_audio_occurrences(run_id,cue_key,phase_key,cinematic_stage)
-  values(new.run_id,new.feedback_audio_key,new.phase_key,new.cinematic_stage) returning occurrence_id into oid;
-  new.feedback_audio_occurrence_id:=oid;
+  values(new.run_id,new.feedback_audio_key,new.phase_key,new.cinematic_stage) returning occurrence_id into audio_occurrence;
+  new.feedback_audio_occurrence_id:=audio_occurrence;
  end if;
  return new;
 end$$;
