@@ -3,6 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const migration = fs.readFileSync(path.join(root, "database/037_level3_independent_audit_closure.sql"), "utf8");
+const triggerFix = fs.readFileSync(path.join(root, "database/038_level3_cross_sprint_trigger_fix.sql"), "utf8");
 const app = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 
 function requireAll(source, label, fragments) {
@@ -44,6 +45,11 @@ requireAll(migration, "IDA-004 automatic continuity", [
   "create constraint trigger s5_to_s6_automatic",
   "deferrable initially deferred",
   "on conflict(run_id) do nothing",
+]);
+requireAll(triggerFix, "IDA-004 heterogeneous trigger rows", [
+  "create or replace function public.act6_13_deferred_cross_sprint",
+  "to_jsonb(new)->>'terminal_state'",
+  "to_jsonb(new)->>'phase_key'",
 ]);
 
 requireAll(migration, "IDA-005 append-only chronology", [
