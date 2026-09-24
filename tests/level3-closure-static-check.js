@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, "..");
 const migration = fs.readFileSync(path.join(root, "database/037_level3_independent_audit_closure.sql"), "utf8");
 const triggerFix = fs.readFileSync(path.join(root, "database/038_level3_cross_sprint_trigger_fix.sql"), "utf8");
 const discussionFix = fs.readFileSync(path.join(root, "database/039_level3_s5_canonical_discussion_fix.sql"), "utf8");
+const verificationSupport = fs.readFileSync(path.join(root, "database/040_level2_closure_verification_support.sql"), "utf8");
 const app = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 
 function requireAll(source, label, fragments) {
@@ -56,6 +57,18 @@ requireAll(discussionFix, "IDA-004 canonical ACT6 entry", [
   "create or replace function public.s5_ensure_initialized",
   "returning discussion_session_id into sid",
   "perform public.s5_configure_discussion(sid,'act6_vote')",
+]);
+requireAll(verificationSupport, "IDA-001 NORMAL deadline verification", [
+  "function public.s6_verify_expire_discussion",
+  "g.run_mode<>'normal'",
+  "scene_id='sprint6'",
+  "phase_deadline=clock_timestamp()-interval '1 second'",
+]);
+requireAll(app, "IDA-002 durable retry outbox", [
+  "SPRINT6_AUDIO_OUTBOX_KEY",
+  "flushSprint6AudioConsumptions",
+  "Sprint6 audio consumption remains queued",
+  "locallyConsumed=Boolean(sprint6AudioOutbox()[identity])",
 ]);
 
 requireAll(migration, "IDA-005 append-only chronology", [
