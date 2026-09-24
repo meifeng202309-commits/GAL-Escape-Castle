@@ -4,6 +4,7 @@ Baseline: `2acfe324d05c8bea2fb96d7132ba29f894270b38`
 
 | Issue ID | Severity | Status | Problem description | Evidence / reproduction | Code file(s) | Symbol / function / line range | Baseline SHA | Violated invariant / risk | Recommended fix | Audit method | Owner | Fix commit | Re-test result |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| IDA-002 | MEDIUM | CONFIRMED | Sprint6 critical one-shot audio replay suppression is browser-memory-only and resets on reload/reconnect | `sprint6AudioIdentity` starts empty on each page load; server `feedback_audio_key` remains present during ACT9 failure / ACT10 alarm / cinematic stages; reconnect re-hydrates same cue and can replay it after next user interaction | `src/game/app.js`; `database/035_sprint6_focused_audit_corrections.sql`; `database/036_sprint6_four_open_findings.sql` | `sprint6AudioIdentity`; `hydrateSprint6`; `playSprint6Audio`; `s6_run_state.feedback_audio_key` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | V4.0 Audio Safety: reconnect must not repeat completed critical one-shot audio unless scene restart | Make completed one-shot playback identity recoverable across reconnect/reload and ensure reconnect distinguishes already-consumed cue from a new scene/cue occurrence | Methods 1, 5, 6, 8 | CD |  | NOT RETESTED |
 | IDA-001 | HIGH | CONFIRMED | Generic Sprint2 deadline refresh can resolve Sprint6 no-vote DiscussionRooms without advancing Sprint6 phase, deadlocking ACT9/10/11 | Sprint6 opens `require_final_vote=false` discussion; player refresh calls `s2_get_player_state` first; at deadline `s2_refresh_discussion` sets row resolved; `s6_get_player_state` then exposes no discussion while `s6_run_state.phase_key` remains discussion; `s6_close_discussion_v2` requires that exact row still be discussion | `database/002_runtime_runs_discussion.sql`; `database/035_sprint6_focused_audit_corrections.sql`; `database/036_sprint6_four_open_findings.sql`; `src/game/app.js` | `s2_refresh_discussion`; `s2_get_player_state`; `s6_open_discussion`; `s6_close_discussion_guarded/v2`; `s6_get_player_state`; `refreshState` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Cross-layer authority conflict; one logical transition must have one owner; NORMAL progression must not deadlock at canonical deadline | Ensure generic discussion refresh cannot independently consume a Sprint6-owned deadline; Sprint6 exact-session owner must remain able to perform the canonical phase transition exactly once | Methods 1, 2, 5, 6, 7, 8 | CD |  | NOT RETESTED |
 
 ## IDA-001 — Generic Sprint2 deadline refresh deadlocks Sprint6 timed discussions
@@ -67,3 +68,47 @@ There must be one effective owner for Sprint6 timed-discussion completion. Gener
 ### Re-test requirement
 
 Re-test at least one normal deadline in each Sprint6 discussion class (ACT9, ACT10, ACT11), including a poll/reconnect at or after expiry, and verify the run advances through the authoritative Sprint6 transition without losing the exact discussion identity or inventing player input.
+
+
+## IDA-002 — Sprint6 one-shot audio can replay after reload/reconnect
+
+### Severity / status
+
+**MEDIUM / CONFIRMED**
+
+### Evidence
+
+The only played-cue suppression identity in the player runtime is:
+
+`let sprint6AudioIdentity = ""`
+
+and the check in `hydrateSprint6(...)` compares the current:
+
+`phase_key + cinematic_stage + feedback_audio_key`
+
+against that in-memory variable.
+
+There is no persisted per-run/per-player played-cue identity in the inspected Sprint6 DB tables, runtime event path, localStorage or reconnect payload.
+
+The server can retain `feedback_audio_key` for a non-trivial interval, for example:
+
+- Great Hall wrong-action hiss during the 60-second discussion;
+- Golden Key alarm while ACT10 result remains on screen;
+- cinematic stage audio while that stage remains current.
+
+After a page reload/new browser reconnect:
+
+1. server state still exposes the same `feedback_audio_key`;
+2. `sprint6AudioIdentity` is reset to empty;
+3. `hydrateSprint6` treats the same cue as new;
+4. after audio is armed/user interacts, the cue can play again.
+
+V4.0 Audio Safety explicitly requires reconnect not to replay an already completed critical one-shot unless the scene restarts.
+
+### Closure condition
+
+Reconnecting/reloading must recover enough playback identity to suppress an already-consumed critical one-shot while still allowing a genuinely new cue occurrence or explicit scene restart to play.
+
+### Re-test requirement
+
+Trigger each class of one-shot (at minimum ACT9 hiss, ACT10 alarm and one ACT12 cue), reload/reconnect while the authoritative state still carries that cue, and verify it is not replayed; then verify a genuinely new occurrence can still play.
