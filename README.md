@@ -22,7 +22,7 @@ Persistent project roles:
 
 - `docs/specs/current/古堡逃脱游戏脚本 V4.0.md`
 - `docs/specs/current/Castle Visual V2.1.md`
-- `docs/specs/current/Codex程序开发说明书 V2.3.md`
+- `docs/specs/current/Codex程序开发说明书 V2.4.md`
 - `docs/specs/current/从创意到游戏成品的研发流程V1.0.md`
 
 ## Repository map
@@ -43,6 +43,8 @@ See `docs/README.md` for storage rules.
 
 Inter-Agent communication must use the highest ACTIVE:
 `agent-comms/inter_agent_talk_protocol V*.md`.
+
+Canonical ownership rule: discovering an implementation need does not grant authority to modify another role's canonical source. Use the owner-first canonical commit → separate consumer implementation commit workflow defined in Codex V2.4 and CA Audit Rules V1.4.
 
 ## Current implementation
 
