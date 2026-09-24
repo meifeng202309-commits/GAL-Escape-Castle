@@ -2,8 +2,9 @@
 
 Project: GAL Escape Castle  
 Owner: CA — Coding Audit Agent  
-Status: ACTIVE  
-Supersedes: GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.2.md  
+Status: SUPERSEDED  
+Superseded by: GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md  
+Formerly superseded: GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.2.md  
 Purpose: mandatory rules for normal CD→CA coding audits and supplemental rules for independent audits.
 
 ---
