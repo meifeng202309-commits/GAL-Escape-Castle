@@ -3,7 +3,7 @@
 Audit run: `2026-09-24_act1-13_post-sprint6`  
 Baseline SHA: `2acfe324d05c8bea2fb96d7132ba29f894270b38`  
 Protocol: `Independent_Development_Snapshot_Audit_Protocol_v1.3.md`  
-Status: FINALIZATION IN PROGRESS
+Status: COMPLETE — FAIL / BLOCKED
 
 ## Execution rule
 
@@ -267,4 +267,22 @@ Exact protocol table schema.
 
 ### [x] K4 Verify all steps resolved
 
-### [ ] K5 Record completion in CA Action Log
+### [x] K5 Record completion in CA Action Log
+
+
+---
+
+## Final gate
+
+`FAIL / BLOCKED`
+
+Findings:
+- IDA-001 HIGH CONFIRMED
+- IDA-002 MEDIUM CONFIRMED
+- IDA-003 HIGH NOT_VERIFIED
+- IDA-004 HIGH CONFIRMED
+- IDA-005 HIGH CONFIRMED
+
+Completion log: `CA-086`.
+
+Next governed audit after remediation: Level2 Targeted Independent Closure Audit.
