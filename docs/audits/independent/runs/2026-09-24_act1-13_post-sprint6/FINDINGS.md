@@ -4,6 +4,7 @@ Baseline: `2acfe324d05c8bea2fb96d7132ba29f894270b38`
 
 | Issue ID | Severity | Status | Problem description | Evidence / reproduction | Code file(s) | Symbol / function / line range | Baseline SHA | Violated invariant / risk | Recommended fix | Audit method | Owner | Fix commit | Re-test result |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| IDA-004 | HIGH | CONFIRMED | Canonical ACT5→6 and ACT8→9 handoffs require out-of-band Teacher initialization instead of automatic state-machine continuation | ACT1–5 terminal writes only `SPRINT3B_COMPLETE`; ACT8 terminal writes only `s5_run_state.phase_key='complete'`; only Teacher Console calls `s5_initialize` / `s6_initialize`, both requiring Teacher token. Player/server terminal transitions never call them | `database/027_sprint5_act6_8_runtime.sql`; `database/029_sprint5_canonical_discussion_localization.sql`; `database/031_sprint5_focused_reaudit_corrections.sql`; `database/035_sprint6_focused_audit_corrections.sql`; `src/teacher/teacher-console.js` | `s5_initialize`; `s5_advance`; `s6_initialize`; `initializeSprint5`; `initializeSprint6` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Canonical ACT1→13 state-machine continuity; automatic DiscussionRoom opening; Teacher must not be an undocumented required gameplay actor | Make canonical cross-ACT continuation owned by the formal game state machine so a valid completed ACT5/ACT8 deterministically enters the next ACT exactly once without hidden Teacher intervention | Methods 1, 5, 7, 8 | CD |  | NOT RETESTED |
 | IDA-003 | HIGH | NOT_VERIFIED | New authoritative `s6_station_b_progress` table is the only formal runtime table created without RLS; effective anon/authenticated direct table privileges are not independently verified | Migration036 creates table used by Station B gate but never enables RLS and contains no table-level revoke; all other formal runtime tables created in 001–035 enable RLS. Production catalog/default grants unavailable to CA | `database/036_sprint6_four_open_findings.sql` | `s6_station_b_progress`; `s6_complete_station_v2`; table DDL / RLS boundary | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Direct DB authority / RLS boundary; a browser role must not bypass station-task RPC invariants | Establish deployment-effective fail-closed protection for direct access to this authoritative table and verify anon/authenticated cannot read/write it outside governed RPCs | Methods 3, 4, 6 | CD |  | NOT VERIFIED — production ACL required |
 | IDA-002 | MEDIUM | CONFIRMED | Sprint6 critical one-shot audio replay suppression is browser-memory-only and resets on reload/reconnect | `sprint6AudioIdentity` starts empty on each page load; server `feedback_audio_key` remains present during ACT9 failure / ACT10 alarm / cinematic stages; reconnect re-hydrates same cue and can replay it after next user interaction | `src/game/app.js`; `database/035_sprint6_focused_audit_corrections.sql`; `database/036_sprint6_four_open_findings.sql` | `sprint6AudioIdentity`; `hydrateSprint6`; `playSprint6Audio`; `s6_run_state.feedback_audio_key` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | V4.0 Audio Safety: reconnect must not repeat completed critical one-shot audio unless scene restart | Make completed one-shot playback identity recoverable across reconnect/reload and ensure reconnect distinguishes already-consumed cue from a new scene/cue occurrence | Methods 1, 5, 6, 8 | CD |  | NOT RETESTED |
 | IDA-001 | HIGH | CONFIRMED | Generic Sprint2 deadline refresh can resolve Sprint6 no-vote DiscussionRooms without advancing Sprint6 phase, deadlocking ACT9/10/11 | Sprint6 opens `require_final_vote=false` discussion; player refresh calls `s2_get_player_state` first; at deadline `s2_refresh_discussion` sets row resolved; `s6_get_player_state` then exposes no discussion while `s6_run_state.phase_key` remains discussion; `s6_close_discussion_v2` requires that exact row still be discussion | `database/002_runtime_runs_discussion.sql`; `database/035_sprint6_focused_audit_corrections.sql`; `database/036_sprint6_four_open_findings.sql`; `src/game/app.js` | `s2_refresh_discussion`; `s2_get_player_state`; `s6_open_discussion`; `s6_close_discussion_guarded/v2`; `s6_get_player_state`; `refreshState` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Cross-layer authority conflict; one logical transition must have one owner; NORMAL progression must not deadlock at canonical deadline | Ensure generic discussion refresh cannot independently consume a Sprint6-owned deadline; Sprint6 exact-session owner must remain able to perform the canonical phase transition exactly once | Methods 1, 2, 5, 6, 7, 8 | CD |  | NOT RETESTED |
@@ -156,3 +157,46 @@ A browser client could potentially alter the intermediate Station B state withou
 ### Closure condition
 
 Provide deployment-effective proof that anon/authenticated direct access is fail-closed, or bring this authority-bearing table under an equivalent explicit server-side direct-access protection. Re-test using the effective deployed role privileges, not source inspection alone.
+
+
+## IDA-004 — ACT5→6 and ACT8→9 require noncanonical Teacher initialization
+
+### Severity / status
+
+**HIGH / CONFIRMED**
+
+### Evidence
+
+The V4.0 active state machine is continuous:
+
+`ACT 5 → ACT 6 → ACT 7 → ACT 8 → ACT 9`.
+
+V4.0 also states that after the Library reunion, when formal discussion is needed the system automatically opens the reusable DiscussionRoom rather than relying on ad-hoc Teacher explanation/intervention.
+
+At the frozen implementation:
+
+- ACT1–5 completion stores `s3b_run_state.terminal_state='SPRINT3B_COMPLETE'`.
+- Nothing in the player/server terminal transition creates Sprint5 state.
+- `s5_initialize(room, teacher_token)` is the only transition that creates ACT6 state/discussion and requires Teacher authority.
+- ACT8 completion through `s5_advance` stores `s5_run_state.phase_key='complete'`.
+- Nothing in that terminal transition creates Sprint6 state.
+- `s6_initialize(room, teacher_token)` is the only transition that creates ACT9 state/private clues/discussion and requires Teacher authority.
+- The only runtime callers of those two initializers are Teacher Console buttons.
+
+Therefore a normal valid player run cannot progress continuously across these boundaries without an out-of-band Teacher action not present in the canonical gameplay state machine.
+
+### Why this matters
+
+This is not merely a deployment button:
+- it is required for progression;
+- the Teacher becomes an undocumented gameplay actor;
+- a Teacher disconnect or missed click leaves all players parked at a cross-Sprint boundary;
+- the transition is not represented as a canonical Teacher Override and should not be needed as one.
+
+### Closure condition
+
+A valid formal run completing ACT5 and ACT8 must transition into the next canonical ACT exactly once under server-authoritative game flow, without requiring a hidden/manual Teacher initialization step. Existing initialization primitives may remain as internal/idempotent infrastructure if they are no longer an out-of-band progression dependency.
+
+### Re-test requirement
+
+Run the ACT5 terminal transition and ACT8 terminal transition through the actual player/browser orchestration with no Teacher button press, including reconnect immediately after each boundary, and verify ACT6/ACT9 state plus their canonical DiscussionRoom/private delivery is reached exactly once.
