@@ -4,6 +4,7 @@ const path = require("path");
 const root = path.resolve(__dirname, "..");
 const migration = fs.readFileSync(path.join(root, "database/037_level3_independent_audit_closure.sql"), "utf8");
 const triggerFix = fs.readFileSync(path.join(root, "database/038_level3_cross_sprint_trigger_fix.sql"), "utf8");
+const discussionFix = fs.readFileSync(path.join(root, "database/039_level3_s5_canonical_discussion_fix.sql"), "utf8");
 const app = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 
 function requireAll(source, label, fragments) {
@@ -50,6 +51,11 @@ requireAll(triggerFix, "IDA-004 heterogeneous trigger rows", [
   "create or replace function public.act6_13_deferred_cross_sprint",
   "to_jsonb(new)->>'terminal_state'",
   "to_jsonb(new)->>'phase_key'",
+]);
+requireAll(discussionFix, "IDA-004 canonical ACT6 entry", [
+  "create or replace function public.s5_ensure_initialized",
+  "returning discussion_session_id into sid",
+  "perform public.s5_configure_discussion(sid,'act6_vote')",
 ]);
 
 requireAll(migration, "IDA-005 append-only chronology", [
