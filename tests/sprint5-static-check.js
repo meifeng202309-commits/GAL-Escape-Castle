@@ -4,6 +4,7 @@ const root = path.resolve(__dirname, "..");
 const migration = fs.readFileSync(path.join(root, "database/027_sprint5_act6_8_runtime.sql"), "utf8");
 const correction = fs.readFileSync(path.join(root, "database/028_sprint5_round_event_link.sql"), "utf8");
 const level1 = fs.readFileSync(path.join(root, "database/029_sprint5_canonical_discussion_localization.sql"), "utf8");
+const exactMessages = fs.readFileSync(path.join(root, "database/030_sprint5_exact_session_messages.sql"), "utf8");
 const app = fs.readFileSync(path.join(root, "src/game/app.js"), "utf8");
 const teacher = fs.readFileSync(path.join(root, "src/teacher/teacher-console.js"), "utf8");
 const html = fs.readFileSync(path.join(root, "teacher.html"), "utf8");
@@ -23,5 +24,6 @@ if (!teacher.includes("s5_initialize") || !html.includes("initializeSprint5Butto
 for (const text of ["s5_mirror_round_for_audit", "s5_round_audit_link", "sprint5_audit_link"]) if (!correction.includes(text)) throw new Error(`Missing Sprint 5 event-link correction: ${text}`);
 for (const text of ["drop trigger if exists s5_round_audit_link", "s5_configure_discussion", "allow_pocket", "allow_memories_observations", "allow_share_photo", "Sprint 5 voting is not open", "s5_get_discussion_state"]) if (!level1.includes(text)) throw new Error(`Missing Sprint 5 Level 1 correction: ${text}`);
 if (app.includes("portrait-eyes") || app.includes("How do we escape?") || app.includes("ONE SHOWS NOW.")) throw new Error("Sprint 5 renderer contains a prohibited substitute or hardcoded canonical text.");
+for (const text of ["s5_send_message", "Stale Sprint 5 discussion identity", "client_request_id"]) if (!exactMessages.includes(text)) throw new Error(`Missing exact-session message correction: ${text}`);
 if (/database\/02[0-6]_/.test("database/027_sprint5_act6_8_runtime.sql")) throw new Error("Immutable migration range touched.");
 console.log("Sprint 5 static checks passed.");

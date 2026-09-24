@@ -370,7 +370,7 @@ async function sendMessage() {
   const request = requestIdentity("message", currentDiscussion.discussion_session_id, { text });
   sendMessageButton.disabled = true;
   try {
-    await rpc("s2_send_message", {
+    await rpc(currentSprint5State?.active ? "s5_send_message" : "s2_send_message", {
       p_room_code: session.room_code,
       p_session_token: session.session_token,
       p_expected_discussion_session_id: currentDiscussion.discussion_session_id,
