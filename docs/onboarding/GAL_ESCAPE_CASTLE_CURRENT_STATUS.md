@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T09:26:30Z
+> Last refreshed: 2026-09-24T11:00:30Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 6
-CURRENT_GATE          = BLOCKED_BY_SPRINT6_FOCUSED_LEVEL1_REAUDIT
+CURRENT_GATE          = BLOCKED_BY_SPRINT6_SECOND_FOCUSED_LEVEL1_REAUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes remaining S6-CA-002, S6-CA-003, S6-CA-004 and S6-RC-001 within Sprint6 ACT9–13 scope, preserves deployed migrations 001–035, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
+NEXT_REQUIRED_ACTION  = CD closes remaining S6-CA-002, S6-CA-003 and S6-CA-004 within Sprint6 ACT9–13 scope, preserves deployed migrations 001–036, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -89,7 +89,7 @@ Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
-Sprint 6  = FOCUSED LEVEL 1 RE-AUDIT FAIL — 4 OPEN FINDINGS
+Sprint 6  = SECOND FOCUSED LEVEL 1 RE-AUDIT FAIL — 3 OPEN FINDINGS
 ```
 
 Sprint3C verified correction baseline:
@@ -106,7 +106,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 036.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 037.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -179,7 +179,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–035` are immutable. Next unused migration is `036`.
+Deployed migrations `018–036` are immutable. Next unused migration is `037`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -214,7 +214,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–035` are immutable. Next unused migration is `036`.
+Migrations `027–036` are immutable. Next unused migration is `037`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -224,28 +224,28 @@ Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is 
 
 ```text
 S6-CA-001 HIGH   = FIXED_VERIFIED
-S6-CA-002 HIGH   = PARTIALLY_FIXED / OPEN — Great Hall dynamic door presentation and ACT10 Golden Key scene asset incomplete
-S6-CA-003 HIGH   = PARTIALLY_FIXED / OPEN — TAKE bypass presentation and Station B authoritative task transition incomplete
-S6-CA-004 HIGH   = PARTIALLY_FIXED / OPEN — ACT12 cinematic/audio ordering and ACT13 presentation/pause incomplete
-S6-RC-001 HIGH   = PARTIALLY_FIXED / OPEN — guarded server identity fixed; browser/replay identity durability remains incomplete
+S6-CA-002 HIGH   = PARTIALLY_FIXED / OPEN — Great Hall anchors/assets fixed; door labels still bypass HARD localization contract
+S6-CA-003 HIGH   = PARTIALLY_FIXED / OPEN — TAKE bypass fixed; Station B UI gets ahead of authoritative center state and uses noncanonical/mislocalized status
+S6-CA-004 HIGH   = PARTIALLY_FIXED / OPEN — countdown/payoff order improved; fade/full-black/audio accessibility runtime still incomplete
+S6-RC-001 HIGH   = FIXED_VERIFIED
 S6-RC-002 MEDIUM = FIXED_VERIFIED
 Golden Key item identity = FIXED_VERIFIED
-Sprint6 gate     = FAIL / BLOCKED — 4 findings remain open
+Sprint6 gate     = FAIL / BLOCKED — 3 findings remain open
 ```
 
-Focused Level 1 re-audit:
+Second focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-24_sprint6_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-24_sprint6_second_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260924T092600Z_sprint6-focused-reaudit-fail-four-open-findings.md
+agent-comms/CA_to_CD_20260924T110000Z_sprint6-second-focused-reaudit-fail-three-open-findings.md
 ```
 
-Migrations `033–035` are deployed history and must remain immutable. Any DB correction begins at `036+`.
+Migrations `033–036` are deployed history and must remain immutable. Any DB correction begins at `037+`.
 
 Sprint7 is not authorized while this gate remains open.
 
