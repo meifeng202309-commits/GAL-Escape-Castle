@@ -2283,6 +2283,13 @@ export const LOCALIZATION_CATALOG = {
     "nl": "Nog geen berichten.",
     "zh": "暂无消息。"
   },
+  "discussion.send_message": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Send message",
+    "nl": "Verstuur bericht",
+    "zh": "发送消息"
+  },
   "discussion.voting_after_discussion": {
     "textType": "static",
     "displayPolicy": "bilingual",

@@ -331,6 +331,7 @@ item.torn_note,ACT 3+ — Group item label,static,bilingual,Torn Note,Gescheurd 
 item.golden_key,ACT 10 — Group item label,static,bilingual,Golden Key,Gouden sleutel,金钥匙,ADDED_SPRINT6_CA_CORRECTION,Canonical Golden Key identity; never reuse the TAKE action label.
 discussion.initial_choices,Shared DiscussionRoom,static,bilingual,Initial choices,Eerste keuzes,初始选择,ADDED_DISCUSSIONROOM_LOCALIZATION,Student-facing section label; replaces "Initial choices revealed".
 discussion.no_messages,Shared DiscussionRoom,static,bilingual,No messages yet.,Nog geen berichten.,暂无消息。,ADDED_DISCUSSIONROOM_LOCALIZATION,Empty DiscussionRoom state.
+discussion.send_message,Shared DiscussionRoom,static,bilingual,Send message,Verstuur bericht,发送消息,ADDED_SPRINT6_CA_CORRECTION,Canonical silent-texting message command.
 discussion.voting_after_discussion,Shared DiscussionRoom,static,bilingual,Voting opens after the discussion.,De stemming opent na de bespreking.,讨论结束后开放投票。,ADDED_DISCUSSIONROOM_LOCALIZATION,Student instruction.
 discussion.waiting_missing_player,Shared DiscussionRoom,static,bilingual,WAITING FOR MISSING PLAYER,WACHTEN OP EEN SPELER DIE NOG NIET HEEFT INGEDIEND,等待尚未提交的玩家,ADDED_DISCUSSIONROOM_LOCALIZATION,Do not synthesize missing player input.
 discussion.vote_locked,Shared DiscussionRoom,static,bilingual,Your vote is locked.,Je stem is vergrendeld.,你的投票已锁定。,ADDED_DISCUSSIONROOM_LOCALIZATION,Shown after the player's vote is submitted.
