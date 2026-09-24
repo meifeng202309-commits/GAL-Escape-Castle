@@ -85,37 +85,37 @@ revoke execute on function public.act6_13_capture_s6_transition() from public,an
 create trigger act6_13_capture_s6 after insert or update on public.s6_run_state for each row execute function public.act6_13_capture_s6_transition();
 
 create function public.s5_ensure_initialized(p_run uuid) returns boolean language plpgsql security definer set search_path=public as $$
-declare room text; inserted boolean:=false;
+declare room text; created_new boolean:=false;
 begin
  perform 1 from public.game_runs where run_id=p_run for update;
  if not exists(select 1 from public.s3b_run_state where run_id=p_run and terminal_state='SPRINT3B_COMPLETE') then return false; end if;
  insert into public.s5_run_state(run_id) values(p_run) on conflict(run_id) do nothing;
  if found then
-  inserted:=true;
+  created_new:=true;
   insert into public.s5_rounds(run_id,phase_key,vote_round,topic_text_key) values(p_run,'act6_vote',1,'act06.001') on conflict do nothing;
   perform public.s5_set_scene(p_run,'act6_portrait','act6_vote','round_1','ACTION_SCREEN','act06.001');
   select room_code into room from public.game_runs where run_id=p_run;
   perform public.s2_log_event(p_run,room,null,'s5_initialized',null,jsonb_build_object('event_source','automatic_transition','behavior_scoring',false));
  end if;
- return inserted;
+ return created_new;
 end$$;
 revoke execute on function public.s5_ensure_initialized(uuid) from public,anon,authenticated;
 
 create function public.s6_ensure_initialized(p_run uuid) returns boolean language plpgsql security definer set search_path=public as $$
-declare room text; sid uuid; inserted boolean:=false;
+declare room text; sid uuid; created_new boolean:=false;
 begin
  perform 1 from public.game_runs where run_id=p_run for update;
  if not exists(select 1 from public.s5_run_state where run_id=p_run and phase_key='complete') then return false; end if;
  insert into public.s6_run_state(run_id) values(p_run) on conflict(run_id) do nothing;
  if found then
-  inserted:=true;
+  created_new:=true;
   perform public.s6_deliver_clues(p_run,9);
   sid:=public.s6_open_discussion(p_run,'act9_discussion','step_1',180,'act09.004');
   perform public.s6_set_scene(p_run,'act9_great_hall','act9_discussion','step_1','CINEMATIC_MESSAGE','act09.004');
   select room_code into room from public.game_runs where run_id=p_run;
   perform public.s2_log_event(p_run,room,sid,'s6_initialized',null,jsonb_build_object('event_source','automatic_transition','behavior_scoring',false));
  end if;
- return inserted;
+ return created_new;
 end$$;
 revoke execute on function public.s6_ensure_initialized(uuid) from public,anon,authenticated;
 
