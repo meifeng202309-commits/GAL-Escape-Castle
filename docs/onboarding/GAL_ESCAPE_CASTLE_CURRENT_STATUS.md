@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T11:43:00Z
+> Last refreshed: 2026-09-24T11:46:00Z
 > Updated by: GA
 
 ---
@@ -47,7 +47,7 @@ docs/onboarding/START_HERE.md
 ```text
 L1 / current canonical:
 docs/specs/current/古堡逃脱游戏脚本 V4.0.md
-docs/specs/current/Codex程序开发说明书 V2.3.md
+docs/specs/current/Codex程序开发说明书 V2.4.md
 docs/specs/current/Castle Visual V2.1.md
 docs/specs/current/从创意到游戏成品的研发流程V1.0.md
 docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
@@ -58,7 +58,7 @@ agent-comms/inter_agent_talk_protocol V1.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
-docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.3.md
+docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md
 ```
 
 CA audit cadence:
@@ -74,6 +74,16 @@ Procedural autonomy:
 ```text
 When workflow already defines next owner + next action + permitted scope + closure condition,
 execute without duplicate user approval.
+```
+
+Canonical ownership hardening:
+
+```text
+CD implementation need ≠ canonical write authority.
+Other-role canonical sources require owner-first canonicalization.
+Owner canonical commit and CD consumer implementation commit must be separate.
+Every substantive CA audit performs a mandatory Canonical Ownership Check.
+Unauthorized protected-source modification => BLOCKED — CANONICAL AUTHORITY VIOLATION.
 ```
 
 ---
