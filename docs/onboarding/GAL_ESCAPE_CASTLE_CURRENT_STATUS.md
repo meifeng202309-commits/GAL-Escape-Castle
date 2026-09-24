@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T02:43:30Z
+> Last refreshed: 2026-09-24T03:50:30Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 5
-CURRENT_GATE          = BLOCKED_BY_SPRINT5_FOCUSED_LEVEL1_REAUDIT
+CURRENT_GATE          = BLOCKED_BY_SPRINT5_SECOND_FOCUSED_LEVEL1_REAUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes S5-CA-001, S5-CA-002, S5-CA-003, S5-RC-001 and S5-RC-002 within Sprint5 scope, preserves deployed migrations 001–030, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
+NEXT_REQUIRED_ACTION  = CD closes only remaining S5-CA-001 ACT6/ACT7 evidence-interaction gap, preserves deployed migrations 001–032, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -88,7 +88,7 @@ Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
-Sprint 5  = FOCUSED LEVEL 1 RE-AUDIT FAIL — 5 OPEN FINDINGS
+Sprint 5  = SECOND FOCUSED LEVEL 1 RE-AUDIT FAIL — 1 BLOCKER
 ```
 
 Sprint3C verified correction baseline:
@@ -105,7 +105,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 031.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 033.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -178,7 +178,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–030` are immutable. Next unused migration is `031`.
+Deployed migrations `018–032` are immutable. Next unused migration is `033`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -187,27 +187,27 @@ Sprint5 next-scope risk forecast has been delivered to CD.
 ## 7. Current Sprint5 blockers
 
 ```text
-S5-CA-001 HIGH   = PARTIALLY_FIXED / OPEN — canonical evidence access/share UI incomplete; ACT6 SHARE PHOTO still disabled
-S5-CA-002 HIGH   = PARTIALLY_FIXED / OPEN — localization improved; ACT6 map highlight and ACT8 evidence screen still missing
-S5-CA-003 MEDIUM = PARTIALLY_FIXED / OPEN — anchor authority integrated; Clock B reverse-animation wiring still broken
-S5-RC-001 MEDIUM = PARTIALLY_FIXED / OPEN — player exact-session path fixed; Teacher Console can still select stale discussion
-S5-RC-002 MEDIUM = OPEN — terminal-vote lost-response retry no longer reaches idempotent replay
-Sprint5 gate     = FAIL / BLOCKED
+S5-CA-001 HIGH   = PARTIALLY_FIXED / OPEN — ACT6/ACT7 canonical Pocket/evidence interaction still not mounted in GAL UI
+S5-CA-002 HIGH   = FIXED_VERIFIED
+S5-CA-003 MEDIUM = FIXED_VERIFIED
+S5-RC-001 MEDIUM = FIXED_VERIFIED
+S5-RC-002 MEDIUM = FIXED_VERIFIED
+Sprint5 gate     = FAIL / BLOCKED — 1 blocker remains
 ```
 
-Focused Level 1 re-audit:
+Second focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-24_sprint5_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-24_sprint5_second_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260924T024300Z_sprint5-focused-reaudit-fail-five-open-findings.md
+agent-comms/CA_to_CD_20260924T035000Z_sprint5-second-focused-reaudit-fail-one-blocker.md
 ```
 
-Migrations `027–030` are deployed history and must remain immutable. Any DB correction begins at `031+`.
+Migrations `027–032` are deployed history and must remain immutable. Any DB correction begins at `033+`.
 
 Sprint6 is not authorized while this gate remains open.
 
