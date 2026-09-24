@@ -25,11 +25,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-CA has completed its latest 10-action checkpoint through CA-080.
+CA has completed its latest 10-action checkpoint through CA-090.
 
 ```text
 GA_CHECKPOINT = NONE
-CA_CHECKPOINT = CA-080
+CA_CHECKPOINT = CA-090
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ```
