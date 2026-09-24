@@ -4,6 +4,7 @@ Baseline: `2acfe324d05c8bea2fb96d7132ba29f894270b38`
 
 | Issue ID | Severity | Status | Problem description | Evidence / reproduction | Code file(s) | Symbol / function / line range | Baseline SHA | Violated invariant / risk | Recommended fix | Audit method | Owner | Fix commit | Re-test result |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| IDA-005 | HIGH | CONFIRMED | ACT6–13 later-Sprint phase/cinematic/audio chronology is only partially durable; material transitions overwrite mutable current state without a complete append-only event history | `s3b_set_scene` only upserts current scene; `s5_advance` mutates phase without transition events; `s6_tick_cinematic` repeatedly overwrites stage/timestamp/audio key; S5/S6 log only selected events. V2.4 §15 requires phase transitions and asset/audio events | `database/007_sprint3b_act1_5_placeholder_flow.sql`; `database/027_sprint5_act6_8_runtime.sql`; `database/035_sprint6_focused_audit_corrections.sql`; `database/036_sprint6_four_open_findings.sql` | `s3b_set_scene`; `s5_advance`; S5 vote transitions; `s6_close_discussion_guarded`; `s6_advance_guarded/v2`; `s6_tick_cinematic`; `feedback_audio_key` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Pattern D / V2.4 Logging: current state must not replace reconstructable transition/audio history needed for integrity/export | Preserve append-only, timestamped provenance for material ACT6–13 phase transitions and audio trigger/outcome history so Sprint8 can export observed chronology without guessing from current rows | Methods 7, 9; recurring Pattern D | CD |  | NOT RETESTED |
 | IDA-004 | HIGH | CONFIRMED | Canonical ACT5→6 and ACT8→9 handoffs require out-of-band Teacher initialization instead of automatic state-machine continuation | ACT1–5 terminal writes only `SPRINT3B_COMPLETE`; ACT8 terminal writes only `s5_run_state.phase_key='complete'`; only Teacher Console calls `s5_initialize` / `s6_initialize`, both requiring Teacher token. Player/server terminal transitions never call them | `database/027_sprint5_act6_8_runtime.sql`; `database/029_sprint5_canonical_discussion_localization.sql`; `database/031_sprint5_focused_reaudit_corrections.sql`; `database/035_sprint6_focused_audit_corrections.sql`; `src/teacher/teacher-console.js` | `s5_initialize`; `s5_advance`; `s6_initialize`; `initializeSprint5`; `initializeSprint6` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Canonical ACT1→13 state-machine continuity; automatic DiscussionRoom opening; Teacher must not be an undocumented required gameplay actor | Make canonical cross-ACT continuation owned by the formal game state machine so a valid completed ACT5/ACT8 deterministically enters the next ACT exactly once without hidden Teacher intervention | Methods 1, 5, 7, 8 | CD |  | NOT RETESTED |
 | IDA-003 | HIGH | NOT_VERIFIED | New authoritative `s6_station_b_progress` table is the only formal runtime table created without RLS; effective anon/authenticated direct table privileges are not independently verified | Migration036 creates table used by Station B gate but never enables RLS and contains no table-level revoke; all other formal runtime tables created in 001–035 enable RLS. Production catalog/default grants unavailable to CA | `database/036_sprint6_four_open_findings.sql` | `s6_station_b_progress`; `s6_complete_station_v2`; table DDL / RLS boundary | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | Direct DB authority / RLS boundary; a browser role must not bypass station-task RPC invariants | Establish deployment-effective fail-closed protection for direct access to this authoritative table and verify anon/authenticated cannot read/write it outside governed RPCs | Methods 3, 4, 6 | CD |  | NOT VERIFIED — production ACL required |
 | IDA-002 | MEDIUM | CONFIRMED | Sprint6 critical one-shot audio replay suppression is browser-memory-only and resets on reload/reconnect | `sprint6AudioIdentity` starts empty on each page load; server `feedback_audio_key` remains present during ACT9 failure / ACT10 alarm / cinematic stages; reconnect re-hydrates same cue and can replay it after next user interaction | `src/game/app.js`; `database/035_sprint6_focused_audit_corrections.sql`; `database/036_sprint6_four_open_findings.sql` | `sprint6AudioIdentity`; `hydrateSprint6`; `playSprint6Audio`; `s6_run_state.feedback_audio_key` | `2acfe324d05c8bea2fb96d7132ba29f894270b38` | V4.0 Audio Safety: reconnect must not repeat completed critical one-shot audio unless scene restart | Make completed one-shot playback identity recoverable across reconnect/reload and ensure reconnect distinguishes already-consumed cue from a new scene/cue occurrence | Methods 1, 5, 6, 8 | CD |  | NOT RETESTED |
@@ -200,3 +201,63 @@ A valid formal run completing ACT5 and ACT8 must transition into the next canoni
 ### Re-test requirement
 
 Run the ACT5 terminal transition and ACT8 terminal transition through the actual player/browser orchestration with no Teacher button press, including reconnect immediately after each boundary, and verify ACT6/ACT9 state plus their canonical DiscussionRoom/private delivery is reached exactly once.
+
+
+## IDA-005 — ACT6–13 phase/audio chronology is not fully durable
+
+### Severity / status
+
+**HIGH / CONFIRMED**
+
+### Canonical requirement
+
+Codex V2.4 §15 Logging / Observability requires at minimum:
+- phase transitions;
+- private decisions / vote rounds / discussions;
+- role assignment / role engaged / pressure choice;
+- teacher intervention / validity/provenance;
+- asset / audio events.
+
+This history is required before Sprint8 can truthfully verify `session_integrity_verified` and emit the flat event ledger.
+
+### Source evidence
+
+`s3b_set_scene(...)` updates the one current `s3_runtime_scene_state` row but does not itself append a transition event.
+
+Sprint5 adds some good durable evidence:
+- vote rows;
+- round rows;
+- private-choice rows;
+- selected runtime events.
+
+But `s5_advance(...)` changes:
+- ACT6 answer → ACT7 vote;
+- ACT7 solved → ACT8 private;
+- ACT8 route → complete;
+
+without a general append-only phase-transition event. Some transition time can be inferred indirectly from later rows, but the exact chronology is not uniformly preserved.
+
+Sprint6 also has strong dedicated evidence tables for choices, allocations, tasks, engagements and receipts.
+
+However `s6_tick_cinematic(...)` repeatedly overwrites:
+- `cinematic_stage`;
+- `stage_started_at`;
+- `feedback_audio_key`.
+
+Only the latest state remains. There is no inspected append-only audio trigger/playback event ledger for the ACT9/10/12 cues.
+
+Thus a later exporter cannot reconstruct every required phase/audio event from durable observed records without inference or loss.
+
+### Why this is distinct from IDA-002
+
+IDA-002 concerns replaying the same one-shot audio after reconnect.
+
+IDA-005 concerns historical evidence: even a correctly played cue/transition is not durably recorded as an append-only event.
+
+### Closure condition
+
+Material ACT6–13 phase transitions and formal audio events must have durable timestamped provenance suitable for later integrity verification/export. The history must represent what actually occurred rather than requiring Sprint8 to infer prior state from a mutable current row.
+
+### Re-test requirement
+
+Execute representative ACT6–13 branches and verify a post-run forensic query can reconstruct ordered phase transitions and formal audio trigger/outcome history after current state has advanced beyond them.
