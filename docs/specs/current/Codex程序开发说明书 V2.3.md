@@ -262,9 +262,33 @@ small scope
 → test
 → Devil Check
 → push
-→ report
-→ user approval / next instruction
+→ report / handoff
+→ if the authorized workflow already defines next_owner = CD
+   + next_action
+   + permitted_scope
+   + acceptance / closure condition:
+      CONTINUE EXECUTION IN THE SAME RUN
+→ otherwise stop only when a new user / GA decision or other explicit escalation is required
 ```
+
+**Acknowledgement is not completion.**
+
+当 CD 收到 CA / GA / current workflow 的正式 handoff 后，如果下一步已经被授权、`next_owner = CD`、执行范围和完成条件均已明确，则该 handoff 本身就是 execution trigger。CD 不得仅回复“已收到”“内容如下”“下一步我会……”后结束当前 run，也不得为了已经授权的下一程序步骤再次等待用户确认。
+
+在输出 final response 前，CD 必须执行一次 **STOP CHECK**：
+
+- 是否仍存在已经授权、`next_owner = CD`、且尚未完成的 action？
+- **YES → 不得结束当前 run；继续执行该 action。**
+- **NO → 才允许结束当前 run。**
+
+只有出现以下情况之一时，CD 才应停止并等待外部输入：
+
+- canonical / specification 发生真实冲突；
+- 需要新的 gameplay / product decision；
+- 下一步会超出已授权 scope；
+- 缺少无法从 current sources 获得的必要外部信息；
+- 操作触发真正的系统 approval / permission gate；
+- 已授权工作已经全部完成。
 
 ---
 
