@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-23T16:03:01Z
+> Last refreshed: 2026-09-24T01:10:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 4
-CURRENT_GATE          = BLOCKED_BY_SPRINT4_SECOND_FOCUSED_LEVEL1_REAUDIT
+CURRENT_SPRINT        = Sprint 5
+CURRENT_GATE          = READY_FOR_SPRINT5_IMPLEMENTATION
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD makes narrow additive corrections for S4-RC-002 and S4-RC-003 using migration 026+ as needed, preserves deployed 018–025, runs adjacent regressions, and submits correction for focused Level 1 CA re-audit
+NEXT_REQUIRED_ACTION  = CD implements canonical Sprint5 ACT 6–8 + visual-dynamic UI, preserves verified Sprint1–4 baselines and migrations 001–026, runs regressions, and submits completed Sprint5 scope for normal Level 1 CA audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -87,7 +87,8 @@ Sprint 2  = PASS
 Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
-Sprint 4  = SECOND FOCUSED LEVEL 1 RE-AUDIT FAIL — 2 ADJACENT BLOCKERS
+Sprint 4  = VERIFIED PASS
+Sprint 5  = READY FOR IMPLEMENTATION
 ```
 
 Sprint3C verified correction baseline:
@@ -104,7 +105,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. Next unused migration is 018.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 027.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -130,7 +131,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260923T010444Z_sprint3c-focused-level1-reaudit-pass.md
 ```
 
-Sprint4 next-scope risk forecast has been delivered to CD. Sprint4 implementation is not yet broadly authorized; next step is bounded scope review.
+Sprint4 was subsequently implemented and is now VERIFIED PASS; current gate is Sprint5 implementation.
 
 
 ---
@@ -149,7 +150,7 @@ S4-SCOPE-02 = V4.0 §50.3 metadata + §50.7.5 sidecar minimum contracts preserve
 S4-SCOPE-03 = registry/runtime identity+version authority must not silently split
 ```
 
-## 6. Current Sprint4 blockers
+## 6. Sprint4 closure / Sprint5 gate
 
 ```text
 S4-CA-001 HIGH   = FIXED_VERIFIED
@@ -160,24 +161,26 @@ S4-CA-005 MEDIUM = FIXED_VERIFIED
 S4-CA-006 MEDIUM = FIXED_VERIFIED
 S4-CA-007 MEDIUM = FIXED_VERIFIED
 S4-RC-001 MEDIUM = FIXED_VERIFIED
-S4-RC-002 MEDIUM = OPEN — group transition can false-succeed on NULL/nonexistent targets
-S4-RC-003 MEDIUM = OPEN — registry sync can race transition and split active_version from ACTIVE candidate
+S4-RC-002 MEDIUM = FIXED_VERIFIED
+S4-RC-003 MEDIUM = FIXED_VERIFIED
+Sprint4 gate     = VERIFIED PASS
 ```
 
-Second focused Level 1 re-audit:
+Third focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-23_sprint4_second_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-24_sprint4_third_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
-Formal CA→CD handoff:
+Formal CA→CD PASS handoff:
 
 ```text
-agent-comms/CA_to_CD_20260923T160301Z_sprint4-second-focused-level1-reaudit-fail-adjacent-blockers.md
+agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–025` are immutable. Any DB correction begins at `026+`.
+Deployed migrations `018–026` are immutable. Next unused migration is `027`.
 
+Sprint5 next-scope risk forecast has been delivered to CD.
 ---
 
 ## 7. Visual / asset snapshot
