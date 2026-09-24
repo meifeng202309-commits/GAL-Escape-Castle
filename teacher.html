@@ -42,6 +42,20 @@
     <div id="roomState">Not connected.</div>
   </section>
 
+  <section class="panel" aria-labelledby="operationsTitle">
+    <div class="topline">
+      <div><p class="eyebrow">Sprint 7</p><h2 id="operationsTitle">Live operations</h2></div>
+      <span id="operationsBadge" class="badge">Not connected</span>
+    </div>
+    <div class="button-row">
+      <button id="refreshOperationsButton" class="secondary" type="button">Refresh</button>
+      <label class="check-row"><input id="auditPrivateDebug" type="checkbox"> AUDIT private debug</label>
+      <button id="exportSessionButton" class="secondary" type="button" disabled>Export session</button>
+    </div>
+    <p id="operationsStatus" class="status muted"></p>
+    <div id="operationsState"><p class="muted">Connect to a room to load ACT 1-13 operations.</p></div>
+  </section>
+
   <section class="panel">
     <h2>Prototype recovery</h2>
     <p class="muted">Use only when a student lost their original browser session. This clears that role's session token and logs a teacher recovery event.</p>

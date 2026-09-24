@@ -40,6 +40,7 @@ const overrideReasonInput = document.getElementById("overrideReason");
 const overrideActions = document.getElementById("overrideActions");
 const overrideStatus = document.getElementById("overrideStatus");
 const overrideHistory = document.getElementById("overrideHistory");
+const operationsBadge=document.getElementById("operationsBadge"),operationsStatus=document.getElementById("operationsStatus"),operationsState=document.getElementById("operationsState"),refreshOperationsButton=document.getElementById("refreshOperationsButton"),auditPrivateDebug=document.getElementById("auditPrivateDebug"),exportSessionButton=document.getElementById("exportSessionButton");
 const loadAssetsButton=document.getElementById("loadAssetsButton"),assetReadyBadge=document.getElementById("assetReadyBadge"),assetStatus=document.getElementById("assetStatus"),assetManagerState=document.getElementById("assetManagerState");
 const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.getElementById('anchorStage'),anchorImage=document.getElementById('anchorImage'),anchorBox=document.getElementById('anchorBox'),anchorPrompt=document.getElementById('anchorPrompt'),anchorStatus=document.getElementById('anchorStatus'),anchorNameSelect=document.getElementById('anchorNameSelect'),saveAnchorButton=document.getElementById('saveAnchorButton');let anchorDraft=null,anchorCandidate=null,anchorStart=null;
 
@@ -62,6 +63,8 @@ openVoteButton.addEventListener("click", openVote);
 addTimeButton.addEventListener("click", addTime);
 initializeSprint3bButton.addEventListener("click", initializeSprint3b);
 loadAssetsButton.addEventListener("click",loadAssets);
+refreshOperationsButton.addEventListener("click",loadOperationsState);
+auditPrivateDebug.addEventListener("change",setAuditPrivateDebug);
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -101,7 +104,7 @@ async function loadState() {
   try {
     const state = await rpc("s1_get_teacher_state", payload);
     renderTeacherState(state);
-    await loadDiscussionState();
+    await Promise.all([loadDiscussionState(),loadOperationsState()]);
     teacherStatus.textContent = `Watching room ${state.room_code}`;
   } catch (error) {
     roomState.innerHTML = `<p class="bad">${escapeHtml(error.message)}</p>`;
@@ -240,6 +243,38 @@ function renderDiscussionState(state) {
     <table><thead><tr><th>Player</th><th>Role</th><th>Vote</th>${discussion.status === "resolved" ? "<th>Revealed choice</th>" : ""}</tr></thead><tbody>${voteRows}</tbody></table>
     ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
   `;
+}
+
+async function loadOperationsState(){
+  const payload=baseTeacherPayload(false);if(!payload)return;
+  try{const state=await rpc("s7_get_teacher_console",payload);renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
+  catch(error){operationsBadge.textContent="Unavailable";operationsState.innerHTML=`<p class="bad">${escapeHtml(error.message)}</p>`;}
+}
+
+async function setAuditPrivateDebug(){
+  const payload=baseTeacherPayload();if(!payload)return;
+  try{await rpc("s7_set_audit_private_debug",{...payload,p_enabled:auditPrivateDebug.checked});operationsStatus.textContent=auditPrivateDebug.checked?"AUDIT private debug enabled and logged.":"Private debug disabled and logged.";await loadOperationsState();}
+  catch(error){auditPrivateDebug.checked=false;operationsStatus.textContent=`Private debug unavailable: ${error.message}`;}
+}
+
+function renderOperationsState(state){
+  if(!state.active){operationsBadge.textContent="No active run";operationsState.innerHTML="<p class='muted'>Start a formal run to observe live operations.</p>";return;}
+  const current=state.current||{},players=state.players||[],discussion=state.discussion||{},exp=state.export||{};
+  operationsBadge.textContent=`${state.run.run_mode.toUpperCase()} · ACT ${current.act_no||"?"}`;
+  auditPrivateDebug.checked=Boolean(state.run.audit_private_debug_view);auditPrivateDebug.disabled=state.run.run_mode!=="audit";
+  exportSessionButton.disabled=!exp.enabled;
+  const playerRows=players.map(p=>`<tr><td>${escapeHtml(p.display_name)}</td><td>${p.online?"online":"offline"}</td><td>${p.submitted?"submitted":"waiting"}</td><td>${escapeHtml(p.player_location||"-")}</td>${state.run.audit_private_debug_view?`<td>${escapeHtml(p.private_value||"-")}</td>`:""}</tr>`).join("");
+  const pockets=(state.pockets||[]).map(p=>`<details><summary>${escapeHtml(p.display_name)} Pocket</summary><p><b>Items:</b> ${escapeHtml((p.items||[]).map(x=>x.item_key).join(", ")||"none")}</p><p><b>Observations:</b> ${escapeHtml((p.observations||[]).map(x=>x.display_text_key).join(", ")||"none")}</p><p><b>Shared photos:</b> ${escapeHtml((p.shared_photos||[]).map(x=>`${x.source_item_key}:${x.source_view}`).join(", ")||"none")}</p></details>`).join("");
+  const messages=(discussion.messages||[]).map(m=>`<article class="message"><div><b>${escapeHtml(m.display_name)}</b><time>${escapeHtml(formatTime(m.created_at))}</time></div><p>${escapeHtml(m.message_text)}</p></article>`).join("");
+  operationsState.innerHTML=`
+    <p><b>Current:</b> ACT ${escapeHtml(current.act_no||"unknown")} · ${escapeHtml(current.scene_id||"-")} / ${escapeHtml(current.phase_key||"-")} / ${escapeHtml(current.step_key||"-")}</p>
+    <p><b>Route:</b> ${escapeHtml(current.current_route||"undecided")} · <b>Countdown:</b> ${escapeHtml(state.countdown?.remaining_seconds??"-")} sec · <b>Display:</b> ${escapeHtml(current.display_mode||"-")}</p>
+    <table><thead><tr><th>Player</th><th>Presence</th><th>Action</th><th>Location</th>${state.run.audit_private_debug_view?"<th>Private debug</th>":""}</tr></thead><tbody>${playerRows}</tbody></table>
+    <h3>Discussion transcript</h3><div class="transcript teacher-transcript">${messages||"<p class='muted'>No messages yet.</p>"}</div>
+    <h3>Pockets and group items</h3>${pockets}<p><b>Group Items:</b> ${escapeHtml((state.group_items||[]).map(x=>x.item_key).join(", ")||"none")}</p>
+    <details><summary>Audio trigger debug</summary><p><b>Current cue:</b> ${escapeHtml(state.audio?.current_cue_key||"none")}</p><pre>${escapeHtml(JSON.stringify(state.audio?.recent||[],null,2))}</pre></details>
+    <details><summary>Teacher interventions and validity</summary><p><b>Validity:</b> ${escapeHtml(JSON.stringify(state.behavior_validity||{}))}</p><pre>${escapeHtml(JSON.stringify({overrides:state.override_history||[],events:state.events||[]},null,2))}</pre></details>
+    <p><b>Export:</b> ${escapeHtml(exp.filename_preview||"unavailable")} · waiting for ACT 14 finalization</p>`;
 }
 async function initializeSprint5(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s5_initialize",payload);discussionTeacherStatus.textContent=`ACT 6–8 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 5 initialization failed: ${error.message}`}}
 async function initializeSprint6(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s6_initialize",payload);discussionTeacherStatus.textContent=`ACT 9–13 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 6 initialization failed: ${error.message}`}}
