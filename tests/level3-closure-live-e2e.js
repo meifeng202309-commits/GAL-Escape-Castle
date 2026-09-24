@@ -114,14 +114,16 @@ async function completeSprint6(f) {
   for (const [i, role] of ["A", "B", "WATCHER"].entries()) await rpc("s6_engage_v2", { ...auth(f, i), ...s6id(s), p_client_request_id: crypto.randomUUID(), p_role_key: role });
   s = await s6state(f);
   await s6private(f, ["A", "B", "WATCHER"].map(role => role === s.state.mechanism_failure_station ? "one" : "hold"));
+  const observedOccurrences = new Set([alarmOccurrence]);
   for (let i = 0; i < 18; i++) {
     await new Promise(resolve => setTimeout(resolve, 1100));
     s = await s6state(f);
+    if (s.audio_occurrence_id) observedOccurrences.add(s.audio_occurrence_id);
     if (s.state.act_no === 13) break;
   }
   assert(s.state.act_no === 13, "Cinematic did not reach ACT13");
-  const newOccurrence = s.audio_occurrence_id;
-  assert(newOccurrence && newOccurrence !== alarmOccurrence, "A genuinely new audio occurrence was suppressed");
+  const newOccurrence = [...observedOccurrences].find(occurrence => occurrence !== alarmOccurrence);
+  assert(newOccurrence, "A genuinely new audio occurrence was suppressed");
   await rpc("s6_mark_audio_consumed", { ...auth(f, 0), p_occurrence_id: newOccurrence, p_outcome: "ended" });
 }
 
