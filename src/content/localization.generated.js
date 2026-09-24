@@ -2345,6 +2345,34 @@ export const LOCALIZATION_CATALOG = {
     "englishMaster": "{submitted}/3 votes received.",
     "nl": "{submitted}/3 stemmen ontvangen.",
     "zh": "已收到 {submitted}/3 票。"
+  },
+  "runtime.audio.full": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Full volume",
+    "nl": "Volledig volume",
+    "zh": "正常音量"
+  },
+  "runtime.audio.reduced": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Reduced volume",
+    "nl": "Lager volume",
+    "zh": "低音量"
+  },
+  "runtime.audio.mute": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Mute sound",
+    "nl": "Geluid dempen",
+    "zh": "静音"
+  },
+  "runtime.audio.blocked": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Sound is paused. Use an audio control to retry.",
+    "nl": "Geluid is gepauzeerd. Gebruik een audioknop om opnieuw te proberen.",
+    "zh": "声音已暂停。请使用音频控制重试。"
   }
 };
 
