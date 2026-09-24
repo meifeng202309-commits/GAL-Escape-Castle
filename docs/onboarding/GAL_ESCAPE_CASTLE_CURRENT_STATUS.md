@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T16:03:00Z
+> Last refreshed: 2026-09-24T16:23:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = ACT1–13 Level2 closure remediation
-CURRENT_GATE          = LEVEL2_TARGETED_INDEPENDENT_CLOSURE_AUDIT_FAIL
+CURRENT_SPRINT        = ACT1–13 Level2 residual closure remediation
+CURRENT_GATE          = LEVEL2_RESIDUAL_CLOSURE_REAUDIT_FAIL
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes residual IDA-001, IDA-002, IDA-004 and IDA-005 gaps on correction baseline b4248132842a2e660ca1ba4e15605eff75c78dff, preserves deployed migrations 001–039, adds required runtime closure evidence/regressions, then submits another Level2 Targeted Independent Closure Audit request; Sprint7 remains blocked
+NEXT_REQUIRED_ACTION  = CD closes IDA-002, residual IDA-005 audio-forensic dependency, and new IDA-006 Teacher verification-authority regression on correction baseline 69fcf8fc998e8a5622dbd5e2b69447a2a2cb37d9; preserves deployed migrations 001–041; adds adjacent regressions; then submits another Level2 targeted closure request; Sprint7 remains blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -117,7 +117,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 037.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 042.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -190,7 +190,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `037`.
+Deployed migrations `018–036` are immutable. Next unused migration is `042`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -225,7 +225,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `037`.
+Migrations `027–036` are immutable. Next unused migration is `042`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -233,40 +233,41 @@ Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is 
 
 ## 8. Sprint6 historical closure / current Level2 gate
 
-Sprint6 focused Level1 remains a historical bounded PASS. The higher-level ACT1–13 integrated gate remains BLOCKED after the first Level2 targeted closure audit.
+Sprint6 focused Level1 remains a historical bounded PASS. The higher-level ACT1–13 integrated gate remains BLOCKED after the second Level2 targeted closure re-audit.
 
 ```text
-IDA-001 HIGH   = PARTIALLY_FIXED / NOT VERIFIED
+IDA-001 HIGH   = FIXED_VERIFIED
 IDA-002 MEDIUM = PARTIALLY_FIXED / OPEN
 IDA-003 HIGH   = FIXED_VERIFIED
-IDA-004 HIGH   = PARTIALLY_FIXED / NOT VERIFIED
+IDA-004 HIGH   = FIXED_VERIFIED
 IDA-005 HIGH   = PARTIALLY_FIXED / OPEN
+IDA-006 HIGH   = NEW / CONFIRMED — NORMAL Teacher verification RPCs alter canonical deadlines without intervention provenance
 
 Level2 gate = FAIL / BLOCKED
 Sprint7 gate = BLOCKED
 ```
 
-Level2 audit report:
+Second Level2 re-audit report:
 
 ```text
-docs/audits/independent/runs/2026-09-24_level2_ida001-005_closure/AUDIT_REPORT.md
+docs/audits/independent/runs/2026-09-24_level2_residual_ida_closure_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260924T160200Z_level2-ida-closure-fail-four-not-closed.md
+agent-comms/CA_to_CD_20260924T162200Z_level2-residual-closure-fail-ida002-005-006.md
 ```
 
 Correction baseline audited:
 
 ```text
-b4248132842a2e660ca1ba4e15605eff75c78dff
+69fcf8fc998e8a5622dbd5e2b69447a2a2cb37d9
 ```
 
-Migrations `001–039` are deployed history and immutable. Next unused migration is `040`.
+Migrations `001–041` are deployed history and immutable. Next unused migration is `042`.
 
-CD must close residual IDA-001/002/004/005 and request another Level2 targeted closure audit. Sprint7 may be released only after Level2 PASS.
+CD must close IDA-002, the remaining IDA-005 audio-forensic dependency, and IDA-006, then request another Level2 targeted closure audit. Sprint7 may be released only after Level2 PASS.
 
 ---
 
