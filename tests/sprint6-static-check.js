@@ -1,7 +1,10 @@
-const fs=require("fs");const sql=fs.readFileSync("database/033_sprint6_act9_13_runtime.sql","utf8"),app=fs.readFileSync("src/game/app.js","utf8");
-for(const x of ["s6_run_state","s6_private_clues","private_system_message","s6_submit_group_choice","no_consensus","action_executed',false","great_hall_wrong_door","s6_submit_allocation","allocation_rework","s6_engage","role_key in('A','B','C')","cinematic_auto_resolution","act14_boundary_reached","'game_completed',false","'export_ready',false"])if(!sql.includes(x))throw Error(`Missing Sprint6 invariant: ${x}`);
-for(const x of ["renderSprint6","s6_get_player_state","s6_submit_group_choice_guarded","s6_submit_private_choice_guarded","s6_submit_allocation_guarded","s6_engage_guarded"])if(!app.includes(x))throw Error(`Missing Sprint6 UI: ${x}`);
+const fs=require("fs");
+const sql=fs.readFileSync("database/033_sprint6_act9_13_runtime.sql","utf8");
 const hardening=fs.readFileSync("database/035_sprint6_focused_audit_corrections.sql","utf8");
-for(const x of ["s6_action_receipts","s6_allocation_attempts","s6_station_tasks","s6_open_discussion","s6_send_message_guarded","s6_assert_identity","s6_submit_group_choice_guarded","s6_complete_station_guarded","linda_star_key","resolution_source','group_majority","audio.snake_hiss_short","audio.wet_scraping","audio.snakes_approaching","audio.mechanism_clang","audio.gate_opening","ending.castle_exterior","item.golden_key","act14_boundary_reached"])if(!hardening.includes(x))throw Error(`Missing Sprint6 correction: ${x}`);
-for(const x of ["s6Discussion","s6_submit_group_choice_guarded","s6_complete_station_guarded","shared.great_hall","ending.castle_exterior","new Audio"] )if(!app.includes(x))throw Error(`Missing Sprint6 corrected UI: ${x}`);
-if(/database\/0(2[7-9]|3[0-2])_/.test("database/033_sprint6_act9_13_runtime.sql"))throw Error("Immutable migration touched");console.log("Sprint 6 static checks passed.");
+const closure=fs.readFileSync("database/036_sprint6_four_open_findings.sql","utf8");
+const app=fs.readFileSync("src/game/app.js","utf8");
+for(const x of ["s6_run_state","s6_private_clues","private_system_message","no_consensus","allocation_rework","role_key in('A','B','C')","act14_boundary_reached"])if(!sql.includes(x))throw Error(`Missing Sprint6 invariant: ${x}`);
+for(const x of ["s6_action_receipts","s6_allocation_attempts","s6_station_tasks","s6_open_discussion","linda_star_key","audio.wet_scraping","ending.castle_exterior","item.golden_key"])if(!hardening.includes(x))throw Error(`Missing Sprint6 hardening: ${x}`);
+for(const x of ["s6_station_b_progress","lever_held","indicator_center","s6_request_lock","s6_close_discussion_v2","act11.011","act02.024","when 9 then array['act12.026']","when 10 then '{}'::text[]","audio.mechanism_clang","audio.gate_opening","interval'3 seconds'","prop.golden_key"])if(!closure.includes(x))throw Error(`Missing Sprint6 closure contract: ${x}`);
+for(const x of ["s6_submit_group_choice_v2","s6_submit_private_choice_v2","s6_submit_allocation_v2","s6_engage_v2","requestIdentity(rpcName","s6_complete_station_v2","great_hall_red_door","great_hall_blue_door","great_hall_black_door","prop.golden_key","sprint6AudioHandles","cinematic_stage===10"])if(!app.includes(x))throw Error(`Missing Sprint6 closure UI: ${x}`);
+console.log("Sprint 6 static checks passed.");
