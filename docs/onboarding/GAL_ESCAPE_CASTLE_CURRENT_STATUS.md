@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T01:10:00Z
+> Last refreshed: 2026-09-24T02:22:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 5
-CURRENT_GATE          = READY_FOR_SPRINT5_IMPLEMENTATION
+CURRENT_GATE          = BLOCKED_BY_SPRINT5_LEVEL1_AUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements canonical Sprint5 ACT 6–8 + visual-dynamic UI, preserves verified Sprint1–4 baselines and migrations 001–026, runs regressions, and submits completed Sprint5 scope for normal Level 1 CA audit
+NEXT_REQUIRED_ACTION  = CD corrects S5-CA-001, S5-CA-002, S5-CA-003 and S5-RC-001 within Sprint5 scope, preserves deployed migrations 001–028, runs adjacent regressions, and submits a focused Level 1 CA re-audit request
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -25,11 +25,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-CA has completed its latest 10-action checkpoint through CA-050.
+CA has completed its latest 10-action checkpoint through CA-060.
 
 ```text
 GA_CHECKPOINT = NONE
-CA_CHECKPOINT = CA-050
+CA_CHECKPOINT = CA-060
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ```
@@ -88,7 +88,7 @@ Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
-Sprint 5  = READY FOR IMPLEMENTATION
+Sprint 5  = LEVEL 1 AUDIT FAIL — 4 BLOCKERS
 ```
 
 Sprint3C verified correction baseline:
@@ -105,7 +105,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 027.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 029.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -178,12 +178,41 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–026` are immutable. Next unused migration is `027`.
+Deployed migrations `018–028` are immutable. Next unused migration is `029`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
 
-## 7. Visual / asset snapshot
+
+## 7. Current Sprint5 blockers
+
+```text
+S5-CA-001 HIGH   = OPEN — canonical DiscussionRoom / asymmetric evidence flow missing
+S5-CA-002 HIGH   = OPEN — localization authority and canonical presentation flow bypassed/incomplete
+S5-CA-003 MEDIUM = OPEN — visual-dynamic UI ignores approved anchor contract
+S5-RC-001 MEDIUM = OPEN — split/stale DiscussionRoom and round-resolution evidence state
+Sprint5 gate     = FAIL / BLOCKED
+```
+
+Level 1 audit:
+
+```text
+docs/audits/regular/runs/2026-09-24_sprint5_level1/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260924T022130Z_sprint5-level1-audit-fail-four-blockers.md
+```
+
+Migrations `027–028` are deployed history and must remain immutable. Any DB correction begins at `029+`.
+
+Sprint6 is not authorized while this gate remains open.
+
+---
+
+## 8. Visual / asset snapshot
 
 Visual production may continue under Castle Visual V2.1 + `assets/asset-registry.json` governance.
 
@@ -194,7 +223,7 @@ MASTER identities ≠ automatic runtime asset_keys
 
 ---
 
-## 8. Memory-system adoption
+## 9. Memory-system adoption
 
 Active adoption message:
 
@@ -213,7 +242,7 @@ docs/logs/VA_ACTION_LOG.csv
 
 ---
 
-## 9. When this snapshot is stale
+## 10. When this snapshot is stale
 
 Use, in order:
 
