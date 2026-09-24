@@ -1,0 +1,4 @@
+const fs=require("fs");const sql=fs.readFileSync("database/033_sprint6_act9_13_runtime.sql","utf8"),app=fs.readFileSync("src/game/app.js","utf8");
+for(const x of ["s6_run_state","s6_private_clues","private_system_message","s6_submit_group_choice","no_consensus","action_executed',false","great_hall_wrong_door","s6_submit_allocation","allocation_rework","s6_engage","role_key in('A','B','C')","cinematic_auto_resolution","act14_boundary_reached","'game_completed',false","'export_ready',false"])if(!sql.includes(x))throw Error(`Missing Sprint6 invariant: ${x}`);
+for(const x of ["renderSprint6","s6_get_player_state","s6_submit_group_choice","s6_submit_private_choice","s6_submit_allocation","s6_engage","act13.003"])if(!app.includes(x))throw Error(`Missing Sprint6 UI: ${x}`);
+if(/database\/0(2[7-9]|3[0-2])_/.test("database/033_sprint6_act9_13_runtime.sql"))throw Error("Immutable migration touched");console.log("Sprint 6 static checks passed.");
