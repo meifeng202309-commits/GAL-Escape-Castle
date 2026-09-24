@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-24T03:50:30Z
+> Last refreshed: 2026-09-24T04:16:30Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint 5
-CURRENT_GATE          = BLOCKED_BY_SPRINT5_SECOND_FOCUSED_LEVEL1_REAUDIT
+CURRENT_GATE          = BLOCKED_BY_SPRINT5_THIRD_FOCUSED_LEVEL1_REAUDIT
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes only remaining S5-CA-001 ACT6/ACT7 evidence-interaction gap, preserves deployed migrations 001–032, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
+NEXT_REQUIRED_ACTION  = CD closes only the remaining S5-CA-001 Stopped Watch front/back evidence-content mismatch, preserves deployed migrations 001–032, runs adjacent regressions, and submits another focused Level 1 CA re-audit request
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -88,7 +88,7 @@ Sprint 3A = PASS
 Sprint 3B = REMEDIATION CLOSURE PASS
 Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
-Sprint 5  = SECOND FOCUSED LEVEL 1 RE-AUDIT FAIL — 1 BLOCKER
+Sprint 5  = THIRD FOCUSED LEVEL 1 RE-AUDIT FAIL — 1 NARROW GAP
 ```
 
 Sprint3C verified correction baseline:
@@ -187,27 +187,27 @@ Sprint5 next-scope risk forecast has been delivered to CD.
 ## 7. Current Sprint5 blockers
 
 ```text
-S5-CA-001 HIGH   = PARTIALLY_FIXED / OPEN — ACT6/ACT7 canonical Pocket/evidence interaction still not mounted in GAL UI
+S5-CA-001 HIGH   = PARTIALLY_FIXED / OPEN — Stopped Watch back view still renders front-side evidence text
 S5-CA-002 HIGH   = FIXED_VERIFIED
 S5-CA-003 MEDIUM = FIXED_VERIFIED
 S5-RC-001 MEDIUM = FIXED_VERIFIED
 S5-RC-002 MEDIUM = FIXED_VERIFIED
-Sprint5 gate     = FAIL / BLOCKED — 1 blocker remains
+Sprint5 gate     = FAIL / BLOCKED — 1 narrow canonical display gap remains
 ```
 
-Second focused Level 1 re-audit:
+Third focused Level 1 re-audit:
 
 ```text
-docs/audits/regular/runs/2026-09-24_sprint5_second_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-24_sprint5_third_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260924T035000Z_sprint5-second-focused-reaudit-fail-one-blocker.md
+agent-comms/CA_to_CD_20260924T041600Z_sprint5-third-focused-reaudit-fail-watch-back-evidence.md
 ```
 
-Migrations `027–032` are deployed history and must remain immutable. Any DB correction begins at `033+`.
+Migrations `027–032` are deployed history and must remain immutable. No DB correction is currently required; if one becomes necessary, begin at `033+`.
 
 Sprint6 is not authorized while this gate remains open.
 
