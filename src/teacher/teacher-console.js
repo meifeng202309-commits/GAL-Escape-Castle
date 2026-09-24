@@ -43,6 +43,7 @@ const loadAssetsButton=document.getElementById("loadAssetsButton"),assetReadyBad
 const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.getElementById('anchorStage'),anchorImage=document.getElementById('anchorImage'),anchorBox=document.getElementById('anchorBox'),anchorPrompt=document.getElementById('anchorPrompt'),anchorStatus=document.getElementById('anchorStatus'),anchorNameSelect=document.getElementById('anchorNameSelect'),saveAnchorButton=document.getElementById('saveAnchorButton');let anchorDraft=null,anchorCandidate=null,anchorStart=null;
 
 let pollTimer = null;
+let sprint5TeacherActive = false;
 
 createRoomButton.addEventListener("click", createRoom);
 watchButton.addEventListener("click", watchRoom);
@@ -164,7 +165,7 @@ async function openVote() {
   const payload = baseTeacherPayload();
   if (!payload) return;
   try {
-    await rpc("s2_open_vote", payload);
+    await rpc(sprint5TeacherActive ? "s5_teacher_open_vote" : "s2_open_vote", payload);
     discussionTeacherStatus.textContent = "Voting opened.";
     await loadDiscussionState();
   } catch (error) {
@@ -176,7 +177,7 @@ async function addTime() {
   const payload = baseTeacherPayload();
   if (!payload) return;
   try {
-    await rpc("s2_add_time", { ...payload, p_seconds: 30 });
+    await rpc(sprint5TeacherActive ? "s5_teacher_add_time" : "s2_add_time", { ...payload, p_seconds: 30 });
     discussionTeacherStatus.textContent = "Added 30 seconds.";
     await loadDiscussionState();
   } catch (error) {
@@ -188,7 +189,9 @@ async function loadDiscussionState() {
   const payload = baseTeacherPayload(false);
   if (!payload) return;
   try {
-    const state = await rpc("s2_get_teacher_state", payload);
+    const s5State = await rpc("s5_get_teacher_discussion_state", payload).catch(()=>({sprint5_active:false}));
+    sprint5TeacherActive = Boolean(s5State.sprint5_active);
+    const state = sprint5TeacherActive ? s5State : await rpc("s2_get_teacher_state", payload);
     renderDiscussionState(state);
   } catch (error) {
     runBadge.textContent = "Unavailable";

@@ -25,5 +25,8 @@ for (const text of ["s5_mirror_round_for_audit", "s5_round_audit_link", "sprint5
 for (const text of ["drop trigger if exists s5_round_audit_link", "s5_configure_discussion", "allow_pocket", "allow_memories_observations", "allow_share_photo", "Sprint 5 voting is not open", "s5_get_discussion_state"]) if (!level1.includes(text)) throw new Error(`Missing Sprint 5 Level 1 correction: ${text}`);
 if (app.includes("portrait-eyes") || app.includes("How do we escape?") || app.includes("ONE SHOWS NOW.")) throw new Error("Sprint 5 renderer contains a prohibited substitute or hardcoded canonical text.");
 for (const text of ["s5_send_message", "Stale Sprint 5 discussion identity", "client_request_id"]) if (!exactMessages.includes(text)) throw new Error(`Missing exact-session message correction: ${text}`);
+const focused = fs.readFileSync("database/031_sprint5_focused_reaudit_corrections.sql", "utf8");
+for (const text of ["allow_share_photo=p_phase in('act6_vote','act8_final_vote')", "s5_get_teacher_discussion_state", "s5_teacher_open_vote", "s5_teacher_add_time", "idempotent_replay"]) if (!focused.includes(text)) throw new Error(`Missing focused re-audit correction: ${text}`);
+for (const text of ["counterclockwise", "prop_gitte_castle_map", "prop.photo_1897", "pocket?.observations", "pocket?.shared_photos", "data-share-item"]) if (!app.includes(text)) throw new Error(`Missing Sprint 5 evidence UI: ${text}`);
 if (/database\/02[0-6]_/.test("database/027_sprint5_act6_8_runtime.sql")) throw new Error("Immutable migration range touched.");
 console.log("Sprint 5 static checks passed.");
