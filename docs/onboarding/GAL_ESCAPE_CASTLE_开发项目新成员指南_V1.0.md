@@ -216,7 +216,7 @@ GA负责维护。
 
 首要：
 
-    docs/specs/current/Codex程序开发说明书 V2.3.md
+    docs/specs/current/Codex程序开发说明书 V2.4.md
 
 它定义：
 
@@ -332,6 +332,38 @@ Reports说明“当前验证到了什么”，不静默改写 gameplay/spec sema
 
 ---
 
+## 3.9 Canonical ownership boundary — universal rule
+
+项目中的 canonical source 有明确的维护 authority。**发现某个实现缺口，不会自动把 canonical definition authority 转移给发现者。**
+
+统一规则：
+
+- Agent只能在自己被明确授权的 canonical domain 中定义/修改 canonical content；
+- 如果实现需要修改另一个角色维护的 canonical source，必须先 STOP 并向 canonical owner 发出 clarification / ACTION_REQUIRED；
+- canonical owner先更新 source of truth 并产生 owner-role commit；
+- consumer Agent随后在**单独的 implementation commit**中消费该 canonical change；
+- 同一个GitHub账号的 `author / committer` 不能证明 Agent role authority；
+- role provenance以 Action Log、inter-Agent handoff 与 commit boundary 为准；
+- 内容“看起来正确”不能替代正确的 authority chain。
+
+典型例子：
+
+```text
+CD发现缺少GAL-facing text_key
+≠ CD可以自行写canonical localization
+
+正确：
+CD/CA → GA gap request
+→ GA/Teacher canonicalize
+→ GA canonical commit
+→ CD separate implementation commit
+→ CA audit
+```
+
+该原则同样适用于 gameplay semantics、visual canon、asset identity 及其他明确有 owner 的 canonical source。
+
+---
+
 # 4. Repository 地图
 
     docs/
@@ -386,7 +418,7 @@ GA不应：
 - 代替CD完成常规implementation；
 - 代替CA宣布代码PASS；
 - 代替VA决定视觉production细节；
-- 无说明地推翻V2.3已锁定engineering boundary。
+- 无说明地推翻V2.4已锁定engineering boundary。
 
 ## 5.2 CD — Codex
 
@@ -412,13 +444,16 @@ CD不得：
 - 自己新增player choice；
 - 把system fallback伪装成player behavior；
 - 自己翻译GAL文案；
-- 自己发明asset key。
+- 自己发明asset key；
+- 因实现需要而自行修改其他角色维护的 canonical source；
+- 把“发现 canonical 缺口”当成“获得 canonical 定义权”；
+- 把未经 owner-role approval 的 canonical change 混入自己的 implementation commit。
 
 ## 5.3 CA — Coding Audit Agent
 
 CA coding audit必须同时遵守：
 
-    docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md
+    docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md
 
 负责：
 
@@ -483,7 +518,7 @@ VA不得：
 
 - localization问题 → canonical CSV
 - visual问题 → Castle Visual V2.1 + asset registry
-- engineering冲突 → Codex V2.3
+- engineering冲突 → Codex V2.4
 - audit clarification → CA相关报告/来信
 
 默认不必读：
@@ -499,7 +534,7 @@ VA不得：
 
 1. 本Guide
 2. CURRENT STATUS
-3. Codex程序开发说明书 V2.3
+3. Codex程序开发说明书 V2.4
 4. 当前Sprint相关的V4.0章节
 5. 最新CA / GA发给CD的信
 
@@ -521,9 +556,9 @@ VA不得：
 
 1. 本Guide
 2. CURRENT STATUS
-3. docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.1.md
+3. docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md
 4. CD当前audit request
-5. 当前Sprint的V2.3章节
+5. 当前Sprint的V2.4章节
 6. 当前功能相关V4.0章节
 7. implementation diff / migrations / tests
 
@@ -717,7 +752,7 @@ Master可作为 continuity reference。
 
 ## 8.1 Sprint sequence
 
-Current V2.3 high-level sequence：
+Current V2.4 high-level sequence：
 
     Sprint 0  Repository Audit
     Sprint 1  Core Multiplayer
@@ -891,11 +926,24 @@ derived artifact：
 如果需要新GAL文案：
 
     CD/CA发现缺口
-    → GA定义English master + Dutch + Chinese
-    → 更新canonical CSV
+    → STOP canonical wording work
+    → 向GA发送 ACTION_REQUIRED，说明 semantic purpose + scene/phase + UI context
+    → GA/Teacher定义 English master + Dutch + Chinese
+    → GA更新canonical CSV并产生GA-owned canonical commit
+    → GA发送commit SHA / handoff
+    → CD在单独的implementation commit中消费approved text_key
     → CD regenerate runtime localization
+    → CA audit
 
-不要让CD自行补翻译。
+对CD而言：
+
+    docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
+
+是 WRITE-PROTECTED CANONICAL SOURCE。
+
+CD不得自行新增/删除 text_key，不得自行补翻译，不得为了让测试或runtime通过而先写入canonical CSV再要求事后追认。
+
+Canonical-source commit 与 CD implementation commit 必须分离。
 
 ---
 
@@ -930,6 +978,9 @@ Broadcast：
 - 需要改变branch consequence；
 - 需要选择一个新的fallback；
 - 需要新增GAL-facing wording但没有text_key；
+- 实现需要新增 / 删除 / 改写 canonical localization row；
+- 实现需要修改由另一个Agent角色维护的 canonical source；
+- 发现canonical缺口但当前角色不是该domain的owner；
 - 需要决定一个物品是否属于physical ownership / knowledge；
 - 找不到合法asset identity；
 - 需要把Master变成runtime asset；
