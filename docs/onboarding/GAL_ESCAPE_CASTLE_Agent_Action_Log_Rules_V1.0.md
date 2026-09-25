@@ -1,6 +1,6 @@
 # GAL ESCAPE CASTLE — Agent Action Log & Status Sync Rules V1.0
 
-> Status: ACTIVE after project adoption broadcast  
+> Status: SUPERSEDED BY V1.1  
 > Scope: GA / CA / CD / VA  
 > Purpose: durable cross-chat project memory with low reading overhead
 
