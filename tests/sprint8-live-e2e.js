@@ -34,7 +34,7 @@ async function main(){
  assert(result.json.early_choices.length===3&&result.json.early_choices.every(x=>x.act1.locked_at&&x.act2_first_meeting.locked_at&&x.act4.locked_at),'early behavior evidence incomplete');
  const serialized=JSON.stringify(result.json);for(const secret of ['teacher_token','join_code','session_token','service_role','supabase_key'])assert(!serialized.toLowerCase().includes(secret),'secret-like export field found');
  assert(result.csv.split('\n')[0]==='timestamp,event_type,run_id,scene_id,phase_key,step_key,actor_id,payload_json,validity','CSV columns invalid');
- assert(player.integrity_report.station_c.validity==='not_applicable','legitimate branch absence was not accepted');
+ assert(player.integrity_report.obligations['act12.station_c'].state==='not_applicable'&&player.integrity_report.obligations['act12.station_c'].reason_code==='golden_key_watcher_path','legitimate branch absence was not accepted');
  assert(result.json.header.run_mode===mode&&result.json.header.behavior_dataset_eligible===(mode==='normal'),'run mode metadata invalid');
  const next=await rpc('s2_start_run',{p_room_code:f.room,p_teacher_token:f.teacher,p_run_mode:mode});assert(next.run_id!==finalized.run_id,'completed run still blocks a new run');
  const prior=await rpc('s8_export_session',{p_room_code:f.room,p_teacher_token:f.teacher});assert(prior.json.header.run_id===finalized.run_id,'completed export was lost after next run start');
