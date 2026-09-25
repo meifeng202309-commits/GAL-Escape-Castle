@@ -2,7 +2,7 @@
 
 Project: GAL Escape Castle  
 Protocol version: V3  
-Status: ACTIVE  
+Status: SUPERSEDED BY V4  
 Supersedes: Inter-Agent Talk Protocol V2  
 Applies to: CA, VA, GA, CD, ISA
 
