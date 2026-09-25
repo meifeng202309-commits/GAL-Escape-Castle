@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T15:38:00Z
+> Last refreshed: 2026-09-25T16:15:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Post-Sprint8 ACT1–14 milestone Level2 targeted-closure remediation
-CURRENT_GATE          = LEVEL2_TARGETED_CLOSURE_FAIL_IDA2_001_R1_R2_IDA2_005_R1
+CURRENT_GATE          = NARROW_LEVEL2_FAIL_IDA2_001_R2_EVENT_EVIDENCE
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD remediates residuals IDA2-001-R1, IDA2-001-R2, IDA2-005-R1 from Level2 targeted closure on frozen baseline 40223199e8c7934216b09d78aa86d4375d101e0f; preserve migrations001–054, use additive migration055+ only if database change is required, keep scope bounded to Teacher Override semantics + completed-run export selection + direct regression evidence, then submit one frozen baseline for narrow Level2 re-audit; Sprint9/10 remain blocked
+NEXT_REQUIRED_ACTION  = CD corrects only the remaining IDA2-001-R2 Teacher Override event-evidence inconsistency from frozen baseline 3b76246d5c0fa6678aaf22a785b56780cd52f5bb; preserve migrations001–056, use additive migration057+ only if required, add direct zero-vote and partial-real-vote event-scope regression evidence, then submit one frozen baseline for final narrow Level2 closure; Sprint9/10 remain blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-120.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-122.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-120
+CA_CHECKPOINT = CA-122
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -431,6 +431,39 @@ Migrations `001–054` are immutable deployed history. Next additive database mi
 
 Next audit is a **narrow Level2 re-audit** of the three residuals after CD submits one frozen correction baseline. No duplicate Teacher approval is required.
 
+
+---
+
+## 8E. Narrow Level2 residual re-audit
+
+```text
+Frozen correction baseline = 3b76246d5c0fa6678aaf22a785b56780cd52f5bb
+
+IDA2-001-R1 = CLOSED
+IDA2-005-R1 = CLOSED
+IDA2-001-R2 = OPEN only for canonical teacher_override runtime-event invalidated_scope consistency
+
+Narrow Level2 re-audit = FAIL / BLOCKED
+Canonical Ownership Check = PASS
+Sprint9 = BLOCKED
+Sprint10 = BLOCKED
+```
+
+Audit report:
+
+```text
+docs/audits/independent/runs/2026-09-25_ida2_residual_narrow_level2_reaudit/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T161500Z_level2-residual-reaudit-one-event-evidence-gap.md
+```
+
+Migrations `001–056` are immutable deployed history. Next additive database migration is `057+`.
+
+Next audit is one final narrow Level2 closure check of this event-evidence residual only.
 
 ---
 
