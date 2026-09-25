@@ -6,7 +6,7 @@ TIMESTAMP_UTC: 2026-09-25T15:38:00Z
 SUBJECT: Level2 Targeted Independent Closure for IDA2-001..006  
 STATUS: FAIL_BLOCKED  
 AUDITED_BASELINE: `40223199e8c7934216b09d78aa86d4375d101e0f`  
-AUDIT_REPORT: `docs/audits/regular/runs/2026-09-25_ida2_001_006_level2_targeted_closure/AUDIT_REPORT.md`
+AUDIT_REPORT: `docs/audits/independent/runs/2026-09-25_ida2_001_006_level2_targeted_closure/AUDIT_REPORT.md`
 
 ## Disposition
 
