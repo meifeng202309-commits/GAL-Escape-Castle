@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T17:45:00Z
+> Last refreshed: 2026-09-25T18:15:00Z
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_TRIAL_RUN_PREP_WITH_TEMPORARY_MEDIA
-CURRENT_OWNER         = CD trial-build integration + VA later media replacement + ISA Class A support
-NEXT_REQUIRED_ACTION  = CD makes the full game trial-runnable now using temporary placeholders for student-supplied images and existing safe fallback for unavailable audio; VA does not block trial execution on final media and instead preserves clean canonical replacement targets for later student-provided assets; ISA continues its existing Class A validation/tooling work; after Teacher trial runs and defect correction, final media are replaced through the existing asset workflow before final Sprint9 acceptance; migrations001–057 immutable next058+; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_TRIAL_BUILD_FOCUSED_AUDIT_FAIL_S9_TRIAL_001
+CURRENT_OWNER         = CD narrow remediation; VA later media replacement + ISA Class A support continue independently
+NEXT_REQUIRED_ACTION  = CD corrects only S9-TRIAL-001 poll-amplified missing-asset telemetry from baseline d94abcaf9ed27e6c8de5dfb4dbc8ca7d63a39216, preserving accepted placeholder rendering and missing-audio stopped fallback; add repeated-refresh bounded-telemetry plus ACTIVE-load-failure observability regression evidence, then submit one frozen narrow re-audit baseline; final Sprint9 asset acceptance remains pending and Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-127.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-128.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-127
+CA_CHECKPOINT = CA-128
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -611,6 +611,43 @@ Direct CA messages:
 ```text
 agent-comms/CA_to_CD_20260925T174500Z_user-directed-placeholder-first-trial-runs.md
 agent-comms/CA_to_VA_20260925T174500Z_pause-final-media-use-placeholders-for-trials.md
+```
+
+---
+
+## 8J. Sprint9 placeholder trial focused audit
+
+```text
+Audited baseline = d94abcaf9ed27e6c8de5dfb4dbc8ca7d63a39216
+
+Accepted:
+- resolver-first image placeholder fallback
+- visibly distinct temporary placeholder presentation
+- no Asset Manager registry/review/ACTIVE mutation
+- missing audio consumed using existing legal stopped outcome
+- Canonical Ownership Check PASS
+
+Open:
+S9-TRIAL-001 MEDIUM
+= 1.2s client polling repeatedly calls asset_resolve for unchanged NO_ACTIVE image slots
+= authoritative asset_resolve writes asset_load_failed on every call
+= expected placeholder state becomes poll-amplified telemetry/database writes
+
+Teacher repeated-trial release = BLOCKED pending narrow correction
+Final Sprint9 asset acceptance = NOT EVALUATED
+Sprint10 = future normal gate
+```
+
+Audit report:
+
+```text
+docs/audits/regular/runs/2026-09-25_sprint9_placeholder_trial_build_focused_audit/AUDIT_REPORT.md
+```
+
+CA -> CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T181500Z_sprint9-placeholder-trial-audit-one-telemetry-finding.md
 ```
 
 ---
