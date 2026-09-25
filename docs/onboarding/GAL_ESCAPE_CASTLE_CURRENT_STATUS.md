@@ -418,7 +418,7 @@ Sprint10 = BLOCKED
 Audit report:
 
 ```text
-docs/audits/regular/runs/2026-09-25_ida2_001_006_level2_targeted_closure/AUDIT_REPORT.md
+docs/audits/independent/runs/2026-09-25_ida2_001_006_level2_targeted_closure/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
