@@ -120,14 +120,24 @@ where run_id=pg_temp.test_run_id()
 select pg_temp.assert_missing('act4.route_resolution');
 rollback to savepoint act4_missing;
 
+do $$
+declare resolution text; round1_count integer; round1_distinct integer; round2_count integer; round2_distinct integer;
+begin
+  select act6_resolution into resolution from public.s5_run_state where run_id=pg_temp.test_run_id();
+  select count(*),count(distinct choice_id) into round1_count,round1_distinct from public.s5_votes
+  where run_id=pg_temp.test_run_id() and phase_key='act6_vote' and vote_round=1;
+  select count(*),count(distinct choice_id) into round2_count,round2_distinct from public.s5_votes
+  where run_id=pg_temp.test_run_id() and phase_key='act6_vote' and vote_round=2;
+  if resolution is distinct from 'portrait_fixed_fallback' or round1_count<>3 or round1_distinct<>3 or round2_count<>3 or round2_distinct<>3 then
+    raise exception 'ACT6 regression fixture is not a legitimate two-tie fallback: resolution %, r1 %/%, r2 %/%',resolution,round1_count,round1_distinct,round2_count,round2_distinct;
+  end if;
+end$$;
+
 savepoint act6_missing;
 delete from public.s5_votes
 where run_id=pg_temp.test_run_id()
   and phase_key='act6_vote'
-  and vote_round=(
-    select max(vote_round) from public.s5_rounds
-    where run_id=pg_temp.test_run_id() and phase_key='act6_vote' and status='resolved'
-  );
+  and vote_round=2;
 select pg_temp.assert_missing('act6.effective_vote');
 rollback to savepoint act6_missing;
 
