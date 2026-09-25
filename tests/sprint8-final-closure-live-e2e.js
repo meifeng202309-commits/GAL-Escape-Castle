@@ -43,7 +43,10 @@ async function fixtureWithExactAct1Override(){
   await Promise.all([0,1,2].map(i=>rpc("s3b_ack_route_update",auth(f,i))));
   await rpc("s3b_complete_foldback",auth(f,0));
   await Promise.all([0,1,2].map(i=>rpc("s3b_follow_sign",auth(f,i))));
-  await rpc("s3b_submit_library_code",{...auth(f,0),p_client_request_id:crypto.randomUUID(),p_code:"41739"});
+  if(process.env.S8_ACT3_OVERRIDE==="1"){
+    const act3Override=await rpc("teacher_apply_override",{...teacher(f),p_override_action:"RESOLVE_AND_CONTINUE",p_reason:"IDA2-002 ACT3 override through finalization regression"});
+    assert(act3Override.source_scene==="act3_library"&&act3Override.applied_resolution==="41739","ACT3 canonical override was not applied");
+  }else await rpc("s3b_submit_library_code",{...auth(f,0),p_client_request_id:crypto.randomUUID(),p_code:"41739"});
   await Promise.all([0,1,2].map(i=>rpc("s3b_submit_act4_choice",{...auth(f,i),p_choice_id:"known"})));
   await rpc("s5_initialize",{p_room_code:room,p_teacher_token:teacherToken});
   return{...f,override};
@@ -106,6 +109,7 @@ async function main(){
   assert(obligations.some(x=>x&&x.state==="invalid_teacher_override"),"Exact governed Teacher Override was not accepted as invalid_teacher_override");
 
   const exported=await rpc("s8_export_session",teacher(f));
+  assert(new Date(exported.json.header.exported_at).getTime()>Date.now()-30000,"exported_at is not export-generation time");
   const overrideAccepted=exported.json.teacher_overrides.some(o=>
     o.override_id===f.override.override_id&&Array.isArray(o.field_validity)&&o.field_validity.some(v=>
       v.player_id===f.players[2].player_id&&v.semantic_field==="act1_choice_id"&&v.validity==="invalid_teacher_override"));

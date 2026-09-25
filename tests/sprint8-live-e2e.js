@@ -25,7 +25,8 @@ async function main(){
  const body=requests[0];
  const replay=await rpc('s8_finalize',body);assert(replay.idempotent_replay,'duplicate finalization was not idempotent');
  const player=await rpc('s8_get_player_state',auth(f,1));assert(player.active&&player.phase_key==='act14_complete'&&player.text_keys.join(',')==='act14.001,act14.002,act14.003,act14.004,act14.005','ACT14 reconnect state failed');
- const result=await rpc('s8_export_session',{p_room_code:f.room,p_teacher_token:f.teacher});
+ const result=await rpc('s8_export_session',{p_room_code:f.room,p_teacher_token:f.teacher,p_run_id:finalized.run_id});
+ assert(new Date(result.json.header.exported_at).getTime()>Date.now()-30000,'exported_at is not export-generation time');
  const suffix=mode==='audit'?'_audit':'';assert(result.json_filename.endsWith(`${finalized.run_id}${suffix}.json`)&&result.csv_filename.endsWith(`${finalized.run_id}${suffix}.csv`),`${mode} filenames invalid`);
  const finalState=await rpc('s8_get_finalization_state',{p_room_code:f.room,p_teacher_token:f.teacher});
  assert(result.json.header.export_schema_version==='1.1'&&finalState.export_schema_version===result.json.header.export_schema_version&&finalized.export_schema_version===result.json.header.export_schema_version,'schema-version authorities diverged');
@@ -37,7 +38,7 @@ async function main(){
  assert(player.integrity_report.obligations['act12.station_c'].state==='not_applicable'&&player.integrity_report.obligations['act12.station_c'].reason_code==='golden_key_watcher_path','legitimate branch absence was not accepted');
  assert(result.json.header.run_mode===mode&&result.json.header.behavior_dataset_eligible===(mode==='normal'),'run mode metadata invalid');
  const next=await rpc('s2_start_run',{p_room_code:f.room,p_teacher_token:f.teacher,p_run_mode:mode});assert(next.run_id!==finalized.run_id,'completed run still blocks a new run');
- const prior=await rpc('s8_export_session',{p_room_code:f.room,p_teacher_token:f.teacher});assert(prior.json.header.run_id===finalized.run_id,'completed export was lost after next run start');
+ const prior=await rpc('s8_export_session',{p_room_code:f.room,p_teacher_token:f.teacher,p_run_id:finalized.run_id});assert(prior.json.header.run_id===finalized.run_id,'completed export was lost after next run start');
  console.log(`Sprint 8 ${mode.toUpperCase()} live E2E passed.`);
 }
 main().catch(e=>{console.error(e.stack||e);process.exitCode=1});

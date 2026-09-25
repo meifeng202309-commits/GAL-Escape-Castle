@@ -1,0 +1,11 @@
+const fs=require('fs');
+const sql=fs.readFileSync('database/054_level3_integrated_closure.sql','utf8');
+const ui=fs.readFileSync('src/teacher/teacher-console.js','utf8');
+const assert=(v,m)=>{if(!v)throw new Error(m)};
+for(const token of ['act2_first_contact','meeting_discussion','act2_rendezvous','route_consequence','act3_library','wayfinding','act4_known_unknown','private_route_choice','act5_route_discussion','post_inspection_route'])assert(sql.includes(token),`missing canonical override mapping: ${token}`);
+for(const token of ['s8_verify_integrity_v053','act2_authoritative_outcome_mismatch','act8_authoritative_outcome_mismatch','act10_authoritative_outcome_mismatch','resolution_source\',\'teacher_override'])assert(sql.includes(token),`missing integrity closure: ${token}`);
+assert(sql.includes('s8_export_session(p_room_code text,p_teacher_token text,p_run_id uuid)'),'run-bound export overload missing');
+assert(sql.includes("'completed_runs',runs")&&ui.includes('exportRunSelect')&&ui.includes('completedRuns.map'),'Teacher completed-run selector missing');
+assert(sql.includes("clock_timestamp()")&&!sql.includes("'{json,header,exported_at}',to_jsonb(f.finalized_at)"),'export timestamp is not generation-time');
+assert(ui.includes('exportSessionButton.dataset.runId')&&ui.indexOf('exportSessionButton.disabled=')<ui.indexOf('if(!state.active)'),'completed-run UI export path missing');
+console.log('Level3 remediation static checks passed.');

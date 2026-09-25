@@ -16,6 +16,7 @@ select set_config(
     from public.teacher_overrides o
     join public.s8_finalizations f on f.run_id=o.run_id
     where o.reason='WP-S8-02 exact ACT1 missing-choice acceptance regression'
+      and not exists(select 1 from public.teacher_overrides x where x.run_id=o.run_id and x.source_scene='act3_library' and x.source_phase='library_box')
     order by f.finalized_at desc
     limit 1
   ),
@@ -99,6 +100,11 @@ where run_id=pg_temp.test_run_id() and phase_key='meeting_discussion' and step_k
 select pg_temp.assert_missing('act2.meeting_resolution');
 rollback to savepoint act2_resolution_missing;
 
+savepoint act2_authority_missing;
+update public.s3b_run_state set final_meeting_result=null where run_id=pg_temp.test_run_id();
+select pg_temp.assert_missing('act2.meeting_resolution');
+rollback to savepoint act2_authority_missing;
+
 savepoint act3_missing;
 update public.s3b_library_attempts
 set correct=false
@@ -157,6 +163,11 @@ where run_id=pg_temp.test_run_id()
 select pg_temp.assert_missing('act8.private_choices');
 rollback to savepoint act8_private_missing;
 
+savepoint act8_authority_mismatch;
+update public.s5_run_state set route_taken_act8='main_gate' where run_id=pg_temp.test_run_id();
+select pg_temp.assert_missing('act8.final_vote');
+rollback to savepoint act8_authority_mismatch;
+
 savepoint act9_step_missing;
 delete from public.s6_choices
 where run_id=pg_temp.test_run_id() and phase_key='act9_console' and action_step=2;
@@ -168,6 +179,11 @@ delete from public.s6_choices
 where run_id=pg_temp.test_run_id() and phase_key='act10_final_vote';
 select pg_temp.assert_missing('act10.final_vote');
 rollback to savepoint act10_final_missing;
+
+savepoint act10_authority_mismatch;
+update public.s6_run_state set gold_key=false,alarm_active=false,station_c_bypassed=false where run_id=pg_temp.test_run_id();
+select pg_temp.assert_missing('act10.final_vote');
+rollback to savepoint act10_authority_mismatch;
 
 savepoint act11_missing;
 delete from public.s6_allocations

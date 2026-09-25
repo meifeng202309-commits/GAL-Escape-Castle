@@ -40,7 +40,7 @@ const overrideReasonInput = document.getElementById("overrideReason");
 const overrideActions = document.getElementById("overrideActions");
 const overrideStatus = document.getElementById("overrideStatus");
 const overrideHistory = document.getElementById("overrideHistory");
-const operationsBadge=document.getElementById("operationsBadge"),operationsStatus=document.getElementById("operationsStatus"),operationsState=document.getElementById("operationsState"),refreshOperationsButton=document.getElementById("refreshOperationsButton"),auditPrivateDebug=document.getElementById("auditPrivateDebug"),exportSessionButton=document.getElementById("exportSessionButton");
+const operationsBadge=document.getElementById("operationsBadge"),operationsStatus=document.getElementById("operationsStatus"),operationsState=document.getElementById("operationsState"),refreshOperationsButton=document.getElementById("refreshOperationsButton"),auditPrivateDebug=document.getElementById("auditPrivateDebug"),exportRunSelect=document.getElementById("exportRunSelect"),exportSessionButton=document.getElementById("exportSessionButton");
 const loadAssetsButton=document.getElementById("loadAssetsButton"),assetReadyBadge=document.getElementById("assetReadyBadge"),assetStatus=document.getElementById("assetStatus"),assetManagerState=document.getElementById("assetManagerState");
 const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.getElementById('anchorStage'),anchorImage=document.getElementById('anchorImage'),anchorBox=document.getElementById('anchorBox'),anchorPrompt=document.getElementById('anchorPrompt'),anchorStatus=document.getElementById('anchorStatus'),anchorNameSelect=document.getElementById('anchorNameSelect'),saveAnchorButton=document.getElementById('saveAnchorButton');let anchorDraft=null,anchorCandidate=null,anchorStart=null;
 
@@ -66,6 +66,7 @@ loadAssetsButton.addEventListener("click",loadAssets);
 refreshOperationsButton.addEventListener("click",loadOperationsState);
 auditPrivateDebug.addEventListener("change",setAuditPrivateDebug);
 exportSessionButton.addEventListener("click",exportSprint8Session);
+exportRunSelect.addEventListener("change",()=>{exportSessionButton.dataset.runId=exportRunSelect.value;exportSessionButton.disabled=!exportRunSelect.value;});
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -259,11 +260,16 @@ async function setAuditPrivateDebug(){
 }
 
 function renderOperationsState(state){
-  if(!state.active){operationsBadge.textContent="No active run";operationsState.innerHTML="<p class='muted'>Start a formal run to observe live operations.</p>";return;}
-  const current=state.current||{},players=state.players||[],discussion=state.discussion||{},exp=state.export||{};
+  const exp=state.export||{};
+  const completedRuns=exp.completed_runs||[];
+  exportRunSelect.hidden=completedRuns.length===0;
+  exportRunSelect.innerHTML=completedRuns.map(r=>`<option value="${escapeHtml(r.run_id)}">${escapeHtml(r.json_filename||r.run_id)}</option>`).join("");
+  exportSessionButton.dataset.runId=completedRuns[0]?.run_id||exp.run_id||"";
+  exportSessionButton.disabled=!exportSessionButton.dataset.runId||(!completedRuns.length&&!(exp.export_ready||exp.enabled));
+  if(!state.active){operationsBadge.textContent=exp.export_ready?"Completed · export ready":"No active run";operationsState.innerHTML=exp.export_ready?`<p><b>Completed run:</b> ${escapeHtml(exp.run_id||"-")}</p><p><b>Export:</b> ${escapeHtml(exp.json_filename||"ready")}</p>`:"<p class='muted'>Start a formal run to observe live operations.</p>";return;}
+  const current=state.current||{},players=state.players||[],discussion=state.discussion||{};
   operationsBadge.textContent=`${state.run.run_mode.toUpperCase()} · ACT ${current.act_no||"?"}`;
   auditPrivateDebug.checked=Boolean(state.run.audit_private_debug_view);auditPrivateDebug.disabled=state.run.run_mode!=="audit";
-  exportSessionButton.disabled=!(exp.export_ready||exp.enabled);
   const playerRows=players.map(p=>`<tr><td>${escapeHtml(p.display_name)}</td><td>${p.online?"online":"offline"}</td><td>${p.submitted?"submitted":"waiting"}</td><td>${escapeHtml(p.player_location||"-")}</td><td>${p.locked_choice_value?`${escapeHtml(p.locked_choice_value)}<br><small>${escapeHtml(p.locked_choice_state)}</small>`:escapeHtml(p.locked_choice_state||"WAITING")}</td>${state.run.audit_private_debug_view?`<td>${escapeHtml(JSON.stringify(p.audit_debug||{}))}</td>`:""}</tr>`).join("");
   const pockets=(state.pockets||[]).map(p=>`<details><summary>${escapeHtml(p.display_name)} Pocket</summary><p><b>Items:</b> ${escapeHtml((p.items||[]).map(x=>x.item_key).join(", ")||"none")}</p><p><b>Observations:</b> ${escapeHtml((p.observations||[]).map(x=>x.display_text_key).join(", ")||"none")}</p><p><b>Shared photos:</b> ${escapeHtml((p.shared_photos||[]).map(x=>`${x.source_item_key}:${x.source_view}`).join(", ")||"none")}</p></details>`).join("");
   const messages=(discussion.messages||[]).map(m=>`<article class="message"><div><b>${escapeHtml(m.display_name)}</b><time>${escapeHtml(formatTime(m.created_at))}</time></div><p>${escapeHtml(m.message_text)}</p></article>`).join("");
@@ -278,7 +284,7 @@ function renderOperationsState(state){
     <p><b>Export:</b> ${escapeHtml(exp.json_filename||exp.filename_preview||"unavailable")} · ${exp.export_ready?"ready":"waiting for ACT 14 finalization"}</p>`;
 }
 function downloadExport(filename,content,type){const url=URL.createObjectURL(new Blob([content],{type}));const anchor=document.createElement("a");anchor.href=url;anchor.download=filename;document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-async function exportSprint8Session(){const payload=baseTeacherPayload();if(!payload)return;exportSessionButton.disabled=true;try{const result=await rpc("s8_export_session",payload);downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");operationsStatus.textContent=`Exported ${result.json_filename} and ${result.csv_filename}.`}catch(error){operationsStatus.textContent=`Export failed: ${error.message}`}finally{await loadOperationsState()}}
+async function exportSprint8Session(){const payload=baseTeacherPayload();if(!payload)return;const runId=exportSessionButton.dataset.runId;exportSessionButton.disabled=true;try{const result=await rpc("s8_export_session",runId?{...payload,p_run_id:runId}:payload);downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");operationsStatus.textContent=`Exported ${result.json_filename} and ${result.csv_filename}.`}catch(error){operationsStatus.textContent=`Export failed: ${error.message}`}finally{await loadOperationsState()}}
 async function initializeSprint5(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s5_initialize",payload);discussionTeacherStatus.textContent=`ACT 6–8 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 5 initialization failed: ${error.message}`}}
 async function initializeSprint6(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s6_initialize",payload);discussionTeacherStatus.textContent=`ACT 9–13 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 6 initialization failed: ${error.message}`}}
 
