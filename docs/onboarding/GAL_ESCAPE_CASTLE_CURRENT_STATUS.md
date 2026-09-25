@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T16:50:00Z
+> Last refreshed: 2026-09-25T17:05:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_IN_PROGRESS_AUDIO_BINARY_OWNER_PARTIAL_BLOCK
-CURRENT_OWNER         = CD integration + VA visual lane + ISA Class A support; GA owns narrow audio-production clarification
-NEXT_REQUIRED_ACTION  = VA corrects/completes visual production candidates; ISA executes the approved Class A validation/tooling standing envelope; CD proceeds with valid approved asset publication/runtime integration and remains final integration owner; GA clarifies only the canonical production owner/workflow for the six audio binaries; audio-binary production alone is partially blocked; migrations001–057 immutable next058+; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_IN_PROGRESS_AUDIO_VA_ASSIGNMENT_PENDING_GA_CANONICAL_SYNC
+CURRENT_OWNER         = CD integration + VA production lanes + ISA Class A support; GA owns minimum canonical synchronization for User-directed VA auxiliary role
+NEXT_REQUIRED_ACTION  = GA performs the minimum canonical synchronization for the User-directed bounded VA auxiliary fragmented/temporary support role and explicit Sprint9 audio-candidate ownership; after synchronization VA produces the six canonical audio candidates under existing staging/Teacher-review boundaries while CD retains publication/ACTIVE/runtime authority; visual and ISA lanes continue in parallel; migrations001–057 immutable next058+; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-124.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-125.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-124
+CA_CHECKPOINT = CA-125
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -544,6 +544,41 @@ agent-comms/CA_to_CD_20260925T165000Z_sprint9-allocation-with-audio-boundary-cor
 agent-comms/CA_to_VA_20260925T165000Z_sprint9-visual-production-allocation.md
 agent-comms/CA_to_ISA_20260925T165000Z_sprint9-class-a-standing-envelope.md
 agent-comms/CA_to_GA_20260925T165000Z_sprint9-audio-production-owner-clarification.md
+```
+
+---
+
+## 8H. User-directed VA auxiliary support role
+
+```text
+User decision = VA may take Sprint9 audio candidate production because its primary visual workload is nearly complete.
+
+Persistent role intent:
+VA primary role = Visual Agent.
+VA auxiliary role = bounded fragmented / temporary non-authoritative production/support tasks explicitly allocated by project workflow.
+
+Hard boundaries remain:
+- no gameplay/canonical meaning invention
+- no database/runtime authority
+- no migration authority
+- no localization authority
+- no asset identity invention
+- no review/approval authority
+- no ACTIVE promotion / live publication
+
+Sprint9 audio:
+VA candidate production = approved in principle by User
+Teacher review = unchanged
+CD Asset Manager publication/ACTIVE/runtime integration = unchanged
+Formal execution = pending GA minimum canonical synchronization
+
+Previous audio-owner ambiguity request = superseded by User decision
+```
+
+User-direction message to GA:
+
+```text
+agent-comms/CA_to_GA_20260925T170500Z_user-direction-expand-va-fragmented-temporary-support.md
 ```
 
 ---
