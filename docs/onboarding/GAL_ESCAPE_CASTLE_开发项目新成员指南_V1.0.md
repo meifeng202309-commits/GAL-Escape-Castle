@@ -479,7 +479,7 @@ CA不得：
 
 ## 5.4 VA — Visual Agent
 
-负责：
+Primary responsibility：
 
 - scene / prop visual production；
 - visual continuity；
@@ -489,12 +489,24 @@ CA不得：
 - UI-safe composition；
 - Castle Visual compliance。
 
+Bounded auxiliary responsibility：
+
+VA可在project workflow明确分配时承担**fragmented / temporary production-support work**，条件是：
+- semantic / product requirement已经固定；
+- 没有冲突canonical owner；
+- 工作本身不是runtime-authoritative；
+- 不改变gameplay、database、security、lifecycle、localization authority、asset identity、approval authority或ACTIVE publication authority。
+
+Sprint9六个既有canonical audio candidates的candidate production / legal sourcing属于该辅助职责。
+
 VA不得：
 
 - 改gameplay；
-- 发明runtime asset_key；
+- 发明runtime asset_key或audio key/trigger；
 - 把exact text / numbers烧进AI scene artwork；
 - 把Master reference当成runtime asset；
+- 自行宣布APPROVED / ACTIVE；
+- 接管runtime publication / resolver / fallback / telemetry；
 - 在CA audit gate未通过时越权进入正式production（若该gate适用）。
 
 ## 5.5 ISA — Implementation Support Agent
