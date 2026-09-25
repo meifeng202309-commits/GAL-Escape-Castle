@@ -24,7 +24,7 @@
 - paired visual assets；
 - revision / approval。
 
-它**不负责**：
+它**默认不负责**：
 
 - 游戏状态机；
 - 精确文字；
@@ -32,8 +32,9 @@
 - 聊天；
 - 倒计时；
 -钟表运动；
--音频；
 -行为分析。
+
+VA的primary role仍是visual production。除视觉主责外，项目workflow可明确分配VA承担**bounded fragmented / temporary auxiliary production-support work**，但仅限semantic/product requirement已经固定、没有冲突canonical owner、且不具有runtime authority的任务。Sprint9 audio candidate production属于这一辅助职责。
 
 如果视觉与游戏功能冲突：
 
@@ -458,19 +459,37 @@ Student-facing runtime text默认由Codex按 **Dutch + Chinese** 双语显示。
 - 1897 Municipal Closure Order是diegetic historical document，runtime overlay只显示Dutch；
 - Visual Agent仍不得依赖AI生成可读正文，准确Dutch文字由HTML/UI overlay。
 
-## Audio
+## Audio — auxiliary production exception
 
-不属于 Visual Agent。
+Audio不是VA的primary visual responsibility；但在明确的project allocation下，VA可以承担已经canonicalized的audio candidate创建/合法素材 sourcing，作为bounded fragmented / temporary auxiliary production-support work。
 
-Visual Agent不要制作：
+Sprint9明确允许VA制作以下既有audio candidates：
 
-- wet scraping；
-- snake approaching；
-- alarm；
-- clang；
-- gate opening。
+- `audio.wet_scraping`；
+- `audio.snakes_approaching`；
+- `audio.old_alarm_bell`；
+- `audio.snake_hiss_short`；
+- `audio.mechanism_clang`；
+- `audio.gate_opening`。
 
-这些由 Audio Asset workflow处理。
+VA在audio上的权限止于：
+
+```text
+create / legally source
+→ canonical filename + metadata/sidecar
+→ checksum / staging verification
+→ Teacher review
+```
+
+VA不得：
+- 新增或改写audio key / trigger；
+- 改变gameplay/audio meaning；
+- 改变asset identity；
+- 宣布APPROVED或ACTIVE；
+- 发布runtime asset；
+- 修改resolver / fallback / telemetry。
+
+Teacher review后的runtime publication、metadata、ACTIVE promotion、resolver、fallback与telemetry仍由CD / Asset Manager负责。
 
 ---
 
