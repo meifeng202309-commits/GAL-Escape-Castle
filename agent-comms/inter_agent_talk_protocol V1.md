@@ -2,7 +2,7 @@
 
 Project: GAL Escape Castle  
 Protocol version: V1  
-Status: ACTIVE  
+Status: SUPERSEDED BY V2  
 Applies to: CA, VA, GA, CD
 
 ---
