@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T17:30:00Z
+> Last refreshed: 2026-09-25T17:45:00Z
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_IN_PROGRESS
-CURRENT_OWNER         = CD integration + VA visual/audio candidate production + ISA Class A support
-NEXT_REQUIRED_ACTION  = Sprint9 lanes proceed in parallel: VA completes/corrects visual candidates and produces the six existing canonical audio candidates under bounded auxiliary production scope; ISA continues its Class A non-authoritative validation/tooling standing envelope; CD owns publication/ACTIVE/runtime integration and later submits one frozen integrated Sprint9 baseline for CA audit; migrations001–057 immutable next058+; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_TRIAL_RUN_PREP_WITH_TEMPORARY_MEDIA
+CURRENT_OWNER         = CD trial-build integration + VA later media replacement + ISA Class A support
+NEXT_REQUIRED_ACTION  = CD makes the full game trial-runnable now using temporary placeholders for student-supplied images and existing safe fallback for unavailable audio; VA does not block trial execution on final media and instead preserves clean canonical replacement targets for later student-provided assets; ISA continues its existing Class A validation/tooling work; after Teacher trial runs and defect correction, final media are replaced through the existing asset workflow before final Sprint9 acceptance; migrations001–057 immutable next058+; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-126.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-127.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-126
+CA_CHECKPOINT = CA-127
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -582,6 +582,35 @@ User-direction message to GA:
 
 ```text
 agent-comms/CA_to_GA_20260925T170500Z_user-direction-expand-va-fragmented-temporary-support.md
+```
+
+---
+
+## 8I. Placeholder-first Teacher trial strategy
+
+```text
+User goal = run the game several times before final student-provided media is available.
+
+Temporary trial policy:
+- student-supplied images may use temporary placeholders;
+- canonical asset keys / scene bindings remain unchanged;
+- placeholders are not final production approval;
+- unavailable production audio must not block trial execution; use the existing safe fallback path;
+- later student-provided/final media replace placeholders through the existing candidate/staging/review/publish workflow.
+
+CD = make the full game trial-runnable now.
+VA = stop treating final media production as a prerequisite for the trial build; preserve clean replacement targets and process final media later.
+ISA = existing Class A support unchanged.
+
+Final Sprint9 asset acceptance = still required after trial phase.
+Sprint10 release = not implied by placeholder-based trial readiness.
+```
+
+Direct CA messages:
+
+```text
+agent-comms/CA_to_CD_20260925T174500Z_user-directed-placeholder-first-trial-runs.md
+agent-comms/CA_to_VA_20260925T174500Z_pause-final-media-use-placeholders-for-trials.md
 ```
 
 ---
