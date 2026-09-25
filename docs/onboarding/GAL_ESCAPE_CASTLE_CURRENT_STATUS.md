@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T14:11:00Z
+> Last refreshed: 2026-09-25T14:47:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 8 — narrow ACT6 integrity residual remediation
-CURRENT_GATE          = SPRINT8_FOCUSED_LEVEL1_FAIL_ONE_ACT6_RESIDUAL
+CURRENT_SPRINT        = Post-Sprint8 ACT1–14 milestone Level3 remediation
+CURRENT_GATE          = LEVEL3_ACT1_14_FAIL_IDA2_001_006
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes S8-CA-001-R2 ACT6 effective-round/fallback evidence residual on baseline 3d357ddc42e8232246bf649b5cb63a3e7ecea1fc using additive migration053+ as needed, adds round-2 fallback corruption regression, then submits another narrow Sprint8 Level1 re-audit; Sprint9/10 remain blocked
+NEXT_REQUIRED_ACTION  = CD remediates IDA2-001..006 from the ACT1–14 post-Sprint8 Full Independent Snapshot on frozen baseline 2cc4b642bc86c4d8fb1b1631ca0ae394ed886913, preserving migrations001–053 and using additive migration054+ as needed, then submits one frozen correction baseline for Level2 Targeted Independent Closure; Sprint9/10 remain blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -128,7 +128,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 053.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 054.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -201,7 +201,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `053`.
+Deployed migrations `018–036` are immutable. Next unused migration is `054`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -236,7 +236,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `053`.
+Migrations `027–036` are immutable. Next unused migration is `054`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -277,7 +277,7 @@ Final correction baseline:
 96dd6a867aa0edab25cd3a68a30b2710a99fdcbe
 ```
 
-Migrations `001–042` are deployed history and immutable. Next unused migration is `053`.
+Migrations `001–042` are deployed history and immutable. Next unused migration is `054`.
 
 Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized.
 
@@ -314,7 +314,7 @@ Final Sprint7 correction baseline:
 4cff559889fa076dd0c15e58844baa8277e1bba0
 ```
 
-Migrations `001–045` are deployed history and immutable. Next unused migration is `053`.
+Migrations `001–045` are deployed history and immutable. Next unused migration is `054`.
 
 Sprint8 is now the authorized implementation scope. Sprint9/10 remain unauthorized.
 
@@ -352,9 +352,49 @@ Frozen audit baseline:
 3d357ddc42e8232246bf649b5cb63a3e7ecea1fc
 ```
 
-Migrations `001–052` are immutable deployed history. Next unused migration is `053`.
+Migrations `001–052` are immutable deployed history. Next unused migration is `054`.
 
 Milestone independent snapshot remains scheduled after Sprint8 regular closure and before Sprint9/10 progression.
+
+## 8C. Post-Sprint8 ACT1–14 milestone Level3
+
+```text
+Sprint8 local gate = VERIFIED PASS
+Milestone Level3 = FAIL / BLOCKED
+
+IDA2-001 HIGH   = OPEN — canonical ACT1–5 Teacher Override hard allowlist only partially implemented
+IDA2-002 HIGH   = OPEN — canonical ACT3 Library Box override cannot pass ACT14 integrity
+IDA2-003 HIGH   = OPEN — Teacher Console export control remains disabled after completion
+IDA2-004 HIGH   = OPEN — semantic integrity can miss authoritative group outcome loss/mismatch
+IDA2-005 HIGH   = OPEN — export remains room-scoped and older completed runs lose addressability
+IDA2-006 MEDIUM = OPEN — exported_at records finalization time, not export-generation time
+
+Sprint9 = BLOCKED
+Sprint10 = BLOCKED
+```
+
+Audit run:
+
+```text
+docs/audits/independent/runs/2026-09-25_act1-14_post-sprint8/
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T144500Z_level3-act1-14-post-sprint8-fail-six-findings.md
+```
+
+Frozen product baseline:
+
+```text
+2cc4b642bc86c4d8fb1b1631ca0ae394ed886913
+```
+
+Migrations `001–053` are immutable. Next unused migration is `054`.
+
+Next audit after remediation is **Level2 Targeted Independent Closure**, not another automatic full Level3 rerun.
+
 
 ---
 
