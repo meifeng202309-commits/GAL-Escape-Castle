@@ -2,23 +2,36 @@
 -- Run as postgres after migration049 against the finalized Run A emitted by
 -- tests/sprint8-final-closure-live-e2e.js:
 --
---   psql ... -v run_id='<uuid>' -f tests/sprint8-final-closure-integrity-transaction.sql
+--   psql ... -f tests/sprint8-final-closure-integrity-transaction.sql
 --
--- All evidence mutations are transaction-scoped and rolled back.
-
-\if :{?run_id}
-\else
-\echo 'ERROR: run_id is required (psql -v run_id=<uuid>)'
-\quit 2
-\endif
+-- The harness locates the most recent finalized fixture created by the paired live E2E
+-- using its unique governed Teacher Override reason. All evidence mutations are
+-- transaction-scoped and rolled back.
 
 begin;
-select set_config('gal.test_run_id', :'run_id', true);
+select set_config(
+  'gal.test_run_id',
+  (
+    select o.run_id::text
+    from public.teacher_overrides o
+    join public.s8_finalizations f on f.run_id=o.run_id
+    where o.reason='WP-S8-02 exact ACT1 missing-choice acceptance regression'
+    order by f.finalized_at desc
+    limit 1
+  ),
+  true
+);
 
 create function pg_temp.test_run_id() returns uuid
-language sql stable as $$
-  select current_setting('gal.test_run_id')::uuid
-$$;
+language plpgsql stable as $
+declare value text;
+begin
+  value:=current_setting('gal.test_run_id',true);
+  if value is null or value='' then
+    raise exception 'No finalized WP-S8-02 live fixture was found. Run sprint8-final-closure-live-e2e.js first.';
+  end if;
+  return value::uuid;
+end$;
 
 create function pg_temp.assert_verified() returns void
 language plpgsql as $$
