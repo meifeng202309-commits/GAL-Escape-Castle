@@ -23,7 +23,7 @@ select set_config(
 );
 
 create function pg_temp.test_run_id() returns uuid
-language plpgsql stable as $
+language plpgsql stable as $$
 declare value text;
 begin
   value:=current_setting('gal.test_run_id',true);
@@ -31,7 +31,7 @@ begin
     raise exception 'No finalized WP-S8-02 live fixture was found. Run sprint8-final-closure-live-e2e.js first.';
   end if;
   return value::uuid;
-end$;
+end$$;
 
 create function pg_temp.assert_verified() returns void
 language plpgsql as $$
