@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T17:15:00Z
-> Updated by: CA
+> Last refreshed: 2026-09-25T17:20:00Z
+> Updated by: GA
 
 ---
 
@@ -11,13 +11,13 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_IN_PROGRESS_AUDIO_VA_ASSIGNMENT_PENDING_GA_CANONICAL_SYNC
-CURRENT_OWNER         = CD integration + VA production lanes + ISA Class A support; GA owns minimum canonical synchronization for User-directed VA auxiliary role
-NEXT_REQUIRED_ACTION  = GA performs the minimum canonical synchronization for the User-directed bounded VA auxiliary fragmented/temporary support role and explicit Sprint9 audio-candidate ownership; after synchronization VA produces the six canonical audio candidates under existing staging/Teacher-review boundaries while CD retains publication/ACTIVE/runtime authority; visual and ISA lanes continue in parallel; migrations001–057 immutable next058+; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_IN_PROGRESS
+CURRENT_OWNER         = CD integration + VA visual/audio candidate production + ISA Class A support
+NEXT_REQUIRED_ACTION  = Sprint9 lanes proceed in parallel: VA completes/corrects visual candidates and produces the six existing canonical audio candidates under bounded auxiliary production scope; ISA continues its Class A non-authoritative validation/tooling standing envelope; CD owns publication/ACTIVE/runtime integration and later submits one frozen integrated Sprint9 baseline for CA audit; migrations001–057 immutable next058+; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
-ISA_STATUS            = ACTIVE — no work package assigned yet
+ISA_STATUS            = ACTIVE — Sprint9 Class A standing non-authoritative validation/tooling envelope allocated
 ```
 
 Visual production continues in parallel.
@@ -56,7 +56,7 @@ docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
 assets/asset-registry.json
 
 L2 / governance:
-agent-comms/inter_agent_talk_protocol V2.md
+agent-comms/inter_agent_talk_protocol V3.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.1.md
