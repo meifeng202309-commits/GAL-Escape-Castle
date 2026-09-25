@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T03:26:00Z
+> Last refreshed: 2026-09-25T03:38:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 7 — focused remediation
-CURRENT_GATE          = SPRINT7_FOCUSED_LEVEL1_REAUDIT_FAIL_ONE_OPEN
+CURRENT_SPRINT        = Sprint 8 — ACT14 Final Reveal + Session Finalization / Export
+CURRENT_GATE          = SPRINT8_IMPLEMENTATION_AUTHORIZED
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes residual S7-CA-003 Teacher-intervention provenance/log completeness on correction baseline 1d95b18b244f5497ea6773d012adee34ed507c1b, preserves migrations 001–044, adds directly adjacent regression/live evidence, then submits another focused Sprint7 Level1 re-audit; Sprint8 remains blocked
+NEXT_REQUIRED_ACTION  = CD implements canonical Sprint8 finalization/export under Codex V2.4, preserves migrations 001–045, keeps Sprint9/10 and runtime analysis/prediction out of scope, then submits Sprint8 for regular Level1 CA audit
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -100,8 +100,8 @@ Sprint 3C = VERIFIED PASS
 Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
 Sprint 6  = VERIFIED PASS
-Sprint 7  = LEVEL1 FAIL / REMEDIATION
-Sprint 8  = BLOCKED
+Sprint 7  = VERIFIED PASS
+Sprint 8  = AUTHORIZED / IMPLEMENTATION
 ```
 
 Sprint3C verified correction baseline:
@@ -118,7 +118,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 045.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 046.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -191,7 +191,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `045`.
+Deployed migrations `018–036` are immutable. Next unused migration is `046`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -226,7 +226,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `045`.
+Migrations `027–036` are immutable. Next unused migration is `046`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -267,7 +267,7 @@ Final correction baseline:
 96dd6a867aa0edab25cd3a68a30b2710a99fdcbe
 ```
 
-Migrations `001–042` are deployed history and immutable. Next unused migration is `045`.
+Migrations `001–042` are deployed history and immutable. Next unused migration is `046`.
 
 Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized.
 
@@ -278,35 +278,35 @@ Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized
 ```text
 S7-CA-001 MEDIUM = FIXED_VERIFIED
 S7-CA-002 MEDIUM = FIXED_VERIFIED
-S7-CA-003 MEDIUM = PARTIALLY_FIXED / OPEN — Teacher intervention log omits current Teacher vote/time mutations
+S7-CA-003 MEDIUM = FIXED_VERIFIED
 S7-CA-004 MEDIUM = FIXED_VERIFIED
 S7-CA-005 MEDIUM = FIXED_VERIFIED
 
-Sprint7 gate = FAIL / BLOCKED
-Sprint8 gate = BLOCKED
+Sprint7 gate = VERIFIED PASS
+Sprint8 gate = RELEASED / IMPLEMENTATION AUTHORIZED
 ```
 
-Focused re-audit report:
+Final Sprint7 re-audit report:
 
 ```text
-docs/audits/regular/runs/2026-09-25_sprint7_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-25_sprint7_second_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
-Formal CA→CD handoff:
+Formal CA→CD PASS / Sprint8 release:
 
 ```text
-agent-comms/CA_to_CD_20260925T032500Z_sprint7-focused-reaudit-fail-one-finding.md
+agent-comms/CA_to_CD_20260925T033700Z_sprint7-pass-release-sprint8.md
 ```
 
-Correction baseline:
+Final Sprint7 correction baseline:
 
 ```text
-1d95b18b244f5497ea6773d012adee34ed507c1b
+4cff559889fa076dd0c15e58844baa8277e1bba0
 ```
 
-Migration `044` is deployed history and immutable. Next unused migration is `045`.
+Migrations `001–045` are deployed history and immutable. Next unused migration is `046`.
 
-CD must close only the remaining S7-CA-003 intervention-provenance gap before Sprint7 can PASS.
+Sprint8 is now the authorized implementation scope. Sprint9/10 remain unauthorized.
 
 ---
 
