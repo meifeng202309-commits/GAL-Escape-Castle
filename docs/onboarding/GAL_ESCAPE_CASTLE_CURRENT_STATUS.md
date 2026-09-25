@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T18:15:00Z
+> Last refreshed: 2026-09-25T18:45:00Z
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_TRIAL_BUILD_FOCUSED_AUDIT_FAIL_S9_TRIAL_001
-CURRENT_OWNER         = CD narrow remediation; VA later media replacement + ISA Class A support continue independently
-NEXT_REQUIRED_ACTION  = CD corrects only S9-TRIAL-001 poll-amplified missing-asset telemetry from baseline d94abcaf9ed27e6c8de5dfb4dbc8ca7d63a39216, preserving accepted placeholder rendering and missing-audio stopped fallback; add repeated-refresh bounded-telemetry plus ACTIVE-load-failure observability regression evidence, then submit one frozen narrow re-audit baseline; final Sprint9 asset acceptance remains pending and Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_TRIAL_BUILD_NARROW_REAUDIT_FAIL_OVERLAY_CACHE_RESIDUAL
+CURRENT_OWNER         = CD final narrow remediation; VA later media replacement + ISA Class A support continue independently
+NEXT_REQUIRED_ACTION  = CD corrects only S9-TRIAL-001-R1: ACT6 overlay.portrait_eyes_open must use the bounded resolver path so repeated base-ACTIVE/overlay-missing renders do not recreate poll-amplified NO_ACTIVE telemetry; preserve migration058 ACTIVE-load-failure telemetry and accepted placeholder/audio behavior; add direct regression evidence and submit one final narrow re-audit baseline; migrations001–058 immutable next059+; final Sprint9 asset acceptance pending; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-128.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-129.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-128
+CA_CHECKPOINT = CA-129
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -648,6 +648,45 @@ CA -> CD handoff:
 
 ```text
 agent-comms/CA_to_CD_20260925T181500Z_sprint9-placeholder-trial-audit-one-telemetry-finding.md
+```
+
+---
+
+## 8K. S9-TRIAL-001 narrow re-audit
+
+```text
+Audited baseline = b2788fe52a658abb99a8c96af7eb3f3505f5034c
+
+Verified fixed:
+- main scene-image resolver path uses 30s per-client cache
+- migration058 validates exact current ACTIVE metadata
+- ACTIVE storage-object failure telemetry is distinct and 5min deduplicated
+- accepted placeholder rendering unchanged
+- missing-audio stopped fallback unchanged
+
+Residual:
+S9-TRIAL-001-R1 MEDIUM
+= ACT6 overlay.portrait_eyes_open still calls raw asset_resolve
+= if Portrait Hall base becomes ACTIVE while overlay remains missing,
+  1.2s polling recreates poll-amplified NO_ACTIVE asset_load_failed writes
+
+Teacher repeated-trial release = BLOCKED pending one final narrow correction
+Final Sprint9 asset acceptance = NOT EVALUATED
+Sprint10 = future normal gate
+
+Migrations001–058 immutable; next059+
+```
+
+Audit report:
+
+```text
+docs/audits/regular/runs/2026-09-25_s9_trial_001_narrow_reaudit/AUDIT_REPORT.md
+```
+
+CA -> CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T184500Z_s9-trial-001-narrow-reaudit-one-overlay-residual.md
 ```
 
 ---
