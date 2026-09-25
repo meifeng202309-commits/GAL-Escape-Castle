@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T02:11:00Z
+> Last refreshed: 2026-09-25T03:26:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 7 — Teacher Console remediation
-CURRENT_GATE          = SPRINT7_LEVEL1_FAIL_RECLASSIFIED
+CURRENT_SPRINT        = Sprint 7 — focused remediation
+CURRENT_GATE          = SPRINT7_FOCUSED_LEVEL1_REAUDIT_FAIL_ONE_OPEN
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD closes reclassified S7-CA-001/002 plus unchanged S7-CA-003/004/005 under GA canonical commits 5d7d2b673140ca32ed01834145b661c9f88b0f75 and dd44e13ad1c0c925044ec315dc85abc69e969eb7; preserves migration043; then submits focused Sprint7 Level1 re-audit; Sprint8 remains blocked
+NEXT_REQUIRED_ACTION  = CD closes residual S7-CA-003 Teacher-intervention provenance/log completeness on correction baseline 1d95b18b244f5497ea6773d012adee34ed507c1b, preserves migrations 001–044, adds directly adjacent regression/live evidence, then submits another focused Sprint7 Level1 re-audit; Sprint8 remains blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -118,7 +118,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 044.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 045.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -191,7 +191,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `044`.
+Deployed migrations `018–036` are immutable. Next unused migration is `045`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -226,7 +226,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `044`.
+Migrations `027–036` are immutable. Next unused migration is `045`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -267,7 +267,7 @@ Final correction baseline:
 96dd6a867aa0edab25cd3a68a30b2710a99fdcbe
 ```
 
-Migrations `001–042` are deployed history and immutable. Next unused migration is `044`.
+Migrations `001–042` are deployed history and immutable. Next unused migration is `045`.
 
 Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized.
 
@@ -275,49 +275,38 @@ Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized
 
 ## 8A. Sprint7 Level1 gate
 
-GA canonical visibility reframe is now resolved and active.
-
 ```text
-S7-CA-001 MEDIUM = OPEN — Teacher may see LOCKED choice in NORMAL, but structured LOCKED/not-yet-revealed presentation is missing
-S7-CA-002 MEDIUM = OPEN — AUDIT debug flag has duplicate writers with inconsistent event provenance
-S7-CA-003 MEDIUM = OPEN — per-phase validity / durable intervention log incomplete
-S7-CA-004 MEDIUM = OPEN — export filename preview noncanonical
-S7-CA-005 MEDIUM = OPEN — ACT12 submitted/waiting phase mismatch
-
-No HIGH Sprint7 finding remains after canonical reclassification.
+S7-CA-001 MEDIUM = FIXED_VERIFIED
+S7-CA-002 MEDIUM = FIXED_VERIFIED
+S7-CA-003 MEDIUM = PARTIALLY_FIXED / OPEN — Teacher intervention log omits current Teacher vote/time mutations
+S7-CA-004 MEDIUM = FIXED_VERIFIED
+S7-CA-005 MEDIUM = FIXED_VERIFIED
 
 Sprint7 gate = FAIL / BLOCKED
 Sprint8 gate = BLOCKED
 ```
 
-GA canonical disposition:
+Focused re-audit report:
 
 ```text
-agent-comms/GA_to_CA_20260925T014000Z_teacher-private-choice-visibility-canonical-disposition.md
+docs/audits/regular/runs/2026-09-25_sprint7_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
-Canonical commits:
+Formal CA→CD handoff:
 
 ```text
-5d7d2b673140ca32ed01834145b661c9f88b0f75
-dd44e13ad1c0c925044ec315dc85abc69e969eb7
+agent-comms/CA_to_CD_20260925T032500Z_sprint7-focused-reaudit-fail-one-finding.md
 ```
 
-CA reclassification addendum:
+Correction baseline:
 
 ```text
-docs/audits/regular/runs/2026-09-25_sprint7_level1/CANONICAL_RECLASSIFICATION_ADDENDUM.md
+1d95b18b244f5497ea6773d012adee34ed507c1b
 ```
 
-Updated CA→CD remediation handoff:
+Migration `044` is deployed history and immutable. Next unused migration is `045`.
 
-```text
-agent-comms/CA_to_CD_20260925T021000Z_sprint7-canonical-reclassification-resume-all-five-findings.md
-```
-
-Migration `043` remains deployed history and immutable. Next unused migration is `044`.
-
-CD may now remediate all five Sprint7 findings under the new canonical rules.
+CD must close only the remaining S7-CA-003 intervention-provenance gap before Sprint7 can PASS.
 
 ---
 
