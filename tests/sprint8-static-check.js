@@ -3,6 +3,7 @@ const sql048=fs.readFileSync('database/048_sprint8_focused_level1_corrections.sq
 const sql=fs.readFileSync('database/049_sprint8_final_closure.sql','utf8');
 const correction=fs.readFileSync('database/050_sprint8_act2_verifier_projection_fix.sql','utf8');
 const stationC=fs.readFileSync('database/051_sprint8_station_c_obligation_projection.sql','utf8');
+const exactOverrides=fs.readFileSync('database/052_sprint8_exact_player_override_accounting.sql','utf8');
 const app=fs.readFileSync('src/game/app.js','utf8');
 const css=fs.readFileSync('src/styles/app.css','utf8');
 const teacher=fs.readFileSync('src/teacher/teacher-console.js','utf8');
@@ -19,6 +20,7 @@ assert(sql.includes('p_expected_run_id uuid')&&sql.includes('where run_id=p_expe
 assert(sql.includes('STALE_FINALIZATION_RUN')&&sql.includes('s8_verify_integrity(p_expected_run_id)'),'run-bound authority/verifier missing');
 for(const token of ["phase_key='meeting_discussion'","step_key='final_meeting'",'count(distinct v.player_id)=3','f.run_id=target_run_id'])assert(correction.includes(token),`050 correction missing ${token}`);
 for(const token of ["'{obligations,act12.station_c}'","'golden_key_watcher_path'","role_key='C'"])assert(stationC.includes(token),`051 correction missing ${token}`);
+for(const token of ["v.player_id=p.player_id","semantic_field='act1_choice_id'","'{obligations,act1.player_first_choices}'",'missing_count>0'])assert(exactOverrides.includes(token),`052 correction missing ${token}`);
 assert(app.includes('p_expected_run_id:runId')&&app.includes('requestIdentity("s8-finalize",runId'),'player finalization identity is not run-scoped');
 assert(app.includes('<strong>${localizedHtml("act14.003")}</strong>')&&app.includes('class="s8-separate-screen">${localizedHtml("act14.004")}</strong>'),'ACT14 locked lines are not staged/whole-sentence bold');
 assert(app.includes('delays=[900,1100,1400,1800,1800]')&&css.includes('@keyframes s8Blackout'),'ACT14 staged fade/pause sequence missing');

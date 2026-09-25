@@ -7,7 +7,7 @@ const migration049Files=fs.readdirSync(dbDir).filter(name=>/^049.*\.sql$/i.test(
 assert(migration049Files.length===1,"Expected exactly one CD-owned migration049 implementation");
 const sql=fs.readFileSync(path.join(dbDir,migration049Files[0]),"utf8");
 
-const finalizeMatch=sql.match(/create\s+or\s+replace\s+function\s+public\.s8_finalize\s*\(([^)]*)\)/i);
+const finalizeMatch=sql.match(/create\s+(?:or\s+replace\s+)?function\s+public\.s8_finalize\s*\(([^)]*)\)/i);
 assert(finalizeMatch,"s8_finalize replacement missing from migration049");
 assert(/p_expected_run_id\s+uuid/i.test(finalizeMatch[1]),"s8_finalize public contract lacks required p_expected_run_id uuid");
 

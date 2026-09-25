@@ -76,7 +76,7 @@ select pg_temp.assert_verified();
 select pg_temp.assert_obligation_state('act1.player_first_choices','invalid_teacher_override','exact_governed_override');
 select pg_temp.assert_obligation_state('act5.post_inspection_vote','not_applicable','inspect_first_path_not_taken');
 select pg_temp.assert_obligation_state('act8.final_vote','not_applicable','unanimous_direct_route');
-select pg_temp.assert_obligation_state('act12.station_tasks','not_applicable','golden_key_watcher_path');
+select pg_temp.assert_obligation_state('act12.station_c','not_applicable','golden_key_watcher_path');
 
 savepoint act1_missing;
 update public.s3b_player_progress
@@ -95,7 +95,7 @@ rollback to savepoint act1_missing;
 savepoint act2_resolution_missing;
 update public.discussion_sessions
 set outcome=null
-where run_id=pg_temp.test_run_id() and phase_key like 'act2%' and status='resolved';
+where run_id=pg_temp.test_run_id() and phase_key='meeting_discussion' and step_key='final_meeting' and status='resolved';
 select pg_temp.assert_missing('act2.meeting_resolution');
 rollback to savepoint act2_resolution_missing;
 
