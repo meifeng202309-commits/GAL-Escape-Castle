@@ -694,6 +694,15 @@ behavior_dataset_eligible = true
 
 真实发生的数据正常保留。
 
+Teacher可在NORMAL中只读查看**已经由玩家真实提交并LOCK**的private choice value，即使尚未到player-facing reveal。该可见性：
+
+- 不构成player reveal；
+- 不改变choice lock / timestamp / behavior validity；
+- 不得向其他玩家泄露未揭示choice；
+- 不得把未提交choice合成或猜测为某个值；
+- 应在Teacher Console中结构化标明 `LOCKED / NOT YET REVEALED TO PLAYERS` 或等价状态；
+- 不得只依赖raw event JSON / event-details side channel作为查看路径。
+
 如果Teacher之后使用Emergency Override，只使**受影响的数据字段**失效；不得把整个session自动标成audit，也不得删除override前已经真实产生的学生行为。
 
 ### AUDIT
@@ -705,18 +714,21 @@ run_mode = audit
 behavior_dataset_eligible = false
 ```
 
-Teacher默认仍不看未Reveal的private content。
+Teacher同样可以查看已经真实提交并LOCK的private choice。
 
-只有显式开启：
+只有需要查看**额外technical/private debug context**时，才显式开启：
 
 ```text
 audit_private_debug_view = true
 ```
 
-才可显示未揭示private content；该能力：
+该debug能力：
 - 只允许AUDIT run；
 - 必须写入Teacher event log；
-- NORMAL中服务器必须拒绝。
+- NORMAL中服务器必须拒绝该额外debug capability；
+- 但NORMAL中查看已LOCKED player choice本身不属于该debug capability。
+
+本规则不自动开放private system clues、security secrets或其他hidden technical state。
 
 Audit mode仍完整记录：
 
@@ -1693,7 +1705,10 @@ Core multiplayer已通过 live acceptance。
 在已验证 Teacher Console 上增量加入：
 
 - current act / scene / phase；
-- submitted / waiting；
+- private-choice status / value：
+  - waiting for unsubmitted；
+  - already-LOCKED choice value may be shown to Teacher in NORMAL and AUDIT；
+  - if not yet player-revealed, explicitly mark it as not yet revealed to players；
 - Discussion transcript；
 - Pocket debug；
 - Group Items；
@@ -1705,6 +1720,8 @@ Core multiplayer已通过 live acceptance。
 - Override history；
 - per-phase behavior validity visibility；
 - export controls / filename preview。
+
+Teacher locked-choice visibility必须是明确的read-only Teacher Console capability，而不是仅通过raw event detail偶然可见。Player-to-player unrevealed-choice isolation保持不变。
 
 Sprint 3可以先有最小可用override按钮；Sprint 7负责把它完善为稳定的Teacher workflow。
 
