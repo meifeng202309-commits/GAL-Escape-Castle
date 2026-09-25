@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T17:20:00Z
+> Last refreshed: 2026-09-25T17:30:00Z
 > Updated by: GA
 
 ---
@@ -56,7 +56,7 @@ docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
 assets/asset-registry.json
 
 L2 / governance:
-agent-comms/inter_agent_talk_protocol V3.md
+agent-comms/inter_agent_talk_protocol V4.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.1.md
@@ -82,6 +82,9 @@ ISA governance:
 ISA is ACTIVE as a bounded implementation-support role.
 CA allocates ownership envelopes; CD owns architecture/interfaces/final integration; ISA works only inside approved/frozen scope.
 Procedural CA/CD/ISA steps already authorized by the cooperation model do not require duplicate user/Teacher approval.
+
+Communication scope:
+Use the minimum necessary recipient set. Send only to Agents who influence the current decision, whose active work/authority is materially changed, or who are the required next executor/auditor. FYI-only messages are prohibited; ALL is reserved for changes that materially affect every active role.
 ```
 
 Canonical ownership hardening:
