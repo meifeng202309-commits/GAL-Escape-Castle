@@ -7,14 +7,19 @@ async function main(){
   const audit=await fixture("audit");await rpc("s3b_ack_act1_opening",auth(audit,0));await rpc("s3b_submit_act1_choice",{...auth(audit,0),p_choice_id:"study_map"});
   let state=await rpc("s7_get_teacher_console",teacher(audit));
   assert(state.active&&state.current.act_no===1&&state.players.length===3,"authoritative current/player projection missing");
-  assert(state.players.find(p=>p.role_slot==="GAL-A").submitted&&state.players.every(p=>p.private_value===null),"default projection leaked or lost private submission state");
+  const locked=state.players.find(p=>p.role_slot==="GAL-A"),waiting=state.players.find(p=>p.role_slot==="GAL-B");
+  assert(locked.submitted&&locked.locked_choice_value==="study_map"&&locked.locked_choice_state==="LOCKED / NOT YET REVEALED TO PLAYERS","structured locked-choice projection missing");
+  assert(!waiting.submitted&&waiting.locked_choice_value===null&&waiting.locked_choice_state==="WAITING","unsubmitted choice did not remain waiting/null");
   assert(state.export.enabled===false&&state.export.export_ready===false,"Sprint 7 crossed the Sprint 8 export boundary");
   await rpc("s7_set_audit_private_debug",{...teacher(audit),p_enabled:true});state=await rpc("s7_get_teacher_console",teacher(audit));
-  assert(state.players.find(p=>p.role_slot==="GAL-A").private_value==="study_map","explicit AUDIT debug did not reveal current private value");
+  assert(state.players.find(p=>p.role_slot==="GAL-A").audit_debug.act1_choice==="study_map","explicit AUDIT debug did not reveal additional context");
   assert(state.events.some(e=>e.event_type==="teacher_audit_private_debug_changed"&&e.details.enabled===true),"AUDIT debug activation was not logged");
   await rpc("s7_set_audit_private_debug",{...teacher(audit),p_enabled:false});
+  await rpc("s3b_audit_set_private_debug_view",{...teacher(audit),p_enabled:true});state=await rpc("s7_get_teacher_console",teacher(audit));assert(state.teacher_interventions.filter(e=>e.event_type==="teacher_audit_private_debug_changed").length>=3,"legacy debug writer did not use durable logged authority");
+  assert(state.phase_behavior_validity.some(x=>x.scene_id==="act1_wake_up"&&x.phase_key==="private_first_action"),"phase-identifiable validity missing");
+  assert(/^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_[0-9a-f-]+_audit\.json$/.test(state.export.filename_preview),"AUDIT filename is noncanonical");
   const normal=await fixture("normal");let rejected=false;try{await rpc("s7_set_audit_private_debug",{...teacher(normal),p_enabled:true})}catch(e){rejected=e.message.includes("AUDIT mode")}
-  assert(rejected,"NORMAL mode accepted private debug");state=await rpc("s7_get_teacher_console",teacher(normal));assert(state.players.every(p=>p.private_value===null),"NORMAL projection exposed private values");
-  console.log("Sprint 7 live E2E passed: projection, privacy, audit logging, and Sprint 8 boundary verified.");
+  assert(rejected,"NORMAL mode accepted private debug");state=await rpc("s7_get_teacher_console",teacher(normal));assert(!state.export.filename_preview.includes("_audit.json")&&/^\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}_[0-9a-f-]+\.json$/.test(state.export.filename_preview),"NORMAL filename is noncanonical");
+  console.log("Sprint 7 focused live E2E passed: all five correction contracts verified.");
 }
 main().catch(e=>{console.error(`FAIL ${e.stack||e.message}`);process.exitCode=1});
