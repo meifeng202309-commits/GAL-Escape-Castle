@@ -17,7 +17,8 @@ async function sprint8Vote(f,choices){
 }
 async function main(){
  const mode=process.env.S8_MODE||'audit',f=await fixture(mode);await completeSprint5(f);await sprint6(f,'take');
- const requests=[0,1,2].map(i=>({...auth(f,i),p_client_request_id:crypto.randomUUID()}));
+ const ready=await rpc('s6_get_player_state',auth(f,0));const expectedRunId=ready.state.run_id;
+ const requests=[0,1,2].map(i=>({...auth(f,i),p_client_request_id:crypto.randomUUID(),p_expected_run_id:expectedRunId}));
  const finals=await Promise.all(requests.map(body=>rpc('s8_finalize',body)));const finalized=finals.find(x=>x.session_integrity_verified)||finals[0];
  assert(finalized.session_integrity_verified&&finalized.game_completed&&finalized.export_ready,'final flags missing');
  assert(finals.every(x=>x.ok),'concurrent finalizers did not converge successfully');
@@ -26,7 +27,9 @@ async function main(){
  const player=await rpc('s8_get_player_state',auth(f,1));assert(player.active&&player.phase_key==='act14_complete'&&player.text_keys.join(',')==='act14.001,act14.002,act14.003,act14.004,act14.005','ACT14 reconnect state failed');
  const result=await rpc('s8_export_session',{p_room_code:f.room,p_teacher_token:f.teacher});
  const suffix=mode==='audit'?'_audit':'';assert(result.json_filename.endsWith(`${finalized.run_id}${suffix}.json`)&&result.csv_filename.endsWith(`${finalized.run_id}${suffix}.csv`),`${mode} filenames invalid`);
- assert(result.json.header.export_schema_version==='1.1'&&result.json.header.session_integrity_verified,'canonical header invalid');
+ const finalState=await rpc('s8_get_finalization_state',{p_room_code:f.room,p_teacher_token:f.teacher});
+ assert(result.json.header.export_schema_version==='1.1'&&finalState.export_schema_version===result.json.header.export_schema_version&&finalized.export_schema_version===result.json.header.export_schema_version,'schema-version authorities diverged');
+ assert(result.json.header.session_integrity_verified,'canonical header invalid');
  for(const key of ['early_choices','knowledge_provenance','discussion_transcript','votes','pressure_choices','teacher_overrides','behavior_validity'])assert(Array.isArray(result.json[key]),`missing ${key}`);
  assert(result.json.early_choices.length===3&&result.json.early_choices.every(x=>x.act1.locked_at&&x.act2_first_meeting.locked_at&&x.act4.locked_at),'early behavior evidence incomplete');
  const serialized=JSON.stringify(result.json);for(const secret of ['teacher_token','join_code','session_token','service_role','supabase_key'])assert(!serialized.toLowerCase().includes(secret),'secret-like export field found');
