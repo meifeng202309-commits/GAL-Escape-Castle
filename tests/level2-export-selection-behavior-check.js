@@ -1,0 +1,16 @@
+const fs=require('fs');
+const source=fs.readFileSync('src/teacher/teacher-console.js','utf8');
+const start=source.indexOf('function syncExportRunSelection(');
+const end=source.indexOf('\nfunction downloadExport',start);
+if(start<0||end<0)throw new Error('syncExportRunSelection helper unavailable');
+const escapeHtml=value=>String(value);
+const syncExportRunSelection=new Function('escapeHtml',`return (${source.slice(start,end)})`)(escapeHtml);
+const select={value:'',hidden:true,_html:'',set innerHTML(value){this._html=value;this.value=(value.match(/value="([^"]+)"/)||[])[1]||''},get innerHTML(){return this._html}};
+const button={dataset:{},disabled:true};
+const runs=[{run_id:'run-b',json_filename:'b.json'},{run_id:'run-a',json_filename:'a.json'}];
+syncExportRunSelection(select,button,runs,'',false);
+if(select.value!=='run-b'||button.dataset.runId!=='run-b')throw new Error('newest completed run was not the initial selection');
+select.value='run-a';button.dataset.runId='run-a';
+syncExportRunSelection(select,button,runs,'',false);
+if(select.value!=='run-a'||button.dataset.runId!=='run-a'||button.disabled)throw new Error('ordinary poll reset the older selected run');
+console.log('Level2 Teacher export-selection polling behavior passed.');

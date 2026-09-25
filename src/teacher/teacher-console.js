@@ -262,10 +262,7 @@ async function setAuditPrivateDebug(){
 function renderOperationsState(state){
   const exp=state.export||{};
   const completedRuns=exp.completed_runs||[];
-  exportRunSelect.hidden=completedRuns.length===0;
-  exportRunSelect.innerHTML=completedRuns.map(r=>`<option value="${escapeHtml(r.run_id)}">${escapeHtml(r.json_filename||r.run_id)}</option>`).join("");
-  exportSessionButton.dataset.runId=completedRuns[0]?.run_id||exp.run_id||"";
-  exportSessionButton.disabled=!exportSessionButton.dataset.runId||(!completedRuns.length&&!(exp.export_ready||exp.enabled));
+  syncExportRunSelection(exportRunSelect,exportSessionButton,completedRuns,exp.run_id||"",Boolean(exp.export_ready||exp.enabled));
   if(!state.active){operationsBadge.textContent=exp.export_ready?"Completed · export ready":"No active run";operationsState.innerHTML=exp.export_ready?`<p><b>Completed run:</b> ${escapeHtml(exp.run_id||"-")}</p><p><b>Export:</b> ${escapeHtml(exp.json_filename||"ready")}</p>`:"<p class='muted'>Start a formal run to observe live operations.</p>";return;}
   const current=state.current||{},players=state.players||[],discussion=state.discussion||{};
   operationsBadge.textContent=`${state.run.run_mode.toUpperCase()} · ACT ${current.act_no||"?"}`;
@@ -282,6 +279,14 @@ function renderOperationsState(state){
     <details><summary>Audio trigger debug</summary><p><b>Current cue:</b> ${escapeHtml(state.audio?.current_cue_key||"none")}</p><pre>${escapeHtml(JSON.stringify(state.audio?.recent||[],null,2))}</pre></details>
     <details><summary>Teacher interventions and validity</summary><p><b>Per-phase validity:</b></p><pre>${escapeHtml(JSON.stringify(state.phase_behavior_validity||[],null,2))}</pre><p><b>Durable interventions:</b></p><pre>${escapeHtml(JSON.stringify({interventions:state.teacher_interventions||[],overrides:state.override_history||[]},null,2))}</pre></details>
     <p><b>Export:</b> ${escapeHtml(exp.json_filename||exp.filename_preview||"unavailable")} · ${exp.export_ready?"ready":"waiting for ACT 14 finalization"}</p>`;
+}
+function syncExportRunSelection(select,button,completedRuns,fallbackRunId,fallbackReady){
+  const selectedRunId=select.value||button.dataset.runId;
+  select.hidden=completedRuns.length===0;
+  select.innerHTML=completedRuns.map(r=>`<option value="${escapeHtml(r.run_id)}">${escapeHtml(r.json_filename||r.run_id)}</option>`).join("");
+  if(selectedRunId&&completedRuns.some(r=>r.run_id===selectedRunId))select.value=selectedRunId;
+  button.dataset.runId=select.value||completedRuns[0]?.run_id||fallbackRunId||"";
+  button.disabled=!button.dataset.runId||(!completedRuns.length&&!fallbackReady);
 }
 function downloadExport(filename,content,type){const url=URL.createObjectURL(new Blob([content],{type}));const anchor=document.createElement("a");anchor.href=url;anchor.download=filename;document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 async function exportSprint8Session(){const payload=baseTeacherPayload();if(!payload)return;const runId=exportSessionButton.dataset.runId;exportSessionButton.disabled=true;try{const result=await rpc("s8_export_session",runId?{...payload,p_run_id:runId}:payload);downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");operationsStatus.textContent=`Exported ${result.json_filename} and ${result.csv_filename}.`}catch(error){operationsStatus.textContent=`Export failed: ${error.message}`}finally{await loadOperationsState()}}
