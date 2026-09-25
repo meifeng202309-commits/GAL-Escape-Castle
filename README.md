@@ -17,6 +17,7 @@ Persistent project roles:
 - CA — Code Audit Agent
 - CD — Code Development Agent
 - VA — Visual Agent
+- ISA — Implementation Support Agent
 
 ## Current canonical specifications
 
@@ -43,6 +44,11 @@ See `docs/README.md` for storage rules.
 
 Inter-Agent communication must use the highest ACTIVE:
 `agent-comms/inter_agent_talk_protocol V*.md`.
+
+CD/ISA parallel support is governed by:
+`docs/onboarding/GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md`
+
+ISA is a bounded implementation-support role; CD remains architecture/final-integration owner and CA remains allocation/governance + independent audit owner.
 
 Canonical ownership rule: discovering an implementation need does not grant authority to modify another role's canonical source. Use the owner-first canonical commit → separate consumer implementation commit workflow defined in Codex V2.4 and CA Audit Rules V1.4.
 
