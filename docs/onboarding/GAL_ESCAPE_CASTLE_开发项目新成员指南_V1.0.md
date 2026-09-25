@@ -8,7 +8,7 @@
 
 # 0. 这份指南的用途
 
-新开的 GA / CA / CD / VA 聊天必须首先从：
+新开的 GA / CA / CD / VA / ISA 聊天必须首先从：
 
     docs/onboarding/START_HERE.md
 
@@ -20,7 +20,7 @@ START_HERE 定义完整的 Cold Start 顺序；本文件是其中的项目培训
 
 本指南的目标是：
 
-**让一个全新的 GA / CA / VA / CD 聊天，在不了解历史讨论的情况下，只阅读本指南、CURRENT STATUS 和与自己任务有关的少量 canonical files，就能正确继续工作。**
+**让一个全新的 GA / CA / VA / CD / ISA 聊天，在不了解历史讨论的情况下，只阅读本指南、CURRENT STATUS 和与自己任务有关的少量 canonical files，就能正确继续工作。**
 
 因此：
 
@@ -46,7 +46,7 @@ START_HERE 定义完整的 Cold Start 顺序；本文件是其中的项目培训
 
 完整 Cold Start 以 `START_HERE.md` 为准。
 
-任何新开的 GA / CA / VA / CD 对话，核心顺序是：
+任何新开的 GA / CA / VA / CD / ISA 对话，核心顺序是：
 
 ## Step 0 — 进入统一入口
 
@@ -392,7 +392,7 @@ CD/CA → GA gap request
 
 ---
 
-# 5. 四个 Agent 的职责边界
+# 5. 五个 Agent 的职责边界
 
 ## 5.1 GA — Game Design Agent
 
@@ -497,6 +497,31 @@ VA不得：
 - 把Master reference当成runtime asset；
 - 在CA audit gate未通过时越权进入正式production（若该gate适用）。
 
+## 5.5 ISA — Implementation Support Agent
+
+ISA 的 active cooperation contract：
+
+    docs/onboarding/GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md
+
+负责：
+
+- CA ownership envelope 内的 bounded mechanical/support implementation；
+- frozen semantic/interface contract 下的 tests / fixtures / validators / tooling / presentation implementation；
+- 向CD交付 `IMPLEMENTATION_READY_FOR_CD_REVIEW`；
+- 在依赖CD决定时使用 `BLOCKED_NEEDS_CD_DECISION`，同时继续不受影响的工作。
+
+ISA不得：
+
+- 取得或重新定义 architecture / server-authoritative semantics；
+- 创建、编号、部署 migration；
+- 自行改变 persistence / security / lifecycle / provenance semantics；
+- 修改 protected canonical source；
+- 宣布 PASS / SPRINT_COMPLETE / RELEASED；
+- 直接成为 central runtime writer、mutation RPC authority、asset activation authority；
+- 把“机械实现”扩大为新的 semantic decision。
+
+CD仍是进入audit baseline的ISA产物的最终integration/accountability owner；CA负责allocation/governance与独立audit。
+
 ---
 
 # 6. Role-Specific Minimum Reading
@@ -597,6 +622,32 @@ VA不得：
 - entire Codex spec
 - old visual versions
 - whole conversation history
+
+## 6.5 ISA 新聊天
+
+必读：
+
+1. 本Guide
+2. CURRENT STATUS
+3. `GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md`
+4. Inter-Agent Talk Protocol V2
+5. Agent Action Log Rules V1.1
+6. 当前 CA ownership envelope / Work Package
+7. Class B/C 时的 CD-owned frozen interface contract
+8. 最新 CA/CD 发给 ISA 的 agent-comms
+
+按需：
+
+- UI/presentation → relevant V4.0 + Codex V2.4 contract
+- tests/validators → relevant runtime contract + current audit finding
+- asset support → registry + Castle Visual relevant section
+
+默认不必读：
+
+- unrelated migrations
+- complete project history
+- unrelated canonical domains
+- CA future adversarial audit reasoning
 
 ---
 
@@ -795,6 +846,26 @@ Sprint 3可拆成经过CA批准的窄slice，例如3A / 3B / 3C。
 关键规则：
 
 **Agent通信中的设计决定，应在需要时先进入canonical source，再实施。**
+
+## 8.2A CD / ISA parallel support gate
+
+当CA启用ISA ownership envelope时，遵守：
+
+    docs/onboarding/GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md
+
+核心：
+
+    CA allocates ownership envelope
+    → CD owns architecture/interface/integration
+    → ISA implements bounded support lane
+    → CD integrates
+    → CA independently audits integrated baseline
+
+Class A 不需要额外 plan approval。
+
+Class B/C 只对 material interface / authority change重新请求CA review。
+
+已由该workflow授权的 procedural step 不得再次要求 user/Teacher approval。
 
 ## 8.3 Devil Check
 
@@ -1076,7 +1147,7 @@ CURRENT STATUS不是canonical spec。
 
 一个全新对话只需要收到类似：
 
-> 你是 GAL Escape Castle 项目的 GA / CA / VA / CD。  
+> 你是 GAL Escape Castle 项目的 GA / CA / VA / CD / ISA。  
 > 先阅读：
 > 1. docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
 > 2. docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md
