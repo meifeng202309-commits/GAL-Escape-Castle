@@ -8,6 +8,10 @@ for(const token of ['applyTrialPlaceholder','trial-asset-placeholder','Temporary
 const resolver=app.slice(app.indexOf('async function setS5Asset'),app.indexOf('async function hydrateS5Assets'));
 assert(resolver.indexOf('trialAssetResolver.resolve(key)')<resolver.indexOf('applyTrialPlaceholder(node,key)'), 'runtime resolver must remain primary');
 assert(resolver.includes('reportActiveLoadFailure(result)'),'ACTIVE storage failure telemetry missing');
+const overlay=app.slice(app.indexOf('if(s.act_no===6){'),app.indexOf('if(s.act_no===7)document'));
+assert(overlay.includes('trialAssetResolver.resolve("overlay.portrait_eyes_open")'),'ACT6 overlay bypasses the bounded resolver');
+assert(overlay.includes('reportActiveLoadFailure(overlay)'),'ACTIVE overlay storage failure telemetry missing');
+assert(!overlay.includes('rpc("asset_resolve"'),'ACT6 overlay still calls asset_resolve directly');
 assert(!app.includes('ASSET_UNAVAILABLE · ${key}'),'unavailable images still block the trial UI');
 assert(css.includes('.trial-asset-placeholder')&&css.includes('aspect-ratio:16/9'),'placeholder presentation contract missing');
 console.log('Sprint9 trial placeholder static checks passed.');
