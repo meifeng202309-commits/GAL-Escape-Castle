@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T01:41:00Z
+> Last refreshed: 2026-09-25T02:11:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 7 — Teacher Console remediation + CA reclassification
-CURRENT_GATE          = SPRINT7_LEVEL1_FAIL_PENDING_REMEDIATION_AND_CA_RECLASSIFICATION
-CURRENT_OWNER         = CD + CA
-NEXT_REQUIRED_ACTION  = CA reclassifies S7-CA-001/002 against the new GA canonical visibility rule while CD continues S7-CA-003/004/005 remediation; after remaining Sprint7 findings are closed, submit focused Level1 re-audit; Sprint8 remains blocked
+CURRENT_SPRINT        = Sprint 7 — Teacher Console remediation
+CURRENT_GATE          = SPRINT7_LEVEL1_FAIL_RECLASSIFIED
+CURRENT_OWNER         = CD
+NEXT_REQUIRED_ACTION  = CD closes reclassified S7-CA-001/002 plus unchanged S7-CA-003/004/005 under GA canonical commits 5d7d2b673140ca32ed01834145b661c9f88b0f75 and dd44e13ad1c0c925044ec315dc85abc69e969eb7; preserves migration043; then submits focused Sprint7 Level1 re-audit; Sprint8 remains blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -275,46 +275,49 @@ Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized
 
 ## 8A. Sprint7 Level1 gate
 
+GA canonical visibility reframe is now resolved and active.
+
 ```text
-S7-CA-001 HIGH   = CANONICAL BASIS RESOLVED / PENDING CA RECLASSIFICATION — Teacher NORMAL-mode visibility of real submitted+LOCKED alias-based private choices is now explicitly allowed
-S7-CA-002 MEDIUM = CANONICAL BASIS RESOLVED / PENDING CA RECLASSIFICATION — duplicate writer / logging concern remains for CA architectural reframing
+S7-CA-001 MEDIUM = OPEN — Teacher may see LOCKED choice in NORMAL, but structured LOCKED/not-yet-revealed presentation is missing
+S7-CA-002 MEDIUM = OPEN — AUDIT debug flag has duplicate writers with inconsistent event provenance
 S7-CA-003 MEDIUM = OPEN — per-phase validity / durable intervention log incomplete
 S7-CA-004 MEDIUM = OPEN — export filename preview noncanonical
 S7-CA-005 MEDIUM = OPEN — ACT12 submitted/waiting phase mismatch
+
+No HIGH Sprint7 finding remains after canonical reclassification.
 
 Sprint7 gate = FAIL / BLOCKED
 Sprint8 gate = BLOCKED
 ```
 
-Canonical change request and GA disposition:
+GA canonical disposition:
 
 ```text
-agent-comms/CA_to_GA_20260925T012500Z_teacher-private-choice-visibility-canonical-change-request.md
 agent-comms/GA_to_CA_20260925T014000Z_teacher-private-choice-visibility-canonical-disposition.md
 ```
 
-Canonical owner commits:
+Canonical commits:
 
 ```text
-V4.0 Teacher visibility semantics: 5d7d2b673140ca32ed01834145b661c9f88b0f75
-Codex V2.4 NORMAL/AUDIT alignment: dd44e13ad1c0c925044ec315dc85abc69e969eb7
+5d7d2b673140ca32ed01834145b661c9f88b0f75
+dd44e13ad1c0c925044ec315dc85abc69e969eb7
 ```
 
-Updated CA→CD remediation boundary:
+CA reclassification addendum:
 
 ```text
-agent-comms/CA_to_CD_20260925T012600Z_sprint7-privacy-findings-held-pending-ga-canonical-change.md
+docs/audits/regular/runs/2026-09-25_sprint7_level1/CANONICAL_RECLASSIFICATION_ADDENDUM.md
 ```
 
-Original Sprint7 audit report:
+Updated CA→CD remediation handoff:
 
 ```text
-docs/audits/regular/runs/2026-09-25_sprint7_level1/AUDIT_REPORT.md
+agent-comms/CA_to_CD_20260925T021000Z_sprint7-canonical-reclassification-resume-all-five-findings.md
 ```
 
-Migration `043` is deployed history and immutable. Next unused migration is `044`.
+Migration `043` remains deployed history and immutable. Next unused migration is `044`.
 
-GA canonical dependency is closed. CD may continue S7-CA-003/004/005 and must not modify protected canonical sources. CA now reclassifies S7-CA-001/002 against the new canon before the next focused Sprint7 audit.
+CD may now remediate all five Sprint7 findings under the new canonical rules.
 
 ---
 
