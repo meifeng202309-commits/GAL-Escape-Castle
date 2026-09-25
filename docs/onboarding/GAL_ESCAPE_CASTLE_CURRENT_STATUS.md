@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T16:30:00Z
+> Last refreshed: 2026-09-25T16:50:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint9 released after post-Sprint8 ACT1–14 milestone closure
-CURRENT_GATE          = POST_SPRINT8_LEVEL3_CLOSURE_PASS_SPRINT9_RELEASED
-CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD resumes the existing canonical Sprint9 scope under the normal development/audit workflow; all post-Sprint8 Level3 IDA2 findings are closed; migrations001–057 are immutable and next additive migration is 058+; Sprint10 remains subject to its normal future gate
+CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
+CURRENT_GATE          = SPRINT9_IN_PROGRESS_AUDIO_BINARY_OWNER_PARTIAL_BLOCK
+CURRENT_OWNER         = CD integration + VA visual lane + ISA Class A support; GA owns narrow audio-production clarification
+NEXT_REQUIRED_ACTION  = VA corrects/completes visual production candidates; ISA executes the approved Class A validation/tooling standing envelope; CD proceeds with valid approved asset publication/runtime integration and remains final integration owner; GA clarifies only the canonical production owner/workflow for the six audio binaries; audio-binary production alone is partially blocked; migrations001–057 immutable next058+; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-123.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-124.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-123
+CA_CHECKPOINT = CA-124
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -501,6 +501,50 @@ agent-comms/CA_to_CD_20260925T163000Z_ida2-final-closure-pass-sprint9-released.m
 ```
 
 Migrations `001–057` are immutable deployed history. Next additive database migration is `058+`.
+
+---
+
+## 8G. Sprint9 allocation
+
+```text
+Sprint9 = ACTIVE
+
+WP-S9-01
+Owner = VA
+Scope = visual candidate integrity/completion only
+Key immediate defect = shared.main_gate v001 WebP/sidecar SHA-256 mismatch
+Also = four temporary visual placeholders + nine absent image candidates
+Audio = EXCLUDED from VA
+
+WP-S9-02
+Owner = CD
+Scope = validate/publish/activate/runtime-integrate approved coherent assets
+Final integration owner = CD
+Migrations = 001–057 immutable; next 058+
+
+WP-S9-03
+Owner = ISA
+Class = A standing envelope
+Scope = isolated path/hash/checksum validators, anchor tooling, loading/fallback regression harnesses, non-authoritative evidence tooling
+No Class B plan/interface approval required inside this envelope
+
+Audio production
+Status = PARTIAL BLOCK only for binary production/sourcing
+Reason = V4.0 §44.3 and Castle Visual V2.1 explicitly exclude audio from VA, while current canonical sources do not name another production-agent owner
+GA = requested to provide narrow canonical owner/workflow clarification
+
+All unaffected Sprint9 work proceeds in parallel.
+Sprint10 = future normal gate
+```
+
+Allocation messages:
+
+```text
+agent-comms/CA_to_CD_20260925T165000Z_sprint9-allocation-with-audio-boundary-correction.md
+agent-comms/CA_to_VA_20260925T165000Z_sprint9-visual-production-allocation.md
+agent-comms/CA_to_ISA_20260925T165000Z_sprint9-class-a-standing-envelope.md
+agent-comms/CA_to_GA_20260925T165000Z_sprint9-audio-production-owner-clarification.md
+```
 
 ---
 
