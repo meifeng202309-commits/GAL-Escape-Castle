@@ -2,18 +2,18 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T14:47:00Z
-> Updated by: GA
+> Last refreshed: 2026-09-25T15:38:00Z
+> Updated by: CA
 
 ---
 
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Post-Sprint8 ACT1–14 milestone Level3 remediation
-CURRENT_GATE          = LEVEL3_ACT1_14_FAIL_IDA2_001_006
+CURRENT_SPRINT        = Post-Sprint8 ACT1–14 milestone Level2 targeted-closure remediation
+CURRENT_GATE          = LEVEL2_TARGETED_CLOSURE_FAIL_IDA2_001_R1_R2_IDA2_005_R1
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD remediates IDA2-001..006 from the ACT1–14 post-Sprint8 Full Independent Snapshot on frozen baseline 2cc4b642bc86c4d8fb1b1631ca0ae394ed886913, preserving migrations001–053 and using additive migration054+ as needed, then submits one frozen correction baseline for Level2 Targeted Independent Closure; Sprint9/10 remain blocked
+NEXT_REQUIRED_ACTION  = CD remediates residuals IDA2-001-R1, IDA2-001-R2, IDA2-005-R1 from Level2 targeted closure on frozen baseline 40223199e8c7934216b09d78aa86d4375d101e0f; preserve migrations001–054, use additive migration055+ only if database change is required, keep scope bounded to Teacher Override semantics + completed-run export selection + direct regression evidence, then submit one frozen baseline for narrow Level2 re-audit; Sprint9/10 remain blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-100.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-120.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-100
+CA_CHECKPOINT = CA-120
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -394,6 +394,42 @@ Frozen product baseline:
 Migrations `001–053` are immutable. Next unused migration is `054`.
 
 Next audit after remediation is **Level2 Targeted Independent Closure**, not another automatic full Level3 rerun.
+
+## 8D. IDA2-001..006 Level2 targeted closure
+
+```text
+Frozen remediation baseline = 40223199e8c7934216b09d78aa86d4375d101e0f
+Level2 Targeted Closure = FAIL / BLOCKED
+
+IDA2-002 = CLOSED at code-level trace
+IDA2-003 = CLOSED at code-level trace
+IDA2-004 = CLOSED at code-level trace
+IDA2-006 = CLOSED at code-level trace
+
+IDA2-001-R1 HIGH   = OPEN — ACT2 meeting Teacher resolution omits canonical current_route_target=library; GAL route-update location can render blank
+IDA2-001-R2 HIGH   = OPEN — ACT2/ACT5 Teacher-resolved discussions do not explicitly mark unsubmitted final votes invalid_teacher_override in exported validity evidence
+IDA2-005-R1 MEDIUM = OPEN — Teacher completed-run selector is reset to newest run by ordinary 1.2s polling
+
+Canonical Ownership Check = PASS
+Sprint9 = BLOCKED
+Sprint10 = BLOCKED
+```
+
+Audit report:
+
+```text
+docs/audits/regular/runs/2026-09-25_ida2_001_006_level2_targeted_closure/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T153800Z_level2-ida2-targeted-closure-fail.md
+```
+
+Migrations `001–054` are immutable deployed history. Next additive database migration is `055+`.
+
+Next audit is a **narrow Level2 re-audit** of the three residuals after CD submits one frozen correction baseline. No duplicate Teacher approval is required.
 
 
 ---
