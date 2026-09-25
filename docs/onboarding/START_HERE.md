@@ -1,6 +1,6 @@
 # GAL ESCAPE CASTLE — START HERE
 
-> Universal entry point for any newly started GA / CA / CD / VA chat session.
+> Universal entry point for any newly started GA / CA / CD / VA / ISA chat session.
 
 A new chat session does **not** create a new project-role identity.
 
@@ -10,8 +10,9 @@ Persistent project roles are:
 - CA — Coding Audit Agent
 - CD — Codex
 - VA — Visual Agent
+- ISA — Implementation Support Agent
 
-Replacing a slow or retired chat does not create GA-II / CA-II / CD-II / VA-II.  
+Replacing a slow or retired chat does not create GA-II / CA-II / CD-II / VA-II / ISA-II.  
 The replacement chat continues the same role and the same role Action Log sequence.
 
 ---
@@ -22,7 +23,7 @@ Read in this order:
 
 1. `docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md`
 2. `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md`
-3. `docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md`
+3. `docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.1.md`
 4. the role-specific Minimum Reading listed in the New Member Guide
 5. the highest ACTIVE `agent-comms/inter_agent_talk_protocol V*.md`
 6. your own Action Log entries after the checkpoint recorded in CURRENT STATUS
@@ -33,6 +34,12 @@ CA-specific version rule:
 
 - if the New Member Guide names an older `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V*.md`, CA must use the **highest version marked ACTIVE** in `docs/onboarding/`;
 - as of the current project state, the active CA rule is `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md`.
+
+ISA-specific rule:
+
+- ISA must read `docs/onboarding/GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md`;
+- ISA may act only inside a current CA ownership envelope / standing envelope and any required CD-owned frozen interface contract;
+- ISA has no independent migration, canonical, audit or release authority.
 
 Then answer internally:
 
