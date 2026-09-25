@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T04:10:00Z
+> Last refreshed: 2026-09-25T06:22:00Z
 > Updated by: GA
 
 ---
@@ -17,6 +17,7 @@ NEXT_REQUIRED_ACTION  = CD closes S8-CA-001..006 on baseline 5882830d343f6aba9c4
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
+ISA_STATUS            = ACTIVE — no work package assigned yet
 ```
 
 Visual production continues in parallel.
@@ -25,13 +26,14 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-CA has completed its latest 10-action checkpoint through CA-090.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-100.
 
 ```text
-GA_CHECKPOINT = NONE
-CA_CHECKPOINT = CA-090
+GA_CHECKPOINT = GA-020
+CA_CHECKPOINT = CA-100
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
+ISA_CHECKPOINT = NONE
 ```
 
 Universal cold-start entry:
@@ -54,11 +56,12 @@ docs/specs/current/localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv
 assets/asset-registry.json
 
 L2 / governance:
-agent-comms/inter_agent_talk_protocol V1.md
+agent-comms/inter_agent_talk_protocol V2.md
 docs/onboarding/START_HERE.md
 docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
-docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
+docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.1.md
 docs/onboarding/GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md
+docs/onboarding/GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md
 ```
 
 CA audit cadence:
@@ -74,6 +77,11 @@ Procedural autonomy:
 ```text
 When workflow already defines next owner + next action + permitted scope + closure condition,
 execute without duplicate user approval.
+
+ISA governance:
+ISA is ACTIVE as a bounded implementation-support role.
+CA allocates ownership envelopes; CD owns architecture/interfaces/final integration; ISA works only inside approved/frozen scope.
+Procedural CA/CD/ISA steps already authorized by the cooperation model do not require duplicate user/Teacher approval.
 ```
 
 Canonical ownership hardening:
