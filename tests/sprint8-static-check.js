@@ -1,0 +1,16 @@
+const fs=require('fs'),assert=require('assert');
+const sql=fs.readFileSync('database/046_sprint8_act14_finalization_export.sql','utf8');
+const app=fs.readFileSync('src/game/app.js','utf8');
+const css=fs.readFileSync('src/styles/app.css','utf8');
+const teacher=fs.readFileSync('src/teacher/teacher-console.js','utf8');
+for(const token of ['session_integrity_verified','game_completed','export_ready','export_schema_version','knowledge_provenance','discussion_transcript','pressure_choices','teacher_overrides','behavior_validity'])assert(sql.includes(token),`missing ${token}`);
+assert(sql.includes("'not_applicable'"),'legitimate not_applicable path is missing');
+assert(sql.includes('timestamp,event_type,run_id,scene_id,phase_key,step_key,actor_id,payload_json,validity'),'CSV contract changed');
+assert(sql.includes("then'_audit'else''end"),'AUDIT filename suffix missing');
+assert(!/jsonb_(agg|build_object)\([^\n]*(teacher_token|join_code|session_token|service_role)/.test(sql),'secret-like field entered export DTO');
+assert(app.includes('<strong>${localizedHtml("act14.003")}</strong><strong>${localizedHtml("act14.004")}</strong>'),'ACT14 locked lines are not whole-sentence bold');
+assert(app.includes('await flushSprint6AudioConsumptions();const pending=requestIdentity("s8-finalize"'),'pending audio flush must precede finalization');
+assert(!/\.s8-ending[^}]*text-transform\s*:\s*uppercase/.test(css),'ACT14 parent must not uppercase ending copy');
+assert(teacher.includes('s8_export_session')&&teacher.includes('application/json')&&teacher.includes('text/csv'),'Teacher JSON/CSV export missing');
+assert(!sql.includes("act15")&&!sql.includes("act16"),'post-game runtime transition entered Sprint8');
+console.log('Sprint 8 static checks passed.');

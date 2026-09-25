@@ -65,6 +65,7 @@ initializeSprint3bButton.addEventListener("click", initializeSprint3b);
 loadAssetsButton.addEventListener("click",loadAssets);
 refreshOperationsButton.addEventListener("click",loadOperationsState);
 auditPrivateDebug.addEventListener("change",setAuditPrivateDebug);
+exportSessionButton.addEventListener("click",exportSprint8Session);
 
 async function createRoom() {
   const payload = baseTeacherPayload();
@@ -247,7 +248,7 @@ function renderDiscussionState(state) {
 
 async function loadOperationsState(){
   const payload=baseTeacherPayload(false);if(!payload)return;
-  try{const state=await rpc("s7_get_teacher_console",payload);renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
+  try{const state=await rpc("s7_get_teacher_console",payload);state.export=await rpc("s8_get_finalization_state",payload).catch(()=>state.export||{});renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
   catch(error){operationsBadge.textContent="Unavailable";operationsState.innerHTML=`<p class="bad">${escapeHtml(error.message)}</p>`;}
 }
 
@@ -262,7 +263,7 @@ function renderOperationsState(state){
   const current=state.current||{},players=state.players||[],discussion=state.discussion||{},exp=state.export||{};
   operationsBadge.textContent=`${state.run.run_mode.toUpperCase()} · ACT ${current.act_no||"?"}`;
   auditPrivateDebug.checked=Boolean(state.run.audit_private_debug_view);auditPrivateDebug.disabled=state.run.run_mode!=="audit";
-  exportSessionButton.disabled=!exp.enabled;
+  exportSessionButton.disabled=!(exp.export_ready||exp.enabled);
   const playerRows=players.map(p=>`<tr><td>${escapeHtml(p.display_name)}</td><td>${p.online?"online":"offline"}</td><td>${p.submitted?"submitted":"waiting"}</td><td>${escapeHtml(p.player_location||"-")}</td><td>${p.locked_choice_value?`${escapeHtml(p.locked_choice_value)}<br><small>${escapeHtml(p.locked_choice_state)}</small>`:escapeHtml(p.locked_choice_state||"WAITING")}</td>${state.run.audit_private_debug_view?`<td>${escapeHtml(JSON.stringify(p.audit_debug||{}))}</td>`:""}</tr>`).join("");
   const pockets=(state.pockets||[]).map(p=>`<details><summary>${escapeHtml(p.display_name)} Pocket</summary><p><b>Items:</b> ${escapeHtml((p.items||[]).map(x=>x.item_key).join(", ")||"none")}</p><p><b>Observations:</b> ${escapeHtml((p.observations||[]).map(x=>x.display_text_key).join(", ")||"none")}</p><p><b>Shared photos:</b> ${escapeHtml((p.shared_photos||[]).map(x=>`${x.source_item_key}:${x.source_view}`).join(", ")||"none")}</p></details>`).join("");
   const messages=(discussion.messages||[]).map(m=>`<article class="message"><div><b>${escapeHtml(m.display_name)}</b><time>${escapeHtml(formatTime(m.created_at))}</time></div><p>${escapeHtml(m.message_text)}</p></article>`).join("");
@@ -274,8 +275,10 @@ function renderOperationsState(state){
     <h3>Pockets and group items</h3>${pockets}<p><b>Group Items:</b> ${escapeHtml((state.group_items||[]).map(x=>x.item_key).join(", ")||"none")}</p>
     <details><summary>Audio trigger debug</summary><p><b>Current cue:</b> ${escapeHtml(state.audio?.current_cue_key||"none")}</p><pre>${escapeHtml(JSON.stringify(state.audio?.recent||[],null,2))}</pre></details>
     <details><summary>Teacher interventions and validity</summary><p><b>Per-phase validity:</b></p><pre>${escapeHtml(JSON.stringify(state.phase_behavior_validity||[],null,2))}</pre><p><b>Durable interventions:</b></p><pre>${escapeHtml(JSON.stringify({interventions:state.teacher_interventions||[],overrides:state.override_history||[]},null,2))}</pre></details>
-    <p><b>Export:</b> ${escapeHtml(exp.filename_preview||"unavailable")} · waiting for ACT 14 finalization</p>`;
+    <p><b>Export:</b> ${escapeHtml(exp.json_filename||exp.filename_preview||"unavailable")} · ${exp.export_ready?"ready":"waiting for ACT 14 finalization"}</p>`;
 }
+function downloadExport(filename,content,type){const url=URL.createObjectURL(new Blob([content],{type}));const anchor=document.createElement("a");anchor.href=url;anchor.download=filename;document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+async function exportSprint8Session(){const payload=baseTeacherPayload();if(!payload)return;exportSessionButton.disabled=true;try{const result=await rpc("s8_export_session",payload);downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");operationsStatus.textContent=`Exported ${result.json_filename} and ${result.csv_filename}.`}catch(error){operationsStatus.textContent=`Export failed: ${error.message}`}finally{await loadOperationsState()}}
 async function initializeSprint5(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s5_initialize",payload);discussionTeacherStatus.textContent=`ACT 6–8 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 5 initialization failed: ${error.message}`}}
 async function initializeSprint6(){const payload=baseTeacherPayload();if(!payload)return;try{const result=await rpc("s6_initialize",payload);discussionTeacherStatus.textContent=`ACT 9–13 flow initialized: ${result.run_id}`;await loadDiscussionState()}catch(error){discussionTeacherStatus.textContent=`Sprint 6 initialization failed: ${error.message}`}}
 
