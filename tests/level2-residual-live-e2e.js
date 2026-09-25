@@ -8,6 +8,14 @@ const teacher=f=>({p_room_code:f.room,p_teacher_token:f.teacher});
 const override=(f,action,reason)=>rpc('teacher_apply_override',{...teacher(f),p_override_action:action,p_reason:reason});
 const state=(f,i=0)=>rpc('s3b_get_player_state',auth(f,i));
 async function fixture(){const room=id('R2'),teacherToken=id('T'),joins=[id('G'),id('A'),id('L')];await rpc('s1_create_room',{p_room_code:room,p_teacher_token:teacherToken,p_gitte_join_code:joins[0],p_anna_join_code:joins[1],p_linda_join_code:joins[2]});const players=await Promise.all(joins.map(p_join_code=>rpc('s1_join_player',{p_room_code:room,p_join_code})));const f={room,teacher:teacherToken,players};await rpc('s2_start_run',{p_room_code:room,p_teacher_token:teacherToken,p_run_mode:'audit'});await rpc('s3b_initialize_flow',teacher(f));return f}
+async function reachAct2Discussion(f){
+ await Promise.all([0,1,2].map(i=>rpc('s3b_ack_act1_opening',auth(f,i))));
+ for(const [i,p_choice_id]of [[0,'study_map'],[1,'read_diary'],[2,'study_watch']])await rpc('s3b_submit_act1_choice',{...auth(f,i),p_choice_id});
+ await Promise.all([0,1,2].map(i=>rpc('s3b_complete_act1',auth(f,i))));
+ await Promise.all(['library','library','great_hall'].map((p_choice_id,i)=>rpc('s3b_submit_first_meeting',{...auth(f,i),p_choice_id})));
+ await Promise.all([0,1,2].map(i=>rpc('s3b_grab',auth(f,i))));
+ await Promise.all([0,1,2].map(i=>rpc('s3b_leave_start_room',auth(f,i))));
+}
 async function main(){
  const f=await fixture();
  await Promise.all([0,1,2].map(i=>rpc('s3b_ack_act1_opening',auth(f,i))));
@@ -40,6 +48,14 @@ async function main(){
  const act2=teacherState.teacher_override.history.find(x=>x.reason==='R2 ACT2 discussion safe resolution');
  const act5=teacherState.teacher_override.history.find(x=>x.reason==='R2 ACT5 discussion safe resolution');
  assert(act2.invalidated_scope.length===3&&act5.invalidated_scope.length===3,'Teacher reconnect lost discussion absence provenance');
- console.log('Level2 residual override live E2E passed: seven migration054 paths exercised.');
+
+ const partial=await fixture();
+ await reachAct2Discussion(partial);
+ const discussion=await rpc('s2_get_teacher_state',teacher(partial));
+ await rpc('s2_open_vote',teacher(partial));
+ await rpc('s2_submit_vote',{...auth(partial,0),p_expected_discussion_session_id:discussion.discussion.discussion_session_id,p_expected_vote_round:discussion.discussion.vote_round,p_choice_id:'library'});
+ result=await override(partial,'RESOLVE_AND_CONTINUE','R2E1 ACT2 partial vote safe resolution');
+ assert(result.invalidated_scope.length===2,'ACT2 partial-vote missing-player scope is not exact');
+ console.log('Level2 residual override live E2E passed: seven migration054 paths plus partial-vote evidence exercised.');
 }
 main().catch(e=>{console.error(e.stack||e);process.exitCode=1});

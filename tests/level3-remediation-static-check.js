@@ -3,6 +3,7 @@ const sql=fs.readFileSync('database/054_level3_integrated_closure.sql','utf8');
 const ui=fs.readFileSync('src/teacher/teacher-console.js','utf8');
 const residual=fs.readFileSync('database/055_level2_override_export_residual_closure.sql','utf8');
 const residualFix=fs.readFileSync('database/056_level2_override_validity_binding_fix.sql','utf8');
+const eventFix=fs.readFileSync('database/057_teacher_override_event_scope_consistency.sql','utf8');
 const assert=(v,m)=>{if(!v)throw new Error(m)};
 for(const token of ['act2_first_contact','meeting_discussion','act2_rendezvous','route_consequence','act3_library','wayfinding','act4_known_unknown','private_route_choice','act5_route_discussion','post_inspection_route'])assert(sql.includes(token),`missing canonical override mapping: ${token}`);
 for(const token of ['s8_verify_integrity_v053','act2_authoritative_outcome_mismatch','act8_authoritative_outcome_mismatch','act10_authoritative_outcome_mismatch','resolution_source\',\'teacher_override'])assert(sql.includes(token),`missing integrity closure: ${token}`);
@@ -10,6 +11,7 @@ assert(sql.includes('s8_export_session(p_room_code text,p_teacher_token text,p_r
 assert(sql.includes("'completed_runs',runs")&&ui.includes('exportRunSelect')&&ui.includes('completedRuns.map'),'Teacher completed-run selector missing');
 assert(residual.includes("current_route_target='library'")&&residual.includes("semantic_field:='act2_final_vote'")&&residual.includes("semantic_field:='act5_final_vote'"),'Level2 override residual closure missing');
 assert(residualFix.includes('teacher_apply_override_v054')&&residualFix.includes('v_override_id')&&residualFix.includes('v_semantic_field'),'Level2 validity binding correction missing');
+assert(eventFix.includes('teacher_apply_override_v056')&&eventFix.includes("interaction_id=v_override_id")&&eventFix.includes("jsonb_set(e.details,'{invalidated_scope}',v_scope,true)")&&eventFix.includes('v_updated<>1'),'Teacher Override event scope correction missing');
 assert(ui.includes('syncExportRunSelection')&&ui.includes('completedRuns.some'),'Teacher export selection is not poll-stable');
 assert(sql.includes("clock_timestamp()")&&!sql.includes("'{json,header,exported_at}',to_jsonb(f.finalized_at)"),'export timestamp is not generation-time');
 assert(ui.includes('exportSessionButton.dataset.runId')&&ui.indexOf('exportSessionButton.disabled=')<ui.indexOf('if(!state.active)'),'completed-run UI export path missing');
