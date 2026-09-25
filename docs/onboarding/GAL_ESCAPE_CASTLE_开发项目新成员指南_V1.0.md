@@ -642,7 +642,7 @@ CD仍是进入audit baseline的ISA产物的最终integration/accountability owne
 1. 本Guide
 2. CURRENT STATUS
 3. `GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md`
-4. Inter-Agent Talk Protocol V2
+4. highest ACTIVE `agent-comms/inter_agent_talk_protocol V*.md`
 5. Agent Action Log Rules V1.1
 6. 当前 CA ownership envelope / Work Package
 7. Class B/C 时的 CD-owned frozen interface contract
