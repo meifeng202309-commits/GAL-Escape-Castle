@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T10:27:00Z
+> Last refreshed: 2026-09-25T14:11:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 8 — focused remediation after second Level1 review
-CURRENT_GATE          = SPRINT8_FOCUSED_LEVEL1_FAIL_THREE_OPEN
+CURRENT_SPRINT        = Sprint 8 — narrow ACT6 integrity residual remediation
+CURRENT_GATE          = SPRINT8_FOCUSED_LEVEL1_FAIL_ONE_ACT6_RESIDUAL
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD reconciles CD_ACTION_LOG under V1.1, closes S8-CA-001 + S8-RC-001 + S8-RC-002 on baseline ec44c36e6ceaadf796e38ad2cd75c8a17fd8d884 using additive migration049+ as needed, then submits another focused Sprint8 Level1 re-audit; Sprint9/10 remain blocked
+NEXT_REQUIRED_ACTION  = CD closes S8-CA-001-R2 ACT6 effective-round/fallback evidence residual on baseline 3d357ddc42e8232246bf649b5cb63a3e7ecea1fc using additive migration053+ as needed, adds round-2 fallback corruption regression, then submits another narrow Sprint8 Level1 re-audit; Sprint9/10 remain blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -128,7 +128,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 049.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 053.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -201,7 +201,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `049`.
+Deployed migrations `018–036` are immutable. Next unused migration is `053`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -236,7 +236,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `049`.
+Migrations `027–036` are immutable. Next unused migration is `053`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -277,7 +277,7 @@ Final correction baseline:
 96dd6a867aa0edab25cd3a68a30b2710a99fdcbe
 ```
 
-Migrations `001–042` are deployed history and immutable. Next unused migration is `049`.
+Migrations `001–042` are deployed history and immutable. Next unused migration is `053`.
 
 Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized.
 
@@ -314,7 +314,7 @@ Final Sprint7 correction baseline:
 4cff559889fa076dd0c15e58844baa8277e1bba0
 ```
 
-Migrations `001–045` are deployed history and immutable. Next unused migration is `049`.
+Migrations `001–045` are deployed history and immutable. Next unused migration is `053`.
 
 Sprint8 is now the authorized implementation scope. Sprint9/10 remain unauthorized.
 
@@ -323,44 +323,36 @@ Sprint8 is now the authorized implementation scope. Sprint9/10 remain unauthoriz
 ## 8B. Sprint8 Level1 gate
 
 ```text
-S8-CA-001 HIGH   = PARTIALLY_FIXED / OPEN — integrity still uses aggregate counts that can miss required phase-specific evidence
-S8-CA-002 HIGH   = FIXED_VERIFIED
-S8-CA-003 HIGH   = FIXED_VERIFIED
-S8-CA-004 HIGH   = FIXED_VERIFIED
-S8-CA-005 MEDIUM = FIXED_VERIFIED
-S8-CA-006 MEDIUM = FIXED_VERIFIED
-S8-RC-001 HIGH   = OPEN — stale finalization request is not bound to intended run_id
-S8-RC-002 MEDIUM = OPEN — durable finalization schema version remains 1.0 while export/event declare 1.1
+S8-CA-001-R2 HIGH = OPEN — ACT6 second-round 1:1:1 fallback can be certified using prior round-1 tie evidence
+S8-RC-001 HIGH    = FIXED_VERIFIED
+S8-RC-002 MEDIUM  = FIXED_VERIFIED
+ISA override-state defect = FIXED_VERIFIED
+ISA override-scope defect = FIXED_VERIFIED
+stale Sprint8 live assertion = FIXED_VERIFIED
 
-Sprint8 gate = FAIL / BLOCKED
+Sprint8 gate = FAIL / BLOCKED — one narrow residual
 Sprint9/10 gate = BLOCKED
 ```
 
 Focused re-audit report:
 
 ```text
-docs/audits/regular/runs/2026-09-25_sprint8_focused_level1_reaudit/AUDIT_REPORT.md
+docs/audits/regular/runs/2026-09-25_sprint8_wp-s8-02_focused_level1_reaudit/AUDIT_REPORT.md
 ```
 
 Formal CA→CD handoff:
 
 ```text
-agent-comms/CA_to_CD_20260925T102500Z_sprint8-focused-reaudit-fail-three-open.md
+agent-comms/CA_to_CD_20260925T140900Z_sprint8-wp-s8-02-focused-reaudit-one-act6-residual.md
 ```
 
 Frozen audit baseline:
 
 ```text
-ec44c36e6ceaadf796e38ad2cd75c8a17fd8d884
+3d357ddc42e8232246bf649b5cb63a3e7ecea1fc
 ```
 
-Migration `048` is deployed history and immutable. Next unused migration is `049`.
-
-First CD/ISA cooperation audit is separately recorded under:
-
-```text
-docs/audits/process/runs/2026-09-25_cd_isa_wp_s8_01_cooperation/AUDIT_REPORT.md
-```
+Migrations `001–052` are immutable deployed history. Next unused migration is `053`.
 
 Milestone independent snapshot remains scheduled after Sprint8 regular closure and before Sprint9/10 progression.
 
