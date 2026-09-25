@@ -3,6 +3,7 @@ import { loadSession, saveSession, clearSession } from "../state/session.js";
 import { rpc } from "../supabase/client.js";
 import { escapeHtml } from "../utils/html.js";
 import { resolveLocalizedText } from "../content/localization.generated.js";
+import { createAssetResolver } from "./asset-runtime.js";
 
 const joinPanel = document.getElementById("joinPanel");
 const gamePanel = document.getElementById("gamePanel");
@@ -49,6 +50,7 @@ let sprint6PendingAudio = null;
 let sprint6LeverTimer = null;
 let sprint6VolumeMode = localStorage.getItem("gal.s6.audio-mode") || "full";
 const SPRINT6_AUDIO_OUTBOX_KEY = "gal.s6.audio-consumption-outbox";
+const trialAssetResolver=createAssetResolver(rpc);
 
 function sprint6AudioOutbox() {
   try {
@@ -292,7 +294,7 @@ function renderSprint5(payload,pocket){
 }
 function anchor(asset,name){return asset?.ui_anchors?.find(item=>item.anchor_name===name)}
 function applyTrialPlaceholder(node,key){node.classList.add("trial-asset-placeholder");node.dataset.placeholderAssetKey=key;node.alt=`Temporary media placeholder: ${key}`;node.src=TRIAL_PLACEHOLDER_PATHS[key]||EMPTY_IMAGE}
-async function setS5Asset(id,key){const node=document.getElementById(id);if(!node)return null;const result=await rpc("asset_resolve",{p_asset_key:key}).catch(()=>null);if(!result?.ok){applyTrialPlaceholder(node,key);return null}node.classList.remove("trial-asset-placeholder");node.removeAttribute("data-placeholder-asset-key");node.alt="";node.onerror=()=>{node.onerror=null;applyTrialPlaceholder(node,key)};node.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${result.storage_path}`;return result}
+async function setS5Asset(id,key){const node=document.getElementById(id);if(!node)return null;const result=await trialAssetResolver.resolve(key);if(!result?.ok){applyTrialPlaceholder(node,key);return null}node.classList.remove("trial-asset-placeholder");node.removeAttribute("data-placeholder-asset-key");node.alt="";node.onerror=()=>{node.onerror=null;trialAssetResolver.reportActiveLoadFailure(result);applyTrialPlaceholder(node,key)};node.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${result.storage_path}`;return result}
 async function hydrateS5Assets(s){if(document.getElementById("s5MapImage"))await setS5Asset("s5MapImage","prop_gitte_castle_map");if(document.getElementById("s5PhotoImage"))await setS5Asset("s5PhotoImage","prop.photo_1897");const key=s.act_no===6?"shared.portrait_hall":s.act_no===7?"shared.clock_room":s.route_taken_act8==="west_tower"?"shared.west_tower_payoff":s.route_taken_act8==="main_gate"?"shared.main_gate":null;if(!key)return;const result=await setS5Asset("s5SceneImage",key);if(!result)return;if(s.act_no===6){const overlay=await rpc("asset_resolve",{p_asset_key:"overlay.portrait_eyes_open"}).catch(()=>null),node=document.getElementById("s5OverlayImage"),base=anchor(result,"portrait_main_face"),over=anchor(overlay,"portrait_main_face");if(!overlay?.ok||!base||!over){sprint3bStatus.textContent="ANCHOR_UNAVAILABLE · portrait_main_face";return}const scale=base.width_percent/over.width_percent;Object.assign(node.style,{left:`${base.x_percent-over.x_percent*scale}%`,top:`${base.y_percent-over.y_percent*scale}%`,width:`${100*scale}%`});node.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${overlay.storage_path}`;node.classList.add("ready")}if(s.act_no===7)document.querySelectorAll("[data-anchor]").forEach(node=>{const a=anchor(result,node.dataset.anchor);if(!a){node.hidden=true;sprint3bStatus.textContent=`ANCHOR_UNAVAILABLE · ${node.dataset.anchor}`;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`})})}
 async function shareSprint5Photo(button){button.disabled=true;try{await rpc("s3_share_photo",{p_room_code:session.room_code,p_session_token:session.session_token,p_recipient_role:button.dataset.shareRole,p_source_item_key:button.dataset.shareItem,p_source_view:button.dataset.shareView});await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
 async function flipSprint5Item(button){button.disabled=true;try{await rpc("s3_set_item_view",{p_room_code:session.room_code,p_session_token:session.session_token,p_item_key:button.dataset.flipItem,p_target_view:button.dataset.targetView});await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
