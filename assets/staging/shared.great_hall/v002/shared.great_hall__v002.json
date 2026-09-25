@@ -1,0 +1,48 @@
+{
+  "asset_key": "shared.great_hall",
+  "display_name": "Great Hall",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-02",
+    "MASTER-03"
+  ],
+  "required_anchors": [
+    "great_hall_red_door",
+    "great_hall_blue_door",
+    "great_hall_black_door"
+  ],
+  "ui_anchors": [
+    {
+      "anchor_name": "great_hall_red_door",
+      "x_percent": 31,
+      "y_percent": 34,
+      "width_percent": 8.5,
+      "height_percent": 35
+    },
+    {
+      "anchor_name": "great_hall_blue_door",
+      "x_percent": 45.3,
+      "y_percent": 34,
+      "width_percent": 9.5,
+      "height_percent": 35
+    },
+    {
+      "anchor_name": "great_hall_black_door",
+      "x_percent": 59.4,
+      "y_percent": 34,
+      "width_percent": 8.5,
+      "height_percent": 35
+    }
+  ],
+  "filename": "shared.great_hall__v002.webp",
+  "width_px": 1280,
+  "height_px": 960,
+  "sha256": "7a4770c7209e6ebb7452ec0080cd9c9d18f629a02207f532a07d821a2dffdb1d",
+  "source_png_sha256": "fabe3aa4ba6e822681648bf67dbe6a8e9ededf355bb7bb1c71ead0b88f8013e6",
+  "revision_note": "Metadata-repair successor of the already Teacher-approved v001; image bytes are reused unchanged. Adds validator-required UI anchor rectangles only.",
+  "technical_notes": "No visual/content change. APPROVED remains distinct from ACTIVE; CD/Asset Manager retains publication and runtime activation authority."
+}

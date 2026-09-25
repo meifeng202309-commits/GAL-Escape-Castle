@@ -1,0 +1,48 @@
+{
+  "asset_key": "shared.clock_room",
+  "display_name": "Clock Room",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-02",
+    "MASTER-03"
+  ],
+  "required_anchors": [
+    "clock_A_face",
+    "clock_B_face",
+    "clock_C_face"
+  ],
+  "ui_anchors": [
+    {
+      "anchor_name": "clock_A_face",
+      "x_percent": 31,
+      "y_percent": 32,
+      "width_percent": 9,
+      "height_percent": 13
+    },
+    {
+      "anchor_name": "clock_B_face",
+      "x_percent": 45.5,
+      "y_percent": 32,
+      "width_percent": 9,
+      "height_percent": 13
+    },
+    {
+      "anchor_name": "clock_C_face",
+      "x_percent": 59.5,
+      "y_percent": 32,
+      "width_percent": 9,
+      "height_percent": 13
+    }
+  ],
+  "filename": "shared.clock_room__v002.webp",
+  "width_px": 1280,
+  "height_px": 847,
+  "sha256": "7c641d444bf6d3501449664f89e64221ac9daecf7e2da0c6a2189d4f45967607",
+  "source_png_sha256": "e28924ab211f3383873156d4933973067982dc4506a6244fd2c1c6d391fb21aa",
+  "revision_note": "Metadata-repair successor of the already Teacher-approved v001; image bytes are reused unchanged. Adds validator-required UI anchor rectangles only.",
+  "technical_notes": "No visual/content change. APPROVED remains distinct from ACTIVE; CD/Asset Manager retains publication and runtime activation authority."
+}

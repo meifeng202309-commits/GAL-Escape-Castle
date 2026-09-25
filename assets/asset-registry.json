@@ -211,7 +211,7 @@
         "Castle library"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-02",
@@ -306,7 +306,7 @@
         "Castle clock room"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": null,
       "continuity_refs": [
         "MASTER-02",
@@ -346,7 +346,7 @@
         "Castle great hall"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": null,
       "continuity_refs": [
         "MASTER-02",
