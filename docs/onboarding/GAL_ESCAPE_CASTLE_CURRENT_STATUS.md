@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T03:38:00Z
+> Last refreshed: 2026-09-25T04:10:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint 8 — ACT14 Final Reveal + Session Finalization / Export
-CURRENT_GATE          = SPRINT8_IMPLEMENTATION_AUTHORIZED
+CURRENT_SPRINT        = Sprint 8 — ACT14 finalization/export remediation
+CURRENT_GATE          = SPRINT8_LEVEL1_AUDIT_FAIL
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD implements canonical Sprint8 finalization/export under Codex V2.4, preserves migrations 001–045, keeps Sprint9/10 and runtime analysis/prediction out of scope, then submits Sprint8 for regular Level1 CA audit
+NEXT_REQUIRED_ACTION  = CD closes S8-CA-001..006 on baseline 5882830d343f6aba9c44a25fe66ad1fb8d245002, preserves migrations 001–047, adds directly adjacent regressions/live/concurrency evidence, then submits focused Sprint8 Level1 re-audit; Sprint9/10 remain blocked
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -101,7 +101,9 @@ Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
 Sprint 6  = VERIFIED PASS
 Sprint 7  = VERIFIED PASS
-Sprint 8  = AUTHORIZED / IMPLEMENTATION
+Sprint 8  = LEVEL1 FAIL / REMEDIATION
+Sprint 9  = BLOCKED
+Sprint 10 = BLOCKED
 ```
 
 Sprint3C verified correction baseline:
@@ -118,7 +120,7 @@ database/016_sprint3c_level1_narrow_corrections.sql
 database/017_sprint3c_override_act2_entry_correction.sql
 ```
 
-Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 046.
+Do not modify deployed migrations 001–017. At Sprint3C closure, migration 018 was next; current next unused migration is 048.
 
 Do not modify deployed migrations 013 / 014 / 014a / 014b / 015. Any DB correction must remain additive.
 
@@ -191,7 +193,7 @@ Formal CA→CD PASS handoff:
 agent-comms/CA_to_CD_20260924T011000Z_sprint4-third-focused-level1-reaudit-pass-release-sprint5.md
 ```
 
-Deployed migrations `018–036` are immutable. Next unused migration is `046`.
+Deployed migrations `018–036` are immutable. Next unused migration is `048`.
 
 Sprint5 next-scope risk forecast has been delivered to CD.
 ---
@@ -226,7 +228,7 @@ Verified correction baseline:
 e38db52e04211e746628f884f88bcbfd0bb7be50
 ```
 
-Migrations `027–036` are immutable. Next unused migration is `046`.
+Migrations `027–036` are immutable. Next unused migration is `048`.
 
 Sprint6 risk-only forecast has been delivered to CD. Sprint6 canonical scope is ACT 9–13; ACT14 finalization/export and Sprint7 Teacher Console expansion remain outside this release.
 
@@ -267,7 +269,7 @@ Final correction baseline:
 96dd6a867aa0edab25cd3a68a30b2710a99fdcbe
 ```
 
-Migrations `001–042` are deployed history and immutable. Next unused migration is `046`.
+Migrations `001–042` are deployed history and immutable. Next unused migration is `048`.
 
 Sprint7 is now the authorized implementation scope. Sprint8 remains unauthorized.
 
@@ -304,9 +306,47 @@ Final Sprint7 correction baseline:
 4cff559889fa076dd0c15e58844baa8277e1bba0
 ```
 
-Migrations `001–045` are deployed history and immutable. Next unused migration is `046`.
+Migrations `001–045` are deployed history and immutable. Next unused migration is `048`.
 
 Sprint8 is now the authorized implementation scope. Sprint9/10 remain unauthorized.
+
+---
+
+## 8B. Sprint8 Level1 gate
+
+```text
+S8-CA-001 HIGH   = OPEN — semantic session integrity does not cover all actual-path evidence
+S8-CA-002 HIGH   = OPEN — canonical JSON omits core early behavior choices/timestamps
+S8-CA-003 HIGH   = OPEN — CSV raw details serialization violates allowlist-only export rule
+S8-CA-004 HIGH   = OPEN — completed run remains status=active and blocks next run
+S8-CA-005 MEDIUM = OPEN — concurrent finalization race can produce unique-key failure
+S8-CA-006 MEDIUM = OPEN — ACT14 staged fade/pause/separate-screen reveal missing
+
+Sprint8 gate = FAIL / BLOCKED
+Sprint9/10 gate = BLOCKED
+```
+
+Audit report:
+
+```text
+docs/audits/regular/runs/2026-09-25_sprint8_level1/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T040900Z_sprint8-level1-audit-fail-six-findings.md
+```
+
+Frozen audit baseline:
+
+```text
+5882830d343f6aba9c44a25fe66ad1fb8d245002
+```
+
+Migrations `046–047` are deployed history and immutable. Next unused migration is `048`.
+
+Milestone independent snapshot remains scheduled after Sprint8 regular closure and before Sprint9/10 progression.
 
 ---
 
