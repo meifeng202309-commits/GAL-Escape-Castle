@@ -1,9 +1,10 @@
 const fs=require('fs'),assert=require('assert');
-const sql=fs.readFileSync('database/046_sprint8_act14_finalization_export.sql','utf8');
+const sql=fs.readFileSync('database/046_sprint8_act14_finalization_export.sql','utf8')+fs.readFileSync('database/047_sprint8_export_completeness.sql','utf8');
 const app=fs.readFileSync('src/game/app.js','utf8');
 const css=fs.readFileSync('src/styles/app.css','utf8');
 const teacher=fs.readFileSync('src/teacher/teacher-console.js','utf8');
 for(const token of ['session_integrity_verified','game_completed','export_ready','export_schema_version','knowledge_provenance','discussion_transcript','pressure_choices','teacher_overrides','behavior_validity'])assert(sql.includes(token),`missing ${token}`);
+for(const token of ['s5_act8_private_choices','s6_allocations','s6_station_tasks','s6_engagements','act6_13_event_ledger','teacher_override_validity'])assert(sql.includes(token),`incomplete export: ${token}`);
 assert(sql.includes("'not_applicable'"),'legitimate not_applicable path is missing');
 assert(sql.includes('timestamp,event_type,run_id,scene_id,phase_key,step_key,actor_id,payload_json,validity'),'CSV contract changed');
 assert(sql.includes("then'_audit'else''end"),'AUDIT filename suffix missing');
