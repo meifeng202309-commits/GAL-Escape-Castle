@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T16:15:00Z
+> Last refreshed: 2026-09-25T16:30:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Post-Sprint8 ACT1–14 milestone Level2 targeted-closure remediation
-CURRENT_GATE          = NARROW_LEVEL2_FAIL_IDA2_001_R2_EVENT_EVIDENCE
+CURRENT_SPRINT        = Sprint9 released after post-Sprint8 ACT1–14 milestone closure
+CURRENT_GATE          = POST_SPRINT8_LEVEL3_CLOSURE_PASS_SPRINT9_RELEASED
 CURRENT_OWNER         = CD
-NEXT_REQUIRED_ACTION  = CD corrects only the remaining IDA2-001-R2 Teacher Override event-evidence inconsistency from frozen baseline 3b76246d5c0fa6678aaf22a785b56780cd52f5bb; preserve migrations001–056, use additive migration057+ only if required, add direct zero-vote and partial-real-vote event-scope regression evidence, then submit one frozen baseline for final narrow Level2 closure; Sprint9/10 remain blocked
+NEXT_REQUIRED_ACTION  = CD resumes the existing canonical Sprint9 scope under the normal development/audit workflow; all post-Sprint8 Level3 IDA2 findings are closed; migrations001–057 are immutable and next additive migration is 058+; Sprint10 remains subject to its normal future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-122.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-123.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-122
+CA_CHECKPOINT = CA-123
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -109,9 +109,9 @@ Sprint 4  = VERIFIED PASS
 Sprint 5  = VERIFIED PASS
 Sprint 6  = VERIFIED PASS
 Sprint 7  = VERIFIED PASS
-Sprint 8  = LEVEL1 FAIL / REMEDIATION
-Sprint 9  = BLOCKED
-Sprint 10 = BLOCKED
+Sprint 8  = VERIFIED PASS
+Sprint 9  = RELEASED
+Sprint 10 = FUTURE NORMAL GATE
 ```
 
 Sprint3C verified correction baseline:
@@ -464,6 +464,43 @@ agent-comms/CA_to_CD_20260925T161500Z_level2-residual-reaudit-one-event-evidence
 Migrations `001–056` are immutable deployed history. Next additive database migration is `057+`.
 
 Next audit is one final narrow Level2 closure check of this event-evidence residual only.
+
+---
+
+## 8F. Final IDA2 narrow closure PASS
+
+```text
+Final frozen correction baseline = 04fea9719003edecfd5bcb3c10fa04eea42fe7ce
+
+IDA2-001-R1    = CLOSED
+IDA2-001-R2    = CLOSED
+IDA2-001-R2-E1 = CLOSED
+IDA2-002       = CLOSED
+IDA2-003       = CLOSED
+IDA2-004       = CLOSED
+IDA2-005-R1    = CLOSED
+IDA2-006       = CLOSED
+
+Final narrow Level2 closure = PASS
+Canonical Ownership Check = PASS
+Post-Sprint8 Level3 blocker = CLOSED
+Sprint9 = RELEASED
+Sprint10 = future normal gate
+```
+
+Audit report:
+
+```text
+docs/audits/independent/runs/2026-09-25_ida2_001_r2_e1_final_narrow_closure/AUDIT_REPORT.md
+```
+
+Formal CA→CD handoff:
+
+```text
+agent-comms/CA_to_CD_20260925T163000Z_ida2-final-closure-pass-sprint9-released.md
+```
+
+Migrations `001–057` are immutable deployed history. Next additive database migration is `058+`.
 
 ---
 
