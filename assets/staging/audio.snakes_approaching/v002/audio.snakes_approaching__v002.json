@@ -1,0 +1,22 @@
+{
+  "asset_key": "audio.snakes_approaching",
+  "display_name": "Snakes Approaching",
+  "asset_type": "audio",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "audio.snakes_approaching__v002.mp3",
+  "mime_type": "audio/mpeg",
+  "duration_ms": 14864,
+  "loopable": false,
+  "sha256": "f70052670176e50e631313e8c388de414a201e53b625358dfd282e232e99d8e8",
+  "license_source": "Teacher-provided uploaded audio file (恐怖临近.mp3), supplied by the Teacher/User for this project; VA did not independently verify third-party provenance.",
+  "loudness_note": "Teacher-selected source retained as supplied: 44.1 kHz stereo, approximately 192 kbps MP3; measured peak approximately -6.17 dBFS. Runtime volume/reduced/mute controls remain authoritative.",
+  "production_note": "Teacher-selected escalating horror/danger-approach cue for ACT12 before blackout/countdown.",
+  "revision_note": "Teacher explicitly instructed VA to replace audio.snakes_approaching with the uploaded 恐怖临近.mp3. Immutable v002 preserves v001 history.",
+  "technical_notes": "Teacher-approved candidate only. VA does not promote ACTIVE; CD/Asset Manager retains publication/runtime activation authority."
+}
