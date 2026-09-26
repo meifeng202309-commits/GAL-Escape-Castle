@@ -427,7 +427,7 @@
         "ACT12 wet scraping"
       ],
       "asset_type": "audio",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [],
       "paired_asset_group": null,
@@ -442,7 +442,7 @@
         "ACT12 snakes approaching"
       ],
       "asset_type": "audio",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [],
       "paired_asset_group": null,
@@ -457,7 +457,7 @@
         "Golden Key alarm"
       ],
       "asset_type": "audio",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [],
       "paired_asset_group": null,
@@ -472,7 +472,7 @@
         "Great Hall snake hiss"
       ],
       "asset_type": "audio",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [],
       "paired_asset_group": null,
@@ -487,7 +487,7 @@
         "ACT12 mechanism clang"
       ],
       "asset_type": "audio",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [],
       "paired_asset_group": null,
@@ -502,7 +502,7 @@
         "Final gate opening"
       ],
       "asset_type": "audio",
-      "latest_version": 0,
+      "latest_version": 1,
       "active_version": null,
       "continuity_refs": [],
       "paired_asset_group": null,

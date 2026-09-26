@@ -1,0 +1,22 @@
+{
+  "asset_key": "audio.old_alarm_bell",
+  "display_name": "Old Alarm Bell",
+  "asset_type": "audio",
+  "version": 1,
+  "status": "PENDING_REVIEW",
+  "teacher_review": "PENDING_REVIEW",
+  "runtime_required": true,
+  "continuity_refs": [],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "audio.old_alarm_bell__v001.mp3",
+  "mime_type": "audio/mpeg",
+  "duration_ms": 2600,
+  "loopable": false,
+  "sha256": "0afb7821715296a1ea867f74d4f30615352ffa799c648f0a67805d4bab12e3dd",
+  "license_source": "Original procedural synthesis created for GAL Escape Castle Sprint9; no third-party samples used.",
+  "loudness_note": "Peak-normalized conservatively (approx. -5 to -8 dBFS depending on cue); runtime volume/reduced/mute controls remain authoritative.",
+  "production_note": "Harsh aged alarm-bell payoff",
+  "revision_note": "Initial Sprint9 production candidate. Original procedural synthesis; no third-party sample material. Awaiting Teacher review.",
+  "technical_notes": "PENDING_REVIEW candidate only. VA does not promote ACTIVE; CD/Asset Manager retains publication/runtime activation authority."
+}
