@@ -1,0 +1,22 @@
+{
+  "asset_key": "audio.old_alarm_bell",
+  "display_name": "Old Alarm Bell",
+  "asset_type": "audio",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "audio.old_alarm_bell__v002.mp3",
+  "mime_type": "audio/mpeg",
+  "duration_ms": 4937,
+  "loopable": false,
+  "sha256": "6236ef3d29dd9c3803231d256dd7385301ff753f921bb234da29e5851855713f",
+  "license_source": "Teacher-provided uploaded audio file (敲钟警报.mp3), supplied by the Teacher/User for this project; VA did not independently verify third-party provenance.",
+  "loudness_note": "Canonical web-game transcode: 44.1 kHz stereo, 64 kbps MP3; measured peak approximately -1.8 dBFS. Runtime volume/reduced/mute controls remain authoritative.",
+  "production_note": "Teacher-selected old mechanical bell/alarm cue for ACT10 Take Golden Key payoff.",
+  "revision_note": "Teacher explicitly instructed VA to replace audio.old_alarm_bell with the uploaded 敲钟警报.mp3. Immutable v002 preserves v001 history.",
+  "technical_notes": "Teacher-approved candidate only. VA does not promote ACTIVE; CD/Asset Manager retains publication/runtime activation authority."
+}
