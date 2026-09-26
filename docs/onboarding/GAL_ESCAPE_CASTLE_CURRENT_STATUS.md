@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-131.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-132.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-131
+CA_CHECKPOINT = CA-132
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -60,6 +60,8 @@ Continuity rule:
 ```
 
 Repository onboarding/status/logs remain the durable recovery source if another chat/access entry is used later.
+
+Latest repeated access-entry switch recorded: `2026-09-26T10:42:00Z`. No project gate, role, scope, authority, or ownership changed.
 
 ---
 
