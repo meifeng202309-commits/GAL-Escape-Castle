@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-26T01:52:00Z
-> Updated by: GA
+> Last refreshed: 2026-09-26T10:36:00Z
+> Updated by: CA
 
 ---
 
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-130.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-131.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-130
+CA_CHECKPOINT = CA-131
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -41,6 +41,24 @@ Universal cold-start entry:
 ```text
 docs/onboarding/START_HERE.md
 ```
+
+---
+
+## 2A. ChatGPT access-entry continuity
+
+```text
+Teacher/User changed the ChatGPT access entry used to reach this project on 2026-09-26.
+
+Continuity rule:
+- this is an access-surface change only;
+- CA remains the same persistent CA role;
+- repository state, governance, ownership envelopes, audit history, and Action Log sequence remain authoritative;
+- Sprint9 placeholder-first repeated Teacher trial release remains effective;
+- no Agent role, scope, gate, canonical authority, or current ownership changed because of the access-entry switch;
+- no FYI-only inter-Agent notification is required under Protocol V4.
+```
+
+Repository onboarding/status/logs remain the durable recovery source if another chat/access entry is used later.
 
 ---
 
