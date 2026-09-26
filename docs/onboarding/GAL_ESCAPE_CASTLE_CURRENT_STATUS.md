@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T19:15:00Z
+> Last refreshed: 2026-09-26T01:52:00Z
 > Updated by: GA
 
 ---
@@ -26,10 +26,10 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-130.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-130.
 
 ```text
-GA_CHECKPOINT = GA-020
+GA_CHECKPOINT = GA-030
 CA_CHECKPOINT = CA-130
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
