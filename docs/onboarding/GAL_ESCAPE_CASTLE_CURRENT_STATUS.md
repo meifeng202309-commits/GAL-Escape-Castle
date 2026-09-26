@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-25T18:45:00Z
+> Last refreshed: 2026-09-25T19:15:00Z
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_TRIAL_BUILD_NARROW_REAUDIT_FAIL_OVERLAY_CACHE_RESIDUAL
-CURRENT_OWNER         = CD final narrow remediation; VA later media replacement + ISA Class A support continue independently
-NEXT_REQUIRED_ACTION  = CD corrects only S9-TRIAL-001-R1: ACT6 overlay.portrait_eyes_open must use the bounded resolver path so repeated base-ACTIVE/overlay-missing renders do not recreate poll-amplified NO_ACTIVE telemetry; preserve migration058 ACTIVE-load-failure telemetry and accepted placeholder/audio behavior; add direct regression evidence and submit one final narrow re-audit baseline; migrations001–058 immutable next059+; final Sprint9 asset acceptance pending; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_PLACEHOLDER_TRIAL_RUNTIME_RELEASED
+CURRENT_OWNER         = Teacher trial phase + CD runtime support; VA final-media replacement + ISA Class A support continue independently
+NEXT_REQUIRED_ACTION  = Teacher/User may begin repeated end-to-end game trials with temporary media; CD supports and remediates concrete runtime defects discovered during trials while preserving released placeholder/audio fallback behavior; VA/CD continue final-media replacement/integration separately; final Sprint9 asset acceptance remains pending; migrations001–058 immutable next059+; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -26,11 +26,11 @@ Visual production continues in parallel.
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-129.
+GA has completed its latest checkpoint through GA-020. CA has completed its latest checkpoint through CA-130.
 
 ```text
 GA_CHECKPOINT = GA-020
-CA_CHECKPOINT = CA-129
+CA_CHECKPOINT = CA-130
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -687,6 +687,46 @@ CA -> CD handoff:
 
 ```text
 agent-comms/CA_to_CD_20260925T184500Z_s9-trial-001-narrow-reaudit-one-overlay-residual.md
+```
+
+---
+
+## 8L. Placeholder-first repeated trial release
+
+```text
+Final narrow audited baseline = 6b8730f999a7de4aa58f0444d9a2f75f76377302
+
+S9-TRIAL-001    = FIXED_VERIFIED
+S9-TRIAL-001-R1 = FIXED_VERIFIED
+
+Verified:
+- main poll-driven image resolution uses 30s bounded resolver cache
+- ACT6 overlay.portrait_eyes_open also uses the bounded resolver
+- ACTIVE storage-object failures remain separately observable via migration058
+- placeholder rendering remains resolver-first and non-authoritative
+- missing audio remains safe through legal stopped consumption
+- Canonical Ownership Check PASS
+
+Placeholder-first runtime = RELEASED
+Repeated Teacher trial runs = RELEASED
+
+Final Sprint9 asset acceptance = still pending
+Student/final media replacement = still pending under existing workflow
+Sprint10 = future normal gate
+
+Migrations001–058 immutable; next059+
+```
+
+Final narrow audit:
+
+```text
+docs/audits/regular/runs/2026-09-25_s9_trial_001_r1_final_narrow_reaudit/AUDIT_REPORT.md
+```
+
+CA -> CD release:
+
+```text
+agent-comms/CA_to_CD_20260925T191500Z_s9-trial-001-r1-final-pass-trial-runs-released.md
 ```
 
 ---
