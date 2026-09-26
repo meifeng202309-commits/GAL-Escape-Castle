@@ -1,0 +1,19 @@
+{
+  "asset_key": "prop.photo_1897",
+  "display_name": "1897 Photograph",
+  "asset_type": "image",
+  "version": 1,
+  "status": "PENDING_REVIEW",
+  "teacher_review": "PENDING_REVIEW",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-05"],
+  "paired_asset_group": "photo_1897_west_tower_payoff",
+  "required_anchors": [],
+  "filename": "prop.photo_1897__v001.webp",
+  "width_px": 1024,
+  "height_px": 648,
+  "sha256": "6d3c5b7fa95c0bbbc35e041e9ceb4dce0abf0dc26ce78b609bea39c708f4dd55",
+  "source_png_sha256": "7648fbfb088da6523e55b7223ce6e02c85c258ee4da38eeb84aa5d7300b6b3ce",
+  "revision_note": "Mechanical canonical staging of the recovered legacy candidate; visual review remains genuinely pending.",
+  "technical_notes": "Must receive paired Teacher review with shared.west_tower_payoff before approval. Not ACTIVE."
+}

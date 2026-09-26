@@ -1,0 +1,19 @@
+{
+  "asset_key": "prop_linda_watch_back",
+  "display_name": "Linda's Watch Back",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "paired_asset_group": "linda_pocket_watch",
+  "required_anchors": [],
+  "filename": "prop_linda_watch_back__v001.webp",
+  "width_px": 792,
+  "height_px": 1024,
+  "sha256": "744cfff64a84cdeb86bc274ba0cf8bd78d30dc6c1ad4e9508cba8fb69be5bce8",
+  "source_png_sha256": "0bde446decbd5cdd4db12088723af1d616a2139cb2bf119b2d21c3b6e2b8d290",
+  "revision_note": "Mechanical canonical staging of the recovered legacy Teacher-approved candidate; no visual or semantic change.",
+  "technical_notes": "Existing APPROVED review state preserved. APPROVED is not ACTIVE; CD/Asset Manager controls publication and activation."
+}

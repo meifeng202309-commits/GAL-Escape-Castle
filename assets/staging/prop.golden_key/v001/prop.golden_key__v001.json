@@ -1,0 +1,18 @@
+{
+  "asset_key": "prop.golden_key",
+  "display_name": "Golden Key",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "required_anchors": [],
+  "filename": "prop.golden_key__v001.webp",
+  "width_px": 1024,
+  "height_px": 768,
+  "sha256": "64051ae487c480b35def8099f1f5b3d4a5e0edb8805471897ae637cc58a47ac8",
+  "source_png_sha256": "ff53c291ab8c99b715a69cba5423e493a0eaf8a8b2a6aa94e0a43b4eca57e73e",
+  "revision_note": "Mechanical canonical staging of the recovered legacy Teacher-approved candidate; no visual or semantic change.",
+  "technical_notes": "Existing APPROVED review state preserved. APPROVED is not ACTIVE; CD/Asset Manager controls publication and activation."
+}

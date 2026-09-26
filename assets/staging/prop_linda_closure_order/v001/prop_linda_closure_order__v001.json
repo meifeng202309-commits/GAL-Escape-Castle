@@ -1,0 +1,18 @@
+{
+  "asset_key": "prop_linda_closure_order",
+  "display_name": "Laarne Closure Order",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "required_anchors": [],
+  "filename": "prop_linda_closure_order__v001.webp",
+  "width_px": 1023,
+  "height_px": 1024,
+  "sha256": "f2ee8acd24d795b03ea4f8828f38e7e2887437744c22bea607f231e2bf9b02f3",
+  "source_png_sha256": "938f58e751c4680bc0582f0c7a991cc4a60240a3b2ecf8a2cc424eae049b153c",
+  "revision_note": "Mechanical canonical staging of the recovered legacy Teacher-approved candidate; no visual or semantic change.",
+  "technical_notes": "Existing APPROVED review state preserved. Exact Dutch artifact text remains a runtime UI responsibility. APPROVED is not ACTIVE."
+}

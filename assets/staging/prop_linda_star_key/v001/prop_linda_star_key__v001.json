@@ -1,0 +1,18 @@
+{
+  "asset_key": "prop_linda_star_key",
+  "display_name": "Silver Star Key",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "required_anchors": [],
+  "filename": "prop_linda_star_key__v001.webp",
+  "width_px": 1024,
+  "height_px": 768,
+  "sha256": "63beeac34468b32db1c74b76f78e53fe1dd95ac7d719eedbc19f32b93497677f",
+  "source_png_sha256": "aa7d04f41bca8f8d031304a11091c79941356af5d22ca0938762531b56be38a2",
+  "revision_note": "Mechanical canonical staging of the recovered legacy Teacher-approved candidate; no visual or semantic change.",
+  "technical_notes": "Existing APPROVED review state preserved. APPROVED is not ACTIVE; CD/Asset Manager controls publication and activation."
+}

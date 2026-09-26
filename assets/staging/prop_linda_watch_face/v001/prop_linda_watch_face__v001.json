@@ -1,0 +1,19 @@
+{
+  "asset_key": "prop_linda_watch_face",
+  "display_name": "Linda's Watch Face",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "paired_asset_group": "linda_pocket_watch",
+  "required_anchors": [],
+  "filename": "prop_linda_watch_face__v001.webp",
+  "width_px": 448,
+  "height_px": 613,
+  "sha256": "362d91f5423515a9906f6f08eed3c7d0bc4f6ed188e24b49e46d63fe44ec182a",
+  "source_png_sha256": "b34d3a95a2596d02b12de22d054d141d90d49c05956bd3d49f52d8833dc78ff8",
+  "revision_note": "Mechanical canonical staging of the recovered legacy Teacher-approved candidate; no visual or semantic change.",
+  "technical_notes": "Existing APPROVED review state preserved. APPROVED is not ACTIVE; CD/Asset Manager controls publication and activation."
+}

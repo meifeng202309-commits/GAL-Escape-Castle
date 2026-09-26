@@ -1,0 +1,18 @@
+{
+  "asset_key": "prop.library_clock_clue_note",
+  "display_name": "Library Clock Clue Note",
+  "asset_type": "image",
+  "version": 1,
+  "status": "PENDING_REVIEW",
+  "teacher_review": "PENDING_REVIEW",
+  "runtime_required": true,
+  "continuity_refs": ["MASTER-04"],
+  "required_anchors": [],
+  "filename": "prop.library_clock_clue_note__v001.webp",
+  "width_px": 1024,
+  "height_px": 768,
+  "sha256": "844a7b60e71b66e0aaecc0421f50354d6a1899ce8085eb605a9a5252e5e890eb",
+  "source_png_sha256": "fe3c3c0927c2e9973bde312c5e15d601f7ebac06d9356103225c394d0ffcf82e",
+  "revision_note": "Mechanical canonical staging of the recovered legacy candidate; visual review remains genuinely pending.",
+  "technical_notes": "No review-state promotion was performed. Exact clue text remains a runtime UI responsibility. Not ACTIVE."
+}
