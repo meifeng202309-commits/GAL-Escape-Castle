@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-26T10:36:00Z
+> Last refreshed: 2026-09-26T10:42:00Z
 > Updated by: CA
 
 ---
@@ -50,9 +50,10 @@ docs/onboarding/START_HERE.md
 Teacher/User changed the ChatGPT access entry used to reach this project on 2026-09-26.
 
 Continuity rule:
-- this is an access-surface change only;
-- CA remains the same persistent CA role;
-- repository state, governance, ownership envelopes, audit history, and Action Log sequence remain authoritative;
+- this is an access-surface / device-entry change only;
+- each persistent Agent role keeps the same role identity when its chat/access entry is replaced;
+- the current GA chat continues the same persistent GA role and the same GA Action Log sequence;
+- repository state, governance, ownership envelopes, audit history, and Action Log sequences remain authoritative;
 - Sprint9 placeholder-first repeated Teacher trial release remains effective;
 - no Agent role, scope, gate, canonical authority, or current ownership changed because of the access-entry switch;
 - no FYI-only inter-Agent notification is required under Protocol V4.
