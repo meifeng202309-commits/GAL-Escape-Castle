@@ -1,0 +1,22 @@
+{
+  "asset_key": "audio.mechanism_clang",
+  "display_name": "Mechanism Clang",
+  "asset_type": "audio",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "audio.mechanism_clang__v002.mp3",
+  "mime_type": "audio/mpeg",
+  "duration_ms": 1411,
+  "loopable": false,
+  "sha256": "598e52b667a712c100294de4b7d874362e18a27713b3318ee55112baee3df834",
+  "license_source": "Teacher-provided uploaded audio file (金属撞击.mp3), supplied by the Teacher/User for this project; VA did not independently verify third-party provenance.",
+  "loudness_note": "Canonical web-game transcode: 44.1 kHz stereo, 64 kbps MP3; measured peak approximately -0.40 dBFS. Runtime volume/reduced/mute controls remain authoritative.",
+  "production_note": "Teacher-selected heavy metallic impact for ACT12 final-mechanism payoff after the two-second blackout silence.",
+  "revision_note": "Teacher explicitly instructed VA to replace audio.mechanism_clang with the uploaded 金属撞击.mp3. Immutable v002 preserves v001 history.",
+  "technical_notes": "Teacher-approved candidate only. VA does not promote ACTIVE; CD/Asset Manager retains publication/runtime activation authority."
+}
