@@ -13,10 +13,10 @@
   "mime_type": "audio/mpeg",
   "duration_ms": 4937,
   "loopable": false,
-  "sha256": "6236ef3d29dd9c3803231d256dd7385301ff753f921bb234da29e5851855713f",
+  "sha256": "b2fb2793f3bf5cf731e20cf997b11ae9b45140f901dd03f91f9f4d894ca3b0bf",
   "license_source": "Teacher-provided uploaded audio file (敲钟警报.mp3), supplied by the Teacher/User for this project; VA did not independently verify third-party provenance.",
-  "loudness_note": "Canonical web-game transcode: 44.1 kHz stereo, 64 kbps MP3; measured peak approximately -1.8 dBFS. Runtime volume/reduced/mute controls remain authoritative.",
+  "loudness_note": "Canonical web-game transcode: 44.1 kHz mono, 32 kbps MP3; measured peak approximately -0.7 dBFS. Runtime volume/reduced/mute controls remain authoritative.",
   "production_note": "Teacher-selected old mechanical bell/alarm cue for ACT10 Take Golden Key payoff.",
-  "revision_note": "Teacher explicitly instructed VA to replace audio.old_alarm_bell with the uploaded 敲钟警报.mp3. Immutable v002 preserves v001 history.",
+  "revision_note": "Teacher explicitly instructed VA to replace audio.old_alarm_bell with the uploaded 敲钟警报.mp3. Immutable v002 preserves v001 history. Binary transport was repaired before CD publication.",
   "technical_notes": "Teacher-approved candidate only. VA does not promote ACTIVE; CD/Asset Manager retains publication/runtime activation authority."
 }

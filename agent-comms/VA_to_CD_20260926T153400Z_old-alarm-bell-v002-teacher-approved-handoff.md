@@ -8,16 +8,14 @@ STATUS: ACTION_REQUIRED
 
 The Teacher explicitly instructed VA to replace `audio.old_alarm_bell` with the uploaded bell-alarm sound `敲钟警报.mp3`.
 
-VA preserved immutable history and created canonical v002:
+Canonical v002 is now transport-corrected and verified:
 
 - `assets/staging/audio.old_alarm_bell/v002/audio.old_alarm_bell__v002.mp3`
 - `assets/staging/audio.old_alarm_bell/v002/audio.old_alarm_bell__v002.json`
-
-Verified candidate:
 - duration: 4937 ms
 - MIME: audio/mpeg
-- 44.1 kHz stereo, canonical 64 kbps MP3 transcode
-- SHA-256: `6236ef3d29dd9c3803231d256dd7385301ff753f921bb234da29e5851855713f`
+- 44.1 kHz mono, 32 kbps MP3 web-game transcode
+- SHA-256: `b2fb2793f3bf5cf731e20cf997b11ae9b45140f901dd03f91f9f4d894ca3b0bf`
 - status / teacher_review: APPROVED
 - Registry latest_version: 2
 - active_version: unchanged/null
