@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T08:00:00Z
+> Last refreshed: 2026-09-27T08:30:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_REOPENED_PROTOCOL_V1_3
-CURRENT_OWNER         = CA — protocol-complete Level3 independent snapshot audit; Teacher/GA remediation discussion remains on hold
-NEXT_REQUIRED_ACTION  = CA executes Independent Development Snapshot Audit Protocol v1.3 against a frozen baseline: run-specific RUNDOWN, Methods1–9, Integration Checkpoints I–III, Patterns A–F and all 13 mandatory artifacts; CA-133 findings are preliminary leads only until this completes; repeated Teacher trials remain paused and remediation remains held
+CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_COMPLETE_FAIL_REMEDIATION_HOLD
+CURRENT_OWNER         = GA + Teacher discussion; CA protocol-complete Level3 audit finished; CD/VA audited-scope remediation remains held
+NEXT_REQUIRED_ACTION  = GA + Teacher review CA-135 protocol-complete findings and decide bounded remediation scope/priority; repeated Teacher trials remain paused; do not route implementation to CD/VA until that decision; after bounded remediation a frozen correction baseline returns to CA for Level2 Targeted Independent Closure; final live media ACTIVE integration remains a separate Sprint9 readiness item
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-134.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-135.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-134
+CA_CHECKPOINT = CA-135
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -816,6 +816,67 @@ Correct state:
 
 Correction handoff:
 `agent-comms/CA_to_GA_20260927T080000Z_correction-ca133-independent-audit-not-protocol-complete.md`
+
+---
+
+## 8O. Protocol-complete Level3 Teacher-trial audit
+
+```text
+Frozen product baseline = 93bd15ca36dd985685a0706bad9ec56ba4002a6e
+Protocol = Independent_Development_Snapshot_Audit_Protocol_v1.3
+Audit status = COMPLETE / FAIL-BLOCKED
+
+Mandatory execution completed:
+- run-specific RUNDOWN
+- Methods 1–9
+- Integration Checkpoints I–III
+- recurring Patterns A–F
+- Canonical Ownership Check
+- all 13 mandatory audit artifacts
+
+Findings:
+IDA-001 HIGH CONFIRMED
+= root player exposes legacy Sprint1 gameplay before formal run
+
+IDA-002 HIGH CONFIRMED
+= legacy root path reveals all three first choices player-to-player
+
+IDA-003 HIGH CONFIRMED
+= formal startup is split/non-atomic; active run can exist before canonical ACT1 state,
+  and generic Sprint2 DiscussionRoom is still legally openable in that gap
+
+IDA-004 HIGH NOT_VERIFIED root cause
+= Teacher live trial showed Run started -> No active run -> No active formal run,
+  contradicting the frozen static contract; deployed-state reproduction required
+
+IDA-005 MEDIUM CONFIRMED
+= production Teacher Console exposes legacy Sprint1 Advance/Reset shadow controls
+
+IDA-006 MEDIUM CONFIRMED
+= regression suite does not drive actual browser startup journey;
+  no browser-driving harness exists in repository
+
+IDA-007 OBSERVATION / NOT_VERIFIED
+= recent media candidate source state is coherent,
+  but live Asset Manager ACTIVE publication/integrity is not independently verified here
+
+Independent falsification result:
+- generic DiscussionRoom is NOT merely UI-disabled during canonical gameplay;
+  migration013 enforces the exclusion server-side, so no direct-RPC bypass finding was opened.
+
+Formal canonical ACT1 role-specific content/media/privacy contract = present.
+No new ACT2–ACT14 integrity/finalization defect confirmed.
+
+Teacher repeated trials = PAUSED
+Remediation = HOLD pending GA + Teacher discussion
+Next closure after bounded remediation = Level2 Targeted Independent Closure
+```
+
+Final Level3 artifacts:
+`docs/audits/independent/runs/2026-09-27_teacher_trial_two_phase_independent_audit/`
+
+Final CA -> GA handoff:
+`agent-comms/CA_to_GA_20260927T083000Z_protocol-complete-level3-teacher-trial-audit-final.md`
 
 ---
 
