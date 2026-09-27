@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-26T10:42:00Z
-> Updated by: CA
+> Last refreshed: 2026-09-27T06:10:00Z
+> Updated by: GA
 
 ---
 
@@ -11,16 +11,22 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_PLACEHOLDER_TRIAL_RUNTIME_RELEASED
-CURRENT_OWNER         = Teacher trial phase + CD runtime support; VA final-media replacement + ISA Class A support continue independently
-NEXT_REQUIRED_ACTION  = Teacher/User may begin repeated end-to-end game trials with temporary media; CD supports and remediates concrete runtime defects discovered during trials while preserving released placeholder/audio fallback behavior; VA/CD continue final-media replacement/integration separately; final Sprint9 asset acceptance remains pending; migrations001–058 immutable next059+; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_USER_DIRECTED_INDEPENDENT_AUDIT_HOLD
+CURRENT_OWNER         = CA — two-phase independent audit; Teacher/GA discussion follows before remediation
+NEXT_REQUIRED_ACTION  = CA first audits recent post-CA-130 CD/VA image/audio/asset work, then performs a comprehensive independent audit of the current trial product using the Teacher problem report as evidence but not as a conclusion; CA reports all findings to GA; remediation and further Teacher trials are temporarily held pending Teacher/GA discussion; migrations001–058 immutable next059+ unless a later audited baseline establishes otherwise; Sprint10 remains future gate
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
 ISA_STATUS            = ACTIVE — Sprint9 Class A standing non-authoritative validation/tooling envelope allocated
 ```
 
-Visual production continues in parallel.
+Visual production is temporarily held only on the scopes being pinned for the requested CA audit; canonical ownership is unchanged.
+Teacher/User audit sequencing update (2026-09-27):
+- original problem report: User Library `/GAL问题报告.pptx` (`libfile_de89f7e6d7e48191b7c5f684b1bc4018`);
+- repository evidence mirror: `docs/tmp files/GAL问题报告_20260927_teacher-trial-evidence.md`;
+- CA request: `agent-comms/GA_to_CA_20260927T060500Z_teacher-trial-two-phase-independent-audit-request.md`;
+- audited-scope remediation hold: `agent-comms/GA_to_CD_VA_20260927T060700Z_hold-audited-scope-pending-ca-review.md`.
+
 
 ---
 
