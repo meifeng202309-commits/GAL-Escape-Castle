@@ -32,10 +32,10 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-138.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-138.
 
 ```text
-GA_CHECKPOINT = GA-030
+GA_CHECKPOINT = GA-040
 CA_CHECKPOINT = CA-138
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
@@ -47,6 +47,9 @@ Universal cold-start entry:
 ```text
 docs/onboarding/START_HERE.md
 ```
+
+
+GA-040 checkpoint review: GA-031..GA-040 reconciled. Access-entry continuity changes are settled; Trial-Agent material remains outside active shared governance; CA-135..138 audit findings are consolidated; remediation remains held while CA critiques the GA/CA reconciliation report. No orphaned GA-owned canonical edit or unauthorized implementation instruction was found.
 
 ---
 
