@@ -1,0 +1,32 @@
+{
+  "asset_key": "shared.portrait_hall",
+  "display_name": "Portrait Hall",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-02"
+  ],
+  "paired_asset_group": "portrait_hall_eye_overlay",
+  "required_anchors": [
+    "portrait_main_face"
+  ],
+  "ui_anchors": [
+    {
+      "anchor_name": "portrait_main_face",
+      "x_percent": 39,
+      "y_percent": 27.5,
+      "width_percent": 6.5,
+      "height_percent": 12.5
+    }
+  ],
+  "filename": "shared.portrait_hall__v001.webp",
+  "width_px": 1824,
+  "height_px": 1312,
+  "sha256": "f3f7105d920d9f7b7135a893ae903aa5fee5b66cfbc8c3b99d5b991fe72fc971",
+  "source_png_sha256": "f2f3e0012504e451d596f6dcb5698dfb2b1484c83b5a4cce0bb596fbe00a769f",
+  "revision_note": "Teacher-selected user-generated closed-eyes base. Canonical lossless WebP packaging only; no crop, resize, retouch, redraw, or alignment change.",
+  "technical_notes": "Teacher instructed VA to preserve the supplied paired artwork as-is. Visible 'By Adora' signature is intentional and Teacher-authorized. APPROVED is distinct from ACTIVE; CD retains publication/runtime authority."
+}

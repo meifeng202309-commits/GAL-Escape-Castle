@@ -1,0 +1,38 @@
+{
+  "asset_key": "overlay.portrait_eyes_open",
+  "display_name": "Portrait Open-Eyes Overlay",
+  "asset_type": "image",
+  "version": 1,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "shared.portrait_hall"
+  ],
+  "paired_asset_group": "portrait_hall_eye_overlay",
+  "required_anchors": [
+    "portrait_main_face"
+  ],
+  "ui_anchors": [
+    {
+      "anchor_name": "portrait_main_face",
+      "x_percent": 39,
+      "y_percent": 27.5,
+      "width_percent": 6.5,
+      "height_percent": 12.5
+    }
+  ],
+  "filename": "overlay.portrait_eyes_open__v001.webp",
+  "width_px": 2048,
+  "height_px": 1465,
+  "sha256": "89a8b8609ec9a0fb685c9f5eef67fd388d4734bd8a2b9b1b96a4a8b26e6b6ecc",
+  "source_png_sha256": "c5b11262cd1ba117257d4dfaa3c5aa93b2e7cf0f597d997afd2a7504e4686d75",
+  "alpha_content_bbox_px": {
+    "left": 826,
+    "top": 476,
+    "right": 898,
+    "bottom": 513
+  },
+  "revision_note": "Teacher-selected user-generated eyes-open transparent overlay. Canonical lossless WebP packaging only; no crop, resize, retouch, redraw, or alignment change.",
+  "technical_notes": "Teacher guarantees this supplied overlay is the matched animation companion to shared.portrait_hall and instructed VA not to perform technical image treatment. Preserve existing overlay relationship and opacity-fade semantics."
+}
