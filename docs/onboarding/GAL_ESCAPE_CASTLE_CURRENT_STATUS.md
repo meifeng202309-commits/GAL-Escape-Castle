@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T06:10:00Z
-> Updated by: GA
+> Last refreshed: 2026-09-27T07:30:00Z
+> Updated by: CA
 
 ---
 
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_USER_DIRECTED_INDEPENDENT_AUDIT_HOLD
-CURRENT_OWNER         = CA — two-phase independent audit; Teacher/GA discussion follows before remediation
-NEXT_REQUIRED_ACTION  = CA first audits recent post-CA-130 CD/VA image/audio/asset work, then performs a comprehensive independent audit of the current trial product using the Teacher problem report as evidence but not as a conclusion; CA reports all findings to GA; remediation and further Teacher trials are temporarily held pending Teacher/GA discussion; migrations001–058 immutable next059+ unless a later audited baseline establishes otherwise; Sprint10 remains future gate
+CURRENT_GATE          = SPRINT9_TEACHER_TRIAL_AUDIT_COMPLETE_REMEDIATION_HOLD
+CURRENT_OWNER         = GA + Teacher discussion; CA audit complete; CD/VA audited-scope remediation remains on hold
+NEXT_REQUIRED_ACTION  = GA + Teacher review CA-133 two-phase audit findings and decide bounded remediation scope/priority; repeated Teacher trials remain paused; no remediation handoff to CD/VA until that discussion; after approved bounded correction a frozen baseline returns to CA for independent re-audit; final Sprint9 media integration also remains incomplete
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-132.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-133.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-132
+CA_CHECKPOINT = CA-133
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -755,6 +755,40 @@ CA -> CD release:
 ```text
 agent-comms/CA_to_CD_20260925T191500Z_s9-trial-001-r1-final-pass-trial-runs-released.md
 ```
+
+---
+
+## 8M. Teacher trial two-phase independent audit
+
+```text
+Pinned audit baseline = 93bd15ca36dd985685a0706bad9ec56ba4002a6e
+
+Phase A:
+- media candidate governance/provenance/versioning = PASS
+- Canonical Ownership Check = PASS
+- final runtime publication/ACTIVE integration = incomplete
+- A-MEDIA-001 MEDIUM
+
+Phase B:
+- B-001 HIGH = legacy Sprint1 exposed before formal run
+- B-002 HIGH = legacy Sprint1 reveals first choices player-to-player
+- B-003 HIGH = formal startup is non-atomic (start run != initialize canonical flow)
+- B-004 HIGH = Teacher live "Run started" / "No active run" contradiction; static root cause unresolved
+- B-005 MEDIUM = legacy Teacher controls mutate shadow Sprint1/Sprint2 state
+- B-EVIDENCE-01 MEDIUM = root room->join->formal-start E2E coverage gap
+
+Formal canonical ACT1 role-specific choices, opening asset binding, and private interaction contract are present.
+No post-CA-130 runtime/database delta was found that reopens prior ACT2-ACT14 closure findings.
+
+Repeated Teacher trials = PAUSED
+Remediation = HOLD pending Teacher/GA discussion
+```
+
+Audit report:
+`docs/audits/independent/runs/2026-09-27_teacher_trial_two_phase_independent_audit/AUDIT_REPORT.md`
+
+CA -> GA:
+`agent-comms/CA_to_GA_20260927T073000Z_teacher-trial-two-phase-independent-audit-results.md`
 
 ---
 
