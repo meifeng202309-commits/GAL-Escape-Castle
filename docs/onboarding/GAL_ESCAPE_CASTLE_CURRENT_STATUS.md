@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T18:48:00+08:00
-> Updated by: GA
+> Last refreshed: 2026-09-27T18:55:00+08:00
+> Updated by: CA
 
 ---
 
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
 CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_COMPLETE_FAIL_REMEDIATION_HOLD
-CURRENT_OWNER         = CA supplemental critical completeness review; CD/VA audited-scope remediation remains held
-NEXT_REQUIRED_ACTION  = CA supplements CA-135 using existing Methods1–9 only, critically checking player-facing actionability, waiting clarity, visible acknowledgement/state coherence, media/audio interaction paths, ACT2–ACT14 continuation clarity and legacy/shadow confusion; CA reports any new findings or NOT VERIFIED risks to GA; repeated Teacher trials and CD/VA remediation remain paused until Teacher/GA discussion; final live media ACTIVE integration remains a separate Sprint9 readiness item
+CURRENT_OWNER         = GA + Teacher remediation-scope discussion; CA supplemental player-facing review complete; CD/VA audited-scope remediation remains held
+NEXT_REQUIRED_ACTION  = GA + Teacher incorporate CA-136 supplemental player-facing findings PFC-001..004 into remediation-scope discussion before implementation routing; keep repeated Teacher trials and CD/VA remediation paused; retain NV-PF-01 anchor-dependent placeholder readability and NV-PF-02 audio perceptual completeness as later live/browser acceptance evidence needs; after bounded remediation return one frozen baseline to CA
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-135.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-136.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-135
+CA_CHECKPOINT = CA-136
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -877,6 +877,56 @@ Final Level3 artifacts:
 
 Final CA -> GA handoff:
 `agent-comms/CA_to_GA_20260927T083000Z_protocol-complete-level3-teacher-trial-audit-final.md`
+
+---
+
+## 8P. Supplemental player-facing completeness review
+
+```text
+Instruction:
+agent-comms/GA_to_CA_20260927T184500Z_player-facing-completeness-critical-review.md
+
+Existing Methods1–9 only; no Trial-Agent method used.
+
+PFC-001 HIGH CONFIRMED
+= ACT14 final reveal is unreachable through normal root-client flow after successful finalization:
+  s8_finalize completes run -> s2_get_player_state active=false ->
+  refreshState falls to legacy Sprint1 before s8_get_player_state/renderSprint8.
+
+PFC-002 MEDIUM CONFIRMED
+= multiple ACT2–ACT4 peer-synchronization barriers remove the player's action
+  but do not render explicit accepted/waiting guidance.
+
+PFC-003 MEDIUM CONFIRMED
+= multiple ACT9–ACT12 successful submitted/locked actions remain visibly selectable
+  with no acknowledgement while teammates are pending.
+
+PFC-004 LOW CONFIRMED
+= Sprint6 stale status/action/audio errors can persist across successful state progression
+  because renderSprint6 does not clear sprint3bStatus.
+
+NV-PF-01 NOT VERIFIED
+= anchor-dependent placeholder composition/readability (especially ACT7 clocks, ACT9 doors).
+
+NV-PF-02 NOT VERIFIED
+= actual browser/audio perceptual completeness under blocked/missing/delayed audio.
+
+Interpretation:
+- CA-135 backend integrity findings remain valid.
+- "No new ACT2–ACT14 integrity defect" does NOT mean ACT2–ACT14 is player-facing complete.
+- IDA-001 root-cause scope should be read as no-active-formal-run legacy fallback,
+  covering both pre-run and post-completion fall-through.
+- IDA-006 browser-orchestration blind spot also explains missed ACT14 and Sprint6 acknowledgement defects.
+
+Remediation scope = NOT YET COMPLETE.
+No CD/VA implementation instructions sent.
+```
+
+Supplement:
+`docs/audits/independent/runs/2026-09-27_teacher_trial_two_phase_independent_audit/PLAYER_FACING_COMPLETENESS_SUPPLEMENT.md`
+
+CA -> GA:
+`agent-comms/CA_to_GA_20260927T105500Z_player-facing-completeness-supplement-final.md`
 
 ---
 
