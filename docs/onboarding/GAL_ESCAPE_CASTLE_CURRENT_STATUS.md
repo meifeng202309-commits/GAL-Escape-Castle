@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T19:30:00+08:00
+> Last refreshed: 2026-09-27T20:29:00+08:00
 > Updated by: CA
 
 ---
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
 CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_COMPLETE_FAIL_REMEDIATION_HOLD
-CURRENT_OWNER         = GA + Teacher final remediation-scope freeze; CA pre-remediation source audit complete; CD/VA implementation remains held
-NEXT_REQUIRED_ACTION  = GA + Teacher freeze one bounded remediation scope covering IDA-001..006 and PFC-001..008, with IDA-004 live reproduction and remaining placeholder/audio items retained as acceptance evidence needs; only then route implementation to affected Agents; after one frozen correction baseline return to CA for Level2 Targeted Independent Closure, followed by real multi-client browser acceptance for remaining NOT_VERIFIED items
+CURRENT_OWNER         = GA + Teacher remediation-scope freeze using CA consolidated structural classification; CD/VA implementation remains held
+NEXT_REQUIRED_ACTION  = GA + Teacher freeze bounded remediation by structural family (legacy/formal lifecycle, transition ownership, per-player submitted/locked/waiting contract, cross-ACT Pocket/evidence capability, browser-journey validation) plus localized corrections; retain IDA-004 live diagnosis and remaining browser/media/audio acceptance evidence as separate gates; then route implementation and return one frozen correction baseline to CA
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-137.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-138.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-137
+CA_CHECKPOINT = CA-138
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -995,6 +995,64 @@ Matrix:
 
 CA -> GA:
 `agent-comms/CA_to_GA_20260927T193000Z_player-facing-state-matrix-final-pre-remediation.md`
+
+---
+
+## 8R. Consolidated findings and structural classification
+
+```text
+Material remediation findings = 14
+= IDA-001..006 + PFC-001..008
+
+Mutually exclusive classification:
+- structural runtime/product = 9
+- structural QA/test = 1
+- localized = 3
+- pending live diagnosis = 1
+
+Structural family S1:
+legacy/formal lifecycle not cleanly separated
+→ IDA-001, IDA-002, IDA-005, PFC-001
+
+Structural family S2:
+fragmented transition ownership / player-visible handoff boundary
+→ IDA-003, PFC-008
+
+Structural family S3:
+no unified submitted/locked/waiting player-state contract
+→ PFC-002, PFC-003
+
+Structural family S4:
+Pocket/evidence not implemented as a first-class cross-ACT player capability
+→ PFC-005
+
+Structural family S5:
+RPC-centric QA; no real browser-journey validation
+→ IDA-006
+
+Localized:
+- PFC-004 stale Sprint6 status
+- PFC-006 ACT4/Main Gate anchor/UI integration
+- PFC-007 ACT4 Reveal rendering
+
+Pending diagnosis:
+- IDA-004 deployed Run started -> No active run contradiction
+
+Acceptance/evidence gaps, not counted among 14 confirmed remediation findings:
+- IDA-007 live Asset Manager ACTIVE/publication verification
+- NV-PF-01 placeholder rendered readability
+- NV-PF-02 audio perceptual completeness
+
+CA assessment:
+current problems are predominantly structural manifestations, not 14 unrelated small bugs.
+Recommended interpretation = bounded structural refactor + localized corrections, NOT full rewrite.
+```
+
+Report:
+`docs/audits/independent/runs/2026-09-27_teacher_trial_two_phase_independent_audit/CONSOLIDATED_FINDINGS_AND_STRUCTURAL_CLASSIFICATION.md`
+
+CA -> GA:
+`agent-comms/CA_to_GA_20260927T122900Z_consolidated-findings-structural-classification.md`
 
 ---
 
