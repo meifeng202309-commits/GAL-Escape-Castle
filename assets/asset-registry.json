@@ -386,7 +386,7 @@
         "Final mechanism gate"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": null,
       "continuity_refs": [
         "MASTER-01",
