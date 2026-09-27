@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T22:01:00+08:00
+> Last refreshed: 2026-09-27T23:05:00+08:00
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_STRUCTURAL_REMEDIATION_PACKAGE_A_EXECUTION_RELEASED
-CURRENT_OWNER         = CD — execute released structural remediation plan through Phase0A/0C/E0 and Package A only; CA waits for A-COMPLETE checkpoint
-NEXT_REQUIRED_ACTION  = CD records recovery/baseline state, diagnoses IDA-004, submits compact change-impact map to GA, establishes E0 browser-driving harness, implements Package A under frozen R-S1/R-S2 outcomes, then STOPS at A-COMPLETE and hands one frozen factual baseline to CA for the narrow lifecycle/transition checkpoint; B/C/D/E1 are not yet released pending CA-A PASS
+CURRENT_GATE          = SPRINT9_PACKAGE_A_CA_A_FAIL_BOUNDED_CORRECTION
+CURRENT_OWNER         = CD — bounded Package A correction only; Packages B/C/D remain blocked
+NEXT_REQUIRED_ACTION  = CD correct only A-CA-001 and A-CA-002 on remediation/sprint9-structural-v1, preserve all Package A boundaries already passed, freeze one new Package A SHA, provide factual diff/tests and remediated E0 evidence where available, then return ownership to CA for a narrow re-audit; do not begin B/C/D
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-140.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-141.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-140
+CA_CHECKPOINT = CA-141
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1160,6 +1160,61 @@ Global boundaries:
 - no speculative IDA-004 masking
 - VA not independently released by this handoff
 ```
+
+---
+
+## 8U. Package A CA-A narrow checkpoint
+
+```text
+Remediation branch:
+remediation/sprint9-structural-v1
+
+CD handoff:
+agent-comms/CD_to_CA_20260927T143700Z_package-a-complete-ca-a-review.md
+
+Frozen CD handoff HEAD:
+b76803fa9a53b8f5e3a7a2f18a6cfd8ce2513847
+
+Package A implementation:
+ea5ac29568cfaea24436457910c43b40b3608c2a
+
+CA-A decision:
+FAIL — two bounded HIGH residuals
+
+A-CA-001 HIGH
+= new atomic UI start exists, but old s2_start_run remains browser-executable
+  for anon/authenticated, so stale/older clients or direct RPC can still create half-start.
+
+A-CA-002 HIGH
+= ACT5→ACT6 handoff uses one global act6_entered_at.
+  First player's ENTER PORTRAIT HALL can move other players to ACT6 before they observed
+  the required ACT5 payoff/transition.
+  Current s9_enter_act6 also does not establish clicking player's player_location=portrait_hall.
+
+PASS source-level:
+- explicit pre-run waiting
+- normal root legacy fallback containment
+- ACT14 final reveal/reconnect dispatch
+- ACT1 privacy/authority preservation
+- finalization/export preservation
+- Teacher legacy controls contained as diagnostics
+- IDA-004 current diagnosis is non-speculative
+
+E0 remediated controlled-environment run:
+NOT VERIFIED yet
+
+Packages B/C/D:
+NOT RELEASED
+
+Next owner:
+CD — Package A bounded correction only
+```
+
+Audit:
+`docs/audits/regular/runs/2026-09-27_package_a_ca_a_lifecycle_checkpoint/AUDIT_REPORT.md`
+
+CA -> CD:
+`agent-comms/CA_to_CD_20260927T150500Z_package-a-ca-a-fail-two-bounded-residuals.md`
 
 ---
 
