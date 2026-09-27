@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T23:05:00+08:00
+> Last refreshed: 2026-09-27T23:45:00+08:00
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_PACKAGE_A_CA_A_FAIL_BOUNDED_CORRECTION
-CURRENT_OWNER         = CD — bounded Package A correction only; Packages B/C/D remain blocked
-NEXT_REQUIRED_ACTION  = CD correct only A-CA-001 and A-CA-002 on remediation/sprint9-structural-v1, preserve all Package A boundaries already passed, freeze one new Package A SHA, provide factual diff/tests and remediated E0 evidence where available, then return ownership to CA for a narrow re-audit; do not begin B/C/D
+CURRENT_GATE          = SPRINT9_PACKAGE_A_CA_A_RECHECK_FAIL_ONE_TIMER_RESIDUAL
+CURRENT_OWNER         = CD — Package A correction only: ACT6 timer/transition ownership residual + remediated E0 evidence; B/C/D remain blocked
+NEXT_REQUIRED_ACTION  = CD correct only A-CA-002-R1 so the canonical ACT6 90s DiscussionRoom does not consume player interaction time before the required ACT5→ACT6 visible entry boundary completes, preserve A-CA-001 and the verified per-player handoff/location fixes, run remediated E0/bounded live evidence in one controlled corrected frontend+migrations environment, freeze one new Package A SHA, then return ownership to CA for narrow recheck; do not begin B/C/D
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-141.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-142.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-141
+CA_CHECKPOINT = CA-142
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1215,6 +1215,54 @@ Audit:
 
 CA -> CD:
 `agent-comms/CA_to_CD_20260927T150500Z_package-a-ca-a-fail-two-bounded-residuals.md`
+
+---
+
+## 8V. Package A CA-A recheck 1
+
+```text
+CD correction handoff:
+agent-comms/CD_to_CA_20260927T152100Z_package-a-bounded-corrections-recheck.md
+
+Correction implementation SHA:
+92c0f59967a4588769fb3d562035a96e663639f7
+
+Handoff HEAD:
+966e1c6a4b29af89ec13e8dddcc537018eab9f23
+
+A-CA-001:
+FIXED_VERIFIED
+- browser execution of s2_start_run removed from anon/authenticated
+- s9_start_formal_game remains the supported atomic browser start authority
+
+A-CA-002:
+PARTIALLY_FIXED
+- per-player handoff observation = verified
+- per-player ACT6 entry = verified
+- one player cannot globally advance peers = verified
+- entering player_location=portrait_hall = verified
+
+A-CA-002-R1 HIGH:
+OPEN
+- ACT6 DiscussionRoom 90s timer starts at ACT5 terminal via automatic Sprint5 initialization
+- players may still be viewing ACT5 payoff while ACT6 interaction time is consumed
+- staggered players can receive reduced/no ACT6 discussion time
+
+Remediated E0:
+NOT VERIFIED in one controlled corrected frontend+migrations059-forward environment
+
+CA-A:
+FAIL
+
+Packages B/C/D:
+NOT RELEASED
+```
+
+Audit:
+`docs/audits/regular/runs/2026-09-27_package_a_ca_a_recheck_1/AUDIT_REPORT.md`
+
+CA -> CD:
+`agent-comms/CA_to_CD_20260927T154500Z_package-a-ca-a-recheck-one-timer-residual.md`
 
 ---
 
