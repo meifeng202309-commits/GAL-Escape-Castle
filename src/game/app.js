@@ -170,7 +170,7 @@ async function refreshState() {
         renderLifecycleNotice("starting","Formal game initialization is still completing. Please wait; no action has been lost.");
         return;
       }
-      const act5Handoff=sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE"&&sprint5State.active&&!sprint5State.state?.act6_entered_at;
+      const act5Handoff=sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE"&&sprint5State.active&&!sprint3bState.me?.act6_entered_at;
       if(act5Handoff){
         currentDiscussion=null;
         discussionPanel.classList.add("hidden");
@@ -215,8 +215,12 @@ function renderAct5Handoff(sprint3bState,sprint5State){
   const route=sprint3bState.flow?.group_route;
   const keys=route==="known"?["act04-05.019","act04-05.020","act04-05.021","act04-05.022","act04-05.023"]:["act04-05.024","act04-05.025","act04-05.026","act04-05.027","act04-05.022","act04-05.023"];
   sprint3bText.innerHTML=`<div class="bilingual">${localizedKeys(keys)}</div>`;
-  sprint3bActions.innerHTML=`<button id="enterAct6" type="button">${localizedHtml("act04-05.023")}</button>`;
-  document.getElementById("enterAct6")?.addEventListener("click",async(event)=>{
+  sprint3bActions.innerHTML=`<button id="enterAct6" type="button" disabled>${localizedHtml("act04-05.023")}</button>`;
+  const enterButton=document.getElementById("enterAct6");
+  rpc("s9_observe_act5_handoff",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_run_id:sprint5State.state.run_id})
+    .then(()=>{if(document.getElementById("enterAct6")===enterButton)enterButton.disabled=false;})
+    .catch(error=>{if(document.getElementById("enterAct6")===enterButton)sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;});
+  enterButton?.addEventListener("click",async(event)=>{
     event.currentTarget.disabled=true;
     try{
       await rpc("s9_enter_act6",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_run_id:sprint5State.state.run_id});
