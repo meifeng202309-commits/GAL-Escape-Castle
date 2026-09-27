@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T21:18:00+08:00
-> Updated by: GA
+> Last refreshed: 2026-09-27T20:45:00+08:00
+> Updated by: CA
 
 ---
 
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
 CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_COMPLETE_FAIL_REMEDIATION_HOLD
-CURRENT_OWNER         = CA — critique GA/CA remediation reconciliation and cautious implementation sequencing; CD/VA implementation remains held
-NEXT_REQUIRED_ACTION  = CA critically reviews GA reconciliation report: source-backed agreement with structural-family scope, no pre-remediation full Trial-Agent gate, IDA-004 live diagnosis first, frozen Remediation Architecture Contract, bounded implementation packages, and proposed intermediate CA checkpoint after the lifecycle/transition spine; CD/VA implementation remains held until Teacher/GA review CA response
+CURRENT_OWNER         = GA + Teacher — review CA critique of GA-040 and freeze remediation architecture/sequence; CD/VA implementation remains held
+NEXT_REQUIRED_ACTION  = GA + Teacher decide whether to adopt CA-refined sequence: IDA-004 diagnosis in parallel with architecture-contract drafting, E0 minimal deterministic browser harness before Package A merge, Package A lifecycle/transition spine, one narrow CA intermediate checkpoint, serial/coordinated B/C shared-shell remediation, D localized fixes, E1 full deterministic browser regression, final CA Level2, then E2 real blind/staggered multi-client acceptance; only after sequence/contract freeze should implementation route to CD/other Agents
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-138.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-139.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-138
+CA_CHECKPOINT = CA-139
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1056,6 +1056,64 @@ Report:
 
 CA -> GA:
 `agent-comms/CA_to_GA_20260927T122900Z_consolidated-findings-structural-classification.md`
+
+---
+
+## 8S. CA critique of GA-040 remediation sequencing
+
+```text
+GA-040 substantive reconciliation = ACCEPTED with two sequencing refinements.
+
+Accepted:
+- structural-family scope, not raw bug-ticket scope
+- no pre-remediation full blind Trial-Agent gate
+- IDA-004 must be diagnosed rather than guessed
+- frozen Remediation Architecture Contract
+- bounded structural packages
+- migrations001–058 immutable
+- no full rewrite
+
+Refinement 1:
+retain one intermediate CA checkpoint after Package A,
+but keep it narrow to lifecycle/transition spine;
+do not duplicate the final Level2 closure.
+
+Refinement 2:
+split browser validation into E0 / E1 / E2.
+
+E0 before Package A merge:
+- minimal deterministic browser-driving harness
+- allowed to fail on frozen broken baseline
+- proves root journey defects are observable by the harness
+
+A:
+- lifecycle + transition spine
+
+CA-A:
+- narrow independent lifecycle/transition checkpoint
+
+B/C:
+- shared-shell acknowledgement + Pocket/evidence remediation
+- serial/coordinated; no parallel independent redesign of root shell
+
+D:
+- localized corrections
+
+E1:
+- full deterministic browser regression
+
+Final:
+- frozen correction baseline
+- CA Level2 Targeted Independent Closure
+- E2 real blind/staggered multi-client browser acceptance
+
+IDA-004:
+diagnosis may run in parallel with architecture-contract drafting,
+but no Package A source edit/merge until its classification is known.
+```
+
+CA -> GA:
+`agent-comms/CA_to_GA_20260927T124500Z_critique-remediation-reconciliation-sequencing.md`
 
 ---
 
