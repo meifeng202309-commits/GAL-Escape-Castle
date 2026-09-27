@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T18:55:00+08:00
+> Last refreshed: 2026-09-27T19:30:00+08:00
 > Updated by: CA
 
 ---
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
 CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_COMPLETE_FAIL_REMEDIATION_HOLD
-CURRENT_OWNER         = GA + Teacher remediation-scope discussion; CA supplemental player-facing review complete; CD/VA audited-scope remediation remains held
-NEXT_REQUIRED_ACTION  = GA + Teacher incorporate CA-136 supplemental player-facing findings PFC-001..004 into remediation-scope discussion before implementation routing; keep repeated Teacher trials and CD/VA remediation paused; retain NV-PF-01 anchor-dependent placeholder readability and NV-PF-02 audio perceptual completeness as later live/browser acceptance evidence needs; after bounded remediation return one frozen baseline to CA
+CURRENT_OWNER         = GA + Teacher final remediation-scope freeze; CA pre-remediation source audit complete; CD/VA implementation remains held
+NEXT_REQUIRED_ACTION  = GA + Teacher freeze one bounded remediation scope covering IDA-001..006 and PFC-001..008, with IDA-004 live reproduction and remaining placeholder/audio items retained as acceptance evidence needs; only then route implementation to affected Agents; after one frozen correction baseline return to CA for Level2 Targeted Independent Closure, followed by real multi-client browser acceptance for remaining NOT_VERIFIED items
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-136.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-137.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-136
+CA_CHECKPOINT = CA-137
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -927,6 +927,74 @@ Supplement:
 
 CA -> GA:
 `agent-comms/CA_to_GA_20260927T105500Z_player-facing-completeness-supplement-final.md`
+
+---
+
+## 8Q. Final pre-remediation player-facing state matrix
+
+```text
+Baseline = 93bd15ca36dd985685a0706bad9ec56ba4002a6e
+Framework = existing CA Methods1–9 only
+Current-main product delta from baseline = none
+
+Matrix scope:
+- pre-run / startup
+- every normal reachable player-visible ACT1–ACT14 state
+- own-submitted / peers-pending variants
+- discussion / vote variants
+- reconnect consequences
+- media / placeholder paths
+- audio paths
+
+Existing findings confirmed:
+IDA-001..006
+PFC-001..004
+
+Refinements:
+- PFC-002 also includes ACT8 private-choice waiting
+- PFC-003 has explicit canonical contradiction at ACT12 ENGAGE:
+  V4.0 requires already-ENGAGED players to see a waiting state
+
+New findings:
+PFC-005 HIGH
+= ACT1–5 root player UI has no Pocket / Memories / Shared Photos / Group Items.
+  This affects ACT2 information sharing, ACT3 Number Note recovery/puzzle evidence,
+  delayed object inspection and behavior-analysis context.
+
+PFC-006 MEDIUM
+= required ACT4 and Main Gate anchor/UI integrations are absent.
+  Unused canonical anchors include:
+  library_unknown_door,
+  main_gate_station_A/B/C,
+  main_gate_watcher_corridor.
+
+PFC-007 MEDIUM
+= s3b_get_player_state projects act4_revealed after all private choices,
+  but app.js never renders it; required simultaneous ACT4 Reveal is absent.
+
+PFC-008 MEDIUM
+= ACT5 route consequence + [ENTER PORTRAIT HALL] is skipped because
+  same-transaction deferred Sprint5 initialization overwrites the terminal ACT5 scene
+  before the browser can observe it.
+
+Remaining NOT VERIFIED:
+- ACT6 placeholder without eye overlay
+- ACT7 placeholder clock-anchor readability
+- ACT9 placeholder door-anchor readability
+- live audio perceptual completeness
+- real staggered three-browser experience
+
+CA conclusion:
+pre-remediation source-level problem map = sufficiently complete.
+Further source-only audit before implementation = not recommended unless scope or product baseline changes.
+Remediation remains HOLD until GA + Teacher freeze the bounded scope.
+```
+
+Matrix:
+`docs/audits/independent/runs/2026-09-27_teacher_trial_two_phase_independent_audit/PLAYER_FACING_STATE_MATRIX.md`
+
+CA -> GA:
+`agent-comms/CA_to_GA_20260927T193000Z_player-facing-state-matrix-final-pre-remediation.md`
 
 ---
 
