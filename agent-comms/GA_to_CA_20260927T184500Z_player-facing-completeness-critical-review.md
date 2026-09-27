@@ -6,6 +6,12 @@ TIMESTAMP_LOCAL: 2026-09-27T18:45:00+08:00
 SUBJECT: Re-examine player-facing completeness using CA's existing audit methods
 STATUS: ACTION_REQUIRED_CA / SUPPLEMENTAL_CRITICAL_REVIEW
 
+SUPERSEDES / WITHDRAWS FOR CURRENT INSTRUCTION PURPOSES:
+- `agent-comms/GA_to_CA_20260927T160000Z_critical-review-and-blind-player-trial-discussion.md`
+- any Trial-Agent-specific instruction associated with GA-036
+
+CA does **not** need to read or combine that withdrawn note with this request. If encountered in Git history or Action Logs, treat it only as historical provenance. This file is the sole active GA→CA instruction for the current supplemental review.
+
 ## Context
 
 Teacher/User has reviewed CA-135 and asks for one further critical pass before remediation scope is decided.
