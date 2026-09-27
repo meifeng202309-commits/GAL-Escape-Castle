@@ -546,63 +546,7 @@ PENDING DIAGNOSIS / ACCEPTANCE
 
 # 7. Quantitative classification
 
-Among the **14 material remediation findings**:
-
-### Structural-family findings
-
-```text
-11 / 14
-```
-
-- IDA-001
-- IDA-002
-- IDA-003
-- IDA-005
-- IDA-006
-- PFC-001
-- PFC-002
-- PFC-003
-- PFC-005
-- PFC-008
-- plus IDA-004 remains unclassified pending diagnosis, so it is not counted as structural here
-
-More precisely:
-
-```text
-10 confirmed structural-family findings
-+ 1 structural QA finding (IDA-006)
-= 11
-```
-
-### Localized confirmed findings
-
-```text
-3 / 14
-```
-
-- PFC-004
-- PFC-006
-- PFC-007
-
-### Pending diagnosis within the 14
-
-```text
-1 / 14
-```
-
-- IDA-004
-
-Because IDA-004 is included in the 14, the categories overlap only if one counts structural QA separately. The clean mutually exclusive count is:
-
-```text
-Structural runtime/product = 10
-Structural QA/test = 1
-Localized = 2? 
-```
-
-That expression is misleading because PFC-006 and PFC-007 are both localized and PFC-004 is localized.
-
-The correct mutually exclusive count is therefore:
+Among the **14 material remediation findings**, the mutually exclusive classification is:
 
 ```text
 Structural runtime/product: 9
@@ -612,7 +556,8 @@ Pending diagnosis:           1
 Total:                      14
 ```
 
-Structural runtime/product IDs:
+## Structural runtime/product — 9
+
 - IDA-001
 - IDA-002
 - IDA-003
@@ -623,16 +568,29 @@ Structural runtime/product IDs:
 - PFC-005
 - PFC-008
 
-Structural QA/test:
+## Structural QA/test — 1
+
 - IDA-006
 
-Localized:
+## Localized — 3
+
 - PFC-004
 - PFC-006
 - PFC-007
 
-Pending:
+## Pending diagnosis — 1
+
 - IDA-004
+
+Therefore:
+
+```text
+10 / 14 material findings belong to structural families
+3  / 14 are localized confirmed defects
+1  / 14 cannot yet be classified until live diagnosis
+```
+
+IDA-007 and NV-PF-01/02 are excluded from this 14-item count because they are acceptance/evidence gaps rather than confirmed remediation defects.
 
 ---
 
