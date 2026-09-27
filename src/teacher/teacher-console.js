@@ -61,7 +61,7 @@ initializeSprint5Button.addEventListener("click",initializeSprint5);
 initializeSprint6Button.addEventListener("click",initializeSprint6);
 openVoteButton.addEventListener("click", openVote);
 addTimeButton.addEventListener("click", addTime);
-initializeSprint3bButton.addEventListener("click", initializeSprint3b);
+initializeSprint3bButton?.addEventListener("click", initializeSprint3b);
 loadAssetsButton.addEventListener("click",loadAssets);
 refreshOperationsButton.addEventListener("click",loadOperationsState);
 auditPrivateDebug.addEventListener("change",setAuditPrivateDebug);
@@ -118,11 +118,11 @@ async function startRun() {
   if (!payload) return;
   discussionTeacherStatus.textContent = "Starting formal run...";
   try {
-    const run = await rpc("s2_start_run", {
+    const run = await rpc("s9_start_formal_game", {
       ...payload,
       p_run_mode: runModeInput.value,
     });
-    discussionTeacherStatus.textContent = `Run started: ${run.run_id}`;
+    discussionTeacherStatus.textContent = `Formal run ready: ${run.run_id}`;
     await loadDiscussionState();
   } catch (error) {
     discussionTeacherStatus.textContent = `Start failed: ${error.message}`;

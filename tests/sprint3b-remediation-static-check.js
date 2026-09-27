@@ -80,7 +80,7 @@ if (!causalWrapper.test(migration14b)) {
 }
 
 requireFragments(student, "student client", [
-  "Formal game state is unavailable. Retry before taking another action.",
+  "Formal game initialization is still completing. Please wait; no action has been lost.",
   "p_expected_discussion_session_id",
   "p_expected_vote_round",
   "p_client_request_id",

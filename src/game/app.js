@@ -140,10 +140,17 @@ async function refreshState() {
   const activeSession=session;
   if (!activeSession) return;
   try {
-    const sprint1State = await rpc("s1_get_player_state", {
-      p_room_code: activeSession.room_code,
-      p_session_token: activeSession.session_token,
-    });
+    const auth={p_room_code:activeSession.room_code,p_session_token:activeSession.session_token};
+    // Completion is a first-class lifecycle state. This projection deliberately
+    // supports the latest completed run even though no active run remains.
+    const completedState=await rpc("s8_get_player_state",auth).catch(()=>({active:false}));
+    if(session!==activeSession)return;
+    if(completedState.active&&completedState.game_completed){
+      currentDiscussion=null;
+      discussionPanel.classList.add("hidden");
+      renderSprint8(completedState);
+      return;
+    }
     const discussionState = await rpc("s2_get_player_state", {
       p_room_code: activeSession.room_code,
       p_session_token: activeSession.session_token,
@@ -156,19 +163,26 @@ async function refreshState() {
       });
       const sprint5State = await rpc("s5_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
       const sprint6State = await rpc("s6_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
-      const sprint8State = await rpc("s8_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
+      const sprint8State = completedState.active ? completedState : await rpc("s8_get_player_state", auth).catch(()=>({active:false}));
       const pocketState = sprint5State.active ? await rpc("s3_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}) : null;
       if(session!==activeSession)return;
-      if (!sprint3bState.active || !sprint3bState.scene) throw new Error("Formal game state is unavailable. Retry before taking another action.");
-      renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}) : discussionState);
+      if (!sprint3bState.active || !sprint3bState.scene) {
+        renderLifecycleNotice("starting","Formal game initialization is still completing. Please wait; no action has been lost.");
+        return;
+      }
+      const act5Handoff=sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE"&&sprint5State.active&&!sprint5State.state?.act6_entered_at;
+      if(act5Handoff){
+        currentDiscussion=null;
+        discussionPanel.classList.add("hidden");
+        renderAct5Handoff(sprint3bState,sprint5State);
+        return;
+      }
+      renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", auth) : discussionState);
       if(session!==activeSession)return;
       if(sprint8State.active)renderSprint8(sprint8State);else if(sprint6State.active)renderSprint6(sprint6State);else if(sprint5State.active)renderSprint5(sprint5State,pocketState);else renderSprint3b(sprint3bState);
       return;
     }
-    currentDiscussion = null;
-    discussionPanel.classList.add("hidden");
-    sprint3bPanel.classList.add("hidden");
-    renderState(sprint1State);
+    renderLifecycleNotice("pre-run","You are connected. Wait for the Teacher to start the formal run.");
   } catch (error) {
     choiceArea.classList.add("hidden");
     revealArea.classList.add("hidden");
@@ -176,6 +190,39 @@ async function refreshState() {
     sprint3bPanel.classList.add("hidden");
     gameStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   }
+}
+
+function renderLifecycleNotice(state,message){
+  currentDiscussion=null;
+  choiceArea.classList.add("hidden");
+  revealArea.classList.add("hidden");
+  discussionPanel.classList.add("hidden");
+  sprint3bPanel.classList.remove("hidden");
+  playerLabel.textContent=`${session.display_name} · ${session.room_code}`;
+  sceneTitle.textContent=state==="pre-run"?"Waiting for formal run":"Formal game starting";
+  sceneText.textContent="";
+  sprint3bText.innerHTML=`<div class="notice"><p>${escapeHtml(message)}</p></div>`;
+  sprint3bActions.innerHTML="";
+  sprint3bStatus.textContent="";
+  gameStatus.textContent="";
+}
+
+function renderAct5Handoff(sprint3bState,sprint5State){
+  choiceArea.classList.add("hidden");
+  revealArea.classList.add("hidden");
+  sprint3bPanel.classList.remove("hidden");
+  sprint3bStatus.textContent="";
+  const route=sprint3bState.flow?.group_route;
+  const keys=route==="known"?["act04-05.019","act04-05.020","act04-05.021","act04-05.022","act04-05.023"]:["act04-05.024","act04-05.025","act04-05.026","act04-05.027","act04-05.022","act04-05.023"];
+  sprint3bText.innerHTML=`<div class="bilingual">${localizedKeys(keys)}</div>`;
+  sprint3bActions.innerHTML=`<button id="enterAct6" type="button">${localizedHtml("act04-05.023")}</button>`;
+  document.getElementById("enterAct6")?.addEventListener("click",async(event)=>{
+    event.currentTarget.disabled=true;
+    try{
+      await rpc("s9_enter_act6",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_run_id:sprint5State.state.run_id});
+      await refreshState();
+    }catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;event.currentTarget.disabled=false;}
+  });
 }
 
 async function refreshSprint3b() {

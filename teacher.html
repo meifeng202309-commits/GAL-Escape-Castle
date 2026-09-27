@@ -31,10 +31,16 @@
     <div class="button-row">
       <button id="createRoomButton">Create room</button>
       <button id="watchButton" class="secondary">Watch room</button>
-      <button id="advanceButton" class="secondary">Advance scene</button>
-      <button id="resetButton" class="danger">Reset room</button>
     </div>
     <p id="teacherStatus" class="status muted"></p>
+    <details>
+      <summary>Legacy prototype diagnostics</summary>
+      <p class="muted">Regression support only. These controls do not operate the formal ACT 1–14 run.</p>
+      <div class="button-row">
+        <button id="advanceButton" class="secondary">Advance legacy scene</button>
+        <button id="resetButton" class="danger">Reset legacy room state</button>
+      </div>
+    </details>
   </section>
 
   <section class="panel">
@@ -87,11 +93,17 @@
     </div>
     <div class="button-row">
       <button id="startRunButton" type="button">Start formal run</button>
-      <button id="initializeSprint3bButton" class="secondary" type="button">Initialize ACT 1–5 flow</button>
-      <button id="initializeSprint5Button" class="secondary" type="button">Initialize ACT 6–8 flow</button>
-      <button id="initializeSprint6Button" class="secondary" type="button">Initialize ACT 9–13 flow</button>
     </div>
-    <p class="muted">Initialize each canonical flow only after the preceding acts are complete.</p>
+    <p class="muted">Starting a formal run creates ACT 1 atomically. Later act groups enter automatically.</p>
+    <details>
+      <summary>Emergency canonical-flow recovery</summary>
+      <p class="muted">Use only after diagnosing a failed automatic transition.</p>
+      <div class="button-row">
+        <button id="initializeSprint3bButton" class="secondary" type="button">Recover ACT 1–5 flow</button>
+        <button id="initializeSprint5Button" class="secondary" type="button">Recover ACT 6–8 flow</button>
+        <button id="initializeSprint6Button" class="secondary" type="button">Recover ACT 9–13 flow</button>
+      </div>
+    </details>
     <hr>
     <div class="field-grid teacher-grid">
       <label class="span-two">Topic <input id="discussionTopicInput" value="Choose the safest route out of the castle"></label>

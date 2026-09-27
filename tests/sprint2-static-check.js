@@ -112,9 +112,10 @@ for (const removedLabel of ["Vote resolved", "Discussion complete.", "silent tex
   if (student.includes(removedLabel)) throw new Error(`Removed DiscussionRoom developer label is still student-visible: ${removedLabel}`);
 }
 
-for (const fragment of ["s2_start_run", "s2_open_discussion", "s2_open_vote", "s2_add_time", "discussionState"]) {
+for (const fragment of ["s2_open_discussion", "s2_open_vote", "s2_add_time", "discussionState"]) {
   if (!teacher.includes(fragment) && !teacherHtml.includes(fragment)) throw new Error(`Teacher DiscussionRoom missing: ${fragment}`);
 }
+if (!teacher.includes("s2_start_run") && !teacher.includes("s9_start_formal_game")) throw new Error("Teacher formal-start authority is missing.");
 
 for (const file of [student, teacher, migration]) {
   if (/service[_-]?role/i.test(file)) throw new Error("Browser/runtime source must not contain a service-role credential.");

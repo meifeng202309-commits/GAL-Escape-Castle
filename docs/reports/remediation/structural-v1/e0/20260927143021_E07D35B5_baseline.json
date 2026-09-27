@@ -1,0 +1,810 @@
+{
+  "baseUrl": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/",
+  "expectation": "baseline",
+  "startedAt": "2026-09-27T14:30:21.081Z",
+  "room": "E07D35B5",
+  "checks": {
+    "isolatedContexts": [
+      {
+        "player_id": "f8271842-98ba-44f6-bcd0-f3266fd682b6",
+        "display_name": "Gitte",
+        "role_slot": "GAL-A"
+      },
+      {
+        "player_id": "62b4cd3f-55f6-44b7-ac99-6373b16fe24e",
+        "display_name": "Anna",
+        "role_slot": "GAL-B"
+      },
+      {
+        "player_id": "d35706f8-ba35-4afe-90e2-c185af6f5204",
+        "display_name": "Linda",
+        "role_slot": "GAL-C"
+      }
+    ],
+    "preRun": [
+      {
+        "index": 0,
+        "title": "Scene 1 — Wake Up",
+        "sceneText": "You wake in a locked castle room. Your phone shows 23:47 and NO SIGNAL. What is your first instinct?",
+        "choices": "Study the map on the wall\nCheck the old keys on the desk\nGo straight to the door",
+        "formal": "Castle Escape Runtime"
+      },
+      {
+        "index": 1,
+        "title": "Scene 1 — Wake Up",
+        "sceneText": "You wake in a locked castle room. Your phone shows 23:47 and NO SIGNAL. What is your first instinct?",
+        "choices": "Study the map on the wall\nCheck the old keys on the desk\nGo straight to the door",
+        "formal": "Castle Escape Runtime"
+      },
+      {
+        "index": 2,
+        "title": "Scene 1 — Wake Up",
+        "sceneText": "You wake in a locked castle room. Your phone shows 23:47 and NO SIGNAL. What is your first instinct?",
+        "choices": "Study the map on the wall\nCheck the old keys on the desk\nGo straight to the door",
+        "formal": "Castle Escape Runtime"
+      }
+    ],
+    "legacyPreRunReachable": true,
+    "startBoundary": {
+      "teacherStatus": "Run started: 1b8a14b8-511c-4410-92fc-7aace7ae8f18",
+      "runBadge": "NORMAL",
+      "playerStates": [
+        {
+          "gameStatus": "",
+          "formal": "Castle Escape Runtime"
+        },
+        {
+          "gameStatus": "",
+          "formal": "Castle Escape Runtime"
+        },
+        {
+          "gameStatus": "",
+          "formal": "Castle Escape Runtime"
+        }
+      ],
+      "initializeControlVisible": true,
+      "canonicalStatesBeforeInitialization": [
+        {
+          "me": null,
+          "flow": null,
+          "scene": null,
+          "active": true,
+          "run_id": "1b8a14b8-511c-4410-92fc-7aace7ae8f18",
+          "act4_revealed": [],
+          "queued_first_messages": [],
+          "my_post_inspection_vote": null,
+          "post_inspection_vote_count": 0,
+          "post_inspection_votes_revealed": []
+        },
+        {
+          "me": null,
+          "flow": null,
+          "scene": null,
+          "active": true,
+          "run_id": "1b8a14b8-511c-4410-92fc-7aace7ae8f18",
+          "act4_revealed": [],
+          "queued_first_messages": [],
+          "my_post_inspection_vote": null,
+          "post_inspection_vote_count": 0,
+          "post_inspection_votes_revealed": []
+        },
+        {
+          "me": null,
+          "flow": null,
+          "scene": null,
+          "active": true,
+          "run_id": "1b8a14b8-511c-4410-92fc-7aace7ae8f18",
+          "act4_revealed": [],
+          "queued_first_messages": [],
+          "my_post_inspection_vote": null,
+          "post_inspection_vote_count": 0,
+          "post_inspection_votes_revealed": []
+        }
+      ]
+    },
+    "splitStartBoundaryReachable": true,
+    "initializationStatus": 200,
+    "act1": [
+      {
+        "player": "GITTE · E07D35B5",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nEen lage, kleverige, nat klinkende stem blijft fluisteren:一个低沉、黏糊、湿漉漉的声音在反复低语：De Slangenkoning in de kapel... is heel kwaad.礼拜堂里的蛇王……很生气。Je wordt wakker in een oud houten bed. De stem is weg.你在一张旧木床上醒来。那个声音消失了。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号4 – 1 – 7 – 3 – 94 – 1 – 7 – 3 – 9VERTREK VOOR MIDDERNACHT午夜前离开Boem.咚。Het klinkt alsof er iets tegen de muur botst.像有东西撞上了墙。Wat doe je eerst?你首先做什么？\n[DOORGAAN][继续]"
+      },
+      {
+        "player": "ANNA · E07D35B5",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nJe wordt wakker terwijl je op de koude vloer zit.你醒来时正坐在冰冷的地板上。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号M. DE WIT — 1897M. DE WIT — 1897OOSTELIJKE GASTENVLEUGEL东侧客房区NA DE NACHTKLOK WORDT DE BUITENTOEGANG TOT DE GROTE ZAAL VAN BINNENUIT AFGESLOTEN.夜钟响过后，大厅的外部入口会从内部封闭。\n[DOORGAAN][继续]"
+      },
+      {
+        "player": "LINDA · E07D35B5",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nJe wordt wakker in een kleine studeerkamer.你在一间小书房里醒来。TIJD — 23:49时间 — 23:49GEEN SIGNAAL无信号23:4923:49★ ZILVEREN SLEUTEL★ 银钥匙Je staat op en stoot tegen de rand van het bureau.你站起来时撞到了桌边。Het zware boek valt op de vloer.那本厚重的书掉到了地上。Een vergeeld vel papier glijdt tussen de bladzijden vandaan.一张泛黄的纸从书页之间滑了出来。GEMEENTE LAARNESLUITINGSBEVEL — 01. 04. 1897WESTTOREN TOT NADER ORDER GESLOTEN\n[DOORGAAN][继续]"
+      }
+    ],
+    "act1RolePrivate": true
+  },
+  "network": [
+    {
+      "at": "2026-09-27T14:30:24.171Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_create_room",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:24.428Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:24.693Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:24.716Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:24.971Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:24.972Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.348Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.375Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.385Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.385Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_join_player",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.404Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_join_player",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.486Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_join_player",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.487Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.511Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.539Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.561Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.565Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.640Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.667Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.678Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.690Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.711Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.728Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.762Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.777Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.858Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.895Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.910Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.942Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:26.952Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.035Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.050Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.068Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.129Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.218Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.232Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.310Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.324Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_start_run",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.387Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.504Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.547Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.676Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.720Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.733Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.904Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:27.915Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.304Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.345Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.417Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.469Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.532Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.614Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.730Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.745Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.797Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.868Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.923Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.964Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:28.999Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.064Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.092Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.134Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.144Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.188Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_initialize_flow",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.255Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.323Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.362Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.392Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.495Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.504Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.542Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.550Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.596Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.620Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.653Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.660Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.742Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.785Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.824Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.930Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.951Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:29.976Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.002Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.120Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.129Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.132Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.141Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.171Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.304Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.305Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.312Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.333Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.333Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.487Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.499Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.521Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.672Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.687Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.695Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.741Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.829Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.877Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.934Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:30.997Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.047Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.134Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.193Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.194Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.225Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.321Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.340Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.352Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.352Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-27T14:30:31.452Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    }
+  ],
+  "finishedAt": "2026-09-27T14:30:31.455Z"
+}
