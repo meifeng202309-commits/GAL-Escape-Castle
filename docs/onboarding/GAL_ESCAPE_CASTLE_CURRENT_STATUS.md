@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T21:10:00+08:00
-> Updated by: GA
+> Last refreshed: 2026-09-27T22:01:00+08:00
+> Updated by: CA
 
 ---
 
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_COMPLETE_FAIL_REMEDIATION_HOLD
-CURRENT_OWNER         = GA + Teacher — review draft CD structural remediation execution plan; CD/VA implementation remains held
-NEXT_REQUIRED_ACTION  = Teacher/GA review docs/plans/CD_STRUCTURAL_REMEDIATION_EXECUTION_PLAN_V0.1.md, which adopts CA-139 sequencing refinements and adds source-control/rollback safeguards; safety/pre-remediation-20260927 anchors the current repository state at a4ad27c6e61cc33a259ae4ed5dc5fcaf0c0faad7; CD/VA implementation remains held until Teacher/GA releases the plan
+CURRENT_GATE          = SPRINT9_STRUCTURAL_REMEDIATION_PACKAGE_A_EXECUTION_RELEASED
+CURRENT_OWNER         = CD — execute released structural remediation plan through Phase0A/0C/E0 and Package A only; CA waits for A-COMPLETE checkpoint
+NEXT_REQUIRED_ACTION  = CD records recovery/baseline state, diagnoses IDA-004, submits compact change-impact map to GA, establishes E0 browser-driving harness, implements Package A under frozen R-S1/R-S2 outcomes, then STOPS at A-COMPLETE and hands one frozen factual baseline to CA for the narrow lifecycle/transition checkpoint; B/C/D/E1 are not yet released pending CA-A PASS
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-139.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-140.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-139
+CA_CHECKPOINT = CA-140
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1114,6 +1114,52 @@ but no Package A source edit/merge until its classification is known.
 
 CA -> GA:
 `agent-comms/CA_to_GA_20260927T124500Z_critique-remediation-reconciliation-sequencing.md`
+
+---
+
+## 8T. CD structural remediation released
+
+```text
+Teacher direct instruction released CD hold after GA-043 final objection check.
+
+CA final objection check:
+MATERIAL OBJECTION = NONE
+
+Released plan:
+docs/plans/CD_STRUCTURAL_REMEDIATION_EXECUTION_PLAN_V0.1.md
+
+Release handoff:
+agent-comms/CA_to_CD_20260927T140500Z_release-structural-remediation-plan-and-start-execution.md
+
+Recovery anchor:
+safety/pre-remediation-20260927
+@ a4ad27c6e61cc33a259ae4ed5dc5fcaf0c0faad7
+
+Current CD authorization:
+- record baseline / recovery state
+- Phase0A IDA-004 live diagnosis
+- Phase0C compact change-impact map to GA
+- E0 deterministic browser-driving harness
+- Package A lifecycle + transition spine only
+
+Required stop:
+A-COMPLETE frozen baseline
+→ CA-A narrow independent lifecycle/transition checkpoint
+
+Not yet released:
+- B/C shared-shell remediation
+- D localized fixes
+- E1 integrated deterministic browser regression
+- E2 blind/staggered acceptance
+
+Global boundaries:
+- migrations001–058 immutable
+- new migration numbers 059+
+- no full rewrite
+- no opportunistic cleanup
+- no speculative IDA-004 masking
+- VA not independently released by this handoff
+```
 
 ---
 
