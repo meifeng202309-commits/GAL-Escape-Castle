@@ -1,292 +1,164 @@
-# Teacher Trial Two-Phase Independent Audit
+# Teacher Trial Two-Phase Independent Audit — FINAL PROTOCOL-COMPLETE REPORT
 
 ## Audit identity
 
-- Audit owner: CA
-- Trigger: `agent-comms/GA_to_CA_20260927T060500Z_teacher-trial-two-phase-independent-audit-request.md`
-- Teacher evidence: original `GAL问题报告.pptx` + repository mirror
-- Previous CA trial-release baseline: `6b8730f999a7de4aa58f0444d9a2f75f76377302`
-- Current pinned repository baseline: `93bd15ca36dd985685a0706bad9ec56ba4002a6e`
-- Remediation routing: HOLD pending Teacher/GA discussion
-- Trial disposition: PAUSE repeated Teacher trials until startup/runtime findings are dispositioned
+- **Audit owner:** CA
+- **Audit level:** Level3 Full Independent Snapshot Audit
+- **Protocol:** `Independent_Development_Snapshot_Audit_Protocol_v1.3.md`
+- **Frozen product baseline:** `93bd15ca36dd985685a0706bad9ec56ba4002a6e`
+- **Previous CA trial-release baseline:** `6b8730f999a7de4aa58f0444d9a2f75f76377302`
+- **Decision:** **FAIL / BLOCKED**
+- **Teacher repeated trials:** **PAUSED**
+- **Remediation:** **HOLD pending Teacher/GA discussion**
+- **Canonical Ownership Check:** **PASS**
 
----
+This report supersedes the preliminary CA-133 interpretation. The full protocol run is controlled by `RUNDOWN.md` and its 13 mandatory artifacts.
 
-# Phase A — Post-CA-130 media / asset audit
+## Phase A — recent media work
 
-## Audited interval
+Source-level audit result:
 
-Primary interval:
-`6b8730f999a7de4aa58f0444d9a2f75f76377302 .. bbf16f5e1abb4b84ae95bf84739d9ab86261c820`
+- candidate ownership/provenance: PASS;
+- Teacher review separation: PASS;
+- immutable version succession: PASS;
+- paired Portrait Hall metadata/anchor representation: PASS;
+- Main Gate v002 mechanical recovery provenance: PASS;
+- latest-version sidecars: present for all 28 registry identities;
+- latest-version binaries: Git-reachable and non-zero at the frozen baseline;
+- exact independent binary SHA-256 recomputation: NOT VERIFIED through the current connector;
+- live Asset Manager ACTIVE publication state: NOT VERIFIED.
 
-Relevant work independently identified includes, among others:
+No protected canonical-source authority violation was found.
 
-- `0704af2f` — seven legacy WebP candidates made reachable
-- `fbf5e734` — CD mechanical staging of seven recovered legacy visuals
-- `2f7c177d` — six Sprint9 audio v001 candidates staged
-- `aa8ec910` — mechanism clang v002
-- `1179c435` / later transport repair chain — old alarm bell v002
-- `3bcf4ee4` — snakes approaching v002
-- `b3b498f4` — gate opening v002
-- `3619bb21` — wet scraping + short hiss v001 review closure
-- `05631561` — Portrait Hall pair + remaining image review closure
-- `2662c18b` — Main Gate v002 canonicalization and mechanism-clang mismatch discovery
-- `bbf16f5e` — mechanism clang v002 binary integrity repair
+Media readiness is therefore **not the current Teacher-trial blocker**. Final live publication/ACTIVE completion remains a separate Sprint9 readiness item.
 
-## Phase A disposition
+## Phase B — protocol-complete current-product audit
 
-### A-PASS-01 — Candidate-layer ownership / review separation: PASS
+### IDA-001 — HIGH — CONFIRMED
+Root player exposes legacy Sprint1 gameplay before formal run.
 
-Observed pattern is consistent with the current authority model:
+The current root client falls back to legacy `renderState(sprint1State)` whenever no formal run exists. Room creation already initializes legacy Scene1, so the first joined player sees playable legacy content rather than waiting.
 
-- VA performs production/recovery/staging/review metadata work.
-- Teacher approval is recorded before APPROVED state.
-- CD retains runtime publication / ACTIVE authority.
-- Main Gate v002 mechanical canonicalization by CD occurred after an explicit VA handoff of exact approved source identity and mechanical staging parameters; no new visual semantics or approval were invented by CD.
-- Portrait Hall base + overlay remain a paired candidate group with explicit anchor metadata.
-- Mechanism clang transport corruption was detected by CD rather than silently accepted, then repaired by VA against the already approved identity.
+### IDA-002 — HIGH — CONFIRMED
+Legacy root path reveals all three first choices player-to-player.
 
-Canonical Ownership Check for the reviewed candidate work: PASS.
+After three legacy submissions, Sprint1 changes to `revealed`; player state returns all decisions; root renderer prints all choices. This violates current player-to-player first-choice isolation.
 
-### A-PASS-02 — Immutable version handling: PASS
+The formal canonical ACT1 itself does **not** have this defect.
 
-The reviewed replacement assets use successor versions rather than overwriting historical approved/review candidates:
+### IDA-003 — HIGH — CONFIRMED
+Formal startup is split into two user-visible operations:
 
-- Main Gate v001 corruption -> v002 repair
-- selected replacement audios -> v002
-- historical v001 candidates preserved
+```text
+s2_start_run
+→ separate Teacher action
+→ s3b_initialize_flow
+```
 
-### A-MEDIA-001 — MEDIUM — Final candidate-set integration closure is incomplete
+Between them, formal run is active but canonical ACT1 state may not exist. Player polling then selects the formal branch but cannot render canonical state.
 
-At pinned baseline `93bd15ca...`, the registry still has only one non-null runtime ACTIVE version:
+In the same gap, generic Sprint2 DiscussionRoom is still legally openable because canonical state is absent; if opened, canonical initialization intentionally refuses to proceed until that discussion is resolved.
 
-- `shared.library active_version = 1`
+This is a cross-module startup ownership failure.
 
-All other runtime-required images/audio remain `active_version = null`, including newly approved Portrait Hall pair, Main Gate v002, and all six audio identities.
+### IDA-004 — HIGH — NOT_VERIFIED root cause
+Teacher live evidence showed:
 
-The final mechanism-clang repair commit returned ownership to CD for revalidation/publication, but there is no subsequent CD integration/publication baseline before the User-directed audit hold.
+```text
+Run started: <run_id>
+No active run
+Sprint 3B initialization failed: No active formal run.
+```
 
-This is **not** a violation of the placeholder-first trial strategy and is **not** evidence that the candidate work is wrong. It is a readiness gap: recent media work is staged/reviewed but not yet a completed integrated runtime asset set.
+That contradicts the frozen static contract under one consistent deployed database. The live inconsistency is real, but its root cause cannot be assigned from source alone.
 
-Affected owner: CD for revalidation/publication; VA only if a candidate-level defect is later found.
+Live deployed-state reproduction is required.
 
-Phase A overall:
-`PASS candidate governance / BLOCKED final runtime integration completeness`.
+### IDA-005 — MEDIUM — CONFIRMED
+Production Teacher Console still exposes legacy Sprint1 `Advance scene` and `Reset room` controls beside formal controls.
 
----
+These mutate only shadow legacy state, not the formal run, producing an operator split-state hazard.
 
-# Phase B — Comprehensive independent current-product audit
+### IDA-006 — MEDIUM — CONFIRMED
+Existing regression coverage does not exercise the real browser startup journey.
 
-## Evidence sources
+Live E2E fixtures primarily issue direct RPCs and call `s2_start_run` then `s3b_initialize_flow` back-to-back. Repository contains no browser-driving harness.
 
-- Current player root runtime source
-- Current Teacher Console source
-- current database migrations through 058
-- prior CA closure history through CA-130
-- post-CA-130 repository diff
-- original Teacher PPT screenshots
-- repository evidence mirror
+Thus prior tests could verify canonical internals while never detecting the root legacy renderer or user-visible startup gap.
 
-The PPT was independently inspected. The screenshots show:
+### IDA-007 — OBSERVATION — NOT VERIFIED
+Recent media candidate source state is coherent, but final live runtime ACTIVE publication state is not independently verifiable from the current CA environment.
 
-1. one joined player already sees `Scene 1 — Wake Up` and generic choices;
-2. all roles show the same three legacy choices;
-3. after all three submit, player UI shows all three choices;
-4. Teacher Console shows `Run started: <run_id>` while the run badge still says `No active run`, followed by `Sprint 3B initialization failed: No active formal run.`
+This is not the current gameplay blocker.
 
-## B-001 — HIGH — Legacy Sprint1 gameplay is exposed as the production pre-run fallback
+## Methods executed
 
-Current player code always requests both Sprint1 and formal-run state.
-
-When `s2_get_player_state.active == false`, it executes:
-
-`renderState(sprint1State)`
-
-Room creation initializes Sprint1 room state immediately at Scene 1 / collecting. Therefore the first player who joins can see a playable-looking Scene 1 before the other two players join and before any formal run starts.
-
-The legacy path:
-
-- has no canonical ACT1 opening media binding;
-- uses the generic legacy `src/content/scenes.js` scene;
-- exposes interactive choices immediately.
-
-This independently confirms Teacher observations 1 and 2.
-
-Affected owner: CD/runtime.
-
-## B-002 — HIGH — Legacy Sprint1 reveals private first choices player-to-player
-
-The legacy Sprint1 database changes room phase to `revealed` after three legacy private choices.
-
-`s1_get_player_state` then returns all three decisions to every player.
-
-`renderState` renders:
-
-`Choices revealed`
-
-with every player's choice.
-
-The formal ACT1 path is different and role-specific; the privacy failure belongs to the exposed legacy fallback, not to the canonical ACT1 implementation.
-
-This violates the current ACT1 privacy requirement that first-action content remain private from other players.
-
-Affected owner: CD/runtime.
-
-## B-003 — HIGH — Formal startup is structurally non-atomic and can strand an active run without canonical flow
-
-Teacher Console exposes two independent operations:
-
-1. `s2_start_run`
-2. `s3b_initialize_flow`
-
-They are separate button actions and separate server transactions.
-
-If step 1 succeeds and step 2 fails, the room can have an active formal run but no initialized ACT1-5 canonical state.
-
-The player client then detects an active formal run and immediately expects `s3b_get_player_state` to be active with a scene. If it is not, the client throws:
-
-`Formal game state is unavailable. Retry before taking another action.`
-
-Thus the startup contract itself permits a stranded intermediate state.
-
-This finding is independent of the exact cause of the Teacher's observed deployment failure.
-
-Affected owner: CD/runtime architecture.
-
-## B-004 — HIGH / LIVE-STATE DIVERGENCE — Teacher's observed "Run started" + "No active run" state contradicts the pinned static contract
-
-Current source says:
-
-- `s2_start_run` creates a `game_runs` row with `status='active'` after verifying all three joined;
-- the function returns only after the insert;
-- `loadDiscussionState` immediately calls `s2_get_teacher_state`;
-- `s2_get_teacher_state` calls `s2_get_active_run`, which selects the newest active run.
-
-Under one consistent deployed database/schema, the observed sequence:
-
-`Run started: <run_id>`
-then
-`No active run`
-then
-`Sprint 3B initialization failed: No active formal run`
-
-should not occur.
-
-The Teacher screenshot is direct live evidence that the actual trial environment was not behaving according to the pinned static contract.
-
-This audit does **not** assign an unverified root cause such as "wrong Supabase URL", stale deployment, schema drift, or race. Live/deployed-state reproduction is required to distinguish those possibilities.
-
-Evidence status: LIVE OBSERVED, STATIC ROOT CAUSE UNRESOLVED.
-
-Affected owner: CD/deployment/runtime integration.
-
-## B-005 — MEDIUM — Obsolete Sprint1 controls remain live on the production Teacher Console and can mutate shadow state
-
-The root Teacher Console still exposes legacy controls:
-
-- `Advance scene` -> `s1_advance_scene`
-- `Reset room` -> `s1_reset_room`
-- legacy Sprint2 reusable DiscussionRoom controls
-
-`s1_reset_room` resets only Sprint1 decisions/room state. It does not reset the formal run or canonical ACT1-14 state.
-
-Therefore the live Teacher page can mutate a shadow legacy state independently of the formal game.
-
-Even when this does not corrupt the formal run directly, it creates contradictory operator state and increases the probability of exactly the type of split-surface confusion seen in the Teacher trial.
-
-Affected owner: CD/UI/runtime.
-
-## B-PASS-01 — Formal ACT1 role-specific content is present in current canonical runtime
-
-The canonical path contains separate role-specific choices:
-
-- GAL-A: map/sound/number-note/search
-- GAL-B: diary/door/phone/vent
-- GAL-C: notice/watch/star-key/mirror
-
-The database validates those choices by role.
-
-Therefore "all three have the same options" is not a defect in the canonical ACT1 script. It is evidence that the wrong legacy runtime surface is being shown.
-
-## B-PASS-02 — Formal ACT1 opening image/placeholder binding exists
-
-The formal renderer binds:
-
-- GAL-A -> `opening.gitte_room`
-- GAL-B -> `opening.anna_room`
-- GAL-C -> `opening.linda_study`
-
-and uses the existing placeholder fallback when no ACTIVE asset exists.
-
-The missing image in Teacher slide 1 is therefore also diagnostic of the legacy fallback surface.
-
-## B-PASS-03 — Previously closed ACT2-ACT14 data-integrity findings remain closed in repository history
-
-No post-CA-130 runtime/database change was found that reopens the previously independently closed:
-
-- ACT1-5 Teacher Override allowlist/integrity findings;
-- ACT6-13 integrity/evidence findings;
-- ACT14 finalization/export findings;
-- placeholder resolver telemetry closure.
-
-The post-CA-130 substantive changes are media/staging/governance work, not a rewrite of those closed runtime contracts.
-
-This does not replace a full live end-to-end replay; it means no repository delta was found that invalidates the prior closures.
-
-## B-EVIDENCE-01 — MEDIUM — Current regression evidence did not protect the real pre-run startup surface
-
-Prior automated/static evidence was strong around canonical-flow internals and asset fallback, but the Teacher's first manual run immediately reached a legacy path that those tests did not exclude.
-
-This is an audit-coverage defect:
-
-- tests proved the formal path;
-- they did not prove that the root user-facing page cannot enter the obsolete path before formal start;
-- they did not prove a single coherent startup sequence from room creation -> three joins -> formal run -> canonical ACT1.
-
-Affected owner: CD for product-level E2E regression coverage; CA should verify independently on re-audit.
-
----
-
-# Overall findings
-
-| ID | Severity | Summary | Owner |
-|---|---|---|---|
-| A-MEDIA-001 | MEDIUM | Recent approved media are staged but final CD revalidation/publication/ACTIVE integration is incomplete | CD |
-| B-001 | HIGH | Legacy Sprint1 gameplay exposed before formal run | CD |
-| B-002 | HIGH | Legacy Sprint1 reveals private first choices to players | CD |
-| B-003 | HIGH | Formal startup is two-step/non-atomic and can strand active run without canonical flow | CD |
-| B-004 | HIGH | Teacher live environment contradicted static active-run contract; deployed-state cause unresolved | CD |
-| B-005 | MEDIUM | Legacy Teacher controls mutate shadow Sprint1/Sprint2 state on production console | CD |
-| B-EVIDENCE-01 | MEDIUM | Regression suite did not protect real room->join->formal-start root path | CD / later CA verification |
-
-Canonical Ownership Check: PASS for audited recent media candidate work.
-
----
-
-# Trial disposition
-
-`PAUSE repeated Teacher trials`
-
-Reason:
-
-The issue is no longer media completeness. The placeholder-first asset strategy remains valid.
-
-Trials should remain paused because the currently exposed startup path can:
-
-- begin gameplay before all players are ready;
-- expose the wrong role content;
-- violate private-choice isolation;
-- enter a stranded formal-run state;
-- present contradictory Teacher run status.
-
-Resume should follow Teacher/GA discussion and subsequent bounded remediation/re-audit.
-
----
-
-# Remediation routing
-
-Per User instruction:
-
-- no remediation instructions are sent to CD/VA by this audit;
-- report goes to GA only;
-- likely owning roles are identified, but implementation design is intentionally not prescribed.
+- Method1 Code-First Reverse Audit — COMPLETE
+- Method2 State Mutation / Authority — COMPLETE
+- Method3 Invariant Protection Matrix — COMPLETE
+- Integration Checkpoint I — COMPLETE
+- Method4 Final DB/RPC/RLS — COMPLETE source-level; live clean-schema/effective deployment verification BLOCKED
+- Method5 Cross-Layer Contract — COMPLETE
+- Method6 Test Blind-Spot / Mutation-Lite — COMPLETE
+- Integration Checkpoint II — COMPLETE
+- Method7 Dead / Legacy Path — COMPLETE
+- Method8 Failure / Concurrency Snapshot — COMPLETE source-level
+- Method9 Data Forensics — COMPLETE source-level
+- Integration Checkpoint III — COMPLETE
+- Patterns A–F — COMPLETE
+- Canonical Ownership Check — COMPLETE / PASS
+
+## Patterns A–F
+
+- **A FINDING:** split formal startup, IDA-003.
+- **B FINDING:** startup happy-path assumption + live divergence, IDA-003/004.
+- **C PASS for generic DiscussionRoom:** server-side canonical-flow guard exists in migration013.
+- **D FINDING impact:** legacy pre-run choices exist outside formal run evidence, IDA-001/002.
+- **E FINDING:** legacy/new authority accretion on root player/Teacher surfaces, IDA-001/005.
+- **F FINDING:** direct-RPC tests bypass faulty browser orchestration, IDA-006.
+
+## Positive findings
+
+The formal canonical path still contains:
+
+- correct GAL-A/GAL-B/GAL-C role-specific ACT1 choices;
+- server-side role validation;
+- formal opening image keys and placeholder fallback;
+- canonical private-choice isolation;
+- server-side generic DiscussionRoom fail-close after canonical flow exists;
+- previously closed ACT2–ACT14 integrity/Override/finalization protections.
+
+No new ACT2–ACT14 integrity defect was confirmed in this run.
+
+## Trial disposition
+
+```text
+Repeated Teacher trials = PAUSED
+Current blocker = startup / legacy authority exposure
+Media placeholders = not the blocker
+Remediation routing = HOLD pending Teacher/GA discussion
+```
+
+## Mandatory artifacts
+
+- `BASELINE.md`
+- `RUNDOWN.md`
+- `IMPLEMENTED_SYSTEM_MODEL.md`
+- `MUTATION_AUTHORITY_REGISTRY.md`
+- `INVARIANT_MATRIX.md`
+- `DB_RPC_RLS_AUDIT.md`
+- `CROSS_LAYER_TRACES.md`
+- `TEST_BLIND_SPOTS.md`
+- `LEGACY_PATHS.md`
+- `FAILURE_MATRIX.md`
+- `DATA_FORENSICS.md`
+- `FINDINGS.md`
+- `EXECUTIVE_SUMMARY.md`
+
+## Next owner
+
+**GA + Teacher**
+
+Discuss remediation scope and priority. Do not route implementation before that decision.
+
+After bounded remediation, return one frozen baseline to CA for a **Level2 Targeted Independent Closure Audit**, beginning again with code-first reconstruction rather than validating the implementer's explanation.
