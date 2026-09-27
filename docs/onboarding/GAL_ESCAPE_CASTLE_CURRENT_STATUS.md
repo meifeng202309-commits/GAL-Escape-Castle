@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T07:30:00Z
+> Last refreshed: 2026-09-27T08:00:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_TEACHER_TRIAL_AUDIT_COMPLETE_REMEDIATION_HOLD
-CURRENT_OWNER         = GA + Teacher discussion; CA audit complete; CD/VA audited-scope remediation remains on hold
-NEXT_REQUIRED_ACTION  = GA + Teacher review CA-133 two-phase audit findings and decide bounded remediation scope/priority; repeated Teacher trials remain paused; no remediation handoff to CD/VA until that discussion; after approved bounded correction a frozen baseline returns to CA for independent re-audit; final Sprint9 media integration also remains incomplete
+CURRENT_GATE          = SPRINT9_LEVEL3_INDEPENDENT_AUDIT_REOPENED_PROTOCOL_V1_3
+CURRENT_OWNER         = CA — protocol-complete Level3 independent snapshot audit; Teacher/GA remediation discussion remains on hold
+NEXT_REQUIRED_ACTION  = CA executes Independent Development Snapshot Audit Protocol v1.3 against a frozen baseline: run-specific RUNDOWN, Methods1–9, Integration Checkpoints I–III, Patterns A–F and all 13 mandatory artifacts; CA-133 findings are preliminary leads only until this completes; repeated Teacher trials remain paused and remediation remains held
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-133.
+GA has completed its latest checkpoint through GA-030. CA has completed its latest checkpoint through CA-134.
 
 ```text
 GA_CHECKPOINT = GA-030
-CA_CHECKPOINT = CA-133
+CA_CHECKPOINT = CA-134
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -789,6 +789,33 @@ Audit report:
 
 CA -> GA:
 `agent-comms/CA_to_GA_20260927T073000Z_teacher-trial-two-phase-independent-audit-results.md`
+
+---
+
+## 8N. CA-133 protocol-completeness correction
+
+```text
+CA-133 = preliminary independent findings, NOT final exhaustive Level3 audit.
+
+Reason:
+- independent reconstruction was performed in several areas;
+- but Protocol v1.3 mandatory execution was incomplete:
+  run-specific RUNDOWN absent,
+  Methods1–9 not all executed,
+  13 mandatory artifacts absent,
+  Integration Checkpoints I–III absent,
+  consolidated Patterns A–F review absent,
+  comprehensive effective DB/RPC/RLS/failure/data-forensics coverage incomplete.
+
+Correct state:
+- Level3 independent audit = REOPENED
+- Teacher trials = PAUSED
+- remediation = HOLD
+- next owner = CA
+```
+
+Correction handoff:
+`agent-comms/CA_to_GA_20260927T080000Z_correction-ca133-independent-audit-not-protocol-complete.md`
 
 ---
 
