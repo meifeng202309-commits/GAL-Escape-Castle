@@ -81,8 +81,11 @@ When a role chat becomes slow or is intentionally replaced:
 
 1. stop using the old chat for project writes;
 2. open a new chat for the same role;
-3. run the Cold Start procedure above;
-4. continue the same role Action Log sequence from its latest row.
+3. copy the relevant launcher prompt from `docs/onboarding/GAL_ESCAPE_CASTLE_AGENT_TAKEOVER_PROMPTS.md` if a ready-to-paste role prompt is useful;
+4. run the Cold Start procedure above;
+5. continue the same role Action Log sequence from its latest row.
+
+The takeover-prompt file is a launcher utility only. It is intentionally state-light and does not replace CURRENT STATUS, Action Logs, canonical sources, or ACTIVE governance rules.
 
 Only one chat session per role may act as the **Active Writer** at a time.
 
@@ -113,6 +116,7 @@ Use the repository documents by responsibility:
 - `docs/onboarding/START_HERE.md` — cold start, warm continuation, chat replacement, and retrieval procedure: **how to enter or resume work safely**.
 - `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md` — current sprint/gate/owner/blocker/checkpoint snapshot: **where the project is now**.
 - `docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md` — project training and role-specific minimum reading.
+- `docs/onboarding/GAL_ESCAPE_CASTLE_AGENT_TAKEOVER_PROMPTS.md` — ready-to-paste launcher prompts for new/replacement role chats; state-light and non-authoritative.
 - current canonical specs and ACTIVE governance rules — detailed game, implementation, authority, audit, cooperation, and communication requirements.
 
 **Reference, do not duplicate:** README and START_HERE may identify an authoritative file and summarize its purpose, but they should not restate detailed rules owned by that file.
