@@ -1,0 +1,620 @@
+{
+  "baseUrl": "http://127.0.0.1:8765/",
+  "expectation": "remediated",
+  "startedAt": "2026-09-28T01:29:28.290Z",
+  "room": "E01B7976",
+  "checks": {},
+  "network": [
+    {
+      "at": "2026-09-28T01:29:30.469Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_create_room",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:30.796Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:31.093Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:31.094Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:31.352Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:31.374Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:32.752Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:32.924Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:32.943Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:33.092Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:33.110Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:33.952Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:34.118Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:34.128Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:34.289Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:34.306Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:35.156Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:35.327Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:35.328Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:35.515Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:35.516Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:36.355Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:36.524Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:36.528Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:36.696Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:36.697Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:37.574Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:37.743Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:37.744Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:37.926Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:37.926Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:38.769Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:38.936Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:38.946Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:39.115Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:39.119Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:39.972Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:40.142Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:40.147Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:40.311Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:40.317Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:41.175Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:41.361Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:41.363Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:41.544Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:41.547Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:42.370Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:42.546Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:42.547Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:42.724Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:42.732Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:43.544Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:43.711Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:43.725Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:43.891Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:43.891Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:44.762Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:44.942Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:44.951Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:45.124Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:45.126Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:45.953Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:46.121Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:46.132Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:46.297Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:46.319Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:47.149Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:47.318Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:47.320Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:47.489Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:47.504Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:48.348Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:48.517Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:48.518Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:48.689Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:48.689Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:49.555Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:49.721Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:49.730Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:49.898Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:49.898Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:50.749Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:50.926Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:50.926Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:51.091Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:29:51.092Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    }
+  ],
+  "browserErrors": [
+    {
+      "at": "2026-09-28T01:29:29.194Z",
+      "message": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "at": "2026-09-28T01:29:30.794Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/utils/html.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.796Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.796Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/content/localization.generated.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.796Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.796Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/game/asset-runtime.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.796Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/state/session.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/supabase/client.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/utils/html.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/content/localization.generated.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/game/asset-runtime.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.811Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.845Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/utils/html.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.845Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.845Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/content/localization.generated.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.845Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    },
+    {
+      "at": "2026-09-28T01:29:30.845Z",
+      "message": "net::ERR_CONNECTION_REFUSED: http://127.0.0.1:8765/src/game/asset-runtime.js"
+    },
+    {
+      "at": "2026-09-28T01:29:30.845Z",
+      "message": "Failed to load resource: net::ERR_CONNECTION_REFUSED"
+    }
+  ],
+  "finishedAt": "2026-09-28T01:29:51.473Z"
+}

@@ -14,7 +14,7 @@ const suffix = crypto.randomUUID().replaceAll("-", "").slice(0, 6).toUpperCase()
 const room = `E0${suffix}`;
 const teacherToken = `T-${suffix}-${crypto.randomUUID().slice(0, 8)}`;
 const joins = ["G", "A", "L"].map((role) => `${role}-${suffix}-${crypto.randomUUID().slice(0, 8)}`);
-const report = { baseUrl, expectation, startedAt: new Date().toISOString(), room, checks: {}, network: [] };
+const report = { baseUrl, expectation, startedAt: new Date().toISOString(), room, checks: {}, network: [], browserErrors: [] };
 
 function invariant(condition, message) {
   if (!condition) throw new Error(message);
@@ -33,6 +33,14 @@ async function main() {
   const players = await Promise.all(playerContexts.map((context) => context.newPage()));
 
   for (const page of [teacher, ...players]) {
+    page.on("pageerror", (error) => report.browserErrors.push({ at: new Date().toISOString(), message: error.message }));
+    page.on("console", (message) => {
+      if (message.type() === "error") report.browserErrors.push({ at: new Date().toISOString(), message: message.text() });
+    });
+    page.on("requestfailed", (request) => report.browserErrors.push({
+      at: new Date().toISOString(),
+      message: `${request.failure()?.errorText || "request failed"}: ${request.url()}`,
+    }));
     page.on("response", async (response) => {
       if (!response.url().includes("/rest/v1/rpc/")) return;
       report.network.push({ at: new Date().toISOString(), method: response.request().method(), url: response.url(), status: response.status() });
@@ -49,13 +57,15 @@ async function main() {
     await teacher.locator("#createRoomButton").click();
     await teacher.locator("#teacherStatus").filter({ hasText: /Room ready|Watching room/ }).waitFor({ timeout: 20000 });
 
-    await Promise.all(players.map(async (page, index) => {
+    // Load isolated player contexts sequentially. This avoids exhausting small
+    // local static-server connection backlogs while preserving session isolation.
+    for (const [index, page] of players.entries()) {
       await page.goto(baseUrl, { waitUntil: "networkidle" });
       await page.locator("#roomCode").fill(room);
       await page.locator("#joinCode").fill(joins[index]);
       await page.locator("#joinButton").click();
       await page.locator("#gamePanel:not(.hidden)").waitFor({ timeout: 20000 });
-    }));
+    }
     await Promise.all(players.map((page) => page.waitForFunction(() => {
       const legacy = document.querySelector("#sceneTitle")?.textContent?.trim();
       const formal = document.querySelector("#sprint3bText")?.textContent?.trim();
@@ -87,6 +97,10 @@ async function main() {
       const response = await pending;
       return response.json();
     }));
+    await Promise.all(players.map((page) => page.waitForFunction(() => {
+      const formal = document.querySelector("#sprint3bPanel")?.textContent || "";
+      return formal && !formal.includes("Wait for the Teacher to start the formal run");
+    }, null, { timeout: 20000 })));
     report.checks.startBoundary = {
       teacherStatus: await text(teacher, "#discussionTeacherStatus"),
       runBadge: await text(teacher, "#runBadge"),

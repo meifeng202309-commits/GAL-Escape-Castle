@@ -1,0 +1,794 @@
+{
+  "baseUrl": "http://localhost:8765/",
+  "expectation": "remediated",
+  "startedAt": "2026-09-28T01:32:36.189Z",
+  "room": "E0377D0A",
+  "checks": {
+    "isolatedContexts": [
+      {
+        "player_id": "e84d4c3e-ea67-4002-a795-bd33d872777f",
+        "display_name": "Gitte",
+        "role_slot": "GAL-A"
+      },
+      {
+        "player_id": "990a5c29-1559-472b-bf76-7301d512ad45",
+        "display_name": "Anna",
+        "role_slot": "GAL-B"
+      },
+      {
+        "player_id": "6ed7d4b7-a3ad-4ee9-8c9f-0f9365e3eec3",
+        "display_name": "Linda",
+        "role_slot": "GAL-C"
+      }
+    ],
+    "preRun": [
+      {
+        "index": 0,
+        "title": "Waiting for formal run",
+        "sceneText": "",
+        "choices": "",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      },
+      {
+        "index": 1,
+        "title": "Waiting for formal run",
+        "sceneText": "",
+        "choices": "",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      },
+      {
+        "index": 2,
+        "title": "Waiting for formal run",
+        "sceneText": "",
+        "choices": "",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      }
+    ],
+    "legacyPreRunReachable": false,
+    "startBoundary": {
+      "teacherStatus": "Canonical gameplay controls the discussion phases.",
+      "runBadge": "NORMAL",
+      "playerStates": [
+        {
+          "gameStatus": "",
+          "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+        },
+        {
+          "gameStatus": "",
+          "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+        },
+        {
+          "gameStatus": "",
+          "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+        }
+      ],
+      "initializeControlVisible": false,
+      "canonicalStatesBeforeInitialization": [
+        {
+          "me": {
+            "act1_stage": "opening",
+            "grab_complete": false,
+            "act1_choice_id": null,
+            "act1_locked_at": null,
+            "act1_text_keys": [
+              "act01-g.001",
+              "act01-g.002",
+              "act01-g.003",
+              "act01-g.004",
+              "act01-g.005",
+              "act01-g.007",
+              "act01-g.008",
+              "act01-g.016",
+              "act01-g.017",
+              "act01-g.018"
+            ],
+            "act4_choice_id": null,
+            "act4_locked_at": null,
+            "act6_entered_at": null,
+            "left_start_room": false,
+            "player_location": "start_room",
+            "route_update_ack_at": null,
+            "act1_timing_validity": "pending",
+            "act4_timing_validity": "pending",
+            "first_meeting_choice": null,
+            "act1_action_started_at": null,
+            "act4_choice_started_at": null,
+            "first_meeting_locked_at": null,
+            "act6_handoff_observed_at": null,
+            "first_meeting_started_at": null,
+            "first_meeting_timing_validity": "pending"
+          },
+          "flow": {
+            "updated_at": "2026-09-28T01:32:44.147957+00:00",
+            "group_route": null,
+            "terminal_state": null,
+            "puzzle_deadline": null,
+            "puzzle_hint_stage": 0,
+            "puzzle_started_at": null,
+            "puzzle_resolved_at": null,
+            "final_meeting_result": null,
+            "puzzle_locked_prefix": "",
+            "puzzle_attempt_number": 0,
+            "party_physically_reunited": false,
+            "unknown_passage_inspected": false,
+            "failed_rendezvous_completed": false,
+            "pending_post_inspection_route": false
+          },
+          "scene": {
+            "run_id": "c16b189a-191f-4fb2-b8fb-8d0bb58e4cfe",
+            "scene_id": "act1_wake_up",
+            "step_key": "role_specific",
+            "text_key": "common.001",
+            "phase_key": "private_first_action",
+            "updated_at": "2026-09-28T01:32:44.147957+00:00",
+            "display_mode": "ACTION_SCREEN",
+            "allow_share_photo": false,
+            "wayfinding_target": null,
+            "current_route_target": null
+          },
+          "active": true,
+          "run_id": "c16b189a-191f-4fb2-b8fb-8d0bb58e4cfe",
+          "act4_revealed": [],
+          "queued_first_messages": [],
+          "my_post_inspection_vote": null,
+          "post_inspection_vote_count": 0,
+          "post_inspection_votes_revealed": []
+        },
+        {
+          "me": {
+            "act1_stage": "opening",
+            "grab_complete": false,
+            "act1_choice_id": null,
+            "act1_locked_at": null,
+            "act1_text_keys": [
+              "act01-a.001",
+              "act01-g.004",
+              "act01-g.005",
+              "act01-a.003",
+              "act01-a.004",
+              "act01-a.005"
+            ],
+            "act4_choice_id": null,
+            "act4_locked_at": null,
+            "act6_entered_at": null,
+            "left_start_room": false,
+            "player_location": "start_room",
+            "route_update_ack_at": null,
+            "act1_timing_validity": "pending",
+            "act4_timing_validity": "pending",
+            "first_meeting_choice": null,
+            "act1_action_started_at": null,
+            "act4_choice_started_at": null,
+            "first_meeting_locked_at": null,
+            "act6_handoff_observed_at": null,
+            "first_meeting_started_at": null,
+            "first_meeting_timing_validity": "pending"
+          },
+          "flow": {
+            "updated_at": "2026-09-28T01:32:44.147957+00:00",
+            "group_route": null,
+            "terminal_state": null,
+            "puzzle_deadline": null,
+            "puzzle_hint_stage": 0,
+            "puzzle_started_at": null,
+            "puzzle_resolved_at": null,
+            "final_meeting_result": null,
+            "puzzle_locked_prefix": "",
+            "puzzle_attempt_number": 0,
+            "party_physically_reunited": false,
+            "unknown_passage_inspected": false,
+            "failed_rendezvous_completed": false,
+            "pending_post_inspection_route": false
+          },
+          "scene": {
+            "run_id": "c16b189a-191f-4fb2-b8fb-8d0bb58e4cfe",
+            "scene_id": "act1_wake_up",
+            "step_key": "role_specific",
+            "text_key": "common.001",
+            "phase_key": "private_first_action",
+            "updated_at": "2026-09-28T01:32:44.147957+00:00",
+            "display_mode": "ACTION_SCREEN",
+            "allow_share_photo": false,
+            "wayfinding_target": null,
+            "current_route_target": null
+          },
+          "active": true,
+          "run_id": "c16b189a-191f-4fb2-b8fb-8d0bb58e4cfe",
+          "act4_revealed": [],
+          "queued_first_messages": [],
+          "my_post_inspection_vote": null,
+          "post_inspection_vote_count": 0,
+          "post_inspection_votes_revealed": []
+        },
+        {
+          "me": {
+            "act1_stage": "opening",
+            "grab_complete": false,
+            "act1_choice_id": null,
+            "act1_locked_at": null,
+            "act1_text_keys": [
+              "act01-l.001",
+              "act01-l.002",
+              "act01-g.005",
+              "act01-l.004",
+              "act01-l.005",
+              "act01-l.006",
+              "act01-l.007",
+              "act01-l.008",
+              "act01-l.009",
+              "act01-l.010",
+              "act01-l.011"
+            ],
+            "act4_choice_id": null,
+            "act4_locked_at": null,
+            "act6_entered_at": null,
+            "left_start_room": false,
+            "player_location": "start_room",
+            "route_update_ack_at": null,
+            "act1_timing_validity": "pending",
+            "act4_timing_validity": "pending",
+            "first_meeting_choice": null,
+            "act1_action_started_at": null,
+            "act4_choice_started_at": null,
+            "first_meeting_locked_at": null,
+            "act6_handoff_observed_at": null,
+            "first_meeting_started_at": null,
+            "first_meeting_timing_validity": "pending"
+          },
+          "flow": {
+            "updated_at": "2026-09-28T01:32:44.147957+00:00",
+            "group_route": null,
+            "terminal_state": null,
+            "puzzle_deadline": null,
+            "puzzle_hint_stage": 0,
+            "puzzle_started_at": null,
+            "puzzle_resolved_at": null,
+            "final_meeting_result": null,
+            "puzzle_locked_prefix": "",
+            "puzzle_attempt_number": 0,
+            "party_physically_reunited": false,
+            "unknown_passage_inspected": false,
+            "failed_rendezvous_completed": false,
+            "pending_post_inspection_route": false
+          },
+          "scene": {
+            "run_id": "c16b189a-191f-4fb2-b8fb-8d0bb58e4cfe",
+            "scene_id": "act1_wake_up",
+            "step_key": "role_specific",
+            "text_key": "common.001",
+            "phase_key": "private_first_action",
+            "updated_at": "2026-09-28T01:32:44.147957+00:00",
+            "display_mode": "ACTION_SCREEN",
+            "allow_share_photo": false,
+            "wayfinding_target": null,
+            "current_route_target": null
+          },
+          "active": true,
+          "run_id": "c16b189a-191f-4fb2-b8fb-8d0bb58e4cfe",
+          "act4_revealed": [],
+          "queued_first_messages": [],
+          "my_post_inspection_vote": null,
+          "post_inspection_vote_count": 0,
+          "post_inspection_votes_revealed": []
+        }
+      ]
+    },
+    "splitStartBoundaryReachable": false,
+    "act1": [
+      {
+        "player": "GITTE · E0377D0A",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      },
+      {
+        "player": "ANNA · E0377D0A",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      },
+      {
+        "player": "LINDA · E0377D0A",
+        "formal": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      }
+    ],
+    "act1RolePrivate": false
+  },
+  "network": [
+    {
+      "at": "2026-09-28T01:32:38.693Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_create_room",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:39.137Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:39.418Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:39.452Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:39.695Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:39.730Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.341Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_join_player",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.355Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.539Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.604Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.726Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.863Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:40.891Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.056Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.130Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.220Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.309Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.465Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.489Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.642Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.842Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:41.864Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_join_player",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.036Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.226Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.253Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.309Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.322Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.428Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.512Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.514Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.563Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.573Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.693Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.693Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:42.896Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.075Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.360Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_join_player",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.374Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.487Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.526Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.558Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.633Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.653Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.703Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.707Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.733Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.887Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.888Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.908Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.917Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:43.959Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.095Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.129Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.276Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.318Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s9_start_formal_game",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.509Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.665Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.731Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.838Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:44.938Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.001Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.003Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.117Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.120Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.146Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.209Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_finalization_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.304Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.332Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.376Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.500Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.623Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.632Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.772Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.794Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.871Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.914Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.919Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s1_get_teacher_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:45.966Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:46.022Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:46.108Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:46.109Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_teacher_discussion_state",
+      "status": 200
+    },
+    {
+      "at": "2026-09-28T01:32:46.111Z",
+      "method": "POST",
+      "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s7_get_teacher_console",
+      "status": 200
+    }
+  ],
+  "browserErrors": [
+    {
+      "at": "2026-09-28T01:32:37.128Z",
+      "message": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    }
+  ],
+  "finishedAt": "2026-09-28T01:32:46.112Z"
+}
