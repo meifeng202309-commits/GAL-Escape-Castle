@@ -1,35 +1,26 @@
 # Repository Documentation Layout
 
+This file documents **storage and directory responsibilities**. It does not define the cold-start procedure, persistent-role lifecycle, or current project state.
+
 ## 0. Onboarding / cold start
 
-Universal entry point for every newly started GA / CA / CD / VA chat:
+Universal entry point for every newly started GA / CA / CD / VA / ISA chat:
 
-    docs/onboarding/START_HERE.md
+`docs/onboarding/START_HERE.md`
 
-The onboarding system consists of:
+`START_HERE.md` owns the cold-start sequence, warm-continuation rule, chat-replacement procedure, and default history-retrieval policy. Those procedures are intentionally not duplicated in this storage-layout document.
 
-    docs/onboarding/START_HERE.md
-    docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md
-    docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md
-    docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.0.md
-    docs/logs/{GA|CA|CD|VA}_ACTION_LOG.csv
+The onboarding / operational-memory set includes:
+
+- `docs/onboarding/START_HERE.md`
+- `docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md`
+- `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md`
+- highest ACTIVE `docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V*.md`
+- role Action Logs under `docs/logs/`
 
 These are navigation / operational-memory documents. They do not replace the canonical specifications below.
 
-Default cold-start rule:
-
-- enter through START_HERE;
-- complete the New Member Guide;
-- read CURRENT STATUS;
-- learn the Action Log / Status Sync rule;
-- read only role-specific current canonical files;
-- read only post-checkpoint / unresolved Action Log entries relevant to the role;
-- check latest relevant agent-comms;
-- do not review full chat history or archived specs unless current sources are insufficient.
-
-Agent identity is role-based, not chat-session-based. Replacing a slow chat does not create GA-II / CA-II / CD-II / VA-II.
-
-This directory separates canonical specifications, historical specifications, reports, and setup documentation.
+This directory separates canonical specifications, historical specifications, reports, setup documentation, and operational-memory documents.
 
 ## 1. Canonical specifications
 
@@ -41,14 +32,17 @@ docs/specs/current/
 
 Only the current approved version of each governing specification belongs here.
 
-Current set:
-- 古堡逃脱游戏脚本 V4.0.md
-- Castle Visual V2.1.md
-- Codex程序开发说明书 V2.3.md
-- 从创意到游戏成品的研发流程V1.0.md
-- localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv — canonical English→Dutch/Chinese runtime text catalog
+Current key set:
 
-Agents must read these before acting in their domain.
+- `古堡逃脱游戏脚本 V4.0.md`
+- `Castle Visual V2.1.md`
+- `Codex程序开发说明书 V2.4.md`
+- `从创意到游戏成品的研发流程V1.0.md`
+- `localization/GAL_Castle_Escape_Text_Catalog_V1.0.csv` — canonical English→Dutch/Chinese runtime text catalog
+
+The complete current canonical / governance set is listed in `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md`.
+
+Agents must follow the role-specific minimum-reading procedure in `START_HERE.md` / the New Member Guide rather than reading every canonical file by default.
 
 ## 2. Superseded specifications
 
@@ -146,7 +140,7 @@ Use the highest ACTIVE:
 inter_agent_talk_protocol V*.md
 ```
 
-Normal messages use timestamped CA/VA/GA/CD filenames. Historical ROUND files are communication-test history and must not be reused for new normal communication.
+Normal messages use timestamped CA/VA/GA/CD/ISA filenames as applicable. Historical ROUND files are communication-test history and must not be reused for new normal communication.
 
 ## 8. Root-directory rule
 
