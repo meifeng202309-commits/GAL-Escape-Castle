@@ -6,6 +6,7 @@ const html=fs.readFileSync("teacher.html","utf8");
 const migration=fs.readFileSync("database/059_structural_lifecycle_transition_spine.sql","utf8");
 const correction=fs.readFileSync("database/060_package_a_ca_a_bounded_corrections.sql","utf8");
 const timerBarrier=fs.readFileSync("database/061_package_a_act6_entry_timer_barrier.sql","utf8");
+const preparedEventFix=fs.readFileSync("database/062_package_a_prepared_event_fk_fix.sql","utf8");
 
 function assert(condition,message){if(!condition)throw new Error(message)}
 
@@ -54,5 +55,8 @@ for(const fragment of [
   "'act6_discussion_started'",
   "'all_player_entry_barrier'",
 ])assert(timerBarrier.includes(fragment),`Migration 061 missing: ${fragment}`);
+
+assert(preparedEventFix.includes("s2_log_event(p_run,room,null,'s5_prepared'"),
+  "Prepared event still references a not-yet-created discussion session.");
 
 console.log("Structural Package A static checks passed.");
