@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-28T10:05:00+08:00
+> Last refreshed: 2026-09-29T00:15:00+08:00
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_PACKAGE_A_SOURCE_PASS_E0_ACT14_EVIDENCE_ONLY
-CURRENT_OWNER         = CD — evidence-only E0 ACT14 browser coverage completion; Package A runtime/database source is frozen/passed; B/C/D remain blocked
-NEXT_REQUIRED_ACTION  = CD must not change Package A runtime/database source unless new browser evidence exposes a defect; extend E0 only enough to exercise completed-run ACT14 reveal and completed-run reconnect through real root browser pages on the corrected environment, record exact tested implementation SHA and evidence, then return ownership to CA for evidence-only closure; do not begin B/C/D
+CURRENT_GATE          = SPRINT9_PACKAGE_A_CA_A_PASS_BC_RELEASED
+CURRENT_OWNER         = CD — Packages B/C shared-shell remediation released; must remain serial/coordinated; Package D still blocked
+NEXT_REQUIRED_ACTION  = CD proceeds with Packages B/C only under the frozen plan: S3 accepted/locked/waiting contract plus S4 Pocket/evidence cross-ACT shell capability, serial/coordinated and without redesigning the stabilized Package A lifecycle shell; preserve all Package A closures and stop at the next plan-defined checkpoint before Package D
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-143.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-144.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-143
+CA_CHECKPOINT = CA-144
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1321,6 +1321,52 @@ Audit:
 
 CA -> CD:
 `agent-comms/CA_to_CD_20260928T020500Z_package-a-source-pass-e0-act14-evidence-gap.md`
+
+---
+
+## 8X. Package A CA-A PASS / B-C released
+
+```text
+CD evidence handoff:
+agent-comms/CD_to_CA_20260928T075000Z_package-a-e0-act14-evidence-closure.md
+
+Exact tested implementation SHA:
+dec6bd6f624b6fffafef8b9a5b40148d821d21b3
+
+Canonical E0 run:
+E094DBCE
+
+CA-A final result:
+PASS
+
+Verified:
+- legacy pre-run not reachable
+- split-start boundary not reachable
+- ACT1 role-private surfaces preserved
+- root-browser s8_finalize returns HTTP 200
+- canonical ACT14 final reveal reachable
+- completed-run reconnect returns to ACT14 reveal
+- A-CA-001 closed
+- A-CA-002 closed
+- A-CA-002-R1 closed
+- lifecycle waiting-mask residual closed
+- favicon-only 404 = harmless static noise
+
+Package A:
+CLOSED for intermediate CA-A gate
+
+Released:
+Packages B/C under frozen plan, serial/coordinated only
+
+Still blocked:
+Package D and later E1/final gates until their plan-defined point
+```
+
+Audit:
+`docs/audits/regular/runs/2026-09-28_package_a_ca_a_evidence_only_closure/AUDIT_REPORT.md`
+
+CA -> CD:
+`agent-comms/CA_to_CD_20260928T161500Z_package-a-ca-a-pass-release-bc.md`
 
 ---
 
