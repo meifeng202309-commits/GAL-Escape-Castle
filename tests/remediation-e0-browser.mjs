@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
 const { chromium } = require("playwright");
+const { rpc, auth, fixture, vote, state, sprint6 } = require("./sprint5-live-e2e.js");
 
 const baseUrl = (process.env.GAL_E0_BASE_URL || "https://meifeng202309-commits.github.io/GAL-Escape-Castle/").replace(/\/?$/, "/");
 const expectation = process.env.GAL_E0_EXPECTATION || "baseline";
@@ -14,7 +15,7 @@ const suffix = crypto.randomUUID().replaceAll("-", "").slice(0, 6).toUpperCase()
 const room = `E0${suffix}`;
 const teacherToken = `T-${suffix}-${crypto.randomUUID().slice(0, 8)}`;
 const joins = ["G", "A", "L"].map((role) => `${role}-${suffix}-${crypto.randomUUID().slice(0, 8)}`);
-const report = { baseUrl, expectation, startedAt: new Date().toISOString(), room, checks: {}, network: [], browserErrors: [] };
+const report = { baseUrl, expectation, implementationSha: process.env.GAL_E0_IMPLEMENTATION_SHA || null, startedAt: new Date().toISOString(), room, checks: {}, network: [], browserErrors: [] };
 
 function invariant(condition, message) {
   if (!condition) throw new Error(message);
@@ -22,6 +23,32 @@ function invariant(condition, message) {
 
 async function text(page, selector) {
   return (await page.locator(selector).innerText()).trim();
+}
+
+async function prepareAct14Boundary() {
+  const f = await fixture("audit");
+  const initial = await Promise.all([0, 1, 2].map((index) => rpc("s3b_get_player_state", auth(f, index))));
+  for (let index = 0; index < 3; index += 1) {
+    await rpc("s9_observe_act5_handoff", { ...auth(f, index), p_expected_run_id: initial[index].run_id });
+    await rpc("s9_enter_act6", { ...auth(f, index), p_expected_run_id: initial[index].run_id });
+  }
+  await vote(f, ["escape", "1897", "trapped"]);
+  await vote(f, ["escape", "1897", "trapped"]);
+  await rpc("s5_advance", auth(f, 0));
+  await rpc("s3_set_item_view", { ...auth(f, 2), p_item_key: "linda_stopped_watch", p_target_view: "back" });
+  await vote(f, ["clock_a", "clock_a", "clock_c"]);
+  await vote(f, ["clock_c", "clock_c", "clock_b"]);
+  await rpc("s5_advance", auth(f, 0));
+  for (const [index, p_choice_id] of [[0, "main_gate"], [1, "west_tower"], [2, "compare"]]) {
+    await rpc("s5_submit_private_choice", { ...auth(f, index), p_client_request_id: crypto.randomUUID(), p_choice_id });
+  }
+  await rpc("s3_share_photo", { ...auth(f, 2), p_recipient_role: "GAL-B", p_source_item_key: "linda_closure_order", p_source_view: "front" });
+  await vote(f, ["west_tower", "west_tower", "main_gate"]);
+  await rpc("s5_advance", auth(f, 0));
+  const sprint5 = await state(f);
+  invariant(sprint5.state.phase_key === "complete", "ACT14 browser fixture did not complete Sprint 5.");
+  await sprint6(f, "take");
+  return f;
 }
 
 async function main() {
@@ -35,13 +62,21 @@ async function main() {
   for (const page of [teacher, ...players]) {
     page.on("pageerror", (error) => report.browserErrors.push({ at: new Date().toISOString(), message: error.message }));
     page.on("console", (message) => {
-      if (message.type() === "error") report.browserErrors.push({ at: new Date().toISOString(), message: message.text() });
+      const location = message.location();
+      if (message.type() === "error") report.browserErrors.push({
+        at: new Date().toISOString(),
+        message: `${message.text()}${location.url ? `: ${location.url}` : ""}`,
+      });
     });
     page.on("requestfailed", (request) => report.browserErrors.push({
       at: new Date().toISOString(),
       message: `${request.failure()?.errorText || "request failed"}: ${request.url()}`,
     }));
     page.on("response", async (response) => {
+      if (response.status() >= 400) report.browserErrors.push({
+        at: new Date().toISOString(),
+        message: `HTTP ${response.status()}: ${response.url()}`,
+      });
       if (!response.url().includes("/rest/v1/rpc/")) return;
       report.network.push({ at: new Date().toISOString(), method: response.request().method(), url: response.url(), status: response.status() });
     });
@@ -91,8 +126,13 @@ async function main() {
       (response) => response.url().includes("/rest/v1/rpc/s3b_get_player_state") && response.request().method() === "POST",
       { timeout: 20000 },
     ));
+    const startResponse = teacher.waitForResponse(
+      (response) => response.url().includes("/rest/v1/rpc/s9_start_formal_game") && response.request().method() === "POST",
+      { timeout: 20000 },
+    );
     await teacher.locator("#startRunButton").click();
-    await teacher.locator("#discussionTeacherStatus").filter({ hasText: /Run started|Formal run ready|Start failed/ }).waitFor({ timeout: 20000 });
+    const started = await startResponse;
+    invariant(started.status() === 200, `Atomic formal start returned HTTP ${started.status()}.`);
     const postStartCanonicalStates = await Promise.all(postStartStateResponses.map(async (pending) => {
       const response = await pending;
       return response.json();
@@ -134,6 +174,62 @@ async function main() {
     })));
     report.checks.act1RolePrivate = new Set(report.checks.act1.map((state) => state.formal)).size === 3;
 
+    if (expectation === "remediated") {
+      const finalFixture = await prepareAct14Boundary();
+      await rpc("s1_release_player_session", {
+        p_room_code: finalFixture.room,
+        p_teacher_token: finalFixture.teacher,
+        p_role_slot: "GAL-A",
+      });
+      const finalContext = await browser.newContext();
+      const finalPage = await finalContext.newPage();
+      finalPage.on("pageerror", (error) => report.browserErrors.push({ at: new Date().toISOString(), message: error.message }));
+      finalPage.on("console", (message) => {
+        const location = message.location();
+        if (message.type() === "error") report.browserErrors.push({
+          at: new Date().toISOString(),
+          message: `${message.text()}${location.url ? `: ${location.url}` : ""}`,
+        });
+      });
+      finalPage.on("requestfailed", (request) => report.browserErrors.push({
+        at: new Date().toISOString(),
+        message: `${request.failure()?.errorText || "request failed"}: ${request.url()}`,
+      }));
+      finalPage.on("response", (response) => {
+        if (response.status() >= 400) report.browserErrors.push({
+          at: new Date().toISOString(),
+          message: `HTTP ${response.status()}: ${response.url()}`,
+        });
+      });
+      await finalPage.goto(baseUrl, { waitUntil: "networkidle" });
+      await finalPage.locator("#roomCode").fill(finalFixture.room);
+      await finalPage.locator("#joinCode").fill(finalFixture.joins[0]);
+      await finalPage.locator("#joinButton").click();
+      await finalPage.locator("#s8Finalize").waitFor({ state: "visible", timeout: 20000 });
+      const finalizeResponse = finalPage.waitForResponse(
+        (response) => response.url().includes("/rest/v1/rpc/s8_finalize") && response.request().method() === "POST",
+        { timeout: 20000 },
+      );
+      await finalPage.locator("#s8Finalize").click();
+      const finalized = await finalizeResponse;
+      await finalPage.locator('[data-s8-stage="end"]').waitFor({ state: "visible", timeout: 15000 });
+      const initialReveal = await text(finalPage, "#sprint3bText");
+      await finalPage.screenshot({ path: path.join(outputDir, `${stamp}_${room}_act14-finalized.png`), fullPage: true });
+      await finalPage.reload({ waitUntil: "networkidle" });
+      await finalPage.locator('[data-s8-stage="end"]').waitFor({ state: "visible", timeout: 15000 });
+      const reconnectReveal = await text(finalPage, "#sprint3bText");
+      await finalPage.screenshot({ path: path.join(outputDir, `${stamp}_${room}_act14-reconnect.png`), fullPage: true });
+      report.checks.act14 = {
+        fixtureRoom: finalFixture.room,
+        finalizeStatus: finalized.status(),
+        canonicalRevealReached: /END|EINDE|结束/i.test(initialReveal),
+        reconnectRevealReached: /END|EINDE|结束/i.test(reconnectReveal),
+        initialReveal,
+        reconnectReveal,
+      };
+      await finalContext.close();
+    }
+
     for (let index = 0; index < players.length; index += 1) {
       await players[index].screenshot({ path: path.join(outputDir, `${stamp}_${room}_player${index + 1}.png`), fullPage: true });
     }
@@ -146,6 +242,9 @@ async function main() {
       invariant(!legacyReachable, "Legacy pre-run gameplay remains reachable.");
       invariant(!splitBoundary, "Split formal startup remains reachable.");
       invariant(report.checks.act1RolePrivate, "ACT1 role-private player surfaces are not distinct.");
+      invariant(report.checks.act14?.finalizeStatus === 200, "Root browser finalization did not succeed.");
+      invariant(report.checks.act14?.canonicalRevealReached, "Canonical ACT14 reveal was not reached through the root browser.");
+      invariant(report.checks.act14?.reconnectRevealReached, "Reconnect did not return to the canonical ACT14 reveal.");
     } else {
       throw new Error(`Unknown GAL_E0_EXPECTATION: ${expectation}`);
     }
