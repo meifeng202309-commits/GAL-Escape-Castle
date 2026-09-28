@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T23:45:00+08:00
+> Last refreshed: 2026-09-28T10:05:00+08:00
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_PACKAGE_A_CA_A_RECHECK_FAIL_ONE_TIMER_RESIDUAL
-CURRENT_OWNER         = CD — Package A correction only: ACT6 timer/transition ownership residual + remediated E0 evidence; B/C/D remain blocked
-NEXT_REQUIRED_ACTION  = CD correct only A-CA-002-R1 so the canonical ACT6 90s DiscussionRoom does not consume player interaction time before the required ACT5→ACT6 visible entry boundary completes, preserve A-CA-001 and the verified per-player handoff/location fixes, run remediated E0/bounded live evidence in one controlled corrected frontend+migrations environment, freeze one new Package A SHA, then return ownership to CA for narrow recheck; do not begin B/C/D
+CURRENT_GATE          = SPRINT9_PACKAGE_A_SOURCE_PASS_E0_ACT14_EVIDENCE_ONLY
+CURRENT_OWNER         = CD — evidence-only E0 ACT14 browser coverage completion; Package A runtime/database source is frozen/passed; B/C/D remain blocked
+NEXT_REQUIRED_ACTION  = CD must not change Package A runtime/database source unless new browser evidence exposes a defect; extend E0 only enough to exercise completed-run ACT14 reveal and completed-run reconnect through real root browser pages on the corrected environment, record exact tested implementation SHA and evidence, then return ownership to CA for evidence-only closure; do not begin B/C/D
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-142.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-143.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-142
+CA_CHECKPOINT = CA-143
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1263,6 +1263,64 @@ Audit:
 
 CA -> CD:
 `agent-comms/CA_to_CD_20260927T154500Z_package-a-ca-a-recheck-one-timer-residual.md`
+
+---
+
+## 8W. Package A source pass / E0 ACT14 evidence-only gate
+
+```text
+CD final Package A handoff:
+agent-comms/CD_to_CA_20260928T013600Z_package-a-final-recheck.md
+
+Implementation SHA:
+99d2eeafcd0f38c827c7616c92efccea9c35fb0e
+
+Handoff HEAD:
+33378aa6e1d574524cefc779fbc2b688659763c0
+
+Deployed migrations:
+059–064
+
+Source/database closure:
+PASS
+
+A-CA-001:
+FIXED_VERIFIED
+
+A-CA-002:
+FIXED_VERIFIED
+
+A-CA-002-R1:
+FIXED_VERIFIED
+
+Live bounded correction E2E:
+PASS
+
+Remediated E0:
+PASS for pre-run / atomic start / isolated sessions / role-private ACT1
+
+Remaining E0 gap:
+frozen plan §7 requires completed-run root-dispatch / ACT14 reveal detection capability.
+Current tests/remediation-e0-browser.mjs has no ACT14 finalization/reveal/reconnect path.
+
+CA-A:
+NOT YET PASS — evidence completeness only
+
+Package A source:
+DO NOT CHANGE unless extended browser evidence exposes a new defect
+
+Packages B/C/D:
+NOT RELEASED
+
+Next owner:
+CD — extend E0 ACT14 browser coverage only, then return to CA
+```
+
+Audit:
+`docs/audits/regular/runs/2026-09-28_package_a_ca_a_final_recheck/AUDIT_REPORT.md`
+
+CA -> CD:
+`agent-comms/CA_to_CD_20260928T020500Z_package-a-source-pass-e0-act14-evidence-gap.md`
 
 ---
 
