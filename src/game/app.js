@@ -177,7 +177,7 @@ async function refreshState() {
         renderAct5Handoff(sprint3bState,sprint5State);
         return;
       }
-      const act6Waiting=sprint5State.active&&sprint3bState.me?.act6_entered_at&&!sprint5State.canonical_discussion;
+      const act6Waiting=sprint5State.active&&sprint5State.state?.phase_key==="act6_vote"&&sprint3bState.me?.act6_entered_at&&!sprint5State.canonical_discussion;
       if(act6Waiting){
         currentDiscussion=null;
         discussionPanel.classList.add("hidden");

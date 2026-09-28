@@ -27,6 +27,7 @@ assert(app.includes('rpc("s9_enter_act6"'),"ACT5 handoff lacks its server-author
 assert(app.includes('rpc("s9_observe_act5_handoff"'),"ACT5 handoff is not durably observed per player before entry.");
 assert(app.includes('!sprint3bState.me?.act6_entered_at'),"ACT6 visibility is not gated by per-player entry state.");
 assert(app.includes("renderAct6EntryBarrier"),"Entered players lack a pre-timer all-player barrier surface.");
+assert(app.includes('sprint5State.state?.phase_key==="act6_vote"'),"ACT6 entry barrier can mask later Sprint5/Sprint6 lifecycle states.");
 
 for(const fragment of [
   "create or replace function public.s9_start_formal_game",
