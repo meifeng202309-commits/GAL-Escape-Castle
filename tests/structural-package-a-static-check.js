@@ -7,6 +7,7 @@ const migration=fs.readFileSync("database/059_structural_lifecycle_transition_sp
 const correction=fs.readFileSync("database/060_package_a_ca_a_bounded_corrections.sql","utf8");
 const timerBarrier=fs.readFileSync("database/061_package_a_act6_entry_timer_barrier.sql","utf8");
 const preparedEventFix=fs.readFileSync("database/062_package_a_prepared_event_fk_fix.sql","utf8");
+const playerEntryFix=fs.readFileSync("database/063_package_a_player_entry_column_fix.sql","utf8");
 
 function assert(condition,message){if(!condition)throw new Error(message)}
 
@@ -58,5 +59,8 @@ for(const fragment of [
 
 assert(preparedEventFix.includes("s2_log_event(p_run,room,null,'s5_prepared'"),
   "Prepared event still references a not-yet-created discussion session.");
+assert(playerEntryFix.includes("set player_location='portrait_hall',act6_entered_at=now()")&&
+  !playerEntryFix.includes("set player_location='portrait_hall',act6_entered_at=now(),updated_at=now()"),
+  "ACT6 entry still writes a nonexistent player-progress timestamp column.");
 
 console.log("Structural Package A static checks passed.");
