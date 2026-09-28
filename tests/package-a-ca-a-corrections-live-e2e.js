@@ -20,6 +20,8 @@ async function main(){
   const initial=await Promise.all([0,1,2].map(i=>rpc("s3b_get_player_state",auth(f,i))));
   assert(initial.every(state=>state.flow.terminal_state==="SPRINT3B_COMPLETE"),"ACT5 terminal state is missing.");
   assert(initial.every(state=>!state.me.act6_entered_at&&state.me.player_location==="library"),"Players skipped the new per-player ACT5 handoff.");
+  const prepared=await rpc("s5_get_discussion_state",auth(f,0));
+  assert(prepared.active&&prepared.discussion===null,"ACT6 discussion timer started before the entry barrier.");
 
   await expectReject(
     ()=>rpc("s9_enter_act6",{...auth(f,0),p_expected_run_id:initial[0].run_id}),
@@ -32,6 +34,8 @@ async function main(){
   assert(separated[0].me.act6_entered_at&&separated[0].me.player_location==="portrait_hall","Entering player did not reach Portrait Hall.");
   assert(!separated[1].me.act6_entered_at&&separated[1].me.player_location==="library","A waiting player was globally advanced by another player.");
   assert(!separated[2].me.act6_entered_at&&separated[2].me.player_location==="library","Second waiting player was globally advanced.");
+  const stillPrepared=await rpc("s5_get_discussion_state",auth(f,0));
+  assert(stillPrepared.discussion===null,"ACT6 timer started after only one player entered.");
 
   for(const i of [1,2]){
     await rpc("s9_observe_act5_handoff",{...auth(f,i),p_expected_run_id:initial[i].run_id});
@@ -39,6 +43,9 @@ async function main(){
   }
   const entered=await Promise.all([0,1,2].map(i=>rpc("s3b_get_player_state",auth(f,i))));
   assert(entered.every(state=>state.me.act6_entered_at&&state.me.player_location==="portrait_hall"),"All players did not complete the per-player entry boundary.");
+  const started=await rpc("s5_get_discussion_state",auth(f,0));
+  const remaining=(Date.parse(started.discussion.phase_deadline)-Date.now())/1000;
+  assert(started.discussion.status==="discussion"&&remaining>85&&remaining<=90,"ACT6 canonical 90-second timer did not start at the all-player barrier.");
   console.log("Package A CA-A bounded corrections live E2E passed.");
 }
 

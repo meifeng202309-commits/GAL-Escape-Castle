@@ -177,6 +177,13 @@ async function refreshState() {
         renderAct5Handoff(sprint3bState,sprint5State);
         return;
       }
+      const act6Waiting=sprint5State.active&&sprint3bState.me?.act6_entered_at&&!sprint5State.canonical_discussion;
+      if(act6Waiting){
+        currentDiscussion=null;
+        discussionPanel.classList.add("hidden");
+        renderAct6EntryBarrier();
+        return;
+      }
       renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", auth) : discussionState);
       if(session!==activeSession)return;
       if(sprint8State.active)renderSprint8(sprint8State);else if(sprint6State.active)renderSprint6(sprint6State);else if(sprint5State.active)renderSprint5(sprint5State,pocketState);else renderSprint3b(sprint3bState);
@@ -190,6 +197,15 @@ async function refreshState() {
     sprint3bPanel.classList.add("hidden");
     gameStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   }
+}
+
+function renderAct6EntryBarrier(){
+  choiceArea.classList.add("hidden");
+  revealArea.classList.add("hidden");
+  sprint3bPanel.classList.remove("hidden");
+  sprint3bText.innerHTML=`<div class="notice"><p>${localizedHtml("act04-05.022")}</p><p>Waiting for every player to enter Portrait Hall. The 90-second discussion has not started.</p></div>`;
+  sprint3bActions.innerHTML="";
+  sprint3bStatus.textContent="";
 }
 
 function renderLifecycleNotice(state,message){

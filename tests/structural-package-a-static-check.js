@@ -5,6 +5,7 @@ const teacher=fs.readFileSync("src/teacher/teacher-console.js","utf8");
 const html=fs.readFileSync("teacher.html","utf8");
 const migration=fs.readFileSync("database/059_structural_lifecycle_transition_spine.sql","utf8");
 const correction=fs.readFileSync("database/060_package_a_ca_a_bounded_corrections.sql","utf8");
+const timerBarrier=fs.readFileSync("database/061_package_a_act6_entry_timer_barrier.sql","utf8");
 
 function assert(condition,message){if(!condition)throw new Error(message)}
 
@@ -22,6 +23,7 @@ assert(app.includes('terminal_state==="SPRINT3B_COMPLETE"')&&app.includes("rende
 assert(app.includes('rpc("s9_enter_act6"'),"ACT5 handoff lacks its server-authoritative entry action.");
 assert(app.includes('rpc("s9_observe_act5_handoff"'),"ACT5 handoff is not durably observed per player before entry.");
 assert(app.includes('!sprint3bState.me?.act6_entered_at'),"ACT6 visibility is not gated by per-player entry state.");
+assert(app.includes("renderAct6EntryBarrier"),"Entered players lack a pre-timer all-player barrier surface.");
 
 for(const fragment of [
   "create or replace function public.s9_start_formal_game",
@@ -43,5 +45,14 @@ for(const fragment of [
   "player_location='portrait_hall'",
   "create or replace function public.s9_enter_act6",
 ])assert(correction.includes(fragment),`Migration 060 missing: ${fragment}`);
+
+for(const fragment of [
+  "create or replace function public.s5_ensure_initialized",
+  "do not call s5_configure_discussion",
+  "entered_count=3 and sprint5.act6_entered_at is null",
+  "perform public.s5_configure_discussion(sid,'act6_vote')",
+  "'act6_discussion_started'",
+  "'all_player_entry_barrier'",
+])assert(timerBarrier.includes(fragment),`Migration 061 missing: ${fragment}`);
 
 console.log("Structural Package A static checks passed.");
