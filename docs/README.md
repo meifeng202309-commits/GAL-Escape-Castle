@@ -15,6 +15,7 @@ The onboarding / operational-memory set includes:
 - `docs/onboarding/START_HERE.md`
 - `docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md`
 - `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md`
+- `docs/onboarding/GAL_ESCAPE_CASTLE_AGENT_TAKEOVER_PROMPTS.md` — replacement-chat launcher prompts; non-authoritative/state-light
 - highest ACTIVE `docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V*.md`
 - role Action Logs under `docs/logs/`
 
