@@ -1,19 +1,26 @@
 # GAL ESCAPE CASTLE — START HERE
 
-> Universal entry point for any newly started GA / CA / CD / VA / ISA chat session.
+> Universal onboarding entry point for any newly started GA / CA / CD / VA / ISA chat session.
+
+This file owns the **entry / resume procedure**. It does not replace canonical specifications, current status, role rules, or audit/cooperation rules.
+
+---
+
+## 0. Persistent-role rule
+
+The project uses five persistent role codes:
+
+- GA
+- CA
+- CD
+- VA
+- ISA
 
 A new chat session does **not** create a new project-role identity.
 
-Persistent project roles are:
+Replacing a slow or retired chat does not create GA-II / CA-II / CD-II / VA-II / ISA-II. The replacement chat continues the same persistent role and the same role Action Log sequence.
 
-- GA — Game Design Agent
-- CA — Coding Audit Agent
-- CD — Codex
-- VA — Visual Agent
-- ISA — Implementation Support Agent
-
-Replacing a slow or retired chat does not create GA-II / CA-II / CD-II / VA-II / ISA-II.  
-The replacement chat continues the same role and the same role Action Log sequence.
+Role definitions, authority boundaries, and role-specific minimum reading are owned by the New Member Guide and the current governing role/audit/cooperation rules; they are not duplicated here.
 
 ---
 
@@ -23,7 +30,7 @@ Read in this order:
 
 1. `docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md`
 2. `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md`
-3. `docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V1.1.md`
+3. the highest ACTIVE `docs/onboarding/GAL_ESCAPE_CASTLE_Agent_Action_Log_Rules_V*.md`
 4. the role-specific Minimum Reading listed in the New Member Guide
 5. the highest ACTIVE `agent-comms/inter_agent_talk_protocol V*.md`
 6. your own Action Log entries after the checkpoint recorded in CURRENT STATUS
@@ -32,14 +39,14 @@ Read in this order:
 
 CA-specific version rule:
 
-- if the New Member Guide names an older `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V*.md`, CA must use the **highest version marked ACTIVE** in `docs/onboarding/`;
-- as of the current project state, the active CA rule is `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V1.4.md`.
+- CA must use the **highest ACTIVE** `GAL_ESCAPE_CASTLE_CA_CODING_AUDIT_RULES_V*.md` identified by the current governance/status sources;
+- if another guide names an older version, do not treat the older version as authoritative merely because it is mentioned there.
 
 ISA-specific rule:
 
 - ISA must read `docs/onboarding/GAL_ESCAPE_CASTLE_CD_ISA_COOPERATION_RULES_V1.0.md`;
-- ISA may act only inside a current CA ownership envelope / standing envelope and any required CD-owned frozen interface contract;
-- ISA has no independent migration, canonical, audit or release authority.
+- ISA must also read the current CA ownership envelope / Work Package and any required CD-owned frozen interface contract;
+- detailed ISA authority and cooperation semantics are owned by those governing sources and are not restated here.
 
 Then answer internally:
 
@@ -95,3 +102,19 @@ Do not read:
 unless current sources are insufficient, a bug requires historical reconstruction, or the user explicitly asks for it.
 
 The memory system begins from its adoption point. Earlier project history is represented by current canonical files, accepted reports, current status, and existing agent-comms—not by retroactively recreating every past conversation.
+
+---
+
+## 5. Document responsibilities — reference, do not duplicate
+
+Use the repository documents by responsibility:
+
+- `README.md` — repository overview, major entry points, and repository map: **what this repository is and where things are**.
+- `docs/onboarding/START_HERE.md` — cold start, warm continuation, chat replacement, and retrieval procedure: **how to enter or resume work safely**.
+- `docs/onboarding/GAL_ESCAPE_CASTLE_CURRENT_STATUS.md` — current sprint/gate/owner/blocker/checkpoint snapshot: **where the project is now**.
+- `docs/onboarding/GAL_ESCAPE_CASTLE_开发项目新成员指南_V1.0.md` — project training and role-specific minimum reading.
+- current canonical specs and ACTIVE governance rules — detailed game, implementation, authority, audit, cooperation, and communication requirements.
+
+**Reference, do not duplicate:** README and START_HERE may identify an authoritative file and summarize its purpose, but they should not restate detailed rules owned by that file.
+
+If a navigation/onboarding summary conflicts with a newer authoritative canonical/governance/status source, follow the authoritative source and then repair the stale summary.
