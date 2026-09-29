@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-29T00:15:00+08:00
+> Last refreshed: 2026-09-29T10:32:00+08:00
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_PACKAGE_A_CA_A_PASS_BC_RELEASED
-CURRENT_OWNER         = CD — Packages B/C shared-shell remediation released; must remain serial/coordinated; Package D still blocked
-NEXT_REQUIRED_ACTION  = CD proceeds with Packages B/C only under the frozen plan: S3 accepted/locked/waiting contract plus S4 Pocket/evidence cross-ACT shell capability, serial/coordinated and without redesigning the stabilized Package A lifecycle shell; preserve all Package A closures and stop at the next plan-defined checkpoint before Package D
+CURRENT_GATE          = SPRINT9_PACKAGE_B_PASS_PACKAGE_C_BOUNDED_CORRECTION
+CURRENT_OWNER         = CD — Package C bounded Pocket/evidence correction only; Package B passed; Package D remains blocked
+NEXT_REQUIRED_ACTION  = CD correct Package C only so canonical early carryable objects are genuinely reopenable/inspectable later, including Gitte Number Note -> 41739 and representative diary/closure-order evidence, while preserving hidden-info/provenance semantics plus Package A/B regressions; freeze a new B/C checkpoint and return ownership to CA for narrow Package C recheck; do not begin Package D
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,11 +32,11 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-144.
+GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-145.
 
 ```text
 GA_CHECKPOINT = GA-040
-CA_CHECKPOINT = CA-144
+CA_CHECKPOINT = CA-145
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
@@ -1367,6 +1367,53 @@ Audit:
 
 CA -> CD:
 `agent-comms/CA_to_CD_20260928T161500Z_package-a-ca-a-pass-release-bc.md`
+
+---
+
+## 8Y. Packages B/C checkpoint — B pass, C residual
+
+```text
+CD handoff:
+agent-comms/CD_to_CA_20260929T022820Z_packages-b-c-complete-request-package-d-release.md
+
+Frozen B/C checkpoint:
+e692dfa7de8130caefb2cae5a9534cf06a7a7471
+
+Package B:
+PASS for this checkpoint
+- accepted/locked/waiting contract source/live coherent
+- reconnect behavior covered
+- ACT9 multi-step round identity independently checked
+- no unrevealed peer-private choice projection found
+
+Package C:
+FAIL — C-CA-001 HIGH
+
+C-CA-001:
+Pocket shell is mounted across canonical ACTs, but most carryable objects are only listed by
+name/current_view and are not genuinely reopenable/inspectable.
+Only Linda stopped watch currently has internal inspect/FLIP content.
+
+Material example:
+Gitte Number Note is carried after GRAB but Pocket cannot reopen it to recover 41739.
+
+Other affected canonical early evidence includes diary / closure order / other required carryable clue content.
+
+Current Package C live test blind spot:
+tests stopped-watch + torn-note persistence, but not Number Note / diary / closure-order inspect content.
+
+Package D:
+NOT RELEASED
+
+Next owner:
+CD — Package C bounded correction only
+```
+
+Audit:
+`docs/audits/regular/runs/2026-09-29_packages_b_c_checkpoint/AUDIT_REPORT.md`
+
+CA -> CD:
+`agent-comms/CA_to_CD_20260929T023200Z_package-b-pass-package-c-one-pocket-residual.md`
 
 ---
 
