@@ -308,7 +308,7 @@ function renderSprint3b(state) {
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
   else if (!me.grab_complete) html=`<button type="button" data-s3b-rpc="s3b_grab">${localizedHtml("act02.014")}</button>`;
   else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
-  else if (scene.phase_key==="first_meeting") html=acceptedWaiting();
+  else if (scene.phase_key==="private_first_meeting") html=acceptedWaiting();
   else if (scene.phase_key==="route_update" && !me.route_update_ack_at) html=`<button type="button" data-s3b-rpc="s3b_ack_route_update">${localizedHtml("common.004")}</button>`;
   else if (scene.phase_key==="route_update" && me.route_update_ack_at) html=acceptedWaiting();
   else if (scene.phase_key==="route_consequence") html=`<button type="button" data-s3b-rpc="s3b_complete_foldback">${localizedHtml("act02.042")}</button>`;
