@@ -1203,3 +1203,32 @@ Use, in order:
 4. then refresh this L3 snapshot.
 
 CURRENT STATUS must remain a short dashboard, not a development diary.
+
+---
+
+## 8U. Package C bounded residual closed; Package D released
+
+```text
+CA checkpoint = CA-146
+Corrected Package C implementation SHA = 949ab1d4d840729f0969e36b0f9dfef15f275a2f
+
+C-CA-001 = CLOSED
+Package B = PASS (unchanged)
+Package C = PASS
+Package D = RELEASED
+Next owner = CD
+
+Released Package D scope:
+- D1 / PFC-004 stale Sprint6 status/error clearing
+- D2 / PFC-006 existing canonical ACT4/Main Gate anchor/composite consumption
+- D3 / PFC-007 render existing act4_revealed projection
+
+Required subsequent sequence:
+Package D -> E1 deterministic browser regression -> frozen integrated correction baseline -> CA Level2 targeted independent closure.
+
+This checkpoint is not the final remediation PASS.
+```
+
+Audit:
+`docs/audits/regular/runs/2026-09-29_package_c_c_ca_001_narrow_recheck/AUDIT_REPORT.md`
+
