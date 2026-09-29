@@ -336,9 +336,23 @@ function renderSprint3b(state,pocket) {
 }
 
 function s5Buttons(items,rpcName){return `<div class="choice-list">${items.map(([id,key])=>`<button type="button" data-s5-rpc="${rpcName}" data-s5-choice="${id}">${localizedHtml(key)}</button>`).join("")}</div>`}
+function pocketItemContent(item){
+  const flip=`<button type="button" data-flip-item="${escapeHtml(item.item_key)}" data-target-view="${item.current_view==="back"?"front":"back"}">${localizedHtml("act01-g.028")}</button>`;
+  if(item.item_key==="gitte_castle_map")return localizedKeys(["act01-g.023","act01-g.024"]);
+  if(item.item_key==="gitte_number_note")return `${localizedHtml(item.current_view==="back"?"act01-g.029":"act01-g.007")}${flip}`;
+  if(item.item_key==="gitte_flashlight")return localizedHtml("act01-g.030");
+  if(item.item_key==="anna_servant_diary")return localizedHtml("act01-a.010");
+  if(item.item_key==="linda_stopped_watch")return `${localizedHtml(item.current_view==="back"?"act01-l.017":"act01-l.002")}${flip}`;
+  if(item.item_key==="linda_star_key")return localizedHtml("act01-l.005");
+  if(item.item_key==="linda_closure_order")return localizedKeys(["act01-l.009","act01-l.010","act01-l.016"]);
+  return"";
+}
 function pocketEvidencePanel(pocket,phase){
   if(!pocket)return"";
-  const itemHtml=(pocket.items||[]).map(item=>{const watchEvidenceKey=item.current_view==="back"?"act01-l.017":"act01-l.002";return `<details class="evidence-item"><summary>${localizedHtml(item.name_text_key)}</summary><p class="muted">${escapeHtml(item.current_view||"")}</p>${item.item_key==="linda_stopped_watch"?`${localizedHtml(watchEvidenceKey)}<button type="button" data-flip-item="${item.item_key}" data-target-view="${item.current_view==="back"?"front":"back"}">${localizedHtml("act01-g.028")}</button>`:""}</details>`}).join("");
+  const inspected=new Set(pocket.inspected_item_keys||[]);
+  const itemHtml=(pocket.items||[]).map(item=>inspected.has(item.item_key)
+    ? `<details class="evidence-item" open><summary>${localizedHtml(item.name_text_key)}</summary><p class="muted">${escapeHtml(item.current_view||"")}</p>${pocketItemContent(item)}</details>`
+    : `<button type="button" class="evidence-item" data-inspect-item="${escapeHtml(item.item_key)}" aria-expanded="false">${localizedHtml(item.name_text_key)}</button>`).join("");
   const groupHtml=(pocket.group_items||[]).map(item=>`<details class="evidence-item"><summary>${localizedHtml(item.label_text_key)}</summary>${item.item_key==="library_torn_note"?localizedHtml("act03.016"):localizedHtml(item.label_text_key)}</details>`).join("");
   const memoryHtml=(pocket.observations||[]).map(item=>localizedHtml(item.display_text_key)).join("")+(pocket.shared_photos||[]).map(item=>localizedHtml(item.label_text_key)).join("");
   const shareable=(pocket.scene?.allow_share_photo?pocket.items||[]:[]).filter(item=>item.current_view);
@@ -363,8 +377,7 @@ function renderSprint5(payload,pocket){
   sprint3bText.innerHTML=`<p class="eyebrow">ACT ${s.act_no}</p>${visual}`;sprint3bActions.innerHTML=actions;
   hydrateS5Assets(s);
   sprint3bActions.querySelectorAll("[data-s5-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint5Action(button)));
-  sprint3bText.querySelectorAll("[data-share-role]").forEach(button=>button.addEventListener("click",()=>shareSprint5Photo(button)));
-  sprint3bText.querySelectorAll("[data-flip-item]").forEach(button=>button.addEventListener("click",()=>flipSprint5Item(button)));
+  bindPocketActions();
 }
 function anchor(asset,name){return asset?.ui_anchors?.find(item=>item.anchor_name===name)}
 function applyTrialPlaceholder(node,key){node.classList.add("trial-asset-placeholder");node.dataset.placeholderAssetKey=key;node.alt=`Temporary media placeholder: ${key}`;node.src=TRIAL_PLACEHOLDER_PATHS[key]||EMPTY_IMAGE}
@@ -372,7 +385,8 @@ async function setS5Asset(id,key){const node=document.getElementById(id);if(!nod
 async function hydrateS5Assets(s){if(document.getElementById("s5MapImage"))await setS5Asset("s5MapImage","prop_gitte_castle_map");if(document.getElementById("s5PhotoImage"))await setS5Asset("s5PhotoImage","prop.photo_1897");const key=s.act_no===6?"shared.portrait_hall":s.act_no===7?"shared.clock_room":s.route_taken_act8==="west_tower"?"shared.west_tower_payoff":s.route_taken_act8==="main_gate"?"shared.main_gate":null;if(!key)return;const result=await setS5Asset("s5SceneImage",key);if(!result)return;if(s.act_no===6){const overlay=await trialAssetResolver.resolve("overlay.portrait_eyes_open"),node=document.getElementById("s5OverlayImage"),base=anchor(result,"portrait_main_face"),over=anchor(overlay,"portrait_main_face");if(!overlay?.ok||!base||!over){sprint3bStatus.textContent="ANCHOR_UNAVAILABLE · portrait_main_face";return}const scale=base.width_percent/over.width_percent;Object.assign(node.style,{left:`${base.x_percent-over.x_percent*scale}%`,top:`${base.y_percent-over.y_percent*scale}%`,width:`${100*scale}%`});node.onerror=()=>{node.onerror=null;trialAssetResolver.reportActiveLoadFailure(overlay);node.classList.remove("ready")};node.src=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${overlay.storage_path}`;node.classList.add("ready")}if(s.act_no===7)document.querySelectorAll("[data-anchor]").forEach(node=>{const a=anchor(result,node.dataset.anchor);if(!a){node.hidden=true;sprint3bStatus.textContent=`ANCHOR_UNAVAILABLE · ${node.dataset.anchor}`;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`})})}
 async function shareSprint5Photo(button){button.disabled=true;try{await rpc("s3_share_photo",{p_room_code:session.room_code,p_session_token:session.session_token,p_recipient_role:button.dataset.shareRole,p_source_item_key:button.dataset.shareItem,p_source_view:button.dataset.shareView});await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
 async function flipSprint5Item(button){button.disabled=true;try{await rpc("s3_set_item_view",{p_room_code:session.room_code,p_session_token:session.session_token,p_item_key:button.dataset.flipItem,p_target_view:button.dataset.targetView});await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
-function bindPocketActions(){sprint3bText.querySelectorAll("[data-share-role]").forEach(button=>button.addEventListener("click",()=>shareSprint5Photo(button)));sprint3bText.querySelectorAll("[data-flip-item]").forEach(button=>button.addEventListener("click",()=>flipSprint5Item(button)))}
+async function inspectPocketItem(button){button.disabled=true;try{await rpc("s9_inspect_pocket_item",{p_room_code:session.room_code,p_session_token:session.session_token,p_item_key:button.dataset.inspectItem});await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
+function bindPocketActions(){sprint3bText.querySelectorAll("[data-inspect-item]").forEach(button=>button.addEventListener("click",()=>inspectPocketItem(button)));sprint3bText.querySelectorAll("[data-share-role]").forEach(button=>button.addEventListener("click",()=>shareSprint5Photo(button)));sprint3bText.querySelectorAll("[data-flip-item]").forEach(button=>button.addEventListener("click",()=>flipSprint5Item(button)))}
 function sprint6Identity(){const s=currentSprint6State.state;return{p_expected_phase:s.phase_key,p_expected_step:s.act9_step,p_expected_round:s.round_no}}
 function sprint6AudioVolume(){return sprint6VolumeMode==="mute"?0:sprint6VolumeMode==="reduced"?.35:1}
 async function armSprint6Audio(){sprint6AudioArmed=true;for(const key of["audio.snake_hiss_short","audio.old_alarm_bell","audio.wet_scraping","audio.snakes_approaching","audio.mechanism_clang","audio.gate_opening"]){const asset=await rpc("asset_resolve",{p_asset_key:key}).catch(()=>null);if(!asset?.ok)continue;const url=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${asset.storage_path}`,audio=new Audio(url);audio.preload="auto";audio.load();sprint6AudioUrls.set(key,url)}}

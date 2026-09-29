@@ -15,14 +15,13 @@ async function fixture(mode="audit"){
   const room=unique("S3"),teacher=unique("T"),joins=[unique("G"),unique("A"),unique("L")];
   await rpc("s1_create_room",{p_room_code:room,p_teacher_token:teacher,p_gitte_join_code:joins[0],p_anna_join_code:joins[1],p_linda_join_code:joins[2]});
   const players=await Promise.all(joins.map(p_join_code=>rpc("s1_join_player",{p_room_code:room,p_join_code})));
-  const run=await rpc("s2_start_run",{p_room_code:room,p_teacher_token:teacher,p_run_mode:mode});
+  const run=await rpc("s9_start_formal_game",{p_room_code:room,p_teacher_token:teacher,p_run_mode:mode});
   return {room,teacher,players,run};
 }
 const playerState=(f,i)=>rpc("s3_get_player_state",{p_room_code:f.room,p_session_token:f.players[i].session_token});
 const auth=(f,i)=>({p_room_code:f.room,p_session_token:f.players[i].session_token});
 
 async function enterCanonicalSharePhase(f){
-  await rpc("s3b_initialize_flow",{p_room_code:f.room,p_teacher_token:f.teacher});
   await Promise.all([0,1,2].map(i=>rpc("s3b_ack_act1_opening",auth(f,i))));
   await Promise.all([
     rpc("s3b_submit_act1_choice",{...auth(f,0),p_choice_id:"study_map"}),
@@ -52,18 +51,20 @@ async function main(){
   pass("A2 fixture restores isolated pocket, observation, knowledge, group and scene state");
   const foundationTeacher=await rpc("s3_get_teacher_state",{p_room_code:f.room,p_teacher_token:f.teacher});
 
-  await enterCanonicalSharePhase(f);
-  await rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-B",p_source_item_key:"fixture.physical_item",p_source_view:"front"});
-  await reject("A3 back share before FLIP is rejected",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"back"}),"current server-authoritative");
-  await rpc("s3_set_item_view",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_item_key:"fixture.physical_item",p_target_view:"back"});
-  await rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"back"});
-  const sender=await playerState(f,0),recipient=await playerState(f,1);
-  assert(sender.items.some(item=>item.item_key==="fixture.physical_item")&&!recipient.items.some(item=>item.item_key==="fixture.physical_item")&&recipient.shared_photos.some(photo=>photo.source_item_key==="fixture.physical_item"),"Photo share transferred ownership or failed copy delivery.");
+  const canonical=await fixture("audit");
+  await enterCanonicalSharePhase(canonical);
+  await rpc("s3_share_photo",{p_room_code:canonical.room,p_session_token:canonical.players[0].session_token,p_recipient_role:"GAL-B",p_source_item_key:"gitte_number_note",p_source_view:"front"});
+  await reject("A3 back share before FLIP is rejected",()=>rpc("s3_share_photo",{p_room_code:canonical.room,p_session_token:canonical.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"gitte_number_note",p_source_view:"back"}),"current server-authoritative");
+  await rpc("s9_inspect_pocket_item",{p_room_code:canonical.room,p_session_token:canonical.players[0].session_token,p_item_key:"gitte_number_note"});
+  await rpc("s3_set_item_view",{p_room_code:canonical.room,p_session_token:canonical.players[0].session_token,p_item_key:"gitte_number_note",p_target_view:"back"});
+  await rpc("s3_share_photo",{p_room_code:canonical.room,p_session_token:canonical.players[0].session_token,p_recipient_role:"GAL-C",p_source_item_key:"gitte_number_note",p_source_view:"back"});
+  const sender=await playerState(canonical,0),recipient=await playerState(canonical,1);
+  assert(sender.items.some(item=>item.item_key==="gitte_number_note")&&!recipient.items.some(item=>item.item_key==="gitte_number_note")&&recipient.shared_photos.some(photo=>photo.source_item_key==="gitte_number_note"),"Photo share transferred ownership or failed copy delivery.");
   assert(recipient.knowledge.length===0,"Photo share silently transferred knowledge.");
-  assert(sender.items.find(item=>item.item_key==="fixture.physical_item")?.current_view==="back"&&(await playerState(f,2)).shared_photos.some(photo=>photo.source_item_key==="fixture.physical_item"&&photo.source_view==="back"),"FLIP/back share or reconnect view restore failed.");
+  assert(sender.items.find(item=>item.item_key==="gitte_number_note")?.current_view==="back"&&(await playerState(canonical,2)).shared_photos.some(photo=>photo.source_item_key==="gitte_number_note"&&photo.source_view==="back"),"FLIP/back share or reconnect view restore failed.");
   pass("A4 current-view SHARE PHOTO preserves ownership and delivers only the current copy");
-  await reject("A5 recipient cannot re-share as physical owner",()=>rpc("s3_share_photo",{p_room_code:f.room,p_session_token:f.players[1].session_token,p_recipient_role:"GAL-C",p_source_item_key:"fixture.physical_item",p_source_view:"front"}),"not the physical owner");
-  const reconnect=await playerState(f,1); assert(reconnect.shared_photos.length===1,"Reconnect lost photo copy."); pass("A6 reconnect restores all foundation state categories");
+  await reject("A5 recipient cannot re-share as physical owner",()=>rpc("s3_share_photo",{p_room_code:canonical.room,p_session_token:canonical.players[1].session_token,p_recipient_role:"GAL-C",p_source_item_key:"gitte_number_note",p_source_view:"front"}),"not the physical owner");
+  const reconnect=await playerState(canonical,1); assert(reconnect.shared_photos.length===1,"Reconnect lost photo copy."); pass("A6 reconnect restores all foundation state categories");
 
   assert(foundationTeacher.counts.observations===1&&foundationTeacher.counts.knowledge_acquisitions===2,"Teacher counts are incorrect.");
   assert(JSON.stringify(foundationTeacher).includes("fixture.private_observation")===false,"Teacher state leaked private content.");
