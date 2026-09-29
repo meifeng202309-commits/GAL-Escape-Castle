@@ -149,4 +149,5 @@ async function main() {
   console.log("Structural Package B live E2E passed.");
 }
 
-main().catch(error => { console.error(error.stack || error); process.exitCode = 1; });
+module.exports = { fixture, completeEarlyActs, completeSprint5ToAct9 };
+if (require.main === module) main().catch(error => { console.error(error.stack || error); process.exitCode = 1; });
