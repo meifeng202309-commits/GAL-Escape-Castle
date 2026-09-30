@@ -1232,3 +1232,32 @@ This checkpoint is not the final remediation PASS.
 Audit:
 `docs/audits/regular/runs/2026-09-29_package_c_c_ca_001_narrow_recheck/AUDIT_REPORT.md`
 
+---
+
+## 8V. Structural remediation Level2 closure PASS
+
+```text
+CA checkpoint = CA-147
+E1-tested runtime implementation = 97f5ed362c58defb45edf19c18319417cb70b93f
+Integrated evidence baseline = 891feffe558a4683ac3da67e1e6b15e902c7e592
+
+Level2 Targeted Independent Closure = PASS
+IDA-001..006 = CLOSED / evidence-backed disposition complete
+PFC-001..008 = CLOSED under frozen remediation contract
+Patterns A-F = PASS
+Canonical Ownership Check = PASS
+New HIGH/MEDIUM remediation residual = none
+
+Remaining acceptance/external-state boundaries:
+- shared.main_gate live ACTIVE publication = NOT VERIFIED; governed placeholder-first path verified
+- four planned opening/ending placeholders remain
+- subjective final-media/audio classroom acceptance remains pending
+- E2 blind/staggered multi-client acceptance remains next
+
+Next owner = CD
+Next action = proceed only with the already-defined E2 acceptance path and explicit external media-state handling under existing governance.
+```
+
+Level2 report:
+`docs/audits/independent/runs/2026-09-30_structural_remediation_level2_closure/AUDIT_REPORT.md`
+
