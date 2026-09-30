@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-30T13:28:00+08:00
+> Last refreshed: 2026-09-30T14:18:00+08:00
 > Updated by: GA
 
 ---
@@ -13,7 +13,7 @@
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
 CURRENT_GATE          = SPRINT9_LEVEL2_PASS_E2A_PROTOCOL_REVIEW
 CURRENT_OWNER         = CA — review GA's revised E2-A blind playability protocol; CD structural debugging is technically closed unless E2 exposes a new bounded defect
-NEXT_REQUIRED_ACTION  = CA critically review docs/plans/E2A_BLIND_PLAYABILITY_PROTOCOL_V0.2.md, especially Emergency Override's ACT1–5-only coverage, intervention/abort rules, evidence burden and E2-A→E2-B threshold; if no material correction remains, Teacher/GA creates the isolated E2-A project and begins pre-test readiness; no CD source modification is currently authorized
+NEXT_REQUIRED_ACTION  = CA critically reviews the consolidated GA letter agent-comms/GA_to_CA_20260930T141500Z_e2a-consolidated-continuation-and-teacher-ui-hardening.md: E2-A may continue diagnostically after natural acceptance fails if post-intervention state remains interpretable, and Teacher Console Production Hardening is proposed as a deferred post-E2 task; no CD/VA source modification is currently authorized
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
