@@ -1,0 +1,139 @@
+{
+  "baseUrl": "http://127.0.0.1:4173/",
+  "implementationSha": "97f5ed362c58defb45edf19c18319417cb70b93f",
+  "startedAt": "2026-09-30T03:52:14.494Z",
+  "checks": {
+    "lifecycle": {
+      "room": "E1F6CAC7",
+      "staggeredJoinOrder": [
+        "GAL-A",
+        "GAL-B",
+        "GAL-C"
+      ],
+      "preRun": [
+        {
+          "index": 0,
+          "visible": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+        },
+        {
+          "index": 1,
+          "visible": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+        },
+        {
+          "index": 2,
+          "visible": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+        }
+      ],
+      "act1RolePrivate": true,
+      "act1": [
+        "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nEen lage, kleverige, nat klinkende stem blijft fluisteren:一个低沉、黏糊、湿漉漉的声音在反复低语：De Slangenkoning in de kapel... is heel kwaad.礼拜堂里的蛇王……很生气。Je wordt wakker in een oud houten bed. De stem is weg.你在一张旧木床上醒来。那个声音消失了。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号4 – 1 – 7 – 3 – 94 – 1 – 7 – 3 – 9VERTREK VOOR MIDDERNACHT午夜前离开Boem.咚。Het klinkt alsof er iets tegen de muur botst.像有东西撞上了墙。Wat doe je eerst?你首先做什么？\n[DOORGAAN][继续]",
+        "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nJe wordt wakker terwijl je op de koude vloer zit.你醒来时正坐在冰冷的地板上。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号M. DE WIT — 1897M. DE WIT — 1897OOSTELIJKE GASTENVLEUGEL东侧客房区NA DE NACHTKLOK WORDT DE BUITENTOEGANG TOT DE GROTE ZAAL VAN BINNENUIT AFGESLOTEN.夜钟响过后，大厅的外部入口会从内部封闭。\n[DOORGAAN][继续]",
+        "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nJe wordt wakker in een kleine studeerkamer.你在一间小书房里醒来。TIJD — 23:49时间 — 23:49GEEN SIGNAAL无信号23:4923:49★ ZILVEREN SLEUTEL★ 银钥匙Je staat op en stoot tegen de rand van het bureau.你站起来时撞到了桌边。Het zware boek valt op de vloer.那本厚重的书掉到了地上。Een vergeeld vel papier glijdt tussen de bladzijden vandaan.一张泛黄的纸从书页之间滑了出来。GEMEENTE LAARNESLUITINGSBEVEL — 01. 04. 1897WESTTOREN TOT NADER ORDER GESLOTEN\n[DOORGAAN][继续]"
+      ]
+    },
+    "act4Comparison": {
+      "room": "PDMUNKKDLWR48K",
+      "lindaRecognition": [
+        0,
+        0,
+        1
+      ],
+      "mapPlaceholder": 1,
+      "doorMarkerVisible": true
+    },
+    "act4Reveal": {
+      "simultaneous": true,
+      "discussionVisible": true,
+      "reveals": [
+        "BEKENDE ROUTE / ONBEKENDE DOORGANG\n已知路线 / 未知通道\nGAL-A\nNeem nu de bekende route.现在走已知路线。\nGAL-B\nProbeer nu de onbekende doorgang.现在尝试未知通道。\nGAL-C\nVraag eerst wat de anderen denken voordat je beslist.先问问其他人的想法，再决定。",
+        "BEKENDE ROUTE / ONBEKENDE DOORGANG\n已知路线 / 未知通道\nGAL-A\nNeem nu de bekende route.现在走已知路线。\nGAL-B\nProbeer nu de onbekende doorgang.现在尝试未知通道。\nGAL-C\nVraag eerst wat de anderen denken voordat je beslist.先问问其他人的想法，再决定。",
+        "BEKENDE ROUTE / ONBEKENDE DOORGANG\n已知路线 / 未知通道\nGAL-A\nNeem nu de bekende route.现在走已知路线。\nGAL-B\nProbeer nu de onbekende doorgang.现在尝试未知通道。\nGAL-C\nVraag eerst wat de anderen denken voordat je beslist.先问问其他人的想法，再决定。"
+      ]
+    },
+    "act5Handoff": {
+      "visible": true,
+      "text": "CASTLE ESCAPE RUNTIME\n\nJullie nemen de bredere gang.\n你们走进较宽的走廊。\nDe route is duidelijk, maar lang.\n路线清楚，但很长。\nDe portretten aan de muren worden nieuwer naarmate jullie dieper het kasteel in gaan.\n随着你们深入城堡，墙上的肖像看起来越来越新。\nJullie bereiken een lange galerij vol portretten.\n你们来到一条两侧挂满肖像的长廊。\n[GA DE PORTRETTENGALERIJ IN]\n[进入肖像长廊]\n[GA DE PORTRETTENGALERIJ IN][进入肖像长廊]"
+    },
+    "act6Entry": {
+      "firstPlayerWaited": true,
+      "allPlayerDiscussionStarted": true,
+      "earlyPocketVisible": true,
+      "earlyPocketText": "Kasteelkaart城堡地图\nBriefje met cijfers数字纸条\nFoto uit 18971897年照片\nGescheurd briefje撕破的纸条\nDe stem in mijn droom zei dat de Slangenkoning in de kapel heel kwaad was.\n梦里的声音说，礼拜堂里的蛇王非常生气。"
+    },
+    "act9Discussion": {
+      "visible": true,
+      "text": "EEN DEUR KAN WORDEN GEACTIVEERD ZONDER ERIN TE GAAN.门可以在不进入的情况下被启动。\n\n179s\n\nNog geen berichten.\n暂无消息。\nVerstuur bericht发送消息\n[DOORGAAN][继续]"
+    },
+    "act9To12": {
+      "act9LockedWaiting": true,
+      "act10LockedWaiting": true,
+      "act11AllocationWaiting": true,
+      "act12EngageWaiting": true,
+      "staleSprint6StatusCleared": true,
+      "mainGatePlaceholder": true,
+      "stationLegendVisible": true
+    },
+    "act14": {
+      "room": "S5MUNKLC5UVR2H",
+      "finalizeStatus": 200,
+      "initial": "Einde\n结束",
+      "reconnect": "Einde\n结束"
+    },
+    "browserErrorCount": 0
+  },
+  "network": {
+    "rpcTotal": 1007,
+    "statusCounts": {
+      "200": 1007
+    },
+    "rpcNames": {
+      "s1_create_room": 1,
+      "s1_get_teacher_state": 6,
+      "s7_get_teacher_console": 5,
+      "s5_get_teacher_discussion_state": 6,
+      "s1_join_player": 3,
+      "asset_resolve": 70,
+      "s2_get_teacher_state": 6,
+      "s8_get_finalization_state": 5,
+      "s8_get_player_state": 238,
+      "s2_get_player_state": 118,
+      "s9_start_formal_game": 1,
+      "s3b_get_player_state": 108,
+      "s5_get_player_state": 107,
+      "s6_get_player_state": 106,
+      "s3_get_player_state": 106,
+      "s9_observe_act5_handoff": 10,
+      "s9_enter_act6": 1,
+      "s5_get_discussion_state": 66,
+      "s9_get_player_wait_state": 42,
+      "s6_mark_audio_consumed": 1,
+      "s8_finalize": 1
+    }
+  },
+  "browserErrors": [
+    {
+      "label": "lifecycle-teacher",
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "url": "http://127.0.0.1:4173/favicon.ico"
+    }
+  ],
+  "screenshots": [
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_lifecycle-act1-player3.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_lifecycle-act1-player1.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_lifecycle-act1-player2.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_lifecycle-teacher.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act4-comparison-linda.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act4-missing-player-wait.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act4-reveal-discussion.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act5-terminal-handoff.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act6-discussion-started.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act9-discussion.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act9-choice-locked-waiting.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act11-allocation-waiting-main-gate.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act12-engage-waiting-status-recovered.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act14-finalized.png",
+    "docs\\reports\\remediation\\structural-v1\\e1\\20260930035214_act14-reconnect.png"
+  ],
+  "finishedAt": "2026-09-30T03:54:34.866Z"
+}
