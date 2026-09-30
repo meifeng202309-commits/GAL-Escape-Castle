@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-27T22:01:00+08:00
-> Updated by: CA
+> Last refreshed: 2026-09-30T13:28:00+08:00
+> Updated by: GA
 
 ---
 
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_STRUCTURAL_REMEDIATION_PACKAGE_A_EXECUTION_RELEASED
-CURRENT_OWNER         = CD — execute released structural remediation plan through Phase0A/0C/E0 and Package A only; CA waits for A-COMPLETE checkpoint
-NEXT_REQUIRED_ACTION  = CD records recovery/baseline state, diagnoses IDA-004, submits compact change-impact map to GA, establishes E0 browser-driving harness, implements Package A under frozen R-S1/R-S2 outcomes, then STOPS at A-COMPLETE and hands one frozen factual baseline to CA for the narrow lifecycle/transition checkpoint; B/C/D/E1 are not yet released pending CA-A PASS
+CURRENT_GATE          = SPRINT9_LEVEL2_PASS_E2A_PROTOCOL_REVIEW
+CURRENT_OWNER         = CA — review GA's revised E2-A blind playability protocol; CD structural debugging is technically closed unless E2 exposes a new bounded defect
+NEXT_REQUIRED_ACTION  = CA critically review docs/plans/E2A_BLIND_PLAYABILITY_PROTOCOL_V0.1.md, especially Emergency Override's ACT1–5-only coverage, intervention/abort rules, evidence burden and E2-A→E2-B threshold; if no material correction remains, Teacher/GA creates the isolated E2-A project and begins pre-test readiness; no CD source modification is currently authorized
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
