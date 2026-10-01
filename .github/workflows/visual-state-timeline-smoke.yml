@@ -1,0 +1,64 @@
+name: Visual State Timeline smoke
+
+on:
+  push:
+    branches:
+      - tooling/visual-state-timeline-v0.1
+    paths:
+      - "tools/visual-state-timeline/**"
+      - ".github/workflows/visual-state-timeline-smoke.yml"
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: tools/visual-state-timeline
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Start standalone demo server
+        run: |
+          python3 -m http.server 4174 --directory examples > /tmp/vst-demo-http.log 2>&1 &
+          echo $! > /tmp/vst-demo-http.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4174/demo.html >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/vst-demo-http.log
+          exit 1
+
+      - name: Run observer smoke test
+        run: npm run smoke
+
+      - name: Generate visual report
+        if: always()
+        run: |
+          if [ -d smoke-runs/VST-SMOKE ]; then
+            npm run report -- --run-dir "./smoke-runs/VST-SMOKE"
+          fi
+
+      - name: Upload smoke evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-state-timeline-smoke
+          path: tools/visual-state-timeline/smoke-runs/
+          if-no-files-found: warn
