@@ -197,10 +197,10 @@ try {
 
   assert.equal(networkOnly.before_state_id, networkOnly.after_state_id,
     "Network-only action should reuse the same visual state.");
-  assert.equal(networkOnly.classification, "NETWORK_OK_NO_VISIBLE_CHANGE",
-    `Expected NETWORK_OK_NO_VISIBLE_CHANGE, got ${networkOnly.classification}`);
-  assert(networkOnly.network.some(n => n.ok && /\/ping\.txt$/.test(n.url)),
-    "Network-only action did not correlate the successful ping.txt response.");
+  assert.equal(networkOnly.classification, "CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE",
+    `Expected CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE, got ${networkOnly.classification}`);
+  assert(networkOnly.network.some(n => n.ok && n.correlation === "near_action" && /\/ping\.txt$/.test(n.url)),
+    "Network-only action did not correlate the successful near-action ping.txt response.");
 
   assert.equal(errorAction.classification, "ERROR_OBSERVED",
     `Expected ERROR_OBSERVED, got ${errorAction.classification}`);
