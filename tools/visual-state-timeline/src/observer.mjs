@@ -80,6 +80,7 @@ Options:
   --height N                  Viewport height (default: 1000)
   --settle-ms N               Post-action capture delay (default: 450)
   --action-window-ms N        Action correlation/finalization window (default: 2200)
+  --network-correlation-ms N   Request-start window attributed to an action (default: 500)
   --mutation-debounce-ms N    Browser mutation debounce (default: 350)
   --pointer-attempt-ms N      Pointerdown-without-click threshold (default: 750)
   --page-index N              Page index in attach mode (default: 0)
@@ -104,6 +105,7 @@ const options = {
   height: numberArg(args.height, 1000),
   settleMs: numberArg(args["settle-ms"], 450),
   actionWindowMs: numberArg(args["action-window-ms"], 2200),
+  networkCorrelationMs: numberArg(args["network-correlation-ms"], 500),
   mutationDebounceMs: numberArg(args["mutation-debounce-ms"], 350),
   pointerAttemptMs: numberArg(args["pointer-attempt-ms"], 750),
   pageIndex: numberArg(args["page-index"], 0),
@@ -143,8 +145,8 @@ await writeFile(
     "target_text",
     "before_state_id",
     "after_state_id",
-    "network_ok_count",
-    "network_error_count",
+    "correlated_network_ok_count",
+    "correlated_network_error_count",
     "browser_error_count",
     "classification",
   ].map(csvCell).join(",") + "\n",
@@ -453,14 +455,14 @@ function classifyAction(action) {
   const before = action.before_state_id;
   const after = action.after_state_id || action.last_observed_state_id || currentStateId;
   const visibleChange = Boolean(before && after && before !== after);
-  const okCount = action.network.filter(x => x.status >= 200 && x.status < 400).length;
-  const networkErrorCount = action.network.filter(x => x.status >= 400 || x.failed).length;
+  const okCount = action.network.filter(x => x.correlation === "near_action" && x.status >= 200 && x.status < 400).length;
+  const networkErrorCount = action.network.filter(x => x.correlation === "near_action" && (x.status >= 400 || x.failed)).length;
   const browserErrorCount = action.browser_errors.length;
 
   if (networkErrorCount > 0 || browserErrorCount > 0) return "ERROR_OBSERVED";
-  if (visibleChange && okCount > 0) return "VISIBLE_CHANGE_NETWORK_OK";
+  if (visibleChange && okCount > 0) return "VISIBLE_CHANGE_CORRELATED_NETWORK_OK";
   if (visibleChange) return "VISIBLE_CHANGE";
-  if (okCount > 0) return "NETWORK_OK_NO_VISIBLE_CHANGE";
+  if (okCount > 0) return "CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE";
   return "NO_OBSERVABLE_CHANGE";
 }
 
@@ -475,8 +477,8 @@ async function finalizeActiveAction(reason = "window_elapsed") {
   activeAction.finalize_reason = reason;
   activeAction.classification = classifyAction(activeAction);
 
-  const networkOk = activeAction.network.filter(x => x.status >= 200 && x.status < 400).length;
-  const networkError = activeAction.network.filter(x => x.status >= 400 || x.failed).length;
+  const networkOk = activeAction.network.filter(x => x.correlation === "near_action" && x.status >= 200 && x.status < 400).length;
+  const networkError = activeAction.network.filter(x => x.correlation === "near_action" && (x.status >= 400 || x.failed)).length;
 
   await appendJsonl(files.actions, activeAction);
   await appendCsv(files.actionsCsv, [
@@ -710,28 +712,52 @@ if (page.url() !== "about:blank") {
   });
 }
 
+const requestStarts = new WeakMap();
+
+page.on("request", request => {
+  const nowMs = Date.now();
+  const actionStartedMs = activeAction ? Date.parse(activeAction.started_at) : null;
+  const deltaMs = actionStartedMs == null ? null : Math.max(0, nowMs - actionStartedMs);
+  const correlatedActionId = activeAction && deltaMs <= options.networkCorrelationMs
+    ? activeAction.action_id
+    : null;
+
+  requestStarts.set(request, {
+    request_started_at: new Date(nowMs).toISOString(),
+    action_id: correlatedActionId,
+    action_delta_ms: deltaMs,
+    correlation: correlatedActionId ? "near_action" : "background",
+  });
+});
+
 page.on("response", response => {
   enqueue(async () => {
     const request = response.request();
+    const meta = requestStarts.get(request) || {};
     const row = {
       timestamp: new Date().toISOString(),
+      request_started_at: meta.request_started_at || null,
       label,
       method: request.method(),
       url: stripUrl(response.url()),
       status: response.status(),
       ok: response.status() >= 200 && response.status() < 400,
-      action_id: activeAction?.action_id || null,
+      action_id: meta.action_id || null,
+      action_delta_ms: meta.action_delta_ms ?? null,
+      correlation: meta.correlation || "background",
       state_id: currentStateId,
     };
     await appendJsonl(files.network, row);
-    if (activeAction) activeAction.network.push(row);
+    if (activeAction && row.action_id === activeAction.action_id) activeAction.network.push(row);
   });
 });
 
 page.on("requestfailed", request => {
   enqueue(async () => {
+    const meta = requestStarts.get(request) || {};
     const row = {
       timestamp: new Date().toISOString(),
+      request_started_at: meta.request_started_at || null,
       label,
       method: request.method(),
       url: stripUrl(request.url()),
@@ -739,15 +765,28 @@ page.on("requestfailed", request => {
       ok: false,
       failed: true,
       failure: request.failure()?.errorText || "request failed",
-      action_id: activeAction?.action_id || null,
+      action_id: meta.action_id || null,
+      action_delta_ms: meta.action_delta_ms ?? null,
+      correlation: meta.correlation || "background",
       state_id: currentStateId,
     };
     await appendJsonl(files.network, row);
-    if (activeAction) activeAction.network.push(row);
-    await recordError("request_failed", row.failure, {
+
+    const errorRow = {
+      timestamp: new Date().toISOString(),
+      label,
+      type: "request_failed",
+      message: row.failure,
       method: row.method,
       url: row.url,
-    });
+      action_id: row.action_id,
+      state_id: currentStateId,
+    };
+    await appendJsonl(files.errors, errorRow);
+    if (activeAction && row.action_id === activeAction.action_id) {
+      activeAction.network.push(row);
+      activeAction.browser_errors.push(errorRow);
+    }
   });
 });
 
