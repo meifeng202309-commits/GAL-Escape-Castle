@@ -155,6 +155,9 @@ try {
   await page.locator("#delayed").click();
   await delay(1800);
 
+  await page.locator("#network").click();
+  await delay(1100);
+
   await page.locator("#error").click();
   await delay(1100);
 
@@ -169,12 +172,12 @@ try {
     readdir(path.join(participantDir, "snapshots")),
   ]);
 
-  assert.equal(actions.length, 4, `Expected 4 actions, got ${actions.length}`);
+  assert.equal(actions.length, 5, `Expected 5 actions, got ${actions.length}`);
   assert(states.length >= 4, `Expected at least 4 distinct states, got ${states.length}`);
   assert.equal(snapshotFiles.filter(x => x.endsWith(".png")).length, states.length,
     "Snapshot file count must equal persisted state count.");
 
-  const [increment, noop, delayed, errorAction] = actions;
+  const [increment, noop, delayed, networkOnly, errorAction] = actions;
 
   assert.notEqual(increment.before_state_id, increment.after_state_id,
     "Visible counter action should create a new visual state.");
@@ -191,6 +194,13 @@ try {
   assert(delayedIndex >= 0, "Delayed action after-state is missing from state timeline.");
   assert(states.length > delayedIndex + 1,
     "Expected an automatic state after delayed action finalization.");
+
+  assert.equal(networkOnly.before_state_id, networkOnly.after_state_id,
+    "Network-only action should reuse the same visual state.");
+  assert.equal(networkOnly.classification, "NETWORK_OK_NO_VISIBLE_CHANGE",
+    `Expected NETWORK_OK_NO_VISIBLE_CHANGE, got ${networkOnly.classification}`);
+  assert(networkOnly.network.some(n => n.ok && /\/ping\.txt$/.test(n.url)),
+    "Network-only action did not correlate the successful ping.txt response.");
 
   assert.equal(errorAction.classification, "ERROR_OBSERVED",
     `Expected ERROR_OBSERVED, got ${errorAction.classification}`);
