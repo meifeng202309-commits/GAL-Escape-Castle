@@ -12,9 +12,9 @@ GAL Escape Castle runtime modified: **NO**
 GitHub Actions run:
 
 - workflow: `Visual State Timeline smoke`
-- run id: `36809669127`
-- tested head SHA: `697105ddea3e2bdadfc62ea2fb83d3aaf24d2737`
-- job id: `110201686875`
+- run id: `36810317359`
+- tested head SHA: `fc3a81ab9dfe2348fc4c38c5ff225d2b81d0e85b`
+- job id: `110203716792`
 - evidence artifact: `visual-state-timeline-smoke`
 
 The run installed Playwright Chromium, served the generic demo page, launched Chromium with CDP, attached the standalone observer, drove the same page through a separate Playwright controller, generated the static report, and uploaded the evidence bundle.
@@ -79,7 +79,7 @@ This verifies that state transitions do not require a local click.
 ```text
 A0004 network
 S0004 -> S0004
-classification = NETWORK_OK_NO_VISIBLE_CHANGE
+classification = CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE
 ```
 
 The observer correlated the successful `ping.txt` HTTP response without creating a duplicate visual state.
@@ -114,29 +114,65 @@ The screenshot count equaled the persisted state count, not twice the action cou
 
 The workflow uploaded the complete evidence bundle as an artifact.
 
-## Important limitation found for real GAL use
+## Additional hardening completed after the first smoke
 
-The smoke test proves temporal network correlation, but a continuously polling application can generate unrelated successful requests during an action window.
+### Near-action network correlation
 
-Therefore a later hardening step should avoid interpreting any successful request during the window as proof that the clicked control itself caused that request.
+The observer now records request start time and marks a request `near_action` only when it begins within the configurable network-correlation window.
 
-Before GAL E2-A integration, the observer should distinguish:
+Background/polling traffic remains `background` and does not contribute to the action's network-based classification.
 
-- near-action/correlated network activity;
-- background/polling network activity;
+This reduces false "functioning" evidence in continuously polling applications such as GAL.
 
-and keep the final semantic "is this control correct?" judgment outside the observer.
+### Deterministic attached-page binding
+
+The first multi-participant smoke exposed a genuine tooling defect: CDP page-index ordering was not reliable across separate observer connections, so two observers could attach to the wrong participant pages.
+
+This was corrected by adding:
+
+`--page-url-contains <marker>`
+
+The subsequent multi-participant smoke PASS verified deterministic binding.
+
+### Multi-participant isolation PASS
+
+Final smoke run verified two simultaneous observer processes under one run ID:
+
+```text
+PLAYER-A
+  action: increment
+  S0001 -> S0002
+  classification: VISIBLE_CHANGE
+
+PLAYER-B
+  action: network
+  S0001 -> S0001
+  classification: CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE
+```
+
+Each observer wrote to its own participant folder with no action crossover.
 
 ## Current disposition
 
 Standalone capture core: **PROVEN ON GENERIC DEMO**
 
+Verified:
+
+- state/screenshot inheritance and deduplication;
+- actual click/action capture;
+- automatic asynchronous state capture;
+- no-visible-change actions;
+- near-action network-success-without-visible-change;
+- page/browser error capture;
+- static visual report generation;
+- simultaneous multi-participant observer isolation;
+- deterministic page binding in an attached multi-page Chromium session.
+
 Still NOT VERIFIED:
 
-- simultaneous multi-participant observer processes under one run ID;
 - actual blind-agent browser integration;
-- real GAL continuous-polling network correlation;
-- classroom-sized long-run evidence volume;
+- real GAL continuous-polling behavior under a long session;
+- classroom-sized evidence volume;
 - E2-A protocol integration.
 
-These should be addressed without modifying GAL runtime.
+These remaining items should be addressed without modifying GAL runtime.
