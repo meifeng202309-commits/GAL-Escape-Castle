@@ -237,6 +237,20 @@ Start Chromium with remote debugging enabled, then:
 node src/observer.mjs --cdp "http://127.0.0.1:9222" --label "GAL-A" --run-id "E2A-20261001-01" --output "./runs"
 ```
 
+## Multi-participant observer suite
+
+When each participant browser exposes its own CDP endpoint, the generic suite runner starts one observer per participant and writes all evidence under one run ID.
+
+Example:
+
+```powershell
+npm run suite -- --config "./examples/suite.example.json"
+```
+
+The suite runner does **not** control the participants and contains no application logic. It only attaches observers, records suite identity/status, stops all observers together, and generates the merged report when the run ends.
+
+For strongest session isolation, use one Chromium process/profile/CDP endpoint per participant.
+
 ## Generate a visual report
 
 After one or more participant observers have written into the same run directory:
