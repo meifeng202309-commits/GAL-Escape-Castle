@@ -111,9 +111,9 @@ try {
   assert(context, "No Chromium context.");
 
   let pageA = context.pages()[0] || await context.newPage();
-  await pageA.goto(demoUrl, { waitUntil: "domcontentloaded" });
+  await pageA.goto(`${demoUrl}?participant=PLAYER-A`, { waitUntil: "domcontentloaded" });
   const pageB = await context.newPage();
-  await pageB.goto(demoUrl, { waitUntil: "domcontentloaded" });
+  await pageB.goto(`${demoUrl}?participant=PLAYER-B`, { waitUntil: "domcontentloaded" });
 
   const common = [
     "--cdp", cdpUrl,
@@ -129,14 +129,14 @@ try {
     path.join(toolDir, "src", "observer.mjs"),
     ...common,
     "--label", "PLAYER-A",
-    "--page-index", "0",
+    "--page-url-contains", "participant=PLAYER-A",
   ], { cwd: toolDir, stdio: ["ignore", "pipe", "pipe"] });
 
   observerB = spawn(process.execPath, [
     path.join(toolDir, "src", "observer.mjs"),
     ...common,
     "--label", "PLAYER-B",
-    "--page-index", "1",
+    "--page-url-contains", "participant=PLAYER-B",
   ], { cwd: toolDir, stdio: ["ignore", "pipe", "pipe"] });
 
   await Promise.all([
