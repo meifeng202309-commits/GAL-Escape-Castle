@@ -379,3 +379,33 @@ Before E2-A, run a Browser Observability Precheck on a disposable non-GAL page t
 - whether simultaneous sessions can remain active without crossover.
 
 This precheck must not modify GAL and must not expose gameplay knowledge to blind Players.
+
+
+## 17. Browser Observability Precheck finding — standard Project chat cannot drive GUI
+
+Teacher precheck result (2026-10-01):
+
+- A normal chat inside the fresh `GAL E2-A Blind Test` Project reported that it does not have a browser GUI control surface and could not perform the requested screenshot → click → screenshot sequence.
+- The UI suggested switching to ChatGPT Work / Cloud Browser for direct webpage operation.
+- Current OpenAI product guidance states that Work can use Cloud Browser for click/type web tasks, but Work is not available inside Projects configured with project-only memory.
+
+Implication:
+
+The earlier preferred shape:
+
+```text
+project-only-memory Project
+  ├─ blind chat G with direct browser
+  ├─ blind chat A with direct browser
+  └─ blind chat L with direct browser
+```
+
+is not currently viable using native Work browser control.
+
+Therefore do not build a Browser Control Bridge yet. The next lowest-development alternatives to evaluate are:
+
+1. Work sessions with the strongest available no-memory / no-personalization isolation (prefer unpersonalized temporary sessions if Work exposes that option in the Teacher's UI);
+2. if unavailable, a tightly controlled Work setup with account memory/custom personalization disabled for the duration of the blind run;
+3. only if native Work isolation/evidence is insufficient, reconsider a minimal external adapter.
+
+The existing project-only-memory Project may still be retained as a clean evidence/administrative container, but it should not be assumed to host browser-driving Work agents.
