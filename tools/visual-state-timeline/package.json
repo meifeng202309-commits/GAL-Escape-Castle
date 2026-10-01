@@ -1,0 +1,16 @@
+{
+  "name": "visual-state-timeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone Playwright observer for visual-state timelines and action/control event logs.",
+  "scripts": {
+    "observe": "node src/observer.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0"
+  }
+}
