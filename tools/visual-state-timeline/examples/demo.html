@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Visual State Timeline Demo</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:760px;margin:40px auto;padding:0 20px}
+button{margin:6px;padding:10px 14px}
+#status{padding:12px;border:1px solid #ccc;margin-top:16px}
+</style>
+</head>
+<body>
+<h1>Observer demo</h1>
+<p>This page is intentionally unrelated to GAL. It exists only to exercise generic observer behavior.</p>
+
+<div>
+  <button id="increment">Increment visible counter</button>
+  <button id="noop">No visible change</button>
+  <button id="delayed">Delayed automatic change</button>
+  <button id="error">Throw page error</button>
+</div>
+
+<p>Counter: <strong id="counter">0</strong></p>
+<div id="status" role="status">Ready.</div>
+
+<script>
+let count=0;
+document.querySelector("#increment").addEventListener("click",()=>{
+  count+=1;
+  document.querySelector("#counter").textContent=String(count);
+  document.querySelector("#status").textContent="Counter changed.";
+});
+document.querySelector("#noop").addEventListener("click",()=>{});
+document.querySelector("#delayed").addEventListener("click",()=>{
+  document.querySelector("#status").textContent="Waiting for delayed update…";
+  setTimeout(()=>{
+    document.querySelector("#status").textContent="Delayed update arrived without another click.";
+  },1200);
+});
+document.querySelector("#error").addEventListener("click",()=>{
+  setTimeout(()=>{ throw new Error("Deliberate observer demo error"); },50);
+});
+</script>
+</body>
+</html>
