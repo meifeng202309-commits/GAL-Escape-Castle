@@ -8,7 +8,8 @@
     "observe": "node src/observer.mjs",
     "report": "node src/render-report.mjs",
     "smoke": "node src/smoke-test.mjs",
-    "smoke:multi": "node src/multi-smoke-test.mjs"
+    "smoke:multi": "node src/multi-smoke-test.mjs",
+    "suite": "node src/run-suite.mjs"
   },
   "engines": {
     "node": ">=20"
