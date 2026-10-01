@@ -45,6 +45,9 @@ jobs:
           cat /tmp/vst-demo-http.log
           exit 1
 
+      - name: Syntax-check suite runner
+        run: node --check src/run-suite.mjs
+
       - name: Run observer smoke test
         run: npm run smoke
 
