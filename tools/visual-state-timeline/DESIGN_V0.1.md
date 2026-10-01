@@ -204,7 +204,7 @@ Useful metadata:
 
 V0.1 may classify observable behavior as:
 
-### VISIBLE_CHANGE_NETWORK_OK
+### VISIBLE_CHANGE_CORRELATED_NETWORK_OK
 
 The action correlated with successful network activity and a new rendered state.
 
@@ -214,7 +214,7 @@ The rendered state changed without correlated network evidence.
 
 This may be a local UI operation.
 
-### NETWORK_OK_NO_VISIBLE_CHANGE
+### CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE
 
 The browser observed successful network activity but the participant-visible state did not change.
 
@@ -231,6 +231,19 @@ No rendered change, successful network response, or recorded browser error was o
 This does not prove the control is defective. It flags the event for review.
 
 The observer must not emit "correct/incorrect gameplay behavior".
+
+### Network-correlation rule
+
+A continuously polling application can produce unrelated successful requests while a Player action is active. Therefore V0.1 does not attribute every response inside the action-finalization window to the control.
+
+Instead:
+
+- request start time is recorded;
+- only requests that begin within `networkCorrelationMs` of the action start are marked `near_action`;
+- later/background polling remains `background`;
+- only `near_action` network evidence contributes to an action's network-based classification.
+
+This is temporal correlation, not proof of semantic causation.
 
 ## 10. Action correlation window
 
@@ -317,7 +330,8 @@ The standalone tool is ready for first trial when it can demonstrate on any smal
 8. browser errors are logged;
 9. query strings/form values are not written into textual logs by default;
 10. two separate observer processes can write different participant folders under one run ID;
-11. static HTML report renders stored screenshots and action lineage.
+11. attached pages can be selected deterministically by URL marker rather than relying on CDP page order;
+12. static HTML report renders stored screenshots and action lineage.
 
 ## 15. Deferred capabilities
 
