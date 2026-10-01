@@ -1,0 +1,27 @@
+{
+  "run_id": "E2A-EXAMPLE-001",
+  "output": "./runs",
+  "settle_ms": 450,
+  "action_window_ms": 2200,
+  "network_correlation_ms": 500,
+  "mutation_debounce_ms": 350,
+  "pointer_attempt_ms": 750,
+  "participants": [
+    {
+      "label": "GAL-A",
+      "cdp": "http://127.0.0.1:9222"
+    },
+    {
+      "label": "GAL-B",
+      "cdp": "http://127.0.0.1:9223"
+    },
+    {
+      "label": "GAL-C",
+      "cdp": "http://127.0.0.1:9224"
+    },
+    {
+      "label": "Teacher",
+      "cdp": "http://127.0.0.1:9225"
+    }
+  ]
+}
