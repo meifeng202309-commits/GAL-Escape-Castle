@@ -621,6 +621,7 @@ function browserProbe(config) {
   };
 
   let pointerToken = 0;
+  let lastClickAt = 0;
 
   document.addEventListener("pointerdown", event => {
     const target = interactiveTarget(event.target);
@@ -639,11 +640,14 @@ function browserProbe(config) {
     const target = interactiveTarget(event.target);
     if (!target) return;
     pointerToken += 1;
+    lastClickAt = performance.now();
     emit({ type: "click", target: describe(target) });
   }, true);
 
   document.addEventListener("submit", event => {
     pointerToken += 1;
+    const submittedImmediatelyAfterClick = performance.now() - lastClickAt < 750;
+    if (submittedImmediatelyAfterClick) return;
     const submitter = event.submitter;
     emit({
       type: "form_submit",
@@ -816,8 +820,6 @@ async function shutdown(reason) {
   await writeFile(files.manifest, JSON.stringify(manifest, null, 2), "utf8");
 
   if (ownsBrowser) {
-    await browser.close().catch(() => {});
-  } else {
     await browser.close().catch(() => {});
   }
 
