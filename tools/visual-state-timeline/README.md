@@ -103,13 +103,15 @@ The observer does **not** decide whether a game choice was semantically correct.
 
 It reports observable functioning such as:
 
-- `VISIBLE_CHANGE_NETWORK_OK`
+- `VISIBLE_CHANGE_CORRELATED_NETWORK_OK`
 - `VISIBLE_CHANGE`
-- `NETWORK_OK_NO_VISIBLE_CHANGE`
+- `CORRELATED_NETWORK_OK_NO_VISIBLE_CHANGE`
 - `ERROR_OBSERVED`
 - `NO_OBSERVABLE_CHANGE`
 
 These are evidence classifications, not gameplay verdicts.
+
+Network attribution is intentionally conservative. A request is attached to an action only when its **request start** falls inside the configurable `--network-correlation-ms` window. Other polling/background requests remain in `network.jsonl` as `background` and do not make a no-op control appear functional.
 
 ### Technical evidence
 
@@ -155,9 +157,11 @@ Useful when another controller owns the browser session.
 
 Attach mode requires that the browser expose a CDP endpoint; not every managed/cloud browser does.
 
+When several pages exist in one attached browser, prefer `--page-url-contains <marker>` over page-index selection. This binds an observer deterministically to the intended page without relying on CDP page ordering.
+
 ## One observer process per participant
 
-For multi-user tests, prefer one observer process per participant:
+For multi-user tests, prefer one observer process per participant. The multi-participant smoke test has verified that two observer processes can write isolated participant folders under one run ID:
 
 ```text
 observer --label GAL-A ...
