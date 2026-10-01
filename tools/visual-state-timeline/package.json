@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Standalone Playwright observer for visual-state timelines and action/control event logs.",
   "scripts": {
-    "observe": "node src/observer.mjs"
+    "observe": "node src/observer.mjs",
+    "report": "node src/render-report.mjs"
   },
   "engines": {
     "node": ">=20"
