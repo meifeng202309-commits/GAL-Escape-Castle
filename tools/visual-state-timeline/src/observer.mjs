@@ -84,6 +84,7 @@ Options:
   --mutation-debounce-ms N    Browser mutation debounce (default: 350)
   --pointer-attempt-ms N      Pointerdown-without-click threshold (default: 750)
   --page-index N              Page index in attach mode (default: 0)
+  --page-url-contains TEXT    Prefer an attached page whose full URL contains TEXT
 `);
 }
 
@@ -187,7 +188,16 @@ if (args.cdp) {
     viewport: { width: options.width, height: options.height },
   });
   const pages = context.pages();
-  page = pages[options.pageIndex] || pages[0] || await context.newPage();
+  const urlMatch = args["page-url-contains"] ? String(args["page-url-contains"]) : null;
+  page = (urlMatch ? pages.find(candidate => candidate.url().includes(urlMatch)) : null)
+    || pages[options.pageIndex]
+    || pages[0]
+    || await context.newPage();
+
+  if (urlMatch && !page.url().includes(urlMatch)) {
+    throw new Error(`No attached page URL contained the requested selector: ${urlMatch}`);
+  }
+
   if (args.url && (page.url() === "about:blank" || boolArg(args.navigate, false))) {
     await page.goto(args.url, { waitUntil: "domcontentloaded" });
   }
