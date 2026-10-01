@@ -194,7 +194,7 @@ runs/<run-id>/
   Teacher/
 ```
 
-A static visual report/merged multi-participant timeline is a planned next layer after the capture core is proven.
+A static visual report generator is included. It creates a merged chronological index plus participant action tables and screenshot timelines.
 
 ## Privacy / evidence warning
 
@@ -233,6 +233,27 @@ Start Chromium with remote debugging enabled, then:
 node src/observer.mjs --cdp "http://127.0.0.1:9222" --label "GAL-A" --run-id "E2A-20261001-01" --output "./runs"
 ```
 
+## Generate a visual report
+
+After one or more participant observers have written into the same run directory:
+
+```powershell
+npm run report -- --run-dir "./runs/E2A-20261001-01"
+```
+
+Open the generated `index.html` locally. The report links every stored screenshot and shows action before/after state IDs.
+
+## Generic demo page
+
+`examples/demo.html` contains no GAL code. It provides:
+
+- a visible counter change;
+- a no-op button;
+- a delayed automatic state change;
+- a deliberate page error.
+
+It is intended for the first observer smoke test before any E2 use.
+
 ## Non-goals for V0.1
 
 V0.1 intentionally does not:
@@ -244,6 +265,6 @@ V0.1 intentionally does not:
 - repair a blocked run;
 - replace a blind player's own reasoning;
 - automatically classify a usability defect as a code defect;
-- merge four participant timelines into one visual report.
+- automatically infer semantic correctness from the merged report.
 
 Those belong to later analysis layers.
