@@ -409,3 +409,43 @@ Therefore do not build a Browser Control Bridge yet. The next lowest-development
 3. only if native Work isolation/evidence is insufficient, reconsider a minimal external adapter.
 
 The existing project-only-memory Project may still be retained as a clean evidence/administrative container, but it should not be assumed to host browser-driving Work agents.
+
+
+## 18. Native Work browser precheck — direct browsing and screenshots confirmed
+
+Teacher precheck result (2026-10-01):
+
+A fresh ChatGPT desktop-app Work chat successfully completed a generic browser task:
+
+1. open Google;
+2. search for `free music`;
+3. open the first organic result;
+4. preserve a screenshot visible from the Work result.
+
+Observed complications:
+
+- one earlier attempt missed the intended click target but the agent initially believed the click had succeeded;
+- Google result navigation encountered an in-browser redirect/intermediation issue;
+- the agent used a direct target-page open as recovery;
+- the destination (YouTube Music) rendered a region-availability message;
+- Work surfaced browser/permission activity and a screenshot.
+
+Interpretation:
+
+- **native Work browser control is viable enough for the E2-A Player role;**
+- screenshot evidence is natively available;
+- successful tool execution must not be equated with successful intended control activation;
+- the blind-player protocol should require the agent to verify the post-action rendered state rather than self-reporting a click as successful;
+- Google/search-result redirect and regional-content complications are not representative of GAL's normal same-application flow, so the next precheck should avoid search engines/external redirects and use a direct controlled web page;
+- Work's native browser evidence should be used first; the standalone Observer remains optional supplemental evidence only if an attachable browser session later becomes available.
+
+### Minimal control-verification rule for blind agents
+
+After any consequential click, the Blind Agent should:
+
+1. inspect the resulting rendered state;
+2. only report `click succeeded` when the visible page changed or presented a clear acknowledgement consistent with the intended control;
+3. otherwise report `click attempted — success not yet verified` and retry naturally if appropriate;
+4. never infer success solely from having issued a browser action.
+
+This is an experimental-observation rule, not GAL-specific gameplay knowledge.
