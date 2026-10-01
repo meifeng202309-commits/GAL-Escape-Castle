@@ -347,3 +347,35 @@ Not required for V0.1:
 - distributed agent control;
 - database mutation/recovery;
 - automatic E2 PASS/FAIL decision.
+
+
+## 16. E2-A browser integration decision — native browser first
+
+Teacher decision (2026-10-01):
+
+- Blind Agent chats are permitted to operate browser pages directly.
+- Minimize additional development and minimize operator complexity.
+- Do **not** build a Browser Control Bridge unless native browser control proves insufficient.
+
+Preferred integration order:
+
+1. **Native direct-browser operation first.**
+   Each blind Player chat operates its own browser session directly.
+2. **Observer sidecar only if the native browser session is externally observable.**
+   If the agent-controlled browser exposes a usable CDP/debug endpoint or an equivalent attachable session, use the existing Observer unchanged.
+3. **Native evidence fallback before new engineering.**
+   If the browser cannot be attached, first determine whether the native browser/Work environment can itself preserve screenshots and action history at meaningful state boundaries.
+4. **Only then consider a minimal adapter.**
+   A new browser-control bridge is a last resort, not the default architecture.
+
+Before E2-A, run a Browser Observability Precheck on a disposable non-GAL page to determine:
+
+- whether each blind chat has an independent browser session/profile;
+- whether cookies/localStorage/sessionStorage are isolated across chats;
+- whether the agent can reliably click/type/scroll/refresh;
+- whether screenshots can be preserved as files/evidence;
+- whether exact clicked-control/action history is recoverable;
+- whether the browser exposes CDP or another observer-attach mechanism;
+- whether simultaneous sessions can remain active without crossover.
+
+This precheck must not modify GAL and must not expose gameplay knowledge to blind Players.
