@@ -18,6 +18,7 @@ button{margin:6px;padding:10px 14px}
   <button id="increment">Increment visible counter</button>
   <button id="noop">No visible change</button>
   <button id="delayed">Delayed automatic change</button>
+  <button id="network">Network success, no visible change</button>
   <button id="error">Throw page error</button>
 </div>
 
@@ -37,6 +38,9 @@ document.querySelector("#delayed").addEventListener("click",()=>{
   setTimeout(()=>{
     document.querySelector("#status").textContent="Delayed update arrived without another click.";
   },1200);
+});
+document.querySelector("#network").addEventListener("click",()=>{
+  fetch("./ping.txt", { cache: "no-store" }).catch(()=>{});
 });
 document.querySelector("#error").addEventListener("click",()=>{
   setTimeout(()=>{ throw new Error("Deliberate observer demo error"); },50);
