@@ -7,7 +7,8 @@
   "scripts": {
     "observe": "node src/observer.mjs",
     "report": "node src/render-report.mjs",
-    "smoke": "node src/smoke-test.mjs"
+    "smoke": "node src/smoke-test.mjs",
+    "smoke:multi": "node src/multi-smoke-test.mjs"
   },
   "engines": {
     "node": ">=20"
