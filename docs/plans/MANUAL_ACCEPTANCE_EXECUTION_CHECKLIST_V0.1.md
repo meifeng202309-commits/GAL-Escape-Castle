@@ -9,57 +9,57 @@ Execute the bounded public deployment/readiness work before the human/manual acc
 
 ## A. Deployment preparation — CD
 
-- [ ] Create frozen deployment ref:
+- [x] Create frozen deployment ref:
   - `deploy/manual-acceptance-20261003`
   - exact target: `891feffe558a4683ac3da67e1e6b15e902c7e592`
-- [ ] Record current GitHub Pages source branch/folder.
-- [ ] Record exact current source commit.
-- [ ] Record current public Player URL.
-- [ ] Record current public Teacher URL.
-- [ ] Record pre-switch public fingerprints for:
+- [x] Record current GitHub Pages source branch/folder.
+- [x] Record exact current source commit.
+- [x] Record current public Player URL.
+- [x] Record current public Teacher URL.
+- [x] Record pre-switch public fingerprints for:
   - `index.html`
   - `teacher.html`
   - `src/game/app.js`
   - `src/teacher/teacher-console.js`
   - `src/styles/app.css`
-- [ ] If the current Pages source may move during the window, create a safety ref at the exact currently served commit.
+- [x] If the current Pages source may move during the window, create a safety ref at the exact currently served commit.
 
 ## B. Publish frozen frontend — CD
 
-- [ ] Switch GitHub Pages to the frozen deployment ref / agreed folder.
-- [ ] Wait for Pages publication completion.
-- [ ] Verify public Player and Teacher entry points resolve.
-- [ ] Compare public runtime-critical file fingerprints against the frozen deployment tree.
-- [ ] Do not continue if identity mismatches.
+- [x] Switch GitHub Pages to the frozen deployment ref / agreed folder.
+- [x] Wait for Pages publication completion.
+- [x] Verify public Player and Teacher entry points resolve.
+- [x] Compare public runtime-critical file fingerprints against the frozen deployment tree.
+- [x] Do not continue if identity mismatches.
 
 ## C. Disposable public smoke — CD with GA protocol ownership
 
-- [ ] Player page loads without material application errors.
-- [ ] Teacher page loads without material application errors.
-- [ ] Teacher can create/watch disposable room.
-- [ ] Three independent Player contexts can join.
-- [ ] Formal start works.
-- [ ] All three Players receive the correct role-private ACT1 surface.
-- [ ] Capture one ACT1 screenshot for EACH role:
+- [x] Player page loads without material application errors.
+- [x] Teacher page loads without material application errors.
+- [x] Teacher can create/watch disposable room.
+- [x] Three independent Player contexts can join.
+- [x] Formal start works.
+- [x] All three Players receive the correct role-private ACT1 surface.
+- [x] Capture one ACT1 screenshot for EACH role:
   - GAL-A / Gitte
   - GAL-B / Anna
   - GAL-C / Linda
-- [ ] Supabase is reachable.
-- [ ] One Player refresh/reconnect preserves the run.
-- [ ] No obvious recurrence of legacy pre-run/lifecycle defects.
+- [x] Supabase is reachable.
+- [x] One Player refresh/reconnect preserves the run.
+- [x] No obvious recurrence of legacy pre-run/lifecycle defects.
 
 ## D. Recovery readiness — bounded
 
-- [ ] Confirm ordinary Teacher controls render.
-- [ ] Confirm ordinary session/reconnect controls.
+- [x] Confirm ordinary Teacher controls render.
+- [x] Confirm ordinary session/reconnect controls.
 - [ ] Optional: in sacrificial room, verify one projected ACT1 Emergency Override only if `allowed_actions` exposes it.
-- [ ] Do NOT manufacture later runtime-group failures to test recovery.
-- [ ] Do NOT use `Advance legacy scene / s1_advance_scene` for formal ACT1–14 recovery.
+- [x] Do NOT manufacture later runtime-group failures to test recovery.
+- [x] Do NOT use `Advance legacy scene / s1_advance_scene` for formal ACT1–14 recovery.
 
 ## E. Rollback readiness — CD
 
-- [ ] Confirm exact pre-switch Pages source identity is recorded.
-- [ ] Confirm rollback procedure is operational:
+- [x] Confirm exact pre-switch Pages source identity is recorded.
+- [x] Confirm rollback procedure is operational:
   1. restore prior branch/folder;
   2. wait for Pages publish;
   3. verify restored public fingerprints;
