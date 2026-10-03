@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-03T19:35:00+08:00
+> Last refreshed: 2026-10-03T20:00:00+08:00
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = MANUAL_ACCEPTANCE_READINESS_V02_CA_REVIEW
-CURRENT_OWNER         = CA — review GA's corrected Manual Acceptance Readiness Plan V0.2; no deployment/runtime implementation is authorized yet
-NEXT_REQUIRED_ACTION  = CA reviews docs/plans/MANUAL_ACCEPTANCE_READINESS_PLAN_V0.2.md and agent-comms/GA_to_CA_20261003T193000Z_manual-acceptance-readiness-v02-critical-review.md for material objection; if none, concurrence returns to GA/Teacher for bounded CD Pages-deployment release
+CURRENT_GATE          = MANUAL_ACCEPTANCE_DEPLOYMENT_RELEASED
+CURRENT_OWNER         = CD — bounded deployment-only ownership under Manual Acceptance Readiness V0.2
+NEXT_REQUIRED_ACTION  = CD executes docs/plans/MANUAL_ACCEPTANCE_EXECUTION_CHECKLIST_V0.1.md under agent-comms/GA_to_CD_20261003T195500Z_release-manual-acceptance-deployment-package.md, then hands factual deployment/smoke evidence back to GA; no runtime/gameplay/database/media/timer/Teacher Console change is authorized
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
