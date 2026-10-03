@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-03T20:20:00+08:00
+> Last refreshed: 2026-10-03T23:35:00+08:00
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = MANUAL_ACCEPTANCE_READY_FOR_HUMAN_RUN
-CURRENT_OWNER         = GA / Teacher — public frozen deployment and disposable smoke passed; CD deployment ownership is closed
-NEXT_REQUIRED_ACTION  = GA/Teacher execute the human/manual ACT1–ACT14 acceptance run on the frozen public deployment under Manual Acceptance Readiness V0.2, recording material defects, Teacher extensions/interventions, milestone screenshots, and final classification
+CURRENT_GATE          = MANUAL_ACCEPTANCE_BLOCKED_ACT7_S5_ADD_TIME_RECOVERY
+CURRENT_OWNER         = CD — narrow Sprint5 timed-vote recovery residual from human/manual acceptance
+NEXT_REQUIRED_ACTION  = CD implements and verifies the bounded ACT7/Sprint5 Add Time recovery correction under agent-comms/GA_to_CD_20261003T233000Z_act7-round2-timeout-recovery-blocker.md, then hands evidence back to GA for a fresh manual ACT1–ACT14 run
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -1282,3 +1282,13 @@ CD deployment completion (2026-10-03):
 - rollback ref preserved at `safety/pages-before-manual-acceptance-20261003`.
 - non-blocking observation: after Gitte reload, `#playerLabel` chrome is blank even though GAL-A/Gitte session identity and exact private ACT1 state remain intact.
 - ownership returned from CD to GA/Teacher for the human ACT1–ACT14 manual acceptance run.
+
+
+Manual acceptance ACT7 blocker (2026-10-03):
+- live human run room: `TEST01`;
+- symptom: ACT7 Clock Room vote round 2 reached `waiting_for_missing_player` with 0/3 votes and no Clock A/B/C vote controls;
+- source diagnosis: `s5_teacher_add_time` extends the deadline but does not reopen `waiting_for_missing_player → voting`, unlike `s2_add_time`;
+- current authorized Teacher UI has no valid ACT7 recovery from that state;
+- current manual run stopped; no ad hoc DB/RPC mutation permitted;
+- evidence: `docs/reports/manual-acceptance/20261003_ACT7_ROUND2_NO_VOTE_RECOVERY_BLOCKER.md`;
+- handoff: `agent-comms/GA_to_CD_20261003T233000Z_act7-round2-timeout-recovery-blocker.md`.
