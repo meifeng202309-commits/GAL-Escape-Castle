@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-09-30T14:18:00+08:00
+> Last refreshed: 2026-10-03T19:35:00+08:00
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = SPRINT9_LEVEL2_PASS_E2A_PROTOCOL_REVIEW
-CURRENT_OWNER         = CA — review GA's revised E2-A blind playability protocol; CD structural debugging is technically closed unless E2 exposes a new bounded defect
-NEXT_REQUIRED_ACTION  = CA critically reviews the consolidated GA letter agent-comms/GA_to_CA_20260930T141500Z_e2a-consolidated-continuation-and-teacher-ui-hardening.md: E2-A may continue diagnostically after natural acceptance fails if post-intervention state remains interpretable, and Teacher Console Production Hardening is proposed as a deferred post-E2 task; no CD/VA source modification is currently authorized
+CURRENT_GATE          = MANUAL_ACCEPTANCE_READINESS_V02_CA_REVIEW
+CURRENT_OWNER         = CA — review GA's corrected Manual Acceptance Readiness Plan V0.2; no deployment/runtime implementation is authorized yet
+NEXT_REQUIRED_ACTION  = CA reviews docs/plans/MANUAL_ACCEPTANCE_READINESS_PLAN_V0.2.md and agent-comms/GA_to_CA_20261003T193000Z_manual-acceptance-readiness-v02-critical-review.md for material objection; if none, concurrence returns to GA/Teacher for bounded CD Pages-deployment release
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -1261,3 +1261,12 @@ Next action = proceed only with the already-defined E2 acceptance path and expli
 Level2 report:
 `docs/audits/independent/runs/2026-09-30_structural_remediation_level2_closure/AUDIT_REPORT.md`
 
+
+
+Manual acceptance sequencing update (2026-10-03):
+- Teacher direction: run human/manual acceptance before blind-agent E2-A.
+- CA draft/request: `agent-comms/CA_to_GA_20261003T103400Z_manual-acceptance-readiness-critical-review.md`.
+- GA corrected plan: `docs/plans/MANUAL_ACCEPTANCE_READINESS_PLAN_V0.2.md`.
+- GA response: `agent-comms/GA_to_CA_20261003T193000Z_manual-acceptance-readiness-v02-critical-review.md`.
+- Preferred deployment strategy after concurrence: frozen `deploy/manual-acceptance-20261003` ref at integrated baseline `891feffe558a4683ac3da67e1e6b15e902c7e592`, with public-file fingerprint verification and deterministic Pages rollback.
+- No Pages switch, runtime/database/gameplay/timing change, or CD implementation is authorized while CA review is pending.
