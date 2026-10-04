@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — Teacher-approved UI presentation package
-CURRENT_GATE          = THREE_PAGE_UI_LAYOUT_IMPLEMENTATION_IN_PROGRESS
-CURRENT_OWNER         = CD — bounded three-page V4 UI presentation package only
-NEXT_REQUIRED_ACTION  = CD implements agent-comms/GA_to_CD_20261004T234500Z_release-approved-three-page-ui-layout.md using only docs/prototypes/round1-ui-v4/GAL_Player_Page.html, GAL_Scene_Transition.html, and Teacher_Console.html as prototype targets; then returns responsive/browser regression evidence and STOPS. WP-R1 timing/backend, GRAB semantics, Pocket backend/image-binding architecture, Library lock redesign, Teacher operational-location projection, and review-only Teacher subpages remain unauthorized.
+CURRENT_GATE          = FIVE_PAGE_UI_LAYOUT_IMPLEMENTATION_IN_PROGRESS
+CURRENT_OWNER         = CD — bounded five-page approved UI presentation package
+NEXT_REQUIRED_ACTION  = CD implements agent-comms/GA_to_CD_20261004T235500Z_supersede-ui-release-with-five-approved-pages.md using only the five approved files under docs/prototypes/round1-ui-v4/, returns responsive/browser regression evidence, then STOPS. Backend timing, GRAB semantics, new Pocket backend/image-binding architecture, Library lock gameplay redesign, Teacher operational-location backend projection, and broad database/RPC changes remain unauthorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
