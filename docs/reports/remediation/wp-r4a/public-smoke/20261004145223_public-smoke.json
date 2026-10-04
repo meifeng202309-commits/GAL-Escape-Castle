@@ -1,0 +1,91 @@
+{
+  "baseUrl": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/",
+  "frozenSha": "891feffe558a4683ac3da67e1e6b15e902c7e592",
+  "startedAt": "2026-10-04T14:52:23.639Z",
+  "result": "PASS",
+  "checks": {
+    "room": "MAAF3E05",
+    "teacherCreatedAndWatching": true,
+    "ordinaryControls": {
+      "startFormalRun": true,
+      "refreshOperations": true,
+      "releaseSessionCount": 3,
+      "overridePanelRendered": true
+    },
+    "staggeredJoinOrder": [
+      "Gitte",
+      "Anna",
+      "Linda"
+    ],
+    "staggered": [
+      {
+        "role": "Gitte",
+        "waiting": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      },
+      {
+        "role": "Anna",
+        "waiting": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      },
+      {
+        "role": "Linda",
+        "waiting": "CASTLE ESCAPE RUNTIME\n\nYou are connected. Wait for the Teacher to start the formal run."
+      }
+    ],
+    "formalStart": true,
+    "act1RolePrivate": true,
+    "act1": [
+      {
+        "role": "Gitte",
+        "roleLabel": "GITTE · MAAF3E05",
+        "surface": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nEen lage, kleverige, nat klinkende stem blijft fluisteren:一个低沉、黏糊、湿漉漉的声音在反复低语：De Slangenkoning in de kapel... is heel kwaad.礼拜堂里的蛇王……很生气。Je wordt wakker in een oud houten bed. De stem is weg.你在一张旧木床上醒来。那个声音消失了。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号4 – 1 – 7 – 3 – 94 – 1 – 7 – 3 – 9VERTREK VOOR MIDDERNACHT午夜前离开Boem.咚。Het klinkt alsof er iets tegen de muur botst.像有东西撞上了墙。Wat doe je eerst?你首先做什么？\n[DOORGAAN][继续]"
+      },
+      {
+        "role": "Anna",
+        "roleLabel": "ANNA · MAAF3E05",
+        "surface": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nJe wordt wakker terwijl je op de koude vloer zit.你醒来时正坐在冰冷的地板上。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号M. DE WIT — 1897M. DE WIT — 1897OOSTELIJKE GASTENVLEUGEL东侧客房区NA DE NACHTKLOK WORDT DE BUITENTOEGANG TOT DE GROTE ZAAL VAN BINNENUIT AFGESLOTEN.夜钟响过后，大厅的外部入口会从内部封闭。\n[DOORGAAN][继续]"
+      },
+      {
+        "role": "Linda",
+        "roleLabel": "LINDA · MAAF3E05",
+        "surface": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nJe wordt wakker in een kleine studeerkamer.你在一间小书房里醒来。TIJD — 23:49时间 — 23:49GEEN SIGNAAL无信号23:4923:49★ ZILVEREN SLEUTEL★ 银钥匙Je staat op en stoot tegen de rand van het bureau.你站起来时撞到了桌边。Het zware boek valt op de vloer.那本厚重的书掉到了地上。Een vergeeld vel papier glijdt tussen de bladzijden vandaan.一张泛黄的纸从书页之间滑了出来。GEMEENTE LAARNESLUITINGSBEVEL — 01. 04. 1897WESTTOREN TOT NADER ORDER GESLOTEN\n[DOORGAAN][继续]"
+      }
+    ],
+    "reconnect": {
+      "before": {
+        "role": "Gitte",
+        "roleLabel": "GITTE · MAAF3E05",
+        "surface": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nEen lage, kleverige, nat klinkende stem blijft fluisteren:一个低沉、黏糊、湿漉漉的声音在反复低语：De Slangenkoning in de kapel... is heel kwaad.礼拜堂里的蛇王……很生气。Je wordt wakker in een oud houten bed. De stem is weg.你在一张旧木床上醒来。那个声音消失了。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号4 – 1 – 7 – 3 – 94 – 1 – 7 – 3 – 9VERTREK VOOR MIDDERNACHT午夜前离开Boem.咚。Het klinkt alsof er iets tegen de muur botst.像有东西撞上了墙。Wat doe je eerst?你首先做什么？\n[DOORGAAN][继续]"
+      },
+      "after": {
+        "roleLabel": "",
+        "surface": "CASTLE ESCAPE RUNTIME\n\nDe klok tikt. Het gevaar komt dichterbij.\n时间正在流逝。危险正在逼近。\nEen lage, kleverige, nat klinkende stem blijft fluisteren:一个低沉、黏糊、湿漉漉的声音在反复低语：De Slangenkoning in de kapel... is heel kwaad.礼拜堂里的蛇王……很生气。Je wordt wakker in een oud houten bed. De stem is weg.你在一张旧木床上醒来。那个声音消失了。TIJD — 23:47时间 — 23:47GEEN SIGNAAL无信号4 – 1 – 7 – 3 – 94 – 1 – 7 – 3 – 9VERTREK VOOR MIDDERNACHT午夜前离开Boem.咚。Het klinkt alsof er iets tegen de muur botst.像有东西撞上了墙。Wat doe je eerst?你首先做什么？\n[DOORGAAN][继续]",
+        "storedSession": {
+          "room_code": "MAAF3E05",
+          "display_name": "Gitte",
+          "role_slot": "GAL-A"
+        }
+      },
+      "preserved": true,
+      "observation": "Player label is blank after reload, while stored GAL-A identity and the complete private ACT1 surface are preserved."
+    },
+    "supabaseReachable": true,
+    "materialBrowserErrorCount": 0
+  },
+  "browserErrors": [
+    {
+      "label": "teacher",
+      "type": "console",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://meifeng202309-commits.github.io/favicon.ico"
+    }
+  ],
+  "screenshots": [
+    "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_teacher-pre-run-three-players.png",
+    "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_act1-gitte.png",
+    "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_act1-anna.png",
+    "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_act1-linda.png",
+    "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_act1-gitte-after-reconnect.png",
+    "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_teacher-after-formal-start.png"
+  ],
+  "finishedAt": "2026-10-04T14:52:40.586Z"
+}

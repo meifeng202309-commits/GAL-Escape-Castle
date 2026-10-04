@@ -22,7 +22,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-02"
       ],
@@ -39,7 +39,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-02"
       ],
@@ -56,7 +56,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-02",
         "MASTER-04"
@@ -74,7 +74,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-03"
       ],
@@ -91,7 +91,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -108,7 +108,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -125,7 +125,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -142,7 +142,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -159,7 +159,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -177,7 +177,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -195,7 +195,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -212,7 +212,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": 1,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-02",
         "MASTER-03"
@@ -233,7 +233,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-05"
       ],
@@ -251,7 +251,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -268,7 +268,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-02"
       ],
@@ -288,7 +288,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "shared.portrait_hall"
       ],
@@ -307,7 +307,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-02",
         "MASTER-03"
@@ -330,7 +330,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-05"
       ],
@@ -347,7 +347,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-02",
         "MASTER-03"
@@ -369,7 +369,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
       ],
@@ -387,7 +387,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-01",
         "MASTER-03"
@@ -411,7 +411,7 @@
       ],
       "asset_type": "image",
       "latest_version": 2,
-      "active_version": null,
+      "active_version": 2,
       "continuity_refs": [
         "MASTER-01"
       ],

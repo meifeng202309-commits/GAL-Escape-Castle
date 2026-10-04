@@ -1,0 +1,448 @@
+{
+  "schema_version": "1.0",
+  "work_package": "WP-R4A",
+  "scope": "image_runtime_publication_activation",
+  "started_at": "2026-10-04T14:50:30.814Z",
+  "result": "PASS",
+  "registry_sync": {
+    "ok": true,
+    "asset_count": 28,
+    "registry_sha256": "7dbfe8d346126a1b6d05fea8bd3025d56e6431693f154e92a7e352e7b554e9a9"
+  },
+  "activation_groups": [
+    {
+      "group": "single:opening.gitte_room",
+      "asset_keys": [
+        "opening.gitte_room"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:opening.anna_room",
+      "asset_keys": [
+        "opening.anna_room"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:opening.linda_study",
+      "asset_keys": [
+        "opening.linda_study"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:prop_gitte_castle_map",
+      "asset_keys": [
+        "prop_gitte_castle_map"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "gitte_number_note",
+      "asset_keys": [
+        "prop_gitte_number_note_front",
+        "prop_gitte_number_note_back"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:prop_anna_diary_open",
+      "asset_keys": [
+        "prop_anna_diary_open"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "linda_pocket_watch",
+      "asset_keys": [
+        "prop_linda_watch_face",
+        "prop_linda_watch_back"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:prop_linda_closure_order",
+      "asset_keys": [
+        "prop_linda_closure_order"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:prop_linda_star_key",
+      "asset_keys": [
+        "prop_linda_star_key"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:shared.library",
+      "asset_keys": [
+        "shared.library"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "photo_1897_west_tower_payoff",
+      "asset_keys": [
+        "prop.photo_1897",
+        "shared.west_tower_payoff"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:prop.library_clock_clue_note",
+      "asset_keys": [
+        "prop.library_clock_clue_note"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "portrait_hall_eye_overlay",
+      "asset_keys": [
+        "shared.portrait_hall",
+        "overlay.portrait_eyes_open"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:shared.clock_room",
+      "asset_keys": [
+        "shared.clock_room"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:shared.great_hall",
+      "asset_keys": [
+        "shared.great_hall"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:prop.golden_key",
+      "asset_keys": [
+        "prop.golden_key"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:shared.main_gate",
+      "asset_keys": [
+        "shared.main_gate"
+      ],
+      "result": "ACTIVATED"
+    },
+    {
+      "group": "single:ending.castle_exterior",
+      "asset_keys": [
+        "ending.castle_exterior"
+      ],
+      "result": "ACTIVATED"
+    }
+  ],
+  "assets": [
+    {
+      "asset_key": "opening.gitte_room",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "0d3c53704bd34a333f5856fc150c19f729347f768e3ed3c65f66a171e875088b",
+      "storage_path": "game-assets/opening.gitte_room/v002/opening.gitte_room__v002.webp"
+    },
+    {
+      "asset_key": "opening.anna_room",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "625bdc565b2a88728e732916430fd9d256e7f2f02f8beb62edc79f535f25e0c2",
+      "storage_path": "game-assets/opening.anna_room/v002/opening.anna_room__v002.webp"
+    },
+    {
+      "asset_key": "opening.linda_study",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "456a8d3357c5bbf5109c400f1720c00b7708fe11c0f465146ad6c1d7ea6fcb56",
+      "storage_path": "game-assets/opening.linda_study/v002/opening.linda_study__v002.webp"
+    },
+    {
+      "asset_key": "prop_gitte_castle_map",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "1239994a4292744ba92523115378b5481e1d7c019168ca8525ed1fd51cc50672",
+      "storage_path": "game-assets/prop_gitte_castle_map/v001/prop_gitte_castle_map__v001.webp"
+    },
+    {
+      "asset_key": "prop_gitte_number_note_front",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "e2fd0b3ae97b9c423312bf8f8d4ed455591eb8e2a6bc291cf26199fdce50e556",
+      "storage_path": "game-assets/prop_gitte_number_note_front/v001/prop_gitte_number_note_front__v001.webp"
+    },
+    {
+      "asset_key": "prop_gitte_number_note_back",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "9321736c733f4d092ae010cc6142e395017d101cb90934245a6878d8cc95665c",
+      "storage_path": "game-assets/prop_gitte_number_note_back/v001/prop_gitte_number_note_back__v001.webp"
+    },
+    {
+      "asset_key": "prop_anna_diary_open",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "ed91d7d3bcc074f8526d326472416d23d3d94527639d5ab6d5647717a68bd78f",
+      "storage_path": "game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp"
+    },
+    {
+      "asset_key": "prop_linda_watch_face",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "362d91f5423515a9906f6f08eed3c7d0bc4f6ed188e24b49e46d63fe44ec182a",
+      "storage_path": "game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp"
+    },
+    {
+      "asset_key": "prop_linda_watch_back",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "744cfff64a84cdeb86bc274ba0cf8bd78d30dc6c1ad4e9508cba8fb69be5bce8",
+      "storage_path": "game-assets/prop_linda_watch_back/v001/prop_linda_watch_back__v001.webp"
+    },
+    {
+      "asset_key": "prop_linda_closure_order",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "f2ee8acd24d795b03ea4f8828f38e7e2887437744c22bea607f231e2bf9b02f3",
+      "storage_path": "game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp"
+    },
+    {
+      "asset_key": "prop_linda_star_key",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "63beeac34468b32db1c74b76f78e53fe1dd95ac7d719eedbc19f32b93497677f",
+      "storage_path": "game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp"
+    },
+    {
+      "asset_key": "shared.library",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "PASS",
+      "residual_issue": null,
+      "sha256": "1744eadaa32a5b5827004f70d7c420fb23a8c279875901adb7c09cbb64b045a3",
+      "storage_path": "game-assets/shared.library/v002/shared.library__v002.webp"
+    },
+    {
+      "asset_key": "prop.photo_1897",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "6d3c5b7fa95c0bbbc35e041e9ceb4dce0abf0dc26ce78b609bea39c708f4dd55",
+      "storage_path": "game-assets/prop.photo_1897/v001/prop.photo_1897__v001.webp"
+    },
+    {
+      "asset_key": "prop.library_clock_clue_note",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "REUSED_VERIFIED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "844a7b60e71b66e0aaecc0421f50354d6a1899ce8085eb605a9a5252e5e890eb",
+      "storage_path": "game-assets/prop.library_clock_clue_note/v001/prop.library_clock_clue_note__v001.webp"
+    },
+    {
+      "asset_key": "shared.portrait_hall",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "PASS",
+      "residual_issue": null,
+      "sha256": "f3f7105d920d9f7b7135a893ae903aa5fee5b66cfbc8c3b99d5b991fe72fc971",
+      "storage_path": "game-assets/shared.portrait_hall/v001/shared.portrait_hall__v001.webp"
+    },
+    {
+      "asset_key": "overlay.portrait_eyes_open",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "PASS",
+      "residual_issue": null,
+      "sha256": "89a8b8609ec9a0fb685c9f5eef67fd388d4734bd8a2b9b1b96a4a8b26e6b6ecc",
+      "storage_path": "game-assets/overlay.portrait_eyes_open/v001/overlay.portrait_eyes_open__v001.webp"
+    },
+    {
+      "asset_key": "shared.clock_room",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "PASS",
+      "residual_issue": null,
+      "sha256": "7c641d444bf6d3501449664f89e64221ac9daecf7e2da0c6a2189d4f45967607",
+      "storage_path": "game-assets/shared.clock_room/v002/shared.clock_room__v002.webp"
+    },
+    {
+      "asset_key": "shared.west_tower_payoff",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "070143681fc49f93399e35bf0a6e29d9e1797c23e7ef2883d9d3437aa64dbe38",
+      "storage_path": "game-assets/shared.west_tower_payoff/v001/shared.west_tower_payoff__v001.webp"
+    },
+    {
+      "asset_key": "shared.great_hall",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "PASS",
+      "residual_issue": null,
+      "sha256": "7a4770c7209e6ebb7452ec0080cd9c9d18f629a02207f532a07d821a2dffdb1d",
+      "storage_path": "game-assets/shared.great_hall/v002/shared.great_hall__v002.webp"
+    },
+    {
+      "asset_key": "prop.golden_key",
+      "approved_version": 1,
+      "active_version": 1,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "64051ae487c480b35def8099f1f5b3d4a5e0edb8805471897ae637cc58a47ac8",
+      "storage_path": "game-assets/prop.golden_key/v001/prop.golden_key__v001.webp"
+    },
+    {
+      "asset_key": "shared.main_gate",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "PASS",
+      "residual_issue": null,
+      "sha256": "6185d9c7911016ba1fff591ab0358b1aae706303c8cb4b57c49da23b062cffa9",
+      "storage_path": "game-assets/shared.main_gate/v002/shared.main_gate__v002.webp"
+    },
+    {
+      "asset_key": "ending.castle_exterior",
+      "approved_version": 2,
+      "active_version": 2,
+      "publish_result": "PUBLISHED",
+      "resolver_result": "PASS",
+      "http_load_result": "PASS_200_SHA256",
+      "required_anchor_result": "NOT_REQUIRED",
+      "residual_issue": null,
+      "sha256": "03677f6e0fe0bebd3b91164088fbf92eec89df91566a811e32331dd56407429b",
+      "storage_path": "game-assets/ending.castle_exterior/v002/ending.castle_exterior__v002.webp"
+    }
+  ],
+  "active_load_failure_telemetry": {
+    "since": "2026-10-04T14:50:30.427Z",
+    "count": 0,
+    "events": []
+  },
+  "reviewer_authority": {
+    "type": "temporary_service_bootstrap",
+    "token_recorded": false,
+    "cleanup": "REMOVED"
+  },
+  "publisher_authority": {
+    "type": "disposable_teacher_room",
+    "room_code": "R4AE4B3C57B",
+    "token_recorded": false
+  },
+  "finished_at": "2026-10-04T14:54:00.281Z",
+  "unique_active_verification": {
+    "result": "PASS",
+    "image_key_count": 22,
+    "active_row_count": 22,
+    "mismatches": []
+  },
+  "normal_public_smoke": {
+    "result": "PASS",
+    "report_path": "docs\\reports\\remediation\\wp-r4a\\public-smoke\\20261004145223_public-smoke.json",
+    "started_at": "2026-10-04T14:52:23.639Z",
+    "finished_at": "2026-10-04T14:52:40.586Z",
+    "material_browser_error_count": 0,
+    "active_load_failure_telemetry": {
+      "since": "2026-10-04T14:52:23.639Z",
+      "count": 0,
+      "events": []
+    }
+  },
+  "temporary_reviewer_cleanup_verification": {
+    "result": "PASS",
+    "matching_rows": 0
+  }
+}
