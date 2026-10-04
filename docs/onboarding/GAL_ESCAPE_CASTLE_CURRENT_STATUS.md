@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-04T21:05:00+08:00
+> Last refreshed: 2026-10-04T23:47:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — WP-R4A asset runtime closure
-CURRENT_GATE          = WP_R4A_IMAGE_RUNTIME_PUBLICATION_ACTIVATION_IN_PROGRESS
-CURRENT_OWNER         = CD — bounded WP-R4A only
-NEXT_REQUIRED_ACTION  = CD executes agent-comms/GA_to_CD_20261004T205500Z_release-wpr4a-image-runtime-closure.md: publish/activate the frozen 22-image approved baseline, verify resolver/HTTP/anchors/integrity, produce per-asset closure evidence, then STOP and hand back to GA. WP-R1/R2/R3/R5 and WP-R4B remain unauthorized.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — Teacher-approved UI presentation package
+CURRENT_GATE          = THREE_PAGE_UI_LAYOUT_IMPLEMENTATION_IN_PROGRESS
+CURRENT_OWNER         = CD — bounded three-page V4 UI presentation package only
+NEXT_REQUIRED_ACTION  = CD implements agent-comms/GA_to_CD_20261004T234500Z_release-approved-three-page-ui-layout.md using only docs/prototypes/round1-ui-v4/GAL_Player_Page.html, GAL_Scene_Transition.html, and Teacher_Console.html as prototype targets; then returns responsive/browser regression evidence and STOPS. WP-R1 timing/backend, GRAB semantics, Pocket backend/image-binding architecture, Library lock redesign, Teacher operational-location projection, and review-only Teacher subpages remain unauthorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
