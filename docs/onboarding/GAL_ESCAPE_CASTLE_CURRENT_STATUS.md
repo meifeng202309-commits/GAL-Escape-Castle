@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-03T23:35:00+08:00
+> Last refreshed: 2026-10-04T21:05:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Sprint9 — Full Asset Integration / Visual Continuity Acceptance
-CURRENT_GATE          = MANUAL_ACCEPTANCE_BLOCKED_ACT7_S5_ADD_TIME_RECOVERY
-CURRENT_OWNER         = CD — narrow Sprint5 timed-vote recovery residual from human/manual acceptance
-NEXT_REQUIRED_ACTION  = CD implements and verifies the bounded ACT7/Sprint5 Add Time recovery correction under agent-comms/GA_to_CD_20261003T233000Z_act7-round2-timeout-recovery-blocker.md, then hands evidence back to GA for a fresh manual ACT1–ACT14 run
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — WP-R4A asset runtime closure
+CURRENT_GATE          = WP_R4A_IMAGE_RUNTIME_PUBLICATION_ACTIVATION_IN_PROGRESS
+CURRENT_OWNER         = CD — bounded WP-R4A only
+NEXT_REQUIRED_ACTION  = CD executes agent-comms/GA_to_CD_20261004T205500Z_release-wpr4a-image-runtime-closure.md: publish/activate the frozen 22-image approved baseline, verify resolver/HTTP/anchors/integrity, produce per-asset closure evidence, then STOP and hand back to GA. WP-R1/R2/R3/R5 and WP-R4B remain unauthorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
