@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-04T23:47:00+08:00
+> Last refreshed: 2026-10-05T01:02:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — Teacher-approved UI presentation package
-CURRENT_GATE          = FIVE_PAGE_UI_LAYOUT_IMPLEMENTATION_IN_PROGRESS
-CURRENT_OWNER         = CD — bounded five-page approved UI presentation package
-NEXT_REQUIRED_ACTION  = CD implements agent-comms/GA_to_CD_20261004T235500Z_supersede-ui-release-with-five-approved-pages.md using only the five approved files under docs/prototypes/round1-ui-v4/, returns responsive/browser regression evidence, then STOPS. Backend timing, GRAB semantics, new Pocket backend/image-binding architecture, Library lock gameplay redesign, Teacher operational-location backend projection, and broad database/RPC changes remain unauthorized.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — approved UI architecture impact review
+CURRENT_GATE          = UI_CHANGE_IMPACT_MAP_REQUIRED_BEFORE_SOURCE_EDITS
+CURRENT_OWNER         = CD — bounded five-page UI package, architecture guardrails active
+NEXT_REQUIRED_ACTION  = CD returns the pre-edit UI change-impact map required by agent-comms/GA_to_CD_20261005T005500Z_ui-layout-architecture-guardrails-and-change-impact-map.md. Do not treat prototype HTML as standalone replacement runtime pages. Preserve one Player runtime (index.html), one Teacher runtime (teacher.html), stable DOM/test contracts, and presentation-only scene transition. CA independent impact review proceeds in parallel.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
