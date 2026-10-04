@@ -1,0 +1,23 @@
+{
+  "asset_key": "opening.linda_study",
+  "display_name": "Linda's Study",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-02",
+    "MASTER-04"
+  ],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "opening.linda_study__v002.webp",
+  "width_px": 1024,
+  "height_px": 678,
+  "sha256": "456a8d3357c5bbf5109c400f1720c00b7708fe11c0f465146ad6c1d7ea6fcb56",
+  "source_png_sha256": "31b46208b24a10aaf6c7ef00746d28da022de7d727cf1a4c2d801a6f2f97daf1",
+  "source_note": "Teacher supplied the Linda opening-study artwork and directed VA to upload the selected photos on 2026-10-04. The user label was resolved to the existing canonical registry identity opening.linda_study; no new asset key was created.",
+  "revision_note": "Canonical runtime WebP packaging/resizing only from the Teacher-supplied source; source aspect ratio preserved.",
+  "technical_notes": "Exact text, numbers, labels, symbols, and interactive UI remain HTML/SVG/CSS-owned where required by V4.0. APPROVED is not ACTIVE; CD / Asset Manager retains publication and runtime activation authority."
+}

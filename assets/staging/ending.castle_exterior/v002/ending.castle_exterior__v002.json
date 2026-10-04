@@ -1,0 +1,22 @@
+{
+  "asset_key": "ending.castle_exterior",
+  "display_name": "Final Castle Exterior",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-01"
+  ],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "ending.castle_exterior__v002.webp",
+  "width_px": 1024,
+  "height_px": 576,
+  "sha256": "03677f6e0fe0bebd3b91164088fbf92eec89df91566a811e32331dd56407429b",
+  "source_png_sha256": "b2e8486ec242f9e8619e1f8208040e1e3823d3786992a1bb66bd552b8dd9f5fa",
+  "source_note": "Teacher supplied and selected this final exterior artwork for ending.castle_exterior and directed VA to upload the selected photos on 2026-10-04.",
+  "revision_note": "Canonical runtime WebP packaging/resizing only from the Teacher-supplied source; no added text or UI.",
+  "technical_notes": "Exact text, numbers, labels, symbols, and interactive UI remain HTML/SVG/CSS-owned where required by V4.0. APPROVED is not ACTIVE; CD / Asset Manager retains publication and runtime activation authority."
+}

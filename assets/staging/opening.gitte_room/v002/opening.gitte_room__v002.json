@@ -1,0 +1,22 @@
+{
+  "asset_key": "opening.gitte_room",
+  "display_name": "Gitte's Room",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-02"
+  ],
+  "paired_asset_group": null,
+  "required_anchors": [],
+  "filename": "opening.gitte_room__v002.webp",
+  "width_px": 1024,
+  "height_px": 576,
+  "sha256": "0d3c53704bd34a333f5856fc150c19f729347f768e3ed3c65f66a171e875088b",
+  "source_png_sha256": "178781da4fca6678d05d088ffc69835d6f0111c4231906af641f3d127a17a2aa",
+  "source_note": "Teacher supplied this exact opening-room artwork in the persistent VA chat and directed VA to upload the selected photos as final placeholder replacements on 2026-10-04.",
+  "revision_note": "Canonical runtime WebP packaging/resizing only from the Teacher-supplied source; no semantic redesign.",
+  "technical_notes": "Exact text, numbers, labels, symbols, and interactive UI remain HTML/SVG/CSS-owned where required by V4.0. APPROVED is not ACTIVE; CD / Asset Manager retains publication and runtime activation authority."
+}
