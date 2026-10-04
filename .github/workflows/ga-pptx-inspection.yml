@@ -110,3 +110,34 @@ jobs:
                       if nt:
                           print(f"- NOTES: {nt}")
               print("\nREPORT_END")
+
+      - name: OCR embedded screenshots
+        shell: bash
+        run: |
+          set -e
+          if ! command -v tesseract >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq tesseract-ocr
+          fi
+          rm -rf /tmp/ga-ppt-media && mkdir -p /tmp/ga-ppt-media
+          python - <<'PY'
+          import zipfile, os
+          p="agent-comms/第一轮测试问题截图.pptx"
+          out="/tmp/ga-ppt-media"
+          with zipfile.ZipFile(p) as z:
+              for n in z.namelist():
+                  if n.startswith("ppt/media/"):
+                      base=os.path.basename(n)
+                      with open(os.path.join(out,base),"wb") as f:
+                          f.write(z.read(n))
+          PY
+          echo OCR_START
+          for f in /tmp/ga-ppt-media/*; do
+            case "$f" in
+              *.png|*.jpg|*.jpeg)
+                echo "===== $(basename "$f") ====="
+                tesseract "$f" stdout --psm 6 2>/dev/null || true
+                ;;
+            esac
+          done
+          echo OCR_END
