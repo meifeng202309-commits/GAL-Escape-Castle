@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-05T01:02:00+08:00
+> Last refreshed: 2026-10-05T01:16:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — approved UI architecture impact review
-CURRENT_GATE          = UI_CHANGE_IMPACT_MAP_REQUIRED_BEFORE_SOURCE_EDITS
-CURRENT_OWNER         = CD — bounded five-page UI package, architecture guardrails active
-NEXT_REQUIRED_ACTION  = CD returns the pre-edit UI change-impact map required by agent-comms/GA_to_CD_20261005T005500Z_ui-layout-architecture-guardrails-and-change-impact-map.md. Do not treat prototype HTML as standalone replacement runtime pages. Preserve one Player runtime (index.html), one Teacher runtime (teacher.html), stable DOM/test contracts, and presentation-only scene transition. CA independent impact review proceeds in parallel.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — GA/CA UI-impact and workload reconciliation
+CURRENT_GATE          = HOLD_CD_PENDING_GA_CA_RECONCILIATION
+CURRENT_OWNER         = GA / CA — review and reconciliation only
+NEXT_REQUIRED_ACTION  = GA and CA reconcile docs/plans/ROUND1_REMEDIATION_WORKLOAD_ESTIMATE_V2.0.md and the layout-architecture consequences before any further CD implementation discussion. No additional CD instruction is authorized during this review gate.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
