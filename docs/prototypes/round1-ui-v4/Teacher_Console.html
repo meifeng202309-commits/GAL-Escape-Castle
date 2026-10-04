@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teacher Console Prototype V4</title>
+<style>
+:root{--bg:#111827;--panel:#1f2b3b;--panel2:#243246;--line:#53647a;--text:#fff;--muted:#c9d3df;--accent:#dcecff;--blue:#2f6eaa}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);font-family:"Noto Sans SC","Microsoft YaHei","Segoe UI",Arial,sans-serif;color:var(--text);line-height:1.45}
+.page{width:100%;max-width:none;margin:0;padding:clamp(8px,1vw,18px)}
+.shell{width:100%;background:#172232;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.top{display:grid;grid-template-columns:minmax(420px,1.45fr) minmax(360px,1fr);gap:18px;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px;margin-bottom:16px}
+.title{font-size:clamp(28px,2.5vw,42px);font-weight:900;margin-bottom:4px}.subtitle{font-size:15px;color:var(--muted)}.host{background:#30445d;border-radius:10px;padding:12px 14px;font-size:15px}.host strong{display:block;margin-bottom:3px}
+.main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(460px,1fr);gap:14px;align-items:stretch}
+.panel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel);min-height:470px}.head{padding:11px 14px;background:#182536;border-bottom:1px solid var(--line);color:var(--accent);font-size:16px;font-weight:800}.body{padding:15px}
+.room{font-size:15px;margin-bottom:12px}.players{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.player{border:1px solid var(--line);border-radius:10px;padding:12px;background:#1b2838;font-size:14px}.player strong{font-size:15px}.muted{color:var(--muted)}
+.ops{margin-top:12px;border:1px solid #607692;border-radius:10px;background:var(--panel2);padding:13px;font-size:15px}.ops div{margin:3px 0}
+.btn{display:inline-block;border:1px solid #7e98b8;border-radius:8px;padding:9px 13px;background:#27384d;color:#fff;font-size:14px;font-weight:800;margin:4px}.btn.primary{background:var(--blue);border-color:#77a7da}
+.transcript{height:clamp(300px,44vh,620px);overflow-y:auto;margin-top:10px;border:1px solid #657a94;border-radius:10px;background:#111c2a;padding:8px}.bubble{padding:10px 8px;border-bottom:1px solid #44566d;font-size:14px}.bubble:last-child{border-bottom:0}.bubble .nl{color:var(--muted)}
+.collapsed{margin-top:14px;border:1px solid #657a94;border-radius:10px;padding:14px;background:#1b2838;font-size:15px;font-weight:800;color:#fff}
+@media (max-width:1399px) and (min-width:1000px){.main{grid-template-columns:minmax(0,1.25fr) minmax(430px,1fr)}.transcript{height:clamp(280px,40vh,540px)}}
+@media(max-width:999px){.top,.main,.players{grid-template-columns:1fr}.panel{min-height:auto}.transcript{height:clamp(260px,38vh,480px)}}
+</style>
+</head>
+<body>
+<div class="page"><div class="shell">
+  <div class="top">
+    <div><div class="title">教师控制台 / LEERKRACHTCONSOLE</div><div class="subtitle">房间已就绪 · 3名玩家已连接 / Kamer gereed · 3 spelers verbonden</div></div>
+    <div class="host"><strong>主要主持控制 / HOOFDBESTURING</strong>当前房间与游戏状态 / Huidige kamer- en spelstatus</div>
+  </div>
+
+  <div class="main">
+    <section class="panel">
+      <div class="head">实时运行 / 游戏控制　·　LIVE BEDIENING / SPELVERLOOP</div>
+      <div class="body">
+        <div class="room"><strong>房间代码 / Kamercode:</strong> XXXX</div>
+        <div class="players">
+          <div class="player"><strong>Gitte</strong><br>已连接 ✓ / Verbonden ✓<br><span class="muted">等待投票 / wacht op stemming</span></div>
+          <div class="player"><strong>Anna</strong><br>已连接 ✓ / Verbonden ✓<br><span class="muted">已投票 / gestemd</span></div>
+          <div class="player"><strong>Linda</strong><br>已连接 ✓ / Verbonden ✓<br><span class="muted">已投票 / gestemd</span></div>
+        </div>
+        <div class="ops">
+          <div><strong>当前幕 / Huidige ACT:</strong> 第7幕 — 钟表厅 / ACT 7 — Klokkenkamer</div>
+          <div><strong>当前阶段 / Huidige fase:</strong> 第2轮投票 / Stemronde 2</div>
+          <div><strong>当前地点 / Huidige locatie:</strong> 钟表厅 / Klokkenkamer</div>
+          <div style="margin-top:9px"><span class="btn primary">开始正式游戏 / Formeel spel starten</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="head">讨论室　·　DISCUSSIERUIMTE</div>
+      <div class="body">
+        <div><strong>当前讨论状态 / Huidige discussiestatus:</strong> 投票已开放 / stemming geopend</div>
+        <div style="margin:10px 0"><span class="btn">开启投票 / Stemming openen</span><span class="btn">结束讨论 / Discussie sluiten</span><span class="btn">强制推进 / Geforceerd verder</span></div>
+        <div class="transcript">
+          <div class="bubble"><strong>Gitte:</strong> 我认为箱子的密码要用那张纸条。<br><span class="nl">Ik denk dat de code van de kist het briefje gebruikt.</span></div>
+          <div class="bubble"><strong>Anna:</strong> 我同意。我们应该试最后一位数字。<br><span class="nl">Ik ben het eens. We moeten het laatste cijfer proberen.</span></div>
+          <div class="bubble"><strong>Linda:</strong> 我们投票决定最后一位吧。<br><span class="nl">Laten we stemmen over het laatste cijfer.</span></div>
+          <div class="bubble"><strong>Gitte:</strong> 我先看数字纸条。<br><span class="nl">Ik kijk eerst naar het cijferbriefje.</span></div>
+          <div class="bubble"><strong>Anna:</strong> 我来核对地图。<br><span class="nl">Ik controleer de kaart.</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="collapsed">紧急 / 恢复　·　NOOD / HERSTEL</div>
+  <div class="collapsed">维护 / 开发者　·　ONDERHOUD / ONTWIKKELAAR</div>
+</div></div>
+</body>
+</html>
