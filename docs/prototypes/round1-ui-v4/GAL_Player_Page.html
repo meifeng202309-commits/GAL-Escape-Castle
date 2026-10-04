@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GAL Player Page Prototype V4</title>
+<style>
+:root{--bg:#111827;--panel:#1f2b3b;--panel2:#243246;--line:#53647a;--text:#fff;--muted:#c9d3df;--accent:#dcecff;--blue:#2f6eaa}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans SC","Microsoft YaHei","Segoe UI",Arial,sans-serif;line-height:1.45}
+.page{width:100%;max-width:none;margin:0;padding:clamp(8px,1vw,18px)}
+.shell{width:100%;background:#172232;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 10px 28px rgba(0,0,0,.25)}
+.header{display:grid;grid-template-columns:minmax(230px,.85fr) minmax(360px,1.7fr) minmax(360px,1.2fr);border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden;margin-bottom:14px}
+.identity,.game-title,.task{padding:16px}.identity{border-right:1px solid var(--line)}
+.identity .name{font-size:26px;font-weight:800;margin-bottom:6px}.meta{font-size:14px;color:var(--muted);margin:3px 0}
+.game-title{display:flex;flex-direction:column;justify-content:center}.game-title .official{font-size:clamp(38px,3.1vw,58px);line-height:1;font-weight:900;white-space:nowrap}.game-title .bi{font-size:15px;color:var(--muted);margin-top:8px}
+.task-wrap{padding:12px}.task{height:100%;border-radius:10px;background:#30445d;padding:14px;display:flex;flex-direction:column;justify-content:center}.task .label,.task .body{font-size:16px}.task .label{font-weight:800;margin-bottom:4px}
+
+.main{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(430px,1fr);grid-template-areas:"scene action" "scene discussion" "story pocket";grid-template-rows:auto minmax(360px,auto) auto;gap:14px;align-items:stretch}
+.panel{border:1px solid var(--line);border-radius:12px;background:var(--panel);overflow:hidden}
+.panel-head{padding:11px 14px;border-bottom:1px solid var(--line);background:#182536;color:var(--accent);font-weight:800;font-size:14px}.panel-body{padding:13px}
+.scene-panel{grid-area:scene;display:flex;flex-direction:column}.scene-panel .panel-body{flex:1;display:flex}
+.scene{flex:1;min-height:clamp(500px,64vh,820px);border:1px solid #60728b;border-radius:10px;background:linear-gradient(180deg,#34485f,#25364a);display:flex;align-items:center;justify-content:center;text-align:center;font-size:22px;font-weight:800;color:#fff;padding:22px}
+.story-panel{grid-area:story;min-height:220px}.story{font-size:15px}.story p{margin:10px 0}
+.action-panel{grid-area:action}.discussion-panel{grid-area:discussion;display:flex;flex-direction:column}.discussion-panel .panel-body{display:flex;flex-direction:column;min-height:0;flex:1}.pocket-panel{grid-area:pocket}
+.action-card{border:1px solid #5c718c;border-radius:10px;background:var(--panel2);padding:13px}.action-card h3{font-size:19px;margin:0 0 8px}.action-card p{font-size:15px;margin:0 0 10px}
+.btn{display:inline-block;border:1px solid #7e98b8;border-radius:8px;padding:9px 13px;background:#27384d;color:#fff;font-size:14px;font-weight:800;margin:3px}.btn.primary{background:var(--blue);border-color:#75a8dc}
+.transcript{height:clamp(320px,44vh,640px);overflow-y:auto;border:1px solid #657a94;border-radius:9px;background:#111c2a;padding:8px;scrollbar-color:#8798ad #1a2737}
+.message{padding:10px 8px;border-bottom:1px solid #44566d;font-size:15px}.message:last-child{border-bottom:0}.message .nl{color:var(--muted)}
+.input{border:1px solid #657a94;border-radius:8px;padding:11px;color:#d7e1ec;background:#172232;font-size:14px;margin:9px 0}
+.pocket{display:grid;grid-template-columns:minmax(140px,.8fr) minmax(210px,1.4fr);gap:10px}.items{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}.items li{padding:10px;border-bottom:1px solid var(--line);font-size:13px;background:#1b2838}.items li:last-child{border-bottom:0}.items .active{background:#35506d;color:#fff;font-weight:800}.detail{border:1px solid var(--line);border-radius:10px;padding:10px;background:#1b2838}.detail-title{font-weight:800;font-size:14px}.detail-img{height:130px;border:1px solid #657a94;border-radius:9px;margin:8px 0;display:flex;align-items:center;justify-content:center;text-align:center;background:#111c2a;color:#d4deea;font-size:13px}.detail-text{font-size:13px;color:var(--muted)}
+
+@media (max-width:1399px) and (min-width:1000px){
+  .main{grid-template-columns:minmax(0,1.5fr) minmax(420px,1fr)}
+  .game-title .official{font-size:clamp(36px,3.2vw,50px)}
+  .transcript{height:clamp(300px,40vh,540px)}
+}
+@media(max-width:999px){
+  .header{grid-template-columns:1fr}.identity{border-right:0;border-bottom:1px solid var(--line)}.game-title .official{white-space:normal}
+  .main{grid-template-columns:1fr;grid-template-areas:"scene" "action" "discussion" "story" "pocket";grid-template-rows:auto}
+  .scene{min-height:360px}.transcript{height:clamp(280px,40vh,500px)}.pocket{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page"><div class="shell">
+  <div class="header">
+    <div class="identity">
+      <div class="name">我是 ANNA / Ik ben ANNA</div>
+      <div class="meta">第3幕 · 图书馆 / ACT 3 · Bibliotheek</div>
+      <div class="meta">当前状态：等待你投票 / Huidige status: wachten op jouw stem</div>
+    </div>
+    <div class="game-title">
+      <div class="official">GAL Escape Castle</div>
+      <div class="bi">GAL 古堡逃脱 / GAL Ontsnapping uit het kasteel</div>
+    </div>
+    <div class="task-wrap"><div class="task">
+      <div class="label">当前任务 / Huidige taak</div>
+      <div class="body">阅读线索后投票。/ Stem nadat je de aanwijzing hebt gelezen.</div>
+    </div></div>
+  </div>
+
+  <div class="main">
+    <section class="panel scene-panel">
+      <div class="panel-head">场景 / 图片　·　SCÈNE / AFBEELDING</div>
+      <div class="panel-body"><div class="scene">当前场景图 / 线索图<br>Huidige scène-afbeelding / aanwijzingsafbeelding</div></div>
+    </section>
+
+    <section class="panel action-panel">
+      <div class="panel-head">你现在需要做什么　·　WAT JE NU MOET DOEN</div>
+      <div class="panel-body">
+        <div class="action-card">
+          <h3>现在投票 / Stem nu</h3>
+          <p>选择你支持的选项。/ Kies de optie die jij steunt.</p>
+          <span class="btn">选项 A / Optie A</span><span class="btn">选项 B / Optie B</span><span class="btn">选项 C / Optie C</span>
+          <div><span class="btn primary">提交投票 / Stem indienen</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel discussion-panel">
+      <div class="panel-head">讨论　·　DISCUSSIE</div>
+      <div class="panel-body">
+        <div class="transcript">
+          <div class="message"><strong>Gitte:</strong> 我认为箱子的密码要用那张纸条。<br><span class="nl">Ik denk dat de code van de kist het briefje gebruikt.</span></div>
+          <div class="message"><strong>Linda:</strong> 我们应该比较一下各自的线索。<br><span class="nl">We moeten onze aanwijzingen met elkaar vergelijken.</span></div>
+          <div class="message"><strong>Anna:</strong> 我同意。我们还应该检查地图。<br><span class="nl">Ik ben het eens. We moeten ook de kaart controleren.</span></div>
+          <div class="message"><strong>Gitte:</strong> 数字纸条上是 4-1-7-3-9。<br><span class="nl">Op het cijferbriefje staat 4-1-7-3-9.</span></div>
+          <div class="message"><strong>Linda:</strong> 那我们先试这个顺序。<br><span class="nl">Dan proberen we eerst deze volgorde.</span></div>
+        </div>
+        <div class="input">给其他人输入消息…… / Typ een bericht aan de anderen...</div>
+        <span class="btn">发送 / Versturen</span>
+      </div>
+    </section>
+
+    <section class="panel story-panel">
+      <div class="panel-head">故事 / 关键信息　·　VERHAAL / BELANGRIJKE INFORMATIE</div>
+      <div class="panel-body story">
+        <p>你在图书馆里。桌上有一个上锁的盒子。之前的数字纸条写着 <strong>4-1-7-3-9</strong>。</p>
+        <p>Je bent in de bibliotheek. Op de tafel staat een gesloten kist. Op het eerdere cijferbriefje staat <strong>4-1-7-3-9</strong>.</p>
+      </div>
+    </section>
+
+    <section class="panel pocket-panel">
+      <div class="panel-head">我的随身物品　·　MIJN SPULLEN</div>
+      <div class="panel-body pocket">
+        <ul class="items">
+          <li class="active">古堡地图 / Kasteelkaart</li>
+          <li>数字纸条 / Cijferbriefje</li>
+          <li>日记 / Dagboek</li>
+          <li>手表 / Horloge</li>
+        </ul>
+        <div class="detail">
+          <div class="detail-title">古堡地图 / Kasteelkaart</div>
+          <div class="detail-img">物品图片 / Afbeelding van het voorwerp</div>
+          <div class="detail-text">正面 / 背面 / 打开状态<br>Voorkant / achterkant / geopende weergave</div>
+          <div style="margin-top:7px"><span class="btn">正面 / Voorkant</span><span class="btn">背面 / Achterkant</span><span class="btn">关闭 / Sluiten</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div></div>
+</body>
+</html>
