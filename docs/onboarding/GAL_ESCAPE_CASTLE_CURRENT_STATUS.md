@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-05T01:16:00+08:00
+> Last refreshed: 2026-10-05T23:59:30+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — GA/CA UI-impact and workload reconciliation
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — GA/CA safest-sequence reconciliation
 CURRENT_GATE          = HOLD_CD_PENDING_GA_CA_RECONCILIATION
-CURRENT_OWNER         = GA / CA — review and reconciliation only
-NEXT_REQUIRED_ACTION  = GA and CA reconcile docs/plans/ROUND1_REMEDIATION_WORKLOAD_ESTIMATE_V2.0.md and the layout-architecture consequences before any further CD implementation discussion. No additional CD instruction is authorized during this review gate.
+CURRENT_OWNER         = CA — independent concurrence review
+NEXT_REQUIRED_ACTION  = CA reviews docs/plans/ROUND1_REMEDIATION_WORKLOAD_ESTIMATE_V2.1.md and docs/plans/ROUND1_REMEDIATION_SAFEST_SEQUENCE_V1.0.md, especially split W09, pre-W12 I0 checkpoint, W02-A snapshot-consistency gate, serial runtime implementation, and W05-only as the first future bounded CD authorization. No further CD instruction is authorized until Teacher/GA/CA complete this reconciliation.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
