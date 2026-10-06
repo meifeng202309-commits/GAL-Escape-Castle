@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-06T13:06:00+08:00
+> Last refreshed: 2026-10-06T19:26:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — progress-gate / View Snapshot guardrail reconciliation
-CURRENT_GATE          = HOLD_CD_PENDING_CA_GUARDRAIL_REVIEW
-CURRENT_OWNER         = CA — critical review of rebuilt architecture guardrails
-NEXT_REQUIRED_ACTION  = CA reviews docs/plans/ROUND1_PROGRESS_GATE_VIEW_SNAPSHOT_GUARDRAILS_V1.0.md and docs/plans/ROUND1_REMEDIATION_SAFEST_SEQUENCE_V1.1.md, then returns material disagreements or missing risks. No further CD instruction is authorized until Teacher/GA/CA reconcile this review.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — active-dependency / authority-registry architecture review
+CURRENT_GATE          = HOLD_CD_PENDING_AUTHORITY_REGISTRY_REVIEW
+CURRENT_OWNER         = GA / Teacher — architecture review before CA resubmission
+NEXT_REQUIRED_ACTION  = Teacher/GA review docs/plans/ROUND1_ACTIVE_DEPENDENCY_AUDIT_V1.0.md and docs/plans/ROUND1_CANONICAL_AUTHORITY_REGISTRY_V0.1_DRAFT.md. Current static audit classifies 38 ACTIVE_AUTHORITY, 11 ACTIVE_SUPPORT, 1 DEAD_CANDIDATE (s1_scene_choices), 0 RETIRED. No CFTM change, table drop, or further CD instruction is authorized. After Teacher/GA reconciliation, send the audit/registry to CA for independent challenge before implementation resumes.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
