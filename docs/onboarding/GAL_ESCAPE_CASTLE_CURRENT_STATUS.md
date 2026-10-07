@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-06T19:26:00+08:00
+> Last refreshed: 2026-10-07T12:48:13.251+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — active-dependency / authority-registry architecture review
-CURRENT_GATE          = HOLD_CD_PENDING_AUTHORITY_REGISTRY_REVIEW
-CURRENT_OWNER         = GA / Teacher — architecture review before CA resubmission
-NEXT_REQUIRED_ACTION  = Teacher/GA review docs/plans/ROUND1_ACTIVE_DEPENDENCY_AUDIT_V1.0.md and docs/plans/ROUND1_CANONICAL_AUTHORITY_REGISTRY_V0.1_DRAFT.md. Current static audit classifies 38 ACTIVE_AUTHORITY, 11 ACTIVE_SUPPORT, 1 DEAD_CANDIDATE (s1_scene_choices), 0 RETIRED. No CFTM change, table drop, or further CD instruction is authorized. After Teacher/GA reconciliation, send the audit/registry to CA for independent challenge before implementation resumes.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — field-authority factual investigation closure
+CURRENT_GATE          = HOLD_CD_AWAITING_TEACHER_USER_INFERENCE_START
+CURRENT_OWNER         = Teacher/User — review completed facts-only evidence; GA has no semantic/Authority inference authorization yet
+NEXT_REQUIRED_ACTION  = Teacher/User decides whether to start the separate row-by-row / Fact Cluster reasoning phase over the completed six-method evidence package. Until explicit instruction, Authority / SAME_FACT / DIFFERENT_FACT / OBSOLETE / BUG inference remains not started; CD remains HOLD; no CFTM, table, runtime, database, gameplay, or implementation change is authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,10 +32,10 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-040. CA has completed its latest checkpoint through CA-140.
+GA has completed its latest checkpoint through GA-080. CA has completed its latest checkpoint through CA-140. GA-081 is the first post-checkpoint action and remains evidence/structural organization only.
 
 ```text
-GA_CHECKPOINT = GA-040
+GA_CHECKPOINT = GA-080
 CA_CHECKPOINT = CA-140
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
@@ -49,7 +49,7 @@ docs/onboarding/START_HERE.md
 ```
 
 
-GA-040 checkpoint review: GA-031..GA-040 reconciled. Access-entry continuity changes are settled; Trial-Agent material remains outside active shared governance; CA-135..138 audit findings are consolidated; remediation remains held while CA critiques the GA/CA reconciliation report. No orphaned GA-owned canonical edit or unauthorized implementation instruction was found.
+GA-080 checkpoint review: GA-071..GA-080 reconciled. Round-1 architecture/Authority Registry material remains DRAFT and non-implementation-authorizing; the six-method 432-field investigation is COMPLETE to the repository/archived-evidence boundary, with deployed-catalog/raw-row measurements explicitly unavailable rather than inferred. GA-081 subsequently completed structural evidence simplification rounds 1–3 (432/432 QA, no semantic/Authority inference leakage). CD remains HOLD. The next semantic/Authority reasoning phase starts only on explicit Teacher/User instruction.
 
 ---
 
