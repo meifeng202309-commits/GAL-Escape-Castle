@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-07T12:48:13.251+08:00
+> Last refreshed: 2026-10-07T16:07:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — field-authority factual investigation closure
-CURRENT_GATE          = HOLD_CD_AWAITING_TEACHER_USER_INFERENCE_START
-CURRENT_OWNER         = Teacher/User — review completed facts-only evidence; GA has no semantic/Authority inference authorization yet
-NEXT_REQUIRED_ACTION  = Teacher/User decides whether to start the separate row-by-row / Fact Cluster reasoning phase over the completed six-method evidence package. Until explicit instruction, Authority / SAME_FACT / DIFFERENT_FACT / OBSOLETE / BUG inference remains not started; CD remains HOLD; no CFTM, table, runtime, database, gameplay, or implementation change is authorized.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — field-authority semantic adjudication
+CURRENT_GATE          = HOLD_CD_FACT_CLUSTER_ADJUDICATION_COMPLETE_AWAITING_REVIEW
+CURRENT_OWNER         = Teacher/User — review GA Fact Cluster judgments before authorizing broader dependency/isolated-field inference
+NEXT_REQUIRED_ACTION  = Review the 17 copy-like Fact Cluster adjudications recorded in SIX_METHOD_432_FIELD_FACTS_MASTER_V3.0.csv. 48/48 cluster-member fields are adjudicated from repository semantics; remaining fields/dependency groups are not yet authority-adjudicated. CD remains HOLD; no CFTM, table, runtime, database, gameplay, or implementation change is authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,7 +32,7 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-080. CA has completed its latest checkpoint through CA-140. GA-081 is the first post-checkpoint action and remains evidence/structural organization only.
+GA has completed its latest checkpoint through GA-080. CA has completed its latest checkpoint through CA-140. GA-081..GA-083 are post-checkpoint actions: structural organization, replacement-chat reconciliation, and Fact Cluster semantic adjudication.
 
 ```text
 GA_CHECKPOINT = GA-080
@@ -49,7 +49,7 @@ docs/onboarding/START_HERE.md
 ```
 
 
-GA-080 checkpoint review: GA-071..GA-080 reconciled. Round-1 architecture/Authority Registry material remains DRAFT and non-implementation-authorizing; the six-method 432-field investigation is COMPLETE to the repository/archived-evidence boundary, with deployed-catalog/raw-row measurements explicitly unavailable rather than inferred. GA-081 subsequently completed structural evidence simplification rounds 1–3 (432/432 QA, no semantic/Authority inference leakage). CD remains HOLD. The next semantic/Authority reasoning phase starts only on explicit Teacher/User instruction.
+GA-080 checkpoint review: GA-071..GA-080 reconciled. The six-method 432-field investigation is COMPLETE to the repository/archived-evidence boundary, with deployed-catalog/raw-row measurements explicitly unavailable rather than inferred. GA-081 completed structural simplification; Teacher/User then explicitly authorized Fact Cluster reasoning. GA-083 adjudicated all 17 copy-like components covering 48 fields in the primary master. These judgments are repository-semantic and not live-database verified. Three asset clusters (CC006, CC007, CC009) contain potential split-authority/drift bug risks; no implementation is authorized. CD remains HOLD pending Teacher/User review and later CA challenge before any registry freeze.
 
 ---
 
