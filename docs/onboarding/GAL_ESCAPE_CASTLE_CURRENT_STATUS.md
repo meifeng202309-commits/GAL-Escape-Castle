@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-07T16:07:00+08:00
+> Last refreshed: 2026-10-07T17:04:00+08:00
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — field-authority semantic adjudication
-CURRENT_GATE          = HOLD_CD_FACT_CLUSTER_ADJUDICATION_COMPLETE_AWAITING_REVIEW
-CURRENT_OWNER         = Teacher/User — review GA Fact Cluster judgments before authorizing broader dependency/isolated-field inference
-NEXT_REQUIRED_ACTION  = Review the 17 copy-like Fact Cluster adjudications recorded in SIX_METHOD_432_FIELD_FACTS_MASTER_V3.0.csv. 48/48 cluster-member fields are adjudicated from repository semantics; remaining fields/dependency groups are not yet authority-adjudicated. CD remains HOLD; no CFTM, table, runtime, database, gameplay, or implementation change is authorized.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — field-authority semantic adjudication closure
+CURRENT_GATE          = HOLD_CD_AUTHORITY_ADJUDICATION_COMPLETE_CA_CHALLENGE
+CURRENT_OWNER         = CA — independent challenge of GA 432-field Authority adjudication before registry freeze
+NEXT_REQUIRED_ACTION  = CA independently challenge the completed 432/432 Authority table and closure summary, prioritizing split-Authority candidates, obsolete/dead candidates, legacy player-fact normalization, and forbidden current-state fallback rules. CD remains HOLD; no CFTM, table, runtime, database, gameplay, deletion, or migration change is authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,7 +32,7 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-080. CA has completed its latest checkpoint through CA-140. GA-081..GA-083 are post-checkpoint actions: structural organization, replacement-chat reconciliation, and Fact Cluster semantic adjudication.
+GA has completed its latest checkpoint through GA-080. CA has completed its latest checkpoint through CA-140. GA-081..GA-086 are post-checkpoint actions culminating in full 432/432 Authority adjudication and CA challenge handoff.
 
 ```text
 GA_CHECKPOINT = GA-080
@@ -49,8 +49,7 @@ docs/onboarding/START_HERE.md
 ```
 
 
-GA-080 checkpoint review: GA-071..GA-080 reconciled. The six-method 432-field investigation is COMPLETE to the repository/archived-evidence boundary, with deployed-catalog/raw-row measurements explicitly unavailable rather than inferred. GA-081 completed structural simplification; Teacher/User then explicitly authorized Fact Cluster reasoning. GA-083 adjudicated all 17 copy-like components covering 48 fields in the primary master. These judgments are repository-semantic and not live-database verified. Three asset clusters (CC006, CC007, CC009) contain potential split-authority/drift bug risks; no implementation is authorized. CD remains HOLD pending Teacher/User review and later CA challenge before any registry freeze.
-
+GA-080 checkpoint review: GA-071..GA-080 reconciled. The six-method 432-field investigation is COMPLETE to the repository/archived-evidence boundary. GA-081 completed structural simplification; GA-083 adjudicated 17 copy-like clusters; GA-084 adjudicated 15 dependency groups; GA-085 completed all retained-domain fields; GA-086 completed technical/context fields and final QA. The primary master now has explicit Authority dispositions for 432/432 fields with zero NOT_STARTED or blank inference-core cells. Closure: `docs/plans/authority-field-audit-v2/AUTHORITY_ADJUDICATION_CLOSURE_V1.0.md`. Direct deployed-catalog/raw-row measurements remain unavailable, so CA challenge is required before Authority Registry freeze. CD remains HOLD.
 ---
 
 ## 2A. ChatGPT access-entry continuity
