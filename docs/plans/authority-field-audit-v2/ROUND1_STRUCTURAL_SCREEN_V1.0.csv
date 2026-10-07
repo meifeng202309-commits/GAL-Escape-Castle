@@ -1,0 +1,433 @@
+global_field_id,field_id,table,column,R1_disposition,R1_reason,R1_note,same_name_group,same_name_count,authority_inference
+F0001,act6_13_event_ledger#01,act6_13_event_ledger,event_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN025,4,NONE
+F0002,act6_13_event_ledger#02,act6_13_event_ledger,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0003,act6_13_event_ledger#03,act6_13_event_ledger,event_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN026,4,NONE
+F0004,act6_13_event_ledger#04,act6_13_event_ledger,act_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN003,4,NONE
+F0005,act6_13_event_ledger#05,act6_13_event_ledger,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0006,act6_13_event_ledger#06,act6_13_event_ledger,occurrence_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN032,3,NONE
+F0007,act6_13_event_ledger#07,act6_13_event_ledger,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0008,act6_13_event_ledger#08,act6_13_event_ledger,details,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN020,4,NONE
+F0009,act6_13_event_ledger#09,act6_13_event_ledger,occurred_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0010,asset_candidates#01,asset_candidates,asset_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,,1,NONE
+F0011,asset_candidates#02,asset_candidates,asset_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN006,3,NONE
+F0012,asset_candidates#03,asset_candidates,version,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN054,2,NONE
+F0013,asset_candidates#04,asset_candidates,asset_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN007,2,NONE
+F0014,asset_candidates#05,asset_candidates,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0015,asset_candidates#06,asset_candidates,assigned_to,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN008,2,NONE
+F0016,asset_candidates#07,asset_candidates,creator,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0017,asset_candidates#08,asset_candidates,storage_path,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0018,asset_candidates#09,asset_candidates,status,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN048,4,NONE
+F0019,asset_candidates#10,asset_candidates,approved_by,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0020,asset_candidates#11,asset_candidates,approved_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0021,asset_candidates#12,asset_candidates,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0022,asset_candidates#13,asset_candidates,final_prompt,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0023,asset_candidates#14,asset_candidates,revision_note,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0024,asset_candidates#15,asset_candidates,technical_notes,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0025,asset_candidates#16,asset_candidates,paired_asset_group,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN035,2,NONE
+F0026,asset_candidates#17,asset_candidates,view_name,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0027,asset_candidates#18,asset_candidates,ui_anchors,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0028,asset_candidates#19,asset_candidates,width_px,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0029,asset_candidates#20,asset_candidates,height_px,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0030,asset_candidates#21,asset_candidates,mime_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0031,asset_candidates#22,asset_candidates,duration_ms,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0032,asset_candidates#23,asset_candidates,loopable,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0033,asset_candidates#24,asset_candidates,license_source,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0034,asset_candidates#25,asset_candidates,loudness_note,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0035,asset_candidates#26,asset_candidates,continuity_refs,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN015,2,NONE
+F0036,asset_candidates#27,asset_candidates,required_anchors,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN039,2,NONE
+F0037,asset_candidates#28,asset_candidates,sha256,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0038,asset_candidates#29,asset_candidates,published_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0039,asset_events#01,asset_events,event_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN025,4,NONE
+F0040,asset_events#02,asset_events,asset_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN006,3,NONE
+F0041,asset_events#03,asset_events,event_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN026,4,NONE
+F0042,asset_events#04,asset_events,version,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN054,2,NONE
+F0043,asset_events#05,asset_events,details,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN020,4,NONE
+F0044,asset_events#06,asset_events,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0045,asset_manager_reviewers#01,asset_manager_reviewers,token_hash,EXCLUDE_TECHNICAL,SECURITY_CREDENTIAL,Security credential/hash; retained only as technical provenance,,1,NONE
+F0046,asset_manager_reviewers#02,asset_manager_reviewers,label,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0047,asset_manager_reviewers#03,asset_manager_reviewers,enabled,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0048,asset_manager_reviewers#04,asset_manager_reviewers,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0049,asset_registry_projection#01,asset_registry_projection,asset_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN006,3,NONE
+F0050,asset_registry_projection#02,asset_registry_projection,display_name,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN023,2,NONE
+F0051,asset_registry_projection#03,asset_registry_projection,aliases,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0052,asset_registry_projection#04,asset_registry_projection,asset_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN007,2,NONE
+F0053,asset_registry_projection#05,asset_registry_projection,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0054,asset_registry_projection#06,asset_registry_projection,assigned_to,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN008,2,NONE
+F0055,asset_registry_projection#07,asset_registry_projection,latest_version,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0056,asset_registry_projection#08,asset_registry_projection,active_version,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0057,asset_registry_projection#09,asset_registry_projection,continuity_refs,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN015,2,NONE
+F0058,asset_registry_projection#10,asset_registry_projection,paired_asset_group,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN035,2,NONE
+F0059,asset_registry_projection#11,asset_registry_projection,required_anchors,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN039,2,NONE
+F0060,asset_registry_projection#12,asset_registry_projection,runtime_required,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0061,asset_registry_projection#13,asset_registry_projection,registry_sha256,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0062,asset_registry_projection#14,asset_registry_projection,projected_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,,1,NONE
+F0063,dialogue_messages#01,dialogue_messages,message_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,,1,NONE
+F0064,dialogue_messages#02,dialogue_messages,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0065,dialogue_messages#03,dialogue_messages,discussion_session_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN022,5,NONE
+F0066,dialogue_messages#04,dialogue_messages,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0067,dialogue_messages#05,dialogue_messages,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0068,dialogue_messages#06,dialogue_messages,step_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN049,6,NONE
+F0069,dialogue_messages#07,dialogue_messages,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0070,dialogue_messages#08,dialogue_messages,message_text,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0071,dialogue_messages#09,dialogue_messages,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0072,dialogue_messages#10,dialogue_messages,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0073,discussion_sessions#01,discussion_sessions,discussion_session_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN022,5,NONE
+F0074,discussion_sessions#02,discussion_sessions,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0075,discussion_sessions#03,discussion_sessions,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0076,discussion_sessions#04,discussion_sessions,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0077,discussion_sessions#05,discussion_sessions,step_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN049,6,NONE
+F0078,discussion_sessions#06,discussion_sessions,round_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN043,4,NONE
+F0079,discussion_sessions#07,discussion_sessions,vote_round,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN055,5,NONE
+F0080,discussion_sessions#08,discussion_sessions,topic,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0081,discussion_sessions#09,discussion_sessions,status,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN048,4,NONE
+F0082,discussion_sessions#10,discussion_sessions,started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0083,discussion_sessions#11,discussion_sessions,phase_deadline,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0084,discussion_sessions#12,discussion_sessions,ended_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0085,discussion_sessions#13,discussion_sessions,outcome,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN033,2,NONE
+F0086,discussion_sessions#14,discussion_sessions,show_initial_choices,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0087,discussion_sessions#15,discussion_sessions,allow_free_text,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0088,discussion_sessions#16,discussion_sessions,require_final_vote,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0089,discussion_sessions#17,discussion_sessions,vote_options,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0090,discussion_sessions#18,discussion_sessions,tie_policy,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0091,discussion_sessions#19,discussion_sessions,revote_window_sec,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0092,discussion_sessions#20,discussion_sessions,max_revotes,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0093,discussion_sessions#21,discussion_sessions,fallback_resolution,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0094,discussion_sessions#22,discussion_sessions,discussion_timeout_policy,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0095,discussion_sessions#23,discussion_sessions,vote_timeout_policy,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0096,discussion_sessions#24,discussion_sessions,discussion_time_limit_sec,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0097,discussion_sessions#25,discussion_sessions,vote_time_limit_sec,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0098,discussion_sessions#26,discussion_sessions,silent_texting_mode,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN046,2,NONE
+F0099,discussion_sessions#27,discussion_sessions,allow_pocket,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0100,discussion_sessions#28,discussion_sessions,allow_memories_observations,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0101,discussion_sessions#29,discussion_sessions,allow_share_photo,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN005,2,NONE
+F0102,game_runs#01,game_runs,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0103,game_runs#02,game_runs,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0104,game_runs#03,game_runs,run_started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0105,game_runs#04,game_runs,run_mode,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0106,game_runs#05,game_runs,behavior_dataset_eligible,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0107,game_runs#06,game_runs,status,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN048,4,NONE
+F0108,game_runs#07,game_runs,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0109,game_runs#08,game_runs,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0110,game_runs#09,game_runs,step_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN049,6,NONE
+F0111,game_runs#10,game_runs,silent_texting_mode,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN046,2,NONE
+F0112,game_runs#11,game_runs,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0113,game_runs#12,game_runs,audit_private_debug_view,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0114,game_runs#13,game_runs,active_override_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0115,game_runs#14,game_runs,session_integrity_verified,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0116,game_runs#15,game_runs,game_completed,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0117,game_runs#16,game_runs,export_ready,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0118,game_runs#17,game_runs,completed_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN014,3,NONE
+F0119,runtime_events#01,runtime_events,event_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN025,4,NONE
+F0120,runtime_events#02,runtime_events,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0121,runtime_events#03,runtime_events,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0122,runtime_events#04,runtime_events,discussion_session_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN022,5,NONE
+F0123,runtime_events#05,runtime_events,event_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN026,4,NONE
+F0124,runtime_events#06,runtime_events,actor_player_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN004,2,NONE
+F0125,runtime_events#07,runtime_events,details,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN020,4,NONE
+F0126,runtime_events#08,runtime_events,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0127,runtime_events#09,runtime_events,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0128,runtime_events#10,runtime_events,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0129,runtime_events#11,runtime_events,step_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN049,6,NONE
+F0130,runtime_events#12,runtime_events,event_source,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0131,runtime_events#13,runtime_events,validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN053,4,NONE
+F0132,runtime_events#14,runtime_events,behavior_scoring,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN009,3,NONE
+F0133,runtime_events#15,runtime_events,interaction_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0134,runtime_events#16,runtime_events,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0135,runtime_player_decisions#01,runtime_player_decisions,decision_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN017,2,NONE
+F0136,runtime_player_decisions#02,runtime_player_decisions,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0137,runtime_player_decisions#03,runtime_player_decisions,discussion_session_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN022,5,NONE
+F0138,runtime_player_decisions#04,runtime_player_decisions,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0139,runtime_player_decisions#05,runtime_player_decisions,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0140,runtime_player_decisions#06,runtime_player_decisions,step_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN049,6,NONE
+F0141,runtime_player_decisions#07,runtime_player_decisions,vote_round,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN055,5,NONE
+F0142,runtime_player_decisions#08,runtime_player_decisions,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0143,runtime_player_decisions#09,runtime_player_decisions,decision_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN018,3,NONE
+F0144,runtime_player_decisions#10,runtime_player_decisions,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0145,runtime_player_decisions#11,runtime_player_decisions,choice_label,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN011,3,NONE
+F0146,runtime_player_decisions#12,runtime_player_decisions,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0147,runtime_player_decisions#13,runtime_player_decisions,validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN053,4,NONE
+F0148,runtime_player_decisions#14,runtime_player_decisions,context_provenance,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0149,s1_game_events#01,s1_game_events,event_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN025,4,NONE
+F0150,s1_game_events#02,s1_game_events,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0151,s1_game_events#03,s1_game_events,event_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN026,4,NONE
+F0152,s1_game_events#04,s1_game_events,actor_player_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN004,2,NONE
+F0153,s1_game_events#05,s1_game_events,details,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN020,4,NONE
+F0154,s1_game_events#06,s1_game_events,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0155,s1_player_decisions#01,s1_player_decisions,decision_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN017,2,NONE
+F0156,s1_player_decisions#02,s1_player_decisions,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0157,s1_player_decisions#03,s1_player_decisions,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0158,s1_player_decisions#04,s1_player_decisions,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0159,s1_player_decisions#05,s1_player_decisions,decision_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN018,3,NONE
+F0160,s1_player_decisions#06,s1_player_decisions,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0161,s1_player_decisions#07,s1_player_decisions,choice_label,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN011,3,NONE
+F0162,s1_player_decisions#08,s1_player_decisions,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0163,s1_room_players#01,s1_room_players,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0164,s1_room_players#02,s1_room_players,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0165,s1_room_players#03,s1_room_players,role_slot,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0166,s1_room_players#04,s1_room_players,display_name,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN023,2,NONE
+F0167,s1_room_players#05,s1_room_players,join_code_hash,EXCLUDE_TECHNICAL,SECURITY_CREDENTIAL,Security credential/hash; retained only as technical provenance,,1,NONE
+F0168,s1_room_players#06,s1_room_players,session_token_hash,EXCLUDE_TECHNICAL,SECURITY_CREDENTIAL,Security credential/hash; retained only as technical provenance,,1,NONE
+F0169,s1_room_players#07,s1_room_players,joined_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0170,s1_room_players#08,s1_room_players,last_seen_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0171,s1_room_state#01,s1_room_state,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0172,s1_room_state#02,s1_room_state,current_scene,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0173,s1_room_state#03,s1_room_state,phase,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0174,s1_room_state#04,s1_room_state,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0175,s1_rooms#01,s1_rooms,room_code,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN042,7,NONE
+F0176,s1_rooms#02,s1_rooms,teacher_token_hash,EXCLUDE_TECHNICAL,SECURITY_CREDENTIAL,Security credential/hash; retained only as technical provenance,,1,NONE
+F0177,s1_rooms#03,s1_rooms,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0178,s1_rooms#04,s1_rooms,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0179,s1_scene_choices#01,s1_scene_choices,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0180,s1_scene_choices#02,s1_scene_choices,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0181,s1_scene_choices#03,s1_scene_choices,choice_label,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN011,3,NONE
+F0182,s1_scene_choices#04,s1_scene_choices,active,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0183,s3_group_items#01,s3_group_items,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0184,s3_group_items#02,s3_group_items,item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN027,5,NONE
+F0185,s3_group_items#03,s3_group_items,label_text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN029,2,NONE
+F0186,s3_group_items#04,s3_group_items,acquired_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN001,2,NONE
+F0187,s3_item_catalog#01,s3_item_catalog,item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN027,5,NONE
+F0188,s3_item_catalog#02,s3_item_catalog,name_text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0189,s3_item_catalog#03,s3_item_catalog,shareable_views,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0190,s3_knowledge_catalog#01,s3_knowledge_catalog,knowledge_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN028,3,NONE
+F0191,s3_observation_catalog#01,s3_observation_catalog,observation_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN031,2,NONE
+F0192,s3_observation_catalog#02,s3_observation_catalog,display_text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN024,2,NONE
+F0193,s3_player_item_view_state#01,s3_player_item_view_state,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0194,s3_player_item_view_state#02,s3_player_item_view_state,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0195,s3_player_item_view_state#03,s3_player_item_view_state,item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN027,5,NONE
+F0196,s3_player_item_view_state#04,s3_player_item_view_state,current_view,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0197,s3_player_item_view_state#05,s3_player_item_view_state,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0198,s3_player_items#01,s3_player_items,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0199,s3_player_items#02,s3_player_items,item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN027,5,NONE
+F0200,s3_player_items#03,s3_player_items,physical_owner_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0201,s3_player_items#04,s3_player_items,acquired_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN001,2,NONE
+F0202,s3_player_knowledge#01,s3_player_knowledge,acquisition_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,,1,NONE
+F0203,s3_player_knowledge#02,s3_player_knowledge,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0204,s3_player_knowledge#03,s3_player_knowledge,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0205,s3_player_knowledge#04,s3_player_knowledge,knowledge_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN028,3,NONE
+F0206,s3_player_knowledge#05,s3_player_knowledge,source,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0207,s3_player_knowledge#06,s3_player_knowledge,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0208,s3_player_knowledge#07,s3_player_knowledge,source_player_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0209,s3_player_knowledge#08,s3_player_knowledge,source_item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN047,2,NONE
+F0210,s3_player_knowledge#09,s3_player_knowledge,delivered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN019,2,NONE
+F0211,s3_player_observations#01,s3_player_observations,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0212,s3_player_observations#02,s3_player_observations,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0213,s3_player_observations#03,s3_player_observations,observation_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN031,2,NONE
+F0214,s3_player_observations#04,s3_player_observations,display_text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN024,2,NONE
+F0215,s3_player_observations#05,s3_player_observations,discovered_at_scene,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0216,s3_player_observations#06,s3_player_observations,discovered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN021,2,NONE
+F0217,s3_runtime_scene_state#01,s3_runtime_scene_state,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0218,s3_runtime_scene_state#02,s3_runtime_scene_state,scene_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN045,11,NONE
+F0219,s3_runtime_scene_state#03,s3_runtime_scene_state,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0220,s3_runtime_scene_state#04,s3_runtime_scene_state,step_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN049,6,NONE
+F0221,s3_runtime_scene_state#05,s3_runtime_scene_state,display_mode,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0222,s3_runtime_scene_state#06,s3_runtime_scene_state,text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN051,2,NONE
+F0223,s3_runtime_scene_state#07,s3_runtime_scene_state,current_route_target,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0224,s3_runtime_scene_state#08,s3_runtime_scene_state,wayfinding_target,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0225,s3_runtime_scene_state#09,s3_runtime_scene_state,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0226,s3_runtime_scene_state#10,s3_runtime_scene_state,allow_share_photo,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN005,2,NONE
+F0227,s3_shared_photos#01,s3_shared_photos,photo_copy_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,,1,NONE
+F0228,s3_shared_photos#02,s3_shared_photos,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0229,s3_shared_photos#03,s3_shared_photos,received_by,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0230,s3_shared_photos#04,s3_shared_photos,shared_by,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0231,s3_shared_photos#05,s3_shared_photos,source_item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN047,2,NONE
+F0232,s3_shared_photos#06,s3_shared_photos,source_view,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0233,s3_shared_photos#07,s3_shared_photos,label_text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN029,2,NONE
+F0234,s3_shared_photos#08,s3_shared_photos,shared_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0235,s3b_library_attempts#01,s3b_library_attempts,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0236,s3b_library_attempts#02,s3b_library_attempts,attempt_number,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0237,s3b_library_attempts#03,s3b_library_attempts,submitted_by,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0238,s3b_library_attempts#04,s3b_library_attempts,submitted_value,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0239,s3b_library_attempts#05,s3b_library_attempts,submitted_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN050,2,NONE
+F0240,s3b_library_attempts#06,s3b_library_attempts,correct,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0241,s3b_library_attempts#07,s3b_library_attempts,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0242,s3b_player_facts#01,s3b_player_facts,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0243,s3b_player_facts#02,s3b_player_facts,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0244,s3b_player_facts#03,s3b_player_facts,fact_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0245,s3b_player_facts#04,s3b_player_facts,discovered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN021,2,NONE
+F0246,s3b_player_progress#01,s3b_player_progress,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0247,s3b_player_progress#02,s3b_player_progress,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0248,s3b_player_progress#03,s3b_player_progress,act1_choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0249,s3b_player_progress#04,s3b_player_progress,act1_locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0250,s3b_player_progress#05,s3b_player_progress,first_meeting_choice,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0251,s3b_player_progress#06,s3b_player_progress,first_meeting_locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0252,s3b_player_progress#07,s3b_player_progress,grab_complete,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0253,s3b_player_progress#08,s3b_player_progress,left_start_room,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0254,s3b_player_progress#09,s3b_player_progress,player_location,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0255,s3b_player_progress#10,s3b_player_progress,act4_choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0256,s3b_player_progress#11,s3b_player_progress,act4_locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0257,s3b_player_progress#12,s3b_player_progress,act1_stage,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0258,s3b_player_progress#13,s3b_player_progress,act1_text_keys,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0259,s3b_player_progress#14,s3b_player_progress,route_update_ack_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0260,s3b_player_progress#15,s3b_player_progress,act1_action_started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0261,s3b_player_progress#16,s3b_player_progress,act1_timing_validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0262,s3b_player_progress#17,s3b_player_progress,first_meeting_started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0263,s3b_player_progress#18,s3b_player_progress,first_meeting_timing_validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0264,s3b_player_progress#19,s3b_player_progress,act4_choice_started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0265,s3b_player_progress#20,s3b_player_progress,act4_timing_validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0266,s3b_player_progress#21,s3b_player_progress,act6_handoff_observed_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0267,s3b_player_progress#22,s3b_player_progress,act6_entered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN002,2,NONE
+F0268,s3b_post_inspection_route_votes#01,s3b_post_inspection_route_votes,vote_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,,1,NONE
+F0269,s3b_post_inspection_route_votes#02,s3b_post_inspection_route_votes,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0270,s3b_post_inspection_route_votes#03,s3b_post_inspection_route_votes,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0271,s3b_post_inspection_route_votes#04,s3b_post_inspection_route_votes,decision_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0272,s3b_post_inspection_route_votes#05,s3b_post_inspection_route_votes,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0273,s3b_post_inspection_route_votes#06,s3b_post_inspection_route_votes,decision_type,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN018,3,NONE
+F0274,s3b_post_inspection_route_votes#07,s3b_post_inspection_route_votes,behavior_scoring,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN009,3,NONE
+F0275,s3b_post_inspection_route_votes#08,s3b_post_inspection_route_votes,validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN053,4,NONE
+F0276,s3b_post_inspection_route_votes#09,s3b_post_inspection_route_votes,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0277,s3b_run_state#01,s3b_run_state,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0278,s3b_run_state#02,s3b_run_state,final_meeting_result,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0279,s3b_run_state#03,s3b_run_state,failed_rendezvous_completed,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0280,s3b_run_state#04,s3b_run_state,party_physically_reunited,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0281,s3b_run_state#05,s3b_run_state,puzzle_started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0282,s3b_run_state#06,s3b_run_state,puzzle_deadline,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0283,s3b_run_state#07,s3b_run_state,puzzle_attempt_number,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0284,s3b_run_state#08,s3b_run_state,puzzle_hint_stage,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0285,s3b_run_state#09,s3b_run_state,puzzle_resolved_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0286,s3b_run_state#10,s3b_run_state,group_route,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0287,s3b_run_state#11,s3b_run_state,unknown_passage_inspected,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0288,s3b_run_state#12,s3b_run_state,terminal_state,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0289,s3b_run_state#13,s3b_run_state,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0290,s3b_run_state#14,s3b_run_state,pending_post_inspection_route,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0291,s3b_run_state#15,s3b_run_state,puzzle_locked_prefix,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0292,s5_act8_private_choices#01,s5_act8_private_choices,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0293,s5_act8_private_choices#02,s5_act8_private_choices,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0294,s5_act8_private_choices#03,s5_act8_private_choices,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0295,s5_act8_private_choices#04,s5_act8_private_choices,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0296,s5_act8_private_choices#05,s5_act8_private_choices,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0297,s5_rounds#01,s5_rounds,discussion_session_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN022,5,NONE
+F0298,s5_rounds#02,s5_rounds,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0299,s5_rounds#03,s5_rounds,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0300,s5_rounds#04,s5_rounds,vote_round,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN055,5,NONE
+F0301,s5_rounds#05,s5_rounds,topic_text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0302,s5_rounds#06,s5_rounds,status,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN048,4,NONE
+F0303,s5_rounds#07,s5_rounds,resolution_source,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN040,2,NONE
+F0304,s5_rounds#08,s5_rounds,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0305,s5_rounds#09,s5_rounds,resolved_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0306,s5_run_state#01,s5_run_state,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0307,s5_run_state#02,s5_run_state,act_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN003,4,NONE
+F0308,s5_run_state#03,s5_run_state,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0309,s5_run_state#04,s5_run_state,vote_round,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN055,5,NONE
+F0310,s5_run_state#05,s5_run_state,act6_resolution,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0311,s5_run_state#06,s5_run_state,act7_wrong_attempts,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0312,s5_run_state#07,s5_run_state,route_taken_act8,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0313,s5_run_state#08,s5_run_state,completed_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN014,3,NONE
+F0314,s5_run_state#09,s5_run_state,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0315,s5_run_state#10,s5_run_state,act6_entered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN002,2,NONE
+F0316,s5_votes#01,s5_votes,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0317,s5_votes#02,s5_votes,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0318,s5_votes#03,s5_votes,vote_round,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN055,5,NONE
+F0319,s5_votes#04,s5_votes,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0320,s5_votes#05,s5_votes,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0321,s5_votes#06,s5_votes,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0322,s5_votes#07,s5_votes,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0323,s6_action_receipts#01,s6_action_receipts,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0324,s6_action_receipts#02,s6_action_receipts,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0325,s6_action_receipts#03,s6_action_receipts,request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN038,2,NONE
+F0326,s6_action_receipts#04,s6_action_receipts,action_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0327,s6_action_receipts#05,s6_action_receipts,payload,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0328,s6_action_receipts#06,s6_action_receipts,result,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0329,s6_action_receipts#07,s6_action_receipts,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
+F0330,s6_allocation_attempts#01,s6_allocation_attempts,attempt_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,,1,NONE
+F0331,s6_allocation_attempts#02,s6_allocation_attempts,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0332,s6_allocation_attempts#03,s6_allocation_attempts,round_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN043,4,NONE
+F0333,s6_allocation_attempts#04,s6_allocation_attempts,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0334,s6_allocation_attempts#05,s6_allocation_attempts,role_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN041,4,NONE
+F0335,s6_allocation_attempts#06,s6_allocation_attempts,request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN038,2,NONE
+F0336,s6_allocation_attempts#07,s6_allocation_attempts,submitted_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN050,2,NONE
+F0337,s6_allocations#01,s6_allocations,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0338,s6_allocations#02,s6_allocations,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0339,s6_allocations#03,s6_allocations,role_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN041,4,NONE
+F0340,s6_allocations#04,s6_allocations,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0341,s6_allocations#05,s6_allocations,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0342,s6_audio_consumptions#01,s6_audio_consumptions,occurrence_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN032,3,NONE
+F0343,s6_audio_consumptions#02,s6_audio_consumptions,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0344,s6_audio_consumptions#03,s6_audio_consumptions,outcome,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN033,2,NONE
+F0345,s6_audio_consumptions#04,s6_audio_consumptions,consumed_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0346,s6_audio_occurrences#01,s6_audio_occurrences,occurrence_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN032,3,NONE
+F0347,s6_audio_occurrences#02,s6_audio_occurrences,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0348,s6_audio_occurrences#03,s6_audio_occurrences,cue_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0349,s6_audio_occurrences#04,s6_audio_occurrences,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0350,s6_audio_occurrences#05,s6_audio_occurrences,cinematic_stage,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN012,2,NONE
+F0351,s6_audio_occurrences#06,s6_audio_occurrences,triggered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0352,s6_choices#01,s6_choices,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0353,s6_choices#02,s6_choices,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0354,s6_choices#03,s6_choices,round_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN043,4,NONE
+F0355,s6_choices#04,s6_choices,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0356,s6_choices#05,s6_choices,choice_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN010,7,NONE
+F0357,s6_choices#06,s6_choices,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0358,s6_choices#07,s6_choices,response_latency_ms,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0359,s6_choices#08,s6_choices,role_context,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0360,s6_choices#09,s6_choices,locked_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN030,7,NONE
+F0361,s6_choices#10,s6_choices,action_step,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0362,s6_engagements#01,s6_engagements,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0363,s6_engagements#02,s6_engagements,role_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN041,4,NONE
+F0364,s6_engagements#03,s6_engagements,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0365,s6_engagements#04,s6_engagements,engaged_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0366,s6_private_clues#01,s6_private_clues,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0367,s6_private_clues#02,s6_private_clues,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0368,s6_private_clues#03,s6_private_clues,act_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN003,4,NONE
+F0369,s6_private_clues#04,s6_private_clues,knowledge_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN028,3,NONE
+F0370,s6_private_clues#05,s6_private_clues,text_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN051,2,NONE
+F0371,s6_private_clues#06,s6_private_clues,delivered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN019,2,NONE
+F0372,s6_run_state#01,s6_run_state,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0373,s6_run_state#02,s6_run_state,act_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN003,4,NONE
+F0374,s6_run_state#03,s6_run_state,phase_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN036,13,NONE
+F0375,s6_run_state#04,s6_run_state,act9_step,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0376,s6_run_state#05,s6_run_state,round_no,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN043,4,NONE
+F0377,s6_run_state#06,s6_run_state,red_activated,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0378,s6_run_state#07,s6_run_state,blue_activated,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0379,s6_run_state#08,s6_run_state,gold_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0380,s6_run_state#09,s6_run_state,alarm_active,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0381,s6_run_state#10,s6_run_state,station_c_bypassed,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0382,s6_run_state#11,s6_run_state,danger_arrives_sooner,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0383,s6_run_state#12,s6_run_state,allocation_valid,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0384,s6_run_state#13,s6_run_state,mechanism_failure_station,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0385,s6_run_state#14,s6_run_state,mechanism_failure_active,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0386,s6_run_state#15,s6_run_state,failure_resolution,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0387,s6_run_state#16,s6_run_state,escape_success,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0388,s6_run_state#17,s6_run_state,act14_boundary_reached,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0389,s6_run_state#18,s6_run_state,updated_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN052,7,NONE
+F0390,s6_run_state#19,s6_run_state,feedback_text_keys,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0391,s6_run_state#20,s6_run_state,feedback_audio_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0392,s6_run_state#21,s6_run_state,cinematic_stage,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN012,2,NONE
+F0393,s6_run_state#22,s6_run_state,stage_started_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0394,s6_run_state#23,s6_run_state,feedback_audio_occurrence_id,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0395,s6_station_b_progress#01,s6_station_b_progress,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0396,s6_station_b_progress#02,s6_station_b_progress,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0397,s6_station_b_progress#03,s6_station_b_progress,stage,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0398,s6_station_b_progress#04,s6_station_b_progress,held_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0399,s6_station_b_progress#05,s6_station_b_progress,centered_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0400,s6_station_tasks#01,s6_station_tasks,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0401,s6_station_tasks#02,s6_station_tasks,role_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN041,4,NONE
+F0402,s6_station_tasks#03,s6_station_tasks,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0403,s6_station_tasks#04,s6_station_tasks,task_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0404,s6_station_tasks#05,s6_station_tasks,completed_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN014,3,NONE
+F0405,s8_finalizations#01,s8_finalizations,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0406,s8_finalizations#02,s8_finalizations,finalized_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0407,s8_finalizations#03,s8_finalizations,finalized_by,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0408,s8_finalizations#04,s8_finalizations,client_request_id,EXCLUDE_TECHNICAL,IDEMPOTENCY_REQUEST_KEY,Request identity; not a domain-state value,SN013,8,NONE
+F0409,s8_finalizations#05,s8_finalizations,integrity_report,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0410,s8_finalizations#06,s8_finalizations,export_schema_version,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0411,s9_pocket_item_inspections#01,s9_pocket_item_inspections,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0412,s9_pocket_item_inspections#02,s9_pocket_item_inspections,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0413,s9_pocket_item_inspections#03,s9_pocket_item_inspections,item_key,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN027,5,NONE
+F0414,s9_pocket_item_inspections#04,s9_pocket_item_inspections,inspected_at,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0415,teacher_override_validity#01,teacher_override_validity,override_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN034,2,NONE
+F0416,teacher_override_validity#02,teacher_override_validity,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0417,teacher_override_validity#03,teacher_override_validity,player_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN037,24,NONE
+F0418,teacher_override_validity#04,teacher_override_validity,semantic_field,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0419,teacher_override_validity#05,teacher_override_validity,value,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0420,teacher_override_validity#06,teacher_override_validity,validity,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN053,4,NONE
+F0421,teacher_overrides#01,teacher_overrides,override_id,EXCLUDE_TECHNICAL,SURROGATE_RECORD_IDENTITY,Row identity; not compared as mutable domain fact,SN034,2,NONE
+F0422,teacher_overrides#02,teacher_overrides,run_id,CONTEXT_ONLY,SCOPE_JOIN_KEY,Retained as scope/join context but removed from primary duplicate-fact clustering,SN044,36,NONE
+F0423,teacher_overrides#03,teacher_overrides,source_scene,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0424,teacher_overrides#04,teacher_overrides,source_phase,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0425,teacher_overrides#05,teacher_overrides,source_step,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0426,teacher_overrides#06,teacher_overrides,override_action,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0427,teacher_overrides#07,teacher_overrides,applied_resolution,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0428,teacher_overrides#08,teacher_overrides,resolution_source,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN040,2,NONE
+F0429,teacher_overrides#09,teacher_overrides,reason,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0430,teacher_overrides#10,teacher_overrides,invalidated_scope,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,,1,NONE
+F0431,teacher_overrides#11,teacher_overrides,behavior_scoring,RETAIN,BUSINESS_OR_DOMAIN_FACT,Eligible for structural fact clustering; no authority implication,SN009,3,NONE
+F0432,teacher_overrides#12,teacher_overrides,created_at,EXCLUDE_TECHNICAL,GENERIC_RECORD_METADATA,Generic bookkeeping timestamp; not primary domain fact,SN016,11,NONE
