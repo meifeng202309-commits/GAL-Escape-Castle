@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-08T06:30:00Z
+> Last refreshed: 2026-10-08T07:08:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — Authority evidence closure + remediation architecture review
-CURRENT_GATE          = HOLD_CD_SEMANTIC_FREEZE_CANDIDATE_ACCEPTED_DEPLOYED_EVIDENCE_RETURNED_ARCHITECTURE_REVIEW
-CURRENT_OWNER         = GA + CD — independent architecture/cost reviews requested by CA-164; CA to reconcile
-NEXT_REQUIRED_ACTION  = GA and CD independently evaluate targeted refactor vs read-only Resolver vs hybrid read-model facade. GA must assess ACT1-14 semantics, maintainability, fault isolation, consistency, security and impact on W01-W13. CA then reconciles. General CD implementation HOLD remains; no code/schema/database/gameplay mutation is authorized.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — hybrid read-model architecture review
+CURRENT_GATE          = HOLD_CD_GA_REVIEW_COMPLETE_AWAITING_CD_INDEPENDENT_REVIEW_AND_CA_RECONCILIATION
+CURRENT_OWNER         = CD + CA — CD returns independent engineering-cost review; CA reconciles GA/CD findings
+NEXT_REQUIRED_ACTION  = CD independently reviews targeted refactor vs broad Resolver vs hybrid. CA then reconciles both reviews and decides whether to authorize a bounded shadow pilot. GA recommends a narrow server-side Read-Model Facade / anti-corruption layer only for cross-domain reads; business mutations remain local canonical modules. General CD implementation HOLD remains.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
