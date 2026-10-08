@@ -1,0 +1,7 @@
+scene_id,choice_id,choice_label,active
+1,door,Go straight to the door,true
+1,keys,Check the old keys on the desk,true
+1,map,Study the map on the wall,true
+2,call,Call for the others,true
+2,hide,Hide and listen,true
+2,run,Run toward the corridor,true

@@ -1,0 +1,11 @@
+item_key,expected_text_key,deployed_text_key,matches_v4
+anna_servant_diary,item.servant_diary,item.servant_diary,true
+gitte_castle_map,item.castle_map,item.castle_map,true
+gitte_flashlight,item.flashlight,item.flashlight,true
+gitte_number_note,item.number_note,item.number_note,true
+golden_key,item.golden_key,item.golden_key,true
+library_photo_1897,item.photo_1897,item.photo_1897,true
+library_torn_note,item.torn_note,item.torn_note,true
+linda_closure_order,item.municipal_closure_order,item.municipal_closure_order,true
+linda_star_key,item.silver_star_key,item.silver_star_key,true
+linda_stopped_watch,item.stopped_watch,item.stopped_watch,true

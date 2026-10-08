@@ -1,0 +1,24 @@
+run_id,status,scene_id,phase_key,step_key,completed_at,finalized_at,integrity_verified
+dc2ee211-8380-4427-b5ce-50288b92ca0b,completed,act14_final_reveal,act14_complete,ending,2026-09-30 03:54:20.036638+00,2026-09-30 03:54:20.036638+00,true
+98245d3d-66aa-46e1-adb1-4e21ad430b5a,completed,act14_final_reveal,act14_complete,ending,2026-09-30 03:51:46.95639+00,2026-09-30 03:51:46.95639+00,true
+ebc7e223-f26c-4363-8749-d9990460daf3,completed,act14_final_reveal,act14_complete,ending,2026-09-30 03:49:10.987736+00,2026-09-30 03:49:10.987736+00,true
+cbfbe111-7f6c-4a4f-b7a5-a843c2601c76,completed,act14_final_reveal,act14_complete,ending,2026-09-30 03:45:40.792379+00,2026-09-30 03:45:40.792379+00,true
+6d8c730c-2f00-465d-969e-8d7eee871262,completed,act14_final_reveal,act14_complete,ending,2026-09-28 15:48:29.250759+00,2026-09-28 15:48:29.250759+00,true
+7387d954-cd89-4885-b040-80e8d1af6562,completed,act14_final_reveal,act14_complete,ending,2026-09-28 15:43:00.808691+00,2026-09-28 15:43:00.808691+00,true
+54528578-5a9c-4c24-a4de-93ebae86031f,completed,act14_final_reveal,act14_complete,ending,2026-09-28 15:34:23.227908+00,2026-09-28 15:34:23.227908+00,true
+b133c1bf-56ad-474e-8367-db8fd8af3ac3,completed,act14_final_reveal,act14_complete,ending,2026-09-25 17:45:49.936065+00,2026-09-25 17:45:49.936065+00,true
+e5fba95f-c339-4e33-82ff-d388f1b04ad2,completed,act14_final_reveal,act14_complete,ending,2026-09-25 15:29:09.939747+00,2026-09-25 15:29:09.939747+00,true
+fca10943-9f7c-4eaa-bec0-f372d194da57,completed,act14_final_reveal,act14_complete,ending,2026-09-25 15:23:00.76772+00,2026-09-25 15:23:00.76772+00,true
+f168827a-a9ea-4baa-847f-e1c0bb69b6d6,completed,act14_final_reveal,act14_complete,ending,2026-09-25 15:21:54.693298+00,2026-09-25 15:21:54.693298+00,true
+38541b57-c7e7-4b09-8964-5761c5e0c02e,completed,act14_final_reveal,act14_complete,ending,2026-09-25 15:17:05.156192+00,2026-09-25 15:17:05.156192+00,true
+0cb1a018-7a20-4f57-b406-f8b205498428,completed,act14_final_reveal,act14_complete,ending,2026-09-25 15:14:22.131921+00,2026-09-25 15:14:22.131921+00,true
+3866aea1-09e6-4162-b6ae-ebf8a7035f7c,completed,act14_final_reveal,act14_complete,ending,2026-09-25 15:13:19.520991+00,2026-09-25 15:13:19.520991+00,true
+ac38dfe8-6c00-4b96-9f93-af9c126b520c,completed,act14_final_reveal,act14_complete,ending,2026-09-25 14:16:00.511156+00,2026-09-25 14:16:00.511156+00,true
+d31f39b8-8bea-4777-ba21-eb7cccbcb297,completed,act14_final_reveal,act14_complete,ending,2026-09-25 14:15:06.608142+00,2026-09-25 14:15:06.608142+00,true
+0df1950d-90f0-4b2e-bc32-574a1e913721,completed,act14_final_reveal,act14_complete,ending,2026-09-25 13:55:56.542568+00,2026-09-25 13:55:56.542568+00,true
+01aecf80-3632-454f-affe-1e674bb6f75e,completed,act14_final_reveal,act14_complete,ending,2026-09-25 13:52:17.660958+00,2026-09-25 13:52:17.660958+00,true
+f90662e2-20de-44af-8275-4ad507f20298,completed,act14_final_reveal,act14_complete,ending,2026-09-25 13:39:32.884857+00,2026-09-25 13:39:32.884857+00,true
+7e0b3831-edc9-4d06-b92f-2ec58b3efd09,completed,act14_final_reveal,act14_complete,ending,2026-09-25 13:37:16.190443+00,2026-09-25 13:37:16.190443+00,true
+f48fcc11-96a1-41a9-ae4d-a77c30a5aa1e,completed,act14_final_reveal,act14_complete,ending,2026-09-25 09:37:42.518179+00,2026-09-25 09:37:42.518179+00,NULL
+312bc91d-046f-449e-b326-f0a7887a6843,completed,act14_final_reveal,act14_complete,ending,2026-09-25 04:26:39.691917+00,2026-09-25 04:26:39.691917+00,NULL
+4d717b6a-906d-436a-9c2c-285fb78f3174,completed,act14_final_reveal,act14_complete,ending,2026-09-25 04:12:01.103282+00,2026-09-25 04:12:01.103282+00,NULL

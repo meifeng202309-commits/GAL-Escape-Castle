@@ -1,0 +1,12 @@
+schema_name,proname,identity_args,result_type,security_definer,owner
+public,asset_manager_activate_group,"p_teacher_token text, p_asset_ids uuid[]",jsonb,true,postgres
+public,asset_manager_import_candidate,"p_asset_key text, p_candidate jsonb",jsonb,true,postgres
+public,asset_manager_sync_registry,"p_teacher_token text, p_registry_sha256 text, p_assets jsonb",jsonb,true,postgres
+public,asset_resolve,p_asset_key text,jsonb,true,postgres
+public,s1_submit_private_choice,"p_room_code text, p_session_token text, p_choice_id text, p_choice_label text",jsonb,true,postgres
+public,s5_get_teacher_discussion_state,"p_room_code text, p_teacher_token text",jsonb,true,postgres
+public,s5_submit_vote,"p_room_code text, p_session_token text, p_expected_discussion_session_id uuid, p_expected_vote_round integer, p_client_request_id uuid, p_choice_id text",jsonb,true,postgres
+public,s5_teacher_open_vote,"p_room_code text, p_teacher_token text",jsonb,true,postgres
+public,s8_export_session,"p_room_code text, p_teacher_token text",jsonb,true,postgres
+public,s8_export_session,"p_room_code text, p_teacher_token text, p_run_id uuid",jsonb,true,postgres
+public,s8_finalize,"p_room_code text, p_session_token text, p_client_request_id uuid, p_expected_run_id uuid",jsonb,true,postgres

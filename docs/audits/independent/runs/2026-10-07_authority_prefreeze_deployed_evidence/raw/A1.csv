@@ -1,0 +1,137 @@
+table_schema,table_name,ordinal_position,column_name,data_type,udt_name,is_nullable,column_default
+public,asset_candidates,1,asset_id,uuid,uuid,NO,gen_random_uuid()
+public,asset_candidates,2,asset_key,text,text,NO,null
+public,asset_candidates,3,version,integer,int4,NO,null
+public,asset_candidates,4,asset_type,text,text,NO,null
+public,asset_candidates,5,scene_id,text,text,YES,null
+public,asset_candidates,6,assigned_to,text,text,YES,null
+public,asset_candidates,7,creator,text,text,NO,null
+public,asset_candidates,8,storage_path,text,text,YES,null
+public,asset_candidates,9,status,text,text,NO,null
+public,asset_candidates,10,approved_by,text,text,YES,null
+public,asset_candidates,11,approved_at,timestamp with time zone,timestamptz,YES,null
+public,asset_candidates,12,created_at,timestamp with time zone,timestamptz,NO,now()
+public,asset_candidates,13,final_prompt,text,text,YES,null
+public,asset_candidates,14,revision_note,text,text,YES,null
+public,asset_candidates,15,technical_notes,text,text,YES,null
+public,asset_candidates,16,paired_asset_group,text,text,YES,null
+public,asset_candidates,17,view_name,text,text,YES,null
+public,asset_candidates,18,ui_anchors,jsonb,jsonb,NO,'[]'::jsonb
+public,asset_candidates,19,width_px,integer,int4,YES,null
+public,asset_candidates,20,height_px,integer,int4,YES,null
+public,asset_candidates,21,mime_type,text,text,YES,null
+public,asset_candidates,22,duration_ms,integer,int4,YES,null
+public,asset_candidates,23,loopable,boolean,bool,YES,null
+public,asset_candidates,24,license_source,text,text,YES,null
+public,asset_candidates,25,loudness_note,text,text,YES,null
+public,asset_candidates,26,continuity_refs,jsonb,jsonb,NO,'[]'::jsonb
+public,asset_candidates,27,required_anchors,jsonb,jsonb,NO,'[]'::jsonb
+public,asset_candidates,28,sha256,text,text,YES,null
+public,asset_candidates,29,published_at,timestamp with time zone,timestamptz,YES,null
+public,asset_registry_projection,1,asset_key,text,text,NO,null
+public,asset_registry_projection,2,display_name,text,text,NO,null
+public,asset_registry_projection,3,aliases,jsonb,jsonb,NO,'[]'::jsonb
+public,asset_registry_projection,4,asset_type,text,text,NO,null
+public,asset_registry_projection,5,scene_id,text,text,YES,null
+public,asset_registry_projection,6,assigned_to,text,text,YES,null
+public,asset_registry_projection,7,latest_version,integer,int4,NO,0
+public,asset_registry_projection,8,active_version,integer,int4,YES,null
+public,asset_registry_projection,9,continuity_refs,jsonb,jsonb,NO,'[]'::jsonb
+public,asset_registry_projection,10,paired_asset_group,text,text,YES,null
+public,asset_registry_projection,11,required_anchors,jsonb,jsonb,NO,'[]'::jsonb
+public,asset_registry_projection,12,runtime_required,boolean,bool,NO,true
+public,asset_registry_projection,13,registry_sha256,text,text,NO,null
+public,asset_registry_projection,14,projected_at,timestamp with time zone,timestamptz,NO,now()
+public,discussion_sessions,1,discussion_session_id,uuid,uuid,NO,gen_random_uuid()
+public,discussion_sessions,2,run_id,uuid,uuid,NO,null
+public,discussion_sessions,3,scene_id,text,text,NO,null
+public,discussion_sessions,4,phase_key,text,text,NO,null
+public,discussion_sessions,5,step_key,text,text,NO,''::text
+public,discussion_sessions,6,round_no,integer,int4,NO,null
+public,discussion_sessions,7,vote_round,integer,int4,NO,null
+public,discussion_sessions,8,topic,text,text,NO,null
+public,discussion_sessions,9,status,text,text,NO,'discussion'::text
+public,discussion_sessions,10,started_at,timestamp with time zone,timestamptz,NO,now()
+public,discussion_sessions,11,phase_deadline,timestamp with time zone,timestamptz,YES,null
+public,discussion_sessions,12,ended_at,timestamp with time zone,timestamptz,YES,null
+public,discussion_sessions,13,outcome,jsonb,jsonb,YES,null
+public,discussion_sessions,14,show_initial_choices,boolean,bool,NO,false
+public,discussion_sessions,15,allow_free_text,boolean,bool,NO,true
+public,discussion_sessions,16,require_final_vote,boolean,bool,NO,true
+public,discussion_sessions,17,vote_options,jsonb,jsonb,NO,'[]'::jsonb
+public,discussion_sessions,18,tie_policy,text,text,NO,'NO_TIE_POSSIBLE'::text
+public,discussion_sessions,19,revote_window_sec,integer,int4,YES,null
+public,discussion_sessions,20,max_revotes,integer,int4,YES,null
+public,discussion_sessions,21,fallback_resolution,text,text,YES,null
+public,discussion_sessions,22,discussion_timeout_policy,text,text,NO,'END_DISCUSSION_AND_OPEN_VOTE'::text
+public,discussion_sessions,23,vote_timeout_policy,text,text,NO,'WAIT_FOR_MISSING_PLAYER'::text
+public,discussion_sessions,24,discussion_time_limit_sec,integer,int4,NO,null
+public,discussion_sessions,25,vote_time_limit_sec,integer,int4,NO,null
+public,discussion_sessions,26,silent_texting_mode,boolean,bool,NO,false
+public,discussion_sessions,27,allow_pocket,boolean,bool,NO,false
+public,discussion_sessions,28,allow_memories_observations,boolean,bool,NO,false
+public,discussion_sessions,29,allow_share_photo,boolean,bool,NO,false
+public,game_runs,1,run_id,uuid,uuid,NO,gen_random_uuid()
+public,game_runs,2,room_code,text,text,NO,null
+public,game_runs,3,run_started_at,timestamp with time zone,timestamptz,NO,now()
+public,game_runs,4,run_mode,text,text,NO,null
+public,game_runs,5,behavior_dataset_eligible,boolean,bool,NO,null
+public,game_runs,6,status,text,text,NO,'active'::text
+public,game_runs,7,scene_id,text,text,NO,'generic-discussion'::text
+public,game_runs,8,phase_key,text,text,NO,'discussion'::text
+public,game_runs,9,step_key,text,text,NO,'generic-vote'::text
+public,game_runs,10,silent_texting_mode,boolean,bool,NO,false
+public,game_runs,11,created_at,timestamp with time zone,timestamptz,NO,now()
+public,game_runs,12,audit_private_debug_view,boolean,bool,NO,false
+public,game_runs,13,active_override_id,uuid,uuid,YES,null
+public,game_runs,14,session_integrity_verified,boolean,bool,NO,false
+public,game_runs,15,game_completed,boolean,bool,NO,false
+public,game_runs,16,export_ready,boolean,bool,NO,false
+public,game_runs,17,completed_at,timestamp with time zone,timestamptz,YES,null
+public,s1_scene_choices,1,scene_id,integer,int4,NO,null
+public,s1_scene_choices,2,choice_id,text,text,NO,null
+public,s1_scene_choices,3,choice_label,text,text,NO,null
+public,s1_scene_choices,4,active,boolean,bool,NO,true
+public,s3_group_items,1,run_id,uuid,uuid,NO,null
+public,s3_group_items,2,item_key,text,text,NO,null
+public,s3_group_items,3,label_text_key,text,text,NO,null
+public,s3_group_items,4,acquired_at,timestamp with time zone,timestamptz,NO,now()
+public,s3_item_catalog,1,item_key,text,text,NO,null
+public,s3_item_catalog,2,name_text_key,text,text,NO,null
+public,s3_item_catalog,3,shareable_views,jsonb,jsonb,NO,'[]'::jsonb
+public,s3_runtime_scene_state,1,run_id,uuid,uuid,NO,null
+public,s3_runtime_scene_state,2,scene_id,text,text,NO,null
+public,s3_runtime_scene_state,3,phase_key,text,text,NO,null
+public,s3_runtime_scene_state,4,step_key,text,text,NO,''::text
+public,s3_runtime_scene_state,5,display_mode,text,text,NO,null
+public,s3_runtime_scene_state,6,text_key,text,text,NO,null
+public,s3_runtime_scene_state,7,current_route_target,text,text,YES,null
+public,s3_runtime_scene_state,8,wayfinding_target,text,text,YES,null
+public,s3_runtime_scene_state,9,updated_at,timestamp with time zone,timestamptz,NO,now()
+public,s3_runtime_scene_state,10,allow_share_photo,boolean,bool,NO,false
+public,s3b_player_facts,1,run_id,uuid,uuid,NO,null
+public,s3b_player_facts,2,player_id,uuid,uuid,NO,null
+public,s3b_player_facts,3,fact_key,text,text,NO,null
+public,s3b_player_facts,4,discovered_at,timestamp with time zone,timestamptz,NO,now()
+public,s5_rounds,1,discussion_session_id,uuid,uuid,NO,gen_random_uuid()
+public,s5_rounds,2,run_id,uuid,uuid,NO,null
+public,s5_rounds,3,phase_key,text,text,NO,null
+public,s5_rounds,4,vote_round,integer,int4,NO,null
+public,s5_rounds,5,topic_text_key,text,text,NO,null
+public,s5_rounds,6,status,text,text,NO,'discussion'::text
+public,s5_rounds,7,resolution_source,text,text,YES,null
+public,s5_rounds,8,created_at,timestamp with time zone,timestamptz,NO,now()
+public,s5_rounds,9,resolved_at,timestamp with time zone,timestamptz,YES,null
+public,s6_action_receipts,1,run_id,uuid,uuid,NO,null
+public,s6_action_receipts,2,player_id,uuid,uuid,NO,null
+public,s6_action_receipts,3,request_id,uuid,uuid,NO,null
+public,s6_action_receipts,4,action_key,text,text,YES,null
+public,s6_action_receipts,5,payload,jsonb,jsonb,NO,null
+public,s6_action_receipts,6,result,jsonb,jsonb,YES,null
+public,s6_action_receipts,7,created_at,timestamp with time zone,timestamptz,NO,now()
+public,s8_finalizations,1,run_id,uuid,uuid,NO,null
+public,s8_finalizations,2,finalized_at,timestamp with time zone,timestamptz,NO,now()
+public,s8_finalizations,3,finalized_by,uuid,uuid,NO,null
+public,s8_finalizations,4,client_request_id,uuid,uuid,NO,null
+public,s8_finalizations,5,integrity_report,jsonb,jsonb,NO,null
+public,s8_finalizations,6,export_schema_version,text,text,NO,'1.1'::text
