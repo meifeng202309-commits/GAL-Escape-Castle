@@ -2,14 +2,15 @@
 
 **Date:** 2026-10-09
 
-**Status:** `REVISED_FOR_CA_DELTA_REVIEW / IMPLEMENTATION_HOLD / NO_RUNTIME_IMPLEMENTATION_AUTHORIZATION`
+**Status:** `REVISED_FOR_CA_173_RELEASE_GATE_REVIEW / IMPLEMENTATION_HOLD / NO_RUNTIME_IMPLEMENTATION_AUTHORIZATION`
 
 **Branch basis:** `remediation/sprint9-structural-v1` at or after `63f8443`
 
 **Current review authority:**
 
+- `CA_to_CD_20261009T174500Z_ga-v4-final-consolidated-review-release-gates.md` (CA-173)
 - `CA_to_CD_20261009T141000Z_v4-consolidated-historical-coverage-selective-evidence-final-review.md` (CA-171)
-- CA-171 supersedes CA-170 as the single current CA→CD action source while retaining the material conditions it lists.
+- CA-173 is the single latest CA→CD action source. It updates CA-171 only for R1–R5 and bounded release-gate sequencing while retaining CA-171's incorporated technical guards.
 - GA-102 was rescinded and is not an independent action source.
 
 **Supersedes as the current unified implementation proposal:**
@@ -395,7 +396,17 @@ Do not apply 10,800 seconds to:
 6. stale click cannot advance a newer discussion;
 7. hide NORMAL Add Time;
 8. direct NORMAL `s2_add_time` / `s5_teacher_add_time` (or effective overloads) return not applicable before writing an event or changing a deadline;
-9. votes remain genuine Player submissions.
+9. votes remain genuine Player submissions;
+10. a 2-of-3 incomplete NORMAL vote remains current and accepts the late third genuine vote throughout the supported 10,800-second classroom window unless an authenticated Teacher recovery or valid round transition already ended it;
+11. inventory Discussion and vote deadlines separately for generic ACT2, S5 ACT7 and relevant S6 vote phases—changing only the Discussion deadline is insufficient;
+12. use the cheaper proven correction per owner: align its NORMAL vote deadline to the compatibility window or add a narrow NORMAL expiry guard; do not change AUDIT or unrelated timers.
+
+Required tests per affected owner:
+
+- submit two genuine votes, pass the former 15/90-second expiry, then accept the third;
+- reject a vote carrying the prior discussion/round identity after a valid transition;
+- direct NORMAL Add Time remains nonmutating;
+- AUDIT timing behavior remains deliberate and separately covered.
 
 ### 8.4 S6
 
@@ -482,6 +493,32 @@ Implementation:
 3. reopen increments round and creates a fresh identity;
 4. export preserves each real round;
 5. TOP Clock C recovery adds OR result without rewriting real wrong rounds.
+
+### 10.1.1 ACT7 server-enforced three-second next-round guard
+
+Current repository-effective call chain at baseline `6e86dad`:
+
+```text
+public.s5_submit_vote              -- database/031 public replay-first wrapper
+→ public.s5_submit_vote_pre031    -- database/029 canonical Discussion wrapper
+→ public.s5_submit_vote_pre029    -- database/027 domain mutation
+```
+
+The 027 mutation writes `s5_rounds.resolved_at`, increments `s5_run_state.vote_round`, and immediately inserts the next ACT7 round for both a three-way tie and a wrong majority. The 029 wrapper writes `resolved_at` again and currently can overwrite ACT7 `wrong_majority` with `player_majority`; E1 must correct that classification separately.
+
+For the guard, a new current ACT7 round proves that the immediately preceding ACT7 round ended in a feedback-producing tie or wrong-majority path; a correct Clock C result does not create another ACT7 vote round. Therefore the cheapest candidate needs no new table/column:
+
+1. same-request replay remains first and returns its original receipt;
+2. validate exact active run, ACT7 phase, current discussion session and expected vote round;
+3. lock/read the immediately preceding `s5_rounds` row for the same run/`act7_vote` with `vote_round=current-1`;
+4. if that resolved row exists, reject a **new** request without writes while `server_now < resolved_at + interval '3 seconds'`;
+5. use that same `resolved_at` as the presentation occurrence origin; reconnect never restarts it;
+6. after the window, call the existing effective chain;
+7. cooldown rejection creates no vote/event and does not consume the request UUID.
+
+Tie and wrong-majority both receive the three-second feedback/guard because both create a new ACT7 round. Correct Clock C has no next-round input to guard. Static clean-schema and deployed-overload checks must confirm the chain before implementation; a different deployed body is a STOP.
+
+Tests: same-request replay during window, two browsers racing new requests, `t<3s`, `t>=3s`, tie, wrong-majority, stale session/round, reconnect, no event/vote on rejection, and durable wrong-majority classification after E1.
 
 ### 10.2 Shared presentation occurrence
 
@@ -625,6 +662,18 @@ Player shell:
 - ACT4 reveal remains private until the canonical simultaneous-reveal condition;
 - ACT5 consequence remains visible before the per-Player ACT6 entry barrier;
 - a bilingual two-second scene transition is presentation-only and is suppressed on first render/reconnect when no real transition just occurred.
+
+Frozen Phase-4 visual targets:
+
+| Runtime surface | Approved prototype |
+|---|---|
+| Player main page | `docs/prototypes/round1-ui-v4/GAL_Player_Page.html` |
+| Scene transition | `docs/prototypes/round1-ui-v4/GAL_Scene_Transition.html` |
+| Teacher NORMAL console | `docs/prototypes/round1-ui-v4/Teacher_Console.html` |
+| Teacher Emergency Recovery | `docs/prototypes/round1-ui-v4/Teacher_Emergency_Recovery.html` |
+| Teacher Maintenance/Developer | `docs/prototypes/round1-ui-v4/Teacher_Maintenance_Developer.html` |
+
+These prototypes define visual hierarchy/navigation only. They do not create gameplay authority, do not require rebuilding approved assets, and do not block A1/B/W03. The three Teacher targets remain internal views of one current `teacher.html` runtime.
 
 Teacher shell:
 
@@ -823,6 +872,17 @@ No universal transaction coordinator or second gameplay engine.
 | ACT13→14 | escape/boundary state | OR boundary only if needed | ACT14 reveal visible |
 | ACT14→Final | S8 verifier/export | normal vs trusted-OR obligation mode + invoker | export truthful |
 
+Teacher terminal confirmation for ACT11/12 recovery:
+
+- before the Teacher confirms, show the fixed actual destination/effect in the approved bilingual presentation;
+- state explicitly when recovery bypasses remaining station gameplay and leads toward the existing escape ending;
+- do not use a generic “resolve and continue” label that implies ordinary ACT12/13 progression;
+- preserve Teacher reason and explicit confirmation;
+- offer no Teacher-selected alternate recovery branch;
+- server-owned terminal semantics remain authoritative.
+
+This is a Lane R UI/contract condition and does not block Lane N.
+
 ### 14.7 Terminal integrity
 
 Do not weaken the normal verifier.
@@ -922,7 +982,15 @@ Use the measured changed functions/writes/tests to confirm or revise the remaini
 
 ### 15.2 Early H-pre diagnostic trial
 
-Start as soon as these minimums pass:
+Use bounded diagnostic checkpoints:
+
+- **H-A after A1 + U0:** Teacher + one Player start/refresh/reconnect;
+- **H-B after B-min + W03:** Teacher + three Players; first true H-pre, progressing as far as the current build safely permits;
+- **H-C after C/D/E:** targeted Discussion/vote/result trial;
+- **H-D during F/UI:** approved interface-usability trial;
+- **H0:** complete ACT1–14 route and final release acceptance.
+
+H-B starts as soon as these minimums pass:
 
 - P0 exact baseline;
 - A1 polling;
@@ -930,11 +998,12 @@ Start as soon as these minimums pass:
 - U0 IDA-001–005 negative/consistency cells;
 - B-min core location/waiting vectors;
 - W03 combined action;
-- focused ACT13→S8→ACT14 final-reveal/reconnect smoke;
 - fresh room/three Players/Teacher;
 - console/network evidence capture.
 
-H-pre finds the first real blocker. It is not final acceptance and does not wait for full Lane R or ACTIVE audio.
+Record/run the focused ACT13→S8→ACT14 final-reveal/reconnect smoke early, but it is not a PASS prerequisite for H-A/H-B. A failure attributable only to the already-known F1 final-reveal defect stays in F1 and must not block ACT1/2/3 human diagnostics. The smoke must PASS before H0 and Lane N freeze.
+
+H-pre finds the first real blocker. It is not final acceptance and does not wait for full Lane R or ACTIVE audio. Only H0/freeze requires the complete route.
 
 ### 15.3 Risk-selected TOP tests
 
@@ -1022,6 +1091,7 @@ The sequence is dependency-aware, not a rigid rule that blocks independent work.
 P0-lite
 → A1 Player polling
 → U0 formal-start smoke
+→ H-A one-Player diagnostic
 ```
 
 ### Phase 2 — expose and remove first human blockers
@@ -1029,7 +1099,7 @@ P0-lite
 ```text
 B-min core vectors
 → W03 combined GRAB+leave
-→ early H-pre
+→ H-B first three-Player H-pre
 ```
 
 B-min need not finish every edge vector before W03.
@@ -1041,6 +1111,7 @@ C Discussion
 → D1 ACT3 truth/cooldown
 → E1 ACT7 durable classification
 → D2/E2 shared occurrence presentation
+→ H-C targeted Discussion/vote/result trial
 ```
 
 If H-pre exposes a more immediate reproduced blocker, fix it first within its owner.
@@ -1058,6 +1129,7 @@ F1 ACT14 reachability
 → F6 anchors
 → F4 stale status
 → remaining shell/polish
+→ H-D interface-usability trial
 ```
 
 ### Phase 5 — audio publication in parallel
@@ -1193,25 +1265,16 @@ This plan does not authorize:
 
 ---
 
-## 20. CA-171 document-only delta and requested review
+## 20. CA-173 narrow delta and release-gate request
 
-This revision makes only the following plan deltas:
+This revision adds only CA-173 R1–R5:
 
-1. replaces whole-run TOP behavior exclusion with the Teacher-fixed four-class selective preservation rule;
-2. makes run-level unassisted comparability metadata-only and separates it from technical integrity and export eligibility;
-3. requires effective exporter/finalizer/analyzer tracing before adding provenance fields;
-4. promotes IDA-001–005 into five explicit early browser/authority acceptance cells;
-5. expands F5/F9/F0/F1 acceptance for responsive shell, Pocket assets/privacy, Teacher internal views, Library five-slot UI, polling-local state, identity header and two-second transitions;
-6. requires reuse-versus-ledger evidence before adding shared result presentation storage;
-7. clarifies that GA-101 values are semantics to map to actual owners/fields, not direct DB instructions;
-8. strengthens the existing audio package with an effective live-manager ordering/grant discovery gate;
-9. retains the CA-170 conditions for Discussion 10,800/3600 bounds, Teacher identity, server-side Add Time denial, finite TOP pilots, ACT14 reveal, audio ACTIVE and legacy RPC grants.
+1. incomplete NORMAL votes remain actionable during the classroom window, with per-owner expiry tests;
+2. ACT7 next-round feedback is server-enforced from the preceding round's `resolved_at`, while E1 separately fixes wrong-majority classification;
+3. H-A/H-B/H-C/H-D/H0 checkpoints prevent the known late ACT14 defect from blocking early human diagnostics;
+4. Phase-4 visual acceptance names the five frozen prototype files;
+5. terminal ACT11/12 TOP confirmation states the actual fixed escape-directed effect.
 
-CA should return one bounded disposition:
+The accompanying A1 release packet provides the requested code baseline, affected path, exact tests, rollback and STOP conditions. CA/Teacher must explicitly authorize A1 before any runtime edit begins.
 
-- `PASS_TO_BOUNDED_IMPLEMENTATION_RELEASE_REVIEW`
-- `PASS_WITH_REQUIRED_PLAN_CHANGES`
-- `CHALLENGE`
-- `BLOCKED`
-
-No GA FYI or separate GA review is requested for this CA-171 delta. Implementation, migration, publication and deployment remain on HOLD until an explicit package-specific release is issued.
+No GA FYI or separate GA review is requested for this CA-173 delta. All implementation, migration, publication and deployment remain on HOLD.
