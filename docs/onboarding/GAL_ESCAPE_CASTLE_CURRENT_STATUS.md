@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-09T10:48:00Z
+> Last refreshed: 2026-10-09T13:24:00Z
 > Updated by: GA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — debug-plan / TOP semantic reconciliation
-CURRENT_GATE          = HOLD_RUNTIME_IMPLEMENTATION_PENDING_CD_DOCUMENT_REVISION_AND_CA_CRITICAL_REVIEW
-CURRENT_OWNER         = CD + CA — CD revises V3.0/TOP documentation; CA independently reviews GA V1.2
-NEXT_REQUIRED_ACTION  = CD updates PROPOSAL_DEBUG_IMPLEMENTATION_PLAN_V3.0_BY_CD.md and ACT1–ACT14 minimum continuation table from GA's targeted semantic review; CA returns adversarial review of GA V1.2. No runtime/schema/permission implementation is authorized until plan reconciliation and a bounded release decision.
+CURRENT_GATE          = HOLD_RUNTIME_IMPLEMENTATION_PENDING_CA_CONSOLIDATED_V4_AND_HISTORICAL_COVERAGE_REVIEW
+CURRENT_OWNER         = CA — final consolidated V4 review stream to CD
+NEXT_REQUIRED_ACTION  = CA re-audits V4 against earliest post-human-test debug plans/problem inventories, incorporates Teacher's fixed selective TOP behavior-data policy, and sends one consolidated CA→CD action source. CD waits; runtime implementation remains HOLD.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
