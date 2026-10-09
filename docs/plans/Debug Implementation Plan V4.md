@@ -2,9 +2,15 @@
 
 **Date:** 2026-10-09
 
-**Status:** `FOR_CA_AND_GA_CRITICAL_REVIEW / NO_RUNTIME_IMPLEMENTATION_AUTHORIZATION`
+**Status:** `REVISED_FOR_CA_DELTA_REVIEW / IMPLEMENTATION_HOLD / NO_RUNTIME_IMPLEMENTATION_AUTHORIZATION`
 
-**Branch basis:** `remediation/sprint9-structural-v1` at or after `c114780`
+**Branch basis:** `remediation/sprint9-structural-v1` at or after `63f8443`
+
+**Current review authority:**
+
+- `CA_to_CD_20261009T141000Z_v4-consolidated-historical-coverage-selective-evidence-final-review.md` (CA-171)
+- CA-171 supersedes CA-170 as the single current CA→CD action source while retaining the material conditions it lists.
+- GA-102 was rescinded and is not an independent action source.
 
 **Supersedes as the current unified implementation proposal:**
 
@@ -26,6 +32,8 @@ This V4 combines:
 - CD's function/schema/read-path review;
 - the current player-facing defect inventory;
 - the current visual/audio asset state.
+
+The 2026-10-09 CA-171 revision also fixes the Teacher's selective TOP behavior-data policy and promotes the historically confirmed early-trial/UI issues into explicit acceptance tests. It does not add a second gameplay engine, a general analytics warehouse or a new UI rewrite package.
 
 This is a plan, not a migration, deployment instruction or release authorization.
 
@@ -180,10 +188,25 @@ Actions:
 6. assign one commit/test/rollback boundary per package;
 7. keep the W01–W13 placement map as a scope firewall.
 
+### 4.1 U0 early-trial coverage matrix
+
+These are acceptance cells inside P0/U0/Q/F; they are not new architecture packages.
+
+| Historical finding | Required browser/authority test | PASS condition | Owning package |
+|---|---|---|---|
+| IDA-001 pre-start legacy root | Join all three Players before formal Start | Players see a waiting shell only; no legacy Sprint1 gameplay is interactive | P0/U0/F1 |
+| IDA-002 pre-start private leakage | Give each Player a distinct first private choice and inspect the other two contexts | No Player can read/render a peer's unrevealed private value | P0/U0/Q |
+| IDA-003 non-atomic start | Double-click Start and simulate an unknown acknowledgement/interruption | One active run and one fully initialized ACT1 exist; replay is idempotent | U0 |
+| IDA-004 contradictory Teacher panels | Fail one Teacher read while retaining the last confirmed run frame | Operations may show stale/error locally, but the page does not claim both “Run started” and “No active run” | A2/B |
+| IDA-005 competing legacy controls | Inspect NORMAL, Recovery and Maintenance views | NORMAL has no legacy Advance/Reset; privileged recovery/maintenance actions are separated and guarded | Q/F9 |
+
+U0 additionally verifies preserved room setup/token semantics, exact current run identity and duplicate/interruption safety against the deployed formal-start route. A failure in only the Teacher refresh test opens A2; it does not automatically authorize a universal Teacher polling rewrite.
+
 PASS:
 
 - exact code/database/assets under test are identifiable;
 - no package starts from a stale function body or old branch.
+- all five early-trial cells have a named result or a reproduced owner-specific defect.
 
 STOP:
 
@@ -368,10 +391,10 @@ Do not apply 10,800 seconds to:
 2. permit 10,800 only for approved NORMAL Teacher-paced Discussion;
 3. audit initial/revote/reopen/reconfigure calls;
 4. keep `phase_deadline` and `discussion_time_limit_sec` consistent;
-5. Teacher Open Vote carries expected run/phase/round/discussion identity;
+5. effective `s2_open_vote` / `s5_teacher_open_vote` (or their repository-last overloads) carry expected run/phase/round/discussion identity and current Teacher session identity;
 6. stale click cannot advance a newer discussion;
 7. hide NORMAL Add Time;
-8. direct NORMAL add-time mutation returns not applicable before writing anything;
+8. direct NORMAL `s2_add_time` / `s5_teacher_add_time` (or effective overloads) return not applicable before writing an event or changing a deadline;
 9. votes remain genuine Player submissions.
 
 ### 8.4 S6
@@ -462,7 +485,9 @@ Implementation:
 
 ### 10.2 Shared presentation occurrence
 
-Use one small presentation ledger for ACT3/S5/S6:
+First trace the durable ACT3/S5/S6 result records and every current renderer/read call. Prefer a versioned read projection over those existing facts when it can supply a stable occurrence identity and server window without ambiguous reconstruction. Add one small presentation ledger only if the existing domain records cannot satisfy the four-view contract without duplicate timing logic.
+
+If a ledger is necessary, its minimum shape is:
 
 ```text
 occurrence_id
@@ -483,6 +508,13 @@ Rules:
 - reconnect reconstructs an active occurrence;
 - renderer uses canonical localized text;
 - occurrence is never a second voting/result engine.
+
+Decision evidence before schema work:
+
+- list existing durable result owner and identity for ACT3, S5 and S6;
+- compare changed SQL/functions/readers for projection reuse versus a ledger;
+- select the smaller auditable option;
+- document why the rejected option would duplicate timing or writes.
 
 Implement truth first (D1/E1), then presentation adapters (D2/E2).
 
@@ -538,6 +570,16 @@ Build a minimum integrated Player evidence area for ACT1–5 first:
 - Shared Photos only when allowed;
 - current authorization for share/inspect.
 
+Browser acceptance must prove behavior, not merely row existence:
+
+- load the exact canonical ACTIVE item image through the resolver;
+- inspect front/back and flip where the asset contract supports it;
+- share only an eligible item and verify Shared Photos in the intended audience;
+- keep private Memories/Observations invisible to other Players before the approved reveal;
+- restore Pocket tab/expanded item after reconnect or polling refresh where locally appropriate;
+- expose group items and reunion access without transferring ownership of a physical item;
+- exercise the Library five-slot fixed-prefix input and submit affordance from the same stable Player shell.
+
 Data rules:
 
 - use canonical tables and provenance;
@@ -568,12 +610,36 @@ Data rules:
 - ACT6 timer/Discussion starts only at the all-three barrier;
 - no duplicate S5 round.
 
-### F9 — other UI work
+### F9 — explicit shell and historical UI acceptance
 
-- stable Player mounts/header/local draft/focus handling belong to their owning UI package;
-- five-slot Library UI remains presentation-only; server cooldown stays in D;
-- Teacher page recomposition occurs only after B/C authority contracts stabilize;
-- generic two-second transitions and cosmetic wording remain after functional acceptance.
+This remains a set of bounded acceptance/fix cells, not a new shell rewrite.
+
+Player shell:
+
+- desktop renders the intended two-column arrangement; mobile uses an intentional readable collapse;
+- reconnect restores current Player identity and ACT header and never leaves stale “Waiting for formal run” text during an active run;
+- scene, actions, Discussion and Pocket use stable mounts rather than competing full-root replacement;
+- approximately 1.2-second polling does not erase Discussion draft, keyboard focus, transcript scroll, Pocket tab or expanded item;
+- Library shows its fixed prefix, five input slots and submit affordance; cooldown/result truth remains owned by D;
+- ACT4 and Main Gate anchors scale responsively and fall back safely when unavailable;
+- ACT4 reveal remains private until the canonical simultaneous-reveal condition;
+- ACT5 consequence remains visible before the per-Player ACT6 entry barrier;
+- a bilingual two-second scene transition is presentation-only and is suppressed on first render/reconnect when no real transition just occurred.
+
+Teacher shell:
+
+- NORMAL Run, Recovery and Maintenance are separate internal views within the same current `teacher.html` runtime;
+- the room token/setup persists when navigating those views;
+- event listeners remain live after navigation and polling;
+- Emergency and Maintenance remain distinct;
+- NORMAL Run exposes no competing legacy Advance/Reset and no Add Time control;
+- Teacher's currently expanded panel/page is not reset by routine polling.
+
+Low-priority wording pass after functional acceptance:
+
+- avoid duplicated bilingual constants such as repeated `41739` or `★`;
+- replace visible Sprint/developer jargon only where it causes classroom comprehension failure;
+- do not delay H-pre or H0 for decorative wording.
 
 ---
 
@@ -588,7 +654,7 @@ All six selected candidates are already Teacher APPROVED. Do not send them for r
 ### 12.2 Publication/ACTIVE workflow
 
 1. run integrity validator and record exact candidate version/SHA;
-2. query live Asset Manager for matching candidate IDs/status/storage paths;
+2. query the actual live Asset Manager and effective publish/mark-published/Registry-sync/activation functions and grants; do not assume repository ordering is deployed ordering;
 3. if candidates are not registered, import them through the existing service-role-only import workflow;
 4. verify live candidates exactly match key/version/type/SHA/metadata;
 5. publish each binary to canonical `game-assets/<key>/vNNN/<filename>` path;
@@ -710,6 +776,16 @@ Teacher/export status          = Override-assisted completion
 
 Real TAKE/LEAVE and other real results always win over the default. Backup fills only absence.
 
+These are semantic requirements, not ready-to-write database column/value instructions. Before coding each adapter, map every requirement to:
+
+- the effective canonical owner/function;
+- the actual stored or derived representation;
+- the target initializer and first legal action;
+- the existing validity/provenance fields that can be reused;
+- a fail-closed rule when the live branch is incomplete or contradictory.
+
+No adapter may invent a similarly named field merely because the semantic table uses that label.
+
 ### 14.5 Minimum transaction skeleton
 
 For each explicit adapter:
@@ -723,7 +799,7 @@ For each explicit adapter:
 7. apply fixed server-owned recovery package;
 8. invoke target initializer once;
 9. verify target owner/scene/branch/location/first legal action;
-10. record receipt + validity + behavior-dataset policy;
+10. record receipt + interaction validity + selective evidence/provenance policy;
 11. commit once or fully roll back.
 
 No universal transaction coordinator or second gameplay engine.
@@ -757,8 +833,10 @@ Conceptually distinguish:
 completion_mode = normal | override_assisted
 technical_integrity_verified
 normal_gameplay_evidence_complete
-behavior_dataset_eligible
+fully_unassisted_comparable_run
 ```
+
+`fully_unassisted_comparable_run` is run-level metadata only. It must not be the sole export filter and must not discard genuine observations from an Override-assisted run.
 
 Use the fewest backward-compatible fields/report keys after tracing every consumer. Override-assisted completion is technically valid only when:
 
@@ -769,6 +847,10 @@ Use the fewest backward-compatible fields/report keys after tracing every consum
 - terminal state is coherent;
 - no fake normal evidence row exists.
 
+Before modifying finalization or export, trace the effective `s8_export_session`/equivalent exporter, S8 finalizer/verifier, every `session_integrity_verified` consumer, and any analyzer/query that filters behavior. Reuse existing `teacher_overrides`, `teacher_override_validity`, `runtime_events.event_source`, `validity`, `behavior_scoring` and interaction timing validity where they are actually effective. Add fields only when the effective reader/export path cannot represent a required distinction.
+
+`technical_integrity_verified` means the recovery transaction and terminal state are internally coherent and auditable. It does not assert that every expected Student action occurred.
+
 Finalization invoker must be explicit:
 
 - preferred first path: Teacher creates terminal proof/boundary and Players can finish through the current finalization experience;
@@ -777,15 +859,43 @@ Finalization invoker must be explicit:
 
 ### 14.8 Behavior dataset policy
 
-GA/CA propose the conservative low-cost V1 rule:
+The Teacher's fixed rule is selective preservation. Do not ask for this decision again and do not exclude an entire run merely because NEXT TOP occurred.
+
+Required semantic classes:
+
+| Class | Meaning | Export/analysis rule |
+|---|---|---|
+| `REAL_VALID` | A genuine server-confirmed Player behavior not invalidated by the relevant recovery | Preserve and allow normal feature-level use |
+| `REAL_AFTER_UPSTREAM_OVERRIDE` | A genuine later Player behavior whose context was influenced by an earlier TOP | Preserve with upstream Override context; analysts decide comparability for the affected feature/cohort |
+| `MISSING_INVALID_OVERRIDE` | Expected behavior was skipped or never server-confirmed | Export `null` plus `invalid_teacher_override` or the canonical equivalent; never fabricate |
+| `OR_GAME_TRACK` | System/Teacher recovery state, clue, item or branch prerequisite | Preserve with OR provenance; never treat as Player behavior |
+
+These four names define required meanings for readers, exports and tests; they are not assumed to be literal columns or enum values in every domain.
+
+Lowest-cost implementation:
+
+1. trace actual current schema and exporter/consumer SQL before adding fields;
+2. create/reuse one Override receipt containing run, source ACT/identity, target ACT, affected interaction/obligation and OR-filled facts;
+3. keep all pre-existing real rows unchanged;
+4. mark only the skipped expected interaction/field invalid and absent;
+5. link later genuine actions to the upstream Override context at the narrowest existing interaction/event level;
+6. keep a run-level fully-unassisted flag only as convenience metadata;
+7. remove/avoid any analyzer clause equivalent to `WHERE run_id NOT IN (runs_with_override)` when extracting genuine behavior;
+8. preserve raw/full JSON or CSV export of real events, missing-invalid obligations, OR facts and source/time context;
+9. do not construct a general analytics warehouse or universal per-field lineage framework when existing validity/event/receipt fields suffice.
+
+An unacknowledged client attempt is not server-confirmed real behavior and must not be upgraded to `REAL_VALID`. It may remain separate diagnostic evidence if already logged.
+
+Mandatory acceptance sequence in one run:
 
 ```text
-any successful NEXT TOP
-=> behavior_dataset_eligible=false
-=> full export remains available
+one genuine PRE-TOP behavior
+→ one skipped expected behavior recorded null/invalid
+→ one OR_GAME_TRACK recovery fact
+→ one genuine POST-TOP behavior with upstream context
 ```
 
-This is safe but broader than the user's original “ignore OR data” wording because it excludes genuine behavior from the standard comparable dataset. Keep it as the planned V1 default, but mark it for explicit product acceptance before Lane R release freeze. Do not build selective filtering until requested.
+Export must recover all four distinctions. Repeat with two successive TOPs and prove that each receipt/affected scope remains separable.
 
 ### 14.9 Cost pilot
 
@@ -817,8 +927,10 @@ Start as soon as these minimums pass:
 - P0 exact baseline;
 - A1 polling;
 - formal-start smoke;
+- U0 IDA-001–005 negative/consistency cells;
 - B-min core location/waiting vectors;
 - W03 combined action;
+- focused ACT13→S8→ACT14 final-reveal/reconnect smoke;
 - fresh room/three Players/Teacher;
 - console/network evidence capture.
 
@@ -837,6 +949,15 @@ First eight falsification cases:
 7. repeated/late request across TOP;
 8. normal versus Override-assisted verifier/export.
 
+Selective-evidence falsification additionally requires:
+
+- PRE-TOP `REAL_VALID` remains queryable;
+- skipped Behavior is null/invalid rather than synthesized;
+- OR Game-Track fact is excluded from Player behavior;
+- POST-TOP genuine behavior is preserved with upstream context;
+- two successive TOP receipts do not overwrite one another;
+- `technical_integrity_verified` is not interpreted as complete real Student evidence.
+
 All enabled boundaries later need blank/partial/full-real/replay/stale/reconnect tests.
 
 ### 15.4 Lane N functional acceptance F0/H0
@@ -844,6 +965,8 @@ All enabled boundaries later need blank/partial/full-real/replay/stale/reconnect
 Three real Player contexts + Teacher:
 
 - formal start through ACT14;
+- pre-start waiting-only root and three-Player privacy negative;
+- duplicate/interrupted formal Start remains one atomic ACT1 initialization;
 - staggered actions and reconnect;
 - peer waiting acknowledgements;
 - Discussion/Teacher Continue;
@@ -851,9 +974,13 @@ Three real Player contexts + Teacher:
 - ACT7 tie/wrong/correct;
 - four-view result windows;
 - Pocket/evidence/privacy;
+- canonical Pocket image load, inspect/flip/share/Shared Photos, group/reunion visibility and reconnect;
+- stable Player identity/ACT header, draft/focus/transcript scroll and expanded Pocket state through polling;
+- Library fixed-prefix five-slot input and submit affordance;
 - ACT5→6 barrier;
 - Main Gate roles/tasks;
 - final reveal/export;
+- Teacher NORMAL/Recovery/Maintenance navigation, preserved token/listeners and no legacy Advance/Reset/Add Time in NORMAL;
 - placeholder media path;
 - audio fallback and, once M completes, ACTIVE playback.
 
@@ -862,12 +989,15 @@ Three real Player contexts + Teacher:
 After functionality:
 
 - responsive layout;
+- desktop two-column and intentional mobile collapse;
 - anchors/readability;
+- bilingual two-second transitions only on real scene change, not first render/reconnect;
 - final images/placeholders as applicable;
 - ACTIVE audio perceptual acceptance;
 - normal/reduced/mute;
 - localized text;
 - Teacher page clarity;
+- no duplicated constants/developer jargon where it impairs classroom comprehension;
 - final Pages/Supabase exact release candidate.
 
 Freeze exact SHA/migrations/Registry SHA/live evidence. Any later fix creates a new candidate.
@@ -1015,7 +1145,7 @@ Do not build:
 - duplicate location columns in S5/S6 merely for W05;
 - a universal knowledge engine;
 - fake behavior rows for terminal verification;
-- per-field analytics filtering in Lane R V1;
+- a general analytics warehouse or universal per-field lineage framework for Lane R V1;
 - a worker-cancellation framework when terminal status/deadline/identity guards suffice;
 - final-image dependencies for early debugging;
 - cosmetic transitions before functional acceptance.
@@ -1036,15 +1166,17 @@ Do not build:
 - no separate global late-request package;
 - Main Gate incomplete TOP may end via terminal recovery;
 - no fake Player behavior;
+- TOP data uses selective evidence preservation: real observations remain, missing behavior stays null/invalid, OR facts never become behavior, and later genuine actions retain upstream context;
+- a run-level unassisted-comparability flag is metadata, not a whole-run export exclusion;
 - final media does not block early trials;
 - six audio candidates do not require repeat Teacher review.
 
 ### Still provisional before implementation/release
 
-- exact package authorization/order after CA/GA review;
+- exact package authorization/order after the consolidated CA delta review;
 - final OR receipt/report schema;
 - finalization invoker design;
-- whether whole-run dataset exclusion is accepted for Lane R V1;
+- exact mapping of selective evidence classes to the effective existing schema/export/analyzer paths;
 - exact live Audio Asset Manager candidate IDs/state;
 - exact H-pre/H0 deployment candidate;
 - any shared context abstraction after measurement.
@@ -1061,35 +1193,25 @@ This plan does not authorize:
 
 ---
 
-## 20. Requested reviews
+## 20. CA-171 document-only delta and requested review
 
-### CA review
+This revision makes only the following plan deltas:
 
-Audit:
+1. replaces whole-run TOP behavior exclusion with the Teacher-fixed four-class selective preservation rule;
+2. makes run-level unassisted comparability metadata-only and separates it from technical integrity and export eligibility;
+3. requires effective exporter/finalizer/analyzer tracing before adding provenance fields;
+4. promotes IDA-001–005 into five explicit early browser/authority acceptance cells;
+5. expands F5/F9/F0/F1 acceptance for responsive shell, Pocket assets/privacy, Teacher internal views, Library five-slot UI, polling-local state, identity header and two-second transitions;
+6. requires reuse-versus-ledger evidence before adding shared result presentation storage;
+7. clarifies that GA-101 values are semantics to map to actual owners/fields, not direct DB instructions;
+8. strengthens the existing audio package with an effective live-manager ordering/grant discovery gate;
+9. retains the CA-170 conditions for Discussion 10,800/3600 bounds, Teacher identity, server-side Add Time denial, finite TOP pilots, ACT14 reveal, audio ACTIVE and legacy RPC grants.
 
-- actual function/owner mapping;
-- workload ranking;
-- package independence;
-- migration/grant risk;
-- finalization integrity distinction;
-- audio publication/rollback workflow;
-- tests and STOP conditions;
-- lowest-cost alternatives.
+CA should return one bounded disposition:
 
-Return `PASS_TO_IMPLEMENTATION / PASS_WITH_CHANGES / CHALLENGE / BLOCKED`, while keeping implementation on HOLD.
+- `PASS_TO_BOUNDED_IMPLEMENTATION_RELEASE_REVIEW`
+- `PASS_WITH_REQUIRED_PLAN_CHANGES`
+- `CHALLENGE`
+- `BLOCKED`
 
-### GA review
-
-Audit:
-
-- V4 gameplay and behavior semantics;
-- Discussion and result presentation;
-- W03 interaction;
-- Pocket/knowledge/privacy;
-- TOP backup values and ending;
-- whether any solution changes intended Player experience;
-- audio cue/version plan against current canonical meanings.
-
-Return `CONCUR / CONCUR_WITH_CHANGES / CHALLENGE`, while keeping implementation on HOLD.
-
-Only material disagreements should generate another planning round.
+No GA FYI or separate GA review is requested for this CA-171 delta. Implementation, migration, publication and deployment remain on HOLD until an explicit package-specific release is issued.
