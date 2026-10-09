@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-08T07:08:00Z
+> Last refreshed: 2026-10-09T10:48:00Z
 > Updated by: GA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — hybrid read-model architecture review
-CURRENT_GATE          = HOLD_CD_GA_REVIEW_COMPLETE_AWAITING_CD_INDEPENDENT_REVIEW_AND_CA_RECONCILIATION
-CURRENT_OWNER         = CD + CA — CD returns independent engineering-cost review; CA reconciles GA/CD findings
-NEXT_REQUIRED_ACTION  = CD independently reviews targeted refactor vs broad Resolver vs hybrid. CA then reconciles both reviews and decides whether to authorize a bounded shadow pilot. GA recommends a narrow server-side Read-Model Facade / anti-corruption layer only for cross-domain reads; business mutations remain local canonical modules. General CD implementation HOLD remains.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — debug-plan / TOP semantic reconciliation
+CURRENT_GATE          = HOLD_RUNTIME_IMPLEMENTATION_PENDING_CD_DOCUMENT_REVISION_AND_CA_CRITICAL_REVIEW
+CURRENT_OWNER         = CD + CA — CD revises V3.0/TOP documentation; CA independently reviews GA V1.2
+NEXT_REQUIRED_ACTION  = CD updates PROPOSAL_DEBUG_IMPLEMENTATION_PLAN_V3.0_BY_CD.md and ACT1–ACT14 minimum continuation table from GA's targeted semantic review; CA returns adversarial review of GA V1.2. No runtime/schema/permission implementation is authorized until plan reconciliation and a bounded release decision.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -32,10 +32,10 @@ Teacher/User audit sequencing update (2026-09-27):
 
 ## 2. Action Log checkpoints
 
-GA has completed its latest checkpoint through GA-090. CA has completed its latest checkpoint through CA-160. CA-161 challenged the first Authority pass; CA-162 accepted V0.3 as semantic freeze candidate; CA-163 authorized bounded deployed evidence; CD-073 returned the evidence package; CA-164 opened independent Resolver/hybrid architecture review.
+GA has completed its latest checkpoint through GA-100. CA's latest newer actions remain discoverable through its Action Log / agent-comms; the pointers below are checkpoint markers, not a claim that later actions do not exist.
 
 ```text
-GA_CHECKPOINT = GA-090
+GA_CHECKPOINT = GA-100
 CA_CHECKPOINT = CA-140
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
@@ -49,7 +49,7 @@ docs/onboarding/START_HERE.md
 ```
 
 
-GA-090 checkpoint review: GA-081..GA-089 reconciled. The 432-field Authority master and JSONB subfact review are complete; CA-161's eight findings were accepted and reconciled; CA-162 accepted Registry V0.3 as a semantic freeze candidate. CA-163 authorized CD's fixed SELECT-only deployed evidence task; CD-073 returned evidence with no mutation/remediation. Key deployed findings: legacy s1_submit_private_choice remains effectively browser-callable; inspected asset split pairs currently match where rows exist; deployed item labels match V4 targets; ACTIVE game_runs scene/phase/step mirrors are empirically unreliable as fallback; 3/23 completed runs have NULL/empty integrity verified markers. Some effective privileges remain unverified. CA-164 now requests independent GA/CD architecture review of targeted refactor vs read-only Resolver vs hybrid. General CD implementation HOLD remains.
+GA-100 checkpoint review: GA-091..GA-099 reconciled. The Resolver-vs-refactor debate has been converted into concrete debug planning; GA V1.2 is the latest GA proposal and is under independent CA review. GA-098 was explicitly rescinded by GA-099 and is not active direction. CD has now supplied V3.0 plus an ACT1–ACT14 TOP minimum-continuation table; GA returned a targeted semantic review requiring documentation corrections before any T1–T4 recovery implementation. Runtime implementation remains HOLD.
 ---
 
 ## 2A. ChatGPT access-entry continuity
