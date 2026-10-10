@@ -46,3 +46,17 @@
 When CD is formally released, it should: (1) read active onboarding + current release boundary and this register; (2) check whether a later commit/deployment already resolves the item; (3) separate reproduced defect from source-static risk; (4) fold valid findings into the existing B-min/W05 work plan and tests; (5) follow CA authorization and normal logs/handoff; (6) mark each finding's resolution with evidence. Do not change frozen work solely because this register exists.
 
 **Register history:** 2026-10-10: GA opened TBF-001–003 from B-min CA/TCA independent review. No production changes.
+
+
+## TBF-004 — W03 Player UI still offers two separate GRAB/leave actions
+**Class:** V4 acceptance mismatch in inspected source; **SOURCE_STATIC verified, deployed NOT_VERIFIED**. **Status:** OPEN_INVESTIGATION. **Priority:** W03 package.  
+**Evidence:** `src/game/app.js` blob `c6d049dececb16af386418253d5dc55103f935a0`, `renderSprint3b` lines ~501–502 separately offers `s3b_grab` and `s3b_leave_start_room` under successive state guards. `docs/plans/Debug Implementation Plan V4.md` §7 requires one coherent user action with single logical idempotent transaction.  
+**Future authorized CD action:** Check current deployed UI and effective backend; implement V4 W03 under existing CA/release gates; do not solve merely by chaining two browser RPCs. Verify optional item choice stays separate; one UUID, replay, parallel final players, reconnect and one next discussion. **Not an order to unfreeze CD.**  
+**Source:** `docs/plans/W03_IMPLEMENTATION_PATH_FEASIBILITY_V0.1_GA_PILOT.md`.
+
+## TBF-005 — W03 combined-action request identity and server atomicity need effective contract tracing
+**Class:** implementation dependency / TEST_GAP, not verified deployed bug. **Evidence:** selected `database/014b_sprint3b_targeted_closure_corrections.sql` blob `098415aa7694ab008f7a8ecaa3eca755fcef9003` shows separate `s3b_grab(text,text)` / `s3b_leave_start_room(text,text)` wrappers that log distinct events and call pre014 implementations. This inspected migration does **not** itself provide a combined-action request UUID signature; repository-last effective function, grants, receipts, atomicity and deployment are NOT_VERIFIED.  
+**Future CD/CA check:** inventory effective RPC implementations, old wrappers/receipts and grants; test one logical UUID, duplicate/replayed/conflicting submissions, lost ack, group barrier and exactly-once discussion with genuine optional-item ownership. Avoid new generic workflow engine or speculative TCA wrapper until authority validated. **Status:** OPEN_INVESTIGATION.  
+**Source:** same W03 pilot report.
+
+**History update:** 2026-10-10: Added TBF-004/005 after bounded W03 investigation; no TCA/CD coding authorized.
