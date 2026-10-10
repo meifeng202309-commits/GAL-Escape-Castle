@@ -37,6 +37,13 @@ const sprint3bStatus = document.getElementById("sprint3bStatus");
 
 let session = loadSession();
 let pollTimer = null;
+let pollingEnabled = false;
+let playerSessionEpoch = 0;
+let refreshGeneration = 0;
+let refreshInFlight = null;
+let refreshQueued = null;
+let lastConfirmedFrame = null;
+const refreshDisabledControls = new Set();
 let currentDiscussion = null;
 let currentSprint5State = null;
 let currentSprint6State = null;
@@ -117,6 +124,7 @@ async function joinRoom() {
       p_room_code: roomCode,
       p_join_code: joinCode,
     });
+    stopPolling();
     session = {
       room_code: roomCode,
       player_id: result.player_id,
@@ -136,68 +144,229 @@ async function joinRoom() {
   }
 }
 
-async function refreshState() {
-  const activeSession=session;
-  if (!activeSession) return;
+function createRefreshDeferred() {
+  let resolve;
+  const promise = new Promise((settle) => { resolve = settle; });
+  return { promise, resolve };
+}
+
+function refreshCanCommit(run) {
+  return !run.cancelled
+    && session === run.activeSession
+    && playerSessionEpoch === run.epoch
+    && refreshGeneration === run.generation;
+}
+
+async function readPlayerProjection(name, payload) {
+  let value;
   try {
-    const auth={p_room_code:activeSession.room_code,p_session_token:activeSession.session_token};
-    // Completion is a first-class lifecycle state. This projection deliberately
-    // supports the latest completed run even though no active run remains.
-    const completedState=await rpc("s8_get_player_state",auth).catch(()=>({active:false}));
-    if(session!==activeSession)return;
-    if(completedState.active&&completedState.game_completed){
-      currentDiscussion=null;
-      discussionPanel.classList.add("hidden");
-      renderSprint8(completedState);
-      return;
-    }
-    const discussionState = await rpc("s2_get_player_state", {
-      p_room_code: activeSession.room_code,
-      p_session_token: activeSession.session_token,
-    });
-    if(session!==activeSession)return;
-    if (discussionState.active) {
-      const sprint3bState = await rpc("s3b_get_player_state", {
-        p_room_code: activeSession.room_code,
-        p_session_token: activeSession.session_token,
-      });
-      const sprint5State = await rpc("s5_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
-      const sprint6State = await rpc("s6_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
-      if(sprint6State.active)sprint6State.wait_state=await rpc("s9_get_player_wait_state",auth).catch(()=>null);
-      const sprint8State = completedState.active ? completedState : await rpc("s8_get_player_state", auth).catch(()=>({active:false}));
-      const pocketState = await rpc("s3_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>null);
-      if(session!==activeSession)return;
-      if (!sprint3bState.active || !sprint3bState.scene) {
-        renderLifecycleNotice("starting","Formal game initialization is still completing. Please wait; no action has been lost.");
-        return;
-      }
-      const act5Handoff=sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE"&&sprint5State.active&&!sprint3bState.me?.act6_entered_at;
-      if(act5Handoff){
-        currentDiscussion=null;
-        discussionPanel.classList.add("hidden");
-        renderAct5Handoff(sprint3bState,sprint5State);
-        return;
-      }
-      const act6Waiting=sprint5State.active&&sprint5State.state?.phase_key==="act6_vote"&&sprint3bState.me?.act6_entered_at&&!sprint5State.canonical_discussion;
-      if(act6Waiting){
-        currentDiscussion=null;
-        discussionPanel.classList.add("hidden");
-        renderAct6EntryBarrier();
-        return;
-      }
-      renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", auth) : discussionState);
-      if(session!==activeSession)return;
-      if(sprint8State.active)renderSprint8(sprint8State);else if(sprint6State.active){renderSprint6(sprint6State);sprint3bText.insertAdjacentHTML("beforeend",pocketEvidencePanel(pocketState,sprint6State.state.phase_key));bindPocketActions();renderSprint6AcceptedWaiting(sprint6State)}else if(sprint5State.active)renderSprint5(sprint5State,pocketState);else renderSprint3b(sprint3bState,pocketState);
-      return;
-    }
-    renderLifecycleNotice("pre-run","You are connected. Wait for the Teacher to start the formal run.");
+    value = await rpc(name, payload);
   } catch (error) {
-    choiceArea.classList.add("hidden");
-    revealArea.classList.add("hidden");
-    discussionPanel.classList.add("hidden");
-    sprint3bPanel.classList.add("hidden");
-    gameStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
+    const wrapped = new Error(`${name} refresh failed: ${error.message}`);
+    wrapped.name = "PlayerRefreshReadError";
+    wrapped.projection = name;
+    wrapped.cause = error;
+    throw wrapped;
   }
+  if (!value || typeof value !== "object") {
+    const invariant = new Error(`${name} returned an invalid projection.`);
+    invariant.name = "PlayerRefreshInvariantError";
+    invariant.projection = name;
+    throw invariant;
+  }
+  return value;
+}
+
+async function settlePlayerProjectionReads(reads) {
+  const settled = await Promise.allSettled(reads);
+  const failed = settled.find((result) => result.status === "rejected");
+  if (failed) throw failed.reason;
+  return settled.map((result) => result.value);
+}
+
+async function loadPlayerFrame(activeSession) {
+  const auth = { p_room_code: activeSession.room_code, p_session_token: activeSession.session_token };
+  // Completion remains the first lifecycle authority even though no active run remains.
+  // Static lifecycle contract marker: rpc("s8_get_player_state") precedes active-run dispatch.
+  const completedState = await readPlayerProjection("s8_get_player_state", auth);
+  if (completedState.active && completedState.game_completed) return { kind: "completed", completedState };
+
+  // Static lifecycle contract marker: rpc("s2_get_player_state") follows the completed-state read.
+  const discussionState = await readPlayerProjection("s2_get_player_state", auth);
+  if (!discussionState.active) return { kind: "pre-run", discussionState };
+
+  const [sprint3bState, sprint5State, sprint6State, sprint8State, pocketState] = await settlePlayerProjectionReads([
+    readPlayerProjection("s3b_get_player_state", auth),
+    readPlayerProjection("s5_get_player_state", auth),
+    readPlayerProjection("s6_get_player_state", auth),
+    readPlayerProjection("s8_get_player_state", auth),
+    readPlayerProjection("s3_get_player_state", auth),
+  ]);
+  const [sprint5Discussion, sprint6WaitState] = await settlePlayerProjectionReads([
+    sprint5State.active ? readPlayerProjection("s5_get_discussion_state", auth) : Promise.resolve(null),
+    sprint6State.active ? readPlayerProjection("s9_get_player_wait_state", auth) : Promise.resolve(null),
+  ]);
+  if (sprint6State.active) sprint6State.wait_state = sprint6WaitState;
+
+  if (!sprint3bState.active || !sprint3bState.scene) {
+    return { kind: "starting", discussionState, sprint3bState, sprint5State, sprint6State, sprint8State, pocketState, sprint5Discussion };
+  }
+  const act5Handoff = sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE" && sprint5State.active && !sprint3bState.me?.act6_entered_at;
+  if (act5Handoff) return { kind: "act5-handoff", sprint3bState, sprint5State };
+  const act6Waiting = sprint5State.active && sprint5State.state?.phase_key==="act6_vote" && sprint3bState.me?.act6_entered_at && !sprint5State.canonical_discussion;
+  if (act6Waiting) return { kind: "act6-waiting" };
+  return {
+    kind: "active",
+    discussionView: sprint5State.active ? sprint5Discussion : discussionState,
+    sprint3bState,
+    sprint5State,
+    sprint6State,
+    sprint8State,
+    pocketState,
+  };
+}
+
+function commitPlayerFrame(frame) {
+  restoreRefreshDisabledPlayerMutations();
+  gameStatus.textContent = "";
+  if (frame.kind === "completed") {
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    renderSprint8(frame.completedState);
+    return;
+  }
+  if (frame.kind === "pre-run") {
+    renderLifecycleNotice("pre-run", "You are connected. Wait for the Teacher to start the formal run.");
+    return;
+  }
+  if (frame.kind === "starting") {
+    renderLifecycleNotice("starting", "Formal game initialization is still completing. Please wait; no action has been lost.");
+    return;
+  }
+  if (frame.kind === "act5-handoff") {
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    renderAct5Handoff(frame.sprint3bState, frame.sprint5State);
+    return;
+  }
+  if (frame.kind === "act6-waiting") {
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    renderAct6EntryBarrier();
+    return;
+  }
+  renderDiscussion(frame.discussionView);
+  if (frame.sprint8State.active) renderSprint8(frame.sprint8State);
+  else if (frame.sprint6State.active) {
+    renderSprint6(frame.sprint6State);
+    sprint3bText.insertAdjacentHTML("beforeend", pocketEvidencePanel(frame.pocketState, frame.sprint6State.state.phase_key));
+    bindPocketActions();
+    renderSprint6AcceptedWaiting(frame.sprint6State);
+  } else if (frame.sprint5State.active) renderSprint5(frame.sprint5State, frame.pocketState);
+  else renderSprint3b(frame.sprint3bState, frame.pocketState);
+}
+
+function disableUnverifiedPlayerMutations() {
+  for (const root of [choiceArea, discussionPanel, sprint3bActions]) {
+    root.querySelectorAll("button,input,textarea,select").forEach((control) => {
+      if (control.disabled) return;
+      control.disabled = true;
+      refreshDisabledControls.add(control);
+    });
+  }
+}
+
+function restoreRefreshDisabledPlayerMutations() {
+  for (const control of refreshDisabledControls) {
+    if (control.isConnected) control.disabled = false;
+  }
+  refreshDisabledControls.clear();
+}
+
+function showPlayerRefreshFailure(error) {
+  disableUnverifiedPlayerMutations();
+  const prefix = lastConfirmedFrame ? "Refresh failed; showing the last confirmed state." : "Unable to load a confirmed game state.";
+  gameStatus.innerHTML = `<span class="bad">${escapeHtml(`${prefix} ${error.message}`)}</span>`;
+}
+
+function scheduleNextPlayerPoll() {
+  if (!pollingEnabled || !session || refreshInFlight || refreshQueued || pollTimer) return;
+  pollTimer = setTimeout(() => {
+    pollTimer = null;
+    void refreshState();
+  }, 1200);
+}
+
+function startQueuedPlayerRefresh() {
+  const queued = refreshQueued;
+  refreshQueued = null;
+  if (!queued) return false;
+  if (queued.epoch !== playerSessionEpoch || queued.activeSession !== session) {
+    queued.deferred.resolve({ status: "invalidated" });
+    return false;
+  }
+  startPlayerRefresh(queued.activeSession, queued.epoch, queued.generation, queued.deferred);
+  return true;
+}
+
+function startPlayerRefresh(activeSession, epoch, generation, deferred = createRefreshDeferred()) {
+  const run = { activeSession, epoch, generation, deferred, cancelled: false, settled: false };
+  refreshInFlight = run;
+  void (async () => {
+    let result;
+    try {
+      const frame = await loadPlayerFrame(activeSession);
+      if (!refreshCanCommit(run)) result = { status: "discarded" };
+      else {
+        commitPlayerFrame(frame);
+        lastConfirmedFrame = frame;
+        result = { status: "committed", generation };
+      }
+    } catch (error) {
+      if (refreshCanCommit(run)) showPlayerRefreshFailure(error);
+      const failedStatus = error.name === "PlayerRefreshInvariantError" ? "invariant_breach" : "fetch_error";
+      result = { status: refreshCanCommit(run) ? failedStatus : "discarded", error };
+    } finally {
+      if (!run.settled) {
+        run.settled = true;
+        deferred.resolve(result || { status: "discarded" });
+      }
+      if (refreshInFlight === run) {
+        refreshInFlight = null;
+        if (!startQueuedPlayerRefresh()) scheduleNextPlayerPoll();
+      }
+    }
+  })();
+  return deferred.promise;
+}
+
+function refreshState() {
+  const activeSession = session;
+  if (!activeSession) return Promise.resolve({ status: "no_session" });
+  const epoch = playerSessionEpoch;
+  if (refreshInFlight) {
+    if (!refreshQueued || refreshQueued.epoch !== epoch || refreshQueued.activeSession !== activeSession) {
+      const deferred = createRefreshDeferred();
+      refreshQueued = { activeSession, epoch, generation: ++refreshGeneration, deferred, promise: deferred.promise };
+    }
+    return refreshQueued.promise;
+  }
+  return startPlayerRefresh(activeSession, epoch, ++refreshGeneration);
+}
+
+if (globalThis.__GAL_A1_TEST_HOOKS__) {
+  Object.assign(globalThis.__GAL_A1_TEST_HOOKS__, {
+    refreshState,
+    startPolling,
+    stopPolling,
+    coordinatorState: () => ({
+      epoch: playerSessionEpoch,
+      generation: refreshGeneration,
+      inFlight: Boolean(refreshInFlight),
+      queued: Boolean(refreshQueued),
+      pollingEnabled,
+    }),
+  });
 }
 
 function renderAct6EntryBarrier(){
@@ -244,16 +413,6 @@ function renderAct5Handoff(sprint3bState,sprint5State){
       await refreshState();
     }catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;event.currentTarget.disabled=false;}
   });
-}
-
-async function refreshSprint3b() {
-  try {
-    const state = await rpc("s3b_get_player_state", { p_room_code: session.room_code, p_session_token: session.session_token });
-    renderSprint3b(state);
-  } catch (error) {
-    sprint3bPanel.classList.add("hidden");
-    if (!String(error.message).includes("Could not find the function")) sprint3bStatus.textContent = error.message;
-  }
 }
 
 const ACT1_CHOICES = {
@@ -514,21 +673,6 @@ async function submitLibraryCode(event) {
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;}
 }
 
-async function refreshDiscussion() {
-  try {
-    const state = await rpc("s2_get_player_state", {
-      p_room_code: session.room_code,
-      p_session_token: session.session_token,
-    });
-    renderDiscussion(state);
-  } catch (error) {
-    discussionPanel.classList.add("hidden");
-    if (!String(error.message).includes("Could not find the function")) {
-      discussionStatus.textContent = error.message;
-    }
-  }
-}
-
 function renderDiscussion(state) {
   if (!state.active || !state.discussion) {
     currentDiscussion = null;
@@ -632,7 +776,7 @@ async function sendMessage() {
     });
     clearRequestIdentity(request.key);
     messageText.value = "";
-    await refreshDiscussion();
+    await refreshState();
   } catch (error) {
     discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   } finally {
@@ -740,11 +884,27 @@ function showGame() {
 }
 
 function startPolling() {
-  stopPolling();
-  pollTimer = setInterval(refreshState, 1200);
+  pollingEnabled = true;
+  scheduleNextPlayerPoll();
 }
 
 function stopPolling() {
-  if (pollTimer) clearInterval(pollTimer);
+  pollingEnabled = false;
+  playerSessionEpoch += 1;
+  if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
+  lastConfirmedFrame = null;
+  restoreRefreshDisabledPlayerMutations();
+  if (refreshQueued) {
+    refreshQueued.deferred.resolve({ status: "invalidated" });
+    refreshQueued = null;
+  }
+  if (refreshInFlight) {
+    refreshInFlight.cancelled = true;
+    if (!refreshInFlight.settled) {
+      refreshInFlight.settled = true;
+      refreshInFlight.deferred.resolve({ status: "invalidated" });
+    }
+    refreshInFlight = null;
+  }
 }
