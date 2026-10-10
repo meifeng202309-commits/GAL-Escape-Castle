@@ -2,18 +2,18 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-09T13:24:00Z
-> Updated by: GA
+> Last refreshed: 2026-10-10T13:05:00Z
+> Updated by: CA
 
 ---
 
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — debug-plan / TOP semantic reconciliation
-CURRENT_GATE          = HOLD_RUNTIME_IMPLEMENTATION_PENDING_CA_CONSOLIDATED_V4_AND_HISTORICAL_COVERAGE_REVIEW
-CURRENT_OWNER         = CA — final consolidated V4 review stream to CD
-NEXT_REQUIRED_ACTION  = CA re-audits V4 against earliest post-human-test debug plans/problem inventories, incorporates Teacher's fixed selective TOP behavior-data policy, and sends one consolidated CA→CD action source. CD waits; runtime implementation remains HOLD.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — A1 source audit closed; CD frozen; TCA pilot selection
+CURRENT_GATE          = HOLD_RUNTIME_IMPLEMENTATION / P01_NOT_STATIC_READY_VALUE_GATE_FAIL
+CURRENT_OWNER         = GA — revise TCA pilot protocol/candidate only; CD and TCA code remain frozen
+NEXT_REQUIRED_ACTION  = GA add the utility/complexity gate before STATIC_READY and return one higher-value source-stable candidate for CA review, or explicitly defer further TCA coding. No P02/P03 or CD runtime implementation is authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
