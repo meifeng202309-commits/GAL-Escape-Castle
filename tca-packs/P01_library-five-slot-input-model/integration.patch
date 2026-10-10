@@ -1,0 +1,17 @@
+diff --git a/src/game/app.js b/src/game/app.js
+--- a/src/game/app.js
++++ b/src/game/app.js
+@@
+ import { createAssetResolver } from "./asset-runtime.js";
++import { buildLibraryCodeModel } from "./library-code-model.mjs";
+@@
+-   else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) { const locked=state.flow.puzzle_locked_prefix||""; const remaining=5-locked.length; html=`<form id="libraryCodeForm" class="composer"><div class="locked-wheels"><b>${escapeHtml(locked)}</b><input id="libraryCode" inputmode="numeric" maxlength="${remaining}" pattern="[0-9]{${remaining}}" data-locked-prefix="${escapeHtml(locked)}"></div><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`; }
++   else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) { const model=buildLibraryCodeModel(state.flow.puzzle_locked_prefix ?? "", ""); const locked=model.lockedPrefix; const remaining=model.remainingSlotCount; html=`<form id="libraryCodeForm" class="composer"><div class="locked-wheels"><b>${escapeHtml(locked)}</b><input id="libraryCode" inputmode="numeric" maxlength="${remaining}" pattern="[0-9]{${remaining}}" data-locked-prefix="${escapeHtml(locked)}"></div><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`; }
+@@
+ async function submitLibraryCode(event) {
+   event.preventDefault(); const input=document.getElementById("libraryCode");
+-  const code=`${input.dataset.lockedPrefix||""}${input.value}`;
++  const model=buildLibraryCodeModel(input.dataset.lockedPrefix, input.value);
++  if (!model.isComplete) return;
++  const code=model.code;
+   const request=requestIdentity("library",session.room_code,{code});
