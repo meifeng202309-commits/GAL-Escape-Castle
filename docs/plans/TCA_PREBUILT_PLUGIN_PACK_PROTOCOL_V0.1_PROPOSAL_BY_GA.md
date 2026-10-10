@@ -1,6 +1,6 @@
 # TCA Prebuilt Plug-in Pack Protocol V0.1 — GA Proposal
 
-**Status:** PROPOSAL ONLY  
+**Status:** REVISED PROPOSAL ONLY — CA REVIEW REQUESTED (P01 value failure incorporated)  
 **Owner of proposal:** GA  
 **Runtime authority:** NONE  
 **CD state:** FROZEN at A1 checkpoint  
@@ -73,6 +73,7 @@ tca-packs/<PACK_ID>_<short-purpose>/
 
 ```text
 DRAFT
+→ TECHNICAL_INTEGRITY_PASS + PRODUCTION_VALUE_PASS
 → STATIC_READY
 → EXECUTION_VERIFIED
 ```
@@ -81,6 +82,8 @@ DRAFT
 TCA produced the Pack.
 
 ### STATIC_READY
+CA must explicitly publish both TECHNICAL_INTEGRITY = PASS and PRODUCTION_VALUE = PASS. Source/unit correctness alone is not sufficient; a failed value gate remains DRAFT even when tests pass.
+
 CA has independently verified:
 
 - target source exists;
@@ -493,3 +496,39 @@ Success criteria after future CD integration trial:
 - failed Pack is discarded cheaply.
 
 If those conditions are not demonstrated, do not scale the workflow.
+
+---
+
+# 12. Proposed amendment after CA P01 audit (2026-10-10)
+
+**Authority:** proposal for CA critical review, not ACTIVE governance or TCA coding authorization. The earlier P01 recommendation in §8–11 is superseded by this section wherever inconsistent.
+
+## 12.1 P01 disposition and next coding candidate
+
+P01: package mechanics PASS; CA independently executed 7/7 pure unit tests PASS; actual browser/runtime integration NOT VERIFIED; PRODUCTION_VALUE FAIL; STATIC_READY DENIED. Retain as `DRAFT_RETAINED_FOR_PILOT_LEARNING`, without runtime integration. Its `slots` output has no actual consumer in the proposed patch, and the existing one-input flow already composes the locked prefix and suffix. Candidate P02/P03 and all other Packs remain unauthorized. **GA defers further TCA coding** until an independently source-grounded candidate demonstrates actual unmet capability and favorable expected integration economics. No invented replacement candidate.
+
+## 12.2 Three-stage screening and ownership
+
+**GA / Pass 1 (task selection before assignment):** establish approved unmet user-visible/testable capability, actual consumer, necessity, likely existing implementation (source anchors), expected net CD effort saved, rough complexity, stable bounded interfaces and owner exposure. Classify `S` (stable, small, independently testable), `R` (needs source/interface narrowing or deferral), `X` (cross-owner state machine/schema/deployment/fundamental unstable API; not suitable). GA does not certify effective SQL/RPC authority from assumptions. Only an S candidate with specific evidence can be sent to CA for independent pre-assignment scrutiny.
+
+**TCA / Pass 2 (before coding and on material contradiction):** inspect exact pinned target, callers, relevant existing helpers/modules and tests, not the entire repository. Assess already-present functionality, direct reuse versus adapted copies, real consumer, source drift, state/RPC/network/storage/timer authority, footprint, actual savings, testability and negative cases. Record reuse lineage in the existing Pack manifest; do not create a new report. Material existing functionality, unconsumed main output, undefined/changed contract, unapproved semantics, cross-owner writes or negative economics → STOP and report to GA/CA, without new code or self-expansion. Otherwise proceed within the specifically approved isolated task without repeated approval messages.
+
+**CA / Pass 3 (independent audit):** verify real source reuse claims, callers and diff; distinguish direct calls from copied/modified code; assess errors/edge cases, pinned interface, protected authorities, actual test evidence and independent integration/discard; apply the production-value gate separately from correctness. Publish `TECHNICAL_INTEGRITY` and `PRODUCTION_VALUE` verdicts; both must PASS for STATIC_READY. CA identifies requirements and risks while retaining independent audit perspective, not a recipe of implementation details.
+
+## 12.3 Existing Code Reuse & Lineage (required Pack-manifest section)
+
+Record baseline SHA and scoped searched paths/symbols; for every *actually reused* function: exact module path + symbol, direct call/extension/adapted copy designation, new call site, material existing callers, expected contract and side effects, and upstream-change impact. List similar functions *considered but not reused* separately. Where no code is reused, describe the inspected scope and why reuse was unsuitable. Record expected new shipped modules, exported functions/imports/dependencies, net production bytes/LOC, changed consumers and deletion/replacement diff. Never imply that a planned future consumer exists today.
+
+## 12.4 Proportional production-value and size gates
+
+Value PASS requires source-backed evidence of at least one: (a) net-new approved capability **actually consumed** in proposed integration, (b) meaningful existing complexity/duplication removed, or (c) a realistic second consumer resulting in lower total complexity. No value proof → HOLD/REJECT even when unit tests pass.
+
+Hard STOP: unapproved protected/schema/RPC/lifecycle owner or side effect; substantive unintended runtime behavior change; materially equivalent existing functionality without gain; unused primary output; independently undiscardable patch; unsupported test claim; or a purported one-purpose Pack hiding independent capabilities.
+
+Soft REVIEW (requires short explanation, not an automatic cap): >1 added production module for a small Pack; >3 exports or new transitive dependency; added production LOC approximately >2× removed without a new capability; >5 KB added unminified production JS for a small UI helper; >2 unrelated production call sites. Count shipped JS separately from tests/fixtures. Legitimate complex reusable modules, safety invariants, and test-only support can justify exceeding these prompts. Consider total lifecycle maintenance and future upstream drift, not LOC alone. Multiple internal blocks are permissible for one coherent capability but do not imply separate permanent runtime modules.
+
+Minimum footprint line in manifest: `new production files | added/removed shipped LOC and bytes | exports/imports/deps | affected call sites | existing equivalent | actual consumer | integrate/discard estimate`.
+
+## 12.5 Closure / handoff
+
+GA submits this revised proposal to CA for an independent accept/reject decision. Neither this revision nor the CA P01 audit releases TCA/P02/P03 or CD. New task selection resumes only on verified need and source stability; future CD, when legitimately resumed, may integrate/adapt/discard optional Pack artifacts, subject to normal execution and CA audits.
