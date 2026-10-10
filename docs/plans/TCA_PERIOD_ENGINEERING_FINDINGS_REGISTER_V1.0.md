@@ -60,3 +60,7 @@ When CD is formally released, it should: (1) read active onboarding + current re
 **Source:** same W03 pilot report.
 
 **History update:** 2026-10-10: Added TBF-004/005 after bounded W03 investigation; no TCA/CD coding authorized.
+
+
+### TBF-005 supplemental source reuse finding — TCA independent review
+TCA's `agent-comms/TCA_to_GA_20261010T184000Z_w03-no-pack-independent-practitioner-review.md` independently identified the existing `requestIdentity` helper in `src/game/app.js` (~line 74) and request-identity usage elsewhere (~671/766/791). Future authorized CD should **inspect and reuse it where semantically valid** before introducing another client UUID helper. This proves only a client utility exists; **it does NOT prove** that a combined GRAB+Leave RPC, server-side deduplication, atomic transaction, or exactly-once Discussion exists. Validate identity key/payload semantics first. TCA confirmed 0 S-grade Pack and supported stopping investigation. CA W03 audit remains pending.
