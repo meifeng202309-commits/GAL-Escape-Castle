@@ -59,6 +59,8 @@ const scenario = {
   holdRpc: null,
   holdToken: null,
   holdUsed: false,
+  rejectHeld: false,
+  frameVersion: null,
   gate: null,
   started: null,
   calls: [],
@@ -69,12 +71,14 @@ function setScenario(mode, options = {}) {
   scenario.holdRpc = options.holdRpc || null;
   scenario.holdToken = options.holdToken || null;
   scenario.holdUsed = false;
+  scenario.rejectHeld = Boolean(options.rejectHeld);
+  scenario.frameVersion = options.frameVersion || null;
   scenario.gate = options.holdRpc ? deferred() : null;
   scenario.started = options.holdRpc ? deferred() : null;
   scenario.calls = [];
 }
 
-function projection(name, body, mode) {
+function projection(name, body, mode, frameVersion) {
   if (name === "s1_join_player") return {
     player_id: "00000000-0000-0000-0000-000000000002",
     display_name: "New Player",
@@ -90,26 +94,50 @@ function projection(name, body, mode) {
     if (name === "s2_get_player_state") return { active: false };
   }
   if (name === "s2_get_player_state") return { active: true };
+  if (mode === "activeAct7" && name === "s3b_get_player_state") return {
+    active: true,
+    scene: { scene_id: "act7_clock_room", phase_key: "act7_vote", text_key: "act07.001" },
+    flow: { terminal_state: "SPRINT3B_COMPLETE" },
+    me: { act6_entered_at: "2026-10-10T00:00:00Z" },
+    act4_revealed: [],
+    queued_first_messages: [],
+  };
   if (name === "s3b_get_player_state") return { active: false, scene: null };
   if (name === "s5_get_player_state") return {
     active: true,
-    state: { phase_key: "act7_vote" },
+    state: {
+      phase_key: frameVersion === "confirmed" ? "act7_solved" : "act7_vote",
+      act_no: 7,
+      act7_wrong_attempts: frameVersion === "next" ? 1 : frameVersion === "rejected" ? 2 : 0,
+    },
     canonical_discussion: { discussion_session_id: "00000000-0000-0000-0000-000000000010" },
+    private_choices_revealed: [],
+    my_private_choice: null,
   };
   if (name === "s6_get_player_state") return { active: false };
-  if (name === "s3_get_player_state") return { active: true, items: [] };
+  if (name === "s3_get_player_state") return {
+    active: true,
+    items: [],
+    group_items: [],
+    observations: [],
+    shared_photos: [],
+    inspected_item_keys: [],
+    scene: { allow_share_photo: false },
+  };
   if (name === "s5_get_discussion_state") return {
     active: true,
     discussion: {
       discussion_session_id: "00000000-0000-0000-0000-000000000010",
-      topic: "act07.001",
+      topic: frameVersion === "confirmed" ? "Confirmed ACT7 discussion" : frameVersion === "next" ? "Next ACT7 discussion" : "Rejected ACT7 discussion",
       status: "discussion",
       vote_round: 1,
       phase_deadline: null,
       require_final_vote: true,
       vote_options: [],
     },
-    initial_choices: [], messages: [], submitted_vote_count: 0, my_vote: null, revealed_votes: [], vote_history: [],
+    initial_choices: [],
+    messages: frameVersion === "confirmed" ? [{ display_name: "Old Player", created_at: "2026-10-10T00:00:00Z", message_text: "Confirmed frame" }] : [],
+    submitted_vote_count: 0, my_vote: null, revealed_votes: [], vote_history: [],
   };
   if (name === "s9_get_player_wait_state") return { waiting: false };
   throw new Error(`Unhandled RPC ${name} in mode ${mode}: ${JSON.stringify(body)}`);
@@ -134,6 +162,7 @@ async function main() {
     const name = new URL(request.url()).pathname.split("/").pop();
     const body = request.postDataJSON?.() || {};
     const mode = scenario.mode;
+    const frameVersion = scenario.frameVersion;
     scenario.calls.push({ name, token: body.p_session_token || null, at: Date.now(), mode });
 
     if (mode === "failOptional" && name === "s6_get_player_state") {
@@ -145,13 +174,18 @@ async function main() {
       scenario.holdUsed = true;
       scenario.started.resolve();
       await scenario.gate.promise;
+      if (scenario.rejectHeld) {
+        expectedOptionalFailures += 1;
+        await route.abort("failed");
+        return;
+      }
     }
     try {
       await route.fulfill({
         status: 200,
         contentType: "application/json",
         headers: { "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify(projection(name, body, mode)),
+        body: JSON.stringify(projection(name, body, mode, frameVersion)),
       });
     } catch (error) {
       if (!String(error.message).includes("Route is already handled")) throw error;
@@ -184,17 +218,62 @@ async function main() {
     invariant(s8Calls.length === 2, `Expected exactly two serialized S8 reads, received ${s8Calls.length}.`);
     invariant(s8Calls[1].at >= releasedAt, "Queued refresh started before the older poll was released.");
 
-    // Delayed S5 Discussion is part of the candidate frame and cannot render early.
-    setScenario("activeStarting", { holdRpc: "s5_get_discussion_state" });
-    const beforeTitle = await page.locator("#sceneTitle").innerText();
+    // Establish a real active ACT7 frame with scene, Discussion, and action DOM.
+    setScenario("activeAct7", { frameVersion: "confirmed" });
+    const confirmedAct7Result = await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
+    invariant(confirmedAct7Result.status === "committed", "Initial active ACT7 frame did not commit.");
+    invariant(!(await page.locator("#discussionPanel").evaluate((node) => node.classList.contains("hidden"))), "Initial active ACT7 Discussion did not render.");
+    invariant(await page.locator("#sprint3bActions button").count() === 1, "Initial active ACT7 action did not render.");
+    const confirmedAct7Dom = await page.evaluate(() => ({
+      scene: document.querySelector("#sprint3bText").innerHTML,
+      discussion: document.querySelector("#discussionPanel").innerHTML,
+      actions: document.querySelector("#sprint3bActions").innerHTML,
+    }));
+
+    // A newer active ACT7 candidate cannot partially replace any of those regions
+    // while its S5 Discussion read is still pending.
+    setScenario("activeAct7", { frameVersion: "next", holdRpc: "s5_get_discussion_state" });
     await page.evaluate(() => { globalThis.__a1DiscussionRefresh = globalThis.__GAL_A1_TEST_HOOKS__.refreshState(); });
     await scenario.started.promise;
-    invariant((await page.locator("#sceneTitle").innerText()) === beforeTitle, "UI changed before delayed S5 Discussion completed.");
-    invariant(await page.locator("#discussionPanel").evaluate((node) => node.classList.contains("hidden")), "Discussion rendered before the full frame completed.");
+    const heldAct7Dom = await page.evaluate(() => ({
+      scene: document.querySelector("#sprint3bText").innerHTML,
+      discussion: document.querySelector("#discussionPanel").innerHTML,
+      actions: document.querySelector("#sprint3bActions").innerHTML,
+    }));
+    invariant(JSON.stringify(heldAct7Dom) === JSON.stringify(confirmedAct7Dom), "Active ACT7 scene, Discussion, or actions changed before the delayed read completed.");
     scenario.gate.resolve();
     const discussionResult = await page.evaluate(() => globalThis.__a1DiscussionRefresh);
     invariant(discussionResult.status === "committed", "Complete S5 candidate frame did not commit.");
-    invariant((await page.locator("#sceneTitle").innerText()) === "Formal game starting", "Expected starting frame was not committed.");
+    const nextAct7Dom = await page.evaluate(() => ({
+      scene: document.querySelector("#sprint3bText").innerHTML,
+      discussion: document.querySelector("#discussionPanel").innerHTML,
+      discussionText: document.querySelector("#discussionPanel").innerText,
+      actions: document.querySelector("#sprint3bActions").innerHTML,
+      actionsText: document.querySelector("#sprint3bActions").innerText,
+    }));
+    invariant(nextAct7Dom.scene !== confirmedAct7Dom.scene, "Released active ACT7 scene did not advance coherently.");
+    invariant(nextAct7Dom.discussion !== confirmedAct7Dom.discussion, "Released active ACT7 Discussion did not advance coherently.");
+    invariant(nextAct7Dom.actions !== confirmedAct7Dom.actions, "Released active ACT7 actions did not advance coherently.");
+
+    // A rejected delayed Discussion read preserves that entire confirmed ACT7 frame.
+    setScenario("activeAct7", { frameVersion: "rejected", holdRpc: "s5_get_discussion_state", rejectHeld: true });
+    await page.evaluate(() => { globalThis.__a1RejectedDiscussionRefresh = globalThis.__GAL_A1_TEST_HOOKS__.refreshState(); });
+    await scenario.started.promise;
+    scenario.gate.resolve();
+    const rejectedDiscussionResult = await page.evaluate(() => globalThis.__a1RejectedDiscussionRefresh);
+    invariant(rejectedDiscussionResult.status === "fetch_error", `Rejected Discussion read was not classified: ${JSON.stringify(rejectedDiscussionResult)}`);
+    const afterRejectedAct7Dom = await page.evaluate(() => ({
+      scene: document.querySelector("#sprint3bText").innerHTML,
+      discussion: document.querySelector("#discussionPanel").innerHTML,
+      discussionText: document.querySelector("#discussionPanel").innerText,
+      actions: document.querySelector("#sprint3bActions").innerHTML,
+      actionsText: document.querySelector("#sprint3bActions").innerText,
+    }));
+    invariant(afterRejectedAct7Dom.scene === nextAct7Dom.scene, "Rejected Discussion read replaced the confirmed ACT7 scene.");
+    invariant(afterRejectedAct7Dom.discussionText === nextAct7Dom.discussionText, "Rejected Discussion read replaced the confirmed ACT7 Discussion content.");
+    invariant(afterRejectedAct7Dom.actionsText === nextAct7Dom.actionsText, "Rejected Discussion read replaced the confirmed ACT7 action content.");
+    invariant(!afterRejectedAct7Dom.discussionText.includes("Rejected ACT7 discussion"), "Rejected candidate Discussion leaked into the confirmed frame.");
+    invariant((await page.locator("#gameStatus").innerText()).includes("showing the last confirmed state"), "Rejected Discussion read lacks a stale-state notice.");
 
     // A failed optional-domain transport read preserves the last confirmed frame.
     setScenario("failOptional");
@@ -232,7 +311,7 @@ async function main() {
     await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
 
     const unexpectedBrowserErrors = browserErrors.filter((message) => !message.includes("net::ERR_FAILED"));
-    invariant(expectedOptionalFailures === 1, `Expected one optional-domain failure, observed ${expectedOptionalFailures}.`);
+    invariant(expectedOptionalFailures === 2, `Expected two injected transport failures, observed ${expectedOptionalFailures}.`);
     invariant(unexpectedBrowserErrors.length === 0, `Browser errors: ${unexpectedBrowserErrors.join(" | ")}`);
   } finally {
     await context.close();
