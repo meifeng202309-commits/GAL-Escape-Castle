@@ -532,3 +532,17 @@ Minimum footprint line in manifest: `new production files | added/removed shippe
 ## 12.5 Closure / handoff
 
 GA submits this revised proposal to CA for an independent accept/reject decision. Neither this revision nor the CA P01 audit releases TCA/P02/P03 or CD. New task selection resumes only on verified need and source stability; future CD, when legitimately resumed, may integrate/adapt/discard optional Pack artifacts, subject to normal execution and CA audits.
+
+## 12.6 Final CA/GA convergence amendments (supersede conflicting detail above)
+
+**Acceptance-consumer and removal test (mandatory before coding):** GA identifies the approved acceptance cell and its concrete intended callsite/consumer. TCA answers in the existing manifest: **"If this new code were removed and old code retained, which approved test/user-visible behavior would fail, or what demonstrated maintenance burden would return?"** CA independently falsifies that claim at STATIC_READY. If no material answer exists, STOP production Pack work. A process-learning-only Pack must be labeled **NON_PRODUCTION**, never promoted based only on packaging or unit tests.
+
+**Lean source lineage:** Use precisely `REUSED_NOW`, `ADAPTED_COPY`, `CONSIDERED_NOT_USED`, and `PLANNED_NOT_INTEGRATED`. Pin source blob SHA, actual relevant file/symbol and consuming callsite; do not pretend an isolated Pack's own tests demonstrate production integration. No exhaustive caller inventory or precise labor/bytes/LOC forecast by default. Provide extra caller-impact or size evidence only if actual integration/complexity risk warrants it. The lightweight footprint prompt in §12.4 is qualitative/approximate unless its soft flags are triggered.
+
+**Four evidence tiers, each with PASS/FAIL/NOT_RUN and executor:** `PACK_UNIT` (isolated tests), `PATCH_STATIC` (patch/import/source consistency), `CALLSITE_INTEGRATED` (actual consuming callsite integrated and verified), `BROWSER_SERVER` (browser/server journey). The first two can PASS while the latter two remain NOT_RUN. Never infer integration or deployment verification from isolated tests.
+
+**STOP versus WARN:** STOP for missing actual consumer, redundant accepted functionality without improvement, essential source contract mismatch, unapproved gameplay/authority/schema/RPC change, or self-expanded scope. Source drift alone and minor implementation caveats trigger WARN/targeted verification unless they establish an essential mismatch. Module count, exports, LOC and bytes remain soft warnings, not caps. A module is justified where actual consumers, testability or safety materially improve net system complexity.
+
+**Ownership clarified:** GA owns WHY/WHAT and changes to game acceptance; TCA owns source-grounded pre-code reuse/integration risk checks within its isolated assignment; CA owns independent falsification and two verdicts; future CD alone owns authorized INTEGRATE/ADAPT/DISCARD followed by runtime verification. No additional routine pre-code signoff, standalone reports or new governance layer.
+
+**Current freeze:** P01 = DRAFT_RETAINED_FOR_PILOT_LEARNING, production-value FAIL, NOT STATIC_READY. P02/P03 not authorized; TCA and CD remain frozen. Future Pack coding needs a separately grounded candidate and explicit authorization.
