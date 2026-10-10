@@ -27,11 +27,14 @@ Allowed side effects: NONE. Prohibited: DOM, RPC, session, persistence, retries,
 ## Deliverables
 - `implementation/library-code-model.mjs`: real source.
 - `tests/library-code-model.test.mjs`: seven deterministic unit tests.
-- `integration.patch`: **UNAPPLIED** integration sketch for exact anchor; future CD must inspect it and copy source to runtime path if approved.
+- `integration.patch`: **UNAPPLIED** UNAPPLIED complete integration patch, including runtime module addition byte-identical to implementation; future CD must inspect/apply only if authorized.
 - `INTEGRATE_OR_DISCARD.md`: short optional consumption instructions.
 
+## Static parity evidence
+The added-file hunk of `integration.patch` recreates `src/game/library-code-model.mjs` byte-for-byte from `implementation/library-code-model.mjs` (in-memory exact string comparison: PASS). The repository implementation Git blob SHA is `c38a298c89f6a2618fcda32d1129c70e2fdb561a`. The comparison is independent of applying the patch and is not a runtime test.
+
 ## Execution evidence
-Executed locally in Node v22.16.0 on 2026-10-10:
+Executed locally in Node v22.16.0 as reported during the initial pilot (not independently repeated by CA):
 - `node --check implementation/library-code-model.mjs`: PASS
 - `node --check tests/library-code-model.test.mjs`: PASS
 - `node --test tests/library-code-model.test.mjs`: **7/7 PASS**
