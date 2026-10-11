@@ -498,8 +498,7 @@ function renderSprint3b(state,pocket) {
   else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="consequence") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_complete_act1">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up") html=`<p class="warn">${localizedHtml("act01-g.031")}</p>`;
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
-  else if (!me.grab_complete) html=`<button type="button" data-s3b-rpc="s3b_grab">${localizedHtml("act02.014")}</button>`;
-  else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
+  else if (!me.grab_complete && !me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_grab_and_leave" data-s3b-run="${escapeHtml(state.run_id)}">${localizedHtml("act02.022")}</button>`;
   else if (scene.phase_key==="private_first_meeting") html=acceptedWaiting();
   else if (scene.phase_key==="route_update" && !me.route_update_ack_at) html=`<button type="button" data-s3b-rpc="s3b_ack_route_update">${localizedHtml("common.004")}</button>`;
   else if (scene.phase_key==="route_update" && me.route_update_ack_at) html=acceptedWaiting();
@@ -661,7 +660,13 @@ async function runSprint5Action(button){button.disabled=true;const payload={p_ro
 async function runSprint3bAction(button) {
   button.disabled=true; const payload={p_room_code:session.room_code,p_session_token:session.session_token};
   if (button.dataset.s3bChoice) payload.p_choice_id=button.dataset.s3bChoice;
-  try { await rpc(button.dataset.s3bRpc,payload); await refreshState(); }
+  let pending;
+  if(button.dataset.s3bRpc==="s3b_grab_and_leave"){
+    const runId=button.dataset.s3bRun;
+    pending=requestIdentity("s3b-grab-leave",runId,{action:"grab_leave",expected_run_id:runId});
+    payload.p_client_request_id=pending.requestId;payload.p_expected_run_id=runId;
+  }
+  try { await rpc(button.dataset.s3bRpc,payload);if(pending)clearRequestIdentity(pending.key);await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false;}
 }
 
