@@ -43,8 +43,8 @@ async function main(){
     assert((text.match(/main_gate/g)||[]).length===3&&text.includes("Role A")&&text.includes("Role B")&&text.includes("Role WATCHER"),"ACT11 role/location separation was not rendered");
     assert(!text.includes("location-WATCHER")&&!text.includes("station_b"),"Assignment leaked into physical location");
 
-    text=await render([operation("A",{physical_location:"UNKNOWN",source_domain:"UNKNOWN",validity:"INVARIANT_BREACH",reason_code:"S6_WITHOUT_COMPLETED_S5"}),operation("B"),operation("C")]);
-    assert(text.includes("UNKNOWN · INVARIANT_BREACH"),"Invalid ownership was not visible");
+    text=await render([operation("A",{physical_location:"UNKNOWN",source_domain:"S6",engagement_state:"UNKNOWN",task_state:"UNKNOWN",validity:"INVARIANT_BREACH",reason_code:"CONTRADICTORY_S6_ENGAGEMENT_RELATIONSHIP"}),operation("B"),operation("C")]);
+    assert(text.includes("S6 · INVARIANT_BREACH")&&(text.match(/UNKNOWN/g)||[]).length>=2,"Contradictory S6 relationship invalidity and unknown states were not visible");
 
     currentFrame.players[0].locked_choice_value=null;currentFrame.operations_v1[0].private_choice="DO_NOT_RENDER_SECRET";
     text=await render(currentFrame.operations_v1);

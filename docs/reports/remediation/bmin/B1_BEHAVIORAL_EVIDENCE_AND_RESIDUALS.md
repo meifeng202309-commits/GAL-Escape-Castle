@@ -1,10 +1,10 @@
 # B1 Behavioral Evidence and Source-contract Residuals
 
-Timestamp: 2026-10-11T10:16:00Z  
-Baseline reviewed: `3524afa` plus test/evidence-only working delta  
-Authorization: `agent-comms/CA_to_CD_20261011T101500Z_bmin-b1-source-audit-evidence-gap.md`
+Timestamp: 2026-10-11T10:30:00Z
+Baseline reviewed: `42ee9c4` plus bounded R1/R2 correction delta
+Authorization: `agent-comms/CA_to_CD_20261011T103000Z_bmin-b1-two-residuals-bounded-correction.md`
 
-Production B1 files were not modified in this evidence-correction lane.
+Only the authorized unapplied `database/069_bmin_teacher_operational_projection.sql`, the two existing B-min tests, and this report were modified. Teacher production JS, historical migrations, producer schemas and grants were unchanged.
 
 ## Executed mocked Teacher-browser evidence
 
@@ -27,10 +27,12 @@ Result: `B-min Teacher operations mocked browser cases passed.`
 
 The strengthened static test reads the actual S3B/S5/S6 producer migrations and confirms referenced tables/columns exist. It also checks room scoping, deterministic role ordering, run-scoped source identity, and one textual join per owner table.
 
-Two material residuals remain and were not changed without a new CA correction gate:
+The two source-contract residuals are corrected at source-static level:
 
-1. `discussion_or_vote_state` is currently derived from legacy per-player `submitted`. It does not independently identify the active owner/phase/round and is therefore `INCOMPLETE`, not behaviorally verified.
-2. `s6_engagements` and `s6_station_tasks` are keyed by `(run_id, role_key)`, not uniquely by `(run_id, player_id)`. Normal mutation functions bind these rows to allocation roles, but migration 069 directly joins both tables on player. Corrupt or contradictory rows could multiply a Player in the aggregate. Token/static checks cannot prove cardinality safety. A bounded correction should use cardinality-safe `exists`/lateral scalar reads or explicitly detect multiplicity without changing gameplay authority.
+1. `discussion_or_vote_state` no longer consumes legacy `submitted`. S3B binds to the newest canonical `discussion_sessions` row for the active `current.phase_key` and to that session's `runtime_player_decisions`; S5 binds to `s5_run_state.phase_key/vote_round`, `s5_rounds`, and the Player's matching `s5_votes`; S6 binds to `s6_run_state.phase_key/round_no` and matching `s6_choices`. The projection exposes only activity/submission state, never choice values. Missing or unrecognized owner records map to explicit `UNKNOWN_UNAVAILABLE_*` states; non-discussion/non-vote S6 phases map to `NOT_APPLICABLE`.
+2. Direct Player joins to role-keyed `s6_engagements` and `s6_station_tasks` were removed. Scalar lateral aggregates match both the Player and allocated role, detect the inverse contradictions (same Player/wrong role and same role/wrong Player), and detect duplicate allocation of one role across Players. Contradictions yield `INVARIANT_BREACH`, `UNKNOWN` task/engagement state and a specific reason code. Every lateral aggregate returns at most one row, so the room-player aggregate remains exactly one item per Player under malformed relationship rows.
+
+These claims are `SOURCE_STATIC_ONLY`: PostgreSQL compilation and execution against constructed corrupt rows remain `NOT_RUN`. The browser mock executes rendering of the resulting S6 `INVARIANT_BREACH` plus `UNKNOWN` operational states, not the SQL producer logic.
 
 ## W05 minimum-vector matrix
 
@@ -57,7 +59,14 @@ Two material residuals remain and were not changed without a new CA correction g
 | 19 | missing presentation row | SOURCE_STATIC_ONLY | operations projection does not use presentation row for location; SQL NOT_RUN |
 | 20 | contradictory milestones | PASS (browser mock for UI) + SOURCE_STATIC_ONLY SQL | invalidity display executed; producer SQL NOT_RUN |
 
-Additional privacy vector: PASS in browser mock for undeclared operations secret not rendered; real NORMAL database privacy remains NOT_RUN.
+Additional privacy vector: PASS in browser mock for undeclared operations secret not rendered; source review confirms R1 reads only row existence/status and not choice values. Real NORMAL database privacy remains NOT_RUN.
+
+## R1/R2 bounded correction verification
+
+- R1 provenance: `discussion_sessions` + `runtime_player_decisions` (S3B), `s5_run_state` + `s5_rounds` + `s5_votes` (S5), and `s6_run_state` + `s6_choices` (S6). All reads are constrained by `active_run_id` and current owner phase/round/session identity.
+- R2 provenance: unique per-Player `s6_allocations` plus scalar counts over role-keyed `s6_engagements` and `s6_station_tasks`. Duplicate-role allocation and bidirectional role/Player disagreement are explicit invalidity paths.
+- Negative source-contract cases: duplicate allocation role, engagement Player/wrong-role, engagement role/wrong-Player, task Player/wrong-role, and task role/wrong-Player are asserted structurally by the static test and mapped to explicit SQL reason codes. This does not claim SQL execution.
+- Authentication and authorization boundary is unchanged: the preserved pre-069 Teacher function still authenticates and supplies the legacy response; the wrapper retains `security definer`, `search_path=public`, revokes public execution, and grants only `anon,authenticated` as before.
 
 ## Exact commands and results
 
@@ -82,4 +91,3 @@ PASS
 ```
 
 Deployed catalog, SQL compilation/replay, migration execution, real producer behavior, grants and live browser behavior remain `NOT_VERIFIED` / `NOT_RUN`.
-
