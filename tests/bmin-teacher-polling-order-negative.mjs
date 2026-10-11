@@ -43,10 +43,10 @@ async function startServer() {
   return { server, baseUrl: `http://127.0.0.1:${server.address().port}/teacher.html` };
 }
 
-function operationsFrame(label, runId) {
+function operationsFrame(label) {
   return {
     active: true,
-    run: { run_id: runId, run_mode: "normal", audit_private_debug_view: false },
+    run: { run_id: "run-same", run_mode: "normal", audit_private_debug_view: false },
     current: { act_no: 7, scene_id: `scene-${label}`, phase_key: `phase-${label}`, step_key: label },
     players: [{
       display_name: "Gitte",
@@ -67,21 +67,25 @@ async function main() {
   const browser = await chromium.launch({ headless: true, executablePath: browserExecutable });
   const context = await browser.newContext();
   const page = await context.newPage();
-  const olderStarted = deferred();
-  const releaseOlder = deferred();
-  let operationsCalls = 0;
+  let scenario;
+
+  function setScenario(first, second = null) {
+    scenario = { calls: 0, first, second };
+  }
 
   await page.route("**/rest/v1/rpc/**", async (route) => {
     const rpcName = new URL(route.request().url()).pathname.split("/").pop();
     if (rpcName === "s7_get_teacher_console") {
-      operationsCalls += 1;
-      const call = operationsCalls;
-      if (call === 1) {
-        olderStarted.resolve();
-        await releaseOlder.promise;
+      scenario.calls += 1;
+      const plan = scenario.calls === 1 ? scenario.first : scenario.second;
+      invariant(plan, `Unexpected operations call ${scenario.calls}.`);
+      plan.started?.resolve();
+      if (plan.release) await plan.release.promise;
+      if (plan.error) {
+        await route.fulfill({ status: 500, contentType: "application/json", body: JSON.stringify({ message: plan.error }) });
+        return;
       }
-      const label = call === 1 ? "older" : "newer";
-      await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(operationsFrame(label, `run-${label}`)) });
+      await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(operationsFrame(plan.label)) });
       return;
     }
     if (rpcName === "s8_get_finalization_state") {
@@ -96,6 +100,9 @@ async function main() {
     await page.fill("#roomCode", "ORDER1");
     await page.fill("#teacherToken", "TEST-TOKEN");
 
+    const olderStarted = deferred();
+    const releaseOlder = deferred();
+    setScenario({ label: "older", started: olderStarted, release: releaseOlder }, { label: "newer" });
     await page.click("#refreshOperationsButton");
     await olderStarted.promise;
     await page.click("#refreshOperationsButton");
@@ -104,12 +111,33 @@ async function main() {
     invariant(confirmedNewer.includes("location-newer"), "Newer operations frame did not commit first.");
 
     releaseOlder.resolve();
-    await page.waitForFunction(() => document.querySelector("#operationsState")?.textContent.includes("location-older"));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     const finalContent = await page.locator("#operationsState").textContent();
-    invariant(operationsCalls === 2, `Expected two overlapping operations calls, observed ${operationsCalls}.`);
-    invariant(finalContent.includes("location-older"), "Older response did not overwrite the newer confirmed frame; race was not reproduced.");
-    invariant(!finalContent.includes("location-newer"), "Newer frame unexpectedly remained after older response committed.");
-    console.log("REPRODUCED: older Teacher operations response overwrote the newer confirmed frame.");
+    invariant(scenario.calls === 2, `Expected two overlapping operations calls, observed ${scenario.calls}.`);
+    invariant(finalContent.includes("location-newer"), "Older same-run success overwrote the newer confirmed frame.");
+    invariant(!finalContent.includes("location-older"), "Stale same-run success remained authoritative.");
+    invariant(await page.locator("#operationsStatus").textContent() === "Live operations refreshed.", "Stale success changed operations status.");
+
+    const staleFailureStarted = deferred();
+    const releaseStaleFailure = deferred();
+    setScenario({ error: "stale failure", started: staleFailureStarted, release: releaseStaleFailure }, { label: "success-after-stale" });
+    await page.click("#refreshOperationsButton");
+    await staleFailureStarted.promise;
+    await page.click("#refreshOperationsButton");
+    await page.waitForFunction(() => document.querySelector("#operationsState")?.textContent.includes("location-success-after-stale"));
+    releaseStaleFailure.resolve();
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    const afterStaleFailure = await page.locator("#operationsState").textContent();
+    invariant(afterStaleFailure.includes("location-success-after-stale"), "Stale failure replaced newer success content.");
+    invariant(await page.locator("#operationsBadge").textContent() !== "Unavailable", "Stale failure replaced newer success badge.");
+    invariant(await page.locator("#operationsStatus").textContent() === "Live operations refreshed.", "Stale failure replaced newer success status.");
+
+    setScenario({ error: "latest failure" });
+    await page.click("#refreshOperationsButton");
+    await page.waitForFunction(() => document.querySelector("#operationsState")?.textContent.includes("latest failure"));
+    invariant(await page.locator("#operationsBadge").textContent() === "Unavailable", "Latest failure was not exposed in the badge.");
+    invariant(await page.locator("#operationsStatus").textContent() === "Operations refresh failed.", "Latest failure status was not committed.");
+    console.log("PASS: Teacher operations generation guard rejects stale same-run success and failure while preserving latest failure.");
   } finally {
     await context.close();
     await browser.close();
@@ -121,4 +149,3 @@ main().catch((error) => {
   console.error(`FAIL ${error.stack || error.message}`);
   process.exitCode = 1;
 });
-

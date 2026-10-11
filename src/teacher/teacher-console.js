@@ -46,6 +46,7 @@ const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.
 
 let pollTimer = null;
 let sprint5TeacherActive = false;
+let operationsLoadGeneration = 0;
 
 createRoomButton.addEventListener("click", createRoom);
 watchButton.addEventListener("click", watchRoom);
@@ -249,8 +250,9 @@ function renderDiscussionState(state) {
 
 async function loadOperationsState(){
   const payload=baseTeacherPayload(false);if(!payload)return;
-  try{const state=await rpc("s7_get_teacher_console",payload);state.export=await rpc("s8_get_finalization_state",payload).catch(()=>state.export||{});renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
-  catch(error){operationsBadge.textContent="Unavailable";operationsState.innerHTML=`<p class="bad">${escapeHtml(error.message)}</p>`;}
+  const generation=++operationsLoadGeneration;
+  try{const state=await rpc("s7_get_teacher_console",payload);state.export=await rpc("s8_get_finalization_state",payload).catch(()=>state.export||{});if(generation!==operationsLoadGeneration)return;renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
+  catch(error){if(generation!==operationsLoadGeneration)return;operationsBadge.textContent="Unavailable";operationsState.innerHTML=`<p class="bad">${escapeHtml(error.message)}</p>`;operationsStatus.textContent="Operations refresh failed.";}
 }
 
 async function setAuditPrivateDebug(){
