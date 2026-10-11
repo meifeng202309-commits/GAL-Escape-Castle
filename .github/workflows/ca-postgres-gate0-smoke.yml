@@ -53,7 +53,9 @@ jobs:
           count=0
           while IFS= read -r file; do
             name="${file##*/}"
-            if [[ "$name" =~ ^0[0-6][0-9].*\.sql$ ]] || [[ "$name" =~ ^068.*\.sql$ ]]; then
+            if [[ "$name" =~ ^([0-9]{3})([^0-9].*)?\.sql$ ]]; then
+              migration_number=$((10#${BASH_REMATCH[1]}))
+              if (( migration_number < 1 || migration_number > 68 )); then continue; fi
               echo "MIGRATION_ATTEMPT: $name"
               if ! psql -X -v ON_ERROR_STOP=1 -q -f "$file" >/tmp/pg-gate0-last.out 2>&1; then
                 echo "::error::Baseline stopped at $name; SQL evidence NOT_PASS"
