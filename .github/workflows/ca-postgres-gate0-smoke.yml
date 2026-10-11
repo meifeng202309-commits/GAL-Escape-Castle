@@ -1,0 +1,67 @@
+name: CA PostgreSQL Gate 0 disposable smoke
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ca-pg-gate0-single
+  cancel-in-progress: false
+
+jobs:
+  disposable-postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: gate0
+          POSTGRES_PASSWORD: gate0-ephemeral-only
+          POSTGRES_DB: gate0
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd "pg_isready -U gate0 -d gate0"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGUSER: gate0
+      PGPASSWORD: gate0-ephemeral-only
+      PGDATABASE: gate0
+    steps:
+      - name: Confirm local disposable PostgreSQL and pgcrypto
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -c 'select version();'
+          psql -X -v ON_ERROR_STOP=1 -c 'create schema if not exists extensions; create extension if not exists pgcrypto with schema extensions;'
+          psql -X -v ON_ERROR_STOP=1 -c "select extname from pg_extension where extname='pgcrypto';"
+          psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists (select 1 from pg_roles where rolname='anon') then create role anon nologin; end if; if not exists (select 1 from pg_roles where rolname='authenticated') then create role authenticated nologin; end if; end \$\$;"
+      - name: Attempt clean baseline migrations until first error
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone -q --depth=1 --branch remediation/sprint9-structural-v1 https://github.com/meifeng202309-commits/GAL-Escape-Castle.git /tmp/gal-gate0
+          cd /tmp/gal-gate0
+          echo "SOURCE_SHA=$(git rev-parse HEAD)"
+          count=0
+          while IFS= read -r file; do
+            name="${file##*/}"
+            if [[ "$name" =~ ^0[0-6][0-9].*\.sql$ ]] || [[ "$name" =~ ^068.*\.sql$ ]]; then
+              echo "MIGRATION_ATTEMPT: $name"
+              if ! psql -X -v ON_ERROR_STOP=1 -q -f "$file" >/tmp/pg-gate0-last.out 2>&1; then
+                echo "::error::Baseline stopped at $name; SQL evidence NOT_PASS"
+                tail -n 12 /tmp/pg-gate0-last.out | sed -E 's/(password|secret|token)=[^ ]+/\1=[REDACTED]/gi'
+                exit 1
+              fi
+              count=$((count+1))
+            fi
+          done < <(find database -maxdepth 1 -type f -name '*.sql' | LC_ALL=C sort)
+          echo "BASELINE_MIGRATIONS_APPLIED=$count"
+          echo "Gate 0 only; migration 069/070 and functional SQL fixtures NOT_RUN."
