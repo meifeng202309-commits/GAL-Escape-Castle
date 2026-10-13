@@ -1228,3 +1228,23 @@ CURRENT STATUS不是canonical spec。
 - **Warm Continuation** = 已受训的现有聊天继续工作。
 
 Warm Continuation 不需要重复完整培训，但必须持续遵守 Action Log / Status Sync Rules。
+
+---
+
+## Direct Supabase access and safe verification (2026-10-13)
+
+- ChatGPT's Supabase plugin can be connected by the Teacher. An authorized chat confirmed project `GAL's Castle Escape` (reference `qdcbdcjobzytzhnhfwyn`), and successfully executed read-only catalog SQL through the Supabase connector; PostgreSQL major version 17 was reported. **The ability to use the plugin is connection/session-specific**: each replacement Agent must discover currently available tools and confirm its own authorized connection, rather than assuming access carries over.
+- Historical CD execution evidence: `docs/audits/independent/runs/2026-10-07_authority_prefreeze_deployed_evidence/EXECUTION_CONTEXT.md` confirms CD used the same project's Supabase SQL Editor on 2026-10-07/08. Earlier absence of local `psql`/Docker is not proof that Supabase SQL Editor/connector access is impossible.
+- **Production warning:** this Supabase project is marked `main / PRODUCTION`. Read-only inspection requires task authorization and must minimize sensitive game/player data. Having authenticated access is NOT database-mutation authorization. Do not apply migrations, run DDL/DML, grant permissions, reset, clean or deploy without the separate current gate and safety/backup plan. Do not handle credentials in project files or Agent letters.
+- Current read-only facts (2026-10-13): `s7_get_teacher_console`, `s3b_grab`, `s3b_leave_start_room`, and main S3B/S5/S6 owner tables exist; no `s3b_grab_and_leave` function or `s3b_action_receipts` table was observed. Plugin `list_migrations` returned an empty list, which does **not** establish that older SQL migration files were not manually executed. Repository migrations `069` and `070` remain unapplied/unverified at this checkpoint. Check authoritative live function signatures, owners, ACL and dependency state with read-only catalog queries before proposing any migration gate.
+- For each task select the minimum appropriate evidence lane: SOURCE_STATIC, intercepted browser MOCK, authorized read-only Supabase catalog, isolated disposable SQL execution, or controlled human integration. These evidence tiers are not interchangeable. Prior Gate-0 GitHub Actions baseline 001–019 executed, 020 stopped on absent Supabase-managed `storage.buckets` in ordinary PostgreSQL; never mislabel it as B1/W03 validation.
+- When a Supabase plugin is connected, prefer directly executing authorized read-only investigation over asking Teacher to copy queries into SQL Editor. If access is missing, investigate available connector/workspace conditions before demanding local database installation.
+
+## Continuous execution to ownership handoff — all persistent roles
+
+A role Agent (GA/CA/CD/VA, and ISA within its envelope) must **continue the current authorized task autonomously until its required closure and the precise NEXT_OWNER handoff** under active protocols and role boundaries. This includes sufficient evidence, necessary repository/Action Log updates, and correctly addressed handoff to the next responsible Agent.
+
+Do **not** stop at an intermediate analysis step merely to request duplicate Teacher approval, report routine progress as a permission request, or pre-notify Teacher of predictable protocol steps. Apply already granted authority and carry work to the natural handoff point.
+
+**Exception:** STOP/seek authorization when required by explicit governance gate, novel safety/financial/privacy or production-change risk, unresolved canonical/narrative decision reserved for Teacher/owner, missing essential permissions or evidence, or another exceptional event whose decision authority lies outside the current Agent. A task requiring the Teacher to act on their own account should ask only for that precise action. Never infer permission from tool availability, historical credentials or another role's previous authorization.
+
