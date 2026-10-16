@@ -1,0 +1,42 @@
+const fs=require("fs");
+const sql=fs.readFileSync("database/071_act7_v4_normal_teacher_paced_vote.sql","utf8");
+const teacher=fs.readFileSync("src/teacher/teacher-console.js","utf8");
+const html=fs.readFileSync("teacher.html","utf8");
+const requireAll=(source,label,tokens)=>{for(const token of tokens)if(!source.includes(token))throw new Error(`${label} missing: ${token}`)};
+
+requireAll(sql,"S5 NORMAL sentinel",[
+  "when mode='normal' then 10800",
+  "when g.run_mode='normal' then 10800",
+  "discussion_time_limit_sec=discussion_secs",
+  "vote_time_limit_sec=vote_secs",
+]);
+requireAll(sql,"identity-bound open vote",[
+  "p_expected_run_id uuid",
+  "p_expected_phase text",
+  "p_expected_vote_round integer",
+  "p_expected_discussion_session_id uuid",
+  "for update",
+  "Stale Sprint 5 run identity.",
+  "Stale Sprint 5 phase or round identity.",
+  "Stale Sprint 5 discussion identity.",
+]);
+requireAll(sql,"NORMAL nonmutating Add Time",[
+  "if g.run_mode='normal' then",
+  "'applicable',false",
+  "'reason','NORMAL_TEACHER_PACED'",
+]);
+const normalReturn=sql.indexOf("return jsonb_build_object('ok',false,'applicable',false");
+const addTimeUpdate=sql.indexOf("set status=case when status='waiting_for_missing_player'");
+const addTimeEvent=sql.indexOf("'teacher_intervention_s5_time_added'");
+if(!(normalReturn>=0&&normalReturn<addTimeUpdate&&normalReturn<addTimeEvent))throw new Error("NORMAL Add Time does not return before mutation/event code");
+requireAll(sql,"AUDIT preservation",["when p_phase='act6_vote' then 90","when p_phase='act8_final_vote' then 180","else 15","else 60"]);
+requireAll(sql,"ACL",[
+  "revoke execute on function public.s5_teacher_open_vote(text,text) from public,anon,authenticated",
+  "revoke execute on function public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid) from public",
+  "grant execute on function public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid) to anon,authenticated",
+]);
+requireAll(teacher,"Teacher caller identity",["p_expected_run_id:run.run_id","p_expected_phase:discussion.phase_key","p_expected_vote_round:discussion.vote_round","p_expected_discussion_session_id:discussion.discussion_session_id"]);
+if(!teacher.includes('addTimeButton.hidden=state.run.run_mode==="normal"'))throw new Error("NORMAL Add Time is not hidden by current run mode");
+if(!html.includes('id="addTimeButton" class="secondary" type="button" hidden'))throw new Error("Add Time is visible before authoritative mode loads");
+if(sql.includes("create or replace function public.s2_refresh_discussion"))throw new Error("Shared S2 deadline owner was changed");
+console.log("ACT7 V4 NORMAL timeout static checks passed.");
