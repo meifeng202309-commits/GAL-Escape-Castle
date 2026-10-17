@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-10T13:05:00Z
+> Last refreshed: 2026-10-17T14:15:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — A1 source audit closed; CD frozen; TCA pilot selection
-CURRENT_GATE          = HOLD_RUNTIME_IMPLEMENTATION / P01_NOT_STATIC_READY_VALUE_GATE_FAIL
-CURRENT_OWNER         = GA — revise TCA pilot protocol/candidate only; CD and TCA code remain frozen
-NEXT_REQUIRED_ACTION  = GA add the utility/complexity gate before STATIC_READY and return one higher-value source-stable candidate for CA review, or explicitly defer further TCA coding. No P02/P03 or CD runtime implementation is authorized.
+CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
+CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD_PENDING_TEACHER_RISK_AUTHORIZATION
+CURRENT_OWNER         = Teacher/User — decide revised six-function admission-freeze + residual attendance-risk GO/HOLD
+NEXT_REQUIRED_ACTION  = Approve or decline one bounded production maintenance envelope: six-function temporary ACL freeze including service_role + operational service-role quiescence + accepted no-current-play observability residual; if approved CA issues the bounded CD execution gate for 071 + frozen two-file Teacher Pages + one synthetic three-player acceptance + reviewed recovery. No production mutation is authorized until then.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-140
+CA_CHECKPOINT = CA-231
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
