@@ -31,9 +31,9 @@ Adjacent existing Teacher browser regression also passed:
 
 `node tests/bmin-teacher-operations-browser.mjs`
 
-### EXISTING TEST RESIDUAL
+### EXISTING TEST RESIDUAL — RESOLVED IN RELEASE PREPARATION
 
-`tests/sprint5-static-check.js` does not reach this delta because it first fails on pre-existing assertions for the old `const activeSession=session` / `if(session!==activeSession)return` polling tokens removed by the later A1 polling coordinator. This is a stale-test residual, not changed or concealed in this gate.
+`tests/sprint5-static-check.js` formerly asserted the old `const activeSession=session` / `if(session!==activeSession)return` polling tokens removed by the later A1 polling coordinator. Under CA-226, only those stale assertions were updated to the current `playerSessionEpoch`, `refreshGeneration`, `refreshCanCommit(run)` and `startQueuedPlayerRefresh` markers. The updated Sprint5 static check and the dedicated A1 polling static check both pass; no runtime source changed for this test repair.
 
 ### SQL / LIVE — NOT_RUN
 

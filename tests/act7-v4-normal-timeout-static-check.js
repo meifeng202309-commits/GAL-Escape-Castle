@@ -2,7 +2,10 @@ const fs=require("fs");
 const sql=fs.readFileSync("database/071_act7_v4_normal_teacher_paced_vote.sql","utf8");
 const teacher=fs.readFileSync("src/teacher/teacher-console.js","utf8");
 const html=fs.readFileSync("teacher.html","utf8");
+const recovery=fs.readFileSync("docs/reports/remediation/act7/071_RECOVERY.sql","utf8");
 const requireAll=(source,label,tokens)=>{for(const token of tokens)if(!source.includes(token))throw new Error(`${label} missing: ${token}`)};
+
+if(!/^--[\s\S]*\nbegin;/.test(sql)||!sql.trimEnd().endsWith("commit;"))throw new Error("Migration 071 is not transaction-bounded");
 
 requireAll(sql,"S5 NORMAL sentinel",[
   "when mode='normal' then 10800",
@@ -39,4 +42,11 @@ requireAll(teacher,"Teacher caller identity",["p_expected_run_id:run.run_id","p_
 if(!teacher.includes('addTimeButton.hidden=state.run.run_mode==="normal"'))throw new Error("NORMAL Add Time is not hidden by current run mode");
 if(!html.includes('id="addTimeButton" class="secondary" type="button" hidden'))throw new Error("Add Time is visible before authoritative mode loads");
 if(sql.includes("create or replace function public.s2_refresh_discussion"))throw new Error("Shared S2 deadline owner was changed");
+requireAll(recovery,"Recovery SQL",[
+  "drop function if exists public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid)",
+  "secs:=case p_phase when'act6_vote'then 90 when'act8_final_vote'then 180 else 15 end",
+  "create or replace function public.s5_teacher_open_vote(p_room_code text,p_teacher_token text)",
+  "grant execute on function public.s5_teacher_open_vote(text,text) to anon,authenticated,service_role",
+]);
+if(!recovery.trimEnd().endsWith("commit;"))throw new Error("Recovery SQL is not transaction-bounded");
 console.log("ACT7 V4 NORMAL timeout static checks passed.");

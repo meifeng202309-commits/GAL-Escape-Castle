@@ -1,6 +1,8 @@
 -- V4 Package C (bounded S5 slice): keep NORMAL ACT6-8 discussions
 -- Teacher-paced and bind Teacher vote-opening to the exact current round.
 
+begin;
+
 create or replace function public.s5_configure_discussion(p_session uuid,p_phase text)
 returns void language plpgsql security definer set search_path=public as $$
 declare
@@ -198,3 +200,5 @@ begin
 end$$;
 revoke execute on function public.s5_get_teacher_discussion_state(text,text) from public;
 grant execute on function public.s5_get_teacher_discussion_state(text,text) to anon,authenticated;
+
+commit;

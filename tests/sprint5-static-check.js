@@ -31,7 +31,7 @@ for (const text of ["allow_share_photo=p_phase in('act6_vote','act8_final_vote')
 for (const text of ["counterclockwise", "prop_gitte_castle_map", "prop.photo_1897", "pocket.observations", "pocket.shared_photos", "data-share-item"]) if (!app.includes(text)) throw new Error(`Missing Sprint 5 evidence UI: ${text}`);
 for (const text of ["sprint5EvidencePanel", "data-s5-evidence-phase", "data-flip-item", "s3_set_item_view", "library_torn_note", "linda_stopped_watch", "s.phase_key.startsWith(\"act6\")||s.phase_key.startsWith(\"act7\")"]) if (!app.includes(text)) throw new Error(`Missing mounted ACT6/ACT7 interaction: ${text}`);
 if (!app.includes('item.item_key==="linda_stopped_watch"') || !app.includes('item.current_view==="back"?"act01-l.017":"act01-l.002"')) throw new Error("Stopped Watch visible evidence does not follow authoritative front/back view.");
-for (const text of ["const activeSession=session", "if(session!==activeSession)return"]) if (!app.includes(text)) throw new Error(`Missing reconnect/session-switch guard: ${text}`);
+for (const text of ["playerSessionEpoch", "refreshGeneration", "refreshCanCommit(run)", "startQueuedPlayerRefresh"]) if (!app.includes(text)) throw new Error(`Missing current reconnect/session-switch coordinator: ${text}`);
 for (const text of ["insert into public.discussion_sessions", "allow_share_photo=p_phase in('act6_vote','act8_final_vote')"]) if (!creationRestore.includes(text)) throw new Error(`Missing Sprint 5 discussion creation restore: ${text}`);
 if (/database\/02[0-6]_/.test("database/027_sprint5_act6_8_runtime.sql")) throw new Error("Immutable migration range touched.");
 console.log("Sprint 5 static checks passed.");
