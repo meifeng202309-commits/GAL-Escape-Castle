@@ -46,6 +46,7 @@ const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.
 
 let pollTimer = null;
 let sprint5TeacherActive = false;
+let currentTeacherDiscussionState = null;
 
 createRoomButton.addEventListener("click", createRoom);
 watchButton.addEventListener("click", watchRoom);
@@ -172,7 +173,8 @@ async function openVote() {
   const payload = baseTeacherPayload();
   if (!payload) return;
   try {
-    await rpc(sprint5TeacherActive ? "s5_teacher_open_vote" : "s2_open_vote", payload);
+    const votePayload=sprint5TeacherActive ? sprint5OpenVotePayload(payload,currentTeacherDiscussionState) : payload;
+    await rpc(sprint5TeacherActive ? "s5_teacher_open_vote" : "s2_open_vote", votePayload);
     discussionTeacherStatus.textContent = "Voting opened.";
     await loadDiscussionState();
   } catch (error) {
@@ -207,18 +209,21 @@ async function loadDiscussionState() {
 }
 
 function renderDiscussionState(state) {
+  currentTeacherDiscussionState=state;
   renderOverrideState(state.teacher_override);
   const canonicalFlowActive = Boolean(state.canonical_flow_active);
   openDiscussionButton.disabled = canonicalFlowActive;
   discussionTopicInput.disabled = canonicalFlowActive;
   voteOptionsInput.disabled = canonicalFlowActive;
   if (!state.active) {
+    addTimeButton.hidden=true;
     runBadge.textContent = "No active run";
     discussionState.innerHTML = "<p class='muted'>Join all three players, then start a formal run.</p>";
     return;
   }
 
   runBadge.textContent = state.run.run_mode.toUpperCase();
+  addTimeButton.hidden=state.run.run_mode==="normal";
   runModeInput.disabled = true;
   startRunButton.disabled = true;
   if (canonicalFlowActive) {
@@ -245,6 +250,14 @@ function renderDiscussionState(state) {
     <table><thead><tr><th>Player</th><th>Role</th><th>Vote</th>${discussion.status === "resolved" ? "<th>Revealed choice</th>" : ""}</tr></thead><tbody>${voteRows}</tbody></table>
     ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
   `;
+}
+
+function sprint5OpenVotePayload(payload,state){
+  const discussion=state?.discussion,run=state?.run;
+  if(!run?.run_id||!discussion?.discussion_session_id||!discussion?.phase_key||!Number.isInteger(discussion?.vote_round)){
+    throw new Error("Current Sprint 5 run, phase, round and discussion identity are required.");
+  }
+  return {...payload,p_expected_run_id:run.run_id,p_expected_phase:discussion.phase_key,p_expected_vote_round:discussion.vote_round,p_expected_discussion_session_id:discussion.discussion_session_id};
 }
 
 async function loadOperationsState(){
