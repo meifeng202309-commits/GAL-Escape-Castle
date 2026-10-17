@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-17T14:15:00Z
+> Last refreshed: 2026-10-17T15:00:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD_PENDING_TEACHER_RISK_AUTHORIZATION
-CURRENT_OWNER         = Teacher/User — decide revised six-function admission-freeze + residual attendance-risk GO/HOLD
-NEXT_REQUIRED_ACTION  = Approve or decline one bounded production maintenance envelope: six-function temporary ACL freeze including service_role + operational service-role quiescence + accepted no-current-play observability residual; if approved CA issues the bounded CD execution gate for 071 + frozen two-file Teacher Pages + one synthetic three-player acceptance + reviewed recovery. No production mutation is authorized until then.
+CURRENT_GATE          = ACT7_071_TEACHER_AUTHORIZED_PRECHECK_PENDING / PRODUCTION_UNCHANGED
+CURRENT_OWNER         = CD — verify mandatory operational and Pages preflight before any production mutation
+NEXT_REQUIRED_ACTION  = Confirm service-role jobs/operators quiesced, no-current-play immediate evidence, Pages fingerprints/rollback and exact ACL/MD5 recovery. If any unverified STOP before mutation; otherwise execute ONLY reviewed 071 + two Teacher files + controlled synthetic acceptance, restore privileges and report CA. 577 historical ACTIVE records immutable.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-231
+CA_CHECKPOINT = CA-232
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
