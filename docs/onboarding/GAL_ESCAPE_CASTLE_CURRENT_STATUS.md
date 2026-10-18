@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T14:00:00Z
+> Last refreshed: 2026-10-18T15:00:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_DOCUMENT_READINESS_PASS / PRODUCTION_HOLD / TEACHER_DECISION_PENDING
-CURRENT_OWNER         = Teacher — new one-attempt production approval and privileged-operator attestation
-NEXT_REQUIRED_ACTION  = Teacher decide whether to approve a new narrowly bounded 071 maintenance attempt, confirm exclusive window and service-role operator quiescence or defer. Any approval remains subject to fresh CD preflight; no production writes until passed.
+CURRENT_GATE          = ACT7_071_TEACHER_CONDITIONAL_APPROVAL / MANDATORY_PREFLIGHT / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — mandatory preflight and STOP unless all operational attestations verified
+NEXT_REQUIRED_ACTION  = CD verify service-role holders/jobs are paused, exclusive uninterrupted coordinator/window and immediate read-only technical checks; only on all PASS execute one approved 071 controlled attempt. On any missing attestation STOP without mutation.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-244
+CA_CHECKPOINT = CA-245
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
