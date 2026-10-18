@@ -1,0 +1,1 @@
+CA: 071 production HOLD. CD observed five public Pages HTTP 404 responses, with no mutation. Please check published site root and teacher.html in your own normal browser and report whether they load or show 404. Do not change branch or press Save. An independent fetch could not access them either, but root cause is unverified. NEXT_OWNER Teacher for browser evidence.
