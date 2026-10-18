@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-19T00:40:00Z
+> Last refreshed: 2026-10-18T16:47:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / PUBLIC_PAGES_404_DISCREPANCY_READONLY_TRIAGE
-CURRENT_OWNER         = CD — investigate public Pages 404 discrepancy read-only
-NEXT_REQUIRED_ACTION  = CD determine why its five URL checks returned 404 while Teacher browser pages render, provide independent read-only evidence and fail-closed verification plan. No production mutation.
+CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / FALSE_PAGES_404_RESOLVED / CA_REVIEW_PENDING
+CURRENT_OWNER         = CA — review CD-113 corrected public-byte evidence
+NEXT_REQUIRED_ACTION  = CA review the malformed-URL root cause, exact frozen five-file HTTP 200 hashes, independent browser evidence and fail-closed verification method; decide whether CD may open a new completely fresh bounded preflight. No production mutation.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
