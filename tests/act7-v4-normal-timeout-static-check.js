@@ -71,5 +71,15 @@ requireAll(acceptance,"controlled late-third scenario",[
   'await submitVote(fixtureState, opened, 2, "clock_c")',
   'nextRound.discussion.vote_round === 3',
 ]);
+requireAll(acceptance,"controlled AUDIT ACT7 scenario",[
+  'await vote(fixtureState, ["escape", "1897", "trapped"])',
+  'current.state.phase_key === "act7_vote"',
+  'current.canonical_discussion.discussion_time_limit_sec === 15',
+  'current.canonical_discussion.vote_time_limit_sec === 60',
+  'voting.discussion.phase_key === "act7_vote"',
+  'await sleep(61000)',
+  'expired.discussion.status === "waiting_for_missing_player"',
+  'after.discussion.status === "voting"',
+]);
 if(!acceptance.includes('process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"'))throw new Error("Controlled production acceptance lacks an explicit execution gate");
 console.log("ACT7 V4 NORMAL timeout static checks passed.");

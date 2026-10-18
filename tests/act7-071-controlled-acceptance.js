@@ -1,4 +1,4 @@
-const { rpc, assert, auth, fixture, state } = require("./sprint5-live-e2e");
+const { rpc, assert, auth, fixture, state, vote } = require("./sprint5-live-e2e");
 
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 const teacherState = fixtureState => rpc("s5_get_teacher_discussion_state", {
@@ -156,18 +156,38 @@ async function runAuditControl() {
   const act6 = await enterAct6Barrier(fixtureState);
   assert(act6.canonical.discussion_time_limit_sec === 90 && act6.canonical.vote_time_limit_sec === 60,
     "AUDIT ACT6 timing changed");
+
+  await vote(fixtureState, ["escape", "1897", "trapped"]);
+  await vote(fixtureState, ["escape", "1897", "trapped"]);
+  let current = await state(fixtureState);
+  assert(current.state.phase_key === "act6_answer", "AUDIT ACT6 fallback did not complete");
+  await rpc("s5_advance", auth(fixtureState, 0));
+  current = await state(fixtureState);
+  assert(current.state.phase_key === "act7_vote" && current.discussion.vote_round === 1,
+    "AUDIT did not reach ACT7 round 1");
+  assert(current.canonical_discussion.discussion_time_limit_sec === 15 && current.canonical_discussion.vote_time_limit_sec === 60,
+    "AUDIT ACT7 timing is not 15/60");
+
   await rpc("s5_audit_expire_discussion", { p_room_code: fixtureState.room, p_teacher_token: fixtureState.teacher });
-  const before = await teacherState(fixtureState);
-  assert(before.discussion.status === "voting", "AUDIT deliberate timeout did not open voting");
+  const voting = await teacherState(fixtureState);
+  assert(voting.discussion.phase_key === "act7_vote" && voting.discussion.status === "voting",
+    "AUDIT ACT7 deliberate discussion timeout did not open voting");
+  const voteSeconds = (Date.parse(voting.discussion.phase_deadline) - Date.now()) / 1000;
+  assert(voteSeconds > 50 && voteSeconds <= 61, `AUDIT ACT7 vote deadline is not approximately 60 seconds: ${voteSeconds}`);
+  await sleep(61000);
+  const expired = await teacherState(fixtureState);
+  assert(expired.discussion.status === "waiting_for_missing_player",
+    "AUDIT ACT7 vote timeout did not wait for the missing Players");
   const add = await rpc("s5_teacher_add_time", {
     p_room_code: fixtureState.room,
     p_teacher_token: fixtureState.teacher,
     p_seconds: 60,
   });
   const after = await teacherState(fixtureState);
-  assert(add.applicable === true && Date.parse(after.discussion.phase_deadline) > Date.parse(before.discussion.phase_deadline),
-    "AUDIT Add Time behavior regressed");
-  return { room: fixtureState.room, run_id: before.run.run_id };
+  assert(add.applicable === true && after.discussion.status === "voting"
+    && Date.parse(after.discussion.phase_deadline) > Date.parse(expired.discussion.phase_deadline || 0),
+  "AUDIT ACT7 Add Time did not reopen voting with a new deadline");
+  return { room: fixtureState.room, run_id: voting.run.run_id };
 }
 
 async function main() {
