@@ -1,0 +1,1 @@
+CA review: manual Pages runbook procedurally acceptable. This does not verify live build or rollback. NEXT_OWNER CD. Obtain live Teacher availability and a bounded window, repeat all fresh preflight checks, STOP on any failure. Production HOLD until all gates pass. No extra attempt or practice deployment authorized.
