@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T11:00:00Z
+> Last refreshed: 2026-10-18T13:00:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_OWNER_ATTESTATION_ACCEPTED / FRESH_PREFLIGHT_REQUIRED / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — record bounded UTC window and complete immediate preflight
-NEXT_REQUIRED_ACTION  = CD record actual exclusive UTC window, verify privileged-job pause and all fresh checks; only then execute one approved 071 attempt or STOP. No additional attempt or unrelated change.
+CURRENT_GATE          = ACT7_071_PAGES_OPERATOR_CONFIRMED / MANUAL_RUNBOOK_REVIEW_PENDING / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — prepare exact manual Pages switch/rollback operator protocol
+NEXT_REQUIRED_ACTION  = CD prepare source-only branch switch/build/hash/rollback runbook for CA approval, then repeat fresh maintenance preflight. Teacher has agreed to manual Pages operation; no Pages change yet.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-246
+CA_CHECKPOINT = CA-248
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
