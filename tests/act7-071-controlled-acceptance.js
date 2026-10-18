@@ -1,6 +1,26 @@
 const { rpc, assert, auth, fixture, state, vote } = require("./sprint5-live-e2e");
+const readline = require("node:readline/promises");
 
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
+let evidenceInput;
+async function evidenceBoundary(label, fixtureState, discussion) {
+  if (process.env.ACT7_071_EVIDENCE_PAUSE !== "YES") {
+    throw new Error("SQL evidence boundaries require ACT7_071_EVIDENCE_PAUSE=YES");
+  }
+  const projection = await teacherState(fixtureState);
+  const identity = discussion || projection.discussion;
+  console.log(JSON.stringify({
+    type: "ACT7_071_EVIDENCE_BOUNDARY",
+    label,
+    run_id: projection.run.run_id,
+    room_code: fixtureState.room,
+    discussion_session_id: identity.discussion_session_id,
+    phase_key: identity.phase_key,
+    vote_round: identity.vote_round,
+  }));
+  evidenceInput ||= readline.createInterface({ input: process.stdin, output: process.stdout });
+  await evidenceInput.question(`Save the ${label} SQL snapshot, then press Enter to continue: `);
+}
 const teacherState = fixtureState => rpc("s5_get_teacher_discussion_state", {
   p_room_code: fixtureState.room,
   p_teacher_token: fixtureState.teacher,
@@ -95,8 +115,10 @@ async function runNormalScenario() {
   assert(opened.result.phase_key === "act7_vote" && opened.result.vote_round === 2, "ACT7 round 2 identity mismatch");
   const seconds = (Date.parse(opened.result.phase_deadline) - Date.now()) / 1000;
   assert(seconds > 10790 && seconds <= 10801, `NORMAL ACT7 deadline is not approximately 10800 seconds: ${seconds}`);
+  await evidenceBoundary("ROUND2_OPEN", fixtureState, opened.result);
   await submitVote(fixtureState, opened, 0, "clock_a");
   await submitVote(fixtureState, opened, 1, "clock_a");
+  await evidenceBoundary("TWO_VOTES", fixtureState, opened.result);
   await sleep(61000);
   const lateTeacher = await teacherState(fixtureState);
   const latePlayer = await rpc("s5_get_discussion_state", auth(fixtureState, 2));
@@ -104,15 +126,20 @@ async function runNormalScenario() {
   assert(lateTeacher.current_votes.filter(vote => vote.submitted).length === 2, "Two genuine votes were not retained");
   assert(latePlayer.discussion.status === "voting" && latePlayer.discussion.vote_options.length === 3,
     "Third Player lost Clock A/B/C controls");
+  await evidenceBoundary("AFTER_61S", fixtureState, opened.result);
   await submitVote(fixtureState, opened, 2, "clock_c");
 
   const nextRound = await teacherState(fixtureState);
   assert(nextRound.discussion.vote_round === 3 && nextRound.discussion.status === "discussion",
     "Third genuine vote did not create exactly one next round");
+  await evidenceBoundary("THIRD_VOTE_RESOLVED", fixtureState, opened.result);
+  await evidenceBoundary("BEFORE_STALE", fixtureState, nextRound.discussion);
   let rejected = false;
   try { await rpc("s5_teacher_open_vote", opened.payload); } catch { rejected = true; }
   assert(rejected, "Prior-round Open Vote payload was accepted");
+  await evidenceBoundary("AFTER_STALE", fixtureState, nextRound.discussion);
   const beforeAdd = await teacherState(fixtureState);
+  await evidenceBoundary("BEFORE_NORMAL_ADD", fixtureState, beforeAdd.discussion);
   const add = await rpc("s5_teacher_add_time", {
     p_room_code: fixtureState.room,
     p_teacher_token: fixtureState.teacher,
@@ -121,6 +148,8 @@ async function runNormalScenario() {
   const afterAdd = await teacherState(fixtureState);
   assert(add.applicable === false && add.reason === "NORMAL_TEACHER_PACED", "NORMAL Add Time was applicable");
   assert(JSON.stringify(afterAdd.discussion) === JSON.stringify(beforeAdd.discussion), "NORMAL Add Time mutated discussion state");
+  await evidenceBoundary("AFTER_NORMAL_ADD", fixtureState, afterAdd.discussion);
+  await evidenceBoundary("BEFORE_INVALID_TOKEN", fixtureState, nextRound.discussion);
   rejected = false;
   try {
     await rpc("s5_teacher_open_vote", {
@@ -131,6 +160,7 @@ async function runNormalScenario() {
     });
   } catch { rejected = true; }
   assert(rejected, "Invalid Teacher token opened voting");
+  await evidenceBoundary("AFTER_INVALID_TOKEN", fixtureState, nextRound.discussion);
 
   opened = await openVote(fixtureState);
   await submitThree(fixtureState, opened, ["clock_c", "clock_c", "clock_b"]);
@@ -174,10 +204,12 @@ async function runAuditControl() {
     "AUDIT ACT7 deliberate discussion timeout did not open voting");
   const voteSeconds = (Date.parse(voting.discussion.phase_deadline) - Date.now()) / 1000;
   assert(voteSeconds > 50 && voteSeconds <= 61, `AUDIT ACT7 vote deadline is not approximately 60 seconds: ${voteSeconds}`);
+  await evidenceBoundary("AUDIT_VOTING", fixtureState, voting.discussion);
   await sleep(61000);
   const expired = await teacherState(fixtureState);
   assert(expired.discussion.status === "waiting_for_missing_player",
     "AUDIT ACT7 vote timeout did not wait for the missing Players");
+  await evidenceBoundary("AUDIT_AFTER_61S", fixtureState, expired.discussion);
   const add = await rpc("s5_teacher_add_time", {
     p_room_code: fixtureState.room,
     p_teacher_token: fixtureState.teacher,
@@ -187,6 +219,7 @@ async function runAuditControl() {
   assert(add.applicable === true && after.discussion.status === "voting"
     && Date.parse(after.discussion.phase_deadline) > Date.parse(expired.discussion.phase_deadline || 0),
   "AUDIT ACT7 Add Time did not reopen voting with a new deadline");
+  await evidenceBoundary("AUDIT_AFTER_ADD", fixtureState, after.discussion);
   return { room: fixtureState.room, run_id: voting.run.run_id };
 }
 
@@ -194,9 +227,13 @@ async function main() {
   if (process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES") {
     throw new Error("Controlled production acceptance is disabled without a separate ACT7_071_PRODUCTION_AUTHORIZED=YES gate");
   }
-  const normal = await runNormalScenario();
-  const audit = await runAuditControl();
-  console.log(JSON.stringify({ ok: true, normal, audit }));
+  try {
+    const normal = await runNormalScenario();
+    const audit = await runAuditControl();
+    console.log(JSON.stringify({ ok: true, normal, audit }));
+  } finally {
+    evidenceInput?.close();
+  }
 }
 
 module.exports = { enterAct6Barrier, openVote, runNormalScenario, runAuditControl };

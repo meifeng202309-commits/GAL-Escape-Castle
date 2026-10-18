@@ -84,6 +84,14 @@ The 2026-10-16 catalog recorded CRLF-body raw MD5 values. Recovery installed sem
 
 For any future gate, the recovery target is the **fresh immediate prechange catalog**, currently expected to be the LF raw values—not a blind rewrite to historical CRLF. Record both raw MD5 and a newline-normalized body hash. Any mismatch beyond newline representation is STOP. No function may be rewritten merely to match the older raw fingerprint without separate authority.
 
+## CA-240 source-packet closure (2026-10-18)
+
+- Q0-Q4 were executed SELECT-only against production PostgreSQL 17.6.1 with nonexistent sentinel run/discussion identities. All identifiers, casts and JSON fields parsed successfully; no gameplay/private row was returned. Q0 separately reconfirmed `579 = 577 historical + 2 retained synthetic` ACTIVE rows.
+- All action-specific event counts are now scoped to the exact run, ACT7 phase, vote round and discussion identity rather than the whole run.
+- The controlled fixture now requires `ACT7_071_EVIDENCE_PAUSE=YES`, emits an exact JSON identity at each documented NORMAL/AUDIT boundary and blocks until the operator saves the corresponding SQL result. Missing or auto-advanced boundaries are NOT VERIFIED.
+- The obsolete consumed approval and zero-active-session wording has been removed. Production remains HOLD and any later attempt requires a new explicit high-risk gate.
+- No production mutation, deployment, ACL change or runtime flag change occurred during this packet closure.
+
 ## 6. Maintenance containment checklist
 
 Before any mutation, all must PASS freshly:

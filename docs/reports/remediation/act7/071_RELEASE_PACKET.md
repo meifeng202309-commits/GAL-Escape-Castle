@@ -60,13 +60,15 @@ There is an unavoidable compatibility seam during the two-step release: old clie
 - If both deploy but acceptance fails: keep admission frozen, capture failure evidence, restore Pages to `deploy/manual-acceptance-20261003@891feffe…`, execute `071_RECOVERY.sql`, and re-verify the fresh immediate prechange catalog snapshot. The recovery SQL restores code/ACL only; it deliberately does not erase gameplay/events and therefore requires separate disposition for every synthetic-room row.
 - Git revert alone is not database recovery.
 
-## Smallest required Teacher approval
+## Production authorization status
 
-Approve one scheduled, no-active-session production maintenance operation containing exactly:
+`PRODUCTION HOLD`. The earlier one-operation authorization was consumed by the 2026-10-18 attempted acceptance and rollback and is not reusable. The old zero-active-session premise is also obsolete: 579 ACTIVE rows are intentionally preserved (577 historical plus two retained synthetic fixtures), and no cleanup may be used to manufacture zero.
+
+Any future production attempt requires a new explicit high-risk gate covering exactly:
 
 1. transactional application of reviewed migration 071;
 2. Pages switch from frozen `891feffe…` to a manifest-verified candidate containing only the two Teacher client hunks;
 3. one synthetic three-Player room acceptance under `071_CONTROLLED_ACCEPTANCE_PLAN.md`;
 4. authority to execute `071_RECOVERY.sql` and restore Pages to `891feffe…` if any gate fails.
 
-No approval is requested for 069, 070, broad Package C, new cloud resources, student data, or a human/student rehearsal.
+That future request must use the reviewed no-current-play observation, six-function admission freeze, service-role quiescence, mandatory fixture-boundary SQL capture and rollback envelope. It must not infer authority from the previous gate. No authority exists for 069, 070, broad Package C, new cloud resources, student data, or a human/student rehearsal.

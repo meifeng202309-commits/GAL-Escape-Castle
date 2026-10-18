@@ -83,6 +83,13 @@ requireAll(acceptance,"controlled AUDIT ACT7 scenario",[
   'after.discussion.status === "voting"',
 ]);
 if(!acceptance.includes('process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"'))throw new Error("Controlled production acceptance lacks an explicit execution gate");
+requireAll(acceptance,"controlled SQL evidence gates",[
+  'process.env.ACT7_071_EVIDENCE_PAUSE !== "YES"',
+  'type: "ACT7_071_EVIDENCE_BOUNDARY"',
+  'evidenceBoundary("ROUND2_OPEN"',
+  'evidenceBoundary("THIRD_VOTE_RESOLVED"',
+  'evidenceBoundary("AUDIT_AFTER_ADD"',
+]);
 requireAll(invariants,"protected SQL evidence",[
   "current_round_vote_count",
   "distinct_current_round_voters",
@@ -93,6 +100,8 @@ requireAll(invariants,"protected SQL evidence",[
   "teacher_add_time_event_count",
   "next_round_row_count",
   "wrong_attempt_events",
+  "e.discussion_session_id=p.discussion_session_id",
+  "(e.details->>'vote_round')::integer=p.vote_round",
 ]);
 const executableInvariantSql=invariants.replace(/^\s*--.*$/gm,"");
 if(/\b(insert|update|delete|merge|grant|revoke|create|drop|alter|truncate)\b/i.test(executableInvariantSql))throw new Error("Protected acceptance evidence is not SELECT-only");
