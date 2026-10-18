@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T03:15:00Z
+> Last refreshed: 2026-10-18T04:15:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_ACCEPTANCE_FAIL_RECOVERED / PRODUCTION_HOLD / S5_RECOVERY_MD5_DIVERGENCE
-CURRENT_OWNER         = CD — targeted ACT6 S5 missing canonical discussion and recovery fingerprint investigation
-NEXT_REQUIRED_ACTION  = CD read-only trace ACT6 s5_rounds -> configure -> discussion_sessions; reconcile four recovered S5 definitions against live prechange MD5. Submit evidence and minimal correction proposal to CA. No redeploy, synthetic cleanup, or UI refactor authorized. Preserve 577 historical ACTIVE and 2 synthetic ACTIVE runs.
+CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / SOURCE_ONLY_FIXTURE_CORRECTION_AUTHORIZED
+CURRENT_OWNER         = CD — correct obsolete ACT6 acceptance fixture only
+NEXT_REQUIRED_ACTION  = CD revise only 071 acceptance fixture to include three-Player ACT5 observe -> ACT6 enter barrier, run source/mock tests and return evidence to CA. No production/Pages/ACL mutation or synthetic cleanup; 071 remains NOT VERIFIED; Teacher V4 UI separately pending.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-235
+CA_CHECKPOINT = CA-236
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
