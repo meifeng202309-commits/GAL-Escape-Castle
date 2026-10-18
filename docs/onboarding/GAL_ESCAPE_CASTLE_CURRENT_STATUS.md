@@ -2,8 +2,8 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T13:00:00Z
-> Updated by: CA
+> Last refreshed: 2026-10-18T16:23:00Z
+> Updated by: CD
 
 ---
 
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PAGES_OPERATOR_CONFIRMED / MANUAL_RUNBOOK_REVIEW_PENDING / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — prepare exact manual Pages switch/rollback operator protocol
-NEXT_REQUIRED_ACTION  = CD prepare source-only branch switch/build/hash/rollback runbook for CA approval, then repeat fresh maintenance preflight. Teacher has agreed to manual Pages operation; no Pages change yet.
+CURRENT_GATE          = ACT7_071_FRESH_PREFLIGHT_STOP / PUBLIC_PAGES_ALL_FIVE_404 / PRODUCTION_HOLD
+CURRENT_OWNER         = CA — disposition public Pages availability blocker
+NEXT_REQUIRED_ACTION  = CA review CD-112 evidence and define whether the existing frozen Pages deployment must be repaired or otherwise canonicalized before a newly authorized bounded preflight. No ACL/SQL/Pages mutation occurred and no retry or practice deployment is authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
