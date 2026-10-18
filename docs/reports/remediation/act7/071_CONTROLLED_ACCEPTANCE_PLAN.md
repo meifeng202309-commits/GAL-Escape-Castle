@@ -9,7 +9,7 @@ Run only after a separately authorized SQL application on a disposable compatibl
 3. Apply migration 071 in one transaction; verify all expected signatures, owners, SECURITY DEFINER flags and ACLs.
 4. Serve the minimal client candidate derived from frozen Pages `891feffe…`, not the moving remediation branch.
 5. Use `tests/act7-071-controlled-acceptance.js` only with a new explicit production authorization and use `071_ACCEPTANCE_READONLY_INVARIANTS.sql` at its labelled boundaries.
-6. Set both `ACT7_071_PRODUCTION_AUTHORIZED=YES` and `ACT7_071_EVIDENCE_PAUSE=YES`. The fixture emits one JSON `ACT7_071_EVIDENCE_BOUNDARY` record and blocks on stdin at every boundary. The operator must substitute the emitted exact run/discussion identity, execute and save the required SELECT snapshot, then press Enter. Absence of either gate is a hard failure; never background or auto-acknowledge the prompts.
+6. Set both `ACT7_071_PRODUCTION_AUTHORIZED=YES` and `ACT7_071_EVIDENCE_PAUSE=YES`. Both flags are checked before the first fixture RPC; absence of either gate is a hard startup failure. The fixture then emits one JSON `ACT7_071_EVIDENCE_BOUNDARY` record and blocks on stdin at every boundary. The operator must substitute the emitted exact run/discussion identity, execute and save the required SELECT snapshot, then press Enter. Never background or auto-acknowledge the prompts.
 
 ## SQL evidence boundary map
 
@@ -18,6 +18,7 @@ Run only after a separately authorized SQL application on a disposable compatibl
 - AUDIT Q4: `AUDIT_VOTING`, `AUDIT_AFTER_61S`, `AUDIT_AFTER_ADD`.
 - Q0: save immediately before maintenance and again before unfreeze/closure; the two retained fixture identities and all historical ACTIVE identities must remain preserved.
 - Each evidence file must retain the boundary label, UTC capture time, exact query text/parameters, complete result, candidate Git SHA and deployed function fingerprint set. A missing, auto-advanced or identity-mismatched boundary is NOT VERIFIED, not an inferred pass.
+- Pressing Enter only resumes the fixture. It is not evidence that SQL ran or that a snapshot was saved. Release PASS requires the complete operator evidence records above plus independent CA verification; console prompts or fixture completion alone cannot satisfy that gate.
 
 ## Scripted scenario
 

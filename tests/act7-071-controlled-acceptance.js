@@ -3,6 +3,14 @@ const readline = require("node:readline/promises");
 
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 let evidenceInput;
+function assertExecutionAuthorized(env = process.env) {
+  if (env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES") {
+    throw new Error("Controlled production acceptance is disabled without a separate ACT7_071_PRODUCTION_AUTHORIZED=YES gate");
+  }
+  if (env.ACT7_071_EVIDENCE_PAUSE !== "YES") {
+    throw new Error("Controlled production acceptance is disabled without ACT7_071_EVIDENCE_PAUSE=YES");
+  }
+}
 async function evidenceBoundary(label, fixtureState, discussion) {
   if (process.env.ACT7_071_EVIDENCE_PAUSE !== "YES") {
     throw new Error("SQL evidence boundaries require ACT7_071_EVIDENCE_PAUSE=YES");
@@ -224,9 +232,7 @@ async function runAuditControl() {
 }
 
 async function main() {
-  if (process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES") {
-    throw new Error("Controlled production acceptance is disabled without a separate ACT7_071_PRODUCTION_AUTHORIZED=YES gate");
-  }
+  assertExecutionAuthorized();
   try {
     const normal = await runNormalScenario();
     const audit = await runAuditControl();
@@ -236,5 +242,5 @@ async function main() {
   }
 }
 
-module.exports = { enterAct6Barrier, openVote, runNormalScenario, runAuditControl };
+module.exports = { assertExecutionAuthorized, enterAct6Barrier, openVote, runNormalScenario, runAuditControl };
 if (require.main === module) main().catch(error => { console.error(error.stack || error); process.exitCode = 1; });

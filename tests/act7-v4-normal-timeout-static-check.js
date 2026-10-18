@@ -82,14 +82,19 @@ requireAll(acceptance,"controlled AUDIT ACT7 scenario",[
   'expired.discussion.status === "waiting_for_missing_player"',
   'after.discussion.status === "voting"',
 ]);
-if(!acceptance.includes('process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"'))throw new Error("Controlled production acceptance lacks an explicit execution gate");
 requireAll(acceptance,"controlled SQL evidence gates",[
-  'process.env.ACT7_071_EVIDENCE_PAUSE !== "YES"',
+  'env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"',
+  'env.ACT7_071_EVIDENCE_PAUSE !== "YES"',
+  'function assertExecutionAuthorized(env = process.env)',
+  'async function main() {\n  assertExecutionAuthorized();',
   'type: "ACT7_071_EVIDENCE_BOUNDARY"',
   'evidenceBoundary("ROUND2_OPEN"',
   'evidenceBoundary("THIRD_VOTE_RESOLVED"',
   'evidenceBoundary("AUDIT_AFTER_ADD"',
 ]);
+const startupGate=acceptance.indexOf('async function main() {\n  assertExecutionAuthorized();');
+const firstScenario=acceptance.indexOf('const normal = await runNormalScenario()',startupGate);
+if(startupGate<0||firstScenario<0||startupGate>firstScenario)throw new Error("Both authorization gates are not ahead of the first fixture scenario");
 requireAll(invariants,"protected SQL evidence",[
   "current_round_vote_count",
   "distinct_current_round_voters",

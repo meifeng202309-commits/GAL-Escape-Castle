@@ -89,6 +89,7 @@ For any future gate, the recovery target is the **fresh immediate prechange cata
 - Q0-Q4 were executed SELECT-only against production PostgreSQL 17.6.1 with nonexistent sentinel run/discussion identities. All identifiers, casts and JSON fields parsed successfully; no gameplay/private row was returned. Q0 separately reconfirmed `579 = 577 historical + 2 retained synthetic` ACTIVE rows.
 - All action-specific event counts are now scoped to the exact run, ACT7 phase, vote round and discussion identity rather than the whole run.
 - The controlled fixture now requires `ACT7_071_EVIDENCE_PAUSE=YES`, emits an exact JSON identity at each documented NORMAL/AUDIT boundary and blocks until the operator saves the corresponding SQL result. Missing or auto-advanced boundaries are NOT VERIFIED.
+- CA-241 startup correction: both production and evidence-pause flags are now checked before the first fixture RPC. A focused local test proves refusal when either flag is missing. Pressing Enter only resumes execution and cannot replace independently reviewed operator SQL records.
 - The obsolete consumed approval and zero-active-session wording has been removed. Production remains HOLD and any later attempt requires a new explicit high-risk gate.
 - No production mutation, deployment, ACL change or runtime flag change occurred during this packet closure.
 
