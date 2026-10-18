@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T07:00:00Z
+> Last refreshed: 2026-10-18T09:00:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / TWO_PACKET_CONSOLIDATED_AUDIT_PILOT
-CURRENT_OWNER         = CD — complete 071 integrated source/document readiness packet before one CA audit
-NEXT_REQUIRED_ACTION  = CD autonomously finalize the bounded 071 readiness document/test packet and send a single consolidated CA handoff; no intermediate file-by-file audits. V1.4 production/DB/ACL gates remain, no production mutation or synthetic cleanup. Pilot 2 packets.
+CURRENT_GATE          = ACT7_071_INTEGRATED_PACKET_PASS_WITH_CONDITIONS / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — complete 071 SQL evidence and release wording closure
+NEXT_REQUIRED_ACTION  = CD validate Q0-Q4 schema, round-scoped event counts, fixture-boundary SQL evidence collection and obsolete release approval language in one cohesive packet. Return to CA. No production changes.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-239
+CA_CHECKPOINT = CA-240
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
