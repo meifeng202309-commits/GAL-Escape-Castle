@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T16:47:00Z
+> Last refreshed: 2026-10-18T16:55:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / FALSE_PAGES_404_RESOLVED / CA_REVIEW_PENDING
-CURRENT_OWNER         = CA — review CD-113 corrected public-byte evidence
-NEXT_REQUIRED_ACTION  = CA review the malformed-URL root cause, exact frozen five-file HTTP 200 hashes, independent browser evidence and fail-closed verification method; decide whether CD may open a new completely fresh bounded preflight. No production mutation.
+CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / FRESH_PREFLIGHT_STOP_PLAYER_ACTIVITY
+CURRENT_OWNER         = CA — disposition recent Player activity
+NEXT_REQUIRED_ACTION  = CA review CD-114 evidence of two recent Player last-seen rows across two rooms and decide whether/when another newly bounded preflight may open. No production mutation occurred; Teacher must not operate Pages under the closed window.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
