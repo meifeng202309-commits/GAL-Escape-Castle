@@ -3,6 +3,7 @@ const sql=fs.readFileSync("database/071_act7_v4_normal_teacher_paced_vote.sql","
 const teacher=fs.readFileSync("src/teacher/teacher-console.js","utf8");
 const html=fs.readFileSync("teacher.html","utf8");
 const recovery=fs.readFileSync("docs/reports/remediation/act7/071_RECOVERY.sql","utf8");
+const acceptance=fs.readFileSync("tests/act7-071-controlled-acceptance.js","utf8");
 const requireAll=(source,label,tokens)=>{for(const token of tokens)if(!source.includes(token))throw new Error(`${label} missing: ${token}`)};
 
 if(!/^--[\s\S]*\nbegin;/.test(sql)||!sql.trimEnd().endsWith("commit;"))throw new Error("Migration 071 is not transaction-bounded");
@@ -49,4 +50,26 @@ requireAll(recovery,"Recovery SQL",[
   "grant execute on function public.s5_teacher_open_vote(text,text) to anon,authenticated,service_role",
 ]);
 if(!recovery.trimEnd().endsWith("commit;"))throw new Error("Recovery SQL is not transaction-bounded");
+requireAll(acceptance,"controlled acceptance barrier",[
+  'prepared.active && prepared.discussion === null',
+  'rpc("s9_observe_act5_handoff"',
+  'rpc("s9_enter_act6"',
+  'if (index < 2) assert(current.discussion === null',
+  'full.state.phase_key === "act6_vote"',
+  'replay.discussion.discussion_session_id === identity',
+]);
+requireAll(acceptance,"controlled acceptance identities",[
+  "p_expected_run_id: teacher.run.run_id",
+  "p_expected_phase: discussion.phase_key",
+  "p_expected_vote_round: discussion.vote_round",
+  "p_expected_discussion_session_id: discussion.discussion_session_id",
+]);
+requireAll(acceptance,"controlled late-third scenario",[
+  "await sleep(61000)",
+  'lateTeacher.current_votes.filter(vote => vote.submitted).length === 2',
+  'latePlayer.discussion.vote_options.length === 3',
+  'await submitVote(fixtureState, opened, 2, "clock_c")',
+  'nextRound.discussion.vote_round === 3',
+]);
+if(!acceptance.includes('process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"'))throw new Error("Controlled production acceptance lacks an explicit execution gate");
 console.log("ACT7 V4 NORMAL timeout static checks passed.");
