@@ -4,6 +4,7 @@ const teacher=fs.readFileSync("src/teacher/teacher-console.js","utf8");
 const html=fs.readFileSync("teacher.html","utf8");
 const recovery=fs.readFileSync("docs/reports/remediation/act7/071_RECOVERY.sql","utf8");
 const acceptance=fs.readFileSync("tests/act7-071-controlled-acceptance.js","utf8");
+const invariants=fs.readFileSync("docs/reports/remediation/act7/071_ACCEPTANCE_READONLY_INVARIANTS.sql","utf8");
 const requireAll=(source,label,tokens)=>{for(const token of tokens)if(!source.includes(token))throw new Error(`${label} missing: ${token}`)};
 
 if(!/^--[\s\S]*\nbegin;/.test(sql)||!sql.trimEnd().endsWith("commit;"))throw new Error("Migration 071 is not transaction-bounded");
@@ -82,4 +83,17 @@ requireAll(acceptance,"controlled AUDIT ACT7 scenario",[
   'after.discussion.status === "voting"',
 ]);
 if(!acceptance.includes('process.env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"'))throw new Error("Controlled production acceptance lacks an explicit execution gate");
+requireAll(invariants,"protected SQL evidence",[
+  "current_round_vote_count",
+  "distinct_current_round_voters",
+  "discussion_row_md5",
+  "s5_state_md5",
+  "waiting_event_count",
+  "teacher_open_event_count",
+  "teacher_add_time_event_count",
+  "next_round_row_count",
+  "wrong_attempt_events",
+]);
+const executableInvariantSql=invariants.replace(/^\s*--.*$/gm,"");
+if(/\b(insert|update|delete|merge|grant|revoke|create|drop|alter|truncate)\b/i.test(executableInvariantSql))throw new Error("Protected acceptance evidence is not SELECT-only");
 console.log("ACT7 V4 NORMAL timeout static checks passed.");

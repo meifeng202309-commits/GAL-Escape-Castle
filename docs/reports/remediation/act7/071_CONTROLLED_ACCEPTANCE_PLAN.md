@@ -5,13 +5,14 @@ Run only after a separately authorized SQL application on a disposable compatibl
 ## Preconditions
 
 1. Record project identity, PostgreSQL version, exact deployed function MD5/ACL snapshot and candidate Git SHAs.
-2. Assert `select count(*) from game_runs where status='active'` is zero before SQL/deploy or stop.
+2. Capture and preserve all 579 ACTIVE rows (577 historical plus the two retained 2026-10-18 synthetic prepared-state runs). Require the separately approved fresh no-current-play observation and six-function admission freeze; any new activity/admission or identity drift is STOP. Do not clean rows to produce zero.
 3. Apply migration 071 in one transaction; verify all expected signatures, owners, SECURITY DEFINER flags and ACLs.
 4. Serve the minimal client candidate derived from frozen Pages `891feffe…`, not the moving remediation branch.
+5. Use `tests/act7-071-controlled-acceptance.js` only with a new explicit production authorization and use `071_ACCEPTANCE_READONLY_INVARIANTS.sql` at its labelled boundaries.
 
 ## Scripted scenario
 
-1. Create one synthetic NORMAL room and join three isolated Players; start formal game and drive to ACT7 round 2.
+1. Create one synthetic NORMAL room and join three isolated Players; finish ACT1–5, then execute each Player's ACT5 handoff observation and ACT6 entry. Assert no canonical discussion for 0/1/2 entrants and one stable ACT6 discussion identity/deadline at entrant 3; then drive to ACT7 round 2.
 2. Teacher Open Vote. Verify the request contains exact run/phase=`act7_vote`/round=2/discussion identity and the database deadline is approximately 10,800 seconds.
 3. Submit two distinct genuine Player votes and preserve their locked rows/request identities.
 4. Wait past the former 60-second boundary (61 seconds). Refresh all projections. Assert the discussion remains `voting`, the third Player still sees Clock A/B/C, and no `waiting_for_missing_player` event/status was produced.

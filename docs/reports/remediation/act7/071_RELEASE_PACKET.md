@@ -1,6 +1,6 @@
 # ACT7 migration 071 — source and recovery release packet
 
-Status: `SOURCE_AND_RECOVERY_READY_FOR_CA_GATE`; production SQL and Pages deployment remain HOLD.
+Status: `SUPERSEDED_AS_EXECUTION_SUMMARY_BY_071_INTEGRATED_READINESS_PACKET_20261018`; production SQL and Pages deployment remain HOLD. Historical preparation facts below remain evidence, but future execution must use the integrated packet and a fresh immediate prechange snapshot.
 
 ## Exact identities and candidate composition
 
@@ -42,22 +42,22 @@ After: NORMAL ACT6/7/8 stores 10,800 seconds for both discussion and vote; a gen
 
 Reserved for a separately authorized production gate:
 
-1. Declare maintenance; prevent room creation and confirm `select count(*) from public.game_runs where status='active'` returns `0`. Any nonzero result is an immediate STOP.
-2. Re-capture exact prechange function definitions/MD5/owner/ACL and verify they match the snapshot; mismatch is STOP for CA review.
+1. Declare maintenance; preserve the 577 historical plus two retained synthetic ACTIVE runs. Capture their identities/count and require a fresh no-current-play observation interval plus the approved six-function admission freeze and service-role quiescence. Any new admission/activity or row-identity drift is STOP; do not clean rows to manufacture zero.
+2. Re-capture exact prechange function definitions/raw and newline-normalized MD5/owner/ACL. The current LF raw baseline differs from the historical CRLF snapshot by verified newline representation; any semantic mismatch is STOP for CA review.
 3. Verify Pages still serves the five frozen `891feffe…` fingerprints and preserve the current Pages source as rollback.
 4. Apply only migration 071 as one transaction. If any statement fails, the transaction rolls back; do not deploy client files.
 5. Verify postchange signatures: old two-argument Open Vote has no PUBLIC/anon/authenticated execute; the six-argument overload exists with anon/authenticated execute and no PUBLIC execute; configure is internal; add-time/state retain expected roles; all owners are postgres and definitions match the reviewed source.
 6. Publish a candidate branch created from `891feffe…` containing only the two minimal client hunks. Do not switch Pages to the moving remediation branch.
-7. Verify public fingerprints against the candidate manifest, then run the controlled synthetic-room script in `071_CONTROLLED_ACCEPTANCE_PLAN.md`.
+7. Verify public fingerprints against the candidate manifest, restore exact admission ACLs while keeping admission operationally closed, then run `tests/act7-071-controlled-acceptance.js` plus `071_ACCEPTANCE_READONLY_INVARIANTS.sql` under a separately authorized gate.
 8. Keep maintenance/release status unapproved until SQL, UI identity, late-third-vote, stale-click, authentication, Add-Time nonmutation and AUDIT checks have factual results.
 
-There is an unavoidable compatibility seam during the two-step release: old client cannot call the revoked two-argument endpoint after SQL, while new client cannot call the six-argument endpoint before SQL. The zero-active-session maintenance window is therefore mandatory. Apply SQL first, then switch the client immediately; do not admit Players between steps.
+There is an unavoidable compatibility seam during the two-step release: old client cannot call the revoked two-argument endpoint after SQL, while new client cannot call the six-argument endpoint before SQL. The approved no-current-play observation, six-function admission freeze and operational service-role lock are therefore mandatory. Apply SQL first, then switch the client immediately; do not admit Players between steps, and preserve the retained ACTIVE rows unchanged.
 
 ## Recovery procedure
 
 - If 071 fails inside its transaction: verify prechange MD5/ACL and retain frozen Pages; no recovery DDL should be needed.
 - If 071 succeeds but client publication/fingerprint verification fails: execute `071_RECOVERY.sql` in a separately authorized transaction, verify the exact prechange signatures/ACL/MD5, and keep/switch Pages to frozen `891feffe…`.
-- If both deploy but acceptance fails: close admission, require zero active sessions, capture failure evidence, restore Pages to `deploy/manual-acceptance-20261003@891feffe…`, execute `071_RECOVERY.sql`, and re-verify the catalog snapshot. The recovery SQL restores code/ACL only; it deliberately does not erase gameplay/events and therefore requires separate disposition for any synthetic-room rows.
+- If both deploy but acceptance fails: keep admission frozen, capture failure evidence, restore Pages to `deploy/manual-acceptance-20261003@891feffe…`, execute `071_RECOVERY.sql`, and re-verify the fresh immediate prechange catalog snapshot. The recovery SQL restores code/ACL only; it deliberately does not erase gameplay/events and therefore requires separate disposition for every synthetic-room row.
 - Git revert alone is not database recovery.
 
 ## Smallest required Teacher approval
