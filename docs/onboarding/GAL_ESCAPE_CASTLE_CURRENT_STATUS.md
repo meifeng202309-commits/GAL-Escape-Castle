@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T04:15:00Z
+> Last refreshed: 2026-10-18T05:15:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / SOURCE_ONLY_FIXTURE_CORRECTION_AUTHORIZED
-CURRENT_OWNER         = CD — correct obsolete ACT6 acceptance fixture only
-NEXT_REQUIRED_ACTION  = CD revise only 071 acceptance fixture to include three-Player ACT5 observe -> ACT6 enter barrier, run source/mock tests and return evidence to CA. No production/Pages/ACL mutation or synthetic cleanup; 071 remains NOT VERIFIED; Teacher V4 UI separately pending.
+CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / FIXTURE_SOURCE_FOCUSED_AUDIT_FAIL
+CURRENT_OWNER         = CD — source-only ACT7 AUDIT acceptance fixture coverage correction
+NEXT_REQUIRED_ACTION  = Correct controlled acceptance AUDIT path to ACT7; cover 15s discussion/60s vote and timeout/Add Time policy and report local test evidence to CA. Preserve NORMAL controls and all historical/synthetic runs. No SQL, Pages, ACL or production execution authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-236
+CA_CHECKPOINT = CA-237
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
