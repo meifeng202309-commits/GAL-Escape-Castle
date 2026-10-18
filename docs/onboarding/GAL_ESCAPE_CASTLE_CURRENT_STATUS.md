@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-18T11:10:00Z
+> Last refreshed: 2026-10-18T12:30:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_SOURCE_READINESS_PASS / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — prepare bounded Teacher production reauthorization decision packet
-NEXT_REQUIRED_ACTION  = CD assemble one operator-ready 071 production reauthorization packet with source, SQL evidence, 579-row protection, six-function freeze, rollback and preflight; submit to CA before Teacher decision. No production writes or trials approved.
+CURRENT_GATE          = ACT7_071_PRODUCTION_HOLD / REAUTHORIZATION_DECISION_PENDING / PREDECISION_READONLY_BATCH
+CURRENT_OWNER         = CD — integrated read-only predecision preparation batch
+NEXT_REQUIRED_ACTION  = CD finish source/Pages hash verification, read-only catalog/activity checks, Q0-Q4 evidence templates, operator STOP checklist and service-role attestation gaps in one batch. CA then reviews before requesting new Teacher production authorization. No production mutation.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-242
+CA_CHECKPOINT = CA-243
 CD_CHECKPOINT = NONE
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
