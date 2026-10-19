@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-19T02:10:00Z
+> Last refreshed: 2026-10-19T07:55:55Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_PLAYER_ACTIVITY_STOP / QUIET_WINDOW_RECHECK / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — verify quiet window and repeat immediate preflight
-NEXT_REQUIRED_ACTION  = Teacher closed game page; CD must verify 15-minute quiet activity interval, then all fresh preflight and live Pages operator readiness. STOP on activity. No production mutation until gates pass.
+CURRENT_GATE          = ACT7_071_REATTEMPT_NETWORK_FAIL / FULLY_RECOVERED / PRODUCTION_HOLD
+CURRENT_OWNER         = CA — independent recovery audit and disposition
+NEXT_REQUIRED_ACTION  = Audit CD-115 recovery evidence. The one-attempt gate is consumed; decide HOLD versus a separately authorized production-capable execution path. No retry or 071 redeployment under the consumed gate.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -37,7 +37,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 ```text
 GA_CHECKPOINT = GA-100
 CA_CHECKPOINT = CA-251
-CD_CHECKPOINT = NONE
+CD_CHECKPOINT = CD-115
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
 ```
