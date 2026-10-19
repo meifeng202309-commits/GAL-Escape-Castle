@@ -22,6 +22,15 @@ const CANDIDATE_FILES = Object.freeze({
   "/src/teacher/teacher-console.js": "4dd355ede45e5e29619da93becb5c0e47d2e9f93c9cf544edc20e876181df1ad",
   "/src/styles/app.css": "3a375c87aeec797e2b32f8ba383d91af9ef6f9e9d01bb40cf0e3faa0f04ead7c",
 });
+const ROLLBACK_BRANCH = "deploy/manual-acceptance-20261003";
+const ROLLBACK_COMMIT = "891feffe40f3d2a1169c28d82085900c0edb72bd";
+const ROLLBACK_FILES = Object.freeze({
+  "/index.html": "1da4904ed40496b3ade206893969ce46278cf1d50debcac41ca96fac476609c4",
+  "/teacher.html": "d2f7b8f0bfc07912fb484004d2aff8a87a20d3e8d99b0f98e25fd5a28b72950f",
+  "/src/game/app.js": "9f19c27f92be9835ea5d9b48e196803dcee85eae032feb0f9e65fe3e97b323fa",
+  "/src/teacher/teacher-console.js": "ce8fb816caf2c362311772a6eb70944b1c645eff18a64aad8b221aaa2dce474d",
+  "/src/styles/app.css": "3a375c87aeec797e2b32f8ba383d91af9ef6f9e9d01bb40cf0e3faa0f04ead7c",
+});
 
 function stable(value) {
   if (Array.isArray(value)) return value.map(stable);
@@ -35,6 +44,24 @@ function digest(value) {
 }
 function invariant(value, message) {
   if (!value) throw new Error(message);
+}
+async function runFailClosedSequence(stages, recoverAfterFreeze, context) {
+  let boundary = "freeze";
+  try {
+    let value;
+    for (const stage of stages) {
+      boundary = stage.name;
+      value = await stage.run(value);
+    }
+    return value;
+  } catch (cause) {
+    try {
+      await recoverAfterFreeze({ boundary, cause, ...context });
+    } catch (recoveryError) {
+      throw new AggregateError([cause, recoveryError], `071 attempt failed at ${boundary}; recovery also failed`);
+    }
+    throw new Error(`071 attempt failed at ${boundary}; fail-closed recovery completed`, { cause });
+  }
 }
 function normalizeSnapshotRows(rows) {
   invariant(Array.isArray(rows), "Pre-freeze catalog rows must be an array");
@@ -87,8 +114,8 @@ async function comparePostRecovery(snapshotFile, rows) {
   invariant(JSON.stringify(before.rows) === JSON.stringify(after), "Post-recovery catalog does not exactly match persisted pre-freeze snapshot");
   return { ok: true, snapshot_sha256: before.sha256, compared_rows: after.length };
 }
-async function verifyCandidatePublicBytes({ outputFile, githubFetch = fetch, publicFetch = fetch, now = new Date(), deploymentRunId, operationId,
-  hashBytes = bytes => crypto.createHash("sha256").update(bytes).digest("hex") }) {
+async function verifyDeploymentPublicBytes({ outputFile, githubFetch = fetch, publicFetch = fetch, now = new Date(), deploymentRunId,
+  operationId, branch, commit, expectedFiles, kind }) {
   invariant(operationId, "Candidate public-byte proof requires the pinned operation context ID");
   invariant(/^\d+$/.test(String(deploymentRunId || "")), "Candidate workflow run ID must be numeric");
   const runResponse = await githubFetch(`${GITHUB_RUN_API_PREFIX}${deploymentRunId}`, { method: "GET", cache: "no-store" });
@@ -96,29 +123,37 @@ async function verifyCandidatePublicBytes({ outputFile, githubFetch = fetch, pub
   const run = await runResponse.json();
   invariant(String(run.id) === String(deploymentRunId)
     && run.name === "pages build and deployment"
-    && run.head_branch === CANDIDATE_BRANCH
-    && run.head_sha === CANDIDATE_COMMIT
+    && run.head_branch === branch
+    && run.head_sha === commit
     && run.status === "completed" && run.conclusion === "success",
   "Live GitHub workflow identity does not match the reviewed candidate deployment");
   const deployment = { run_id: String(run.id), branch: run.head_branch, commit: run.head_sha, conclusion: run.conclusion };
   const files = [];
-  for (const [filePath, expected] of Object.entries(CANDIDATE_FILES)) {
+  for (const [filePath, expected] of Object.entries(expectedFiles)) {
     const url = `${PUBLIC_BASE_URL}${filePath}?act7_071=${now.getTime()}`;
     const response = await publicFetch(url, { method: "GET", cache: "no-store", redirect: "follow" });
     const finalUrl = new URL(response.url || url);
     const expectedUrl = new URL(url);
     const bytes = Buffer.from(await response.arrayBuffer());
-    const actual = hashBytes(bytes, filePath);
+    const actual = crypto.createHash("sha256").update(bytes).digest("hex");
     invariant(finalUrl.origin === expectedUrl.origin && finalUrl.pathname === expectedUrl.pathname,
       `Candidate public response escaped the reviewed origin/path: ${filePath}`);
     invariant(response.status === 200, `Candidate public byte gate failed HTTP ${response.status}: ${filePath}`);
     invariant(actual === expected, `Candidate public byte hash mismatch: ${filePath}`);
     files.push({ path: filePath, url, status: response.status, byte_length: bytes.length, sha256: actual });
   }
-  const unsigned = { schema: SCHEMA, kind: "candidate-public-bytes", operation_id: operationId, verified_at: now.toISOString(), deployment, files };
+  const unsigned = { schema: SCHEMA, kind, operation_id: operationId, verified_at: now.toISOString(), deployment, files };
   const artifact = { ...unsigned, sha256: digest(unsigned) };
   await writeAtomic(outputFile, artifact);
-  return readArtifact(outputFile, "candidate-public-bytes");
+  return readArtifact(outputFile, kind);
+}
+async function verifyCandidatePublicBytes(options) {
+  return verifyDeploymentPublicBytes({ ...options, branch: CANDIDATE_BRANCH, commit: CANDIDATE_COMMIT,
+    expectedFiles: CANDIDATE_FILES, kind: "candidate-public-bytes" });
+}
+async function verifyRollbackPublicBytes(options) {
+  return verifyDeploymentPublicBytes({ ...options, branch: ROLLBACK_BRANCH, commit: ROLLBACK_COMMIT,
+    expectedFiles: ROLLBACK_FILES, kind: "rollback-public-bytes" });
 }
 function executionContext(env = process.env) {
   invariant(env.ACT7_071_EXECUTION_CONTEXT_ID, "ACT7_071_EXECUTION_CONTEXT_ID is required");
@@ -172,31 +207,38 @@ async function assertSourceGateProofs(env = process.env) {
 async function runGuardedAttempt({
   env, rows, prefreezeFile, preMutationNetworkFile, candidateFile, fixtureNetworkFile,
   deploymentRunId, probeFetch, githubFetch, publicFetch,
-  candidateHashBytes,
-  executeFreeze, applyMigration, restoreAdmissionAcl, runFixture,
+  executeFreeze, applyMigration, requestCandidatePagesSwitch, restoreAdmissionAcl, runFixture, recoverAfterFreeze,
 }) {
-  for (const [name, operation] of Object.entries({ executeFreeze, applyMigration, restoreAdmissionAcl, runFixture })) {
+  for (const [name, operation] of Object.entries({ executeFreeze, applyMigration, requestCandidatePagesSwitch,
+    restoreAdmissionAcl, runFixture, recoverAfterFreeze })) {
     invariant(typeof operation === "function", `Guarded attempt requires ${name} operation`);
   }
   const startContext = executionContext(env);
   await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co", outputFile: preMutationNetworkFile, env, fetchImpl: probeFetch });
   const snapshot = await persistPreFreezeSnapshot(rows, prefreezeFile, new Date(), env.ACT7_071_EXECUTION_CONTEXT_ID);
-  await executeFreeze({ snapshot });
-  await applyMigration({ snapshot });
-  const candidate = await verifyCandidatePublicBytes({
-    outputFile: candidateFile, githubFetch, publicFetch, deploymentRunId,
-    operationId: env.ACT7_071_EXECUTION_CONTEXT_ID, hashBytes: candidateHashBytes,
-  });
-  const proofs = await assertSourceGateProofs({
-    ...env, ACT7_071_PREFREEZE_SNAPSHOT: prefreezeFile, ACT7_071_CANDIDATE_PROOF: candidateFile,
-  });
-  invariant(executionContext(env).visible_fingerprint === startContext.visible_fingerprint,
-    "Visible execution context changed before ACL restoration");
-  await restoreAdmissionAcl({ snapshot: proofs.snapshot, candidate: proofs.candidate });
-  await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co", outputFile: fixtureNetworkFile, env, fetchImpl: probeFetch });
-  invariant(executionContext(env).visible_fingerprint === startContext.visible_fingerprint,
-    "Visible execution context changed before fixture execution");
-  return runFixture({ snapshot, candidate });
+  let candidate;
+  return runFailClosedSequence([
+    { name: "freeze", run: () => executeFreeze({ snapshot }) },
+    { name: "migration", run: () => applyMigration({ snapshot }) },
+    { name: "candidate-pages-switch", run: () => requestCandidatePagesSwitch({ branch: CANDIDATE_BRANCH, folder: "/(root)", snapshot }) },
+    { name: "candidate-public-proof", run: async () => {
+      candidate = await verifyCandidatePublicBytes({ outputFile: candidateFile, githubFetch, publicFetch,
+        deploymentRunId, operationId: env.ACT7_071_EXECUTION_CONTEXT_ID });
+      return assertSourceGateProofs({ ...env, ACT7_071_PREFREEZE_SNAPSHOT: prefreezeFile,
+        ACT7_071_CANDIDATE_PROOF: candidateFile });
+    } },
+    { name: "acl-restore", run: async proofs => {
+      invariant(executionContext(env).visible_fingerprint === startContext.visible_fingerprint,
+        "Visible execution context changed before ACL restoration");
+      await restoreAdmissionAcl({ snapshot: proofs.snapshot, candidate: proofs.candidate });
+    } },
+    { name: "fixture-network-probe", run: async () => {
+      await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co", outputFile: fixtureNetworkFile, env, fetchImpl: probeFetch });
+      invariant(executionContext(env).visible_fingerprint === startContext.visible_fingerprint,
+        "Visible execution context changed before fixture execution");
+    } },
+    { name: "fixture", run: () => runFixture({ snapshot, candidate }) },
+  ], recoverAfterFreeze, { snapshot });
 }
 
 module.exports = {
@@ -204,12 +246,16 @@ module.exports = {
   CANDIDATE_BRANCH,
   CANDIDATE_COMMIT,
   CANDIDATE_FILES,
+  ROLLBACK_BRANCH,
+  ROLLBACK_COMMIT,
+  ROLLBACK_FILES,
   PUBLIC_BASE_URL,
   comparePostRecovery,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
   assertSourceGateProofs,
   verifyCandidatePublicBytes,
+  verifyRollbackPublicBytes,
   runGuardedAttempt,
 };
 
@@ -235,7 +281,8 @@ async function cli() {
     })));
     return;
   }
-  throw new Error("Commands: capture-prefreeze | compare-recovery | verify-candidate. ACL restoration is permitted only inside runGuardedAttempt; no production adapter is included.");
+  throw new Error("Commands: capture-prefreeze | compare-recovery | verify-candidate. Mutations are permitted only through the separately authorized production adapter; this CLI remains read/proof-only.");
 }
 
 if (require.main === module) cli().catch(error => { console.error(error.stack || error); process.exitCode = 1; });
+if (process.env.NODE_ENV === "test") module.exports.__testOnlyRunFailClosedSequence = runFailClosedSequence;
