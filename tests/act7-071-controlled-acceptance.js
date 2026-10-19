@@ -1,5 +1,6 @@
 const { rpc, assert, auth, fixture, state, vote } = require("./sprint5-live-e2e");
 const readline = require("node:readline/promises");
+const { assertSourceGateProofs, probeSupabaseNetwork } = require("../scripts/act7-071-source-gates");
 
 const sleep = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds));
 let evidenceInput;
@@ -10,6 +11,10 @@ function assertExecutionAuthorized(env = process.env) {
   if (env.ACT7_071_EVIDENCE_PAUSE !== "YES") {
     throw new Error("Controlled production acceptance is disabled without ACT7_071_EVIDENCE_PAUSE=YES");
   }
+  if (!env.ACT7_071_PREFREEZE_SNAPSHOT) throw new Error("Controlled production acceptance requires ACT7_071_PREFREEZE_SNAPSHOT");
+  if (!env.ACT7_071_CANDIDATE_PROOF) throw new Error("Controlled production acceptance requires ACT7_071_CANDIDATE_PROOF");
+  if (!env.ACT7_071_NETWORK_PROBE_OUTPUT) throw new Error("Controlled production acceptance requires ACT7_071_NETWORK_PROBE_OUTPUT");
+  if (!env.ACT7_071_EXECUTION_CONTEXT_ID) throw new Error("Controlled production acceptance requires ACT7_071_EXECUTION_CONTEXT_ID");
 }
 async function evidenceBoundary(label, fixtureState, discussion) {
   if (process.env.ACT7_071_EVIDENCE_PAUSE !== "YES") {
@@ -233,6 +238,12 @@ async function runAuditControl() {
 
 async function main() {
   assertExecutionAuthorized();
+  await assertSourceGateProofs(process.env);
+  await probeSupabaseNetwork({
+    url: "https://qdcbdcjobzytzhnhfwyn.supabase.co",
+    outputFile: process.env.ACT7_071_NETWORK_PROBE_OUTPUT,
+    env: process.env,
+  });
   try {
     const normal = await runNormalScenario();
     const audit = await runAuditControl();
