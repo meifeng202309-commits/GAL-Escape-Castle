@@ -2,12 +2,14 @@
 
 Status: template only — `PRODUCTION_HOLD` until new Teacher authorization and CA release
 
-CA-253 source-gate hardening: before any future authorized attempt, use
-`scripts/act7-071-source-gates.js` to persist/re-read the pre-freeze catalog,
-verify the exact five candidate public files, and run `assert-acl-restore` before
-restoring admission ACLs. The controlled fixture revalidates both artifacts and
-performs its Supabase reachability probe inside the same Node process before its
-first mutating RPC. Missing or mismatched proof is a mandatory STOP.
+CA-254 correction: future execution is permitted only through an approved adapter
+around `runGuardedAttempt` in `scripts/act7-071-source-gates.js`. That coordinator
+performs the pre-mutation network probe and durable catalog capture before invoking
+freeze/migration callbacks; it obtains the live GitHub run identity and exact five
+public files before invoking the ACL-restore callback; then it repeats the network
+probe before invoking the fixture in the same Node process. Direct fixture CLI and
+manual ACL restoration are prohibited. No production adapter currently exists, so
+this checklist remains `PRODUCTION_HOLD` until one is separately reviewed.
 
 Roles: Teacher/account owner authorizes and freezes external privileged work; CD is uninterrupted coordinator/operator; CA independently dispositions evidence. Record every check with UTC time and evidence path.
 

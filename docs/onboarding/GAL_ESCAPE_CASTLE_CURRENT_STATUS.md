@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-19T14:50:00Z
+> Last refreshed: 2026-10-19T15:30:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_CA253_SOURCE_GATE_TARGETED_CORRECTIONS / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — targeted source-only gate corrections
-NEXT_REQUIRED_ACTION  = CD correct pre-mutation network guard, ACL operation enforcement and candidate deployment/public-origin proof; add negative tests and return to CA. No production operations.
+CURRENT_GATE          = ACT7_071_CA254_TARGETED_CORRECTIONS_READY / CA_REASSESSMENT / PRODUCTION_HOLD
+CURRENT_OWNER         = CA — targeted corrected source/test reassessment
+NEXT_REQUIRED_ACTION  = Audit CD-118 same-process ordering, guarded ACL callback and fixed GitHub deployment/public-origin proof. No production adapter or retry is authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -37,7 +37,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 ```text
 GA_CHECKPOINT = GA-100
 CA_CHECKPOINT = CA-254
-CD_CHECKPOINT = CD-117
+CD_CHECKPOINT = CD-118
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
 ```

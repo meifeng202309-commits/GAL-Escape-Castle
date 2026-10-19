@@ -4,6 +4,9 @@ const path = require("node:path");
 
 const SCHEMA = "gal.act7-071.gate.v1";
 const CANDIDATE_COMMIT = "6e3bbd1d2795bd4486b1437a0b9e107e2238fa28";
+const CANDIDATE_BRANCH = "deploy/act7-071-20261017";
+const PUBLIC_BASE_URL = "https://meifeng202309-commits.github.io/GAL-Escape-Castle";
+const GITHUB_RUN_API_PREFIX = "https://api.github.com/repos/meifeng202309-commits/GAL-Escape-Castle/actions/runs/";
 const ADMISSION_SIGNATURES = [
   "s1_create_room(text,text,text,text,text)",
   "s1_join_player(text,text)",
@@ -84,19 +87,30 @@ async function comparePostRecovery(snapshotFile, rows) {
   invariant(JSON.stringify(before.rows) === JSON.stringify(after), "Post-recovery catalog does not exactly match persisted pre-freeze snapshot");
   return { ok: true, snapshot_sha256: before.sha256, compared_rows: after.length };
 }
-async function verifyCandidatePublicBytes({ baseUrl, outputFile, fetchImpl = fetch, now = new Date(), deployment, operationId,
+async function verifyCandidatePublicBytes({ outputFile, githubFetch = fetch, publicFetch = fetch, now = new Date(), deploymentRunId, operationId,
   hashBytes = bytes => crypto.createHash("sha256").update(bytes).digest("hex") }) {
   invariant(operationId, "Candidate public-byte proof requires the pinned operation context ID");
-  invariant(deployment?.commit === CANDIDATE_COMMIT && deployment?.run_id,
-    "Candidate deployment proof must bind the exact commit and workflow run");
-  const base = String(baseUrl || "").replace(/\/$/, "");
-  invariant(/^https:\/\//.test(base), "Candidate public base URL must use HTTPS");
+  invariant(/^\d+$/.test(String(deploymentRunId || "")), "Candidate workflow run ID must be numeric");
+  const runResponse = await githubFetch(`${GITHUB_RUN_API_PREFIX}${deploymentRunId}`, { method: "GET", cache: "no-store" });
+  invariant(runResponse.status === 200, `Candidate workflow identity lookup failed HTTP ${runResponse.status}`);
+  const run = await runResponse.json();
+  invariant(String(run.id) === String(deploymentRunId)
+    && run.name === "pages build and deployment"
+    && run.head_branch === CANDIDATE_BRANCH
+    && run.head_sha === CANDIDATE_COMMIT
+    && run.status === "completed" && run.conclusion === "success",
+  "Live GitHub workflow identity does not match the reviewed candidate deployment");
+  const deployment = { run_id: String(run.id), branch: run.head_branch, commit: run.head_sha, conclusion: run.conclusion };
   const files = [];
   for (const [filePath, expected] of Object.entries(CANDIDATE_FILES)) {
-    const url = `${base}${filePath}?act7_071=${now.getTime()}`;
-    const response = await fetchImpl(url, { method: "GET", cache: "no-store" });
+    const url = `${PUBLIC_BASE_URL}${filePath}?act7_071=${now.getTime()}`;
+    const response = await publicFetch(url, { method: "GET", cache: "no-store", redirect: "follow" });
+    const finalUrl = new URL(response.url || url);
+    const expectedUrl = new URL(url);
     const bytes = Buffer.from(await response.arrayBuffer());
     const actual = hashBytes(bytes, filePath);
+    invariant(finalUrl.origin === expectedUrl.origin && finalUrl.pathname === expectedUrl.pathname,
+      `Candidate public response escaped the reviewed origin/path: ${filePath}`);
     invariant(response.status === 200, `Candidate public byte gate failed HTTP ${response.status}: ${filePath}`);
     invariant(actual === expected, `Candidate public byte hash mismatch: ${filePath}`);
     files.push({ path: filePath, url, status: response.status, byte_length: bytes.length, sha256: actual });
@@ -108,7 +122,7 @@ async function verifyCandidatePublicBytes({ baseUrl, outputFile, fetchImpl = fet
 }
 function executionContext(env = process.env) {
   invariant(env.ACT7_071_EXECUTION_CONTEXT_ID, "ACT7_071_EXECUTION_CONTEXT_ID is required");
-  return {
+  const visible = {
     context_id: env.ACT7_071_EXECUTION_CONTEXT_ID,
     exec_path: process.execPath,
     exec_argv: process.execArgv,
@@ -116,6 +130,7 @@ function executionContext(env = process.env) {
     arch: process.arch,
     cwd: process.cwd(),
   };
+  return { ...visible, visible_fingerprint: digest(visible) };
 }
 async function probeSupabaseNetwork({ url, outputFile, env = process.env, fetchImpl = fetch, now = new Date() }) {
   const context = executionContext(env);
@@ -154,15 +169,48 @@ async function assertSourceGateProofs(env = process.env) {
   return { snapshot, candidate };
 }
 
+async function runGuardedAttempt({
+  env, rows, prefreezeFile, preMutationNetworkFile, candidateFile, fixtureNetworkFile,
+  deploymentRunId, probeFetch, githubFetch, publicFetch,
+  candidateHashBytes,
+  executeFreeze, applyMigration, restoreAdmissionAcl, runFixture,
+}) {
+  for (const [name, operation] of Object.entries({ executeFreeze, applyMigration, restoreAdmissionAcl, runFixture })) {
+    invariant(typeof operation === "function", `Guarded attempt requires ${name} operation`);
+  }
+  const startContext = executionContext(env);
+  await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co", outputFile: preMutationNetworkFile, env, fetchImpl: probeFetch });
+  const snapshot = await persistPreFreezeSnapshot(rows, prefreezeFile, new Date(), env.ACT7_071_EXECUTION_CONTEXT_ID);
+  await executeFreeze({ snapshot });
+  await applyMigration({ snapshot });
+  const candidate = await verifyCandidatePublicBytes({
+    outputFile: candidateFile, githubFetch, publicFetch, deploymentRunId,
+    operationId: env.ACT7_071_EXECUTION_CONTEXT_ID, hashBytes: candidateHashBytes,
+  });
+  const proofs = await assertSourceGateProofs({
+    ...env, ACT7_071_PREFREEZE_SNAPSHOT: prefreezeFile, ACT7_071_CANDIDATE_PROOF: candidateFile,
+  });
+  invariant(executionContext(env).visible_fingerprint === startContext.visible_fingerprint,
+    "Visible execution context changed before ACL restoration");
+  await restoreAdmissionAcl({ snapshot: proofs.snapshot, candidate: proofs.candidate });
+  await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co", outputFile: fixtureNetworkFile, env, fetchImpl: probeFetch });
+  invariant(executionContext(env).visible_fingerprint === startContext.visible_fingerprint,
+    "Visible execution context changed before fixture execution");
+  return runFixture({ snapshot, candidate });
+}
+
 module.exports = {
   ADMISSION_SIGNATURES,
+  CANDIDATE_BRANCH,
   CANDIDATE_COMMIT,
   CANDIDATE_FILES,
+  PUBLIC_BASE_URL,
   comparePostRecovery,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
   assertSourceGateProofs,
   verifyCandidatePublicBytes,
+  runGuardedAttempt,
 };
 
 async function cli() {
@@ -180,20 +228,14 @@ async function cli() {
     return;
   }
   if (command === "verify-candidate") {
-    invariant(args.length === 3, "Usage: verify-candidate <base-url> <workflow-run-id> <proof.json>");
+    invariant(args.length === 2, "Usage: verify-candidate <workflow-run-id> <proof.json>");
     console.log(JSON.stringify(await verifyCandidatePublicBytes({
-      baseUrl: args[0], outputFile: args[2],
-      deployment: { branch: "deploy/act7-071-20261017", commit: CANDIDATE_COMMIT, run_id: args[1] },
+      deploymentRunId: args[0], outputFile: args[1],
       operationId: process.env.ACT7_071_EXECUTION_CONTEXT_ID,
     })));
     return;
   }
-  if (command === "assert-acl-restore") {
-    const proof = await assertSourceGateProofs(process.env);
-    console.log(JSON.stringify({ ok: true, stage: "acl-restore", snapshot_sha256: proof.snapshot.sha256, candidate_sha256: proof.candidate.sha256 }));
-    return;
-  }
-  throw new Error("Commands: capture-prefreeze | compare-recovery | verify-candidate | assert-acl-restore");
+  throw new Error("Commands: capture-prefreeze | compare-recovery | verify-candidate. ACL restoration is permitted only inside runGuardedAttempt; no production adapter is included.");
 }
 
 if (require.main === module) cli().catch(error => { console.error(error.stack || error); process.exitCode = 1; });

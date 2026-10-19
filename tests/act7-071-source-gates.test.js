@@ -6,11 +6,13 @@ const {
   ADMISSION_SIGNATURES,
   CANDIDATE_COMMIT,
   CANDIDATE_FILES,
+  PUBLIC_BASE_URL,
   comparePostRecovery,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
   assertSourceGateProofs,
   verifyCandidatePublicBytes,
+  runGuardedAttempt,
 } = require("../scripts/act7-071-source-gates");
 
 const rows = ADMISSION_SIGNATURES.map((signature, index) => ({
@@ -33,38 +35,48 @@ async function main() {
   const snapshot = path.join(temp, "prefreeze.json");
   const candidate = path.join(temp, "candidate.json");
   const network = path.join(temp, "network.json");
-  const base = "https://example.invalid/GAL-Escape-Castle";
+  const run = { id: 123, name: "pages build and deployment", head_branch: "deploy/act7-071-20261017", head_sha: CANDIDATE_COMMIT, status: "completed", conclusion: "success" };
+  const githubFetch = async () => ({ status: 200, json: async () => run });
+  const publicFetch = async url => ({ status: 200, url, arrayBuffer: async () => Buffer.from(url) });
   await persistPreFreezeSnapshot(rows, snapshot, new Date("2026-10-19T00:00:00Z"), "test-context");
   await comparePostRecovery(snapshot, rows);
   await expectReject(comparePostRecovery(snapshot, rows.map((row, i) => i ? row : { ...row, acl: "drift" })), "does not exactly match");
   await expectReject(persistPreFreezeSnapshot(rows.slice(1), path.join(temp, "bad.json"), new Date(), "test-context"), "exactly six");
 
   await verifyCandidatePublicBytes({
-    baseUrl: base,
     outputFile: candidate,
-    deployment: { branch: "deploy/act7-071-20261017", commit: CANDIDATE_COMMIT, run_id: 123 },
+    deploymentRunId: 123,
     operationId: "test-context",
     now: new Date("2026-10-19T00:01:00Z"),
-    fetchImpl: async url => ({ status: 200, arrayBuffer: async () => Buffer.from(url) }),
+    githubFetch,
+    publicFetch,
     hashBytes: (_bytes, file) => CANDIDATE_FILES[file],
   });
   await assertSourceGateProofs({ ACT7_071_PREFREEZE_SNAPSHOT: snapshot, ACT7_071_CANDIDATE_PROOF: candidate, ACT7_071_EXECUTION_CONTEXT_ID: "test-context" });
   await expectReject(assertSourceGateProofs({ ACT7_071_PREFREEZE_SNAPSHOT: snapshot }), "ACT7_071_CANDIDATE_PROOF");
   await expectReject(assertSourceGateProofs({ ACT7_071_PREFREEZE_SNAPSHOT: snapshot, ACT7_071_CANDIDATE_PROOF: candidate, ACT7_071_EXECUTION_CONTEXT_ID: "wrong-context" }), "pinned execution context");
   await expectReject(verifyCandidatePublicBytes({
-    baseUrl: base,
     outputFile: path.join(temp, "http-fail.json"),
-    deployment: { branch: "deploy/act7-071-20261017", commit: CANDIDATE_COMMIT, run_id: 124 },
+    deploymentRunId: 123,
     operationId: "test-context",
-    fetchImpl: async () => ({ status: 503, arrayBuffer: async () => Buffer.from("unavailable") }),
+    githubFetch,
+    publicFetch: async url => ({ status: 503, url, arrayBuffer: async () => Buffer.from("unavailable") }),
   }), "HTTP 503");
   await expectReject(verifyCandidatePublicBytes({
-    baseUrl: base,
     outputFile: path.join(temp, "hash-fail.json"),
-    deployment: { branch: "deploy/act7-071-20261017", commit: CANDIDATE_COMMIT, run_id: 125 },
+    deploymentRunId: 123,
     operationId: "test-context",
-    fetchImpl: async () => ({ status: 200, arrayBuffer: async () => Buffer.from("wrong bytes") }),
+    githubFetch,
+    publicFetch: async url => ({ status: 200, url, arrayBuffer: async () => Buffer.from("wrong bytes") }),
   }), "hash mismatch");
+  await expectReject(verifyCandidatePublicBytes({
+    outputFile: path.join(temp, "redirect-fail.json"), deploymentRunId: 123, operationId: "test-context", githubFetch,
+    publicFetch: async url => ({ status: 200, url: url.replace("meifeng202309-commits.github.io", "evil.example"), arrayBuffer: async () => Buffer.from("bytes") }),
+  }), "escaped the reviewed origin/path");
+  await expectReject(verifyCandidatePublicBytes({
+    outputFile: path.join(temp, "run-fail.json"), deploymentRunId: 123, operationId: "test-context",
+    githubFetch: async () => ({ status: 200, json: async () => ({ ...run, head_sha: "bad" }) }), publicFetch,
+  }), "workflow identity");
 
   await probeSupabaseNetwork({
     url: "https://example.invalid",
@@ -80,6 +92,53 @@ async function main() {
     fetchImpl: async () => { const cause = Object.assign(new Error("dns"), { code: "ENOTFOUND", syscall: "getaddrinfo", hostname: "example.invalid" }); throw Object.assign(new TypeError("fetch failed"), { cause }); },
   }), "code=ENOTFOUND syscall=getaddrinfo hostname=example.invalid");
   await expectReject(probeSupabaseNetwork({ url: "https://example.invalid", outputFile: network, env: {}, fetchImpl: async () => ({ status: 401 }) }), "ACT7_071_EXECUTION_CONTEXT_ID");
+
+  const order = [];
+  const guardedRoot = path.join(temp, "guarded");
+  const guardedResult = await runGuardedAttempt({
+    env: { ACT7_071_EXECUTION_CONTEXT_ID: "guarded-context" }, rows,
+    prefreezeFile: path.join(guardedRoot, "prefreeze.json"),
+    preMutationNetworkFile: path.join(guardedRoot, "pre-network.json"),
+    candidateFile: path.join(guardedRoot, "candidate.json"),
+    fixtureNetworkFile: path.join(guardedRoot, "fixture-network.json"),
+    deploymentRunId: 123,
+    probeFetch: async () => ({ status: 401 }), githubFetch,
+    publicFetch,
+    candidateHashBytes: (_bytes, file) => CANDIDATE_FILES[file],
+    executeFreeze: async () => order.push("freeze"),
+    applyMigration: async () => order.push("migration"),
+    restoreAdmissionAcl: async () => order.push("restore"),
+    runFixture: async () => { order.push("fixture"); return "done"; },
+  });
+  assert.equal(guardedResult, "done");
+  assert.deepEqual(order, ["freeze", "migration", "restore", "fixture"]);
+
+  let forbiddenCalled = false;
+  await expectReject(runGuardedAttempt({
+    env: { ACT7_071_EXECUTION_CONTEXT_ID: "blocked-context" }, rows,
+    prefreezeFile: path.join(temp, "blocked-prefreeze.json"), preMutationNetworkFile: path.join(temp, "blocked-network.json"),
+    candidateFile: path.join(temp, "blocked-candidate.json"), fixtureNetworkFile: path.join(temp, "blocked-fixture-network.json"),
+    deploymentRunId: 123,
+    probeFetch: async () => { const cause = Object.assign(new Error("dns"), { code: "ENOTFOUND", syscall: "getaddrinfo", hostname: "supabase.invalid" }); throw Object.assign(new TypeError("fetch failed"), { cause }); },
+    githubFetch, publicFetch,
+    executeFreeze: async () => { forbiddenCalled = true; }, applyMigration: async () => { forbiddenCalled = true; },
+    restoreAdmissionAcl: async () => { forbiddenCalled = true; }, runFixture: async () => { forbiddenCalled = true; },
+  }), "code=ENOTFOUND");
+  assert.equal(forbiddenCalled, false, "A guarded production operation ran after the pre-mutation network gate failed");
+
+  const candidateFailureOrder = [];
+  await expectReject(runGuardedAttempt({
+    env: { ACT7_071_EXECUTION_CONTEXT_ID: "candidate-blocked-context" }, rows,
+    prefreezeFile: path.join(temp, "candidate-blocked-prefreeze.json"), preMutationNetworkFile: path.join(temp, "candidate-blocked-network.json"),
+    candidateFile: path.join(temp, "candidate-blocked-proof.json"), fixtureNetworkFile: path.join(temp, "candidate-blocked-fixture-network.json"),
+    deploymentRunId: 123, probeFetch: async () => ({ status: 401 }),
+    githubFetch: async () => ({ status: 200, json: async () => ({ ...run, conclusion: "failure" }) }), publicFetch,
+    executeFreeze: async () => candidateFailureOrder.push("freeze"),
+    applyMigration: async () => candidateFailureOrder.push("migration"),
+    restoreAdmissionAcl: async () => candidateFailureOrder.push("restore"),
+    runFixture: async () => candidateFailureOrder.push("fixture"),
+  }), "workflow identity");
+  assert.deepEqual(candidateFailureOrder, ["freeze", "migration"], "ACL restore or fixture ran without valid live candidate proof");
 
   await fs.rm(temp, { recursive: true, force: true });
   console.log("ACT7 071 source gate tests passed.");

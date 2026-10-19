@@ -1,4 +1,5 @@
 const { assertExecutionAuthorized } = require("./act7-071-controlled-acceptance");
+const { spawnSync } = require("node:child_process");
 
 const expectRefusal = (env, expected) => {
   let error = null;
@@ -23,5 +24,10 @@ assertExecutionAuthorized({
   ACT7_071_NETWORK_PROBE_OUTPUT: "network.json",
   ACT7_071_EXECUTION_CONTEXT_ID: "operator-window-id",
 });
+
+const direct = spawnSync(process.execPath, [require.resolve("./act7-071-controlled-acceptance")], { encoding: "utf8" });
+if (direct.status === 0 || !`${direct.stdout}${direct.stderr}`.includes("only inside the reviewed in-process coordinator")) {
+  throw new Error("Direct controlled-acceptance CLI did not fail closed outside the coordinator");
+}
 
 console.log("ACT7 071 startup authorization gate tests passed.");

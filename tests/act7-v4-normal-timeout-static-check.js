@@ -86,13 +86,16 @@ requireAll(acceptance,"controlled SQL evidence gates",[
   'env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"',
   'env.ACT7_071_EVIDENCE_PAUSE !== "YES"',
   'function assertExecutionAuthorized(env = process.env)',
-  'async function main() {\n  assertExecutionAuthorized();',
+  'async function main({ coordinated = false } = {}) {',
+  'if (!coordinated) throw new Error("Controlled production acceptance may run only inside the reviewed in-process coordinator")',
+  'await assertSourceGateProofs(process.env);',
+  'await probeSupabaseNetwork({',
   'type: "ACT7_071_EVIDENCE_BOUNDARY"',
   'evidenceBoundary("ROUND2_OPEN"',
   'evidenceBoundary("THIRD_VOTE_RESOLVED"',
   'evidenceBoundary("AUDIT_AFTER_ADD"',
 ]);
-const startupGate=acceptance.indexOf('async function main() {\n  assertExecutionAuthorized();');
+const startupGate=acceptance.indexOf('async function main({ coordinated = false } = {}) {');
 const firstScenario=acceptance.indexOf('const normal = await runNormalScenario()',startupGate);
 if(startupGate<0||firstScenario<0||startupGate>firstScenario)throw new Error("Both authorization gates are not ahead of the first fixture scenario");
 requireAll(invariants,"protected SQL evidence",[

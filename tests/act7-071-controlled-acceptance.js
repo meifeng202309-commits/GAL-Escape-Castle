@@ -236,7 +236,8 @@ async function runAuditControl() {
   return { room: fixtureState.room, run_id: voting.run.run_id };
 }
 
-async function main() {
+async function main({ coordinated = false } = {}) {
+  if (!coordinated) throw new Error("Controlled production acceptance may run only inside the reviewed in-process coordinator");
   assertExecutionAuthorized();
   await assertSourceGateProofs(process.env);
   await probeSupabaseNetwork({
@@ -253,5 +254,6 @@ async function main() {
   }
 }
 
-module.exports = { assertExecutionAuthorized, enterAct6Barrier, openVote, runNormalScenario, runAuditControl };
+module.exports = { assertExecutionAuthorized, enterAct6Barrier, openVote, runNormalScenario, runAuditControl,
+  runCoordinatedAcceptance: () => main({ coordinated: true }) };
 if (require.main === module) main().catch(error => { console.error(error.stack || error); process.exitCode = 1; });
