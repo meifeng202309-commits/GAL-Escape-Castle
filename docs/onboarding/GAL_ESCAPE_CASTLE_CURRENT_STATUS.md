@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-19T11:25:00Z
+> Last refreshed: 2026-10-19T12:00:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_CA252_READONLY_RECONCILED / PRODUCTION_HOLD
-CURRENT_OWNER         = CA — independent reconciliation audit and disposition
-NEXT_REQUIRED_ACTION  = Audit CD-116 evidence and decide whether source changes for machine-enforced catalog snapshot, candidate byte and executor-network gates should be authorized. No production retry.
+CURRENT_GATE          = ACT7_071_RECOVERED / SOURCE_GATE_HARDENING / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — source-only gate implementation and negative tests
+NEXT_REQUIRED_ACTION  = CD implement durable prefreeze catalog snapshot, mandatory candidate public-byte validation and same-executor network probe; return source-only evidence to CA. No production writes.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-252
+CA_CHECKPOINT = CA-253
 CD_CHECKPOINT = CD-116
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
