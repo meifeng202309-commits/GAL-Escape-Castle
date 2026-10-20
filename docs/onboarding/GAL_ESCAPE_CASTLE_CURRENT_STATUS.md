@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_OPERATOR_HOST_SOURCE_PASS / LIVE_READONLY_BRIDGE_PENDING / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — actual persistent CLI + connector read-only bridge proof
-NEXT_REQUIRED_ACTION  = CD demonstrate real read-only connector transcript handoff into persistent CLI or report minimal blocker; no SQL mutation/Pages Save/fixture.
+CURRENT_GATE = ACT7_071_READONLY_DRILL_SOURCE_ONLY / PRODUCTION_HOLD
+CURRENT_OWNER = CD — non-mutating read-only drill
+NEXT_REQUIRED_ACTION = CD test readOnlyDrill with genuine read-only connector evidence or report blocker.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-270
+CA_CHECKPOINT = CA-271
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
