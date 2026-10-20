@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T12:30:00Z
+> Last refreshed: 2026-10-20T13:00:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_SPLIT_RECEIPT_SOURCE_PASS / TEACHER_ARCHITECTURE_DECISION / PRODUCTION_HOLD
-CURRENT_OWNER         = Teacher — decide existing-tool split-boundary operator model
-NEXT_REQUIRED_ACTION  = Teacher accept/reject minimal split-boundary model with retained connector transcripts and independent readback; no production execution authorized.
+CURRENT_GATE          = ACT7_071_SPLIT_ARCHITECTURE_APPROVED / READONLY_OPERATIONAL_READINESS / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — non-mutating split-boundary readiness evidence
+NEXT_REQUIRED_ACTION  = CD demonstrate original connector transcripts, separate readback and cross-tool receipts without SQL mutation or Pages change; return to CA. No new production authorization.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-261
+CA_CHECKPOINT = CA-262
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
