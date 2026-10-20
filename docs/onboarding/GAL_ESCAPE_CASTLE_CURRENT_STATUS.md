@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T18:30:00Z
+> Last refreshed: 2026-10-20T19:40:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_NO_RUNNABLE_OPERATOR_HOST / TEACHER_MINIMAL_SOURCE_SCOPE_DECISION / PRODUCTION_HOLD
-CURRENT_OWNER         = Teacher — decide narrow source-only executable operator entrypoint
-NEXT_REQUIRED_ACTION  = Teacher approve/decline minimal source-only operator host implementation; no production attempt. If approved CD must mock/read-only prove host before any further authorization.
+CURRENT_GATE          = ACT7_071_MINIMAL_OPERATOR_HOST_SOURCE_AUTHORIZED / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — minimal runnable operator host source and nonmutating tests
+NEXT_REQUIRED_ACTION  = CD build smallest operator entrypoint and prove mock/read-only cross-tool pause/resume and fail-closed behavior; no production action.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-267
+CA_CHECKPOINT = CA-268
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
