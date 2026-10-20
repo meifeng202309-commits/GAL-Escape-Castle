@@ -1,0 +1,170 @@
+{
+  "schema": "gal.act7-071.gate.v1",
+  "kind": "sql-stage-receipt",
+  "operation_id": "act7-071-readiness-ca262",
+  "stage": "readiness-readonly",
+  "sequence": 1,
+  "previous_sha256": null,
+  "statement_sha256": "72a6a7f8cb0661cd94800d784c7424b2aa038e73758f11af4b9450848169f19a",
+  "response_captured_at": "2026-10-20T06:21:52.221Z",
+  "copied_connector_response": {
+    "operation_id": "act7-071-readiness-ca262",
+    "rows": [
+      {
+        "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+        "anon_execute": true,
+        "authenticated_execute": true,
+        "owner": "postgres",
+        "public_execute": false,
+        "raw_md5": "ddd2dc46a66b4003e4c9b1e41277c6d4",
+        "search_path": "search_path=public",
+        "security_definer": true,
+        "service_role_execute": true,
+        "signature": "s1_create_room(text,text,text,text,text)"
+      },
+      {
+        "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+        "anon_execute": true,
+        "authenticated_execute": true,
+        "owner": "postgres",
+        "public_execute": false,
+        "raw_md5": "efc37a06b7b594e6aa3a4d81e90b4c3d",
+        "search_path": "search_path=public",
+        "security_definer": true,
+        "service_role_execute": true,
+        "signature": "s1_join_player(text,text)"
+      },
+      {
+        "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+        "anon_execute": true,
+        "authenticated_execute": true,
+        "owner": "postgres",
+        "public_execute": false,
+        "raw_md5": "2a72387597fea5092584934334106082",
+        "search_path": "search_path=public",
+        "security_definer": true,
+        "service_role_execute": true,
+        "signature": "s1_reset_room(text,text)"
+      },
+      {
+        "acl": "postgres=X/postgres,service_role=X/postgres",
+        "anon_execute": false,
+        "authenticated_execute": false,
+        "owner": "postgres",
+        "public_execute": false,
+        "raw_md5": "6927cc457cf7a1df5cb0bbbc28dd00a4",
+        "search_path": "search_path=public",
+        "security_definer": true,
+        "service_role_execute": true,
+        "signature": "s2_start_run(text,text,text)"
+      },
+      {
+        "acl": "postgres=X/postgres,=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+        "anon_execute": true,
+        "authenticated_execute": true,
+        "owner": "postgres",
+        "public_execute": true,
+        "raw_md5": "c6170e560fc256736ce2209c528538b5",
+        "search_path": "search_path=public",
+        "security_definer": true,
+        "service_role_execute": true,
+        "signature": "s3b_initialize_flow(text,text)"
+      },
+      {
+        "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+        "anon_execute": true,
+        "authenticated_execute": true,
+        "owner": "postgres",
+        "public_execute": false,
+        "raw_md5": "04ebbe1608095b171540da4c5b08f5ed",
+        "search_path": "search_path=public",
+        "security_definer": true,
+        "service_role_execute": true,
+        "signature": "s9_start_formal_game(text,text,text)"
+      }
+    ]
+  },
+  "copied_response_sha256": "ed928421da9bb38d3111c59cac95621f7523cf949da0d6516d7b14dfe3896ac4",
+  "corroboration_query_sha256": "7c0a6b21453e26f5904184bf35e646a718881580b5525e1d99679fc4dcc2c0c4",
+  "corroboration_captured_at": "2026-10-20T06:21:52.224Z",
+  "corroboration_rows": [
+    {
+      "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+      "anon_execute": true,
+      "authenticated_execute": true,
+      "owner": "postgres",
+      "public_execute": false,
+      "raw_md5": "ddd2dc46a66b4003e4c9b1e41277c6d4",
+      "search_path": "search_path=public",
+      "security_definer": true,
+      "service_role_execute": true,
+      "signature": "s1_create_room(text,text,text,text,text)"
+    },
+    {
+      "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+      "anon_execute": true,
+      "authenticated_execute": true,
+      "owner": "postgres",
+      "public_execute": false,
+      "raw_md5": "efc37a06b7b594e6aa3a4d81e90b4c3d",
+      "search_path": "search_path=public",
+      "security_definer": true,
+      "service_role_execute": true,
+      "signature": "s1_join_player(text,text)"
+    },
+    {
+      "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+      "anon_execute": true,
+      "authenticated_execute": true,
+      "owner": "postgres",
+      "public_execute": false,
+      "raw_md5": "2a72387597fea5092584934334106082",
+      "search_path": "search_path=public",
+      "security_definer": true,
+      "service_role_execute": true,
+      "signature": "s1_reset_room(text,text)"
+    },
+    {
+      "acl": "postgres=X/postgres,service_role=X/postgres",
+      "anon_execute": false,
+      "authenticated_execute": false,
+      "owner": "postgres",
+      "public_execute": false,
+      "raw_md5": "6927cc457cf7a1df5cb0bbbc28dd00a4",
+      "search_path": "search_path=public",
+      "security_definer": true,
+      "service_role_execute": true,
+      "signature": "s2_start_run(text,text,text)"
+    },
+    {
+      "acl": "postgres=X/postgres,=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+      "anon_execute": true,
+      "authenticated_execute": true,
+      "owner": "postgres",
+      "public_execute": true,
+      "raw_md5": "c6170e560fc256736ce2209c528538b5",
+      "search_path": "search_path=public",
+      "security_definer": true,
+      "service_role_execute": true,
+      "signature": "s3b_initialize_flow(text,text)"
+    },
+    {
+      "acl": "postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres",
+      "anon_execute": true,
+      "authenticated_execute": true,
+      "owner": "postgres",
+      "public_execute": false,
+      "raw_md5": "04ebbe1608095b171540da4c5b08f5ed",
+      "search_path": "search_path=public",
+      "security_definer": true,
+      "service_role_execute": true,
+      "signature": "s9_start_formal_game(text,text,text)"
+    }
+  ],
+  "corroboration_sha256": "eea3dd2b411e48fb4e16be70c27c8d1cd0f494e497f9e9b2a09da49a997e656c",
+  "operator_confirmation": "CD_CONNECTED_SUPABASE_READONLY_REHEARSAL",
+  "response_transcript_ref": "supabase-execute_sql:untrusted-data-0dcd6b19-69c4-48e7-a73a-6853595fe310",
+  "corroboration_transcript_ref": "supabase-execute_sql:untrusted-data-7ddc6fcf-d550-4884-ae71-fb041db4cedf",
+  "origin_attestation": "NOT_PROVIDED_COPY_INTEGRITY_ONLY",
+  "sha256": "76c7afbaa0d3b3e07a0202b8ddf67f387f9ab5f7b968ae96eba84eb93a3eeefb"
+}
