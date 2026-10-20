@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T06:50:00Z
+> Last refreshed: 2026-10-20T07:40:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_ROLLBACK_SHA_FIXED / HOST_ARCHITECTURE_DECISION_OPEN / PRODUCTION_HOLD
-CURRENT_OWNER         = CA / Teacher — review source correction and choose or reject an operator-host architecture
-NEXT_REQUIRED_ACTION  = Review CD-122 exact rollback identity tests and split-boundary versus credentialed-host memo; no production action without a new disposition.
+CURRENT_GATE          = ACT7_071_ROLLBACK_SHA_FIXED / SPLIT_BOUNDARY_PLANNING_ONLY / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — concise existing-tool cross-boundary plan, no implementation
+NEXT_REQUIRED_ACTION  = CD deliver one short stage/receipt/STOP/recovery proposal using existing Supabase connector, Node and Teacher Pages; no source architecture or production execution.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-257
+CA_CHECKPOINT = CA-258
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
