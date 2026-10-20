@@ -13,6 +13,7 @@ const {
   comparePostRecovery,
   persistSqlStageReceipt,
   validateSqlReceiptChain,
+  persistAndValidateExternalSqlStage,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
   assertSourceGateProofs,
@@ -159,18 +160,21 @@ async function main() {
     operationId: "receipt-context", stage: "freeze", sequence: 1, statementSha256: "1".repeat(64),
     response: { result: "copied connector success" }, responseCapturedAt: "2026-10-20T01:00:00Z",
     corroborationQuerySha256: "2".repeat(64), corroborationRows: freezeRows,
-    corroborationCapturedAt: "2026-10-20T01:00:01Z", operatorConfirmation: "CD_CONNECTOR_CAPTURED" });
+    corroborationCapturedAt: "2026-10-20T01:00:01Z", operatorConfirmation: "CD_CONNECTOR_CAPTURED",
+    responseTranscriptRef: "connector-call-freeze", corroborationTranscriptRef: "connector-call-freeze-readback" });
   const recovery = await persistSqlStageReceipt({ outputFile: path.join(receiptRoot, "02-recovery.json"),
     operationId: "receipt-context", stage: "recovery", sequence: 2, previousSha256: freeze.sha256,
     statementSha256: "3".repeat(64), response: { result: "copied recovery success" },
     responseCapturedAt: "2026-10-20T01:00:02Z", corroborationQuerySha256: "4".repeat(64),
     corroborationRows: recoveryRows, corroborationCapturedAt: "2026-10-20T01:00:03Z",
-    operatorConfirmation: "CD_CONNECTOR_CAPTURED" });
+    operatorConfirmation: "CD_CONNECTOR_CAPTURED", responseTranscriptRef: "connector-call-recovery",
+    corroborationTranscriptRef: "connector-call-recovery-readback" });
   await assert.rejects(persistSqlStageReceipt({ outputFile: path.join(receiptRoot, "01-freeze.json"),
     operationId: "receipt-context", stage: "freeze", sequence: 1, statementSha256: "1".repeat(64),
     response: { result: "replacement" }, responseCapturedAt: "2026-10-20T01:00:04Z",
     corroborationQuerySha256: "2".repeat(64), corroborationRows: freezeRows,
-    corroborationCapturedAt: "2026-10-20T01:00:05Z", operatorConfirmation: "CD_CONNECTOR_CAPTURED" }),
+    corroborationCapturedAt: "2026-10-20T01:00:05Z", operatorConfirmation: "CD_CONNECTOR_CAPTURED",
+    responseTranscriptRef: "replacement-call", corroborationTranscriptRef: "replacement-readback" }),
   /EEXIST/);
   const recoveryExpectations = [
     { stage: "freeze", statementSha256: "1".repeat(64), corroborationQuerySha256: "2".repeat(64), corroborationSha256: freeze.corroboration_sha256 },
@@ -199,6 +203,23 @@ async function main() {
   await expectReject(validateSqlReceiptChain({ files: [path.join(receiptRoot, "01-freeze.json"), path.join(receiptRoot, "02-recovery.json")],
     expectedStages: mismatchedExpectations, operationId: "receipt-context", env: receiptEnv,
     startVisibleFingerprint: visibleFingerprint, operatorAvailable: true }), "does not match expected state");
+
+  const bridgeFiles = [];
+  const bridgeExpected = [{ stage: "freeze", statementSha256: "a".repeat(64),
+    corroborationQuerySha256: "b".repeat(64), corroborationSha256: freeze.corroboration_sha256 }];
+  await expectReject(persistAndValidateExternalSqlStage({ evidence: null,
+    receiptFile: path.join(receiptRoot, "bridge-missing.json"), completedFiles: bridgeFiles,
+    expectedStages: bridgeExpected, operationId: "receipt-context", env: receiptEnv,
+    startVisibleFingerprint: visibleFingerprint, operatorAvailable: true }), "evidence is absent");
+  await expectReject(persistAndValidateExternalSqlStage({ evidence: { stage: "freeze", statementSha256: "a".repeat(64),
+    response: { result: "success" }, responseCapturedAt: "2026-10-20T02:00:00Z",
+    corroborationQuerySha256: "b".repeat(64), corroborationRows: [{ wrong: true }],
+    corroborationCapturedAt: "2026-10-20T02:00:01Z", operatorConfirmation: "CD_CONNECTOR_CAPTURED",
+    responseTranscriptRef: "bridge-freeze", corroborationTranscriptRef: "bridge-freeze-readback" },
+    receiptFile: path.join(receiptRoot, "bridge-wrong.json"), completedFiles: bridgeFiles,
+    expectedStages: bridgeExpected, operationId: "receipt-context", env: receiptEnv,
+    startVisibleFingerprint: visibleFingerprint, operatorAvailable: true }), "does not match expected state");
+  assert.equal(bridgeFiles.length, 0, "Failed bridge stage advanced the completed receipt chain");
 
   await fs.rm(temp, { recursive: true, force: true });
   console.log("ACT7 071 source gate tests passed.");

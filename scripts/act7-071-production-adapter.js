@@ -4,6 +4,8 @@ const crypto = require("node:crypto");
 const {
   ROLLBACK_BRANCH,
   comparePostRecovery,
+  executionContext,
+  persistAndValidateExternalSqlStage,
   runGuardedAttempt,
   verifyRollbackPublicBytes,
 } = require("./act7-071-source-gates");
@@ -44,12 +46,12 @@ async function pinnedSql(spec) {
   return sql;
 }
 function requireOperator(operator) {
-  for (const name of ["captureAdmissionCatalog", "executeExactSql", "awaitPagesSelection", "runControlledFixture"])
+  for (const name of ["captureAdmissionCatalog", "awaitExternalSqlEvidence", "awaitPagesSelection", "runControlledFixture"])
     invariant(typeof operator?.[name] === "function", `071 production adapter requires operator.${name}`);
 }
 
 async function run071ProductionAdapter({ operator, env = process.env, files, deploymentRunId,
-  rollbackDeploymentRunId, probeFetch = fetch, githubFetch = fetch, publicFetch = fetch }) {
+  rollbackDeploymentRunId, receiptPlan, probeFetch = fetch, githubFetch = fetch, publicFetch = fetch }) {
   requireOperator(operator);
   invariant(env.ACT7_071_PRODUCTION_AUTHORIZED === "YES",
     "Separate Teacher production authorization is required");
@@ -58,15 +60,41 @@ async function run071ProductionAdapter({ operator, env = process.env, files, dep
   const [migrationSql, recoverySql, rows] = await Promise.all([
     pinnedSql(MIGRATION), pinnedSql(RECOVERY), operator.captureAdmissionCatalog(),
   ]);
+  const startVisibleFingerprint = executionContext(env).visible_fingerprint;
+  const attemptReceipts = [];
+  const recoveryReceipts = [];
+  const stageSql = { freeze: FREEZE_SQL, migration: migrationSql, "acl-restore": RESTORE_SQL,
+    recovery: recoverySql, "recovery-acl-restore": RESTORE_SQL };
+  const recordSqlStage = async ({ stage, name, sql, chain }) => {
+    const plan = receiptPlan?.[stage];
+    invariant(plan?.receiptFile && plan?.corroborationQuerySha256 && plan?.corroborationSha256,
+      `071 adapter requires receipt plan for ${stage}`);
+    const statementSha256 = crypto.createHash("sha256").update(sql).digest("hex");
+    const evidence = await operator.awaitExternalSqlEvidence({ stage, name, sql, statementSha256,
+      operationId: env.ACT7_071_EXECUTION_CONTEXT_ID, corroborationQuerySha256: plan.corroborationQuerySha256,
+      humanRequired: true });
+    const expectedStages = Object.entries(receiptPlan).filter(([, value]) => value.chain === chain)
+      .sort((a, b) => a[1].sequence - b[1].sequence).map(([expectedStage, value]) => ({ stage: expectedStage,
+        statementSha256: crypto.createHash("sha256").update(stageSql[expectedStage]).digest("hex"),
+        corroborationQuerySha256: value.corroborationQuerySha256,
+        corroborationSha256: value.corroborationSha256 }));
+    invariant(expectedStages.every(item => /^[0-9a-f]{64}$/.test(item.statementSha256 || "")),
+      `071 adapter receipt plan has unpinned SQL digest for ${chain}`);
+    return persistAndValidateExternalSqlStage({ evidence: { ...evidence, stage, statementSha256,
+      corroborationQuerySha256: plan.corroborationQuerySha256 }, receiptFile: plan.receiptFile,
+      completedFiles: chain === "attempt" ? attemptReceipts : recoveryReceipts, expectedStages,
+      operationId: env.ACT7_071_EXECUTION_CONTEXT_ID, env, startVisibleFingerprint,
+      operatorAvailable: evidence?.operatorAvailable === true });
+  };
   return runGuardedAttempt({
     env, rows, prefreezeFile: files.prefreeze, preMutationNetworkFile: files.preMutationNetwork,
     candidateFile: files.candidate, fixtureNetworkFile: files.fixtureNetwork, deploymentRunId,
     probeFetch, githubFetch, publicFetch,
-    executeFreeze: () => operator.executeExactSql({ name: "071-admission-freeze", sql: FREEZE_SQL }),
-    applyMigration: () => operator.executeExactSql({ name: MIGRATION.name, sha256: MIGRATION.sha256, sql: migrationSql }),
+    executeFreeze: () => recordSqlStage({ stage: "freeze", name: "071-admission-freeze", sql: FREEZE_SQL, chain: "attempt" }),
+    applyMigration: () => recordSqlStage({ stage: "migration", name: MIGRATION.name, sql: migrationSql, chain: "attempt" }),
     requestCandidatePagesSwitch: request => operator.awaitPagesSelection({ ...request,
       humanRequired: true, acknowledgement: "PAGES_CANDIDATE_SAVED: <timestamp>" }),
-    restoreAdmissionAcl: () => operator.executeExactSql({ name: "071-admission-restore", sql: RESTORE_SQL }),
+    restoreAdmissionAcl: () => recordSqlStage({ stage: "acl-restore", name: "071-admission-restore", sql: RESTORE_SQL, chain: "attempt" }),
     runFixture: context => operator.runControlledFixture(context),
     recoverAfterFreeze: async ({ boundary, cause, snapshot }) => {
       await operator.awaitPagesSelection({ branch: ROLLBACK_BRANCH, folder: "/(root)", humanRequired: true,
@@ -74,8 +102,8 @@ async function run071ProductionAdapter({ operator, env = process.env, files, dep
         failure: String(cause?.message || cause) });
       await verifyRollbackPublicBytes({ outputFile: files.rollbackProof, githubFetch, publicFetch,
         deploymentRunId: rollbackDeploymentRunId, operationId: env.ACT7_071_EXECUTION_CONTEXT_ID });
-      await operator.executeExactSql({ name: RECOVERY.name, sha256: RECOVERY.sha256, sql: recoverySql });
-      await operator.executeExactSql({ name: "071-admission-restore", sql: RESTORE_SQL });
+      await recordSqlStage({ stage: "recovery", name: RECOVERY.name, sql: recoverySql, chain: "recovery" });
+      await recordSqlStage({ stage: "recovery-acl-restore", name: "071-admission-restore", sql: RESTORE_SQL, chain: "recovery" });
       const recoveredRows = await operator.captureAdmissionCatalog();
       await comparePostRecovery(files.prefreeze, recoveredRows);
       return { recovered: true, boundary, snapshot_sha256: snapshot.sha256 };

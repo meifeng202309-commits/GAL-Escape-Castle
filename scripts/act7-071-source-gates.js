@@ -133,7 +133,7 @@ async function comparePostRecovery(snapshotFile, rows) {
 }
 async function persistSqlStageReceipt({ outputFile, operationId, stage, sequence, previousSha256 = null,
   statementSha256, response, responseCapturedAt, corroborationQuerySha256, corroborationRows,
-  corroborationCapturedAt, operatorConfirmation }) {
+  corroborationCapturedAt, operatorConfirmation, responseTranscriptRef, corroborationTranscriptRef }) {
   invariant(operationId && stage && Number.isInteger(sequence) && sequence > 0,
     "SQL receipt requires operation ID, stage and positive sequence");
   invariant(/^[0-9a-f]{64}$/.test(statementSha256 || ""), "SQL receipt requires pinned statement SHA-256");
@@ -146,6 +146,9 @@ async function persistSqlStageReceipt({ outputFile, operationId, stage, sequence
   invariant(Date.parse(corroborationCapturedAt) >= Date.parse(responseCapturedAt),
     "SQL receipt corroboration predates the connector response");
   invariant(String(operatorConfirmation || "").trim(), "SQL receipt requires operator confirmation");
+  invariant(String(responseTranscriptRef || "").trim() && String(corroborationTranscriptRef || "").trim()
+    && responseTranscriptRef !== corroborationTranscriptRef,
+  "SQL receipt requires distinct retained connector transcript references");
   const unsigned = {
     schema: SCHEMA, kind: "sql-stage-receipt", operation_id: operationId, stage, sequence,
     previous_sha256: previousSha256, statement_sha256: statementSha256,
@@ -154,6 +157,8 @@ async function persistSqlStageReceipt({ outputFile, operationId, stage, sequence
     corroboration_captured_at: new Date(corroborationCapturedAt).toISOString(),
     corroboration_rows: stable(corroborationRows), corroboration_sha256: digest(corroborationRows),
     operator_confirmation: String(operatorConfirmation),
+    response_transcript_ref: String(responseTranscriptRef),
+    corroboration_transcript_ref: String(corroborationTranscriptRef),
     origin_attestation: "NOT_PROVIDED_COPY_INTEGRITY_ONLY",
   };
   const artifact = { ...unsigned, sha256: digest(unsigned) };
@@ -195,11 +200,28 @@ async function validateSqlReceiptChain({ files, expectedStages, operationId, env
     `SQL receipt timestamps are stale or unordered at ${expected.stage}`);
     invariant(String(receipt.operator_confirmation || "").trim(),
       `SQL receipt operator confirmation missing at ${expected.stage}`);
+    invariant(String(receipt.response_transcript_ref || "").trim()
+      && String(receipt.corroboration_transcript_ref || "").trim()
+      && receipt.response_transcript_ref !== receipt.corroboration_transcript_ref,
+    `SQL receipt lacks separate retained connector transcripts at ${expected.stage}`);
     previous = receipt.sha256;
     previousTime = corroborationTime;
     receipts.push(receipt);
   }
   return { ok: true, operation_id: operationId, stages: receipts.map(item => item.stage), final_sha256: previous };
+}
+async function persistAndValidateExternalSqlStage({ evidence, receiptFile, completedFiles, expectedStages,
+  operationId, env, startVisibleFingerprint, operatorAvailable }) {
+  invariant(evidence && typeof evidence === "object", "External SQL stage evidence is absent");
+  const previous = completedFiles.length
+    ? await readArtifact(completedFiles[completedFiles.length - 1], "sql-stage-receipt") : null;
+  const receipt = await persistSqlStageReceipt({ ...evidence, outputFile: receiptFile, operationId,
+    sequence: completedFiles.length + 1, previousSha256: previous?.sha256 || null });
+  const files = [...completedFiles, receiptFile];
+  await validateSqlReceiptChain({ files, expectedStages: expectedStages.slice(0, files.length), operationId,
+    env, startVisibleFingerprint, operatorAvailable });
+  completedFiles.push(receiptFile);
+  return receipt;
 }
 function assertWorkflowIdentity(run, { deploymentRunId, branch, commit }) {
   invariant(String(run?.id) === String(deploymentRunId)
@@ -344,6 +366,8 @@ module.exports = {
   comparePostRecovery,
   persistSqlStageReceipt,
   validateSqlReceiptChain,
+  persistAndValidateExternalSqlStage,
+  executionContext,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
   assertSourceGateProofs,
