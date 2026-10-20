@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T07:40:00Z
+> Last refreshed: 2026-10-20T08:05:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_ROLLBACK_SHA_FIXED / SPLIT_BOUNDARY_PLANNING_ONLY / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — concise existing-tool cross-boundary plan, no implementation
-NEXT_REQUIRED_ACTION  = CD deliver one short stage/receipt/STOP/recovery proposal using existing Supabase connector, Node and Teacher Pages; no source architecture or production execution.
+CURRENT_GATE          = ACT7_071_SPLIT_BOUNDARY_PROPOSAL_READY / CA_TEACHER_DECISION / PRODUCTION_HOLD
+CURRENT_OWNER         = CA / Teacher — review minimal receipt/resume contract
+NEXT_REQUIRED_ACTION  = Accept, revise or reject CD-123 split-boundary proposal and decide whether its minimal receipt validator may be implemented; no production execution.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
