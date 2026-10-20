@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T21:00:00Z
+> Last refreshed: 2026-10-20T21:40:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_MINIMAL_OPERATOR_HOST_SOURCE_REVIEW / BOUNDED_TIMEOUT_CLI_SMOKE_REQUIRED / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — targeted host timeout and spawned CLI nonmutating tests
-NEXT_REQUIRED_ACTION  = CD add bounded operator response timeout and real spawned CLI smoke/negative tests; prove failure incident without claiming unavailable rollback. No production actions.
+CURRENT_GATE          = ACT7_071_OPERATOR_HOST_SOURCE_PASS / LIVE_READONLY_BRIDGE_PENDING / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — actual persistent CLI + connector read-only bridge proof
+NEXT_REQUIRED_ACTION  = CD demonstrate real read-only connector transcript handoff into persistent CLI or report minimal blocker; no SQL mutation/Pages Save/fixture.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-269
+CA_CHECKPOINT = CA-270
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
