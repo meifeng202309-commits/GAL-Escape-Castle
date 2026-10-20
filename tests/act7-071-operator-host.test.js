@@ -2,14 +2,14 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs/promises");
 const path = require("node:path");
 const crypto = require("node:crypto");
-const { execFileSync } = require("node:child_process");
+const { execFileSync, spawn } = require("node:child_process");
 const { PassThrough } = require("node:stream");
 const readline = require("node:readline");
 process.env.NODE_ENV = "test";
 
 const { ADMISSION_SIGNATURES, CANDIDATE_BRANCH, CANDIDATE_COMMIT, CANDIDATE_FILES,
   ROLLBACK_BRANCH, ROLLBACK_COMMIT, ROLLBACK_FILES } = require("../scripts/act7-071-source-gates");
-const { PROCEDURE, runOperatorHost } = require("../scripts/act7-071-operator-host");
+const { PROCEDURE, createProcedureBridge, runOperatorHost } = require("../scripts/act7-071-operator-host");
 
 const rows = ADMISSION_SIGNATURES.map((signature, index) => ({
   signature, owner: "postgres", security_definer: true, search_path: ["search_path=public"],
@@ -114,9 +114,90 @@ async function exercise({ failCandidate }) {
   await fs.rm(root, { recursive: true, force: true });
 }
 
+async function exerciseBridgeFailures() {
+  const timedInput = new PassThrough(), timedOutput = new PassThrough();
+  const timed = createProcedureBridge({ input: timedInput, output: timedOutput,
+    operationId: "timeout", responseTimeoutMs: 100 });
+  await assert.rejects(timed.request("silent_boundary", {}), /timeout.*rollback is not verified/);
+  timedInput.write(`${JSON.stringify({ type: "operator_response", procedure: PROCEDURE,
+    operation_id: "timeout", request_id: "late", approved: true, result: {} })}\n`);
+  timed.close(); timedInput.destroy(); timedOutput.destroy();
+
+  const closedInput = new PassThrough(), closedOutput = new PassThrough();
+  const closed = createProcedureBridge({ input: closedInput, output: closedOutput,
+    operationId: "closed", responseTimeoutMs: 500 });
+  const pending = closed.request("stream_lost", {});
+  closedInput.end();
+  await assert.rejects(pending, /closed.*rollback is not verified/);
+  closedOutput.destroy();
+}
+
+async function exerciseSpawnedCli({ failCandidate, loseRollbackOperator = false }) {
+  const root = await fs.mkdtemp(path.join(process.cwd(), ".act7-071-host-cli-test-"));
+  const operationId = `cli-${failCandidate ? "stop" : "complete"}-${loseRollbackOperator ? "incident" : "available"}`;
+  const { config, stageRows } = makeConfig(root, operationId);
+  config.operatorResponseTimeoutMs = 150;
+  config.testFailCandidate = failCandidate;
+  const configPath = path.join(root, "config.json");
+  await fs.writeFile(configPath, JSON.stringify(config));
+  const child = spawn(process.execPath, ["scripts/act7-071-operator-host.js", configPath], {
+    cwd: process.cwd(), stdio: ["pipe", "pipe", "pipe"], env: { ...process.env, NODE_ENV: "test",
+      ACT7_071_EXECUTION_CONTEXT_ID: operationId, ACT7_071_PRODUCTION_AUTHORIZED: "YES",
+      ACT7_071_EVIDENCE_PAUSE: "YES",
+      ACT7_071_HOST_TEST_DRIVER: path.join(process.cwd(), "tests/helpers/act7-071-operator-host-driver.js") },
+  });
+  const events = [];
+  let sequence = 0;
+  readline.createInterface({ input: child.stdout, crlfDelay: Infinity }).on("line", line => {
+    const message = JSON.parse(line); events.push(message);
+    if (message.type !== "operator_request") return;
+    if (loseRollbackOperator && message.kind === "pages_selection" && message.payload.branch === ROLLBACK_BRANCH) return;
+    let result;
+    if (message.kind === "capture_admission_catalog") result = rows;
+    if (message.kind === "pages_selection") result = { branch: message.payload.branch, folder: message.payload.folder,
+      deploymentRunId: message.payload.branch === ROLLBACK_BRANCH ? 456 : 123,
+      acknowledgement: "MOCK_PAGES_ACK" };
+    if (message.kind === "external_sql_evidence") {
+      sequence += 1;
+      const stage = message.payload.stage;
+      result = { operatorAvailable: true, response: { success: true, mock: true },
+        responseCapturedAt: new Date(Date.UTC(2026, 9, 20, 21, 0, sequence * 2)).toISOString(),
+        corroborationRows: stageRows[stage],
+        corroborationCapturedAt: new Date(Date.UTC(2026, 9, 20, 21, 0, sequence * 2 + 1)).toISOString(),
+        operatorConfirmation: "MOCK_EXTERNAL_PROCEDURE_CAPTURED",
+        responseTranscriptRef: `cli-${stage}-response`, corroborationTranscriptRef: `cli-${stage}-readback` };
+    }
+    child.stdin.write(`${JSON.stringify({ type: "operator_response", procedure: PROCEDURE,
+      operation_id: operationId, request_id: message.request_id, approved: true, result })}\n`);
+  });
+  let stderr = ""; child.stderr.on("data", chunk => { stderr += chunk; });
+  const exitCode = await new Promise((resolve, reject) => {
+    child.on("error", reject); child.on("close", resolve);
+  });
+  if (!failCandidate) {
+    assert.equal(exitCode, 0, stderr);
+    assert(events.some(event => event.type === "host_complete"), "Spawned CLI omitted complete evidence");
+  } else {
+    assert.notEqual(exitCode, 0, "Spawned STOP path unexpectedly succeeded");
+    assert(events.some(event => event.type === "host_failed"), "Spawned CLI omitted STOP evidence");
+    assert.equal(events.some(event => event.type === "host_complete"), false);
+  }
+  if (loseRollbackOperator) {
+    const incident = events.find(event => event.type === "host_incident");
+    assert(incident && incident.rollback_verified === false
+      && incident.production_state === "UNKNOWN_REQUIRES_MANUAL_INCIDENT_RESPONSE",
+    "Unavailable rollback operator did not emit explicit unverified incident evidence");
+  }
+  await fs.rm(root, { recursive: true, force: true });
+}
+
 async function main() {
+  await exerciseBridgeFailures();
   await exercise({ failCandidate: false });
   await exercise({ failCandidate: true });
+  await exerciseSpawnedCli({ failCandidate: false });
+  await exerciseSpawnedCli({ failCandidate: true });
+  await exerciseSpawnedCli({ failCandidate: true, loseRollbackOperator: true });
   console.log("ACT7 071 operator host tests passed.");
 }
 

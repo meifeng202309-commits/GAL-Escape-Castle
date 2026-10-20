@@ -5,11 +5,16 @@ const { run071ProductionAdapter } = require("./act7-071-production-adapter");
 const { executionContext } = require("./act7-071-source-gates");
 
 const PROCEDURE = "CD_EXTERNAL_OPERATOR_V1";
+const MIN_RESPONSE_TIMEOUT_MS = 100;
+const MAX_RESPONSE_TIMEOUT_MS = 900000;
 
 function invariant(value, message) { if (!value) throw new Error(message); }
 
-function createProcedureBridge({ input = process.stdin, output = process.stdout, operationId }) {
+function createProcedureBridge({ input = process.stdin, output = process.stdout, operationId, responseTimeoutMs = 300000 }) {
   invariant(operationId, "Operator bridge requires an operation ID");
+  invariant(Number.isInteger(responseTimeoutMs) && responseTimeoutMs >= MIN_RESPONSE_TIMEOUT_MS
+    && responseTimeoutMs <= MAX_RESPONSE_TIMEOUT_MS,
+  `Operator response timeout must be ${MIN_RESPONSE_TIMEOUT_MS}-${MAX_RESPONSE_TIMEOUT_MS} ms`);
   const pending = new Map();
   const lines = readline.createInterface({ input, crlfDelay: Infinity });
   const write = value => output.write(`${JSON.stringify(value)}\n`);
@@ -21,16 +26,26 @@ function createProcedureBridge({ input = process.stdin, output = process.stdout,
     const waiter = pending.get(message.request_id);
     if (!waiter) return;
     pending.delete(message.request_id);
+    clearTimeout(waiter.timeout);
     waiter.resolve(message.result);
   });
   lines.on("close", () => {
-    for (const waiter of pending.values()) waiter.reject(new Error("Operator bridge closed with a pending request"));
+    for (const waiter of pending.values()) {
+      clearTimeout(waiter.timeout);
+      waiter.reject(new Error("Operator bridge closed with a pending request; rollback is not verified"));
+    }
     pending.clear();
   });
   async function request(kind, payload) {
     invariant(pending.size === 0, "Operator bridge allows only one ordered pending request");
     const requestId = crypto.randomUUID();
-    const response = new Promise((resolve, reject) => pending.set(requestId, { resolve, reject }));
+    const response = new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        pending.delete(requestId);
+        reject(new Error(`Operator response timeout at ${kind}; rollback is not verified`));
+      }, responseTimeoutMs);
+      pending.set(requestId, { resolve, reject, timeout });
+    });
     write({ type: "operator_request", procedure: PROCEDURE, operation_id: operationId,
       request_id: requestId, kind, payload });
     return response;
@@ -42,7 +57,8 @@ async function runOperatorHost({ config, env = process.env, input, output, adapt
   probeFetch = fetch, githubFetch = fetch, publicFetch = fetch, fixtureRunner }) {
   invariant(config?.schema === "gal.act7-071.operator-host.v1", "Invalid operator-host config schema");
   invariant(env.ACT7_071_EXECUTION_CONTEXT_ID === config.operationId, "Config and environment operation IDs differ");
-  const bridge = createProcedureBridge({ input, output, operationId: config.operationId });
+  const bridge = createProcedureBridge({ input, output, operationId: config.operationId,
+    responseTimeoutMs: config.operatorResponseTimeoutMs });
   const context = executionContext(env);
   bridge.write({ type: "host_ready", procedure: PROCEDURE, operation_id: config.operationId,
     visible_fingerprint: context.visible_fingerprint, production_authorized: env.ACT7_071_PRODUCTION_AUTHORIZED === "YES" });
@@ -77,6 +93,9 @@ async function runOperatorHost({ config, env = process.env, input, output, adapt
     bridge.write({ type: "host_complete", operation_id: config.operationId, result });
     return result;
   } catch (error) {
+    if (error instanceof AggregateError) bridge.write({ type: "host_incident", operation_id: config.operationId,
+      rollback_verified: false, production_state: "UNKNOWN_REQUIRES_MANUAL_INCIDENT_RESPONSE",
+      error: String(error?.message || error), causes: [...error.errors].map(item => String(item?.message || item)) });
     bridge.write({ type: "host_failed", operation_id: config.operationId, error: String(error?.message || error) });
     throw error;
   } finally {
@@ -88,17 +107,21 @@ async function cli() {
   const configPath = process.argv[2];
   invariant(configPath && process.argv.length === 3, "Usage: node scripts/act7-071-operator-host.js <config.json>");
   const config = JSON.parse(await fs.readFile(configPath, "utf8"));
-  const fixtureRunner = async context => {
+  let overrides = {};
+  if (process.env.NODE_ENV === "test" && process.env.ACT7_071_HOST_TEST_DRIVER)
+    overrides = await require(process.env.ACT7_071_HOST_TEST_DRIVER)(config);
+  const fixtureRunner = overrides.fixtureRunner || (async context => {
     invariant(envProductionAuthorized(), "Live fixture is unavailable without explicit production authorization");
     return require("../tests/act7-071-controlled-acceptance").runCoordinatedAcceptance(context);
-  };
-  await runOperatorHost({ config, fixtureRunner });
+  });
+  await runOperatorHost({ config, fixtureRunner, ...overrides });
 }
 
 function envProductionAuthorized(env = process.env) {
   return env.ACT7_071_PRODUCTION_AUTHORIZED === "YES" && env.ACT7_071_EVIDENCE_PAUSE === "YES";
 }
 
-module.exports = { PROCEDURE, createProcedureBridge, envProductionAuthorized, runOperatorHost };
+module.exports = { PROCEDURE, MIN_RESPONSE_TIMEOUT_MS, MAX_RESPONSE_TIMEOUT_MS,
+  createProcedureBridge, envProductionAuthorized, runOperatorHost };
 
 if (require.main === module) cli().catch(error => { console.error(error.stack || error); process.exitCode = 1; });
