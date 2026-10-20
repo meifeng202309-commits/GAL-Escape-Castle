@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T04:45:00Z
+> Last refreshed: 2026-10-20T06:20:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_OPERATOR_HOST_BLOCKED + ROLLBACK_IDENTITY_SOURCE_MISMATCH / PRODUCTION_HOLD
-CURRENT_OWNER         = CA / Teacher — host-architecture and minimal source-correction decision
-NEXT_REQUIRED_ACTION  = Decide whether to provision a same-process SQL-capable Node host or revise the execution-boundary model; separately authorize correction of the rollback commit identity. No production operation.
+CURRENT_GATE          = ACT7_071_OPERATOR_HOST_BLOCKED / ROLLBACK_SHA_SOURCE_FIX / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — bounded rollback identity source correction and host options read-only memo
+NEXT_REQUIRED_ACTION  = CD fix verified rollback SHA with negative tests, compare split-boundary versus provisioned host without implementation; return to CA. Production HOLD.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-256
+CA_CHECKPOINT = CA-257
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
