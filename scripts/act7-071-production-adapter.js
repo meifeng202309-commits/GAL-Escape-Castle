@@ -97,11 +97,12 @@ async function run071ProductionAdapter({ operator, env = process.env, files, dep
     restoreAdmissionAcl: () => recordSqlStage({ stage: "acl-restore", name: "071-admission-restore", sql: RESTORE_SQL, chain: "attempt" }),
     runFixture: context => operator.runControlledFixture(context),
     recoverAfterFreeze: async ({ boundary, cause, snapshot }) => {
-      await operator.awaitPagesSelection({ branch: ROLLBACK_BRANCH, folder: "/(root)", humanRequired: true,
+      const rollbackAcknowledgement = await operator.awaitPagesSelection({ branch: ROLLBACK_BRANCH, folder: "/(root)", humanRequired: true,
         acknowledgement: "PAGES_ROLLBACK_SAVED: <timestamp>", recoveryOfBoundary: boundary,
         failure: String(cause?.message || cause) });
       await verifyRollbackPublicBytes({ outputFile: files.rollbackProof, githubFetch, publicFetch,
-        deploymentRunId: rollbackDeploymentRunId, operationId: env.ACT7_071_EXECUTION_CONTEXT_ID });
+        deploymentRunId: rollbackAcknowledgement?.deploymentRunId ?? rollbackDeploymentRunId,
+        operationId: env.ACT7_071_EXECUTION_CONTEXT_ID });
       await recordSqlStage({ stage: "recovery", name: RECOVERY.name, sql: recoverySql, chain: "recovery" });
       await recordSqlStage({ stage: "recovery-acl-restore", name: "071-admission-restore", sql: RESTORE_SQL, chain: "recovery" });
       const recoveredRows = await operator.captureAdmissionCatalog();

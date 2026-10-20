@@ -329,13 +329,18 @@ async function runGuardedAttempt({
   await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co", outputFile: preMutationNetworkFile, env, fetchImpl: probeFetch });
   const snapshot = await persistPreFreezeSnapshot(rows, prefreezeFile, new Date(), env.ACT7_071_EXECUTION_CONTEXT_ID);
   let candidate;
+  let candidateDeploymentRunId = deploymentRunId;
   return runFailClosedSequence([
     { name: "freeze", run: () => executeFreeze({ snapshot }) },
     { name: "migration", run: () => applyMigration({ snapshot }) },
-    { name: "candidate-pages-switch", run: () => requestCandidatePagesSwitch({ branch: CANDIDATE_BRANCH, folder: "/(root)", snapshot }) },
+    { name: "candidate-pages-switch", run: async () => {
+      const acknowledgement = await requestCandidatePagesSwitch({ branch: CANDIDATE_BRANCH, folder: "/(root)", snapshot });
+      if (acknowledgement?.deploymentRunId != null) candidateDeploymentRunId = acknowledgement.deploymentRunId;
+      return acknowledgement;
+    } },
     { name: "candidate-public-proof", run: async () => {
       candidate = await verifyCandidatePublicBytes({ outputFile: candidateFile, githubFetch, publicFetch,
-        deploymentRunId, operationId: env.ACT7_071_EXECUTION_CONTEXT_ID });
+        deploymentRunId: candidateDeploymentRunId, operationId: env.ACT7_071_EXECUTION_CONTEXT_ID });
       return assertSourceGateProofs({ ...env, ACT7_071_PREFREEZE_SNAPSHOT: prefreezeFile,
         ACT7_071_CANDIDATE_PROOF: candidateFile });
     } },
