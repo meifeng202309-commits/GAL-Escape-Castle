@@ -1,7 +1,7 @@
 # CA-262 split-boundary read-only operational readiness
 
 Timestamp: 2026-10-20T13:30:00Z
-Status: **TECHNICAL READINESS PASS / TEACHER PAGES READINESS PENDING / PRODUCTION HOLD**
+Status: **NON-MUTATING OPERATIONAL READINESS COMPLETE / CA REVIEW / PRODUCTION HOLD**
 
 Operation ID: `act7-071-readiness-ca262`
 
@@ -27,18 +27,16 @@ One external-network Node process (`pid=19232`, visible fingerprint `97f3ac80…
 
 The rehearsal did not call the controlled fixture and did not set any `ACT7_071_PRODUCTION_AUTHORIZED` flag.
 
-## Remaining blocker
+## Teacher Pages operator readiness
 
-No fresh Teacher confirmation establishes that the GitHub Pages settings tab is currently available and the human operator is ready for both candidate Save and immediate rollback. Prior readiness tokens belonged to consumed/closed windows and cannot be reused. Architecture approval alone is not operational availability.
-
-Required non-mutating acknowledgement:
+Teacher opened the repository Pages settings and supplied a fresh acknowledgement for this readiness window:
 
 ```text
 PAGES_OPERATOR_READY: rollback=deploy/manual-acceptance-20261003 candidate=deploy/act7-071-20261017 root=/(root)
 ```
 
-This acknowledgement must not be accompanied by selecting a branch or clicking Save. Even after it is supplied, production remains HOLD until a separate explicit authorization.
+CD instructed Teacher not to select another branch or click Save. No Pages change was requested or reported. This closes the human-availability item only; production remains HOLD until a separate explicit authorization.
 
 No SQL/ACL mutation, Pages selection/Save, fixture, credential provisioning or production record change occurred.
 
-NEXT_OWNER: Teacher — provide or decline the fresh Pages readiness acknowledgement. Then CA reviews the complete non-mutating readiness packet. Production remains HOLD.
+NEXT_OWNER: CA — review the complete non-mutating readiness packet and decide whether any separate production-authorization request may proceed. Production remains HOLD.

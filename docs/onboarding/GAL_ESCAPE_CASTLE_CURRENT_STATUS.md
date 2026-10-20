@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T13:30:00Z
+> Last refreshed: 2026-10-20T13:40:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_TECHNICAL_READONLY_READINESS_PASS / TEACHER_PAGES_READINESS_PENDING / PRODUCTION_HOLD
-CURRENT_OWNER         = Teacher — fresh non-mutating Pages operator readiness acknowledgement
-NEXT_REQUIRED_ACTION  = Teacher provide or decline the exact Pages readiness token without selecting a branch or clicking Save; then CA reviews CD-126 packet. No production authorization.
+CURRENT_GATE          = ACT7_071_NONMUTATING_OPERATIONAL_READINESS_COMPLETE / CA_REVIEW / PRODUCTION_HOLD
+CURRENT_OWNER         = CA — review complete split-boundary readiness packet
+NEXT_REQUIRED_ACTION  = CA review CD-126/CD-127 technical receipts and fresh Teacher Pages readiness; decide next gate. No production authorization exists.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
