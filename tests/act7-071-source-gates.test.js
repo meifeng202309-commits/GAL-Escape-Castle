@@ -7,6 +7,8 @@ const {
   ADMISSION_SIGNATURES,
   CANDIDATE_COMMIT,
   CANDIDATE_FILES,
+  ROLLBACK_BRANCH,
+  ROLLBACK_COMMIT,
   PUBLIC_BASE_URL,
   comparePostRecovery,
   persistPreFreezeSnapshot,
@@ -14,6 +16,7 @@ const {
   assertSourceGateProofs,
   verifyCandidatePublicBytes,
   runGuardedAttempt,
+  assertWorkflowIdentity,
   __testOnlyRunFailClosedSequence,
 } = require("../scripts/act7-071-source-gates");
 
@@ -38,12 +41,21 @@ async function main() {
   const candidate = path.join(temp, "candidate.json");
   const network = path.join(temp, "network.json");
   const run = { id: 123, name: "pages build and deployment", head_branch: "deploy/act7-071-20261017", head_sha: CANDIDATE_COMMIT, status: "completed", conclusion: "success" };
+  const rollbackRun = { id: 39206010849, name: "pages build and deployment", head_branch: ROLLBACK_BRANCH,
+    head_sha: "891feffe558a4683ac3da67e1e6b15e902c7e592", status: "completed", conclusion: "success" };
   const githubFetch = async () => ({ status: 200, json: async () => run });
   const publicFetch = async url => ({ status: 200, url, arrayBuffer: async () => Buffer.from(url) });
   await persistPreFreezeSnapshot(rows, snapshot, new Date("2026-10-19T00:00:00Z"), "test-context");
   await comparePostRecovery(snapshot, rows);
   await expectReject(comparePostRecovery(snapshot, rows.map((row, i) => i ? row : { ...row, acl: "drift" })), "does not exactly match");
   await expectReject(persistPreFreezeSnapshot(rows.slice(1), path.join(temp, "bad.json"), new Date(), "test-context"), "exactly six");
+  assert.equal(ROLLBACK_COMMIT, rollbackRun.head_sha, "Rollback constant does not equal the reviewed exact identity");
+  assert.deepEqual(assertWorkflowIdentity(rollbackRun, {
+    deploymentRunId: 39206010849, branch: ROLLBACK_BRANCH, commit: ROLLBACK_COMMIT,
+  }), { run_id: "39206010849", branch: ROLLBACK_BRANCH, commit: ROLLBACK_COMMIT, conclusion: "success" });
+  assert.throws(() => assertWorkflowIdentity({ ...rollbackRun, head_sha: "891feffe40f3d2a1169c28d82085900c0edb72bd" }, {
+    deploymentRunId: 39206010849, branch: ROLLBACK_BRANCH, commit: ROLLBACK_COMMIT,
+  }), /workflow identity/);
 
   await expectReject(assertSourceGateProofs({ ACT7_071_PREFREEZE_SNAPSHOT: snapshot }), "ACT7_071_CANDIDATE_PROOF");
   await expectReject(verifyCandidatePublicBytes({

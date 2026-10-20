@@ -23,7 +23,7 @@ const CANDIDATE_FILES = Object.freeze({
   "/src/styles/app.css": "3a375c87aeec797e2b32f8ba383d91af9ef6f9e9d01bb40cf0e3faa0f04ead7c",
 });
 const ROLLBACK_BRANCH = "deploy/manual-acceptance-20261003";
-const ROLLBACK_COMMIT = "891feffe40f3d2a1169c28d82085900c0edb72bd";
+const ROLLBACK_COMMIT = "891feffe558a4683ac3da67e1e6b15e902c7e592";
 const ROLLBACK_FILES = Object.freeze({
   "/index.html": "1da4904ed40496b3ade206893969ce46278cf1d50debcac41ca96fac476609c4",
   "/teacher.html": "d2f7b8f0bfc07912fb484004d2aff8a87a20d3e8d99b0f98e25fd5a28b72950f",
@@ -114,6 +114,15 @@ async function comparePostRecovery(snapshotFile, rows) {
   invariant(JSON.stringify(before.rows) === JSON.stringify(after), "Post-recovery catalog does not exactly match persisted pre-freeze snapshot");
   return { ok: true, snapshot_sha256: before.sha256, compared_rows: after.length };
 }
+function assertWorkflowIdentity(run, { deploymentRunId, branch, commit }) {
+  invariant(String(run?.id) === String(deploymentRunId)
+    && run.name === "pages build and deployment"
+    && run.head_branch === branch
+    && run.head_sha === commit
+    && run.status === "completed" && run.conclusion === "success",
+  "Live GitHub workflow identity does not match the reviewed deployment");
+  return { run_id: String(run.id), branch: run.head_branch, commit: run.head_sha, conclusion: run.conclusion };
+}
 async function verifyDeploymentPublicBytes({ outputFile, githubFetch = fetch, publicFetch = fetch, now = new Date(), deploymentRunId,
   operationId, branch, commit, expectedFiles, kind }) {
   invariant(operationId, "Candidate public-byte proof requires the pinned operation context ID");
@@ -121,13 +130,7 @@ async function verifyDeploymentPublicBytes({ outputFile, githubFetch = fetch, pu
   const runResponse = await githubFetch(`${GITHUB_RUN_API_PREFIX}${deploymentRunId}`, { method: "GET", cache: "no-store" });
   invariant(runResponse.status === 200, `Candidate workflow identity lookup failed HTTP ${runResponse.status}`);
   const run = await runResponse.json();
-  invariant(String(run.id) === String(deploymentRunId)
-    && run.name === "pages build and deployment"
-    && run.head_branch === branch
-    && run.head_sha === commit
-    && run.status === "completed" && run.conclusion === "success",
-  "Live GitHub workflow identity does not match the reviewed candidate deployment");
-  const deployment = { run_id: String(run.id), branch: run.head_branch, commit: run.head_sha, conclusion: run.conclusion };
+  const deployment = assertWorkflowIdentity(run, { deploymentRunId, branch, commit });
   const files = [];
   for (const [filePath, expected] of Object.entries(expectedFiles)) {
     const url = `${PUBLIC_BASE_URL}${filePath}?act7_071=${now.getTime()}`;
@@ -250,6 +253,7 @@ module.exports = {
   ROLLBACK_COMMIT,
   ROLLBACK_FILES,
   PUBLIC_BASE_URL,
+  assertWorkflowIdentity,
   comparePostRecovery,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
