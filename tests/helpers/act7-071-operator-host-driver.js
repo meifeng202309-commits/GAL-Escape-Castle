@@ -15,12 +15,14 @@ module.exports = async config => {
       const id = String(url).split("/").pop();
       proofBranch = id === "456" ? ROLLBACK_BRANCH : CANDIDATE_BRANCH;
       return { status: 200, json: async () => ({ id: Number(id), name: "pages build and deployment",
-        head_branch: proofBranch, head_sha: proofBranch === ROLLBACK_BRANCH ? ROLLBACK_COMMIT : CANDIDATE_COMMIT,
+        head_branch: proofBranch, head_sha: config.testWrongRollbackIdentity && id === "456" ? "bad" :
+          (proofBranch === ROLLBACK_BRANCH ? ROLLBACK_COMMIT : CANDIDATE_COMMIT),
         status: "completed", conclusion: config.testFailCandidate && id === "123" ? "failure" : "success" }) };
     },
     publicFetch: async url => {
       const pathname = new URL(url).pathname.replace("/GAL-Escape-Castle", "");
-      const bytes = (proofBranch === ROLLBACK_BRANCH ? rollback : candidate)[pathname];
+      const bytes = config.testWrongPublicBytes ? Buffer.from("wrong") :
+        (proofBranch === ROLLBACK_BRANCH ? rollback : candidate)[pathname];
       return { status: 200, url, arrayBuffer: async () => bytes };
     },
     fixtureRunner: async () => ({ ok: true, mock: true }),

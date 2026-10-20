@@ -1,0 +1,12 @@
+{
+  "schema": "gal.act7-071.operator-host.v1",
+  "operationId": "ca271-readonly-drill-20261020T143056Z",
+  "readOnlyDrill": true,
+  "operatorResponseTimeoutMs": 300000,
+  "readOnlyFiles": {
+    "catalogSnapshot": "docs/reports/remediation/act7/071_CA271_LIVE_CATALOG_SNAPSHOT_20261020.json",
+    "drillReceipt": "docs/reports/remediation/act7/071_CA271_LIVE_READONLY_DRILL_RECEIPT_20261020.json",
+    "networkProof": "docs/reports/remediation/act7/071_CA271_LIVE_NETWORK_PROOF_20261020.json",
+    "rollbackProof": "docs/reports/remediation/act7/071_CA271_LIVE_ROLLBACK_PROOF_20261020.json"
+  }
+}

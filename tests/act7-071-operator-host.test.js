@@ -191,6 +191,64 @@ async function exerciseSpawnedCli({ failCandidate, loseRollbackOperator = false 
   await fs.rm(root, { recursive: true, force: true });
 }
 
+async function exerciseSpawnedReadOnlyDrill(scenario) {
+  const root = await fs.mkdtemp(path.join(process.cwd(), ".act7-071-readonly-cli-test-"));
+  const operationId = `readonly-${scenario}`;
+  const config = { schema: "gal.act7-071.operator-host.v1", operationId, readOnlyDrill: true,
+    operatorResponseTimeoutMs: 120, testWrongRollbackIdentity: scenario === "wrong-identity",
+    testWrongPublicBytes: scenario === "wrong-bytes", readOnlyFiles: {
+      catalogSnapshot: path.join(root, "catalog.json"), drillReceipt: path.join(root, "receipt.json"),
+      networkProof: path.join(root, "network.json"), rollbackProof: path.join(root, "rollback.json"),
+    } };
+  const configPath = path.join(root, "config.json");
+  await fs.writeFile(configPath, JSON.stringify(config));
+  const productionFlag = scenario === "production-flag";
+  const child = spawn(process.execPath, ["scripts/act7-071-operator-host.js", configPath], {
+    cwd: process.cwd(), stdio: ["pipe", "pipe", "pipe"], env: { ...process.env, NODE_ENV: "test",
+      ACT7_071_EXECUTION_CONTEXT_ID: operationId,
+      ACT7_071_PRODUCTION_AUTHORIZED: productionFlag ? "YES" : "NO",
+      ACT7_071_EVIDENCE_PAUSE: "NO",
+      ACT7_071_HOST_TEST_DRIVER: path.join(process.cwd(), "tests/helpers/act7-071-operator-host-driver.js") },
+  });
+  const events = [];
+  readline.createInterface({ input: child.stdout, crlfDelay: Infinity }).on("line", line => {
+    const message = JSON.parse(line); events.push(message);
+    if (message.type !== "operator_request") return;
+    if (scenario === "timeout" && message.kind === "catalog_read_primary") return;
+    if (scenario === "closure" && message.kind === "catalog_read_primary") { child.stdin.end(); return; }
+    let result;
+    if (message.kind === "catalog_read_primary") result = { rows, transcriptRef: "live-primary",
+      capturedAt: "2026-10-20T22:40:00Z", operatorConfirmation: "CONNECTED_TOOL_CAPTURED" };
+    if (message.kind === "catalog_readback") result = {
+      rows: scenario === "mismatch" ? rows.map((row, index) => index ? row : { ...row, acl: "drift" }) : rows,
+      transcriptRef: scenario === "duplicate" ? "live-primary" : "live-readback",
+      capturedAt: "2026-10-20T22:40:01Z", operatorConfirmation: "CONNECTED_TOOL_READBACK" };
+    if (message.kind === "pages_readonly_proof") result = { branch: ROLLBACK_BRANCH,
+      folder: "/(root)", deploymentRunId: 456 };
+    const response = { type: "operator_response", procedure: PROCEDURE, operation_id: operationId,
+      request_id: message.request_id, approved: true, result };
+    if (scenario === "late" && message.kind === "catalog_read_primary")
+      return setTimeout(() => { if (!child.stdin.destroyed) child.stdin.write(`${JSON.stringify(response)}\n`); }, 200);
+    child.stdin.write(`${JSON.stringify(response)}\n`);
+  });
+  let stderr = ""; child.stderr.on("data", chunk => { stderr += chunk; });
+  const exitCode = await new Promise((resolve, reject) => {
+    child.on("error", reject); child.on("close", resolve);
+  });
+  if (scenario === "success") {
+    assert.equal(exitCode, 0, stderr);
+    assert(events.some(event => event.type === "readonly_drill_complete"));
+    assert.equal(events.some(event => event.type === "operator_request" &&
+      ["external_sql_evidence", "pages_selection"].includes(event.kind)), false);
+  } else {
+    assert.notEqual(exitCode, 0, `${scenario} unexpectedly passed`);
+    const failed = events.find(event => event.type === "readonly_drill_failed");
+    assert(failed && failed.mutation_performed === false, `${scenario} omitted read-only failure evidence`);
+    assert.equal(events.some(event => event.type === "readonly_drill_complete"), false);
+  }
+  await fs.rm(root, { recursive: true, force: true });
+}
+
 async function main() {
   await exerciseBridgeFailures();
   await exercise({ failCandidate: false });
@@ -198,6 +256,8 @@ async function main() {
   await exerciseSpawnedCli({ failCandidate: false });
   await exerciseSpawnedCli({ failCandidate: true });
   await exerciseSpawnedCli({ failCandidate: true, loseRollbackOperator: true });
+  for (const scenario of ["success", "timeout", "late", "closure", "duplicate", "mismatch",
+    "wrong-identity", "wrong-bytes", "production-flag"]) await exerciseSpawnedReadOnlyDrill(scenario);
   console.log("ACT7 071 operator host tests passed.");
 }
 

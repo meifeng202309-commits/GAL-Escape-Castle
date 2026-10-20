@@ -2,13 +2,27 @@ const fs = require("node:fs/promises");
 const crypto = require("node:crypto");
 const readline = require("node:readline");
 const { run071ProductionAdapter } = require("./act7-071-production-adapter");
-const { executionContext } = require("./act7-071-source-gates");
+const { comparePostRecovery, executionContext, persistPreFreezeSnapshot, probeSupabaseNetwork,
+  verifyRollbackPublicBytes } = require("./act7-071-source-gates");
 
 const PROCEDURE = "CD_EXTERNAL_OPERATOR_V1";
 const MIN_RESPONSE_TIMEOUT_MS = 100;
 const MAX_RESPONSE_TIMEOUT_MS = 900000;
 
 function invariant(value, message) { if (!value) throw new Error(message); }
+function stable(value) {
+  if (Array.isArray(value)) return value.map(stable);
+  if (value && typeof value === "object")
+    return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
+  return value;
+}
+const digest = value => crypto.createHash("sha256").update(JSON.stringify(stable(value))).digest("hex");
+async function writeAtomic(file, value) {
+  await fs.mkdir(require("node:path").dirname(file), { recursive: true });
+  const temporary = `${file}.${process.pid}.${crypto.randomUUID()}.tmp`;
+  await fs.writeFile(temporary, `${JSON.stringify(value, null, 2)}\n`, { flag: "wx" });
+  await fs.rename(temporary, file);
+}
 
 function createProcedureBridge({ input = process.stdin, output = process.stdout, operationId, responseTimeoutMs = 300000 }) {
   invariant(operationId, "Operator bridge requires an operation ID");
@@ -61,7 +75,57 @@ async function runOperatorHost({ config, env = process.env, input, output, adapt
     responseTimeoutMs: config.operatorResponseTimeoutMs });
   const context = executionContext(env);
   bridge.write({ type: "host_ready", procedure: PROCEDURE, operation_id: config.operationId,
-    visible_fingerprint: context.visible_fingerprint, production_authorized: env.ACT7_071_PRODUCTION_AUTHORIZED === "YES" });
+    pid: process.pid, visible_fingerprint: context.visible_fingerprint,
+    read_only_drill: config.readOnlyDrill === true,
+    production_authorized: env.ACT7_071_PRODUCTION_AUTHORIZED === "YES" });
+  if (config.readOnlyDrill === true) {
+    try {
+      invariant(!envProductionAuthorized(env) && env.ACT7_071_PRODUCTION_AUTHORIZED !== "YES"
+        && env.ACT7_071_EVIDENCE_PAUSE !== "YES", "Read-only drill rejects every production authorization flag");
+      const files = config.readOnlyFiles;
+      invariant(files?.catalogSnapshot && files?.drillReceipt && files?.networkProof && files?.rollbackProof,
+        "Read-only drill requires all evidence paths");
+      const primary = await bridge.request("catalog_read_primary", { read_only: true });
+      const primaryTime = Date.parse(primary?.capturedAt);
+      invariant(Array.isArray(primary?.rows) && String(primary?.transcriptRef || "").trim()
+        && String(primary?.operatorConfirmation || "").trim() && Number.isFinite(primaryTime),
+      "Primary catalog evidence is incomplete");
+      const snapshot = await persistPreFreezeSnapshot(primary.rows, files.catalogSnapshot,
+        new Date(primaryTime), config.operationId);
+      const readback = await bridge.request("catalog_readback", { read_only: true,
+        primary_transcript_ref: primary.transcriptRef });
+      const readbackTime = Date.parse(readback?.capturedAt);
+      invariant(Array.isArray(readback?.rows) && String(readback?.transcriptRef || "").trim()
+        && readback.transcriptRef !== primary.transcriptRef && String(readback?.operatorConfirmation || "").trim()
+        && Number.isFinite(readbackTime) && readbackTime >= primaryTime,
+      "Independent catalog readback evidence is incomplete or unordered");
+      await comparePostRecovery(files.catalogSnapshot, readback.rows);
+      await probeSupabaseNetwork({ url: "https://qdcbdcjobzytzhnhfwyn.supabase.co",
+        outputFile: files.networkProof, env, fetchImpl: probeFetch });
+      const pages = await bridge.request("pages_readonly_proof", { read_only: true,
+        branch: "deploy/manual-acceptance-20261003", folder: "/(root)" });
+      invariant(pages?.branch === "deploy/manual-acceptance-20261003" && pages?.folder === "/(root)"
+        && /^\d+$/.test(String(pages?.deploymentRunId || "")), "Read-only Pages proof target is invalid");
+      const rollback = await verifyRollbackPublicBytes({ outputFile: files.rollbackProof, githubFetch, publicFetch,
+        deploymentRunId: pages.deploymentRunId, operationId: config.operationId });
+      const unsigned = { schema: "gal.act7-071.readonly-drill.v1", operation_id: config.operationId,
+        completed_at: new Date().toISOString(), pid: process.pid, visible_fingerprint: context.visible_fingerprint,
+        requests: { primary: primary.transcriptRef, readback: readback.transcriptRef },
+        captured_at: { primary: new Date(primaryTime).toISOString(), readback: new Date(readbackTime).toISOString() },
+        catalog_snapshot_sha256: snapshot.sha256, catalog_readback_sha256: digest(readback.rows),
+        network_proof: files.networkProof, rollback_proof_sha256: rollback.sha256 };
+      const receipt = { ...unsigned, sha256: digest(unsigned) };
+      await writeAtomic(files.drillReceipt, receipt);
+      bridge.write({ type: "readonly_drill_complete", operation_id: config.operationId, receipt });
+      return receipt;
+    } catch (error) {
+      bridge.write({ type: "readonly_drill_failed", operation_id: config.operationId,
+        error: String(error?.message || error), mutation_performed: false });
+      throw error;
+    } finally {
+      bridge.close();
+    }
+  }
   const operator = {
     async captureAdmissionCatalog() {
       const rows = await bridge.request("capture_admission_catalog", {});

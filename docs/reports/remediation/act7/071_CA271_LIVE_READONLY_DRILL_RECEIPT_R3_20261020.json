@@ -1,0 +1,20 @@
+{
+  "schema": "gal.act7-071.readonly-drill.v1",
+  "operation_id": "ca271-readonly-drill-r3-20261020T144300Z",
+  "completed_at": "2026-10-20T14:45:10.226Z",
+  "pid": 4012,
+  "visible_fingerprint": "d8d8542170d634d0fecf671658756e7676bbc9431cfaf9f58a10dda870f67ef2",
+  "requests": {
+    "primary": "untrusted-data-c84a9890-6065-4cd9-97a5-16501dd41c4b",
+    "readback": "untrusted-data-50bef7d4-6df1-4bf5-a658-47a2ed1cec10"
+  },
+  "captured_at": {
+    "primary": "2026-10-20T14:32:38.367Z",
+    "readback": "2026-10-20T14:34:51.973Z"
+  },
+  "catalog_snapshot_sha256": "2b1ba4b18f806f9f965bf49b529d9f1d61e593e5e3f6730240d062fd5a267363",
+  "catalog_readback_sha256": "d26047c20e142ac28155316d59548cc99154216afa124a025eb36227b2ce7ec0",
+  "network_proof": "docs/reports/remediation/act7/071_CA271_LIVE_NETWORK_PROOF_R3_20261020.json",
+  "rollback_proof_sha256": "9443e3915d96cc7a18f5a18a09f6e1a3c93b3f5f636970f0032813533401fc8f",
+  "sha256": "150eb71a3529da3a7281de4ade21dd770d2482e6e13a1ebb849d7777b0d60327"
+}
