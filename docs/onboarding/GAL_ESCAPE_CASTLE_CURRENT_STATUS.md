@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T21:40:00Z
+> Last refreshed: 2026-10-20T23:10:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE = ACT7_071_READONLY_DRILL_SOURCE_ONLY / PRODUCTION_HOLD
-CURRENT_OWNER = CD — non-mutating read-only drill
-NEXT_REQUIRED_ACTION = CD test readOnlyDrill with genuine read-only connector evidence or report blocker.
+CURRENT_GATE          = ACT7_071_GENUINE_READONLY_HOST_DRILL_PASS / TEACHER_NEW_ATTEMPT_DECISION / PRODUCTION_HOLD
+CURRENT_OWNER         = Teacher — decide fresh bounded 071 production acceptance authorization
+NEXT_REQUIRED_ACTION  = Teacher approve or decline one fresh controlled 071 attempt; fresh exclusive preflight and live Pages operator mandatory. No production changes yet.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
