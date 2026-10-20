@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T14:05:00Z
+> Last refreshed: 2026-10-20T14:30:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_READONLY_READINESS_PASS / TEACHER_NEW_ATTEMPT_DECISION / PRODUCTION_HOLD
-CURRENT_OWNER         = Teacher — decide separately authorized bounded 071 production attempt
-NEXT_REQUIRED_ACTION  = Teacher explicitly accept or decline one new bounded 071 production attempt. Any approval remains conditional on fresh safety gates, Pages operator and reviewed recovery; no changes yet.
+CURRENT_GATE          = ACT7_071_ONE_ATTEMPT_TEACHER_APPROVED / FRESH_PREFLIGHT_REQUIRED / PRODUCTION_HOLD
+CURRENT_OWNER         = CD — coordinate one conditionally approved 071 attempt
+NEXT_REQUIRED_ACTION  = CD secure fresh exclusive maintenance/Pages operator readiness and repeat all mandatory production gates; execute one 071 attempt only if fully PASS, else STOP.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-263
+CA_CHECKPOINT = CA-264
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
