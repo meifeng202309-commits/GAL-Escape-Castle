@@ -91,6 +91,23 @@ async function writeAtomic(file, artifact) {
   await fs.writeFile(temporary, `${JSON.stringify(artifact, null, 2)}\n`, { flag: "wx" });
   await fs.rename(temporary, file);
 }
+async function writeAtomicNew(file, artifact) {
+  await fs.mkdir(path.dirname(file), { recursive: true });
+  try {
+    await fs.access(file);
+    throw Object.assign(new Error(`EEXIST receipt already exists: ${file}`), { code: "EEXIST" });
+  } catch (error) {
+    if (error.code !== "ENOENT") throw error;
+  }
+  const temporary = `${file}.${process.pid}.${crypto.randomUUID()}.tmp`;
+  await fs.writeFile(temporary, `${JSON.stringify(artifact, null, 2)}\n`, { flag: "wx" });
+  try {
+    await fs.rename(temporary, file);
+  } catch (error) {
+    await fs.unlink(temporary).catch(() => {});
+    throw error;
+  }
+}
 async function readArtifact(file, expectedKind) {
   const artifact = JSON.parse(await fs.readFile(file, "utf8"));
   invariant(artifact.schema === SCHEMA && artifact.kind === expectedKind, `Invalid ${expectedKind} artifact schema`);
@@ -113,6 +130,76 @@ async function comparePostRecovery(snapshotFile, rows) {
   const after = normalizeSnapshotRows(rows);
   invariant(JSON.stringify(before.rows) === JSON.stringify(after), "Post-recovery catalog does not exactly match persisted pre-freeze snapshot");
   return { ok: true, snapshot_sha256: before.sha256, compared_rows: after.length };
+}
+async function persistSqlStageReceipt({ outputFile, operationId, stage, sequence, previousSha256 = null,
+  statementSha256, response, responseCapturedAt, corroborationQuerySha256, corroborationRows,
+  corroborationCapturedAt, operatorConfirmation }) {
+  invariant(operationId && stage && Number.isInteger(sequence) && sequence > 0,
+    "SQL receipt requires operation ID, stage and positive sequence");
+  invariant(/^[0-9a-f]{64}$/.test(statementSha256 || ""), "SQL receipt requires pinned statement SHA-256");
+  invariant(sequence === 1 ? previousSha256 === null : /^[0-9a-f]{64}$/.test(previousSha256 || ""),
+    "SQL receipt previous digest does not match its sequence");
+  invariant(response && typeof response === "object" && Object.keys(response).length > 0,
+    "SQL receipt requires durable copied connector response");
+  invariant(/^[0-9a-f]{64}$/.test(corroborationQuerySha256 || "") && Array.isArray(corroborationRows)
+    && corroborationRows.length > 0, "SQL receipt requires independent read-only corroboration");
+  invariant(Date.parse(corroborationCapturedAt) >= Date.parse(responseCapturedAt),
+    "SQL receipt corroboration predates the connector response");
+  invariant(String(operatorConfirmation || "").trim(), "SQL receipt requires operator confirmation");
+  const unsigned = {
+    schema: SCHEMA, kind: "sql-stage-receipt", operation_id: operationId, stage, sequence,
+    previous_sha256: previousSha256, statement_sha256: statementSha256,
+    response_captured_at: new Date(responseCapturedAt).toISOString(), copied_connector_response: stable(response),
+    copied_response_sha256: digest(response), corroboration_query_sha256: corroborationQuerySha256,
+    corroboration_captured_at: new Date(corroborationCapturedAt).toISOString(),
+    corroboration_rows: stable(corroborationRows), corroboration_sha256: digest(corroborationRows),
+    operator_confirmation: String(operatorConfirmation),
+    origin_attestation: "NOT_PROVIDED_COPY_INTEGRITY_ONLY",
+  };
+  const artifact = { ...unsigned, sha256: digest(unsigned) };
+  await writeAtomicNew(outputFile, artifact);
+  return readArtifact(outputFile, "sql-stage-receipt");
+}
+async function validateSqlReceiptChain({ files, expectedStages, operationId, env = process.env,
+  startVisibleFingerprint, operatorAvailable }) {
+  invariant(Array.isArray(files) && Array.isArray(expectedStages) && files.length === expectedStages.length
+    && files.length > 0, "SQL receipt chain is incomplete");
+  invariant(operatorAvailable === true, "SQL connector operator is unavailable");
+  invariant(executionContext(env).visible_fingerprint === startVisibleFingerprint,
+    "Visible execution context changed while awaiting SQL receipts");
+  let previous = null;
+  let previousTime = 0;
+  const receipts = [];
+  for (let index = 0; index < files.length; index++) {
+    const receipt = await readArtifact(files[index], "sql-stage-receipt");
+    const expected = expectedStages[index];
+    invariant(receipt.operation_id === operationId && receipt.stage === expected.stage
+      && receipt.sequence === index + 1, `SQL receipt order mismatch at ${expected.stage}`);
+    invariant(receipt.previous_sha256 === previous, `SQL receipt chain digest mismatch at ${expected.stage}`);
+    invariant(receipt.statement_sha256 === expected.statementSha256
+      && receipt.corroboration_query_sha256 === expected.corroborationQuerySha256,
+    `SQL receipt pinned digest mismatch at ${expected.stage}`);
+    invariant(receipt.copied_response_sha256 === digest(receipt.copied_connector_response),
+      `Copied connector response was altered after capture at ${expected.stage}`);
+    invariant(receipt.origin_attestation === "NOT_PROVIDED_COPY_INTEGRITY_ONLY",
+      `SQL receipt makes an unsupported origin claim at ${expected.stage}`);
+    invariant(Array.isArray(receipt.corroboration_rows) && receipt.corroboration_rows.length > 0
+      && receipt.corroboration_sha256 === digest(receipt.corroboration_rows),
+    `SQL receipt independent corroboration is invalid at ${expected.stage}`);
+    invariant(!expected.corroborationSha256 || receipt.corroboration_sha256 === expected.corroborationSha256,
+      `SQL receipt corroboration does not match expected state at ${expected.stage}`);
+    const responseTime = Date.parse(receipt.response_captured_at);
+    const corroborationTime = Date.parse(receipt.corroboration_captured_at);
+    invariant(Number.isFinite(responseTime) && Number.isFinite(corroborationTime)
+      && responseTime >= previousTime && corroborationTime >= responseTime,
+    `SQL receipt timestamps are stale or unordered at ${expected.stage}`);
+    invariant(String(receipt.operator_confirmation || "").trim(),
+      `SQL receipt operator confirmation missing at ${expected.stage}`);
+    previous = receipt.sha256;
+    previousTime = corroborationTime;
+    receipts.push(receipt);
+  }
+  return { ok: true, operation_id: operationId, stages: receipts.map(item => item.stage), final_sha256: previous };
 }
 function assertWorkflowIdentity(run, { deploymentRunId, branch, commit }) {
   invariant(String(run?.id) === String(deploymentRunId)
@@ -255,6 +342,8 @@ module.exports = {
   PUBLIC_BASE_URL,
   assertWorkflowIdentity,
   comparePostRecovery,
+  persistSqlStageReceipt,
+  validateSqlReceiptChain,
   persistPreFreezeSnapshot,
   probeSupabaseNetwork,
   assertSourceGateProofs,

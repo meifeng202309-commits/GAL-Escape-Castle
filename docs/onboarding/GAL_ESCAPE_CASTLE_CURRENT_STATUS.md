@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T09:20:00Z
+> Last refreshed: 2026-10-20T09:55:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_MINIMAL_SPLIT_RECEIPT_VALIDATOR_SOURCE_ONLY / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — bounded SQL receipt validator and negative tests
-NEXT_REQUIRED_ACTION  = CD implement small trusted cross-boundary SQL receipt and ordered resume validation using existing gate code; independent corroboration mandatory; no production operation.
+CURRENT_GATE          = ACT7_071_MINIMAL_SPLIT_RECEIPT_VALIDATOR_READY_FOR_CA_AUDIT / PRODUCTION_HOLD
+CURRENT_OWNER         = CA — bounded receipt schema/resume validator source audit
+NEXT_REQUIRED_ACTION  = CA review CD-124 integrity/order/readback enforcement and explicit copied-output non-authentication limit; no production operation.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
