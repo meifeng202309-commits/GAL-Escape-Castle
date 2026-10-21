@@ -1,0 +1,50 @@
+{
+  "schema": "gal.act7-071.gate.v1",
+  "kind": "candidate-public-bytes",
+  "operation_id": "071-20261020T152029Z-ca272",
+  "verified_at": "2026-10-20T15:34:35.608Z",
+  "deployment": {
+    "run_id": "39449278397",
+    "branch": "deploy/act7-071-20261017",
+    "commit": "6e3bbd1d2795bd4486b1437a0b9e107e2238fa28",
+    "conclusion": "success"
+  },
+  "files": [
+    {
+      "path": "/index.html",
+      "url": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/index.html?act7_071=1792510475608",
+      "status": 200,
+      "byte_length": 2574,
+      "sha256": "1da4904ed40496b3ade206893969ce46278cf1d50debcac41ca96fac476609c4"
+    },
+    {
+      "path": "/teacher.html",
+      "url": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/teacher.html?act7_071=1792510475608",
+      "status": 200,
+      "byte_length": 8566,
+      "sha256": "628bb101a23e312d5f69d992d0c1212665350a130f1c124af04460b1afdb6cf3"
+    },
+    {
+      "path": "/src/game/app.js",
+      "url": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js?act7_071=1792510475608",
+      "status": 200,
+      "byte_length": 61987,
+      "sha256": "9f19c27f92be9835ea5d9b48e196803dcee85eae032feb0f9e65fe3e97b323fa"
+    },
+    {
+      "path": "/src/teacher/teacher-console.js",
+      "url": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/teacher/teacher-console.js?act7_071=1792510475608",
+      "status": 200,
+      "byte_length": 30380,
+      "sha256": "4dd355ede45e5e29619da93becb5c0e47d2e9f93c9cf544edc20e876181df1ad"
+    },
+    {
+      "path": "/src/styles/app.css",
+      "url": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css?act7_071=1792510475608",
+      "status": 200,
+      "byte_length": 10501,
+      "sha256": "3a375c87aeec797e2b32f8ba383d91af9ef6f9e9d01bb40cf0e3faa0f04ead7c"
+    }
+  ],
+  "sha256": "b88f668c8002427a027bd0abd987ca88da3376758435a6c591aa0ed69c93964b"
+}

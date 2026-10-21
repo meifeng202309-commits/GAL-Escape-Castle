@@ -1,0 +1,17 @@
+{
+  "schema": "gal.act7-071.gate.v1",
+  "kind": "fixture-network",
+  "probed_at": "2026-10-20T15:26:06.569Z",
+  "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co",
+  "status": 401,
+  "context": {
+    "context_id": "071-20261020T152029Z-ca272",
+    "exec_path": "C:\\Users\\59743\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe",
+    "exec_argv": [],
+    "platform": "win32",
+    "arch": "x64",
+    "cwd": "C:\\Users\\59743\\Documents\\ChatGPT\\Survive AI Age",
+    "visible_fingerprint": "02699010f7c1476cad7a42d4672a523544a251d18a8923c4ae7d3af59a985ced"
+  },
+  "sha256": "783640659db60d1d7966220e4e81b4992af9f71c0ddd076cd6de6246b2199d79"
+}

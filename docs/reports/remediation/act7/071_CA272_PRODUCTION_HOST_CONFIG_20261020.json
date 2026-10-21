@@ -1,0 +1,49 @@
+{
+  "schema": "gal.act7-071.operator-host.v1",
+  "operationId": "071-20261020T152029Z-ca272",
+  "operatorResponseTimeoutMs": 900000,
+  "files": {
+    "prefreeze": "docs/reports/remediation/act7/071_CA272_PREFREEZE_20261020.json",
+    "preMutationNetwork": "docs/reports/remediation/act7/071_CA272_PREMUTATION_NETWORK_20261020.json",
+    "candidate": "docs/reports/remediation/act7/071_CA272_CANDIDATE_PROOF_20261020.json",
+    "fixtureNetwork": "docs/reports/remediation/act7/071_CA272_FIXTURE_NETWORK_20261020.json",
+    "rollbackProof": "docs/reports/remediation/act7/071_CA272_ROLLBACK_PROOF_20261020.json"
+  },
+  "receiptPlan": {
+    "freeze": {
+      "chain": "attempt",
+      "sequence": 1,
+      "receiptFile": "docs/reports/remediation/act7/071_CA272_SQL_FREEZE_RECEIPT_20261020.json",
+      "corroborationQuerySha256": "38e976a01aeebf0b66e1bc80c260703ab07d7e09233a07abb028baab82bb01c6",
+      "corroborationSha256": "06cd580b91bd7b0c89a070ae174615b1c5bea792e9bd51e5f163ab99908bda2f"
+    },
+    "migration": {
+      "chain": "attempt",
+      "sequence": 2,
+      "receiptFile": "docs/reports/remediation/act7/071_CA272_SQL_MIGRATION_RECEIPT_20261020.json",
+      "corroborationQuerySha256": "45886510d556d3bb5ae22fe75e5f7f3b4ac010f3b30c32afbb0e8d73579722a2",
+      "corroborationSha256": "2f02f2fe9897c6ab9c4a4e626c5e336ac6261b70db4aa4cbde12242c159aa34f"
+    },
+    "acl-restore": {
+      "chain": "attempt",
+      "sequence": 3,
+      "receiptFile": "docs/reports/remediation/act7/071_CA272_SQL_ACL_RESTORE_RECEIPT_20261020.json",
+      "corroborationQuerySha256": "38e976a01aeebf0b66e1bc80c260703ab07d7e09233a07abb028baab82bb01c6",
+      "corroborationSha256": "2b89ae28e02ab6f5524a9f03a880d1087b011c87ce1e45786375cc672bf90ef7"
+    },
+    "recovery": {
+      "chain": "recovery",
+      "sequence": 1,
+      "receiptFile": "docs/reports/remediation/act7/071_CA272_SQL_RECOVERY_RECEIPT_20261020.json",
+      "corroborationQuerySha256": "e6c168ebdc3916ede2d0a7f5a482b19867896dc0ed76f4046be5cbc8771f919a",
+      "corroborationSha256": "13116971fb7d3ce0b09366f7f867f4f1dec0ad0b1ff961d2c49c1a94f9922291"
+    },
+    "recovery-acl-restore": {
+      "chain": "recovery",
+      "sequence": 2,
+      "receiptFile": "docs/reports/remediation/act7/071_CA272_SQL_RECOVERY_ACL_RECEIPT_20261020.json",
+      "corroborationQuerySha256": "38e976a01aeebf0b66e1bc80c260703ab07d7e09233a07abb028baab82bb01c6",
+      "corroborationSha256": "2b89ae28e02ab6f5524a9f03a880d1087b011c87ce1e45786375cc672bf90ef7"
+    }
+  }
+}

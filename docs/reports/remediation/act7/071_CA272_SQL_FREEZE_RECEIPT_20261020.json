@@ -1,0 +1,72 @@
+{
+  "schema": "gal.act7-071.gate.v1",
+  "kind": "sql-stage-receipt",
+  "operation_id": "071-20261020T152029Z-ca272",
+  "stage": "freeze",
+  "sequence": 1,
+  "previous_sha256": null,
+  "statement_sha256": "66eea12f4b9d8324621a9ccc4ef8d1f0c88b0f9763f982bdeafc9d212b4513f1",
+  "response_captured_at": "2026-10-20T15:26:51.316Z",
+  "copied_connector_response": {
+    "success": true
+  },
+  "copied_response_sha256": "c955e57777ec0d73639dca6748560d00aa5eb8e12f13ebb2ed9656add3908f97",
+  "corroboration_query_sha256": "38e976a01aeebf0b66e1bc80c260703ab07d7e09233a07abb028baab82bb01c6",
+  "corroboration_captured_at": "2026-10-20T15:27:01.316Z",
+  "corroboration_rows": [
+    {
+      "anon": false,
+      "authenticated": false,
+      "postgres": true,
+      "public": false,
+      "service_role": false,
+      "signature": "s1_create_room(text,text,text,text,text)"
+    },
+    {
+      "anon": false,
+      "authenticated": false,
+      "postgres": true,
+      "public": false,
+      "service_role": false,
+      "signature": "s1_join_player(text,text)"
+    },
+    {
+      "anon": false,
+      "authenticated": false,
+      "postgres": true,
+      "public": false,
+      "service_role": false,
+      "signature": "s1_reset_room(text,text)"
+    },
+    {
+      "anon": false,
+      "authenticated": false,
+      "postgres": true,
+      "public": false,
+      "service_role": false,
+      "signature": "s2_start_run(text,text,text)"
+    },
+    {
+      "anon": false,
+      "authenticated": false,
+      "postgres": true,
+      "public": false,
+      "service_role": false,
+      "signature": "s3b_initialize_flow(text,text)"
+    },
+    {
+      "anon": false,
+      "authenticated": false,
+      "postgres": true,
+      "public": false,
+      "service_role": false,
+      "signature": "s9_start_formal_game(text,text,text)"
+    }
+  ],
+  "corroboration_sha256": "06cd580b91bd7b0c89a070ae174615b1c5bea792e9bd51e5f163ab99908bda2f",
+  "operator_confirmation": "CD_EXTERNAL_SUPABASE_FREEZE_CAPTURED",
+  "response_transcript_ref": "untrusted-data-4c4b5ea1-40d5-4dec-ace4-597057b0b3e1",
+  "corroboration_transcript_ref": "untrusted-data-78cbe738-c90a-4eb3-a03e-db8b1baa05ef",
+  "origin_attestation": "NOT_PROVIDED_COPY_INTEGRITY_ONLY",
+  "sha256": "e9471edf72469fe5b56bd11b2091c77a62f8167427454905c0bb31ae7d64d457"
+}
