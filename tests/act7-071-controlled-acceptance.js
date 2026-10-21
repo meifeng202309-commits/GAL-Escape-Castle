@@ -126,8 +126,7 @@ async function runNormalScenario() {
 
   opened = await openVote(fixtureState);
   assert(opened.result.phase_key === "act7_vote" && opened.result.vote_round === 2, "ACT7 round 2 identity mismatch");
-  const seconds = (Date.parse(opened.result.phase_deadline) - Date.now()) / 1000;
-  assert(seconds > 10790 && seconds <= 10801, `NORMAL ACT7 deadline is not approximately 10800 seconds: ${seconds}`);
+  assert(opened.result.phase_deadline === null, "NORMAL ACT7 vote retained an automatic deadline");
   await evidenceBoundary("ROUND2_OPEN", fixtureState, opened.result);
   await submitVote(fixtureState, opened, 0, "clock_a");
   await submitVote(fixtureState, opened, 1, "clock_a");

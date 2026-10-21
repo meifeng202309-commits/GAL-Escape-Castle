@@ -4,6 +4,71 @@
 -- prechange function bodies/signatures and privileges; it does not alter data.
 begin;
 
+create or replace function public.s2_refresh_discussion_pre037(p_discussion_session_id uuid)
+returns void language plpgsql security definer set search_path=public as $$
+declare
+  v_session public.discussion_sessions%rowtype;
+  v_run public.game_runs%rowtype;
+  v_vote_count integer;
+begin
+  select * into v_session from public.discussion_sessions
+  where discussion_session_id=p_discussion_session_id for update;
+  if not found or v_session.phase_deadline is null or now()<v_session.phase_deadline then return; end if;
+  select * into v_run from public.game_runs where run_id=v_session.run_id;
+  if v_session.status='discussion' then
+    if v_session.require_final_vote then
+      update public.discussion_sessions set status='voting',
+        phase_deadline=now()+make_interval(secs=>v_session.vote_time_limit_sec)
+      where discussion_session_id=v_session.discussion_session_id;
+      perform public.s2_log_event(v_run.run_id,v_run.room_code,v_session.discussion_session_id,
+        'vote_opened_by_deadline',null,jsonb_build_object('vote_round',v_session.vote_round));
+    else
+      update public.discussion_sessions set status='resolved',ended_at=now(),phase_deadline=null,
+        outcome=jsonb_build_object('type','discussion_complete')
+      where discussion_session_id=v_session.discussion_session_id;
+      perform public.s2_log_event(v_run.run_id,v_run.room_code,v_session.discussion_session_id,
+        'discussion_resolved_without_vote',null,'{}'::jsonb);
+    end if;
+  elsif v_session.status='voting' then
+    select count(*) into v_vote_count from public.runtime_player_decisions
+    where discussion_session_id=v_session.discussion_session_id and decision_type='group_vote';
+    if v_vote_count<3 then
+      update public.discussion_sessions set status='waiting_for_missing_player',phase_deadline=null
+      where discussion_session_id=v_session.discussion_session_id;
+      perform public.s2_log_event(v_run.run_id,v_run.room_code,v_session.discussion_session_id,
+        'vote_waiting_for_missing_player',null,
+        jsonb_build_object('submitted_count',v_vote_count,'missing_count',3-v_vote_count));
+    end if;
+  end if;
+end$$;
+
+create or replace function public.s2_open_vote(p_room_code text,p_teacher_token text)
+returns jsonb language plpgsql security definer set search_path=public as $$
+declare
+  v_room_code text:=upper(trim(p_room_code));
+  v_run public.game_runs%rowtype;
+  v_session public.discussion_sessions%rowtype;
+begin
+  perform public.s1_assert_teacher(v_room_code,p_teacher_token);
+  v_run:=public.s2_get_active_run(v_room_code);
+  if v_run.run_id is null then raise exception 'No active formal run.'; end if;
+  select * into v_session from public.discussion_sessions where run_id=v_run.run_id
+  order by vote_round desc limit 1 for update;
+  if not found or v_session.status<>'discussion' then
+    raise exception 'There is no discussion currently ready to open voting.';
+  end if;
+  if not v_session.require_final_vote then
+    raise exception 'This discussion is configured without a final vote.';
+  end if;
+  update public.discussion_sessions set status='voting',
+    phase_deadline=now()+make_interval(secs=>v_session.vote_time_limit_sec)
+  where discussion_session_id=v_session.discussion_session_id returning * into v_session;
+  perform public.s2_log_event(v_run.run_id,v_room_code,v_session.discussion_session_id,
+    'vote_opened_by_teacher',null,jsonb_build_object('vote_round',v_session.vote_round));
+  return jsonb_build_object('discussion_session_id',v_session.discussion_session_id,
+    'status',v_session.status,'phase_deadline',v_session.phase_deadline);
+end$$;
+
 drop function if exists public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid);
 
 create or replace function public.s5_configure_discussion(p_session uuid,p_phase text)
@@ -41,15 +106,20 @@ begin perform public.s1_assert_teacher(room,p_teacher_token);g:=public.s2_get_ac
  return jsonb_build_object('active',true,'sprint5_active',true,'canonical_flow_active',true,'run',jsonb_build_object('run_id',g.run_id,'run_mode',g.run_mode,'behavior_dataset_eligible',g.behavior_dataset_eligible),'discussion',case when d.discussion_session_id is null then null else jsonb_build_object('discussion_session_id',d.discussion_session_id,'topic',d.topic,'status',d.status,'vote_round',s.vote_round,'phase_deadline',d.phase_deadline,'outcome',d.outcome)end,'messages',msgs,'current_votes',votes,'teacher_override',jsonb_build_object('allowed_actions','[]'::jsonb,'history','[]'::jsonb));end$$;
 
 alter function public.s5_configure_discussion(uuid,text) owner to postgres;
+alter function public.s2_refresh_discussion_pre037(uuid) owner to postgres;
+alter function public.s2_open_vote(text,text) owner to postgres;
 alter function public.s5_teacher_open_vote(text,text) owner to postgres;
 alter function public.s5_teacher_add_time(text,text,integer) owner to postgres;
 alter function public.s5_get_teacher_discussion_state(text,text) owner to postgres;
 
 revoke execute on function public.s5_configure_discussion(uuid,text) from public,anon,authenticated;
+revoke execute on function public.s2_refresh_discussion_pre037(uuid) from public,anon,authenticated;
+revoke execute on function public.s2_open_vote(text,text) from public;
 revoke execute on function public.s5_teacher_open_vote(text,text) from public;
 revoke execute on function public.s5_teacher_add_time(text,text,integer) from public;
 revoke execute on function public.s5_get_teacher_discussion_state(text,text) from public;
 grant execute on function public.s5_configure_discussion(uuid,text) to service_role;
+grant execute on function public.s2_open_vote(text,text) to anon,authenticated,service_role;
 grant execute on function public.s5_teacher_open_vote(text,text) to anon,authenticated,service_role;
 grant execute on function public.s5_teacher_add_time(text,text,integer) to anon,authenticated,service_role;
 grant execute on function public.s5_get_teacher_discussion_state(text,text) to anon,authenticated,service_role;

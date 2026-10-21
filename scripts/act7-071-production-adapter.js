@@ -14,12 +14,12 @@ const ROOT = path.resolve(__dirname, "..");
 const MIGRATION = Object.freeze({
   name: "071 migration",
   path: path.join(ROOT, "database/071_act7_v4_normal_teacher_paced_vote.sql"),
-  sha256: "720cb598d7ead56d3ed1ff53bcf7d62af94f795357efe7e60ef1bff504b0ab04",
+  sha256: "933f8e210ad0e24daf8c944f1b43c817d71fe8f28fa0ecf87461e19e285e7401",
 });
 const RECOVERY = Object.freeze({
   name: "071 recovery",
   path: path.join(ROOT, "docs/reports/remediation/act7/071_RECOVERY.sql"),
-  sha256: "e7e74f16885c730ef10d4f577420be486d8d07a774d2d9b43a97ec8a66eff683",
+  sha256: "335187913459ec322d4dd1efb140a147e431b2d25c54f4a884220623cccf0fcd",
 });
 const FREEZE_SQL = `begin;
 revoke execute on function public.s1_create_room(text,text,text,text,text) from public, anon, authenticated, service_role;

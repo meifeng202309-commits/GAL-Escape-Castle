@@ -50,7 +50,8 @@ begin
 
   update public.discussion_sessions
   set phase_key=p_phase,status='discussion',started_at=now(),
-      phase_deadline=now()+make_interval(secs=>discussion_secs),ended_at=null,outcome=null,
+      phase_deadline=case when mode='normal' then null else now()+make_interval(secs=>discussion_secs) end,
+      ended_at=null,outcome=null,
       show_initial_choices=p_phase='act8_final_vote',allow_free_text=true,allow_pocket=true,
       allow_memories_observations=true,allow_share_photo=p_phase in('act6_vote','act8_final_vote'),
       require_final_vote=true,vote_options=options,tie_policy=policy,revote_window_sec=15,
@@ -62,6 +63,81 @@ begin
 end$$;
 
 revoke execute on function public.s5_configure_discussion(uuid,text) from public,anon,authenticated;
+
+-- NORMAL runs are paced by the Teacher. The Level 3 wrapper keeps Sprint 6
+-- ownership separate, so override only the pre-037 generic discussion owner.
+-- AUDIT retains the original deadline behavior.
+create or replace function public.s2_refresh_discussion_pre037(p_discussion_session_id uuid)
+returns void language plpgsql security definer set search_path=public as $$
+declare
+  v_session public.discussion_sessions%rowtype;
+  v_run public.game_runs%rowtype;
+  v_vote_count integer;
+begin
+  select * into v_session from public.discussion_sessions
+  where discussion_session_id=p_discussion_session_id for update;
+  if not found then return; end if;
+  select * into v_run from public.game_runs where run_id=v_session.run_id;
+  if v_run.run_mode='normal' and v_session.status in('discussion','voting') then return; end if;
+  if v_session.phase_deadline is null or now()<v_session.phase_deadline then return; end if;
+
+  if v_session.status='discussion' then
+    if v_session.require_final_vote then
+      update public.discussion_sessions set status='voting',
+        phase_deadline=now()+make_interval(secs=>v_session.vote_time_limit_sec)
+      where discussion_session_id=v_session.discussion_session_id;
+      perform public.s2_log_event(v_run.run_id,v_run.room_code,v_session.discussion_session_id,
+        'vote_opened_by_deadline',null,jsonb_build_object('vote_round',v_session.vote_round));
+    else
+      update public.discussion_sessions set status='resolved',ended_at=now(),phase_deadline=null,
+        outcome=jsonb_build_object('type','discussion_complete')
+      where discussion_session_id=v_session.discussion_session_id;
+      perform public.s2_log_event(v_run.run_id,v_run.room_code,v_session.discussion_session_id,
+        'discussion_resolved_without_vote',null,'{}'::jsonb);
+    end if;
+  elsif v_session.status='voting' then
+    select count(*) into v_vote_count from public.runtime_player_decisions
+    where discussion_session_id=v_session.discussion_session_id and decision_type='group_vote';
+    if v_vote_count<3 then
+      update public.discussion_sessions set status='waiting_for_missing_player',phase_deadline=null
+      where discussion_session_id=v_session.discussion_session_id;
+      perform public.s2_log_event(v_run.run_id,v_run.room_code,v_session.discussion_session_id,
+        'vote_waiting_for_missing_player',null,
+        jsonb_build_object('submitted_count',v_vote_count,'missing_count',3-v_vote_count));
+    end if;
+  end if;
+end$$;
+revoke execute on function public.s2_refresh_discussion_pre037(uuid) from public,anon,authenticated;
+
+create or replace function public.s2_open_vote(p_room_code text,p_teacher_token text)
+returns jsonb language plpgsql security definer set search_path=public as $$
+declare
+  v_room_code text:=upper(trim(p_room_code));
+  v_run public.game_runs%rowtype;
+  v_session public.discussion_sessions%rowtype;
+begin
+  perform public.s1_assert_teacher(v_room_code,p_teacher_token);
+  v_run:=public.s2_get_active_run(v_room_code);
+  if v_run.run_id is null then raise exception 'No active formal run.'; end if;
+  select * into v_session from public.discussion_sessions where run_id=v_run.run_id
+  order by vote_round desc limit 1 for update;
+  if not found or v_session.status<>'discussion' then
+    raise exception 'There is no discussion currently ready to open voting.';
+  end if;
+  if not v_session.require_final_vote then
+    raise exception 'This discussion is configured without a final vote.';
+  end if;
+  update public.discussion_sessions set status='voting',
+    phase_deadline=case when v_run.run_mode='normal' then null
+      else now()+make_interval(secs=>v_session.vote_time_limit_sec) end
+  where discussion_session_id=v_session.discussion_session_id returning * into v_session;
+  perform public.s2_log_event(v_run.run_id,v_room_code,v_session.discussion_session_id,
+    'vote_opened_by_teacher',null,jsonb_build_object('vote_round',v_session.vote_round));
+  return jsonb_build_object('discussion_session_id',v_session.discussion_session_id,
+    'status',v_session.status,'phase_deadline',v_session.phase_deadline);
+end$$;
+revoke execute on function public.s2_open_vote(text,text) from public;
+grant execute on function public.s2_open_vote(text,text) to anon,authenticated;
 
 -- The legacy two-argument endpoint cannot prove which rendered round the click
 -- belongs to. Keep it present for catalog compatibility but make it unusable.
@@ -87,7 +163,6 @@ declare
   s public.s5_run_state%rowtype;
   r public.s5_rounds%rowtype;
   d public.discussion_sessions%rowtype;
-  vote_secs integer;
 begin
   perform public.s1_assert_teacher(room,p_teacher_token);
   select * into g from public.game_runs
@@ -110,10 +185,10 @@ begin
     raise exception 'Current Sprint 5 discussion is not open.';
   end if;
 
-  vote_secs:=case when g.run_mode='normal' then 10800 else d.vote_time_limit_sec end;
   update public.discussion_sessions
-  set status='voting',vote_time_limit_sec=vote_secs,
-      phase_deadline=now()+make_interval(secs=>vote_secs)
+  set status='voting',
+      phase_deadline=case when g.run_mode='normal' then null
+        else now()+make_interval(secs=>d.vote_time_limit_sec) end
   where discussion_session_id=d.discussion_session_id and status='discussion';
   if not found then raise exception 'Current Sprint 5 discussion changed before vote opening.'; end if;
 
@@ -127,7 +202,8 @@ begin
   );
   return jsonb_build_object('ok',true,'run_id',g.run_id,
     'discussion_session_id',d.discussion_session_id,'phase_key',s.phase_key,
-    'vote_round',s.vote_round,'phase_deadline',now()+make_interval(secs=>vote_secs));
+    'vote_round',s.vote_round,'phase_deadline',
+    case when g.run_mode='normal' then null else now()+make_interval(secs=>d.vote_time_limit_sec) end);
 end$$;
 revoke execute on function public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid) from public;
 grant execute on function public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid) to anon,authenticated;

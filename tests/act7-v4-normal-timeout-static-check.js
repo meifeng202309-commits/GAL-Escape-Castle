@@ -11,9 +11,17 @@ if(!/^--[\s\S]*\nbegin;/.test(sql)||!sql.trimEnd().endsWith("commit;"))throw new
 
 requireAll(sql,"S5 NORMAL sentinel",[
   "when mode='normal' then 10800",
-  "when g.run_mode='normal' then 10800",
+  "phase_deadline=case when mode='normal' then null",
+  "if v_run.run_mode='normal' and v_session.status in('discussion','voting') then return; end if",
+  "phase_deadline=case when v_run.run_mode='normal' then null",
+  "phase_deadline=case when g.run_mode='normal' then null",
   "discussion_time_limit_sec=discussion_secs",
   "vote_time_limit_sec=vote_secs",
+]);
+requireAll(sql,"route-wide NORMAL Teacher pacing",[
+  "create or replace function public.s2_refresh_discussion_pre037",
+  "create or replace function public.s2_open_vote",
+  "create function public.s5_teacher_open_vote",
 ]);
 requireAll(sql,"identity-bound open vote",[
   "p_expected_run_id uuid",
@@ -43,8 +51,10 @@ requireAll(sql,"ACL",[
 requireAll(teacher,"Teacher caller identity",["p_expected_run_id:run.run_id","p_expected_phase:discussion.phase_key","p_expected_vote_round:discussion.vote_round","p_expected_discussion_session_id:discussion.discussion_session_id"]);
 if(!teacher.includes('addTimeButton.hidden=state.run.run_mode==="normal"'))throw new Error("NORMAL Add Time is not hidden by current run mode");
 if(!html.includes('id="addTimeButton" class="secondary" type="button" hidden'))throw new Error("Add Time is visible before authoritative mode loads");
-if(sql.includes("create or replace function public.s2_refresh_discussion"))throw new Error("Shared S2 deadline owner was changed");
+if(sql.includes("create or replace function public.s2_refresh_discussion(p_discussion_session_id"))throw new Error("Sprint 6 routing wrapper was replaced");
 requireAll(recovery,"Recovery SQL",[
+  "create or replace function public.s2_refresh_discussion_pre037",
+  "create or replace function public.s2_open_vote",
   "drop function if exists public.s5_teacher_open_vote(text,text,uuid,text,integer,uuid)",
   "secs:=case p_phase when'act6_vote'then 90 when'act8_final_vote'then 180 else 15 end",
   "create or replace function public.s5_teacher_open_vote(p_room_code text,p_teacher_token text)",
@@ -67,6 +77,7 @@ requireAll(acceptance,"controlled acceptance identities",[
 ]);
 requireAll(acceptance,"controlled late-third scenario",[
   "await sleep(61000)",
+  'opened.result.phase_deadline === null',
   'lateTeacher.current_votes.filter(vote => vote.submitted).length === 2',
   'latePlayer.discussion.vote_options.length === 3',
   'await submitVote(fixtureState, opened, 2, "clock_c")',
