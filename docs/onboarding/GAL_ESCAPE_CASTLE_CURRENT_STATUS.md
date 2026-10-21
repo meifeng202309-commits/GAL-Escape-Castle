@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-20T23:50:00Z
+> Last refreshed: 2026-10-21T02:30:00Z
 > Updated by: CD
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE          = ACT7_071_NEW_ONE_ATTEMPT_APPROVED / FRESH_PREFLIGHT_REQUIRED / PRODUCTION_HOLD
-CURRENT_OWNER         = CD — fresh exclusive preflight and single bounded 071 production acceptance
-NEXT_REQUIRED_ACTION  = CD verify fresh preflight and live Teacher Pages operator; then one 071 NORMAL/AUDIT attempt only if all gates pass, else STOP and recover.
+CURRENT_GATE = ACT1_14_TRIAL_FIRST_READINESS / CA272_RECOVERY_REPORTED / NO_NEW_PRODUCTION_AUTH
+CURRENT_OWNER = CD — one-batch read-only/source-only shortest playable-route assessment
+NEXT_REQUIRED_ACTION = CD identify current deployed ACT1–14 diagnostic trial route, up to three evidenced P0 blockers, and minimal Teacher steps; report to CA, no writes.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-272
+CA_CHECKPOINT = CA-273
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
