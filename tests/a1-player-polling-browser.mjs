@@ -64,6 +64,7 @@ const scenario = {
   gate: null,
   started: null,
   calls: [],
+  stationTask: false,
 };
 
 function setScenario(mode, options = {}) {
@@ -76,6 +77,7 @@ function setScenario(mode, options = {}) {
   scenario.gate = options.holdRpc ? deferred() : null;
   scenario.started = options.holdRpc ? deferred() : null;
   scenario.calls = [];
+  scenario.stationTask = false;
 }
 
 function projection(name, body, mode, frameVersion) {
@@ -94,7 +96,7 @@ function projection(name, body, mode, frameVersion) {
     if (name === "s2_get_player_state") return { active: false };
   }
   if (name === "s2_get_player_state") return { active: true };
-  if (mode === "activeAct7" && name === "s3b_get_player_state") return {
+  if ((mode === "activeAct7" || mode === "activeStationA") && name === "s3b_get_player_state") return {
     active: true,
     scene: { scene_id: "act7_clock_room", phase_key: "act7_vote", text_key: "act07.001" },
     flow: { terminal_state: "SPRINT3B_COMPLETE" },
@@ -103,6 +105,7 @@ function projection(name, body, mode, frameVersion) {
     queued_first_messages: [],
   };
   if (name === "s3b_get_player_state") return { active: false, scene: null };
+  if (mode === "activeStationA" && name === "s5_get_player_state") return { active: false };
   if (name === "s5_get_player_state") return {
     active: true,
     state: {
@@ -114,6 +117,17 @@ function projection(name, body, mode, frameVersion) {
     private_choices_revealed: [],
     my_private_choice: null,
   };
+  if (mode === "activeStationA" && name === "s6_get_player_state") return {
+    active: true,
+    state: { run_id: "00000000-0000-0000-0000-000000000020", act_no: 12, phase_key: "act12_tasks", act9_step: 4, round_no: 1, gold_key: true, feedback_text_keys: [] },
+    allocation: "A", station_task: scenario.stationTask ? "municipal_year" : null,
+    station_b_stage: null, engaged_roles: [], private_choices_revealed: [], discussion: null,
+  };
+  if (mode === "activeStationA" && name === "s6_complete_station_v2") {
+    invariant(body.p_task_value === "1897", `Station A submitted unexpected value ${body.p_task_value}.`);
+    scenario.stationTask = true;
+    return { ok: true, role_key: "A", task_key: "municipal_year" };
+  }
   if (name === "s6_get_player_state") return { active: false };
   if (name === "s3_get_player_state") return {
     active: true,
@@ -274,6 +288,26 @@ async function main() {
     invariant(afterRejectedAct7Dom.actionsText === nextAct7Dom.actionsText, "Rejected Discussion read replaced the confirmed ACT7 action content.");
     invariant(!afterRejectedAct7Dom.discussionText.includes("Rejected ACT7 discussion"), "Rejected candidate Discussion leaked into the confirmed frame.");
     invariant((await page.locator("#gameStatus").innerText()).includes("showing the last confirmed state"), "Rejected Discussion read lacks a stale-state notice.");
+
+    // Station A remains editable across complete polling commits and still
+    // submits through the real form handler when the authoritative state changes.
+    setScenario("activeStationA");
+    const stationResult = await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
+    invariant(stationResult.status === "committed", "Initial Station A frame did not commit.");
+    const stationInput = page.locator("#s6StationValue");
+    await stationInput.focus();
+    await stationInput.type("18");
+    for (let cycle = 0; cycle < 2; cycle++) {
+      const pollResult = await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
+      invariant(pollResult.status === "committed", `Station A poll ${cycle + 1} did not commit.`);
+      invariant(await stationInput.inputValue() === "18", `Station A draft was lost on poll ${cycle + 1}.`);
+      invariant(await stationInput.evaluate((node) => document.activeElement === node), `Station A focus was lost on poll ${cycle + 1}.`);
+    }
+    await stationInput.type("97");
+    await stationInput.press("Enter");
+    await page.waitForFunction(() => document.querySelector("#sprint3bActions [data-s6-rpc='s6_engage_v2']"));
+    invariant(scenario.calls.some((call) => call.name === "s6_complete_station_v2"), "Station A Enter did not call the guarded RPC.");
+    invariant(await page.locator("#s6StationValue").count() === 0, "Completed Station A field survived authoritative state change.");
 
     // A failed optional-domain transport read preserves the last confirmed frame.
     setScenario("failOptional");
