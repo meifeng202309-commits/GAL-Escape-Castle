@@ -91,3 +91,7 @@ Scope: one Teacher manually operating Teacher Console and three Player accounts;
 WORK NECESSITY GATE: Everything other than ACT7 proven blockage and any SQL timeout actually contributing to it is currently deferred or observation-only.
 
 NEXT_OWNER: CD for read-only investigation under the existing ACT7 issue handoff. Report is evidence register, not deployment authority.
+
+## Follow-up Teacher clarification — ACT7 feedback wording (2026-10-21)
+
+Teacher requests conspicuous feedback after a wrong-clock majority: Chinese: “你们的选择没有获得有用的信息，请继续投票”; Dutch proposal: “Jullie keuze heeft geen bruikbare informatie opgeleverd. Stem opnieuw.” Record as **P1 presentation**, not an urgent implementation authorization. The database-verified three all-A outcomes were canonical wrong-clock retries; this conclusion does **not** close unrelated Teacher-observed vote/revote usability concerns at ACT2/5/6. Continue TEST4 at ACT7 round 4 with three Clock C votes to verify normal solution route. Preserve existing more specific canonical clock hints; do not silently replace puzzle logic or publish text without GA/localization review if later implemented.
