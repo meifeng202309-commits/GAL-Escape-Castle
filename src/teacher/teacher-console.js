@@ -46,6 +46,7 @@ const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.
 
 let pollTimer = null;
 let sprint5TeacherActive = false;
+let teacherDiscussionOwner = "s2";
 let currentTeacherDiscussionState = null;
 let operationsLoadGeneration = 0;
 
@@ -174,8 +175,8 @@ async function openVote() {
   const payload = baseTeacherPayload();
   if (!payload) return;
   try {
-    const votePayload=sprint5TeacherActive ? sprint5OpenVotePayload(payload,currentTeacherDiscussionState) : payload;
-    await rpc(sprint5TeacherActive ? "s5_teacher_open_vote" : "s2_open_vote", votePayload);
+    const votePayload=teacherDiscussionOwner==="s6"?sprint6OpenVotePayload(payload,currentTeacherDiscussionState):sprint5TeacherActive?sprint5OpenVotePayload(payload,currentTeacherDiscussionState):payload;
+    await rpc(teacherDiscussionOwner==="s6"?"s6_teacher_open_vote":sprint5TeacherActive?"s5_teacher_open_vote":"s2_open_vote",votePayload);
     discussionTeacherStatus.textContent = "Voting opened.";
     await loadDiscussionState();
   } catch (error) {
@@ -199,9 +200,11 @@ async function loadDiscussionState() {
   const payload = baseTeacherPayload(false);
   if (!payload) return;
   try {
-    const s5State = await rpc("s5_get_teacher_discussion_state", payload).catch(()=>({sprint5_active:false}));
-    sprint5TeacherActive = Boolean(s5State.sprint5_active);
-    const state = sprint5TeacherActive ? s5State : await rpc("s2_get_teacher_state", payload);
+    const s6State=await rpc("s6_get_teacher_discussion_state",payload).catch(()=>({sprint6_active:false}));
+    const s5State=s6State.sprint6_active?null:await rpc("s5_get_teacher_discussion_state",payload).catch(()=>({sprint5_active:false}));
+    teacherDiscussionOwner=s6State.sprint6_active?"s6":s5State?.sprint5_active?"s5":"s2";
+    sprint5TeacherActive=teacherDiscussionOwner==="s5";
+    const state=teacherDiscussionOwner==="s6"?s6State:sprint5TeacherActive?s5State:await rpc("s2_get_teacher_state",payload);
     renderDiscussionState(state);
   } catch (error) {
     runBadge.textContent = "Unavailable";
@@ -218,6 +221,7 @@ function renderDiscussionState(state) {
   openDiscussionButton.disabled = canonicalFlowActive;
   discussionTopicInput.disabled = canonicalFlowActive;
   voteOptionsInput.disabled = canonicalFlowActive;
+  openVoteButton.disabled=!state.discussion||state.discussion.status!=="discussion"||(teacherDiscussionOwner==="s6"&&(state.run.run_mode!=="normal"||state.discussion.phase_key!=="act10_discussion"));
   if (!state.active) {
     addTimeButton.hidden=true;
     runBadge.textContent = "No active run";
@@ -226,7 +230,7 @@ function renderDiscussionState(state) {
   }
 
   runBadge.textContent = state.run.run_mode.toUpperCase();
-  addTimeButton.hidden=state.run.run_mode==="normal";
+  addTimeButton.hidden=state.run.run_mode==="normal"||teacherDiscussionOwner==="s6";
   runModeInput.disabled = true;
   startRunButton.disabled = true;
   if (canonicalFlowActive) {
@@ -263,6 +267,12 @@ function sprint5OpenVotePayload(payload,state){
     throw new Error("Current Sprint 5 run, phase, round and discussion identity are required.");
   }
   return {...payload,p_expected_run_id:run.run_id,p_expected_phase:discussion.phase_key,p_expected_vote_round:discussion.vote_round,p_expected_discussion_session_id:discussion.discussion_session_id};
+}
+
+function sprint6OpenVotePayload(payload,state){
+  const discussion=state?.discussion,run=state?.run,s6=state?.s6;
+  if(!run?.run_id||discussion?.phase_key!=="act10_discussion"||!discussion?.discussion_session_id||!Number.isInteger(s6?.act9_step)||!Number.isInteger(s6?.round_no))throw new Error("Current Sprint 6 run, ACT10 phase, step, round and discussion identity are required.");
+  return{...payload,p_expected_run_id:run.run_id,p_expected_phase:discussion.phase_key,p_expected_step:s6.act9_step,p_expected_round:s6.round_no,p_expected_discussion_session_id:discussion.discussion_session_id};
 }
 
 async function loadOperationsState(){

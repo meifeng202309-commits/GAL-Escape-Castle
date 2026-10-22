@@ -141,7 +141,7 @@ function projection(name, body, mode, frameVersion) {
     state: { run_id: "00000000-0000-0000-0000-000000000020", act_no: 10, phase_key: "act10_discussion", act9_step: 4, round_no: 1, gold_key: null, feedback_text_keys: [] },
     allocation: null, station_task: null, station_b_stage: null, engaged_roles: [],
     private_choices_revealed: [{role_slot:"GAL-A",choice_id:"take"},{role_slot:"GAL-B",choice_id:"leave"},{role_slot:"GAL-C",choice_id:"take"}],
-    discussion: { discussion_session_id: scenario.discussionSession, phase_key: "act10_discussion", step_key: "reveal", vote_round: 1, phase_deadline: "2099-10-22T00:00:00Z", messages: scenario.sentMessages },
+    discussion: { discussion_session_id: scenario.discussionSession, phase_key: "act10_discussion", step_key: "reveal", vote_round: 1, phase_deadline: null, teacher_open_required: true, messages: scenario.sentMessages },
   };
   if (mode === "activeStationA" && name === "s6_complete_station_v2") {
     invariant(body.p_task_value === "1897", `Station A submitted unexpected value ${body.p_task_value}.`);
@@ -338,6 +338,7 @@ async function main() {
     setScenario("activeAct10Discussion");
     invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "Initial ACT10 discussion frame did not commit.");
     const messageInput = page.locator("#s6MessageText");
+    invariant(await page.locator('[data-s6-rpc="s6_close_discussion_v2"]').isDisabled(), "NORMAL ACT10 exposed premature player Continue.");
     await messageInput.fill("draft across poll");
     await messageInput.focus();
     invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "ACT10 discussion same-session poll did not commit.");
