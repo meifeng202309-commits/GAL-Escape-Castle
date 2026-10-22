@@ -210,6 +210,8 @@ async function loadDiscussionState() {
 }
 
 function renderDiscussionState(state) {
+  const previousTranscript=discussionState.querySelector(".teacher-transcript");
+  const transcriptScroll=previousTranscript?{nearBottom:previousTranscript.scrollHeight-previousTranscript.scrollTop-previousTranscript.clientHeight<=24,top:previousTranscript.scrollTop}:null;
   currentTeacherDiscussionState=state;
   renderOverrideState(state.teacher_override);
   const canonicalFlowActive = Boolean(state.canonical_flow_active);
@@ -251,6 +253,8 @@ function renderDiscussionState(state) {
     <table><thead><tr><th>Player</th><th>Role</th><th>Vote</th>${discussion.status === "resolved" ? "<th>Revealed choice</th>" : ""}</tr></thead><tbody>${voteRows}</tbody></table>
     ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
   `;
+  const nextTranscript=discussionState.querySelector(".teacher-transcript");
+  if(nextTranscript&&transcriptScroll)nextTranscript.scrollTop=transcriptScroll.nearBottom?nextTranscript.scrollHeight:Math.min(transcriptScroll.top,Math.max(0,nextTranscript.scrollHeight-nextTranscript.clientHeight));
 }
 
 function sprint5OpenVotePayload(payload,state){

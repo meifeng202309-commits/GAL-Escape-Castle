@@ -65,6 +65,9 @@ const scenario = {
   started: null,
   calls: [],
   stationTask: false,
+  libraryResolved: false,
+  discussionSession: "00000000-0000-0000-0000-000000000030",
+  sentMessages: [],
 };
 
 function setScenario(mode, options = {}) {
@@ -78,6 +81,9 @@ function setScenario(mode, options = {}) {
   scenario.started = options.holdRpc ? deferred() : null;
   scenario.calls = [];
   scenario.stationTask = false;
+  scenario.libraryResolved = false;
+  scenario.discussionSession = "00000000-0000-0000-0000-000000000030";
+  scenario.sentMessages = [];
 }
 
 function projection(name, body, mode, frameVersion) {
@@ -96,7 +102,14 @@ function projection(name, body, mode, frameVersion) {
     if (name === "s2_get_player_state") return { active: false };
   }
   if (name === "s2_get_player_state") return { active: true };
-  if ((mode === "activeAct7" || mode === "activeStationA") && name === "s3b_get_player_state") return {
+  if (mode === "activeLibrary" && name === "s3b_get_player_state") return {
+    active: true, run_id: "00000000-0000-0000-0000-000000000019",
+    scene: { scene_id: "act3_library", phase_key: scenario.libraryResolved ? "act4_known_unknown" : "library_box", text_key: "act03.008" },
+    flow: { puzzle_resolved_at: scenario.libraryResolved ? "2026-10-22T00:00:00Z" : null, puzzle_locked_prefix: "41" },
+    me: { first_meeting_locked_at: "2026-10-10T00:00:00Z", grab_complete: true, left_start_room: true, player_location: "library" },
+    act4_revealed: [], queued_first_messages: [],
+  };
+  if ((mode === "activeAct7" || mode === "activeStationA" || mode === "activeAct10Discussion") && name === "s3b_get_player_state") return {
     active: true,
     scene: { scene_id: "act7_clock_room", phase_key: "act7_vote", text_key: "act07.001" },
     flow: { terminal_state: "SPRINT3B_COMPLETE" },
@@ -105,7 +118,7 @@ function projection(name, body, mode, frameVersion) {
     queued_first_messages: [],
   };
   if (name === "s3b_get_player_state") return { active: false, scene: null };
-  if (mode === "activeStationA" && name === "s5_get_player_state") return { active: false };
+  if (["activeStationA","activeLibrary","activeAct10Discussion"].includes(mode) && name === "s5_get_player_state") return { active: false };
   if (name === "s5_get_player_state") return {
     active: true,
     state: {
@@ -123,10 +136,27 @@ function projection(name, body, mode, frameVersion) {
     allocation: "A", station_task: scenario.stationTask ? "municipal_year" : null,
     station_b_stage: null, engaged_roles: [], private_choices_revealed: [], discussion: null,
   };
+  if (mode === "activeAct10Discussion" && name === "s6_get_player_state") return {
+    active: true,
+    state: { run_id: "00000000-0000-0000-0000-000000000020", act_no: 10, phase_key: "act10_discussion", act9_step: 4, round_no: 1, gold_key: null, feedback_text_keys: [] },
+    allocation: null, station_task: null, station_b_stage: null, engaged_roles: [],
+    private_choices_revealed: [{role_slot:"GAL-A",choice_id:"take"},{role_slot:"GAL-B",choice_id:"leave"},{role_slot:"GAL-C",choice_id:"take"}],
+    discussion: { discussion_session_id: scenario.discussionSession, phase_key: "act10_discussion", step_key: "reveal", vote_round: 1, phase_deadline: "2099-10-22T00:00:00Z", messages: scenario.sentMessages },
+  };
   if (mode === "activeStationA" && name === "s6_complete_station_v2") {
     invariant(body.p_task_value === "1897", `Station A submitted unexpected value ${body.p_task_value}.`);
     scenario.stationTask = true;
     return { ok: true, role_key: "A", task_key: "municipal_year" };
+  }
+  if (mode === "activeLibrary" && name === "s3b_submit_library_code") {
+    invariant(body.p_code === "41739", `Library submitted unexpected code ${body.p_code}.`);
+    scenario.libraryResolved = true;
+    return { ok: true };
+  }
+  if (mode === "activeAct10Discussion" && name === "s6_send_message_v2") {
+    invariant(body.p_expected_discussion_session_id === scenario.discussionSession, "ACT10 message used stale discussion identity.");
+    scenario.sentMessages.push({ display_name: "Old Player", message_text: body.p_message_text, created_at: "2026-10-22T00:00:00Z" });
+    return { ok: true, message_id: scenario.sentMessages.length };
   }
   if (name === "s6_get_player_state") return { active: false };
   if (name === "s3_get_player_state") return {
@@ -289,7 +319,39 @@ async function main() {
     invariant(!afterRejectedAct7Dom.discussionText.includes("Rejected ACT7 discussion"), "Rejected candidate Discussion leaked into the confirmed frame.");
     invariant((await page.locator("#gameStatus").innerText()).includes("showing the last confirmed state"), "Rejected Discussion read lacks a stale-state notice.");
 
-    // Station A remains editable across complete polling commits and still
+    // Library code remains editable across same-authority polls and clears
+    // after the accepted submission advances the authoritative state.
+    setScenario("activeLibrary");
+    invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "Initial Library frame did not commit.");
+    const libraryInput = page.locator("#libraryCode");
+    await libraryInput.fill("739");
+    await libraryInput.focus();
+    invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "Library same-state poll did not commit.");
+    invariant(await libraryInput.inputValue() === "739", "Library draft was lost across a same-state poll.");
+    invariant(await libraryInput.evaluate((node) => document.activeElement === node), "Library focus was lost across a same-state poll.");
+    await libraryInput.press("Enter");
+    await page.waitForFunction(() => !document.querySelector("#libraryCode"));
+    invariant(scenario.calls.some((call) => call.name === "s3b_submit_library_code"), "Library real form handler did not submit.");
+
+    // ACT10 discussion draft remains local to the same run/phase/session,
+    // is discarded for a new discussion identity, and clears after send.
+    setScenario("activeAct10Discussion");
+    invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "Initial ACT10 discussion frame did not commit.");
+    const messageInput = page.locator("#s6MessageText");
+    await messageInput.fill("draft across poll");
+    await messageInput.focus();
+    invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "ACT10 discussion same-session poll did not commit.");
+    invariant(await messageInput.inputValue() === "draft across poll", "ACT10 discussion draft was lost across a same-session poll.");
+    invariant(await messageInput.evaluate((node) => document.activeElement === node), "ACT10 discussion focus was lost across a same-session poll.");
+    scenario.discussionSession = "00000000-0000-0000-0000-000000000031";
+    invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "ACT10 new-session frame did not commit.");
+    invariant(await messageInput.inputValue() === "", "Stale ACT10 draft crossed a discussion-session boundary.");
+    await messageInput.fill("send once");
+    await messageInput.press("Enter");
+    await page.waitForFunction(() => document.querySelector("#s6MessageText")?.value === "");
+    invariant(scenario.calls.some((call) => call.name === "s6_send_message_v2"), "ACT10 real message handler did not submit.");
+
+    // Station A remains editable and viewport-stable across complete polling commits and still
     // submits through the real form handler when the authoritative state changes.
     setScenario("activeStationA");
     const stationResult = await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
@@ -297,11 +359,14 @@ async function main() {
     const stationInput = page.locator("#s6StationValue");
     await stationInput.focus();
     await stationInput.type("18");
+    await page.evaluate(() => { document.body.style.minHeight = "4000px"; window.scrollTo(0, 900); });
+    const stationScrollY = await page.evaluate(() => window.scrollY);
     for (let cycle = 0; cycle < 2; cycle++) {
       const pollResult = await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
       invariant(pollResult.status === "committed", `Station A poll ${cycle + 1} did not commit.`);
       invariant(await stationInput.inputValue() === "18", `Station A draft was lost on poll ${cycle + 1}.`);
       invariant(await stationInput.evaluate((node) => document.activeElement === node), `Station A focus was lost on poll ${cycle + 1}.`);
+      invariant(Math.abs((await page.evaluate(() => window.scrollY)) - stationScrollY) <= 1, `Station A viewport moved on poll ${cycle + 1}.`);
     }
     await stationInput.type("97");
     await stationInput.press("Enter");
