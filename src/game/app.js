@@ -37,9 +37,17 @@ const sprint3bStatus = document.getElementById("sprint3bStatus");
 
 let session = loadSession();
 let pollTimer = null;
+let pollingEnabled = false;
+let playerSessionEpoch = 0;
+let refreshGeneration = 0;
+let refreshInFlight = null;
+let refreshQueued = null;
+let lastConfirmedFrame = null;
+const refreshDisabledControls = new Set();
 let currentDiscussion = null;
 let currentSprint5State = null;
 let currentSprint6State = null;
+let currentSprint3bState = null;
 let sprint8RevealRunId = "";
 let sprint8RevealTimer = null;
 let sprint6AudioIdentity = "";
@@ -117,6 +125,7 @@ async function joinRoom() {
       p_room_code: roomCode,
       p_join_code: joinCode,
     });
+    stopPolling();
     session = {
       room_code: roomCode,
       player_id: result.player_id,
@@ -136,68 +145,229 @@ async function joinRoom() {
   }
 }
 
-async function refreshState() {
-  const activeSession=session;
-  if (!activeSession) return;
+function createRefreshDeferred() {
+  let resolve;
+  const promise = new Promise((settle) => { resolve = settle; });
+  return { promise, resolve };
+}
+
+function refreshCanCommit(run) {
+  return !run.cancelled
+    && session === run.activeSession
+    && playerSessionEpoch === run.epoch
+    && refreshGeneration === run.generation;
+}
+
+async function readPlayerProjection(name, payload) {
+  let value;
   try {
-    const auth={p_room_code:activeSession.room_code,p_session_token:activeSession.session_token};
-    // Completion is a first-class lifecycle state. This projection deliberately
-    // supports the latest completed run even though no active run remains.
-    const completedState=await rpc("s8_get_player_state",auth).catch(()=>({active:false}));
-    if(session!==activeSession)return;
-    if(completedState.active&&completedState.game_completed){
-      currentDiscussion=null;
-      discussionPanel.classList.add("hidden");
-      renderSprint8(completedState);
-      return;
-    }
-    const discussionState = await rpc("s2_get_player_state", {
-      p_room_code: activeSession.room_code,
-      p_session_token: activeSession.session_token,
-    });
-    if(session!==activeSession)return;
-    if (discussionState.active) {
-      const sprint3bState = await rpc("s3b_get_player_state", {
-        p_room_code: activeSession.room_code,
-        p_session_token: activeSession.session_token,
-      });
-      const sprint5State = await rpc("s5_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
-      const sprint6State = await rpc("s6_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>({active:false}));
-      if(sprint6State.active)sprint6State.wait_state=await rpc("s9_get_player_wait_state",auth).catch(()=>null);
-      const sprint8State = completedState.active ? completedState : await rpc("s8_get_player_state", auth).catch(()=>({active:false}));
-      const pocketState = await rpc("s3_get_player_state", {p_room_code:activeSession.room_code,p_session_token:activeSession.session_token}).catch(()=>null);
-      if(session!==activeSession)return;
-      if (!sprint3bState.active || !sprint3bState.scene) {
-        renderLifecycleNotice("starting","Formal game initialization is still completing. Please wait; no action has been lost.");
-        return;
-      }
-      const act5Handoff=sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE"&&sprint5State.active&&!sprint3bState.me?.act6_entered_at;
-      if(act5Handoff){
-        currentDiscussion=null;
-        discussionPanel.classList.add("hidden");
-        renderAct5Handoff(sprint3bState,sprint5State);
-        return;
-      }
-      const act6Waiting=sprint5State.active&&sprint5State.state?.phase_key==="act6_vote"&&sprint3bState.me?.act6_entered_at&&!sprint5State.canonical_discussion;
-      if(act6Waiting){
-        currentDiscussion=null;
-        discussionPanel.classList.add("hidden");
-        renderAct6EntryBarrier();
-        return;
-      }
-      renderDiscussion(sprint5State.active ? await rpc("s5_get_discussion_state", auth) : discussionState);
-      if(session!==activeSession)return;
-      if(sprint8State.active)renderSprint8(sprint8State);else if(sprint6State.active){renderSprint6(sprint6State);sprint3bText.insertAdjacentHTML("beforeend",pocketEvidencePanel(pocketState,sprint6State.state.phase_key));bindPocketActions();renderSprint6AcceptedWaiting(sprint6State)}else if(sprint5State.active)renderSprint5(sprint5State,pocketState);else renderSprint3b(sprint3bState,pocketState);
-      return;
-    }
-    renderLifecycleNotice("pre-run","You are connected. Wait for the Teacher to start the formal run.");
+    value = await rpc(name, payload);
   } catch (error) {
-    choiceArea.classList.add("hidden");
-    revealArea.classList.add("hidden");
-    discussionPanel.classList.add("hidden");
-    sprint3bPanel.classList.add("hidden");
-    gameStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
+    const wrapped = new Error(`${name} refresh failed: ${error.message}`);
+    wrapped.name = "PlayerRefreshReadError";
+    wrapped.projection = name;
+    wrapped.cause = error;
+    throw wrapped;
   }
+  if (!value || typeof value !== "object") {
+    const invariant = new Error(`${name} returned an invalid projection.`);
+    invariant.name = "PlayerRefreshInvariantError";
+    invariant.projection = name;
+    throw invariant;
+  }
+  return value;
+}
+
+async function settlePlayerProjectionReads(reads) {
+  const settled = await Promise.allSettled(reads);
+  const failed = settled.find((result) => result.status === "rejected");
+  if (failed) throw failed.reason;
+  return settled.map((result) => result.value);
+}
+
+async function loadPlayerFrame(activeSession) {
+  const auth = { p_room_code: activeSession.room_code, p_session_token: activeSession.session_token };
+  // Completion remains the first lifecycle authority even though no active run remains.
+  // Static lifecycle contract marker: rpc("s8_get_player_state") precedes active-run dispatch.
+  const completedState = await readPlayerProjection("s8_get_player_state", auth);
+  if (completedState.active && completedState.game_completed) return { kind: "completed", completedState };
+
+  // Static lifecycle contract marker: rpc("s2_get_player_state") follows the completed-state read.
+  const discussionState = await readPlayerProjection("s2_get_player_state", auth);
+  if (!discussionState.active) return { kind: "pre-run", discussionState };
+
+  const [sprint3bState, sprint5State, sprint6State, sprint8State, pocketState] = await settlePlayerProjectionReads([
+    readPlayerProjection("s3b_get_player_state", auth),
+    readPlayerProjection("s5_get_player_state", auth),
+    readPlayerProjection("s6_get_player_state", auth),
+    readPlayerProjection("s8_get_player_state", auth),
+    readPlayerProjection("s3_get_player_state", auth),
+  ]);
+  const [sprint5Discussion, sprint6WaitState] = await settlePlayerProjectionReads([
+    sprint5State.active ? readPlayerProjection("s5_get_discussion_state", auth) : Promise.resolve(null),
+    sprint6State.active ? readPlayerProjection("s9_get_player_wait_state", auth) : Promise.resolve(null),
+  ]);
+  if (sprint6State.active) sprint6State.wait_state = sprint6WaitState;
+
+  if (!sprint3bState.active || !sprint3bState.scene) {
+    return { kind: "starting", discussionState, sprint3bState, sprint5State, sprint6State, sprint8State, pocketState, sprint5Discussion };
+  }
+  const act5Handoff = sprint3bState.flow?.terminal_state==="SPRINT3B_COMPLETE" && sprint5State.active && !sprint3bState.me?.act6_entered_at;
+  if (act5Handoff) return { kind: "act5-handoff", sprint3bState, sprint5State };
+  const act6Waiting = sprint5State.active && sprint5State.state?.phase_key==="act6_vote" && sprint3bState.me?.act6_entered_at && !sprint5State.canonical_discussion;
+  if (act6Waiting) return { kind: "act6-waiting" };
+  return {
+    kind: "active",
+    discussionView: sprint5State.active ? sprint5Discussion : discussionState,
+    sprint3bState,
+    sprint5State,
+    sprint6State,
+    sprint8State,
+    pocketState,
+  };
+}
+
+function commitPlayerFrame(frame) {
+  restoreRefreshDisabledPlayerMutations();
+  gameStatus.textContent = "";
+  if (frame.kind === "completed") {
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    renderSprint8(frame.completedState);
+    return;
+  }
+  if (frame.kind === "pre-run") {
+    renderLifecycleNotice("pre-run", "You are connected. Wait for the Teacher to start the formal run.");
+    return;
+  }
+  if (frame.kind === "starting") {
+    renderLifecycleNotice("starting", "Formal game initialization is still completing. Please wait; no action has been lost.");
+    return;
+  }
+  if (frame.kind === "act5-handoff") {
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    renderAct5Handoff(frame.sprint3bState, frame.sprint5State);
+    return;
+  }
+  if (frame.kind === "act6-waiting") {
+    currentDiscussion = null;
+    discussionPanel.classList.add("hidden");
+    renderAct6EntryBarrier();
+    return;
+  }
+  renderDiscussion(frame.discussionView);
+  if (frame.sprint8State.active) renderSprint8(frame.sprint8State);
+  else if (frame.sprint6State.active) {
+    renderSprint6(frame.sprint6State);
+    sprint3bText.insertAdjacentHTML("beforeend", pocketEvidencePanel(frame.pocketState, frame.sprint6State.state.phase_key));
+    bindPocketActions();
+    renderSprint6AcceptedWaiting(frame.sprint6State);
+  } else if (frame.sprint5State.active) renderSprint5(frame.sprint5State, frame.pocketState);
+  else renderSprint3b(frame.sprint3bState, frame.pocketState);
+}
+
+function disableUnverifiedPlayerMutations() {
+  for (const root of [choiceArea, discussionPanel, sprint3bActions]) {
+    root.querySelectorAll("button,input,textarea,select").forEach((control) => {
+      if (control.disabled) return;
+      control.disabled = true;
+      refreshDisabledControls.add(control);
+    });
+  }
+}
+
+function restoreRefreshDisabledPlayerMutations() {
+  for (const control of refreshDisabledControls) {
+    if (control.isConnected) control.disabled = false;
+  }
+  refreshDisabledControls.clear();
+}
+
+function showPlayerRefreshFailure(error) {
+  disableUnverifiedPlayerMutations();
+  const prefix = lastConfirmedFrame ? "Refresh failed; showing the last confirmed state." : "Unable to load a confirmed game state.";
+  gameStatus.innerHTML = `<span class="bad">${escapeHtml(`${prefix} ${error.message}`)}</span>`;
+}
+
+function scheduleNextPlayerPoll() {
+  if (!pollingEnabled || !session || refreshInFlight || refreshQueued || pollTimer) return;
+  pollTimer = setTimeout(() => {
+    pollTimer = null;
+    void refreshState();
+  }, 1200);
+}
+
+function startQueuedPlayerRefresh() {
+  const queued = refreshQueued;
+  refreshQueued = null;
+  if (!queued) return false;
+  if (queued.epoch !== playerSessionEpoch || queued.activeSession !== session) {
+    queued.deferred.resolve({ status: "invalidated" });
+    return false;
+  }
+  startPlayerRefresh(queued.activeSession, queued.epoch, queued.generation, queued.deferred);
+  return true;
+}
+
+function startPlayerRefresh(activeSession, epoch, generation, deferred = createRefreshDeferred()) {
+  const run = { activeSession, epoch, generation, deferred, cancelled: false, settled: false };
+  refreshInFlight = run;
+  void (async () => {
+    let result;
+    try {
+      const frame = await loadPlayerFrame(activeSession);
+      if (!refreshCanCommit(run)) result = { status: "discarded" };
+      else {
+        commitPlayerFrame(frame);
+        lastConfirmedFrame = frame;
+        result = { status: "committed", generation };
+      }
+    } catch (error) {
+      if (refreshCanCommit(run)) showPlayerRefreshFailure(error);
+      const failedStatus = error.name === "PlayerRefreshInvariantError" ? "invariant_breach" : "fetch_error";
+      result = { status: refreshCanCommit(run) ? failedStatus : "discarded", error };
+    } finally {
+      if (!run.settled) {
+        run.settled = true;
+        deferred.resolve(result || { status: "discarded" });
+      }
+      if (refreshInFlight === run) {
+        refreshInFlight = null;
+        if (!startQueuedPlayerRefresh()) scheduleNextPlayerPoll();
+      }
+    }
+  })();
+  return deferred.promise;
+}
+
+function refreshState() {
+  const activeSession = session;
+  if (!activeSession) return Promise.resolve({ status: "no_session" });
+  const epoch = playerSessionEpoch;
+  if (refreshInFlight) {
+    if (!refreshQueued || refreshQueued.epoch !== epoch || refreshQueued.activeSession !== activeSession) {
+      const deferred = createRefreshDeferred();
+      refreshQueued = { activeSession, epoch, generation: ++refreshGeneration, deferred, promise: deferred.promise };
+    }
+    return refreshQueued.promise;
+  }
+  return startPlayerRefresh(activeSession, epoch, ++refreshGeneration);
+}
+
+if (globalThis.__GAL_A1_TEST_HOOKS__) {
+  Object.assign(globalThis.__GAL_A1_TEST_HOOKS__, {
+    refreshState,
+    startPolling,
+    stopPolling,
+    coordinatorState: () => ({
+      epoch: playerSessionEpoch,
+      generation: refreshGeneration,
+      inFlight: Boolean(refreshInFlight),
+      queued: Boolean(refreshQueued),
+      pollingEnabled,
+    }),
+  });
 }
 
 function renderAct6EntryBarrier(){
@@ -244,16 +414,6 @@ function renderAct5Handoff(sprint3bState,sprint5State){
       await refreshState();
     }catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;event.currentTarget.disabled=false;}
   });
-}
-
-async function refreshSprint3b() {
-  try {
-    const state = await rpc("s3b_get_player_state", { p_room_code: session.room_code, p_session_token: session.session_token });
-    renderSprint3b(state);
-  } catch (error) {
-    sprint3bPanel.classList.add("hidden");
-    if (!String(error.message).includes("Could not find the function")) sprint3bStatus.textContent = error.message;
-  }
 }
 
 const ACT1_CHOICES = {
@@ -322,6 +482,8 @@ async function hydrateAct4Comparison() {
 }
 
 function renderSprint3b(state,pocket) {
+  const libraryDraft=captureLibraryDraft();
+  currentSprint3bState=state;
   if (!state.active || !state.scene || !state.flow || !state.me) { sprint3bPanel.classList.add("hidden"); choiceArea.classList.remove("hidden"); revealArea.classList.remove("hidden"); return; }
   choiceArea.classList.add("hidden"); revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
@@ -339,8 +501,7 @@ function renderSprint3b(state,pocket) {
   else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="consequence") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_complete_act1">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up") html=`<p class="warn">${localizedHtml("act01-g.031")}</p>`;
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
-  else if (!me.grab_complete) html=`<button type="button" data-s3b-rpc="s3b_grab">${localizedHtml("act02.014")}</button>`;
-  else if (!me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_leave_start_room">${localizedHtml("act02.022")}</button>`;
+  else if (!me.grab_complete && !me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_grab_and_leave" data-s3b-run="${escapeHtml(state.run_id)}">${localizedHtml("act02.022")}</button>`;
   else if (scene.phase_key==="private_first_meeting") html=acceptedWaiting();
   else if (scene.phase_key==="route_update" && !me.route_update_ack_at) html=`<button type="button" data-s3b-rpc="s3b_ack_route_update">${localizedHtml("common.004")}</button>`;
   else if (scene.phase_key==="route_update" && me.route_update_ack_at) html=acceptedWaiting();
@@ -366,7 +527,14 @@ function renderSprint3b(state,pocket) {
   sprint3bActions.querySelectorAll("[data-s3b-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint3bAction(button)));
   bindPocketActions();
   document.getElementById("libraryCodeForm")?.addEventListener("submit",submitLibraryCode);
+  restoreLibraryDraft(libraryDraft,state);
 }
+
+function inputDraft(input,identity,viewport=false){return input?{identity,value:input.value,focused:document.activeElement===input,selectionStart:input.selectionStart,selectionEnd:input.selectionEnd,scrollX:viewport?window.scrollX:null,scrollY:viewport?window.scrollY:null}:null}
+function restoreInputDraft(draft,input,identity,viewport=false){if(!draft||!input||draft.identity!==identity)return;input.value=draft.value;if(draft.focused){input.focus({preventScroll:true});if(draft.selectionStart!==null&&draft.selectionEnd!==null)input.setSelectionRange(draft.selectionStart,draft.selectionEnd)}if(viewport&&draft.scrollX!==null&&draft.scrollY!==null)window.scrollTo(draft.scrollX,draft.scrollY)}
+function libraryIdentity(state){const scene=state?.scene;return state?.active&&scene?.phase_key==="library_box"&&!state.flow?.puzzle_resolved_at?`${state.run_id}.${scene.scene_id}.${scene.phase_key}.${state.flow?.puzzle_locked_prefix||""}`:""}
+function captureLibraryDraft(){const identity=libraryIdentity(currentSprint3bState);return identity?inputDraft(document.getElementById("libraryCode"),identity):null}
+function restoreLibraryDraft(draft,state){const identity=libraryIdentity(state);if(identity)restoreInputDraft(draft,document.getElementById("libraryCode"),identity)}
 
 function s5Buttons(items,rpcName){return `<div class="choice-list">${items.map(([id,key])=>`<button type="button" data-s5-rpc="${rpcName}" data-s5-choice="${id}">${localizedHtml(key)}</button>`).join("")}</div>`}
 function pocketItemContent(item){
@@ -433,7 +601,7 @@ function retryPendingSprint6Audio(){if(sprint6AudioArmed&&sprint6PendingAudio){c
 function setSprint6CinematicMode(state){const cinematic=state.phase_key==="act12_cinematic",stage=cinematic?state.cinematic_stage:0;document.body.classList.toggle("s6-fading",stage>=4&&stage<=9);document.body.classList.toggle("s6-blackout",stage===10);document.body.dataset.s6Stage=String(stage)}
 function scheduleSprint6LeverCenter(payload){if(payload.station_b_stage!=="lever_held"||payload.station_task||sprint6LeverTimer)return;const body={p_room_code:session.room_code,p_session_token:session.session_token,...sprint6Identity(),p_task_value:"lever_center"},pending=requestIdentity("s6_complete_station_v2",`${body.p_expected_phase}.${body.p_expected_step}.${body.p_expected_round}.lever-center`,body);body.p_client_request_id=pending.requestId;sprint6LeverTimer=setTimeout(async()=>{sprint6LeverTimer=null;try{await rpc("s6_complete_station_v2",body);clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`}},1200)}
 function sprint6AudioControls(){return `<div class="s6-audio-controls" role="group">${[["full","runtime.audio.full"],["reduced","runtime.audio.reduced"],["mute","runtime.audio.mute"]].map(([mode,key])=>`<button type="button" class="secondary" data-s6-volume="${mode}" aria-pressed="${sprint6VolumeMode===mode}">${localizedHtml(key)}</button>`).join("")}</div>`}
-function sprint6Discussion(payload){const d=payload.discussion;if(!d)return"";const ready=Date.parse(d.phase_deadline)<=Date.now();return `<section class="discussion-room"><h3>${localizedHtml(d.phase_key==="act10_discussion"?"act10.004":d.phase_key==="act11_discussion"?"act11.001":"act09.004")}</h3><p class="muted">${escapeHtml(formatDeadline(d.phase_deadline,"discussion"))}</p><div class="transcript">${d.messages.length?d.messages.map(m=>`<article class="message"><b>${escapeHtml(m.display_name)}</b><p>${escapeHtml(m.message_text)}</p></article>`).join(""):localizedHtml("discussion.no_messages")}</div><form id="s6MessageForm" class="composer"><input id="s6MessageText" maxlength="1000" required><button>${localizedHtml("discussion.send_message")}</button></form><button data-s6-rpc="s6_close_discussion_v2" data-s6-discussion="${d.discussion_session_id}" ${ready?"":"disabled"}>${localizedHtml("common.004")}</button></section>`}
+function sprint6Discussion(payload){const d=payload.discussion;if(!d)return"";const ready=!d.teacher_open_required&&Date.parse(d.phase_deadline)<=Date.now();return `<section class="discussion-room"><h3>${localizedHtml(d.phase_key==="act10_discussion"?"act10.004":d.phase_key==="act11_discussion"?"act11.001":"act09.004")}</h3><p class="muted">${escapeHtml(formatDeadline(d.phase_deadline,"discussion"))}</p><div class="transcript">${d.messages.length?d.messages.map(m=>`<article class="message"><b>${escapeHtml(m.display_name)}</b><p>${escapeHtml(m.message_text)}</p></article>`).join(""):localizedHtml("discussion.no_messages")}</div><form id="s6MessageForm" class="composer"><input id="s6MessageText" maxlength="1000" required><button>${localizedHtml("discussion.send_message")}</button></form><button data-s6-rpc="s6_close_discussion_v2" data-s6-discussion="${d.discussion_session_id}" ${ready?"":"disabled"}>${localizedHtml("common.004")}</button></section>`}
 function renderSprint6AcceptedWaiting(payload){
   const wait=payload.wait_state,s=payload.state;
   if(!wait||wait.phase_key!==s.phase_key)return;
@@ -458,9 +626,13 @@ function mainGateLegendHtml(state){
   const labels=state.gold_key?["act11.002","act11.003","act11.015"]:["act11.002","act11.003","act11.004"];
   return `<div class="s6-station-legend">${labels.map(localizedHtml).join("")}</div>`;
 }
-function captureSprint6StationDraft(){const input=document.getElementById("s6StationValue"),s=currentSprint6State?.state;if(!input||!s||currentSprint6State.allocation!=="A"||currentSprint6State.station_task)return null;return{runId:s.run_id,phase:s.phase_key,step:s.act9_step,round:s.round_no,value:input.value,focused:document.activeElement===input,selectionStart:input.selectionStart,selectionEnd:input.selectionEnd}}
-function restoreSprint6StationDraft(draft,payload){if(!draft||payload.allocation!=="A"||payload.station_task)return;const s=payload.state,input=document.getElementById("s6StationValue");if(!input||draft.runId!==s.run_id||draft.phase!==s.phase_key||draft.step!==s.act9_step||draft.round!==s.round_no)return;input.value=draft.value;if(draft.focused){input.focus({preventScroll:true});if(draft.selectionStart!==null&&draft.selectionEnd!==null)input.setSelectionRange(draft.selectionStart,draft.selectionEnd)}}
-function renderSprint6(payload){const stationDraft=captureSprint6StationDraft();currentSprint6State=payload;const s=payload.state;clearSprint6Status();setSprint6CinematicMode(s);choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");const black=s.phase_key==="act12_cinematic"&&s.cinematic_stage===10;const hall=s.act_no===9?`<div class="s6-door-layer"><span data-anchor="great_hall_red_door" class="s6-door red ${s.act9_step>=2?"open":""}">${localizedHtml("act09.001")}</span><span data-anchor="great_hall_blue_door" class="s6-door blue ${s.act9_step>=3?"available":""} ${s.act9_step>=4?"open":""}">${localizedHtml("act09.002")}</span><span data-anchor="great_hall_black_door" class="s6-door black">${localizedHtml("act09.003")}</span></div>`:"",mainGate=mainGateOverlayHtml(s),mainGateLegend=mainGateLegendHtml(s);let body=`<div class="s6-stage ${black?"blackout":""}">${black?"":`<p class="eyebrow">ACT ${s.act_no}</p>${payload.scene_asset_key?`<div class="s6-scene-wrap"><img id="s6SceneImage" class="s5-scene" alt="">${hall}${mainGate}</div>${mainGateLegend}`:""}${payload.private_clue?`<div class="notice">${localizedHtml(payload.private_clue.text_key)}</div>`:""}${localizedKeys(s.feedback_text_keys||[])}`}</div>`,actions="";body+=sprint6AudioControls();if(payload.private_choices_revealed?.length)body+=`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(x.choice_id==="take"?"act10.004":"act10.005")}`).join("<br>")}</div>`;if(payload.discussion)actions=sprint6Discussion(payload);if(s.phase_key==="act9_console"){const choices=s.act9_step===1||s.act9_step===3?S6_DOORS:s.act9_step===2?[["enter_red","act09.015"],["do_not_enter","act09.016"]]:[["enter_blue","act09.020"],["stay","act09.021"]];actions=s5Buttons(choices,"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act10_private")actions=s5Buttons([["take","act10.004"],["leave","act10.005"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_final_vote")actions=s5Buttons([["take","act10.006"],["leave","act10.007"]],"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_result")actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("act10.010")}</button>`;if(s.phase_key==="act11_allocation")actions=s5Buttons((s.gold_key?[["A","act11.012"],["B","act11.013"],["WATCHER","act11.014"]]:[["A","act11.012"],["B","act11.013"],["C","act11.004"]]),"s6_submit_allocation_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act12_tasks"&&payload.allocation){const task={A:["act11.005","1897"],B:["act11.007",payload.station_b_stage==="lever_held"?"lever_center":"lever_hold"],C:["act11.008","silver_key_inserted"],WATCHER:["act11.015","corridor_watched"]}[payload.allocation];actions=payload.station_task?`<button data-s6-rpc="s6_engage_v2" data-s6-role="${escapeHtml(payload.allocation)}">${localizedHtml(payload.allocation==="WATCHER"?"act12.004":"act12.001")}</button>`:`${localizedHtml(task[0])}${payload.allocation==="B"&&payload.station_b_stage==="lever_held"?`<span class="s6-lever-track" aria-hidden="true"><span></span></span>`:""}${payload.allocation==="A"?`<form id="s6StationForm" class="composer"><input id="s6StationValue" inputmode="numeric" maxlength="4" required><button>${localizedHtml("act12.001")}</button></form>`:payload.allocation==="B"&&payload.station_b_stage==="lever_held"?"":`<button data-s6-rpc="s6_complete_station_v2" data-s6-value="${task[1]}">${localizedHtml(payload.allocation==="B"?"act12.002":payload.allocation==="C"?"act12.003":"act12.004")}</button>`}`}if(s.phase_key==="act12_pressure"){const failing=payload.allocation===s.mechanism_failure_station;actions=s5Buttons(failing?[["one","act12.008"],["two","act12.009"],["three","act12.010"],["four","act12.011"]]:[["hold","act12.012"],["encourage","act12.013"],["watch","act12.014"],["prepare","act12.015"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act13_escape"&&Date.parse(payload.act13_continue_at)<=Date.now())actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("common.004")}</button>`;if(s.phase_key==="act13_boundary")actions=`<button id="s8Finalize">${localizedHtml("common.004")}</button>`;sprint3bText.innerHTML=body;sprint3bActions.innerHTML=actions;restoreSprint6StationDraft(stationDraft,payload);hydrateSprint6(payload);sprint3bActions.querySelectorAll("[data-s6-rpc]").forEach(b=>b.addEventListener("click",()=>runSprint6Action(b)));document.getElementById("s8Finalize")?.addEventListener("click",finalizeSprint8);document.getElementById("s6MessageForm")?.addEventListener("submit",sendSprint6Message);document.getElementById("s6StationForm")?.addEventListener("submit",submitSprint6Station);document.querySelectorAll("[data-s6-volume]").forEach(button=>button.addEventListener("click",()=>setSprint6Volume(button.dataset.s6Volume)));scheduleSprint6LeverCenter(payload)}
+function sprint6StationIdentity(payload){const s=payload?.state;return s&&payload.allocation==="A"&&!payload.station_task&&s.phase_key==="act12_tasks"?`${s.run_id}.${s.phase_key}.${s.act9_step}.${s.round_no}`:""}
+function captureSprint6StationDraft(){const identity=sprint6StationIdentity(currentSprint6State);return identity?inputDraft(document.getElementById("s6StationValue"),identity,true):null}
+function restoreSprint6StationDraft(draft,payload){const identity=sprint6StationIdentity(payload);if(identity)restoreInputDraft(draft,document.getElementById("s6StationValue"),identity,true)}
+function sprint6DiscussionIdentity(payload){const s=payload?.state,d=payload?.discussion;return s&&d&&["act9_discussion","act10_discussion","act11_discussion"].includes(s.phase_key)&&d.phase_key===s.phase_key?`${s.run_id}.${s.phase_key}.${d.discussion_session_id}`:""}
+function captureSprint6DiscussionDraft(){const identity=sprint6DiscussionIdentity(currentSprint6State);return identity?inputDraft(document.getElementById("s6MessageText"),identity):null}
+function restoreSprint6DiscussionDraft(draft,payload){const identity=sprint6DiscussionIdentity(payload);if(identity)restoreInputDraft(draft,document.getElementById("s6MessageText"),identity)}
+function renderSprint6(payload){const stationDraft=captureSprint6StationDraft(),discussionDraft=captureSprint6DiscussionDraft();currentSprint6State=payload;const s=payload.state;clearSprint6Status();setSprint6CinematicMode(s);choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");const black=s.phase_key==="act12_cinematic"&&s.cinematic_stage===10;const hall=s.act_no===9?`<div class="s6-door-layer"><span data-anchor="great_hall_red_door" class="s6-door red ${s.act9_step>=2?"open":""}">${localizedHtml("act09.001")}</span><span data-anchor="great_hall_blue_door" class="s6-door blue ${s.act9_step>=3?"available":""} ${s.act9_step>=4?"open":""}">${localizedHtml("act09.002")}</span><span data-anchor="great_hall_black_door" class="s6-door black">${localizedHtml("act09.003")}</span></div>`:"",mainGate=mainGateOverlayHtml(s),mainGateLegend=mainGateLegendHtml(s);let body=`<div class="s6-stage ${black?"blackout":""}">${black?"":`<p class="eyebrow">ACT ${s.act_no}</p>${payload.scene_asset_key?`<div class="s6-scene-wrap"><img id="s6SceneImage" class="s5-scene" alt="">${hall}${mainGate}</div>${mainGateLegend}`:""}${payload.private_clue?`<div class="notice">${localizedHtml(payload.private_clue.text_key)}</div>`:""}${localizedKeys(s.feedback_text_keys||[])}`}</div>`,actions="";body+=sprint6AudioControls();if(payload.private_choices_revealed?.length)body+=`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(x.choice_id==="take"?"act10.004":"act10.005")}`).join("<br>")}</div>`;if(payload.discussion)actions=sprint6Discussion(payload);if(s.phase_key==="act9_console"){const choices=s.act9_step===1||s.act9_step===3?S6_DOORS:s.act9_step===2?[["enter_red","act09.015"],["do_not_enter","act09.016"]]:[["enter_blue","act09.020"],["stay","act09.021"]];actions=s5Buttons(choices,"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act10_private")actions=s5Buttons([["take","act10.004"],["leave","act10.005"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_final_vote")actions=s5Buttons([["take","act10.006"],["leave","act10.007"]],"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_result")actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("act10.010")}</button>`;if(s.phase_key==="act11_allocation")actions=s5Buttons((s.gold_key?[["A","act11.012"],["B","act11.013"],["WATCHER","act11.014"]]:[["A","act11.012"],["B","act11.013"],["C","act11.004"]]),"s6_submit_allocation_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act12_tasks"&&payload.allocation){const task={A:["act11.005","1897"],B:["act11.007",payload.station_b_stage==="lever_held"?"lever_center":"lever_hold"],C:["act11.008","silver_key_inserted"],WATCHER:["act11.015","corridor_watched"]}[payload.allocation];actions=payload.station_task?`<button data-s6-rpc="s6_engage_v2" data-s6-role="${escapeHtml(payload.allocation)}">${localizedHtml(payload.allocation==="WATCHER"?"act12.004":"act12.001")}</button>`:`${localizedHtml(task[0])}${payload.allocation==="B"&&payload.station_b_stage==="lever_held"?`<span class="s6-lever-track" aria-hidden="true"><span></span></span>`:""}${payload.allocation==="A"?`<form id="s6StationForm" class="composer"><input id="s6StationValue" inputmode="numeric" maxlength="4" required><button>${localizedHtml("act12.001")}</button></form>`:payload.allocation==="B"&&payload.station_b_stage==="lever_held"?"":`<button data-s6-rpc="s6_complete_station_v2" data-s6-value="${task[1]}">${localizedHtml(payload.allocation==="B"?"act12.002":payload.allocation==="C"?"act12.003":"act12.004")}</button>`}`}if(s.phase_key==="act12_pressure"){const failing=payload.allocation===s.mechanism_failure_station;actions=s5Buttons(failing?[["one","act12.008"],["two","act12.009"],["three","act12.010"],["four","act12.011"]]:[["hold","act12.012"],["encourage","act12.013"],["watch","act12.014"],["prepare","act12.015"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act13_escape"&&Date.parse(payload.act13_continue_at)<=Date.now())actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("common.004")}</button>`;if(s.phase_key==="act13_boundary")actions=`<button id="s8Finalize">${localizedHtml("common.004")}</button>`;sprint3bText.innerHTML=body;sprint3bActions.innerHTML=actions;restoreSprint6StationDraft(stationDraft,payload);restoreSprint6DiscussionDraft(discussionDraft,payload);hydrateSprint6(payload);sprint3bActions.querySelectorAll("[data-s6-rpc]").forEach(b=>b.addEventListener("click",()=>runSprint6Action(b)));document.getElementById("s8Finalize")?.addEventListener("click",finalizeSprint8);document.getElementById("s6MessageForm")?.addEventListener("submit",sendSprint6Message);document.getElementById("s6StationForm")?.addEventListener("submit",submitSprint6Station);document.querySelectorAll("[data-s6-volume]").forEach(button=>button.addEventListener("click",()=>setSprint6Volume(button.dataset.s6Volume)));scheduleSprint6LeverCenter(payload)}
 
 async function finalizeSprint8(){const button=document.getElementById("s8Finalize");if(button)button.disabled=true;try{await flushSprint6AudioConsumptions();const runId=currentSprint6State?.state?.run_id;if(!runId)throw new Error("Finalization run identity is unavailable.");const pending=requestIdentity("s8-finalize",runId,{boundary:"act14",run_id:runId});await rpc("s8_finalize",{p_room_code:session.room_code,p_session_token:session.session_token,p_client_request_id:pending.requestId,p_expected_run_id:runId});clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;if(button)button.disabled=false}}
 function renderSprint8(payload){
@@ -496,7 +668,7 @@ function renderSprint8(payload){
   advance();
 }
 async function hydrateSprint6(payload){let scene=null;if(S6_SCENE_ASSETS.has(payload.scene_asset_key))scene=await setS5Asset("s6SceneImage",payload.scene_asset_key);if(scene&&payload.state.act_no===9)document.querySelectorAll(".s6-door[data-anchor]").forEach(node=>{const a=anchor(scene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`})});if(scene&&[11,12].includes(payload.state.act_no))document.querySelectorAll(".s6-station-label[data-anchor]").forEach(node=>{const a=anchor(scene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`});node.hidden=false});if(payload.state.phase_key==="act12_cinematic"&&payload.state.cinematic_stage===10){for(const audio of sprint6AudioHandles.values()){audio.pause();audio.currentTime=0;markSprint6AudioConsumed(audio.dataset.occurrenceId,"stopped")}sprint6AudioHandles.clear()}const key=payload.state.feedback_audio_key,identity=payload.audio_occurrence_id,locallyConsumed=Boolean(sprint6AudioOutbox()[identity]);await flushSprint6AudioConsumptions();if(!key||!identity||payload.audio_consumed||locallyConsumed||identity===sprint6AudioIdentity)return;sprint6AudioIdentity=identity;const asset=await rpc("asset_resolve",{p_asset_key:key}).catch(()=>null);if(!asset?.ok){await markSprint6AudioConsumed(identity,"stopped");return}if(!sprint6AudioArmed){sprint6PendingAudio={key,asset,occurrenceId:identity};return}await playSprint6Audio(key,asset,identity)}
-async function sendSprint6Message(event){event.preventDefault();const input=document.getElementById("s6MessageText"),d=currentSprint6State.discussion,pending=requestIdentity("s6-message",d.discussion_session_id,{session:d.discussion_session_id,text:input.value});try{await rpc("s6_send_message_v2",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_discussion_session_id:d.discussion_session_id,p_client_request_id:pending.requestId,p_message_text:input.value});clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.textContent=error.message}}
+async function sendSprint6Message(event){event.preventDefault();const input=document.getElementById("s6MessageText"),d=currentSprint6State.discussion,pending=requestIdentity("s6-message",d.discussion_session_id,{session:d.discussion_session_id,text:input.value});try{await rpc("s6_send_message_v2",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_discussion_session_id:d.discussion_session_id,p_client_request_id:pending.requestId,p_message_text:input.value});clearRequestIdentity(pending.key);const current=document.getElementById("s6MessageText");if(current&&currentSprint6State?.discussion?.discussion_session_id===d.discussion_session_id)current.value="";await refreshState()}catch(error){sprint3bStatus.textContent=error.message}}
 async function submitSprint6Station(event){event.preventDefault();const button=event.currentTarget.querySelector("button");button.dataset.s6Rpc="s6_complete_station_v2";button.dataset.s6Value=document.getElementById("s6StationValue").value;await runSprint6Action(button)}
 async function runSprint6Action(button){button.disabled=true;const rpcName=button.dataset.s6Rpc,body={p_room_code:session.room_code,p_session_token:session.session_token,...sprint6Identity()};if(rpcName==="s6_close_discussion_v2")body.p_expected_discussion_session_id=button.dataset.s6Discussion;if(button.dataset.s6Choice)body[rpcName==="s6_submit_allocation_v2"?"p_role_key":"p_choice_id"]=button.dataset.s6Choice;if(button.dataset.s6Role)body.p_role_key=button.dataset.s6Role;if(button.dataset.s6Value)body.p_task_value=button.dataset.s6Value;const identity=`${body.p_expected_phase}.${body.p_expected_step}.${body.p_expected_round}.${button.dataset.s6Discussion||""}`,pending=requestIdentity(rpcName,identity,body);body.p_client_request_id=pending.requestId;try{await rpc(rpcName,body);clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
 async function runSprint5Action(button){button.disabled=true;const payload={p_room_code:session.room_code,p_session_token:session.session_token};let request;if(button.dataset.s5Choice){payload.p_choice_id=button.dataset.s5Choice;request=requestIdentity("s5",`${button.dataset.s5Rpc}.${currentSprint5State.state.phase_key}.${currentSprint5State.state.vote_round}`,{choice:payload.p_choice_id});payload.p_client_request_id=request.requestId}if(button.dataset.s5Rpc==="s5_submit_vote"){payload.p_expected_discussion_session_id=currentSprint5State.discussion.discussion_session_id;payload.p_expected_vote_round=currentSprint5State.discussion.vote_round}try{await rpc(button.dataset.s5Rpc,payload);if(request)clearRequestIdentity(request.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
@@ -504,7 +676,13 @@ async function runSprint5Action(button){button.disabled=true;const payload={p_ro
 async function runSprint3bAction(button) {
   button.disabled=true; const payload={p_room_code:session.room_code,p_session_token:session.session_token};
   if (button.dataset.s3bChoice) payload.p_choice_id=button.dataset.s3bChoice;
-  try { await rpc(button.dataset.s3bRpc,payload); await refreshState(); }
+  let pending;
+  if(button.dataset.s3bRpc==="s3b_grab_and_leave"){
+    const runId=button.dataset.s3bRun;
+    pending=requestIdentity("s3b-grab-leave",runId,{action:"grab_leave",expected_run_id:runId});
+    payload.p_client_request_id=pending.requestId;payload.p_expected_run_id=runId;
+  }
+  try { await rpc(button.dataset.s3bRpc,payload);if(pending)clearRequestIdentity(pending.key);await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false;}
 }
 
@@ -512,23 +690,8 @@ async function submitLibraryCode(event) {
   event.preventDefault(); const input=document.getElementById("libraryCode");
   const code=`${input.dataset.lockedPrefix||""}${input.value}`;
   const request=requestIdentity("library",session.room_code,{code});
-  try { await rpc("s3b_submit_library_code",{p_room_code:session.room_code,p_session_token:session.session_token,p_client_request_id:request.requestId,p_code:code}); clearRequestIdentity(request.key); await refreshState(); }
+  try { await rpc("s3b_submit_library_code",{p_room_code:session.room_code,p_session_token:session.session_token,p_client_request_id:request.requestId,p_code:code}); clearRequestIdentity(request.key); const current=document.getElementById("libraryCode");if(current)current.value=""; await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;}
-}
-
-async function refreshDiscussion() {
-  try {
-    const state = await rpc("s2_get_player_state", {
-      p_room_code: session.room_code,
-      p_session_token: session.session_token,
-    });
-    renderDiscussion(state);
-  } catch (error) {
-    discussionPanel.classList.add("hidden");
-    if (!String(error.message).includes("Could not find the function")) {
-      discussionStatus.textContent = error.message;
-    }
-  }
 }
 
 function renderDiscussion(state) {
@@ -634,7 +797,7 @@ async function sendMessage() {
     });
     clearRequestIdentity(request.key);
     messageText.value = "";
-    await refreshDiscussion();
+    await refreshState();
   } catch (error) {
     discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   } finally {
@@ -742,11 +905,27 @@ function showGame() {
 }
 
 function startPolling() {
-  stopPolling();
-  pollTimer = setInterval(refreshState, 1200);
+  pollingEnabled = true;
+  scheduleNextPlayerPoll();
 }
 
 function stopPolling() {
-  if (pollTimer) clearInterval(pollTimer);
+  pollingEnabled = false;
+  playerSessionEpoch += 1;
+  if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
+  lastConfirmedFrame = null;
+  restoreRefreshDisabledPlayerMutations();
+  if (refreshQueued) {
+    refreshQueued.deferred.resolve({ status: "invalidated" });
+    refreshQueued = null;
+  }
+  if (refreshInFlight) {
+    refreshInFlight.cancelled = true;
+    if (!refreshInFlight.settled) {
+      refreshInFlight.settled = true;
+      refreshInFlight.deferred.resolve({ status: "invalidated" });
+    }
+    refreshInFlight = null;
+  }
 }

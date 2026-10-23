@@ -46,7 +46,9 @@ const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.
 
 let pollTimer = null;
 let sprint5TeacherActive = false;
+let teacherDiscussionOwner = "s2";
 let currentTeacherDiscussionState = null;
+let operationsLoadGeneration = 0;
 
 createRoomButton.addEventListener("click", createRoom);
 watchButton.addEventListener("click", watchRoom);
@@ -173,8 +175,8 @@ async function openVote() {
   const payload = baseTeacherPayload();
   if (!payload) return;
   try {
-    const votePayload=sprint5TeacherActive ? sprint5OpenVotePayload(payload,currentTeacherDiscussionState) : payload;
-    await rpc(sprint5TeacherActive ? "s5_teacher_open_vote" : "s2_open_vote", votePayload);
+    const votePayload=teacherDiscussionOwner==="s6"?sprint6OpenVotePayload(payload,currentTeacherDiscussionState):sprint5TeacherActive?sprint5OpenVotePayload(payload,currentTeacherDiscussionState):payload;
+    await rpc(teacherDiscussionOwner==="s6"?"s6_teacher_open_vote":sprint5TeacherActive?"s5_teacher_open_vote":"s2_open_vote",votePayload);
     discussionTeacherStatus.textContent = "Voting opened.";
     await loadDiscussionState();
   } catch (error) {
@@ -198,9 +200,11 @@ async function loadDiscussionState() {
   const payload = baseTeacherPayload(false);
   if (!payload) return;
   try {
-    const s5State = await rpc("s5_get_teacher_discussion_state", payload).catch(()=>({sprint5_active:false}));
-    sprint5TeacherActive = Boolean(s5State.sprint5_active);
-    const state = sprint5TeacherActive ? s5State : await rpc("s2_get_teacher_state", payload);
+    const s6State=await rpc("s6_get_teacher_discussion_state",payload).catch(()=>({sprint6_active:false}));
+    const s5State=s6State.sprint6_active?null:await rpc("s5_get_teacher_discussion_state",payload).catch(()=>({sprint5_active:false}));
+    teacherDiscussionOwner=s6State.sprint6_active?"s6":s5State?.sprint5_active?"s5":"s2";
+    sprint5TeacherActive=teacherDiscussionOwner==="s5";
+    const state=teacherDiscussionOwner==="s6"?s6State:sprint5TeacherActive?s5State:await rpc("s2_get_teacher_state",payload);
     renderDiscussionState(state);
   } catch (error) {
     runBadge.textContent = "Unavailable";
@@ -209,12 +213,15 @@ async function loadDiscussionState() {
 }
 
 function renderDiscussionState(state) {
+  const previousTranscript=discussionState.querySelector(".teacher-transcript");
+  const transcriptScroll=previousTranscript?{nearBottom:previousTranscript.scrollHeight-previousTranscript.scrollTop-previousTranscript.clientHeight<=24,top:previousTranscript.scrollTop}:null;
   currentTeacherDiscussionState=state;
   renderOverrideState(state.teacher_override);
   const canonicalFlowActive = Boolean(state.canonical_flow_active);
   openDiscussionButton.disabled = canonicalFlowActive;
   discussionTopicInput.disabled = canonicalFlowActive;
   voteOptionsInput.disabled = canonicalFlowActive;
+  openVoteButton.disabled=!state.discussion||state.discussion.status!=="discussion"||(teacherDiscussionOwner==="s6"&&(state.run.run_mode!=="normal"||state.discussion.phase_key!=="act10_discussion"));
   if (!state.active) {
     addTimeButton.hidden=true;
     runBadge.textContent = "No active run";
@@ -223,7 +230,7 @@ function renderDiscussionState(state) {
   }
 
   runBadge.textContent = state.run.run_mode.toUpperCase();
-  addTimeButton.hidden=state.run.run_mode==="normal";
+  addTimeButton.hidden=state.run.run_mode==="normal"||teacherDiscussionOwner==="s6";
   runModeInput.disabled = true;
   startRunButton.disabled = true;
   if (canonicalFlowActive) {
@@ -250,6 +257,8 @@ function renderDiscussionState(state) {
     <table><thead><tr><th>Player</th><th>Role</th><th>Vote</th>${discussion.status === "resolved" ? "<th>Revealed choice</th>" : ""}</tr></thead><tbody>${voteRows}</tbody></table>
     ${discussion.outcome ? `<div class="notice"><b>Outcome:</b> ${escapeHtml(JSON.stringify(discussion.outcome))}</div>` : ""}
   `;
+  const nextTranscript=discussionState.querySelector(".teacher-transcript");
+  if(nextTranscript&&transcriptScroll)nextTranscript.scrollTop=transcriptScroll.nearBottom?nextTranscript.scrollHeight:Math.min(transcriptScroll.top,Math.max(0,nextTranscript.scrollHeight-nextTranscript.clientHeight));
 }
 
 function sprint5OpenVotePayload(payload,state){
@@ -260,10 +269,17 @@ function sprint5OpenVotePayload(payload,state){
   return {...payload,p_expected_run_id:run.run_id,p_expected_phase:discussion.phase_key,p_expected_vote_round:discussion.vote_round,p_expected_discussion_session_id:discussion.discussion_session_id};
 }
 
+function sprint6OpenVotePayload(payload,state){
+  const discussion=state?.discussion,run=state?.run,s6=state?.s6;
+  if(!run?.run_id||discussion?.phase_key!=="act10_discussion"||!discussion?.discussion_session_id||!Number.isInteger(s6?.act9_step)||!Number.isInteger(s6?.round_no))throw new Error("Current Sprint 6 run, ACT10 phase, step, round and discussion identity are required.");
+  return{...payload,p_expected_run_id:run.run_id,p_expected_phase:discussion.phase_key,p_expected_step:s6.act9_step,p_expected_round:s6.round_no,p_expected_discussion_session_id:discussion.discussion_session_id};
+}
+
 async function loadOperationsState(){
   const payload=baseTeacherPayload(false);if(!payload)return;
-  try{const state=await rpc("s7_get_teacher_console",payload);state.export=await rpc("s8_get_finalization_state",payload).catch(()=>state.export||{});renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
-  catch(error){operationsBadge.textContent="Unavailable";operationsState.innerHTML=`<p class="bad">${escapeHtml(error.message)}</p>`;}
+  const generation=++operationsLoadGeneration;
+  try{const state=await rpc("s7_get_teacher_console",payload);state.export=await rpc("s8_get_finalization_state",payload).catch(()=>state.export||{});if(generation!==operationsLoadGeneration)return;renderOperationsState(state);operationsStatus.textContent="Live operations refreshed.";}
+  catch(error){if(generation!==operationsLoadGeneration)return;operationsBadge.textContent="Unavailable";operationsState.innerHTML=`<p class="bad">${escapeHtml(error.message)}</p>`;operationsStatus.textContent="Operations refresh failed.";}
 }
 
 async function setAuditPrivateDebug(){
@@ -277,16 +293,16 @@ function renderOperationsState(state){
   const completedRuns=exp.completed_runs||[];
   syncExportRunSelection(exportRunSelect,exportSessionButton,completedRuns,exp.run_id||"",Boolean(exp.export_ready||exp.enabled));
   if(!state.active){operationsBadge.textContent=exp.export_ready?"Completed · export ready":"No active run";operationsState.innerHTML=exp.export_ready?`<p><b>Completed run:</b> ${escapeHtml(exp.run_id||"-")}</p><p><b>Export:</b> ${escapeHtml(exp.json_filename||"ready")}</p>`:"<p class='muted'>Start a formal run to observe live operations.</p>";return;}
-  const current=state.current||{},players=state.players||[],discussion=state.discussion||{};
+  const current=state.current||{},players=state.players||[],discussion=state.discussion||{},operationsByPlayer=new Map((state.operations_v1||[]).map(operation=>[operation.player_id,operation]));
   operationsBadge.textContent=`${state.run.run_mode.toUpperCase()} · ACT ${current.act_no||"?"}`;
   auditPrivateDebug.checked=Boolean(state.run.audit_private_debug_view);auditPrivateDebug.disabled=state.run.run_mode!=="audit";
-  const playerRows=players.map(p=>`<tr><td>${escapeHtml(p.display_name)}</td><td>${p.online?"online":"offline"}</td><td>${p.submitted?"submitted":"waiting"}</td><td>${escapeHtml(p.player_location||"-")}</td><td>${p.locked_choice_value?`${escapeHtml(p.locked_choice_value)}<br><small>${escapeHtml(p.locked_choice_state)}</small>`:escapeHtml(p.locked_choice_state||"WAITING")}</td>${state.run.audit_private_debug_view?`<td>${escapeHtml(JSON.stringify(p.audit_debug||{}))}</td>`:""}</tr>`).join("");
+  const playerRows=players.map(p=>{const operation=operationsByPlayer.get(p.player_id)||{};const operationalStatus=[operation.transition_state,operation.assignment_role&&`Role ${operation.assignment_role}`,operation.engagement_state,operation.task_state].filter(value=>value&&value!=="NONE"&&value!=="NOT_APPLICABLE").join(" · ")||operation.discussion_or_vote_state||"-";return`<tr><td>${escapeHtml(p.display_name)}</td><td>${p.online?"online":"offline"}</td><td>${escapeHtml(operationalStatus)}</td><td>${escapeHtml(operation.physical_location||"UNKNOWN")}<br><small>${escapeHtml(operation.source_domain||"UNKNOWN")} · ${escapeHtml(operation.validity||"UNKNOWN")}</small></td><td>${p.locked_choice_value?`${escapeHtml(p.locked_choice_value)}<br><small>${escapeHtml(p.locked_choice_state)}</small>`:escapeHtml(p.locked_choice_state||"WAITING")}</td>${state.run.audit_private_debug_view?`<td>${escapeHtml(JSON.stringify(p.audit_debug||{}))}</td>`:""}</tr>`}).join("");
   const pockets=(state.pockets||[]).map(p=>`<details><summary>${escapeHtml(p.display_name)} Pocket</summary><p><b>Items:</b> ${escapeHtml((p.items||[]).map(x=>x.item_key).join(", ")||"none")}</p><p><b>Observations:</b> ${escapeHtml((p.observations||[]).map(x=>x.display_text_key).join(", ")||"none")}</p><p><b>Shared photos:</b> ${escapeHtml((p.shared_photos||[]).map(x=>`${x.source_item_key}:${x.source_view}`).join(", ")||"none")}</p></details>`).join("");
   const messages=(discussion.messages||[]).map(m=>`<article class="message"><div><b>${escapeHtml(m.display_name)}</b><time>${escapeHtml(formatTime(m.created_at))}</time></div><p>${escapeHtml(m.message_text)}</p></article>`).join("");
   operationsState.innerHTML=`
     <p><b>Current:</b> ACT ${escapeHtml(current.act_no||"unknown")} · ${escapeHtml(current.scene_id||"-")} / ${escapeHtml(current.phase_key||"-")} / ${escapeHtml(current.step_key||"-")}</p>
     <p><b>Route:</b> ${escapeHtml(current.current_route||"undecided")} · <b>Countdown:</b> ${escapeHtml(state.countdown?.remaining_seconds??"-")} sec · <b>Display:</b> ${escapeHtml(current.display_mode||"-")}</p>
-    <table><thead><tr><th>Player</th><th>Presence</th><th>Action</th><th>Location</th><th>Locked choice</th>${state.run.audit_private_debug_view?"<th>AUDIT debug</th>":""}</tr></thead><tbody>${playerRows}</tbody></table>
+    <table><thead><tr><th>Player</th><th>Presence</th><th>Operational status</th><th>Physical location</th><th>Locked choice</th>${state.run.audit_private_debug_view?"<th>AUDIT debug</th>":""}</tr></thead><tbody>${playerRows}</tbody></table>
     <h3>Discussion transcript</h3><div class="transcript teacher-transcript">${messages||"<p class='muted'>No messages yet.</p>"}</div>
     <h3>Pockets and group items</h3>${pockets}<p><b>Group Items:</b> ${escapeHtml((state.group_items||[]).map(x=>x.item_key).join(", ")||"none")}</p>
     <details><summary>Audio trigger debug</summary><p><b>Current cue:</b> ${escapeHtml(state.audio?.current_cue_key||"none")}</p><pre>${escapeHtml(JSON.stringify(state.audio?.recent||[],null,2))}</pre></details>
