@@ -44,6 +44,9 @@ drop function public.s6_get_teacher_discussion_state(text,text);
 drop function public.s6_get_player_state(text,text);
 alter function public.s6_get_player_state_pre072(text,text)rename to s6_get_player_state;
 do $$declare r record;begin for r in select definition from public.ca285_function_snapshot where identity<>'s6_get_player_state(text,text)'loop execute r.definition;end loop;end$$;
+grant execute on function public.s6_send_message_guarded(text,text,uuid,uuid,text)to public;
+grant execute on function public.s6_close_discussion_guarded(text,text,text,integer,integer,uuid)to public;
+grant execute on function public.s6_get_player_state(text,text)to anon,authenticated;
 do $$declare n integer;begin
  select count(*)into n from public.ca285_function_snapshot s join pg_proc p on p.oid=to_regprocedure('public.'||s.identity)where pg_get_functiondef(p.oid)<>s.definition or p.proacl is distinct from s.proacl;
  if n<>0 then raise exception'Recovery mismatch for % functions',n;end if;
