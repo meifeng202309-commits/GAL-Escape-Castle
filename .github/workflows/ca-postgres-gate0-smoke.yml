@@ -42,8 +42,9 @@ jobs:
           psql -X -v ON_ERROR_STOP=1 -c 'select version();'
           psql -X -v ON_ERROR_STOP=1 -c 'create schema if not exists extensions; create extension if not exists pgcrypto with schema extensions;'
           psql -X -v ON_ERROR_STOP=1 -c "select extname from pg_extension where extname='pgcrypto';"
-          psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists (select 1 from pg_roles where rolname='anon') then create role anon nologin; end if; if not exists (select 1 from pg_roles where rolname='authenticated') then create role authenticated nologin; end if; end \$\$;"
-      - name: Attempt clean baseline migrations until first error
+          psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists (select 1 from pg_roles where rolname='anon') then create role anon nologin; end if; if not exists (select 1 from pg_roles where rolname='authenticated') then create role authenticated nologin; end if; if not exists (select 1 from pg_roles where rolname='service_role') then create role service_role nologin; end if; end \$\$;"
+          psql -X -v ON_ERROR_STOP=1 -c "create schema if not exists storage; create table if not exists storage.buckets(id text primary key,name text not null,public boolean not null default false,file_size_limit bigint,allowed_mime_types text[]);"
+      - name: Apply clean baseline through migration 071
         shell: bash
         run: |
           set -euo pipefail
@@ -55,7 +56,7 @@ jobs:
             name="${file##*/}"
             if [[ "$name" =~ ^([0-9]{3})([^0-9].*)?\.sql$ ]]; then
               migration_number=$((10#${BASH_REMATCH[1]}))
-              if (( migration_number < 1 || migration_number > 68 )); then continue; fi
+              if (( migration_number < 1 || migration_number > 71 )); then continue; fi
               echo "MIGRATION_ATTEMPT: $name"
               if ! psql -X -v ON_ERROR_STOP=1 -q -f "$file" >/tmp/pg-gate0-last.out 2>&1; then
                 echo "::error::Baseline stopped at $name; SQL evidence NOT_PASS"
@@ -66,4 +67,11 @@ jobs:
             fi
           done < <(find database -maxdepth 1 -type f -name '*.sql' | LC_ALL=C sort)
           echo "BASELINE_MIGRATIONS_APPLIED=$count"
-          echo "Gate 0 only; migration 069/070 and functional SQL fixtures NOT_RUN."
+      - name: Exercise migration 072 and exact recovery
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd /tmp/gal-gate0
+          psql -X -v ON_ERROR_STOP=1 -f tests/ca285-migration072-pre.sql
+          psql -X -v ON_ERROR_STOP=1 -f database/072_ca284_act10_teacher_open_vote.sql
+          psql -X -v ON_ERROR_STOP=1 -f tests/ca285-migration072-post-and-recovery.sql
