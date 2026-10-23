@@ -48,7 +48,8 @@ grant execute on function public.s6_send_message_guarded(text,text,uuid,uuid,tex
 grant execute on function public.s6_close_discussion_guarded(text,text,text,integer,integer,uuid)to public;
 grant execute on function public.s6_get_player_state(text,text)to anon,authenticated;
 do $$declare n integer;begin
- select count(*)into n from public.ca285_function_snapshot s join pg_proc p on p.oid=to_regprocedure('public.'||s.identity)where pg_get_functiondef(p.oid)<>s.definition or p.proacl is distinct from s.proacl;
+ select count(*)into n from public.ca285_function_snapshot s join pg_proc p on p.oid=to_regprocedure('public.'||s.identity)
+ where pg_get_functiondef(p.oid)<>s.definition or array(select a::text from unnest(p.proacl)a order by a::text)is distinct from s.acl;
  if n<>0 then raise exception'Recovery mismatch for % functions',n;end if;
  if to_regprocedure('public.s6_get_player_state_pre072(text,text)')is not null or to_regprocedure('public.s6_teacher_open_vote(text,text,uuid,text,integer,integer,uuid)')is not null then raise exception'Recovery left 072 identities';end if;
 end$$;

@@ -1,7 +1,8 @@
 \set ON_ERROR_STOP on
 drop table if exists public.ca285_function_snapshot;
 create table public.ca285_function_snapshot as
-select p.oid::regprocedure::text identity,pg_get_functiondef(p.oid) definition,p.proacl
+select p.oid::regprocedure::text identity,pg_get_functiondef(p.oid) definition,
+       array(select a::text from unnest(p.proacl)a order by a::text) acl
 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
 where n.nspname='public' and p.oid in(
  'public.s6_open_discussion(uuid,text,text,integer,text)'::regprocedure,
