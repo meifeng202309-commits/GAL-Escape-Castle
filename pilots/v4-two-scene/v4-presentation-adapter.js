@@ -8,6 +8,7 @@ const discussionIdentity=node=>node.id==="transcript"?`generic:${document.getEle
 const inputIdentity=node=>node.id==="libraryCode"?`library:${node.dataset.lockedPrefix||""}`:node.id==="s6MessageText"?`${discussionIdentity(node.closest(".discussion-room")?.querySelector(".transcript"))}:message`:`generic:${document.getElementById("discussionTopic")?.textContent||""}:message`;
 const pocketIdentity=details=>details.querySelector("summary")?.textContent?.trim()||"";
 const playerDisplayName=()=>{try{return JSON.parse(localStorage.getItem("gal_castle_escape_session_v1")||"null")?.display_name||""}catch{return""}};
+window.addEventListener("v4-pilot-rpc-receipt",event=>{const receipt=document.getElementById("v4PilotReceipt"),detail=event.detail||{};if(!receipt||detail.rpc!=="s3b_submit_library_code")return;receipt.textContent=`PILOT RECEIPT · ${detail.status} · code ${detail.code} · request ${detail.requestId||"-"} · count ${detail.count}`;receipt.className=`status ${detail.status==="accepted"?"good":"bad"}`});
 
 function captureInput(node){if(!node?.matches?.("#messageText,#s6MessageText,#libraryCode"))return;const key=inputIdentity(node),prior=saved.inputs.get(key);if(prior?.source&&prior.source!==node)return;saved.inputs.set(key,{source:node,value:node.value,focused:document.activeElement===node,start:node.selectionStart,end:node.selectionEnd});}
 function captureTranscript(node){if(!node?.matches?.("#transcript,.discussion-room .transcript"))return;saved.transcripts.set(discussionIdentity(node),{top:node.scrollTop,bottom:nearBottom(node)});}

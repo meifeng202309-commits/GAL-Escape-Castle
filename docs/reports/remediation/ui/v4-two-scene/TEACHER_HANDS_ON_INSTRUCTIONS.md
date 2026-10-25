@@ -65,6 +65,14 @@ $env:NODE_PATH='C:\Users\59743\.cache\codex-runtimes\codex-primary-runtime\depen
 
 The launcher again opens three Player contexts and one Teacher context. Enter the remaining digits, inspect Pocket items, flip the watch and scroll freely. The ACT3 Teacher context is observational; Open Vote is intentionally unavailable because ACT3 has no ACT10 vote projection. Press **Enter** in PowerShell to stop.
 
+After entering `739` beside the fixed prefix `41` and clicking **SLOT MET 5 CIJFERS**, the same Player window must show a visible line like:
+
+```text
+PILOT RECEIPT · accepted · code 41739 · request … · count 1
+```
+
+This confirms exactly one synthetic submission receipt. It intentionally does not advance all Player windows or claim production game resolution.
+
 ## Visual review
 
 Inspect the eight PNG files under `docs/reports/remediation/ui/v4-two-scene/screenshots/`:
