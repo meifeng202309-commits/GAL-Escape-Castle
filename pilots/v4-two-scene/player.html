@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" data-v4-pilot="true">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GAL V4 Two-Scene Pilot</title>
+<link rel="stylesheet" href="../../src/styles/app.css">
+<link rel="stylesheet" href="./v4-two-scene-pilot.css">
+</head>
+<body>
+<main class="v4-pilot-shell">
+  <header class="v4-header panel">
+    <div><p id="playerLabel" class="eyebrow"></p><h1>GAL Escape Castle</h1></div>
+    <div><h2 id="sceneTitle"></h2><p class="muted">V4 isolated interaction pilot · no production room</p></div>
+    <button id="leaveButton" class="secondary">Switch session</button>
+  </header>
+
+  <section id="joinPanel" class="panel v4-join">
+    <div class="field-grid"><label>Room code<input id="roomCode" autocomplete="off"></label><label>Join code<input id="joinCode" autocomplete="off"></label></div>
+    <button id="joinButton">Join pilot</button><p id="joinStatus" class="status muted"></p>
+  </section>
+
+  <section id="gamePanel" class="hidden v4-runtime-grid">
+    <section class="panel v4-scene-region" aria-label="Scene and story">
+      <div id="sceneText"></div><div id="choiceArea"></div><div id="revealArea"></div><p id="gameStatus" class="status muted"></p>
+      <section id="sprint3bPanel" class="story-flow hidden" aria-live="polite">
+        <p class="eyebrow">Castle Escape Runtime</p><div id="sprint3bText"></div><div id="sprint3bActions"></div><p id="sprint3bStatus" class="status muted"></p>
+      </section>
+    </section>
+
+    <aside id="v4DiscussionMount" class="panel v4-discussion-region" aria-label="Discussion">
+      <h2 class="v4-region-title">Discussion · 讨论</h2>
+      <section id="discussionPanel" class="discussion-room hidden" aria-live="polite">
+        <div class="topline"><div><p class="eyebrow">DiscussionRoom</p><h3 id="discussionTopic"></h3></div><div id="discussionDeadline" class="deadline"></div></div>
+        <p id="discussionMeta" class="muted"></p><div id="initialChoiceArea"></div><div id="transcript" class="transcript"></div>
+        <div id="messageComposer" class="composer hidden"><label class="sr-only" for="messageText">Message</label><input id="messageText" maxlength="1000" autocomplete="off"><button id="sendMessageButton" type="button">Send</button></div>
+        <div id="voteArea"></div><div id="voteHistory"></div><p id="discussionStatus" class="status muted"></p>
+      </section>
+    </aside>
+
+    <aside id="v4PocketMount" class="panel v4-pocket-region" aria-label="Pocket"><h2 class="v4-region-title">My Pocket · 我的随身物品</h2><p class="muted v4-pocket-empty">Pocket follows the current canonical projection.</p></aside>
+  </section>
+</main>
+<script type="module" src="../../src/game/app.js"></script>
+<script type="module" src="./v4-presentation-adapter.js"></script>
+</body>
+</html>
