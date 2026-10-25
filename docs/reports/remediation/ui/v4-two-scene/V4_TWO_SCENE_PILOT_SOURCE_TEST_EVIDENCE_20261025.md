@@ -4,6 +4,7 @@
 **Authorized by:** `agent-comms/CA_to_CD_GA_20261025T030000Z_v4-pilot-isolated-source-authorized.md`  
 **Design gate:** `agent-comms/GA_to_CA_CD_20261024T173500Z_v4-two-scene-pilot-design-gate.md`  
 **Starting baseline:** `b813ce8667f05beea7df5911790c08dd8cf6b8ca`  
+**Exact implementation baseline:** `5d11f1e`
 **Date:** 2026-10-25
 
 ## Scope and isolation
