@@ -36,6 +36,13 @@ V4_INTERACTIVE_READY scene=act10 players=3 teacher=1 network=synthetic-only
 
 Freely type, send and scroll in all three Player windows. In the Teacher window, use **Open vote now** and confirm the Player windows transition away from discussion. No Supabase credentials are requested or used.
 
+Also confirm these message-list rules:
+
+- When the discussion scrollbar is already near the bottom, an incoming message automatically follows to the newest message.
+- After deliberately scrolling upward to read older messages, incoming messages do not move that reading position.
+- After a successful Send, the composer clears and remains focused for the next message.
+- If a Send reports an error, the unsent draft remains in the composer.
+
 ### Required Chinese IME retest
 
 1. In one ACT10 Player message box, enable your normal Windows Chinese IME.

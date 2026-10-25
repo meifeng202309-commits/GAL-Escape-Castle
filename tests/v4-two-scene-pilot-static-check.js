@@ -5,6 +5,7 @@ assert(html.includes('../../src/game/app.js'),"pilot does not import real produc
 for(const token of["v4-runtime-grid","v4SceneMount","v4-action-region","v4-story-region","v4DiscussionMount","v4PocketMount","\"scene action\" \"scene discussion\" \"story pocket\"","@media(max-width:1399px)","@media(max-width:999px)"])assert(html.includes(token)||css.includes(token),`missing V4 shell contract ${token}`);
 for(const token of["MutationObserver","discussionIdentity","inputIdentity","nearBottom","selectionStart","preventScroll","dataset.v4AdapterReady"])assert(adapter.includes(token),`missing adapter contract ${token}`);
 for(const token of["compositionstart","compositionend","stopPolling","startPolling","v4ImeComposing"])assert(adapter.includes(token),`missing IME preservation contract ${token}`);
+for(const token of["pendingSends","acknowledged","captureTranscript"])assert(adapter.includes(token),`missing follow-bottom/send-ack contract ${token}`);
 assert(html.includes("globalThis.__GAL_A1_TEST_HOOKS__={}"),"isolated shell does not expose bounded polling controls");
 assert(!adapter.includes("fetch(")&&!adapter.includes("rpc("),"presentation adapter invented network/action authority");
 console.log("V4 two-scene pilot static checks passed.");
