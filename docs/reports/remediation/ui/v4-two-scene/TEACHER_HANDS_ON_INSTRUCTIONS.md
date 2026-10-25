@@ -36,6 +36,17 @@ V4_INTERACTIVE_READY scene=act10 players=3 teacher=1 network=synthetic-only
 
 Freely type, send and scroll in all three Player windows. In the Teacher window, use **Open vote now** and confirm the Player windows transition away from discussion. No Supabase credentials are requested or used.
 
+### Required Chinese IME retest
+
+1. In one ACT10 Player message box, enable your normal Windows Chinese IME.
+2. Begin composing Chinese text (for example type `nihao`) but do **not** choose a candidate or press Enter yet.
+3. Keep the composition/candidate UI open for at least 4 seconds, covering at least three 1.2-second polling periods.
+4. Confirm the candidate UI and unfinished composition remain active; the field must not degrade into committed Latin letters and nothing may send automatically.
+5. Choose the intended Chinese candidate, then click Send.
+6. Confirm the committed Chinese message appears once in another Player window.
+
+The automated suite verifies composition event/node preservation, but only this hands-on step validates the actual Windows IME candidate UI.
+
 To stop, return to the PowerShell window and press **Enter**. The launcher closes all four contexts and the local server.
 
 ## Interactive ACT3 review

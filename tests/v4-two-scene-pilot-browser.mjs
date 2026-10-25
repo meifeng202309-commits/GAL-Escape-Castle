@@ -39,6 +39,20 @@ async function verifyThreePlayerDiscussion(browser,base,state){
   }finally{for(const {context} of clients)await context.close()}
 }
 
+async function verifyImeComposition(browser,base){
+  const state=createPilotState("act10"),contexts=[];
+  try{
+    for(let playerIndex=0;playerIndex<2;playerIndex++){const context=await browser.newContext({viewport:{width:1366,height:768}}),page=await context.newPage();contexts.push(context);await installPlayerRoutes(page,"act10",{state,playerIndex});await page.goto(`${base}/pilots/v4-two-scene/player.html`,{waitUntil:"networkidle"});await page.locator("#s6MessageText").waitFor()}
+    const composer=contexts[0].pages()[0],receiver=contexts[1].pages()[0];
+    await composer.locator("#s6MessageText").evaluate(node=>{globalThis.__imeNode=node;node.focus();node.dispatchEvent(new CompositionEvent("compositionstart",{bubbles:true,data:"ni"}));node.value="ni";node.dispatchEvent(new InputEvent("input",{bubbles:true,data:"ni",inputType:"insertCompositionText",isComposing:true}))});
+    await wait(4000);
+    assert(await composer.locator("#s6MessageText").evaluate(node=>node===globalThis.__imeNode&&node.value==="ni"),"IME composing node/value changed across three polling intervals");assert(state.sent.length===0,"IME composition was auto-sent");assert(await composer.evaluate(()=>document.documentElement.dataset.v4ImeComposing==="true"&&!globalThis.__GAL_A1_TEST_HOOKS__.coordinatorState().pollingEnabled),"IME composition did not suspend isolated polling");
+    await composer.locator("#s6MessageText").evaluate(node=>{node.value="你好";node.dispatchEvent(new CompositionEvent("compositionend",{bubbles:true,data:"你好"}));node.dispatchEvent(new InputEvent("input",{bubbles:true,data:"你好",inputType:"insertText",isComposing:false}))});
+    await composer.waitForFunction(()=>document.documentElement.dataset.v4ImeComposing!=="true"&&globalThis.__GAL_A1_TEST_HOOKS__.coordinatorState().pollingEnabled);await wait(1500);assert(await composer.locator("#s6MessageText").inputValue()==="你好","committed IME text was lost when polling resumed");
+    await composer.locator("#s6MessageForm button").click();await receiver.waitForFunction(()=>document.querySelector("#v4DiscussionMount .discussion-room:has(#s6MessageForm) .transcript")?.textContent.includes("你好"));assert(state.sent.length===1&&state.sent[0].p_message_text==="你好","committed IME message was not sent exactly once to other players");
+  }finally{for(const context of contexts)await context.close()}
+}
+
 async function verifyTeacherOpenVote(browser,base,state){
   const context=await browser.newContext({viewport:{width:1366,height:768}}),page=await context.newPage();
   try{await installTeacherRoutes(page,state);await page.goto(`${base}/teacher.html`,{waitUntil:"networkidle"});await page.fill("#roomCode","V4PILOT");await page.fill("#teacherToken","PILOT-TEACHER");await page.click("#watchButton");await page.locator("#openVoteButton:not([disabled])").waitFor();await page.click("#openVoteButton");await page.waitForFunction(()=>document.querySelector("#discussionTeacherStatus")?.textContent==="Voting opened.");assert(state.teacherOpenVote.length===1,"Teacher Open Vote did not acknowledge exactly once");const body=state.teacherOpenVote[0];assert(body.p_expected_run_id===RUN&&body.p_expected_phase==="act10_discussion"&&body.p_expected_step===4&&body.p_expected_round===1&&body.p_expected_discussion_session_id===DISC,"Teacher Open Vote lost canonical run/phase/step/round/discussion identity");assert(state.phase==="act10_final_vote"&&state.discussionStatus==="voting","Teacher Open Vote did not transition the shared projection")}
@@ -71,7 +85,7 @@ async function main(){const local=await server(),browser=await chromium.launch({
   assert(baseline.value!=="draft-stays"||!baseline.focused||baseline.scroll!==40,"unmodified production renderer did not reproduce any rerender instability");
   assert(adapted.value==="draft-stays"&&adapted.focused&&adapted.selection[0]===1&&adapted.selection[1]===2,"adapter lost ACT10 draft/focus/selection");assert(Math.abs(adapted.scroll-40)<=2,"adapter lost earlier-message scroll anchor");
   const act3=await measure(browser,local.url,"act3",true,{width:1280,height:720});assert(act3.value==="739"&&act3.focused&&act3.selection[0]===1&&act3.selection[1]===2,"adapter lost ACT3 numeric draft/focus/selection");
-  const state=createPilotState();await verifyThreePlayerDiscussion(browser,local.url,state);await verifyTeacherOpenVote(browser,local.url,state);const act3State=createPilotState("act3");await verifyAct3Actions(browser,local.url,act3State);await verifyIdentityAndViewportTransitions(browser,local.url);await screenshots(browser,local.url,shotDirectory);
-  console.log(JSON.stringify({baseline,adapted,act3,act10Messages:state.sent.length,teacherOpenVote:state.teacherOpenVote.length,act3Submits:act3State.librarySubmits.length,pocketInspects:act3State.inspected.length,pocketFlips:act3State.flips.length,negativeTransitions:1,screenshots:8},null,2));console.log("V4 two-scene pilot browser evidence passed.");
+  const state=createPilotState();await verifyThreePlayerDiscussion(browser,local.url,state);await verifyImeComposition(browser,local.url);await verifyTeacherOpenVote(browser,local.url,state);const act3State=createPilotState("act3");await verifyAct3Actions(browser,local.url,act3State);await verifyIdentityAndViewportTransitions(browser,local.url);await screenshots(browser,local.url,shotDirectory);
+  console.log(JSON.stringify({baseline,adapted,act3,act10Messages:state.sent.length,imeCompositionPolls:3,imeMessages:1,teacherOpenVote:state.teacherOpenVote.length,act3Submits:act3State.librarySubmits.length,pocketInspects:act3State.inspected.length,pocketFlips:act3State.flips.length,negativeTransitions:1,screenshots:8},null,2));console.log("V4 two-scene pilot browser evidence passed.");
 }finally{await browser.close();await new Promise(resolve=>local.instance.close(resolve))}}
 main().catch(error=>{console.error(error.stack||error);process.exitCode=1});

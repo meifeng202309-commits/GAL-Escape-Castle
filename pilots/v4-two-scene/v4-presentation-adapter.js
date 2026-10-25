@@ -2,7 +2,7 @@ const root=document.documentElement;
 if(root.dataset.v4Pilot!=="true")throw new Error("V4 adapter may run only in the isolated pilot shell.");
 
 const saved={inputs:new Map(),transcripts:new Map(),pockets:new Map(),viewport:{x:0,y:0},sceneMount:document.getElementById("v4SceneMount"),discussionMount:document.getElementById("v4DiscussionMount"),pocketMount:document.getElementById("v4PocketMount")};
-let adapting=false,observer=null;
+let adapting=false,observer=null,composing=false;
 const nearBottom=node=>node.scrollHeight-node.scrollTop-node.clientHeight<=24;
 const discussionIdentity=node=>node.id==="transcript"?`generic:${document.getElementById("discussionTopic")?.textContent||""}:${document.getElementById("discussionMeta")?.textContent||""}`:`s6:${node.closest(".discussion-room")?.querySelector("[data-s6-discussion]")?.dataset.s6Discussion||"pending"}`;
 const inputIdentity=node=>node.id==="libraryCode"?`library:${node.dataset.lockedPrefix||""}`:node.id==="s6MessageText"?`${discussionIdentity(node.closest(".discussion-room")?.querySelector(".transcript"))}:message`:`generic:${document.getElementById("discussionTopic")?.textContent||""}:message`;
@@ -17,9 +17,11 @@ document.addEventListener("focusin",event=>captureInput(event.target),true);
 document.addEventListener("selectionchange",()=>captureInput(document.activeElement),true);
 document.addEventListener("scroll",event=>{if(event.target instanceof Element)captureTranscript(event.target);else saved.viewport={x:scrollX,y:scrollY}},true);
 document.addEventListener("toggle",event=>capturePocket(event.target),true);
+document.addEventListener("compositionstart",event=>{if(!event.target?.matches?.("#messageText,#s6MessageText,#libraryCode"))return;composing=true;captureInput(event.target);globalThis.__GAL_A1_TEST_HOOKS__?.stopPolling?.();root.dataset.v4ImeComposing="true"},true);
+document.addEventListener("compositionend",event=>{if(!event.target?.matches?.("#messageText,#s6MessageText,#libraryCode"))return;captureInput(event.target);composing=false;delete root.dataset.v4ImeComposing;queueMicrotask(()=>{globalThis.__GAL_A1_TEST_HOOKS__?.startPolling?.();void globalThis.__GAL_A1_TEST_HOOKS__?.refreshState?.()})},true);
 
 function restore(){
-  if(adapting)return;adapting=true;
+  if(adapting||composing)return;adapting=true;
   try{
     const scene=document.querySelector("#sprint3bText>.s6-stage,#sprint3bText>#s3bSceneImage");if(scene&&scene.parentElement!==saved.sceneMount){saved.sceneMount.replaceChildren(scene)}
     const embedded=document.querySelector("#sprint3bActions>.discussion-room");if(embedded&&embedded.parentElement!==saved.discussionMount){saved.discussionMount.querySelectorAll(".discussion-room:has(#s6MessageForm)").forEach(node=>node.remove());saved.discussionMount.append(embedded)}else if(!embedded)saved.discussionMount.querySelectorAll(".discussion-room:has(#s6MessageForm)").forEach(node=>node.remove());
