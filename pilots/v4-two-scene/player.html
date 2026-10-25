@@ -21,10 +21,18 @@
   </section>
 
   <section id="gamePanel" class="hidden v4-runtime-grid">
-    <section class="panel v4-scene-region" aria-label="Scene and story">
-      <div id="sceneText"></div><div id="choiceArea"></div><div id="revealArea"></div><p id="gameStatus" class="status muted"></p>
+    <section class="panel v4-scene-region" aria-label="Scene">
+      <h2 class="v4-region-title">Scene · 场景</h2><div id="v4SceneMount"></div><div id="sceneText"></div><p id="gameStatus" class="status muted"></p>
+    </section>
+
+    <section class="panel v4-action-region" aria-label="Action">
+      <h2 class="v4-region-title">Action · 当前操作</h2><div id="choiceArea"></div><div id="revealArea"></div><div id="sprint3bActions"></div><p id="sprint3bStatus" class="status muted"></p>
+    </section>
+
+    <section class="panel v4-story-region" aria-label="Story and key information">
+      <h2 class="v4-region-title">Story · 关键信息</h2>
       <section id="sprint3bPanel" class="story-flow hidden" aria-live="polite">
-        <p class="eyebrow">Castle Escape Runtime</p><div id="sprint3bText"></div><div id="sprint3bActions"></div><p id="sprint3bStatus" class="status muted"></p>
+        <div id="sprint3bText"></div>
       </section>
     </section>
 

@@ -12,7 +12,7 @@ function mime(file){return file.endsWith(".html")?"text/html":file.endsWith(".cs
 async function server(){const instance=http.createServer(async(request,response)=>{try{const relative=decodeURIComponent(new URL(request.url,"http://x").pathname).replace(/^\/+/ ,"")||"index.html",file=path.resolve(root,relative);assert(file.startsWith(root+path.sep),"path escape");response.writeHead(200,{"Content-Type":mime(file),"Cache-Control":"no-store"});response.end(await readFile(file))}catch{response.writeHead(404);response.end()}});await new Promise(resolve=>instance.listen(0,"127.0.0.1",resolve));return{instance,url:`http://127.0.0.1:${instance.address().port}`}}
 
 async function measure(browser,base,scene,adapted,viewport){
-  const context=await browser.newContext({viewport}),page=await context.newPage(),state=createPilotState();
+  const context=await browser.newContext({viewport}),page=await context.newPage(),state=createPilotState(scene);
   await installPlayerRoutes(page,scene,{state});
   await page.goto(adapted?`${base}/pilots/v4-two-scene/player.html`:`${base}/index.html`,{waitUntil:"networkidle"});
   const input=scene==="act10"?"#s6MessageText":"#libraryCode";
@@ -51,6 +51,19 @@ async function verifyAct3Actions(browser,base,state){
   finally{await context.close()}
 }
 
+async function verifyIdentityAndViewportTransitions(browser,base){
+  const state=createPilotState("act10"),context=await browser.newContext({viewport:{width:768,height:600}}),page=await context.newPage();
+  try{
+    await installPlayerRoutes(page,"act10",{state});await page.goto(`${base}/pilots/v4-two-scene/player.html`,{waitUntil:"networkidle"});await page.locator("#s6MessageText").waitFor();
+    await page.fill("#s6MessageText","old-act10-draft");const transcript="#v4DiscussionMount .discussion-room:has(#s6MessageForm) .transcript";await page.locator(transcript).evaluate(node=>node.scrollTop=40);
+    state.phase="act10_final_vote";await page.locator("#s6MessageText").waitFor({state:"detached"});
+    state.sceneMode="act3";await page.locator("#libraryCode").waitFor();await page.fill("#libraryCode","739");
+    state.lockedPrefix="52";await page.waitForFunction(()=>document.querySelector("#libraryCode")?.dataset.lockedPrefix==="52");assert(await page.locator("#libraryCode").inputValue()==="","ACT3 draft leaked across locked-prefix identity change");
+    state.sceneMode="act10";state.phase="act10_discussion";state.discussionStatus="discussion";state.discussionId="00000000-0000-4000-8000-0000000004b1";await page.locator("#s6MessageText").waitFor();assert(await page.locator("#s6MessageText").inputValue()==="","ACT10 draft leaked into a new discussion identity");assert(await page.locator(transcript).evaluate(node=>node.scrollTop)!==40,"ACT10 scroll anchor leaked into a new discussion identity");
+    await page.evaluate(()=>window.scrollTo(0,Math.min(240,document.documentElement.scrollHeight-innerHeight)));const intended=await page.evaluate(()=>scrollY);await wait(2800);assert(await page.evaluate(y=>Math.abs(scrollY-y)<=2,intended),"adapter overrode an intentional viewport scroll after polling");
+  }finally{await context.close()}
+}
+
 async function screenshots(browser,base,directory){for(const scene of["act10","act3"])for(const [width,height] of[[1440,900],[1366,768],[1280,720],[768,1024]]){const context=await browser.newContext({viewport:{width,height}}),page=await context.newPage();await installPlayerRoutes(page,scene);await page.goto(`${base}/pilots/v4-two-scene/player.html`,{waitUntil:"networkidle"});await page.locator(scene==="act10"?"#s6MessageText":"#libraryCode").waitFor();assert(!await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth),`horizontal overflow ${scene} ${width}x${height}`);await page.screenshot({path:path.join(directory,`${scene}-${width}x${height}.png`),fullPage:true});await context.close()}}
 
 async function main(){const local=await server(),browser=await chromium.launch({headless:true,executablePath:chrome}),shotDirectory=path.join(root,"docs/reports/remediation/ui/v4-two-scene/screenshots");await mkdir(shotDirectory,{recursive:true});try{
@@ -58,7 +71,7 @@ async function main(){const local=await server(),browser=await chromium.launch({
   assert(baseline.value!=="draft-stays"||!baseline.focused||baseline.scroll!==40,"unmodified production renderer did not reproduce any rerender instability");
   assert(adapted.value==="draft-stays"&&adapted.focused&&adapted.selection[0]===1&&adapted.selection[1]===2,"adapter lost ACT10 draft/focus/selection");assert(Math.abs(adapted.scroll-40)<=2,"adapter lost earlier-message scroll anchor");
   const act3=await measure(browser,local.url,"act3",true,{width:1280,height:720});assert(act3.value==="739"&&act3.focused&&act3.selection[0]===1&&act3.selection[1]===2,"adapter lost ACT3 numeric draft/focus/selection");
-  const state=createPilotState();await verifyThreePlayerDiscussion(browser,local.url,state);await verifyTeacherOpenVote(browser,local.url,state);const act3State=createPilotState();await verifyAct3Actions(browser,local.url,act3State);await screenshots(browser,local.url,shotDirectory);
-  console.log(JSON.stringify({baseline,adapted,act3,act10Messages:state.sent.length,teacherOpenVote:state.teacherOpenVote.length,act3Submits:act3State.librarySubmits.length,pocketInspects:act3State.inspected.length,pocketFlips:act3State.flips.length,screenshots:8},null,2));console.log("V4 two-scene pilot browser evidence passed.");
+  const state=createPilotState();await verifyThreePlayerDiscussion(browser,local.url,state);await verifyTeacherOpenVote(browser,local.url,state);const act3State=createPilotState("act3");await verifyAct3Actions(browser,local.url,act3State);await verifyIdentityAndViewportTransitions(browser,local.url);await screenshots(browser,local.url,shotDirectory);
+  console.log(JSON.stringify({baseline,adapted,act3,act10Messages:state.sent.length,teacherOpenVote:state.teacherOpenVote.length,act3Submits:act3State.librarySubmits.length,pocketInspects:act3State.inspected.length,pocketFlips:act3State.flips.length,negativeTransitions:1,screenshots:8},null,2));console.log("V4 two-scene pilot browser evidence passed.");
 }finally{await browser.close();await new Promise(resolve=>local.instance.close(resolve))}}
 main().catch(error=>{console.error(error.stack||error);process.exitCode=1});
