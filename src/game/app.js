@@ -34,6 +34,7 @@ const sprint3bPanel = document.getElementById("sprint3bPanel");
 const sprint3bText = document.getElementById("sprint3bText");
 const sprint3bActions = document.getElementById("sprint3bActions");
 const sprint3bStatus = document.getElementById("sprint3bStatus");
+const formalSceneMount = document.getElementById("formalSceneMount");
 const sprint6DiscussionMount = document.getElementById("sprint6DiscussionMount");
 const pocketMount = document.getElementById("pocketMount");
 
@@ -386,6 +387,7 @@ if (globalThis.__GAL_A1_TEST_HOOKS__) {
 }
 
 function renderAct6EntryBarrier(){
+  formalSceneMount.replaceChildren();
   choiceArea.classList.add("hidden");
   revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden");
@@ -396,6 +398,7 @@ function renderAct6EntryBarrier(){
 
 function renderLifecycleNotice(state,message){
   currentDiscussion=null;
+  formalSceneMount.replaceChildren();
   choiceArea.classList.add("hidden");
   revealArea.classList.add("hidden");
   discussionPanel.classList.add("hidden");
@@ -410,6 +413,7 @@ function renderLifecycleNotice(state,message){
 }
 
 function renderAct5Handoff(sprint3bState,sprint5State){
+  formalSceneMount.replaceChildren();
   choiceArea.classList.add("hidden");
   revealArea.classList.add("hidden");
   sprint3bPanel.classList.remove("hidden");
@@ -464,6 +468,17 @@ function actionButtons(items, rpcName) {
 
 function localizedKeys(keys=[]) { return keys.map(localizedHtml).join(""); }
 function acceptedWaiting(progress=""){return `<div class="notice accepted-waiting"><p class="good">Action accepted and locked.</p><p class="muted">Waiting for the other players${progress?` · ${escapeHtml(progress)}`:""}.</p></div>`}
+
+function routeFormalPresentation(){
+  formalSceneMount.replaceChildren();
+  for(const selector of[":scope > #s3bSceneImage",":scope > .act4-comparison",":scope > #s5SceneImage",":scope > .portrait-stage",":scope > .clock-stage",":scope > .route-evidence",":scope > .act8-evidence",":scope > .s6-stage > .s6-scene-wrap",":scope > .s6-stage > .s6-station-legend"]){
+    const node=sprint3bText.querySelector(selector);
+    if(node)formalSceneMount.append(node);
+  }
+  for(const node of sprint3bActions.querySelectorAll(":scope > .notice, :scope > .bilingual, :scope > .warn, :scope > span[lang]"))sprint3bText.append(node);
+  const audioControls=sprint3bText.querySelector(":scope > .s6-audio-controls");
+  if(audioControls)sprint3bActions.prepend(audioControls);
+}
 
 function act4ComparisonHtml() {
   const lindaRecognition=session.role_slot==="GAL-C"?`<div class="notice act4-linda-recognition">${localizedHtml("act04-05.003")}</div>`:"";
@@ -539,6 +554,7 @@ function renderSprint3b(state,pocket) {
     return `<p>${localizedTemplateHtml(x.template_text_key,{player_display_name:x.display_name,location})}</p>`;
   }).join("")}</div>`;
   sprint3bActions.innerHTML=html;
+  routeFormalPresentation();
   sprint3bActions.querySelectorAll("[data-s3b-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint3bAction(button)));
   bindPocketActions();
   document.getElementById("libraryCodeForm")?.addEventListener("submit",submitLibraryCode);
@@ -557,15 +573,15 @@ function restoreLibraryDraft(draft,state){const identity=libraryIdentity(state);
 function s5Buttons(items,rpcName){return `<div class="choice-list">${items.map(([id,key])=>`<button type="button" data-s5-rpc="${rpcName}" data-s5-choice="${id}">${localizedHtml(key)}</button>`).join("")}</div>`}
 function pocketItemContent(item){
   const flip=`<button type="button" data-flip-item="${escapeHtml(item.item_key)}" data-target-view="${item.current_view==="back"?"front":"back"}">${localizedHtml("act01-g.028")}</button>`;
-  const assetKey=item.item_key==="gitte_castle_map"?"prop_gitte_castle_map":item.item_key==="anna_servant_diary"?"prop_anna_diary_open":item.item_key==="linda_stopped_watch"?(item.current_view==="back"?"prop_linda_watch_back":"prop_linda_watch_face"):"";
+  const assetKey=item.item_key==="gitte_castle_map"?"prop_gitte_castle_map":item.item_key==="gitte_number_note"?(item.current_view==="back"?"prop_gitte_number_note_back":"prop_gitte_number_note_front"):item.item_key==="anna_servant_diary"?"prop_anna_diary_open":item.item_key==="linda_stopped_watch"?(item.current_view==="back"?"prop_linda_watch_back":"prop_linda_watch_face"):item.item_key==="linda_closure_order"?"prop_linda_closure_order":item.item_key==="linda_star_key"?"prop_linda_star_key":"";
   const media=assetKey?`<img class="v4-pocket-media" data-pocket-asset="${escapeHtml(assetKey)}" alt="">`:"";
   if(item.item_key==="gitte_castle_map")return `${media}${localizedKeys(["act01-g.023","act01-g.024"])}`;
-  if(item.item_key==="gitte_number_note")return `${localizedHtml(item.current_view==="back"?"act01-g.029":"act01-g.007")}${flip}`;
+  if(item.item_key==="gitte_number_note")return `${media}${localizedHtml(item.current_view==="back"?"act01-g.029":"act01-g.007")}${flip}`;
   if(item.item_key==="gitte_flashlight")return localizedHtml("act01-g.030");
   if(item.item_key==="anna_servant_diary")return `${media}${localizedHtml("act01-a.010")}`;
   if(item.item_key==="linda_stopped_watch")return `${media}${localizedHtml(item.current_view==="back"?"act01-l.017":"act01-l.002")}${flip}`;
-  if(item.item_key==="linda_star_key")return localizedHtml("act01-l.005");
-  if(item.item_key==="linda_closure_order")return localizedKeys(["act01-l.009","act01-l.010","act01-l.016"]);
+  if(item.item_key==="linda_star_key")return `${media}${localizedHtml("act01-l.005")}`;
+  if(item.item_key==="linda_closure_order")return `${media}${localizedKeys(["act01-l.009","act01-l.010","act01-l.016"])}`;
   return"";
 }
 function pocketEvidencePanel(pocket,phase){
@@ -597,7 +613,7 @@ function renderSprint5(payload,pocket){
   else if(s.phase_key==="act7_solved")actions=`${localizedKeys(["act07.015","act07.016","act07.017"])}<button type="button" data-s5-rpc="s5_advance">${localizedHtml("act07.018")}</button>`;
   else if(s.phase_key==="act8_route")actions=`<button type="button" data-s5-rpc="s5_advance">${localizedHtml(s.route_taken_act8==="main_gate"?"act08.008":"act08.012")}</button>`;
   else actions=localizedHtml(s.route_taken_act8==="main_gate"?"act08.009":"act08.013");
-  sprint3bText.innerHTML=`<p class="eyebrow">ACT ${s.act_no}</p>${visual}`;sprint3bActions.innerHTML=actions;
+  sprint3bText.innerHTML=`<p class="eyebrow">ACT ${s.act_no}</p>${visual}`;sprint3bActions.innerHTML=actions;routeFormalPresentation();
   hydrateS5Assets(s);
   sprint3bActions.querySelectorAll("[data-s5-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint5Action(button)));
   bindPocketActions();
@@ -655,11 +671,12 @@ function restoreSprint6StationDraft(draft,payload){const identity=sprint6Station
 function sprint6DiscussionIdentity(payload){const s=payload?.state,d=payload?.discussion;return s&&d&&["act9_discussion","act10_discussion","act11_discussion"].includes(s.phase_key)&&d.phase_key===s.phase_key?`${s.run_id}.${s.phase_key}.${d.discussion_session_id}`:""}
 function captureSprint6DiscussionDraft(){const identity=sprint6DiscussionIdentity(currentSprint6State);return identity?inputDraft(document.getElementById("s6MessageText"),identity):null}
 function restoreSprint6DiscussionDraft(draft,payload){const identity=sprint6DiscussionIdentity(payload);if(identity)restoreInputDraft(draft,document.getElementById("s6MessageText"),identity)}
-function renderSprint6(payload){const stationDraft=captureSprint6StationDraft(),discussionDraft=captureSprint6DiscussionDraft();currentSprint6State=payload;const s=payload.state;clearSprint6Status();setSprint6CinematicMode(s);choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");const black=s.phase_key==="act12_cinematic"&&s.cinematic_stage===10;const hall=s.act_no===9?`<div class="s6-door-layer"><span data-anchor="great_hall_red_door" class="s6-door red ${s.act9_step>=2?"open":""}">${localizedHtml("act09.001")}</span><span data-anchor="great_hall_blue_door" class="s6-door blue ${s.act9_step>=3?"available":""} ${s.act9_step>=4?"open":""}">${localizedHtml("act09.002")}</span><span data-anchor="great_hall_black_door" class="s6-door black">${localizedHtml("act09.003")}</span></div>`:"",mainGate=mainGateOverlayHtml(s),mainGateLegend=mainGateLegendHtml(s);let body=`<div class="s6-stage ${black?"blackout":""}">${black?"":`<p class="eyebrow">ACT ${s.act_no}</p>${payload.scene_asset_key?`<div class="s6-scene-wrap"><img id="s6SceneImage" class="s5-scene" alt="">${hall}${mainGate}</div>${mainGateLegend}`:""}${payload.private_clue?`<div class="notice">${localizedHtml(payload.private_clue.text_key)}</div>`:""}${localizedKeys(s.feedback_text_keys||[])}`}</div>`,actions="";body+=sprint6AudioControls();if(payload.private_choices_revealed?.length)body+=`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(x.choice_id==="take"?"act10.004":"act10.005")}`).join("<br>")}</div>`;if(payload.discussion)actions=sprint6Discussion(payload);if(s.phase_key==="act9_console"){const choices=s.act9_step===1||s.act9_step===3?S6_DOORS:s.act9_step===2?[["enter_red","act09.015"],["do_not_enter","act09.016"]]:[["enter_blue","act09.020"],["stay","act09.021"]];actions=s5Buttons(choices,"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act10_private")actions=s5Buttons([["take","act10.004"],["leave","act10.005"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_final_vote")actions=s5Buttons([["take","act10.006"],["leave","act10.007"]],"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_result")actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("act10.010")}</button>`;if(s.phase_key==="act11_allocation")actions=s5Buttons((s.gold_key?[["A","act11.012"],["B","act11.013"],["WATCHER","act11.014"]]:[["A","act11.012"],["B","act11.013"],["C","act11.004"]]),"s6_submit_allocation_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act12_tasks"&&payload.allocation){const task={A:["act11.005","1897"],B:["act11.007",payload.station_b_stage==="lever_held"?"lever_center":"lever_hold"],C:["act11.008","silver_key_inserted"],WATCHER:["act11.015","corridor_watched"]}[payload.allocation];actions=payload.station_task?`<button data-s6-rpc="s6_engage_v2" data-s6-role="${escapeHtml(payload.allocation)}">${localizedHtml(payload.allocation==="WATCHER"?"act12.004":"act12.001")}</button>`:`${localizedHtml(task[0])}${payload.allocation==="B"&&payload.station_b_stage==="lever_held"?`<span class="s6-lever-track" aria-hidden="true"><span></span></span>`:""}${payload.allocation==="A"?`<form id="s6StationForm" class="composer"><input id="s6StationValue" inputmode="numeric" maxlength="4" required><button>${localizedHtml("act12.001")}</button></form>`:payload.allocation==="B"&&payload.station_b_stage==="lever_held"?"":`<button data-s6-rpc="s6_complete_station_v2" data-s6-value="${task[1]}">${localizedHtml(payload.allocation==="B"?"act12.002":payload.allocation==="C"?"act12.003":"act12.004")}</button>`}`}if(s.phase_key==="act12_pressure"){const failing=payload.allocation===s.mechanism_failure_station;actions=s5Buttons(failing?[["one","act12.008"],["two","act12.009"],["three","act12.010"],["four","act12.011"]]:[["hold","act12.012"],["encourage","act12.013"],["watch","act12.014"],["prepare","act12.015"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act13_escape"&&Date.parse(payload.act13_continue_at)<=Date.now())actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("common.004")}</button>`;if(s.phase_key==="act13_boundary")actions=`<button id="s8Finalize">${localizedHtml("common.004")}</button>`;sprint3bText.innerHTML=body;sprint3bActions.innerHTML=actions;restoreSprint6StationDraft(stationDraft,payload);restoreSprint6DiscussionDraft(discussionDraft,payload);hydrateSprint6(payload);sprint3bActions.querySelectorAll("[data-s6-rpc]").forEach(b=>b.addEventListener("click",()=>runSprint6Action(b)));document.getElementById("s8Finalize")?.addEventListener("click",finalizeSprint8);document.getElementById("s6MessageForm")?.addEventListener("submit",sendSprint6Message);document.getElementById("s6StationForm")?.addEventListener("submit",submitSprint6Station);document.querySelectorAll("[data-s6-volume]").forEach(button=>button.addEventListener("click",()=>setSprint6Volume(button.dataset.s6Volume)));scheduleSprint6LeverCenter(payload)}
+function renderSprint6(payload){const stationDraft=captureSprint6StationDraft(),discussionDraft=captureSprint6DiscussionDraft();currentSprint6State=payload;const s=payload.state;clearSprint6Status();setSprint6CinematicMode(s);choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");const black=s.phase_key==="act12_cinematic"&&s.cinematic_stage===10;const hall=s.act_no===9?`<div class="s6-door-layer"><span data-anchor="great_hall_red_door" class="s6-door red ${s.act9_step>=2?"open":""}">${localizedHtml("act09.001")}</span><span data-anchor="great_hall_blue_door" class="s6-door blue ${s.act9_step>=3?"available":""} ${s.act9_step>=4?"open":""}">${localizedHtml("act09.002")}</span><span data-anchor="great_hall_black_door" class="s6-door black">${localizedHtml("act09.003")}</span></div>`:"",mainGate=mainGateOverlayHtml(s),mainGateLegend=mainGateLegendHtml(s);let body=`<div class="s6-stage ${black?"blackout":""}">${black?"":`<p class="eyebrow">ACT ${s.act_no}</p>${payload.scene_asset_key?`<div class="s6-scene-wrap"><img id="s6SceneImage" class="s5-scene" alt="">${hall}${mainGate}</div>${mainGateLegend}`:""}${payload.private_clue?`<div class="notice">${localizedHtml(payload.private_clue.text_key)}</div>`:""}${localizedKeys(s.feedback_text_keys||[])}`}</div>`,actions="";body+=sprint6AudioControls();if(payload.private_choices_revealed?.length)body+=`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(x.choice_id==="take"?"act10.004":"act10.005")}`).join("<br>")}</div>`;if(payload.discussion)actions=sprint6Discussion(payload);if(s.phase_key==="act9_console"){const choices=s.act9_step===1||s.act9_step===3?S6_DOORS:s.act9_step===2?[["enter_red","act09.015"],["do_not_enter","act09.016"]]:[["enter_blue","act09.020"],["stay","act09.021"]];actions=s5Buttons(choices,"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act10_private")actions=s5Buttons([["take","act10.004"],["leave","act10.005"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_final_vote")actions=s5Buttons([["take","act10.006"],["leave","act10.007"]],"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_result")actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("act10.010")}</button>`;if(s.phase_key==="act11_allocation")actions=s5Buttons((s.gold_key?[["A","act11.012"],["B","act11.013"],["WATCHER","act11.014"]]:[["A","act11.012"],["B","act11.013"],["C","act11.004"]]),"s6_submit_allocation_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act12_tasks"&&payload.allocation){const task={A:["act11.005","1897"],B:["act11.007",payload.station_b_stage==="lever_held"?"lever_center":"lever_hold"],C:["act11.008","silver_key_inserted"],WATCHER:["act11.015","corridor_watched"]}[payload.allocation];actions=payload.station_task?`<button data-s6-rpc="s6_engage_v2" data-s6-role="${escapeHtml(payload.allocation)}">${localizedHtml(payload.allocation==="WATCHER"?"act12.004":"act12.001")}</button>`:`${localizedHtml(task[0])}${payload.allocation==="B"&&payload.station_b_stage==="lever_held"?`<span class="s6-lever-track" aria-hidden="true"><span></span></span>`:""}${payload.allocation==="A"?`<form id="s6StationForm" class="composer"><input id="s6StationValue" inputmode="numeric" maxlength="4" required><button>${localizedHtml("act12.001")}</button></form>`:payload.allocation==="B"&&payload.station_b_stage==="lever_held"?"":`<button data-s6-rpc="s6_complete_station_v2" data-s6-value="${task[1]}">${localizedHtml(payload.allocation==="B"?"act12.002":payload.allocation==="C"?"act12.003":"act12.004")}</button>`}`}if(s.phase_key==="act12_pressure"){const failing=payload.allocation===s.mechanism_failure_station;actions=s5Buttons(failing?[["one","act12.008"],["two","act12.009"],["three","act12.010"],["four","act12.011"]]:[["hold","act12.012"],["encourage","act12.013"],["watch","act12.014"],["prepare","act12.015"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act13_escape"&&Date.parse(payload.act13_continue_at)<=Date.now())actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("common.004")}</button>`;if(s.phase_key==="act13_boundary")actions=`<button id="s8Finalize">${localizedHtml("common.004")}</button>`;sprint3bText.innerHTML=body;sprint3bActions.innerHTML=actions;routeFormalPresentation();restoreSprint6StationDraft(stationDraft,payload);restoreSprint6DiscussionDraft(discussionDraft,payload);hydrateSprint6(payload);sprint3bActions.querySelectorAll("[data-s6-rpc]").forEach(b=>b.addEventListener("click",()=>runSprint6Action(b)));document.getElementById("s8Finalize")?.addEventListener("click",finalizeSprint8);document.getElementById("s6MessageForm")?.addEventListener("submit",sendSprint6Message);document.getElementById("s6StationForm")?.addEventListener("submit",submitSprint6Station);document.querySelectorAll("[data-s6-volume]").forEach(button=>button.addEventListener("click",()=>setSprint6Volume(button.dataset.s6Volume)));scheduleSprint6LeverCenter(payload)}
 
 async function finalizeSprint8(){const button=document.getElementById("s8Finalize");if(button)button.disabled=true;try{await flushSprint6AudioConsumptions();const runId=currentSprint6State?.state?.run_id;if(!runId)throw new Error("Finalization run identity is unavailable.");const pending=requestIdentity("s8-finalize",runId,{boundary:"act14",run_id:runId});await rpc("s8_finalize",{p_room_code:session.room_code,p_session_token:session.session_token,p_client_request_id:pending.requestId,p_expected_run_id:runId});clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;if(button)button.disabled=false}}
 function renderSprint8(payload){
   setSprint6CinematicMode({phase_key:"act14_complete"});
+  formalSceneMount.replaceChildren();
   choiceArea.classList.add("hidden");
   revealArea.classList.add("hidden");
   discussionPanel.classList.add("hidden");
