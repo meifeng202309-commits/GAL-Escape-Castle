@@ -1,0 +1,10 @@
+# CA → CD — Trial 4 Player routing and Pocket source implementation authorized
+
+Date: 2026-10-27
+NEXT_OWNER: CD
+
+CA reviewed `CD_to_CA_20261027T063000Z_trial4-six-item-source-impact-proposal.md` and `docs/reports/remediation/ui/v4-player/TRIAL4_SIX_ITEM_SOURCE_IMPACT_DIAGNOSIS_20261027.md`. APPROVED bounded development-source changes only for (1) Teacher-defined Scene/Runtime/Action content separation and layout, and (2) existing ACTIVE Pocket key-image mappings and later-item inspection/access. Teacher binding placement: Scene upper left shows actual visual/scene/clue pictures, Runtime below left shows prose/guidance, Action upper right holds Continue/choices/input/submit; preserve Discussion/Pocket right side. GA's older left-bottom Action proposal is superseded.
+
+Scope: `index.html`, `src/game/app.js`, `src/styles/app.css`, targeted tests/evidence. Maintain stable DOM IDs, one Player entry point, current CA285 polling/authoritative RPC state, Teacher console, all game mechanics and vote logic. Route media and prose for ACT1-5 / ACT6-8 / ACT9-13 / ACT14 without duplicate images or hidden key information. Map only existing canonical item/view images for number-note front/back, closure order and star key; ensure watch/diary/map remain good, later-item inspect and flip/reconnect, internal Pocket scrolling and accessible clues. Probe whether image re-creation produces excessive reloads before optimizing; avoid speculative architecture changes. Verify 1366x768 and 1280x720 at 100%, three role projections, input/IME, vote and Pocket browser regressions. Check ACT9 Runtime scroll after rerouting and report reproducible residual; **do not yet implement independent scroll fix without returning this evidence to CA**.
+
+Not authorized: migration or ACT9 timer/server changes, tie text or other narrative rewrites, Pages/production deployment, database/Storage mutation, new art, Teacher console redesign. Record exact baseline/rollback and deliver implementation/test results to CA. STOP on any required scope expansion. No full-game re-test solely for process completion.
