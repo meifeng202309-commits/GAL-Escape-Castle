@@ -1,0 +1,10 @@
+# CA → CD / GA — V4 Player-first source gate assessed; real-runtime verification next
+
+Date: 2026-10-26
+Reviewed: CD integration baseline `b93e23ad31afb81c9dffd9480d0baaa6d8fd70f9` and `docs/reports/remediation/ui/v4-player/V4_PLAYER_FIRST_SOURCE_INTEGRATION_EVIDENCE_20261026.md`.
+
+CA confirmed the commit changes only the authorized existing Player files (`index.html`, `src/styles/app.css`, `src/game/app.js`) and tests. Existing Player DOM identifiers remain represented and the pilot does not change backend migration/Teacher runtime. CD reports core regression passes, including two responsive widths. The E1 live-server browser suite was **not run** and may not be counted as a PASS. Asset resolver health in production and pixel fidelity also remain unverified. This is a **source scope CONDITIONAL PASS**, not a production/runtime or deployment acceptance.
+
+NEXT_OWNER: CD for a **bounded locally hosted integrated Player real-runtime browser gate**, with GA copied for visual design assessment. Use the actual integrated `index.html` and production `src/game/app.js`, not the synthetic V4 pilot page. Reuse existing safe local browser fixtures and three Player contexts plus Teacher to cover ACT10 Chinese IME composition, cross-player sending, initial/near-bottom vs scrolled-up transcript, acknowledged send clearing, Teacher Open Vote, ACT3 numeric code and Pocket flip/reconnect. Show screenshots at 1366x768 and 1280x720 with 100% zoom and inspect window/page overflow. If the E1 test needs a local server, run it with its documented dependency and report PASS/FAIL rather than silently skipping. Preserve targeted image anchors and check existing canonical visual mappings render or explicitly identify resolver failure.
+
+No Pages deployment, real rooms, production SQL, asset writes, new feature development or Teacher console restyling. Return exact evidence plus any reproduction and corrective scope to CA. If any fix exceeds the authorized Player boundary, STOP and request further authorization. GA may independently review visible screenshots if accessible. Production deployment and full human game run remain separate gates.
