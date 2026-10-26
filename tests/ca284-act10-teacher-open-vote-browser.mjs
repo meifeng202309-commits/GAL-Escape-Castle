@@ -40,7 +40,7 @@ let phase = "act10_private";
 let openBody = null;
 
 function s6State() {
-  const discussion = phase === "act10_discussion" ? {
+  const discussion = ["act9_discussion","act10_discussion"].includes(phase) ? {
     discussion_session_id: discussionId, phase_key: phase, topic: "act10.004", status: "discussion",
     vote_round: 1, phase_deadline: null, outcome: null,
   } : null;
@@ -55,7 +55,7 @@ function s6State() {
 function operations() {
   return {
     active: true, run: { run_id: runId, run_mode: "normal", audit_private_debug_view: false },
-    current: { act_no: 10, scene_id: "act10_golden_key", phase_key: phase, step_key: "reveal" },
+    current: { act_no: phase.startsWith("act9") ? 9 : 10, scene_id: phase.startsWith("act9") ? "act9_great_hall" : "act10_golden_key", phase_key: phase, step_key: "reveal" },
     players: [], operations_v1: [], discussion: { messages: [] }, pockets: [], group_items: [],
     audio: { recent: [] }, phase_behavior_validity: [], teacher_interventions: [], override_history: [],
     export: { export_ready: false },
@@ -75,7 +75,7 @@ async function main() {
     else if (name === "s6_get_teacher_discussion_state") value = s6State();
     else if (name === "s7_get_teacher_console") value = operations();
     else if (name === "s8_get_finalization_state") value = { export_ready: false };
-    else if (name === "s6_teacher_open_vote") { openBody = body; phase = "act10_final_vote"; value = { ok: true, phase_key: phase }; }
+    else if (name === "s6_teacher_open_vote") { openBody = body; phase = phase === "act9_discussion" ? "act9_console" : "act10_final_vote"; value = { ok: true, phase_key: phase }; }
     else return route.fulfill({ status: 400, contentType: "application/json", body: JSON.stringify({ message: `Unexpected RPC ${name}` }) });
     return route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(value) });
   });
@@ -87,6 +87,16 @@ async function main() {
     await page.waitForFunction(() => document.querySelector("#runBadge")?.textContent === "NORMAL", null, { timeout: 5000 });
     assert(await page.locator("#openVoteButton").isDisabled(), "ACT10 private phase exposed Teacher Open Vote");
 
+    phase = "act9_discussion";
+    await page.click("#watchButton");
+    await page.waitForFunction(() => !document.querySelector("#openVoteButton")?.disabled, null, { timeout: 5000 });
+    assert(await page.locator("#openVoteButton").isEnabled(), "ACT9 discussion did not enable Teacher Open Vote");
+    await page.click("#openVoteButton");
+    for(let attempt=0;attempt<100&&openBody?.p_expected_phase!=="act9_discussion";attempt+=1)await new Promise((resolve)=>setTimeout(resolve,25));
+    assert(openBody?.p_expected_phase === "act9_discussion" && openBody?.p_expected_step === 4 && openBody?.p_expected_round === 1, "ACT9 Teacher Open Vote omitted phase identity");
+    assert(openBody?.p_expected_run_id === runId && openBody?.p_expected_discussion_session_id === discussionId, "ACT9 Teacher Open Vote omitted run/discussion identity");
+
+    openBody = null;
     phase = "act10_discussion";
     await page.click("#watchButton");
     await page.waitForFunction(() => document.querySelector("#discussionState")?.textContent.includes("act10.004"), null, { timeout: 5000 });
@@ -98,7 +108,7 @@ async function main() {
     assert(openBody?.p_expected_run_id === runId, "ACT10 Teacher Open Vote omitted run identity");
     assert(openBody?.p_expected_phase === "act10_discussion" && openBody?.p_expected_step === 4 && openBody?.p_expected_round === 1, "ACT10 Teacher Open Vote omitted phase identity");
     assert(openBody?.p_expected_discussion_session_id === discussionId, "ACT10 Teacher Open Vote omitted discussion identity");
-    console.log("CA284 ACT10 Teacher Open Vote browser routing passed.");
+    console.log("ACT9/10 Teacher Open Vote browser routing passed.");
   } finally {
     await context.close();
     await browser.close();
