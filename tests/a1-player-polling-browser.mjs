@@ -344,6 +344,12 @@ async function main() {
     invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "ACT10 discussion same-session poll did not commit.");
     invariant(await messageInput.inputValue() === "draft across poll", "ACT10 discussion draft was lost across a same-session poll.");
     invariant(await messageInput.evaluate((node) => document.activeElement === node), "ACT10 discussion focus was lost across a same-session poll.");
+    await messageInput.evaluate(node=>{globalThis.__a1ImeNode=node;node.dispatchEvent(new CompositionEvent("compositionstart",{bubbles:true,data:"ni"}));node.value="ni";node.dispatchEvent(new InputEvent("input",{bubbles:true,data:"ni",inputType:"insertCompositionText",isComposing:true}))});
+    await page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
+    invariant(await messageInput.evaluate(node=>node===globalThis.__a1ImeNode&&node.value==="ni"),"Native IME node/value changed during a polling commit.");
+    await messageInput.evaluate(node=>{node.value="draft across poll";node.dispatchEvent(new CompositionEvent("compositionend",{bubbles:true,data:"draft across poll"}))});
+    await page.waitForTimeout(50);
+    for(const size of [{width:1366,height:768},{width:1280,height:720}]){await page.setViewportSize(size);const layout=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>document.documentElement.clientWidth,columns:getComputedStyle(document.querySelector(".v4-runtime-grid")).gridTemplateColumns,zoom:devicePixelRatio}));invariant(!layout.overflow,`V4 Player layout overflowed at ${size.width}x${size.height}.`);invariant(layout.columns.split(" ").length>=2,`V4 Player layout did not retain two columns at ${size.width}x${size.height}.`)}
     scenario.discussionSession = "00000000-0000-0000-0000-000000000031";
     invariant((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "ACT10 new-session frame did not commit.");
     invariant(await messageInput.inputValue() === "", "Stale ACT10 draft crossed a discussion-session boundary.");

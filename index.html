@@ -29,7 +29,7 @@
     <p id="joinStatus" class="status muted"></p>
   </section>
 
-  <section id="gamePanel" class="panel hidden">
+  <section id="gamePanel" class="panel hidden v4-player-shell">
     <div class="topline">
       <div>
         <p id="playerLabel" class="eyebrow"></p>
@@ -37,19 +37,16 @@
       </div>
       <button id="leaveButton" class="secondary">Switch session</button>
     </div>
-    <p id="sceneText"></p>
-    <div id="choiceArea"></div>
-    <div id="revealArea"></div>
-    <p id="gameStatus" class="status muted"></p>
+    <div class="v4-runtime-grid">
+    <section class="v4-region v4-scene-region" aria-label="Scene"><p class="v4-region-title">Scene · 场景</p><p id="sceneText"></p><div id="revealArea"></div></section>
+    <section class="v4-region v4-action-region" aria-label="Action"><p class="v4-region-title">Action · 行动</p><div id="choiceArea"></div><p id="gameStatus" class="status muted"></p><div id="sprint3bActions"></div><p id="sprint3bStatus" class="status muted"></p></section>
 
-    <section id="sprint3bPanel" class="story-flow hidden" aria-live="polite">
+    <section id="sprint3bPanel" class="story-flow hidden v4-region v4-story-region" aria-live="polite">
       <p class="eyebrow">Castle Escape Runtime</p>
       <div id="sprint3bText"></div>
-      <div id="sprint3bActions"></div>
-      <p id="sprint3bStatus" class="status muted"></p>
     </section>
 
-    <section id="discussionPanel" class="discussion-room hidden" aria-live="polite">
+    <section class="v4-region v4-discussion-region" aria-label="Discussion"><section id="discussionPanel" class="discussion-room hidden" aria-live="polite">
       <div class="topline">
         <div>
           <p class="eyebrow">DiscussionRoom</p>
@@ -68,7 +65,9 @@
       <div id="voteArea"></div>
       <div id="voteHistory"></div>
       <p id="discussionStatus" class="status muted"></p>
-    </section>
+    </section><div id="sprint6DiscussionMount"></div></section>
+    <aside id="pocketMount" class="v4-region v4-pocket-region" aria-label="Pocket"><p class="v4-region-title">Pocket · 随身物品</p><p class="muted">No projected items.</p></aside>
+    </div>
   </section>
 </main>
 
