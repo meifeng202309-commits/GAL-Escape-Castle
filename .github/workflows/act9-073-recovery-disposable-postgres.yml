@@ -1,0 +1,121 @@
+name: ACT9 073 recovery disposable PostgreSQL gate
+
+on:
+  push:
+    branches:
+      - remediation/sprint9-structural-v1
+    paths:
+      - docs/reports/remediation/act9/073_RECOVERY_TO_072.sql
+      - tests/act9-073-recovery-postgresql.sql
+      - tests/act9-073-recovery-static-check.js
+      - .github/workflows/act9-073-recovery-disposable-postgres.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: act9-073-recovery-disposable-postgres
+  cancel-in-progress: false
+
+jobs:
+  recovery-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: recoverygate
+          POSTGRES_PASSWORD: recovery-ephemeral-only
+          POSTGRES_DB: recoverygate
+        ports:
+          - 127.0.0.1:5432:5432
+        options: >-
+          --health-cmd "pg_isready -U recoverygate -d recoverygate"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGUSER: recoverygate
+      PGPASSWORD: recovery-ephemeral-only
+      PGDATABASE: recoverygate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bootstrap disposable Supabase-compatible roles
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists (select 1 from pg_roles where rolname='anon') then create role anon nologin; end if; if not exists (select 1 from pg_roles where rolname='authenticated') then create role authenticated nologin; end if; if not exists (select 1 from pg_roles where rolname='service_role') then create role service_role nologin; end if; end \$\$;"
+          psql -X -v ON_ERROR_STOP=1 -c "create schema if not exists storage; create table if not exists storage.buckets(id text primary key,name text not null,public boolean not null default false,file_size_limit bigint,allowed_mime_types text[]);"
+
+      - name: Apply immutable migration history 001 through 072
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "SOURCE_SHA=$(git rev-parse HEAD)"
+          count=0
+          while IFS= read -r file; do
+            name="${file##*/}"
+            if [[ "$name" =~ ^([0-9]{3})([^0-9].*)?\.sql$ ]]; then
+              migration_number=$((10#${BASH_REMATCH[1]}))
+              if (( migration_number < 1 || migration_number > 72 )); then continue; fi
+              echo "MIGRATION_APPLY: $name"
+              psql -X -v ON_ERROR_STOP=1 -q -f "$file"
+              count=$((count+1))
+            fi
+          done < <(find database -maxdepth 1 -type f -name '*.sql' | LC_ALL=C sort)
+          echo "BASELINE_MIGRATIONS_APPLIED=$count"
+
+      - name: Snapshot exact migration072 catalog and preserved data
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 <<'SQL'
+          create table public.act9_073_recovery_snapshot as
+          select p.oid::regprocedure::text identity,pg_get_functiondef(p.oid)definition,
+                 coalesce(array(select a::text from unnest(p.proacl)a order by a::text),'{}')acl,
+                 p.proowner::regrole::text owner_name,p.prosecdef security_definer
+          from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+          where n.nspname='public'and p.oid in(
+            'public.s6_open_discussion(uuid,text,text,integer,text)'::regprocedure,
+            'public.s6_refresh_owned_discussion(uuid)'::regprocedure,
+            'public.s6_close_discussion_guarded(text,text,text,integer,integer,uuid)'::regprocedure,
+            'public.s6_get_player_state(text,text)'::regprocedure,
+            'public.s6_teacher_open_vote(text,text,uuid,text,integer,integer,uuid)'::regprocedure);
+          do $$begin if(select count(*)from public.act9_073_recovery_snapshot)<>5 then raise exception'Snapshot count mismatch';end if;end$$;
+          select public.s1_create_room('REC073N','teacher-normal','a','b','c');
+          select public.s1_create_room('REC073A','teacher-audit','d','e','f');
+          update public.s1_room_players set session_token_hash=public.s1_hash_token('player-normal')where room_code='REC073N'and role_slot='GAL-A';
+          insert into public.game_runs(room_code,run_mode,behavior_dataset_eligible,status,scene_id,phase_key,step_key)values
+            ('REC073N','normal',true,'active','sprint6','act9_discussion','step_1'),
+            ('REC073A','audit',false,'active','sprint6','act9_discussion','step_1');
+          set session_replication_role=replica;
+          insert into public.s6_run_state(run_id,act_no,phase_key,act9_step,round_no)select run_id,9,'act9_discussion',1,1 from public.game_runs where room_code in('REC073N','REC073A');
+          set session_replication_role=origin;
+          SQL
+
+      - name: Apply migration073 and prove changed ACT9 behavior
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f database/073_act9_normal_teacher_paced_vote.sql
+          psql -X -v ON_ERROR_STOP=1 <<'SQL'
+          do $$declare r uuid;d uuid;begin select run_id into r from public.game_runs where room_code='REC073N';d:=public.s6_open_discussion(r,'act9_discussion','step_1',180,'073-active');if(select phase_deadline is not null from public.discussion_sessions where discussion_session_id=d)then raise exception'073 pre-recovery behavior missing';end if;end$$;
+          SQL
+
+      - name: Apply incident-only forward recovery and verify exact restoration
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f docs/reports/remediation/act9/073_RECOVERY_TO_072.sql
+          psql -X -v ON_ERROR_STOP=1 -f tests/act9-073-recovery-postgresql.sql
+
+      - name: Confirm isolated service remains healthy before teardown
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -Atc "select 'ACT9_073_RECOVERY_SERVICE_HEALTHY';"
