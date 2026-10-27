@@ -1,0 +1,627 @@
+{
+  "live": "https://meifeng202309-commits.github.io/GAL-Escape-Castle",
+  "generatedAt": "2026-10-27T16:36:12.188Z",
+  "players": [
+    {
+      "role": "GAL-A",
+      "name": "Gitte",
+      "phase": "act3_library/library_box",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "screenshot": "gitte-act3-1366x768.png",
+      "regions": {
+        "scene": {
+          "x": 40,
+          "y": 267,
+          "width": 741,
+          "height": 60,
+          "scrollHeight": 58,
+          "clientHeight": 58
+        },
+        "runtime": {
+          "x": 40,
+          "y": 498,
+          "width": 741,
+          "height": 112,
+          "scrollHeight": 110,
+          "clientHeight": 110
+        },
+        "action": {
+          "x": 793,
+          "y": 267,
+          "width": 533,
+          "height": 197,
+          "scrollHeight": 195,
+          "clientHeight": 195
+        },
+        "discussion": {
+          "x": 793,
+          "y": 476,
+          "width": 533,
+          "height": 26,
+          "scrollHeight": 24,
+          "clientHeight": 24
+        },
+        "pocket": {
+          "x": 793,
+          "y": 514,
+          "width": 533,
+          "height": 399,
+          "scrollHeight": 706,
+          "clientHeight": 397
+        }
+      },
+      "images": [
+        {
+          "id": "s3bSceneImage",
+          "key": null,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_gitte_castle_map",
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_gitte_number_note_front",
+          "naturalWidth": 1536,
+          "naturalHeight": 1024,
+          "visible": true
+        }
+      ],
+      "pocketItems": [
+        "gitte_castle_map",
+        "gitte_number_note"
+      ],
+      "bilingual": [
+        {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "nl": "SLOT MET 5 CIJFERS",
+          "zh": "五位数字锁"
+        }
+      ],
+      "network": [
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_number_note_front/v001/prop_gitte_number_note_front__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "role": "GAL-A",
+      "name": "Gitte",
+      "phase": "act3_library/library_box",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screenshot": "gitte-act3-1280x720.png",
+      "regions": {
+        "scene": {
+          "x": 33,
+          "y": 267,
+          "width": 699,
+          "height": 60,
+          "scrollHeight": 58,
+          "clientHeight": 58
+        },
+        "runtime": {
+          "x": 33,
+          "y": 498,
+          "width": 699,
+          "height": 112,
+          "scrollHeight": 110,
+          "clientHeight": 110
+        },
+        "action": {
+          "x": 744,
+          "y": 267,
+          "width": 503,
+          "height": 197,
+          "scrollHeight": 195,
+          "clientHeight": 195
+        },
+        "discussion": {
+          "x": 744,
+          "y": 476,
+          "width": 503,
+          "height": 26,
+          "scrollHeight": 24,
+          "clientHeight": 24
+        },
+        "pocket": {
+          "x": 744,
+          "y": 514,
+          "width": 503,
+          "height": 374,
+          "scrollHeight": 689,
+          "clientHeight": 372
+        }
+      },
+      "images": [
+        {
+          "id": "s3bSceneImage",
+          "key": null,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_gitte_castle_map",
+          "naturalWidth": 1447,
+          "naturalHeight": 1087,
+          "visible": true
+        },
+        {
+          "id": null,
+          "key": "prop_gitte_number_note_front",
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        }
+      ],
+      "pocketItems": [
+        "gitte_castle_map",
+        "gitte_number_note"
+      ],
+      "bilingual": [
+        {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "nl": "SLOT MET 5 CIJFERS",
+          "zh": "五位数字锁"
+        }
+      ],
+      "network": [
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_castle_map/v001/prop_gitte_castle_map__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "role": "GAL-B",
+      "name": "Anna",
+      "phase": "act3_library/library_box",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "screenshot": "anna-act3-1366x768.png",
+      "regions": {
+        "scene": {
+          "x": 40,
+          "y": 267,
+          "width": 741,
+          "height": 60,
+          "scrollHeight": 58,
+          "clientHeight": 58
+        },
+        "runtime": {
+          "x": 40,
+          "y": 498,
+          "width": 741,
+          "height": 112,
+          "scrollHeight": 110,
+          "clientHeight": 110
+        },
+        "action": {
+          "x": 793,
+          "y": 267,
+          "width": 533,
+          "height": 197,
+          "scrollHeight": 195,
+          "clientHeight": 195
+        },
+        "discussion": {
+          "x": 793,
+          "y": 476,
+          "width": 533,
+          "height": 26,
+          "scrollHeight": 24,
+          "clientHeight": 24
+        },
+        "pocket": {
+          "x": 793,
+          "y": 514,
+          "width": 533,
+          "height": 399,
+          "scrollHeight": 528,
+          "clientHeight": 397
+        }
+      },
+      "images": [
+        {
+          "id": "s3bSceneImage",
+          "key": null,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_anna_diary_open",
+          "naturalWidth": 2048,
+          "naturalHeight": 1282,
+          "visible": true
+        }
+      ],
+      "pocketItems": [
+        "anna_servant_diary"
+      ],
+      "bilingual": [
+        {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "nl": "SLOT MET 5 CIJFERS",
+          "zh": "五位数字锁"
+        }
+      ],
+      "network": [
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "role": "GAL-B",
+      "name": "Anna",
+      "phase": "act3_library/library_box",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screenshot": "anna-act3-1280x720.png",
+      "regions": {
+        "scene": {
+          "x": 33,
+          "y": 267,
+          "width": 699,
+          "height": 60,
+          "scrollHeight": 58,
+          "clientHeight": 58
+        },
+        "runtime": {
+          "x": 33,
+          "y": 498,
+          "width": 699,
+          "height": 112,
+          "scrollHeight": 110,
+          "clientHeight": 110
+        },
+        "action": {
+          "x": 744,
+          "y": 267,
+          "width": 503,
+          "height": 197,
+          "scrollHeight": 195,
+          "clientHeight": 195
+        },
+        "discussion": {
+          "x": 744,
+          "y": 476,
+          "width": 503,
+          "height": 26,
+          "scrollHeight": 24,
+          "clientHeight": 24
+        },
+        "pocket": {
+          "x": 744,
+          "y": 514,
+          "width": 503,
+          "height": 374,
+          "scrollHeight": 511,
+          "clientHeight": 372
+        }
+      },
+      "images": [
+        {
+          "id": "s3bSceneImage",
+          "key": null,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_anna_diary_open",
+          "naturalWidth": 2048,
+          "naturalHeight": 1282,
+          "visible": true
+        }
+      ],
+      "pocketItems": [
+        "anna_servant_diary"
+      ],
+      "bilingual": [
+        {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "nl": "SLOT MET 5 CIJFERS",
+          "zh": "五位数字锁"
+        }
+      ],
+      "network": [
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "role": "GAL-C",
+      "name": "Linda",
+      "phase": "act3_library/library_box",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "screenshot": "linda-act3-1366x768.png",
+      "regions": {
+        "scene": {
+          "x": 40,
+          "y": 267,
+          "width": 741,
+          "height": 60,
+          "scrollHeight": 58,
+          "clientHeight": 58
+        },
+        "runtime": {
+          "x": 40,
+          "y": 498,
+          "width": 741,
+          "height": 112,
+          "scrollHeight": 110,
+          "clientHeight": 110
+        },
+        "action": {
+          "x": 793,
+          "y": 267,
+          "width": 533,
+          "height": 197,
+          "scrollHeight": 195,
+          "clientHeight": 195
+        },
+        "discussion": {
+          "x": 793,
+          "y": 476,
+          "width": 533,
+          "height": 26,
+          "scrollHeight": 24,
+          "clientHeight": 24
+        },
+        "pocket": {
+          "x": 793,
+          "y": 514,
+          "width": 533,
+          "height": 399,
+          "scrollHeight": 1393,
+          "clientHeight": 397
+        }
+      },
+      "images": [
+        {
+          "id": "s3bSceneImage",
+          "key": null,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_linda_watch_face",
+          "naturalWidth": 448,
+          "naturalHeight": 613,
+          "visible": true
+        },
+        {
+          "id": null,
+          "key": "prop_linda_star_key",
+          "naturalWidth": 1024,
+          "naturalHeight": 768,
+          "visible": true
+        },
+        {
+          "id": null,
+          "key": "prop_linda_closure_order",
+          "naturalWidth": 1023,
+          "naturalHeight": 1024,
+          "visible": true
+        }
+      ],
+      "pocketItems": [
+        "linda_stopped_watch",
+        "linda_star_key",
+        "linda_closure_order"
+      ],
+      "bilingual": [
+        {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "nl": "SLOT MET 5 CIJFERS",
+          "zh": "五位数字锁"
+        }
+      ],
+      "network": [
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        }
+      ]
+    },
+    {
+      "role": "GAL-C",
+      "name": "Linda",
+      "phase": "act3_library/library_box",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screenshot": "linda-act3-1280x720.png",
+      "regions": {
+        "scene": {
+          "x": 33,
+          "y": 267,
+          "width": 699,
+          "height": 60,
+          "scrollHeight": 58,
+          "clientHeight": 58
+        },
+        "runtime": {
+          "x": 33,
+          "y": 498,
+          "width": 699,
+          "height": 112,
+          "scrollHeight": 110,
+          "clientHeight": 110
+        },
+        "action": {
+          "x": 744,
+          "y": 267,
+          "width": 503,
+          "height": 197,
+          "scrollHeight": 195,
+          "clientHeight": 195
+        },
+        "discussion": {
+          "x": 744,
+          "y": 476,
+          "width": 503,
+          "height": 26,
+          "scrollHeight": 24,
+          "clientHeight": 24
+        },
+        "pocket": {
+          "x": 744,
+          "y": 514,
+          "width": 503,
+          "height": 374,
+          "scrollHeight": 1342,
+          "clientHeight": 372
+        }
+      },
+      "images": [
+        {
+          "id": "s3bSceneImage",
+          "key": null,
+          "naturalWidth": 0,
+          "naturalHeight": 0,
+          "visible": false
+        },
+        {
+          "id": null,
+          "key": "prop_linda_watch_face",
+          "naturalWidth": 448,
+          "naturalHeight": 613,
+          "visible": true
+        },
+        {
+          "id": null,
+          "key": "prop_linda_star_key",
+          "naturalWidth": 1024,
+          "naturalHeight": 768,
+          "visible": true
+        },
+        {
+          "id": null,
+          "key": "prop_linda_closure_order",
+          "naturalWidth": 1023,
+          "naturalHeight": 1024,
+          "visible": true
+        }
+      ],
+      "pocketItems": [
+        "linda_stopped_watch",
+        "linda_star_key",
+        "linda_closure_order"
+      ],
+      "bilingual": [
+        {
+          "fontSize": "16px",
+          "lineHeight": "normal",
+          "nl": "SLOT MET 5 CIJFERS",
+          "zh": "五位数字锁"
+        }
+      ],
+      "network": [
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        }
+      ]
+    }
+  ],
+  "teacher": {
+    "title": "GAL Castle Escape Teacher Console",
+    "shellWidth": 1040,
+    "approvedPrototypeStructure": {
+      "top": false,
+      "main": false,
+      "collapsed": 0
+    },
+    "productionPanels": 9,
+    "bodyText": "TEACHER CONSOLE\n\nGAL Castle Escape\n\nPrototype access is protected by a room-specific teacher token. Do not share it with students.\n\nCreate or reconnect room\nRoom code\nTeacher token\nShow\nGitte join code\nAnna join code\nLinda join code\nCreate room\nWatch room\n\nLegacy prototype diagnostics\nRoom state\nNot connected.\n\nSPRINT 7\n\nLive operations\nNot connected\nRefresh\nAUDIT private debug\nExport session\n\nConnect to a room to load ACT 1-13 operations.\n\nPrototype recovery\n\nUse only when a student lost their ",
+    "screenshot": "teacher-deployed-1366x768.png"
+  }
+}
