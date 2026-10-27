@@ -221,7 +221,7 @@ function renderDiscussionState(state) {
   openDiscussionButton.disabled = canonicalFlowActive;
   discussionTopicInput.disabled = canonicalFlowActive;
   voteOptionsInput.disabled = canonicalFlowActive;
-  openVoteButton.disabled=!state.discussion||state.discussion.status!=="discussion"||(teacherDiscussionOwner==="s6"&&(state.run.run_mode!=="normal"||state.discussion.phase_key!=="act10_discussion"));
+  openVoteButton.disabled=!state.discussion||state.discussion.status!=="discussion"||(teacherDiscussionOwner==="s6"&&(state.run.run_mode!=="normal"||!["act9_discussion","act10_discussion"].includes(state.discussion.phase_key)));
   if (!state.active) {
     addTimeButton.hidden=true;
     runBadge.textContent = "No active run";
@@ -271,7 +271,7 @@ function sprint5OpenVotePayload(payload,state){
 
 function sprint6OpenVotePayload(payload,state){
   const discussion=state?.discussion,run=state?.run,s6=state?.s6;
-  if(!run?.run_id||discussion?.phase_key!=="act10_discussion"||!discussion?.discussion_session_id||!Number.isInteger(s6?.act9_step)||!Number.isInteger(s6?.round_no))throw new Error("Current Sprint 6 run, ACT10 phase, step, round and discussion identity are required.");
+  if(!run?.run_id||!["act9_discussion","act10_discussion"].includes(discussion?.phase_key)||!discussion?.discussion_session_id||!Number.isInteger(s6?.act9_step)||!Number.isInteger(s6?.round_no))throw new Error("Current Sprint 6 run, ACT9/10 phase, step, round and discussion identity are required.");
   return{...payload,p_expected_run_id:run.run_id,p_expected_phase:discussion.phase_key,p_expected_step:s6.act9_step,p_expected_round:s6.round_no,p_expected_discussion_session_id:discussion.discussion_session_id};
 }
 
