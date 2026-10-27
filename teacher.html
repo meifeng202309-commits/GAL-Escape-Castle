@@ -7,14 +7,15 @@
 <link rel="stylesheet" href="./src/styles/app.css">
 </head>
 <body class="teacher">
-<main class="shell wide">
+<main class="shell wide teacher-v4-shell">
+  <div class="top teacher-v4-top">
   <section class="panel title-panel">
     <p class="eyebrow">Teacher Console</p>
     <h1>GAL Castle Escape</h1>
     <p class="muted">Prototype access is protected by a room-specific teacher token. Do not share it with students.</p>
   </section>
 
-  <section class="panel">
+  <section class="panel teacher-host-panel">
     <h2>Create or reconnect room</h2>
     <div class="field-grid teacher-grid">
       <label>Room code <input id="roomCode" autocomplete="off" placeholder="TEST1001"></label>
@@ -42,13 +43,15 @@
       </div>
     </details>
   </section>
+  </div>
 
-  <section class="panel">
+  <div class="main teacher-v4-main">
+  <section class="panel teacher-room-panel">
     <h2>Room state</h2>
     <div id="roomState">Not connected.</div>
   </section>
 
-  <section class="panel" aria-labelledby="operationsTitle">
+  <section class="panel teacher-operations-panel" aria-labelledby="operationsTitle">
     <div class="topline">
       <div><p class="eyebrow">Sprint 7</p><h2 id="operationsTitle">Live operations</h2></div>
       <span id="operationsBadge" class="badge">Not connected</span>
@@ -63,7 +66,7 @@
     <div id="operationsState"><p class="muted">Connect to a room to load ACT 1-13 operations.</p></div>
   </section>
 
-  <section class="panel">
+  <section class="panel collapsed teacher-recovery-panel">
     <h2>Prototype recovery</h2>
     <p class="muted">Use only when a student lost their original browser session. This clears that role's session token and logs a teacher recovery event.</p>
     <div class="button-row">
@@ -73,7 +76,7 @@
     </div>
   </section>
 
-  <section class="panel">
+  <section class="panel teacher-discussion-controls">
     <div class="topline">
       <div>
         <p class="eyebrow">Sprint 2</p>
@@ -136,7 +139,7 @@ inspect|Inspect before deciding</textarea>
     <p id="discussionTeacherStatus" class="status muted"></p>
   </section>
 
-  <section class="panel">
+  <section class="panel collapsed teacher-override-panel">
     <details id="overridePanel">
       <summary>Advanced / Emergency Override</summary>
       <div class="field-grid teacher-grid">
@@ -148,18 +151,19 @@ inspect|Inspect before deciding</textarea>
     </details>
   </section>
 
-  <section class="panel">
+  <section class="panel teacher-discussion-panel">
     <h2>Discussion observation</h2>
     <div id="discussionState">No active formal run.</div>
   </section>
 
-  <section class="panel">
+  <section class="panel collapsed teacher-assets-panel">
     <div class="topline"><div><p class="eyebrow">Sprint 4</p><h2>Game Assets</h2></div><span id="assetReadyBadge" class="badge">Not loaded</span></div>
     <div class="button-row"><button id="loadAssetsButton" class="secondary" type="button">Refresh assets</button></div>
     <p id="assetStatus" class="status muted"></p>
     <div id="assetManagerState"><p class="muted">Connect with a Teacher token to review image and audio candidates.</p></div>
     <dialog id="anchorDialog"><form method="dialog"><div class="topline"><h3>Mark required anchor</h3><button value="cancel" class="secondary" type="submit">Close</button></div></form><label>Required anchor<select id="anchorNameSelect"></select></label><p id="anchorPrompt" class="muted"></p><div id="anchorStage" class="anchor-stage"><img id="anchorImage" alt="Asset preview"><div id="anchorBox" class="anchor-box" hidden></div></div><div class="button-row"><button id="saveAnchorButton" type="button">Save anchor</button></div><p id="anchorStatus" class="status muted"></p></dialog>
   </section>
+  </div>
 </main>
 
 <script type="module" src="./src/teacher/teacher-console.js"></script>

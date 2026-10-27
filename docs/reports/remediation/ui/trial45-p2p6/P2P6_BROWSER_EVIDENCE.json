@@ -1,0 +1,338 @@
+{
+  "generatedAt": "2026-10-27T16:51:46.331Z",
+  "players": [
+    {
+      "role": "GAL-A",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "scene": {
+        "key": "prop_gitte_castle_map",
+        "width": 1447,
+        "height": 1087,
+        "state": "decoded",
+        "visible": true
+      },
+      "pocketMedia": [
+        {
+          "asset": "prop_gitte_castle_map",
+          "width": 1447,
+          "height": 1087,
+          "state": "decoded"
+        },
+        {
+          "asset": "prop_gitte_number_note_front",
+          "width": 1536,
+          "height": 1024,
+          "state": "decoded"
+        }
+      ],
+      "metrics": {
+        "scene": {
+          "x": 40,
+          "y": -222,
+          "width": 741
+        },
+        "runtime": {
+          "x": 40,
+          "y": 292,
+          "width": 741
+        },
+        "action": {
+          "x": 793,
+          "y": -222,
+          "width": 533
+        },
+        "pocket": {
+          "x": 793,
+          "y": 308,
+          "width": 533
+        },
+        "font": 14.6667,
+        "nlDisplay": "block",
+        "zhDisplay": "block"
+      },
+      "screenshot": "gitte-1366x768.png"
+    },
+    {
+      "role": "GAL-A",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "scene": {
+        "key": "prop_gitte_castle_map",
+        "width": 1447,
+        "height": 1087,
+        "state": "decoded",
+        "visible": true
+      },
+      "pocketMedia": [
+        {
+          "asset": "prop_gitte_castle_map",
+          "width": 1447,
+          "height": 1087,
+          "state": "decoded"
+        },
+        {
+          "asset": "prop_gitte_number_note_front",
+          "width": 1536,
+          "height": 1024,
+          "state": "decoded"
+        }
+      ],
+      "metrics": {
+        "scene": {
+          "x": 33,
+          "y": -245,
+          "width": 699
+        },
+        "runtime": {
+          "x": 33,
+          "y": 269,
+          "width": 699
+        },
+        "action": {
+          "x": 744,
+          "y": -245,
+          "width": 503
+        },
+        "pocket": {
+          "x": 744,
+          "y": 285,
+          "width": 503
+        },
+        "font": 14.6667,
+        "nlDisplay": "block",
+        "zhDisplay": "block"
+      },
+      "screenshot": "gitte-1280x720.png"
+    },
+    {
+      "role": "GAL-B",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "scene": {
+        "key": "prop_anna_diary_open",
+        "width": 2048,
+        "height": 1282,
+        "state": "decoded",
+        "visible": true
+      },
+      "pocketMedia": [
+        {
+          "asset": "prop_anna_diary_open",
+          "width": 2048,
+          "height": 1282,
+          "state": "decoded"
+        }
+      ],
+      "metrics": {
+        "scene": {
+          "x": 40,
+          "y": -222,
+          "width": 741
+        },
+        "runtime": {
+          "x": 40,
+          "y": 292,
+          "width": 741
+        },
+        "action": {
+          "x": 793,
+          "y": -222,
+          "width": 533
+        },
+        "pocket": {
+          "x": 793,
+          "y": 308,
+          "width": 533
+        },
+        "font": 14.6667,
+        "nlDisplay": "block",
+        "zhDisplay": "block"
+      },
+      "screenshot": "anna-1366x768.png"
+    },
+    {
+      "role": "GAL-B",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "scene": {
+        "key": "prop_anna_diary_open",
+        "width": 2048,
+        "height": 1282,
+        "state": "decoded",
+        "visible": true
+      },
+      "pocketMedia": [
+        {
+          "asset": "prop_anna_diary_open",
+          "width": 2048,
+          "height": 1282,
+          "state": "decoded"
+        }
+      ],
+      "metrics": {
+        "scene": {
+          "x": 33,
+          "y": -245,
+          "width": 699
+        },
+        "runtime": {
+          "x": 33,
+          "y": 269,
+          "width": 699
+        },
+        "action": {
+          "x": 744,
+          "y": -245,
+          "width": 503
+        },
+        "pocket": {
+          "x": 744,
+          "y": 285,
+          "width": 503
+        },
+        "font": 14.6667,
+        "nlDisplay": "block",
+        "zhDisplay": "block"
+      },
+      "screenshot": "anna-1280x720.png"
+    },
+    {
+      "role": "GAL-C",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "scene": {
+        "key": "prop_linda_star_key",
+        "width": 1024,
+        "height": 768,
+        "state": "decoded",
+        "visible": true
+      },
+      "pocketMedia": [
+        {
+          "asset": "prop_linda_watch_face",
+          "width": 448,
+          "height": 613,
+          "state": "decoded"
+        },
+        {
+          "asset": "prop_linda_star_key",
+          "width": 1024,
+          "height": 768,
+          "state": "decoded"
+        },
+        {
+          "asset": "prop_linda_closure_order",
+          "width": 1023,
+          "height": 1024,
+          "state": "decoded"
+        }
+      ],
+      "metrics": {
+        "scene": {
+          "x": 40,
+          "y": -222,
+          "width": 741
+        },
+        "runtime": {
+          "x": 40,
+          "y": 292,
+          "width": 741
+        },
+        "action": {
+          "x": 793,
+          "y": -222,
+          "width": 533
+        },
+        "pocket": {
+          "x": 793,
+          "y": 308,
+          "width": 533
+        },
+        "font": 14.6667,
+        "nlDisplay": "block",
+        "zhDisplay": "block"
+      },
+      "screenshot": "linda-1366x768.png"
+    },
+    {
+      "role": "GAL-C",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "scene": {
+        "key": "prop_linda_star_key",
+        "width": 1024,
+        "height": 768,
+        "state": "decoded",
+        "visible": true
+      },
+      "pocketMedia": [
+        {
+          "asset": "prop_linda_watch_face",
+          "width": 448,
+          "height": 613,
+          "state": "decoded"
+        },
+        {
+          "asset": "prop_linda_star_key",
+          "width": 1024,
+          "height": 768,
+          "state": "decoded"
+        },
+        {
+          "asset": "prop_linda_closure_order",
+          "width": 1023,
+          "height": 1024,
+          "state": "decoded"
+        }
+      ],
+      "metrics": {
+        "scene": {
+          "x": 33,
+          "y": -245,
+          "width": 699
+        },
+        "runtime": {
+          "x": 33,
+          "y": 269,
+          "width": 699
+        },
+        "action": {
+          "x": 744,
+          "y": -245,
+          "width": 503
+        },
+        "pocket": {
+          "x": 744,
+          "y": 285,
+          "width": 503
+        },
+        "font": 14.6667,
+        "nlDisplay": "block",
+        "zhDisplay": "block"
+      },
+      "screenshot": "linda-1280x720.png"
+    }
+  ],
+  "pregame": {
+    "gitteWatchVisible": false
+  },
+  "teacher": {
+    "top": 1,
+    "main": 1,
+    "collapsed": 3,
+    "controls": true
+  }
+}

@@ -16,6 +16,10 @@
 body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
 .shell{max-width:760px;margin:0 auto;padding:28px 16px}
 .shell.wide{max-width:1040px}
+.teacher .shell.wide{max-width:none;padding:clamp(8px,1vw,18px)}
+.teacher-v4-shell{background:#172232;border:1px solid var(--line);border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.teacher-v4-top{display:grid;grid-template-columns:minmax(420px,1.45fr) minmax(360px,1fr);gap:18px;align-items:stretch;margin-bottom:16px}.teacher-v4-top>.panel{margin:0;border-radius:12px}
+.teacher-v4-main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(460px,1fr);grid-template-areas:"room discussion" "operations discussion" "controls controls" "recovery recovery" "override override" "assets assets";gap:14px;align-items:start}.teacher-v4-main>.panel{margin:0;border-color:var(--line);border-radius:12px}.teacher-room-panel{grid-area:room}.teacher-operations-panel{grid-area:operations}.teacher-discussion-controls{grid-area:controls}.teacher-discussion-panel{grid-area:discussion;min-height:470px}.teacher-recovery-panel{grid-area:recovery}.teacher-override-panel{grid-area:override}.teacher-assets-panel{grid-area:assets}.teacher-v4-main>.collapsed{background:#1b2838;border-color:#657a94}
 .v4-player-shell{max-width:1320px;margin-inline:auto}.v4-runtime-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(360px,.85fr);grid-template-areas:"scene action" "story discussion" "story pocket";gap:14px;align-items:start}.v4-region{min-width:0;min-height:0;border:1px solid var(--line);border-radius:8px;background:var(--panel-soft);padding:14px}.v4-region-title{margin:0 0 10px;color:var(--muted);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.v4-scene-region{grid-area:scene}.v4-action-region{grid-area:action}.v4-discussion-region{grid-area:discussion;max-height:calc(100vh - 150px);overflow:auto}.v4-story-region{grid-area:story;max-height:clamp(280px,44vh,620px);overflow:auto}.v4-pocket-region{grid-area:pocket;max-height:clamp(280px,44vh,620px);overflow:auto}.v4-pocket-media{display:block;width:100%;max-height:280px;object-fit:contain;margin:8px 0}#formalSceneMount:empty{display:none}#formalSceneMount>:first-child{margin-top:0}#formalSceneMount>:last-child{margin-bottom:0}
 .shell:has(#gamePanel:not(.hidden)){max-width:1360px}
 .v4-discussion-region .transcript{gap:5px;margin:8px 0;max-height:260px;padding:8px}.v4-discussion-region .message{padding:6px 8px;font-size:11pt;line-height:1.28}.v4-discussion-region .message p{margin-top:3px}.v4-discussion-region .composer{gap:6px;margin-bottom:8px}.v4-discussion-region .composer input,.v4-discussion-region .composer button{font-size:11pt;padding:8px 10px}.v4-pocket-region{min-height:min(360px,52vh);max-height:clamp(360px,52vh,680px)}.v4-pocket-media{height:auto;max-height:min(300px,36vh);object-fit:contain;object-position:center}
@@ -51,9 +55,13 @@ hr{border:0;border-top:1px solid var(--line);margin:22px 0}
 .notice{border:1px solid var(--line);background:var(--panel-soft);padding:14px;border-radius:6px;margin:12px 0}
 .discussion-room{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
 .story-flow{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
-.bilingual{display:grid;gap:8px;margin:12px 0;white-space:pre-line}
+.bilingual,.localized{font-size:11pt;line-height:1.45;white-space:pre-line}
+.bilingual{display:grid;gap:0;margin:0 0 1.45em}
+.bilingual>span,.localized>span{display:block}
+.bilingual>span[lang="zh"],.localized>span[lang="zh"]{margin-top:.1em}
 .bilingual [lang="nl"]{font-weight:700}
 .bilingual [lang="zh"]{color:var(--muted)}
+.pocket-item-selector{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}.pocket-item-selector button{flex:0 0 auto;font-size:11pt}.pocket-item-selector button[aria-selected="true"]{border-color:var(--good);box-shadow:0 0 0 2px rgba(134,239,172,.2)}.pocket-item-detail{min-height:220px}
 .locked-wheels{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px}.locked-wheels b{font-size:22px;letter-spacing:.18em;color:var(--good)}
 .deadline{font-variant-numeric:tabular-nums;color:var(--warn);white-space:nowrap}
 .transcript{display:grid;gap:8px;max-height:320px;overflow:auto;border:1px solid var(--line);background:#101827;padding:10px;border-radius:6px;margin:14px 0}
@@ -79,6 +87,7 @@ th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px;vertical-
 }
 @media(max-width:1399px){.v4-player-shell{padding:16px}.v4-runtime-grid{grid-template-columns:minmax(0,1fr) minmax(320px,.72fr);gap:12px}.v4-region{padding:12px}.v4-discussion-region{max-height:calc(100vh - 132px)}}
 @media(max-width:999px){.v4-runtime-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"scene" "story" "action" "discussion" "pocket"}.v4-discussion-region,.v4-story-region,.v4-pocket-region{max-height:none;overflow:visible}}
+@media(max-width:999px){.teacher-v4-top,.teacher-v4-main{grid-template-columns:1fr}.teacher-v4-main{grid-template-areas:"room" "operations" "discussion" "controls" "recovery" "override" "assets"}}
 .portrait-stage,.clock-stage{position:relative;min-height:220px;background:#171719;border:1px solid #626268;overflow:hidden}.portrait-stage>img,.s5-scene{display:block;width:100%;max-height:420px;object-fit:contain}.portrait-overlay{position:absolute;opacity:0;transition:opacity 1s 1s}.portrait-overlay.ready{opacity:1}
 .trial-asset-placeholder{aspect-ratio:16/9;min-height:180px;object-fit:contain;background-color:#151b24;background-image:linear-gradient(135deg,transparent 0 46%,#405066 47% 53%,transparent 54% 100%);border:1px dashed #8da0b8;opacity:.82}
 .clock-stage .clock{position:absolute;border:2px solid #d4d7dc;border-radius:50%;display:grid;place-content:center;text-align:center;background:rgba(10,12,16,.7);color:#fff}.clock b,.clock span{display:block}.clock .hand{position:absolute;width:2px;height:36%;left:50%;bottom:50%;background:#fff;transform-origin:bottom}.clockwise{animation:clock-turn 4s linear infinite}.counterclockwise{animation:clock-turn 4s linear infinite reverse}.stopped{transform:rotate(294deg)}@keyframes clock-turn{to{transform:rotate(360deg)}}
