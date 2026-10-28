@@ -2297,13 +2297,6 @@ export const LOCALIZATION_CATALOG = {
     "nl": "De stemming opent na de bespreking.",
     "zh": "讨论结束后开放投票。"
   },
-  "discussion.first_round_no_consensus_retry": {
-    "textType": "static",
-    "displayPolicy": "bilingual",
-    "englishMaster": "The first vote did not reach a consensus. Discuss again, then vote in the second round.",
-    "nl": "De eerste stemronde leverde geen overeenstemming op. Bespreek het opnieuw en stem daarna in de tweede ronde.",
-    "zh": "第一轮投票没有形成共识，请再进行讨论，然后做第二轮投票。"
-  },
   "discussion.waiting_missing_player": {
     "textType": "static",
     "displayPolicy": "bilingual",
