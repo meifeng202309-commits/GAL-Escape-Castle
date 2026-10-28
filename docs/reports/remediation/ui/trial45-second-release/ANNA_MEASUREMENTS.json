@@ -1,0 +1,515 @@
+{
+  "generatedAt": "2026-10-28T03:42:44.614Z",
+  "clock": "navigation recorded separately; media gate starts immediately after DOMContentLoaded and ends at connected diary img naturalWidth>0 and data-asset-state=decoded, including scene mount and three concurrent refreshState calls",
+  "resolverDelayMs": 250,
+  "thresholdMs": 2500,
+  "mediaUrl": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+  "records": [
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 2195,
+      "sceneMountedMs": 1425,
+      "refreshMs": 51,
+      "decodedMs": 1496,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 1128,
+      "sceneMountedMs": 1401,
+      "refreshMs": 45,
+      "decodedMs": 1464,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 1015,
+      "sceneMountedMs": 1409,
+      "refreshMs": 43,
+      "decodedMs": 1469,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 1181,
+      "sceneMountedMs": 1431,
+      "refreshMs": 61,
+      "decodedMs": 1510,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 644,
+      "sceneMountedMs": 29543,
+      "refreshMs": 40,
+      "decodedMs": 29600,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 1246,
+      "sceneMountedMs": 833,
+      "refreshMs": 45,
+      "decodedMs": 896,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": [
+        {
+          "startTime": 1546,
+          "duration": 285,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 137,
+      "sceneMountedMs": 1427,
+      "refreshMs": 44,
+      "decodedMs": 1488,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 84,
+      "sceneMountedMs": 1403,
+      "refreshMs": 30,
+      "decodedMs": 1449,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 80,
+      "sceneMountedMs": 1401,
+      "refreshMs": 88,
+      "decodedMs": 1510,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 85,
+      "sceneMountedMs": 1401,
+      "refreshMs": 47,
+      "decodedMs": 1466,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 74,
+      "sceneMountedMs": 857,
+      "refreshMs": 43,
+      "decodedMs": 915,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 56,
+      "sceneMountedMs": 849,
+      "refreshMs": 53,
+      "decodedMs": 918,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 1168,
+      "sceneMountedMs": 1401,
+      "refreshMs": 37,
+      "decodedMs": 1455,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 1000,
+      "sceneMountedMs": 1398,
+      "refreshMs": 42,
+      "decodedMs": 1456,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 1119,
+      "sceneMountedMs": 1395,
+      "refreshMs": 45,
+      "decodedMs": 1459,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 1029,
+      "sceneMountedMs": 1398,
+      "refreshMs": 40,
+      "decodedMs": 1455,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 722,
+      "sceneMountedMs": 840,
+      "refreshMs": 44,
+      "decodedMs": 900,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 462,
+      "sceneMountedMs": 837,
+      "refreshMs": 40,
+      "decodedMs": 892,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 77,
+      "sceneMountedMs": 1416,
+      "refreshMs": 49,
+      "decodedMs": 1487,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 78,
+      "sceneMountedMs": 1428,
+      "refreshMs": 45,
+      "decodedMs": 1494,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 75,
+      "sceneMountedMs": 1406,
+      "refreshMs": 35,
+      "decodedMs": 1461,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 80,
+      "sceneMountedMs": 1398,
+      "refreshMs": 43,
+      "decodedMs": 1458,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 80,
+      "sceneMountedMs": 846,
+      "refreshMs": 46,
+      "decodedMs": 908,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 57,
+      "sceneMountedMs": 847,
+      "refreshMs": 42,
+      "decodedMs": 907,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    }
+  ],
+  "groups": {
+    "candidate-public/cold-context": {
+      "n": 6,
+      "min": 1455,
+      "median": 1464,
+      "mean": 1467,
+      "p90": 1496,
+      "max": 1496,
+      "over2500": 0,
+      "timeouts": 0
+    },
+    "candidate-public/warm-context": {
+      "n": 6,
+      "min": 892,
+      "median": 1455,
+      "mean": 5876,
+      "p90": 29600,
+      "max": 29600,
+      "over2500": 1,
+      "timeouts": 0
+    },
+    "candidate-local-control-production-media/cold-context": {
+      "n": 6,
+      "min": 1449,
+      "median": 1488,
+      "mean": 1482,
+      "p90": 1510,
+      "max": 1510,
+      "over2500": 0,
+      "timeouts": 0
+    },
+    "candidate-local-control-production-media/warm-context": {
+      "n": 6,
+      "min": 907,
+      "median": 918,
+      "mean": 1095,
+      "p90": 1466,
+      "max": 1466,
+      "over2500": 0,
+      "timeouts": 0
+    }
+  }
+}

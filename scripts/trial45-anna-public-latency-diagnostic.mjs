@@ -45,9 +45,10 @@ async function install(page){
 }
 async function sample(browser,label,base,viewport,context,page,index,cacheState){
   if(!page){context=await browser.newContext({viewport,deviceScaleFactor:1});page=await context.newPage();await install(page)}
-  const started=performance.now();
+  const navigationStarted=performance.now();
   await page.goto(`${base}/index.html?diagnostic=${label}-${viewport.width}-${index}-${Date.now()}`,{waitUntil:"domcontentloaded"});
-  const domContentLoadedMs=Math.round(performance.now()-started);
+  const navigationMs=Math.round(performance.now()-navigationStarted);
+  const started=performance.now();
   await page.locator("#formalSceneMount #s3bSceneImage").waitFor();
   const sceneMountedMs=Math.round(performance.now()-started);
   const refreshStarted=performance.now();
@@ -61,7 +62,7 @@ async function sample(browser,label,base,viewport,context,page,index,cacheState)
     const entries=performance.getEntriesByName(url).map(e=>({startTime:Math.round(e.startTime),duration:Math.round(e.duration),transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,decodedBodySize:e.decodedBodySize}));
     return{connected:Boolean(n?.isConnected),naturalWidth:n?.naturalWidth||0,naturalHeight:n?.naturalHeight||0,state:n?.dataset.assetState||null,entries};
   },diaryUrl);
-  return{record:{label,viewport,cacheState,index,domContentLoadedMs,sceneMountedMs,refreshMs,decodedMs,timedOut,...detail},context,page};
+  return{record:{label,viewport,cacheState,index,navigationMs,sceneMountedMs,refreshMs,decodedMs,timedOut,...detail},context,page};
 }
 async function series(browser,label,base,viewport){
   const records=[];
@@ -81,15 +82,15 @@ async function main(){
   try{
     const records=[];
     for(const viewport of[{width:1280,height:720},{width:1366,height:768}]){
-      records.push(...await series(browser,"recovered-public","https://meifeng202309-commits.github.io/GAL-Escape-Castle",viewport));
-      records.push(...await series(browser,"accepted-candidate-local-page-production-media",local.url,viewport));
+      records.push(...await series(browser,"candidate-public","https://meifeng202309-commits.github.io/GAL-Escape-Castle",viewport));
+      records.push(...await series(browser,"candidate-local-control-production-media",local.url,viewport));
     }
     const groups={};
     for(const label of [...new Set(records.map(x=>x.label))])for(const cacheState of ["cold-context","warm-context"]){
       const subset=records.filter(x=>x.label===label&&x.cacheState===cacheState);
       groups[`${label}/${cacheState}`]=summarize(subset);
     }
-    const result={generatedAt:new Date().toISOString(),clock:"performance.now immediately before page.goto through connected diary img naturalWidth>0 and data-asset-state=decoded, after DOMContentLoaded, scene mount, and three concurrent refreshState calls",resolverDelayMs:250,thresholdMs:2500,mediaUrl:diaryUrl,records,groups};
+    const result={generatedAt:new Date().toISOString(),clock:"navigation recorded separately; media gate starts immediately after DOMContentLoaded and ends at connected diary img naturalWidth>0 and data-asset-state=decoded, including scene mount and three concurrent refreshState calls",resolverDelayMs:250,thresholdMs:2500,mediaUrl:diaryUrl,records,groups};
     await mkdir(path.dirname(output),{recursive:true});
     await writeFile(output,JSON.stringify(result,null,2));
     console.log(JSON.stringify({groups},null,2));
