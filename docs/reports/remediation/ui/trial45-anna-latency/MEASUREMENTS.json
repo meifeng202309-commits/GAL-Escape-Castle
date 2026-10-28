@@ -1,0 +1,627 @@
+{
+  "generatedAt": "2026-10-28T03:17:26.249Z",
+  "clock": "performance.now immediately before page.goto through connected diary img naturalWidth>0 and data-asset-state=decoded, after DOMContentLoaded, scene mount, and three concurrent refreshState calls",
+  "resolverDelayMs": 250,
+  "thresholdMs": 2500,
+  "mediaUrl": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+  "records": [
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "domContentLoadedMs": 1370,
+      "sceneMountedMs": 1767,
+      "refreshMs": 60,
+      "decodedMs": 5832,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1723,
+          "duration": 1670,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "domContentLoadedMs": 1075,
+      "sceneMountedMs": 1473,
+      "refreshMs": 45,
+      "decodedMs": 5531,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1425,
+          "duration": 1510,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "domContentLoadedMs": 1112,
+      "sceneMountedMs": 1506,
+      "refreshMs": 42,
+      "decodedMs": 5551,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1456,
+          "duration": 1518,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "domContentLoadedMs": 987,
+      "sceneMountedMs": 1374,
+      "refreshMs": 55,
+      "decodedMs": 5443,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1323,
+          "duration": 1473,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "domContentLoadedMs": 492,
+      "sceneMountedMs": 841,
+      "refreshMs": 47,
+      "decodedMs": 4892,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 805,
+          "duration": 889,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "domContentLoadedMs": 461,
+      "sceneMountedMs": 793,
+      "refreshMs": 56,
+      "decodedMs": 4864,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 755,
+          "duration": 853,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "domContentLoadedMs": 87,
+      "sceneMountedMs": 1511,
+      "refreshMs": 42,
+      "decodedMs": 1570,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "domContentLoadedMs": 80,
+      "sceneMountedMs": 1495,
+      "refreshMs": 46,
+      "decodedMs": 1559,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": [
+        {
+          "startTime": 459,
+          "duration": 1037,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "domContentLoadedMs": 86,
+      "sceneMountedMs": 1500,
+      "refreshMs": 44,
+      "decodedMs": 1560,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "domContentLoadedMs": 98,
+      "sceneMountedMs": 1512,
+      "refreshMs": 50,
+      "decodedMs": 1582,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "domContentLoadedMs": 56,
+      "sceneMountedMs": 933,
+      "refreshMs": 48,
+      "decodedMs": 999,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "domContentLoadedMs": 74,
+      "sceneMountedMs": 909,
+      "refreshMs": 40,
+      "decodedMs": 964,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "domContentLoadedMs": 1066,
+      "sceneMountedMs": 1451,
+      "refreshMs": 31,
+      "decodedMs": 5486,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1401,
+          "duration": 1563,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "domContentLoadedMs": 956,
+      "sceneMountedMs": 1349,
+      "refreshMs": 39,
+      "decodedMs": 5397,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1291,
+          "duration": 1447,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "domContentLoadedMs": 1028,
+      "sceneMountedMs": 1430,
+      "refreshMs": 59,
+      "decodedMs": 5496,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1380,
+          "duration": 1632,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "domContentLoadedMs": 1010,
+      "sceneMountedMs": 1401,
+      "refreshMs": 38,
+      "decodedMs": 5454,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 1355,
+          "duration": 1497,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "domContentLoadedMs": 508,
+      "sceneMountedMs": 839,
+      "refreshMs": 45,
+      "decodedMs": 4894,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 804,
+          "duration": 820,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "domContentLoadedMs": 503,
+      "sceneMountedMs": 838,
+      "refreshMs": 48,
+      "decodedMs": 4900,
+      "timedOut": true,
+      "connected": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "entries": [
+        {
+          "startTime": 806,
+          "duration": 783,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "domContentLoadedMs": 78,
+      "sceneMountedMs": 1498,
+      "refreshMs": 33,
+      "decodedMs": 1549,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": [
+        {
+          "startTime": 444,
+          "duration": 1095,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "domContentLoadedMs": 75,
+      "sceneMountedMs": 1478,
+      "refreshMs": 42,
+      "decodedMs": 1536,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "domContentLoadedMs": 85,
+      "sceneMountedMs": 1503,
+      "refreshMs": 34,
+      "decodedMs": 1554,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": [
+        {
+          "startTime": 445,
+          "duration": 1089,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ]
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "domContentLoadedMs": 84,
+      "sceneMountedMs": 1478,
+      "refreshMs": 49,
+      "decodedMs": 1543,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "domContentLoadedMs": 63,
+      "sceneMountedMs": 896,
+      "refreshMs": 39,
+      "decodedMs": 949,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    },
+    {
+      "label": "accepted-candidate-local-page-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "domContentLoadedMs": 58,
+      "sceneMountedMs": 891,
+      "refreshMs": 48,
+      "decodedMs": 954,
+      "timedOut": false,
+      "connected": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "entries": []
+    }
+  ],
+  "groups": {
+    "recovered-public/cold-context": {
+      "n": 6,
+      "min": 5397,
+      "median": 5531,
+      "mean": 5549,
+      "p90": 5832,
+      "max": 5832,
+      "over2500": 6,
+      "timeouts": 6
+    },
+    "recovered-public/warm-context": {
+      "n": 6,
+      "min": 4864,
+      "median": 4900,
+      "mean": 5075,
+      "p90": 5454,
+      "max": 5454,
+      "over2500": 6,
+      "timeouts": 6
+    },
+    "accepted-candidate-local-page-production-media/cold-context": {
+      "n": 6,
+      "min": 1536,
+      "median": 1559,
+      "mean": 1555,
+      "p90": 1570,
+      "max": 1570,
+      "over2500": 0,
+      "timeouts": 0
+    },
+    "accepted-candidate-local-page-production-media/warm-context": {
+      "n": 6,
+      "min": 949,
+      "median": 999,
+      "mean": 1165,
+      "p90": 1582,
+      "max": 1582,
+      "over2500": 0,
+      "timeouts": 0
+    }
+  }
+}
