@@ -3,7 +3,7 @@
 Date: 2026-10-28  
 Owner: CD  
 Authority: `CA_to_CD_20261028T040000Z_trial45-one-integrated-p2-p6-implementation-gate.md`  
-Status: all authorized non-protected source work and gates PASS; R4-08 waits on the mandatory GA protected-text decision. No production deployment or production data mutation.
+Status: complete; all R4/R5 P2-P6 source and browser gates PASS. No production deployment or production data mutation.
 
 ## Integrated source changes
 
@@ -51,7 +51,7 @@ The existing integrated real-runtime browser gate also passes Player action owne
 | R4-05 / R5-03 | PASS | Anna diary and Linda key Scene images decode visibly; delayed resolver no longer writes detached targets. |
 | R4-06 / R5-08 | PASS retained | Linda 3/3 selector items and images decode at both viewports. |
 | R4-07 / R5-07 | PASS | Gitte 2, Anna 1, Linda 3 role-specific tabs; every item can be selected and decoded. |
-| R4-08 | BLOCKED_PROTECTED_TEXT | Exact NL/ZH copy, transition trigger and catalog-edit permission requested from GA; no string invented. |
+| R4-08 | PASS | GA-136 exact key/copy/trigger implemented in the canonical CSV and regenerated catalog. Confirmed first-round no-consensus history plus round 2 is required; exact text precedes guidance, remains one instance across polling/reconnect, and is absent in round 1. |
 | R4-09 | PASS retained | migration073 NORMAL/AUDIT static and policy model gates pass unchanged. |
 | R4-10 | PASS negative reproduction/regression | Realistic ACT9 overflow fixture did not reproduce jump; midpoint remains stable across refresh. |
 | R5-01 | PASS negative reproduction/regression | Fresh Gitte pre-game contains no Linda watch; inactive Pocket produces no item UI. |
@@ -67,4 +67,14 @@ The existing integrated real-runtime browser gate also passes Player action owne
 - `node tests/act9-073-normal-teacher-paced-policy.test.js` — PASS
 - `git diff --check` — PASS
 
-Human retest and public deployment remain prohibited. Once GA returns R4-08 authority, CD must apply the canonical catalog change, regenerate localization, add tie-order browser coverage, rerun this entire package, and return one final P2-P6 SHA to CA for P7.
+## Protected R4-08 completion
+
+GA decision: `GA_to_CD_20261028T053000Z_r4-08-tie-bilingual-catalog-decision.md` (GA-136).
+
+- Added only `discussion.first_round_no_consensus_retry` to the canonical localization CSV with the exact approved English master, Dutch, Chinese, status and bounded note.
+- Regenerated `src/content/localization.generated.js` with the existing generator; no manual generated-file editing.
+- Trigger requires authoritative `discussion.vote_round === 2` and a retained round-1 history outcome whose type is exactly `no_consensus` while discussion status is `discussion`.
+- The instruction is rendered before `discussion.voting_after_discussion`; it is derived state, not an appended message, so polling/reconnect cannot duplicate it.
+- Browser assertions cover exact copy, order, one visible instance after three polls, one instance after reload, and absence in round 1. Existing vote authority and algorithms are unchanged.
+
+Human retest and public deployment remain prohibited pending CA P7 and any separately required release gate.

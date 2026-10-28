@@ -800,7 +800,8 @@ function renderVote(state) {
   }
 
   if (discussion.status === "discussion") {
-    voteArea.innerHTML = `<p class="muted">${localizedHtml("discussion.voting_after_discussion")}</p>`;
+    const confirmedFirstRoundTie=Number(discussion.vote_round)===2&&(state.vote_history||[]).some(round=>Number(round.vote_round)===1&&round.outcome?.type==="no_consensus");
+    voteArea.innerHTML = `${confirmedFirstRoundTie?`<div class="notice bilingual tie-retry-instruction" data-tie-session="${escapeHtml(discussion.discussion_session_id)}" data-tie-round="2">${localizedHtml("discussion.first_round_no_consensus_retry")}</div>`:""}<p class="muted voting-after-discussion">${localizedHtml("discussion.voting_after_discussion")}</p>`;
     return;
   }
 

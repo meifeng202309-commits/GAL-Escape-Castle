@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-27T16:51:46.331Z",
+  "generatedAt": "2026-10-28T01:36:05.755Z",
   "players": [
     {
       "role": "GAL-A",
@@ -328,6 +328,13 @@
   ],
   "pregame": {
     "gitteWatchVisible": false
+  },
+  "tieInstruction": {
+    "exactCopy": true,
+    "beforeGuidance": true,
+    "pollCount": 1,
+    "reconnectCount": 1,
+    "firstRoundCount": 0
   },
   "teacher": {
     "top": 1,
