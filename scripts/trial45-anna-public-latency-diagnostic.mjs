@@ -34,6 +34,18 @@ function s3b(){return{active:true,run_id:"00000000-0000-4000-8000-0000000004a0",
 function pocket(){return{active:true,items:[{item_key:"anna_servant_diary",name_text_key:"item.servant_diary",current_view:"front"}],inspected_item_keys:["anna_servant_diary"],group_items:[],observations:[],shared_photos:[],scene:{allow_share_photo:false}}}
 async function install(page){
   await page.addInitScript(()=>{globalThis.__GAL_A1_TEST_HOOKS__={}});
+  await page.addInitScript(()=>{
+    globalThis.__GAL_LATENCY_TRACE__={maxTimerGapMs:0,transitions:[],longTasks:[]};
+    let previous=performance.now(),signature="";
+    setInterval(()=>{
+      const now=performance.now(),gap=now-previous;previous=now;
+      globalThis.__GAL_LATENCY_TRACE__.maxTimerGapMs=Math.max(globalThis.__GAL_LATENCY_TRACE__.maxTimerGapMs,gap);
+      const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');
+      const next=n?`attached:${n.isConnected}|src:${Boolean(n.currentSrc||n.src)}|complete:${n.complete}|width:${n.naturalWidth}|state:${n.dataset.assetState||""}`:"absent";
+      if(next!==signature){signature=next;globalThis.__GAL_LATENCY_TRACE__.transitions.push({at:Math.round(now),state:next})}
+    },50);
+    try{new PerformanceObserver(list=>{for(const e of list.getEntries())globalThis.__GAL_LATENCY_TRACE__.longTasks.push({start:Math.round(e.startTime),duration:Math.round(e.duration)})}).observe({type:"longtask",buffered:true})}catch{}
+  });
   await installPlayerRoutes(page,"act3",{state,playerIndex:role.index});
   await page.route("**/rest/v1/rpc/s3b_get_player_state",route=>json(route,s3b()));
   await page.route("**/rest/v1/rpc/s3_get_player_state",route=>json(route,pocket()));
@@ -60,7 +72,8 @@ async function sample(browser,label,base,viewport,context,page,index,cacheState)
   const detail=await page.evaluate(url=>{
     const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');
     const entries=performance.getEntriesByName(url).map(e=>({startTime:Math.round(e.startTime),duration:Math.round(e.duration),transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,decodedBodySize:e.decodedBodySize}));
-    return{connected:Boolean(n?.isConnected),naturalWidth:n?.naturalWidth||0,naturalHeight:n?.naturalHeight||0,state:n?.dataset.assetState||null,entries};
+    const resources=performance.getEntriesByType("resource").filter(e=>/src\/game\/app\.js|src\/styles\/app\.css|prop_anna_diary_open/.test(e.name)).map(e=>({name:e.name,startTime:Math.round(e.startTime),duration:Math.round(e.duration),transferSize:e.transferSize}));
+    return{connected:Boolean(n?.isConnected),naturalWidth:n?.naturalWidth||0,naturalHeight:n?.naturalHeight||0,state:n?.dataset.assetState||null,entries,resources,trace:globalThis.__GAL_LATENCY_TRACE__};
   },diaryUrl);
   return{record:{label,viewport,cacheState,index,navigationMs,sceneMountedMs,refreshMs,decodedMs,timedOut,...detail},context,page};
 }
@@ -82,7 +95,7 @@ async function main(){
   try{
     const records=[];
     for(const viewport of[{width:1280,height:720},{width:1366,height:768}]){
-      records.push(...await series(browser,"candidate-public","https://meifeng202309-commits.github.io/GAL-Escape-Castle",viewport));
+      records.push(...await series(browser,"recovered-public","https://meifeng202309-commits.github.io/GAL-Escape-Castle",viewport));
       records.push(...await series(browser,"candidate-local-control-production-media",local.url,viewport));
     }
     const groups={};
