@@ -60,22 +60,32 @@ async function sample(browser,label,base,viewport,context,page,index,cacheState)
   const navigationStarted=performance.now();
   await page.goto(`${base}/index.html?diagnostic=${label}-${viewport.width}-${index}-${Date.now()}`,{waitUntil:"domcontentloaded"});
   const navigationMs=Math.round(performance.now()-navigationStarted);
-  const started=performance.now();
-  await page.locator("#formalSceneMount #s3bSceneImage").waitFor();
-  const sceneMountedMs=Math.round(performance.now()-started);
-  const refreshStarted=performance.now();
+  const domContentLoadedAt=await page.evaluate(()=>Math.round(performance.now()));
+  const gateAStarted=performance.now();
+  let gateATimedOut=false;
+  try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]'),r=n?.getBoundingClientRect();return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"&&r.width>0&&r.height>0},null,{timeout:2500})}catch{gateATimedOut=true}
+  const gateAMs=Math.round(performance.now()-gateAStarted);
+  const gateAEndpointAt=await page.evaluate(()=>Math.round(performance.now()));
+  const baseline=await page.evaluate(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');globalThis.__GAL_BASELINE_DIARY_NODE__=n;return{present:Boolean(n),connected:Boolean(n?.isConnected),width:n?.naturalWidth||0,state:n?.dataset.assetState||null}});
+  const gateBStarted=performance.now();
+  const refreshStartedAt=await page.evaluate(()=>Math.round(performance.now()));
   await Promise.all([0,1,2].map(()=>page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState())));
-  const refreshMs=Math.round(performance.now()-refreshStarted);
-  let timedOut=false;
-  try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"},null,{timeout:4000})}catch{timedOut=true}
-  const decodedMs=Math.round(performance.now()-started);
+  const refreshEndMs=Math.round(performance.now()-gateBStarted);
+  const refreshEndedAt=await page.evaluate(()=>Math.round(performance.now()));
+  let gateBTimedOut=false;
+  try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]'),r=n?.getBoundingClientRect();return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"&&r.width>0&&r.height>0},null,{timeout:Math.max(1,2500-refreshEndMs)})}catch{gateBTimedOut=true}
+  const gateBMs=Math.round(performance.now()-gateBStarted);
+  const gateBEndpointAt=await page.evaluate(()=>Math.round(performance.now()));
   const detail=await page.evaluate(url=>{
     const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');
-    const entries=performance.getEntriesByName(url).map(e=>({startTime:Math.round(e.startTime),duration:Math.round(e.duration),transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,decodedBodySize:e.decodedBodySize}));
-    const resources=performance.getEntriesByType("resource").filter(e=>/src\/game\/app\.js|src\/styles\/app\.css|prop_anna_diary_open/.test(e.name)).map(e=>({name:e.name,startTime:Math.round(e.startTime),duration:Math.round(e.duration),transferSize:e.transferSize}));
-    return{connected:Boolean(n?.isConnected),naturalWidth:n?.naturalWidth||0,naturalHeight:n?.naturalHeight||0,state:n?.dataset.assetState||null,entries,resources,trace:globalThis.__GAL_LATENCY_TRACE__};
+    const entries=performance.getEntriesByName(url).map(e=>({startTime:Math.round(e.startTime),duration:Math.round(e.duration),endTime:Math.round(e.startTime+e.duration),transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,decodedBodySize:e.decodedBodySize}));
+    const resources=performance.getEntriesByType("resource").filter(e=>/src\/game\/app\.js|src\/styles\/app\.css|prop_anna_diary_open/.test(e.name)).map(e=>({name:e.name,startTime:Math.round(e.startTime),duration:Math.round(e.duration),endTime:Math.round(e.startTime+e.duration),transferSize:e.transferSize}));
+    const rect=n?.getBoundingClientRect();
+    return{connected:Boolean(n?.isConnected),visible:Boolean(rect&&rect.width>0&&rect.height>0),naturalWidth:n?.naturalWidth||0,naturalHeight:n?.naturalHeight||0,state:n?.dataset.assetState||null,baselineStillConnected:Boolean(globalThis.__GAL_BASELINE_DIARY_NODE__?.isConnected),entries,resources,trace:globalThis.__GAL_LATENCY_TRACE__};
   },diaryUrl);
-  return{record:{label,viewport,cacheState,index,navigationMs,sceneMountedMs,refreshMs,decodedMs,timedOut,...detail},context,page};
+  const gateAPass=!gateATimedOut&&gateAMs<=2500&&baseline.connected&&baseline.width>0&&baseline.state==="decoded";
+  const gateBPass=!gateBTimedOut&&gateBMs<=2500&&detail.connected&&detail.visible&&detail.naturalWidth>0&&detail.state==="decoded";
+  return{record:{label,viewport,cacheState,index,navigationMs,domContentLoadedAt,gateAMs,gateAEndpointAt,gateATimedOut,gateAPass,baseline,refreshStartedAt,refreshEndMs,refreshEndedAt,gateBMs,gateBEndpointAt,gateBTimedOut,gateBPass,...detail},context,page};
 }
 async function series(browser,label,base,viewport){
   const records=[];
@@ -86,9 +96,8 @@ async function series(browser,label,base,viewport){
   return records;
 }
 function summarize(records){
-  const values=records.map(x=>x.decodedMs).sort((a,b)=>a-b);
-  const mean=Math.round(values.reduce((a,b)=>a+b,0)/values.length);
-  return{n:values.length,min:values[0],median:values[Math.floor(values.length/2)],mean,p90:values[Math.ceil(values.length*.9)-1],max:values.at(-1),over2500:values.filter(x=>x>2500).length,timeouts:records.filter(x=>x.timedOut).length};
+  const distribution=key=>{const values=records.map(x=>x[key]).sort((a,b)=>a-b);return{min:values[0],median:values[Math.floor(values.length/2)],p90:values[Math.ceil(values.length*.9)-1],max:values.at(-1)}};
+  return{n:records.length,gateA:distribution("gateAMs"),gateB:distribution("gateBMs"),gateAFailures:records.filter(x=>!x.gateAPass).length,gateBFailures:records.filter(x=>!x.gateBPass).length,detachedBaselines:records.filter(x=>x.baseline.present&&!x.baselineStillConnected).length};
 }
 async function main(){
   const local=await server(),browser=await chromium.launch({headless:true,executablePath:chrome});
@@ -103,10 +112,13 @@ async function main(){
       const subset=records.filter(x=>x.label===label&&x.cacheState===cacheState);
       groups[`${label}/${cacheState}`]=summarize(subset);
     }
-    const result={generatedAt:new Date().toISOString(),clock:"navigation recorded separately; media gate starts immediately after DOMContentLoaded and ends at connected diary img naturalWidth>0 and data-asset-state=decoded, including scene mount and three concurrent refreshState calls",resolverDelayMs:250,thresholdMs:2500,mediaUrl:diaryUrl,records,groups};
+    const result={generatedAt:new Date().toISOString(),clock:{navigation:"recorded separately",gateA:"DOMContentLoaded to correct connected decoded visible Scene image",gateB:"immediately before three controlled refreshes to current correct connected decoded visible Scene image"},resolverDelayMs:250,thresholdMs:2500,mediaUrl:diaryUrl,records,groups};
     await mkdir(path.dirname(output),{recursive:true});
     await writeFile(output,JSON.stringify(result,null,2));
     console.log(JSON.stringify({groups},null,2));
+    const candidate=records.filter(x=>x.label==="candidate-local-control-production-media");
+    assert(candidate.length===12,"candidate sample count mismatch");
+    assert(candidate.every(x=>x.gateAPass&&x.gateBPass&&x.connected&&x.visible&&x.naturalWidth>0&&x.state==="decoded"),"candidate two-gate harness failure");
   }finally{await browser.close();await new Promise(resolve=>local.instance.close(resolve))}
 }
 main().catch(error=>{console.error(error.stack||error);process.exitCode=1});

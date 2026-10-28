@@ -1,0 +1,1935 @@
+{
+  "generatedAt": "2026-10-28T04:15:20.545Z",
+  "clock": {
+    "navigation": "recorded separately",
+    "gateA": "DOMContentLoaded to correct connected decoded visible Scene image",
+    "gateB": "immediately before three controlled refreshes to current correct connected decoded visible Scene image"
+  },
+  "resolverDelayMs": 250,
+  "thresholdMs": 2500,
+  "mediaUrl": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+  "records": [
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 1470,
+      "domContentLoadedAt": 1526,
+      "gateAMs": 2502,
+      "gateAEndpointAt": 4032,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 4036,
+      "refreshEndMs": 52,
+      "refreshEndedAt": 4088,
+      "gateBMs": 2504,
+      "gateBEndpointAt": 6541,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1842,
+          "duration": 1436,
+          "endTime": 3278,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 1033,
+          "duration": 156,
+          "endTime": 1190,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 1034,
+          "duration": 204,
+          "endTime": 1237,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1842,
+          "duration": 1436,
+          "endTime": 3278,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 71.29999999888241,
+        "transitions": [
+          {
+            "at": 1089,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 961,
+      "domContentLoadedAt": 1014,
+      "gateAMs": 2510,
+      "gateAEndpointAt": 3527,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3530,
+      "refreshEndMs": 46,
+      "refreshEndedAt": 3576,
+      "gateBMs": 2515,
+      "gateBEndpointAt": 6045,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1317,
+          "duration": 1719,
+          "endTime": 3036,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 577,
+          "duration": 114,
+          "endTime": 691,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 577,
+          "duration": 153,
+          "endTime": 731,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1317,
+          "duration": 1719,
+          "endTime": 3036,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 61.80000000074506,
+        "transitions": [
+          {
+            "at": 631,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 1028,
+      "domContentLoadedAt": 1083,
+      "gateAMs": 2505,
+      "gateAEndpointAt": 3594,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3597,
+      "refreshEndMs": 44,
+      "refreshEndedAt": 3641,
+      "gateBMs": 2506,
+      "gateBEndpointAt": 6103,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1369,
+          "duration": 1938,
+          "endTime": 3308,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 637,
+          "duration": 164,
+          "endTime": 801,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 638,
+          "duration": 159,
+          "endTime": 797,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1369,
+          "duration": 1938,
+          "endTime": 3308,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 74.40000000037253,
+        "transitions": [
+          {
+            "at": 692,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 1654,
+      "domContentLoadedAt": 1704,
+      "gateAMs": 2502,
+      "gateAEndpointAt": 4209,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 4212,
+      "refreshEndMs": 47,
+      "refreshEndedAt": 4259,
+      "gateBMs": 2511,
+      "gateBEndpointAt": 6722,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1998,
+          "duration": 2299,
+          "endTime": 4297,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 1014,
+          "duration": 133,
+          "endTime": 1147,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 1015,
+          "duration": 241,
+          "endTime": 1256,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1998,
+          "duration": 2299,
+          "endTime": 4297,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 81.10000000149012,
+        "transitions": [
+          {
+            "at": 1060,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 712,
+      "domContentLoadedAt": 713,
+      "gateAMs": 2505,
+      "gateAEndpointAt": 3219,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3226,
+      "refreshEndMs": 51,
+      "refreshEndedAt": 3277,
+      "gateBMs": 2507,
+      "gateBEndpointAt": 5732,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 111,
+          "duration": 174,
+          "endTime": 284,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 111,
+          "duration": 183,
+          "endTime": 293,
+          "transferSize": 18533
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 63,
+        "transitions": [
+          {
+            "at": 159,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 1298,
+      "domContentLoadedAt": 1299,
+      "gateAMs": 2505,
+      "gateAEndpointAt": 3805,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3806,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 3826,
+      "gateBMs": 2515,
+      "gateBEndpointAt": 6321,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 280,
+          "duration": 542,
+          "endTime": 821,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 280,
+          "duration": 315,
+          "endTime": 594,
+          "transferSize": 18533
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 62.70000000111759,
+        "transitions": [
+          {
+            "at": 332,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 37,
+      "domContentLoadedAt": 87,
+      "gateAMs": 1263,
+      "gateAEndpointAt": 1353,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1354,
+      "refreshEndMs": 21,
+      "refreshEndedAt": 1375,
+      "gateBMs": 23,
+      "gateBEndpointAt": 1377,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 12,
+          "duration": 8,
+          "endTime": 20,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 12,
+          "duration": 9,
+          "endTime": 21,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 64.80000000074506,
+        "transitions": [
+          {
+            "at": 79,
+            "state": "absent"
+          },
+          {
+            "at": 122,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 418,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1068,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1365,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 36,
+      "domContentLoadedAt": 78,
+      "gateAMs": 2515,
+      "gateAEndpointAt": 2595,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 0,
+        "state": "loading"
+      },
+      "refreshStartedAt": 2597,
+      "refreshEndMs": 22,
+      "refreshEndedAt": 2619,
+      "gateBMs": 1171,
+      "gateBEndpointAt": 3768,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 9,
+          "duration": 7,
+          "endTime": 16,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 9,
+          "duration": 8,
+          "endTime": 17,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 59.80000000074506,
+        "transitions": [
+          {
+            "at": 71,
+            "state": "absent"
+          },
+          {
+            "at": 113,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 417,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 3312,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 3761,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 44,
+      "domContentLoadedAt": 79,
+      "gateAMs": 2458,
+      "gateAEndpointAt": 2539,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 2542,
+      "refreshEndMs": 24,
+      "refreshEndedAt": 2565,
+      "gateBMs": 26,
+      "gateBEndpointAt": 2567,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 8,
+          "duration": 7,
+          "endTime": 15,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 8,
+          "duration": 8,
+          "endTime": 16,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 61.69999999925494,
+        "transitions": [
+          {
+            "at": 72,
+            "state": "absent"
+          },
+          {
+            "at": 111,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 422,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 2560,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 47,
+      "domContentLoadedAt": 85,
+      "gateAMs": 1240,
+      "gateAEndpointAt": 1326,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1328,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 1349,
+      "gateBMs": 22,
+      "gateBEndpointAt": 1350,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 6,
+          "duration": 10,
+          "endTime": 16,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 6,
+          "duration": 11,
+          "endTime": 17,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 69.80000000074506,
+        "transitions": [
+          {
+            "at": 78,
+            "state": "absent"
+          },
+          {
+            "at": 116,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 409,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1008,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 34,
+      "domContentLoadedAt": 34,
+      "gateAMs": 1070,
+      "gateAEndpointAt": 1104,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1105,
+      "refreshEndMs": 19,
+      "refreshEndedAt": 1124,
+      "gateBMs": 20,
+      "gateBEndpointAt": 1126,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [
+        {
+          "startTime": 307,
+          "duration": 782,
+          "endTime": 1089,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 9,
+          "duration": 8,
+          "endTime": 17,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 9,
+          "duration": 8,
+          "endTime": 17,
+          "transferSize": 80320
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 307,
+          "duration": 782,
+          "endTime": 1089,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 59.09999999962747,
+        "transitions": [
+          {
+            "at": 69,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 311,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 461,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1111,
+            "state": "attached:true|src:true|complete:true|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 32,
+      "domContentLoadedAt": 32,
+      "gateAMs": 1175,
+      "gateAEndpointAt": 1208,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1209,
+      "refreshEndMs": 21,
+      "refreshEndedAt": 1231,
+      "gateBMs": 23,
+      "gateBEndpointAt": 1233,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [
+        {
+          "startTime": 309,
+          "duration": 884,
+          "endTime": 1193,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 9,
+          "duration": 7,
+          "endTime": 16,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 9,
+          "duration": 7,
+          "endTime": 16,
+          "transferSize": 80320
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 309,
+          "duration": 884,
+          "endTime": 1193,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 62.70000000111759,
+        "transitions": [
+          {
+            "at": 72,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 311,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 462,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1211,
+            "state": "attached:true|src:true|complete:true|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 1117,
+      "domContentLoadedAt": 1148,
+      "gateAMs": 2514,
+      "gateAEndpointAt": 3662,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3664,
+      "refreshEndMs": 22,
+      "refreshEndedAt": 3685,
+      "gateBMs": 2512,
+      "gateBEndpointAt": 6176,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1433,
+          "duration": 1483,
+          "endTime": 2915,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 624,
+          "duration": 111,
+          "endTime": 734,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 624,
+          "duration": 160,
+          "endTime": 784,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1433,
+          "duration": 1483,
+          "endTime": 2915,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 62,
+        "transitions": [
+          {
+            "at": 677,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 1040,
+      "domContentLoadedAt": 1071,
+      "gateAMs": 2508,
+      "gateAEndpointAt": 3581,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3582,
+      "refreshEndMs": 24,
+      "refreshEndedAt": 3606,
+      "gateBMs": 2512,
+      "gateBEndpointAt": 6094,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1349,
+          "duration": 1551,
+          "endTime": 2899,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 657,
+          "duration": 109,
+          "endTime": 766,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 658,
+          "duration": 160,
+          "endTime": 817,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1349,
+          "duration": 1551,
+          "endTime": 2899,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 67.19999999925494,
+        "transitions": [
+          {
+            "at": 711,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 979,
+      "domContentLoadedAt": 1012,
+      "gateAMs": 2506,
+      "gateAEndpointAt": 3519,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3520,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 3541,
+      "gateBMs": 2516,
+      "gateBEndpointAt": 6036,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1291,
+          "duration": 1342,
+          "endTime": 2633,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 586,
+          "duration": 124,
+          "endTime": 710,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 586,
+          "duration": 150,
+          "endTime": 736,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1291,
+          "duration": 1342,
+          "endTime": 2633,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 66.09999999962747,
+        "transitions": [
+          {
+            "at": 639,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 985,
+      "domContentLoadedAt": 1015,
+      "gateAMs": 2513,
+      "gateAEndpointAt": 3529,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3530,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 3551,
+      "gateBMs": 2511,
+      "gateBEndpointAt": 6042,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1296,
+          "duration": 1469,
+          "endTime": 2765,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 613,
+          "duration": 106,
+          "endTime": 718,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 613,
+          "duration": 158,
+          "endTime": 770,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1296,
+          "duration": 1469,
+          "endTime": 2765,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 63.30000000074506,
+        "transitions": [
+          {
+            "at": 675,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 596,
+      "domContentLoadedAt": 597,
+      "gateAMs": 2509,
+      "gateAEndpointAt": 3107,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 3108,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 3128,
+      "gateBMs": 2514,
+      "gateBEndpointAt": 5621,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 871,
+          "duration": 849,
+          "endTime": 1719,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 112,
+          "duration": 114,
+          "endTime": 226,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 112,
+          "duration": 147,
+          "endTime": 259,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 871,
+          "duration": 849,
+          "endTime": 1719,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 63.09999999962747,
+        "transitions": [
+          {
+            "at": 164,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 436,
+      "domContentLoadedAt": 437,
+      "gateAMs": 2504,
+      "gateAEndpointAt": 2943,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": 2944,
+      "refreshEndMs": 18,
+      "refreshEndedAt": 2963,
+      "gateBMs": 2508,
+      "gateBEndpointAt": 5452,
+      "gateBTimedOut": true,
+      "gateBPass": false,
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 713,
+          "duration": 1067,
+          "endTime": 1781,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 102,
+          "duration": 123,
+          "endTime": 225,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 102,
+          "duration": 124,
+          "endTime": 225,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 713,
+          "duration": 1067,
+          "endTime": 1781,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 58.90000000037253,
+        "transitions": [
+          {
+            "at": 154,
+            "state": "absent"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 43,
+      "domContentLoadedAt": 85,
+      "gateAMs": 1253,
+      "gateAEndpointAt": 1339,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1341,
+      "refreshEndMs": 18,
+      "refreshEndedAt": 1359,
+      "gateBMs": 20,
+      "gateBEndpointAt": 1361,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 9,
+          "duration": 7,
+          "endTime": 16,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 9,
+          "duration": 7,
+          "endTime": 16,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 66.09999999962747,
+        "transitions": [
+          {
+            "at": 77,
+            "state": "absent"
+          },
+          {
+            "at": 115,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 422,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1062,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1361,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 1,
+      "navigationMs": 42,
+      "domContentLoadedAt": 73,
+      "gateAMs": 1249,
+      "gateAEndpointAt": 1323,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1325,
+      "refreshEndMs": 19,
+      "refreshEndedAt": 1344,
+      "gateBMs": 20,
+      "gateBEndpointAt": 1345,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 7,
+          "duration": 7,
+          "endTime": 14,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 7,
+          "duration": 8,
+          "endTime": 15,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 61.5,
+        "transitions": [
+          {
+            "at": 67,
+            "state": "absent"
+          },
+          {
+            "at": 115,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 410,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1159,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 2,
+      "navigationMs": 49,
+      "domContentLoadedAt": 81,
+      "gateAMs": 1257,
+      "gateAEndpointAt": 1342,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1343,
+      "refreshEndMs": 18,
+      "refreshEndedAt": 1361,
+      "gateBMs": 19,
+      "gateBEndpointAt": 1362,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 7,
+          "duration": 10,
+          "endTime": 16,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 7,
+          "duration": 10,
+          "endTime": 17,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 66,
+        "transitions": [
+          {
+            "at": 75,
+            "state": "absent"
+          },
+          {
+            "at": 116,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 421,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1072,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1359,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 42,
+      "domContentLoadedAt": 68,
+      "gateAMs": 1254,
+      "gateAEndpointAt": 1327,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1328,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 1348,
+      "gateBMs": 21,
+      "gateBEndpointAt": 1350,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 6,
+          "duration": 9,
+          "endTime": 15,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 7,
+          "duration": 9,
+          "endTime": 15,
+          "transferSize": 80320
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 59.100000001490116,
+        "transitions": [
+          {
+            "at": 67,
+            "state": "absent"
+          },
+          {
+            "at": 109,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 409,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1010,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 1,
+      "navigationMs": 32,
+      "domContentLoadedAt": 34,
+      "gateAMs": 1056,
+      "gateAEndpointAt": 1090,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1092,
+      "refreshEndMs": 20,
+      "refreshEndedAt": 1112,
+      "gateBMs": 22,
+      "gateBEndpointAt": 1113,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [
+        {
+          "startTime": 306,
+          "duration": 776,
+          "endTime": 1083,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 9,
+          "duration": 8,
+          "endTime": 16,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 9,
+          "duration": 8,
+          "endTime": 17,
+          "transferSize": 80320
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 306,
+          "duration": 776,
+          "endTime": 1083,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 61.79999999888241,
+        "transitions": [
+          {
+            "at": 72,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 311,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 466,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1110,
+            "state": "attached:true|src:true|complete:true|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    },
+    {
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 2,
+      "navigationMs": 30,
+      "domContentLoadedAt": 30,
+      "gateAMs": 976,
+      "gateAEndpointAt": 1009,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1010,
+      "refreshEndMs": 27,
+      "refreshEndedAt": 1037,
+      "gateBMs": 29,
+      "gateBEndpointAt": 1039,
+      "gateBTimedOut": false,
+      "gateBPass": true,
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [
+        {
+          "startTime": 301,
+          "duration": 693,
+          "endTime": 993,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:55100/src/styles/app.css",
+          "startTime": 7,
+          "duration": 7,
+          "endTime": 14,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:55100/src/game/app.js",
+          "startTime": 7,
+          "duration": 7,
+          "endTime": 15,
+          "transferSize": 80320
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 301,
+          "duration": 693,
+          "endTime": 993,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 63.5,
+        "transitions": [
+          {
+            "at": 66,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 315,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 459,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1009,
+            "state": "attached:true|src:true|complete:true|width:2048|state:decoded"
+          }
+        ],
+        "longTasks": []
+      }
+    }
+  ],
+  "groups": {
+    "recovered-public/cold-context": {
+      "n": 6,
+      "gateA": {
+        "min": 2502,
+        "median": 2508,
+        "p90": 2514,
+        "max": 2514
+      },
+      "gateB": {
+        "min": 2504,
+        "median": 2512,
+        "p90": 2516,
+        "max": 2516
+      },
+      "gateAFailures": 6,
+      "gateBFailures": 6,
+      "detachedBaselines": 0
+    },
+    "recovered-public/warm-context": {
+      "n": 6,
+      "gateA": {
+        "min": 2502,
+        "median": 2505,
+        "p90": 2513,
+        "max": 2513
+      },
+      "gateB": {
+        "min": 2507,
+        "median": 2511,
+        "p90": 2515,
+        "max": 2515
+      },
+      "gateAFailures": 6,
+      "gateBFailures": 6,
+      "detachedBaselines": 0
+    },
+    "candidate-local-control-production-media/cold-context": {
+      "n": 6,
+      "gateA": {
+        "min": 1249,
+        "median": 1263,
+        "p90": 2515,
+        "max": 2515
+      },
+      "gateB": {
+        "min": 19,
+        "median": 23,
+        "p90": 1171,
+        "max": 1171
+      },
+      "gateAFailures": 1,
+      "gateBFailures": 0,
+      "detachedBaselines": 0
+    },
+    "candidate-local-control-production-media/warm-context": {
+      "n": 6,
+      "gateA": {
+        "min": 976,
+        "median": 1175,
+        "p90": 1254,
+        "max": 1254
+      },
+      "gateB": {
+        "min": 20,
+        "median": 22,
+        "p90": 29,
+        "max": 29
+      },
+      "gateAFailures": 0,
+      "gateBFailures": 0,
+      "detachedBaselines": 0
+    }
+  }
+}
