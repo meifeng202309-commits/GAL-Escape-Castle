@@ -1,6 +1,7 @@
 {
-  "generatedAt": "2026-10-29T11:46:34.623Z",
+  "generatedAt": "2026-10-29T12:48:58.914Z",
   "permanentRegression": {
+    "base": "https://meifeng202309-commits.github.io/GAL-Escape-Castle",
     "submitted": 3,
     "uniqueAnnaDecisions": 1,
     "calls": [
@@ -11,7 +12,7 @@
           "p_session_token": "TRIAL6-B",
           "p_expected_discussion_session_id": "00000000-0000-4000-8000-000000000602",
           "p_expected_vote_round": 1,
-          "p_client_request_id": "79206f4b-61f5-40b9-81bc-09a81df96c34",
+          "p_client_request_id": "3ffe9041-3d8b-49ef-9416-96c94ee83eda",
           "p_message_text": "Sprint5 ownership check"
         },
         "outcome": "accepted"
@@ -23,7 +24,7 @@
           "p_session_token": "TRIAL6-B",
           "p_expected_discussion_session_id": "00000000-0000-4000-8000-000000000602",
           "p_expected_vote_round": 1,
-          "p_client_request_id": "70cb6446-5a44-4f0a-bfa5-7411a5b3d967",
+          "p_client_request_id": "e70ac7f8-1ec2-4708-81ab-ce86215d513a",
           "p_choice_id": "library"
         },
         "outcome": "accepted"

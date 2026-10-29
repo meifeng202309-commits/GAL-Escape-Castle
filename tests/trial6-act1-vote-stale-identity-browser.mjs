@@ -55,6 +55,7 @@ const s5State = active => active ? { active: true, state: { run_id: runId, phase
 
 async function gate(browser) {
   const local = await server();
+  const base = process.env.GAL_PUBLIC_BASE_URL?.replace(/\/$/, "") || local.url;
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
   const page = await context.newPage();
   let mode = "s5", submitted = 2, committedAnnaVote = false, failFirstS2Response = true;
@@ -93,7 +94,7 @@ async function gate(browser) {
     return json(route, value === null ? 400 : 200, value === null ? { message: `Unexpected RPC ${name}` } : value);
   });
   try {
-    await page.goto(`${local.url}/index.html`, { waitUntil: "networkidle" });
+    await page.goto(`${base}/index.html`, { waitUntil: "networkidle" });
     await page.locator("#messageText").fill("Sprint5 ownership check");
     await Promise.all([
       page.waitForResponse(response => response.url().endsWith("/rpc/s5_send_message")),
@@ -119,7 +120,7 @@ async function gate(browser) {
     assert(calls.filter(call => call.name === "s2_submit_vote").length === 2, "ACT1 lost-response retry count mismatch");
     assert(calls.filter(call => call.name === "s5_submit_vote").length === 1, "ACT1 was misrouted to Sprint5 or S5 gate was not exercised");
     await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
-    return { submitted, uniqueAnnaDecisions: committedAnnaVote ? 1 : 0, calls };
+    return { base, submitted, uniqueAnnaDecisions: committedAnnaVote ? 1 : 0, calls };
   } finally {
     await context.close();
     await new Promise(resolve => local.instance.close(resolve));
