@@ -1,0 +1,26 @@
+{
+  "generatedAt": "2026-10-29T13:36:38.971Z",
+  "baseline": {
+    "candidate": false,
+    "state": {
+      "title": "Waiting for formal run",
+      "composerVisible": true,
+      "voteButtons": 0
+    },
+    "votes": 0
+  },
+  "candidate": {
+    "candidate": true,
+    "state": {
+      "title": "",
+      "composerVisible": false,
+      "voteButtons": 1
+    },
+    "votes": 3,
+    "roles": [
+      "GAL-A",
+      "GAL-B",
+      "GAL-C"
+    ]
+  }
+}
