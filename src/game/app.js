@@ -239,6 +239,7 @@ async function loadPlayerFrame(activeSession) {
 
 function commitPlayerFrame(frame) {
   if(playerCompositionActive){deferredCompositionFrame=frame;return}
+  currentSprint5State = frame.kind === "active" && frame.sprint5State?.active ? frame.sprint5State : null;
   restoreRefreshDisabledPlayerMutations();
   gameStatus.textContent = "";
   if (frame.kind === "completed") {
@@ -971,6 +972,7 @@ function startPolling() {
 function stopPolling() {
   pollingEnabled = false;
   playerSessionEpoch += 1;
+  currentSprint5State = null;
   if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
   lastConfirmedFrame = null;
