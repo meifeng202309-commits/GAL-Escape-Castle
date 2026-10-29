@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-10-29T03:00:09.732Z",
+  "baseline": {
+    "candidate": false,
+    "submitted": 2,
+    "calls": [
+      {
+        "name": "s5_submit_vote",
+        "body": {
+          "p_room_code": "TEST8",
+          "p_session_token": "TRIAL6-B",
+          "p_expected_discussion_session_id": "00000000-0000-4000-8000-000000000603",
+          "p_expected_vote_round": 1,
+          "p_client_request_id": "65a167dc-7465-4311-a883-60cdf2769fa1",
+          "p_choice_id": "library"
+        },
+        "outcome": "Stale Sprint 5 discussion identity."
+      }
+    ]
+  },
+  "candidate": {
+    "candidate": true,
+    "submitted": 3,
+    "calls": [
+      {
+        "name": "s2_submit_vote",
+        "body": {
+          "p_room_code": "TEST8",
+          "p_session_token": "TRIAL6-B",
+          "p_expected_discussion_session_id": "00000000-0000-4000-8000-000000000603",
+          "p_expected_vote_round": 1,
+          "p_choice_id": "library"
+        },
+        "outcome": "accepted"
+      }
+    ]
+  }
+}
