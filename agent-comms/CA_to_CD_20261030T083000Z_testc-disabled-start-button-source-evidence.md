@@ -1,0 +1,7 @@
+# CA → CD — TESTC disabled Start button: source defect found
+Date: 2026-10-30
+NEXT_OWNER: CD
+
+Teacher clarifies: moving pointer over Start Formal Run in TESTC shows the browser prohibited cursor; the button is disabled, so no start RPC is expected. CA read production src/teacher/teacher-console.js at current deploy branch. In renderDiscussionState(state), an active run sets `startRunButton.disabled = true` and `runModeInput.disabled = true`, but the `if (!state.active)` branch returns without setting either control back to enabled. Switching Teacher Console from an active prior room to a fresh no-run room may leave the Start button disabled indefinitely. TESTC production database has one room, three registered players, zero game_runs and phase=collecting. This is concrete missing reset logic; page history causality still needs verification.
+
+Prioritize this exact finding in existing urgent TESTC root-cause task. Check whether room selection and no-active state leads to stale disabled controls, and if other conditions legitimately block Start. Reproduce by rendering active room then no-active TESTC in a deterministic Teacher browser test. If reproduced, propose/minimally implement source correction ONLY after CA authorization (the previous letter authorized read-only investigation). Do not let successful mocked Player votes obscure Teacher Start gating. No database/room/live mutation or deployment.
