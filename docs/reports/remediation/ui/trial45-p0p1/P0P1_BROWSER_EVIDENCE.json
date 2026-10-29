@@ -1,6 +1,6 @@
 {
   "live": "https://meifeng202309-commits.github.io/GAL-Escape-Castle",
-  "generatedAt": "2026-10-27T16:36:12.188Z",
+  "generatedAt": "2026-10-29T01:09:02.622Z",
   "players": [
     {
       "role": "GAL-A",
@@ -10,96 +10,170 @@
         "width": 1366,
         "height": 768
       },
-      "screenshot": "gitte-act3-1366x768.png",
-      "regions": {
-        "scene": {
-          "x": 40,
-          "y": 267,
-          "width": 741,
-          "height": 60,
-          "scrollHeight": 58,
-          "clientHeight": 58
-        },
-        "runtime": {
-          "x": 40,
-          "y": 498,
-          "width": 741,
-          "height": 112,
-          "scrollHeight": 110,
-          "clientHeight": 110
-        },
-        "action": {
-          "x": 793,
-          "y": 267,
-          "width": 533,
-          "height": 197,
-          "scrollHeight": 195,
-          "clientHeight": 195
-        },
-        "discussion": {
-          "x": 793,
-          "y": 476,
-          "width": 533,
-          "height": 26,
-          "scrollHeight": 24,
-          "clientHeight": 24
-        },
-        "pocket": {
-          "x": 793,
-          "y": 514,
-          "width": 533,
-          "height": 399,
-          "scrollHeight": 706,
-          "clientHeight": 397
-        }
-      },
-      "images": [
+      "status": "FAIL",
+      "traceId": "pocket.GAL-A.1366x768.1793236102036",
+      "trace": [
         {
-          "id": "s3bSceneImage",
-          "key": null,
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "navigation-start",
+          "atMs": 14
         },
         {
-          "id": null,
-          "key": "prop_gitte_castle_map",
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "dom-content-loaded",
+          "atMs": 1278,
+          "browserAtMs": 1323
         },
         {
-          "id": null,
-          "key": "prop_gitte_number_note_front",
-          "naturalWidth": 1536,
-          "naturalHeight": 1024,
-          "visible": true
-        }
-      ],
-      "pocketItems": [
-        "gitte_castle_map",
-        "gitte_number_note"
-      ],
-      "bilingual": [
+          "kind": "resource-response",
+          "atMs": 1413,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
         {
-          "fontSize": "16px",
-          "lineHeight": "normal",
-          "nl": "SLOT MET 5 CIJFERS",
-          "zh": "五位数字锁"
-        }
-      ],
-      "network": [
+          "kind": "resource-response",
+          "atMs": 1430,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
         {
+          "kind": "resource-response",
+          "atMs": 1430,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1489,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2358,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2535,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_castle_map/v001/prop_gitte_castle_map__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2553,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_number_note_front/v001/prop_gitte_number_note_front__v001.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2624,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 3855,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 5078,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 6299,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "failure",
+          "atMs": 6463,
+          "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=2 actual=0"
+        }
+      ],
+      "network": [
+        {
+          "atMs": 1413,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1430,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1430,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1489,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 2358,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
           "status": 200,
           "type": "image/webp"
+        },
+        {
+          "atMs": 2535,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_castle_map/v001/prop_gitte_castle_map__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2553,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_number_note_front/v001/prop_gitte_number_note_front__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2624,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 3855,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 5078,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 6299,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
         }
-      ]
+      ],
+      "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=2 actual=0"
     },
     {
       "role": "GAL-A",
@@ -109,91 +183,170 @@
         "width": 1280,
         "height": 720
       },
-      "screenshot": "gitte-act3-1280x720.png",
-      "regions": {
-        "scene": {
-          "x": 33,
-          "y": 267,
-          "width": 699,
-          "height": 60,
-          "scrollHeight": 58,
-          "clientHeight": 58
-        },
-        "runtime": {
-          "x": 33,
-          "y": 498,
-          "width": 699,
-          "height": 112,
-          "scrollHeight": 110,
-          "clientHeight": 110
-        },
-        "action": {
-          "x": 744,
-          "y": 267,
-          "width": 503,
-          "height": 197,
-          "scrollHeight": 195,
-          "clientHeight": 195
-        },
-        "discussion": {
-          "x": 744,
-          "y": 476,
-          "width": 503,
-          "height": 26,
-          "scrollHeight": 24,
-          "clientHeight": 24
-        },
-        "pocket": {
-          "x": 744,
-          "y": 514,
-          "width": 503,
-          "height": 374,
-          "scrollHeight": 689,
-          "clientHeight": 372
-        }
-      },
-      "images": [
+      "status": "FAIL",
+      "traceId": "pocket.GAL-A.1280x720.1793236108723",
+      "trace": [
         {
-          "id": "s3bSceneImage",
-          "key": null,
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "navigation-start",
+          "atMs": 8
         },
         {
-          "id": null,
-          "key": "prop_gitte_castle_map",
-          "naturalWidth": 1447,
-          "naturalHeight": 1087,
-          "visible": true
+          "kind": "dom-content-loaded",
+          "atMs": 1036,
+          "browserAtMs": 1064
         },
         {
-          "id": null,
-          "key": "prop_gitte_number_note_front",
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
-        }
-      ],
-      "pocketItems": [
-        "gitte_castle_map",
-        "gitte_number_note"
-      ],
-      "bilingual": [
+          "kind": "resource-response",
+          "atMs": 1122,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
         {
-          "fontSize": "16px",
-          "lineHeight": "normal",
-          "nl": "SLOT MET 5 CIJFERS",
-          "zh": "五位数字锁"
-        }
-      ],
-      "network": [
+          "kind": "resource-response",
+          "atMs": 1155,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
         {
+          "kind": "resource-response",
+          "atMs": 1155,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1167,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1814,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_number_note_front/v001/prop_gitte_number_note_front__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1979,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1985,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_castle_map/v001/prop_gitte_castle_map__v001.webp",
           "status": 200,
           "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2340,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 3590,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 4819,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 6059,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "failure",
+          "atMs": 6175,
+          "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=2 actual=0"
         }
-      ]
+      ],
+      "network": [
+        {
+          "atMs": 1122,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1155,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1155,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1167,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1814,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_number_note_front/v001/prop_gitte_number_note_front__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 1979,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 1985,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_gitte_castle_map/v001/prop_gitte_castle_map__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2340,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 3590,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 4819,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 6059,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        }
+      ],
+      "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=2 actual=0"
     },
     {
       "role": "GAL-B",
@@ -203,88 +356,144 @@
         "width": 1366,
         "height": 768
       },
-      "screenshot": "anna-act3-1366x768.png",
-      "regions": {
-        "scene": {
-          "x": 40,
-          "y": 267,
-          "width": 741,
-          "height": 60,
-          "scrollHeight": 58,
-          "clientHeight": 58
-        },
-        "runtime": {
-          "x": 40,
-          "y": 498,
-          "width": 741,
-          "height": 112,
-          "scrollHeight": 110,
-          "clientHeight": 110
-        },
-        "action": {
-          "x": 793,
-          "y": 267,
-          "width": 533,
-          "height": 197,
-          "scrollHeight": 195,
-          "clientHeight": 195
-        },
-        "discussion": {
-          "x": 793,
-          "y": 476,
-          "width": 533,
-          "height": 26,
-          "scrollHeight": 24,
-          "clientHeight": 24
-        },
-        "pocket": {
-          "x": 793,
-          "y": 514,
-          "width": 533,
-          "height": 399,
-          "scrollHeight": 528,
-          "clientHeight": 397
-        }
-      },
-      "images": [
+      "status": "FAIL",
+      "traceId": "pocket.GAL-B.1366x768.1793236115190",
+      "trace": [
         {
-          "id": "s3bSceneImage",
-          "key": null,
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "navigation-start",
+          "atMs": 5
         },
         {
-          "id": null,
-          "key": "prop_anna_diary_open",
-          "naturalWidth": 2048,
-          "naturalHeight": 1282,
-          "visible": true
-        }
-      ],
-      "pocketItems": [
-        "anna_servant_diary"
-      ],
-      "bilingual": [
+          "kind": "dom-content-loaded",
+          "atMs": 1124,
+          "browserAtMs": 1172
+        },
         {
-          "fontSize": "16px",
-          "lineHeight": "normal",
-          "nl": "SLOT MET 5 CIJFERS",
-          "zh": "五位数字锁"
-        }
-      ],
-      "network": [
+          "kind": "resource-response",
+          "atMs": 1222,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
         {
+          "kind": "resource-response",
+          "atMs": 1254,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1254,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1940,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2172,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
           "status": 200,
           "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2492,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 3718,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 4949,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 6172,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "failure",
+          "atMs": 6268,
+          "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=1 actual=0"
         }
-      ]
+      ],
+      "network": [
+        {
+          "atMs": 1222,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1254,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1254,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1940,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2172,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2492,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 3718,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 4949,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 6172,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        }
+      ],
+      "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=1 actual=0"
     },
     {
       "role": "GAL-B",
@@ -294,88 +503,144 @@
         "width": 1280,
         "height": 720
       },
-      "screenshot": "anna-act3-1280x720.png",
-      "regions": {
-        "scene": {
-          "x": 33,
-          "y": 267,
-          "width": 699,
-          "height": 60,
-          "scrollHeight": 58,
-          "clientHeight": 58
-        },
-        "runtime": {
-          "x": 33,
-          "y": 498,
-          "width": 699,
-          "height": 112,
-          "scrollHeight": 110,
-          "clientHeight": 110
-        },
-        "action": {
-          "x": 744,
-          "y": 267,
-          "width": 503,
-          "height": 197,
-          "scrollHeight": 195,
-          "clientHeight": 195
-        },
-        "discussion": {
-          "x": 744,
-          "y": 476,
-          "width": 503,
-          "height": 26,
-          "scrollHeight": 24,
-          "clientHeight": 24
-        },
-        "pocket": {
-          "x": 744,
-          "y": 514,
-          "width": 503,
-          "height": 374,
-          "scrollHeight": 511,
-          "clientHeight": 372
-        }
-      },
-      "images": [
+      "status": "FAIL",
+      "traceId": "pocket.GAL-B.1280x720.1793236122008",
+      "trace": [
         {
-          "id": "s3bSceneImage",
-          "key": null,
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "navigation-start",
+          "atMs": 5
         },
         {
-          "id": null,
-          "key": "prop_anna_diary_open",
-          "naturalWidth": 2048,
-          "naturalHeight": 1282,
-          "visible": true
-        }
-      ],
-      "pocketItems": [
-        "anna_servant_diary"
-      ],
-      "bilingual": [
+          "kind": "dom-content-loaded",
+          "atMs": 1045,
+          "browserAtMs": 1093
+        },
         {
-          "fontSize": "16px",
-          "lineHeight": "normal",
-          "nl": "SLOT MET 5 CIJFERS",
-          "zh": "五位数字锁"
-        }
-      ],
-      "network": [
+          "kind": "resource-response",
+          "atMs": 1127,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
         {
+          "kind": "resource-response",
+          "atMs": 1158,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1158,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1830,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 1935,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
           "status": 200,
           "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2357,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 3579,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 4802,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 6025,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "failure",
+          "atMs": 6167,
+          "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=1 actual=0"
         }
-      ]
+      ],
+      "network": [
+        {
+          "atMs": 1127,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1158,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1158,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1830,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 1935,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2357,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 3579,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 4802,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 6025,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        }
+      ],
+      "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=1 actual=0"
     },
     {
       "role": "GAL-C",
@@ -385,114 +650,196 @@
         "width": 1366,
         "height": 768
       },
-      "screenshot": "linda-act3-1366x768.png",
-      "regions": {
-        "scene": {
-          "x": 40,
-          "y": 267,
-          "width": 741,
-          "height": 60,
-          "scrollHeight": 58,
-          "clientHeight": 58
-        },
-        "runtime": {
-          "x": 40,
-          "y": 498,
-          "width": 741,
-          "height": 112,
-          "scrollHeight": 110,
-          "clientHeight": 110
-        },
-        "action": {
-          "x": 793,
-          "y": 267,
-          "width": 533,
-          "height": 197,
-          "scrollHeight": 195,
-          "clientHeight": 195
-        },
-        "discussion": {
-          "x": 793,
-          "y": 476,
-          "width": 533,
-          "height": 26,
-          "scrollHeight": 24,
-          "clientHeight": 24
-        },
-        "pocket": {
-          "x": 793,
-          "y": 514,
-          "width": 533,
-          "height": 399,
-          "scrollHeight": 1393,
-          "clientHeight": 397
-        }
-      },
-      "images": [
+      "status": "FAIL",
+      "traceId": "pocket.GAL-C.1366x768.1793236128498",
+      "trace": [
         {
-          "id": "s3bSceneImage",
-          "key": null,
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "navigation-start",
+          "atMs": 4
         },
         {
-          "id": null,
-          "key": "prop_linda_watch_face",
-          "naturalWidth": 448,
-          "naturalHeight": 613,
-          "visible": true
+          "kind": "dom-content-loaded",
+          "atMs": 1033,
+          "browserAtMs": 1086
         },
         {
-          "id": null,
-          "key": "prop_linda_star_key",
-          "naturalWidth": 1024,
-          "naturalHeight": 768,
-          "visible": true
+          "kind": "resource-response",
+          "atMs": 1129,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
         },
         {
-          "id": null,
-          "key": "prop_linda_closure_order",
-          "naturalWidth": 1023,
-          "naturalHeight": 1024,
-          "visible": true
-        }
-      ],
-      "pocketItems": [
-        "linda_stopped_watch",
-        "linda_star_key",
-        "linda_closure_order"
-      ],
-      "bilingual": [
+          "kind": "resource-response",
+          "atMs": 1171,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
         {
-          "fontSize": "16px",
-          "lineHeight": "normal",
-          "nl": "SLOT MET 5 CIJFERS",
-          "zh": "五位数字锁"
-        }
-      ],
-      "network": [
+          "kind": "resource-response",
+          "atMs": 1171,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
         {
+          "kind": "resource-response",
+          "atMs": 1188,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1194,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1828,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2084,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2101,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2121,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2354,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 3579,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 4829,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 6063,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "failure",
+          "atMs": 6185,
+          "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=3 actual=0"
+        }
+      ],
+      "network": [
+        {
+          "atMs": 1129,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1171,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1171,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1188,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1194,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1828,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2084,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp",
           "status": 200,
           "type": "image/webp"
+        },
+        {
+          "atMs": 2101,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2121,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2354,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 3579,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 4829,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 6063,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
         }
-      ]
+      ],
+      "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=3 actual=0"
     },
     {
       "role": "GAL-C",
@@ -502,114 +849,196 @@
         "width": 1280,
         "height": 720
       },
-      "screenshot": "linda-act3-1280x720.png",
-      "regions": {
-        "scene": {
-          "x": 33,
-          "y": 267,
-          "width": 699,
-          "height": 60,
-          "scrollHeight": 58,
-          "clientHeight": 58
-        },
-        "runtime": {
-          "x": 33,
-          "y": 498,
-          "width": 699,
-          "height": 112,
-          "scrollHeight": 110,
-          "clientHeight": 110
-        },
-        "action": {
-          "x": 744,
-          "y": 267,
-          "width": 503,
-          "height": 197,
-          "scrollHeight": 195,
-          "clientHeight": 195
-        },
-        "discussion": {
-          "x": 744,
-          "y": 476,
-          "width": 503,
-          "height": 26,
-          "scrollHeight": 24,
-          "clientHeight": 24
-        },
-        "pocket": {
-          "x": 744,
-          "y": 514,
-          "width": 503,
-          "height": 374,
-          "scrollHeight": 1342,
-          "clientHeight": 372
-        }
-      },
-      "images": [
+      "status": "FAIL",
+      "traceId": "pocket.GAL-C.1280x720.1793236134830",
+      "trace": [
         {
-          "id": "s3bSceneImage",
-          "key": null,
-          "naturalWidth": 0,
-          "naturalHeight": 0,
-          "visible": false
+          "kind": "navigation-start",
+          "atMs": 5
         },
         {
-          "id": null,
-          "key": "prop_linda_watch_face",
-          "naturalWidth": 448,
-          "naturalHeight": 613,
-          "visible": true
+          "kind": "dom-content-loaded",
+          "atMs": 1166,
+          "browserAtMs": 1212
         },
         {
-          "id": null,
-          "key": "prop_linda_star_key",
-          "naturalWidth": 1024,
-          "naturalHeight": 768,
-          "visible": true
+          "kind": "resource-response",
+          "atMs": 1259,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
         },
         {
-          "id": null,
-          "key": "prop_linda_closure_order",
-          "naturalWidth": 1023,
-          "naturalHeight": 1024,
-          "visible": true
-        }
-      ],
-      "pocketItems": [
-        "linda_stopped_watch",
-        "linda_star_key",
-        "linda_closure_order"
-      ],
-      "bilingual": [
+          "kind": "resource-response",
+          "atMs": 1304,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
         {
-          "fontSize": "16px",
-          "lineHeight": "normal",
-          "nl": "SLOT MET 5 CIJFERS",
-          "zh": "五位数字锁"
-        }
-      ],
-      "network": [
+          "kind": "resource-response",
+          "atMs": 1304,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
         {
-          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
+          "kind": "resource-response",
+          "atMs": 1312,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 1323,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2008,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2036,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2166,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
           "status": 200,
           "type": "image/webp"
         },
         {
+          "kind": "resource-response",
+          "atMs": 2261,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 2497,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 3716,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 4942,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "resource-response",
+          "atMs": 6170,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "kind": "failure",
+          "atMs": 6318,
+          "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=3 actual=0"
+        }
+      ],
+      "network": [
+        {
+          "atMs": 1259,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1304,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1304,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1312,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 1323,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 2008,
           "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_closure_order/v001/prop_linda_closure_order__v001.webp",
           "status": 200,
           "type": "image/webp"
+        },
+        {
+          "atMs": 2036,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_star_key/v001/prop_linda_star_key__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2166,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/shared.library/v002/shared.library__v002.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2261,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_linda_watch_face/v001/prop_linda_watch_face__v001.webp",
+          "status": 200,
+          "type": "image/webp"
+        },
+        {
+          "atMs": 2497,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 3716,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 4942,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
+        },
+        {
+          "atMs": 6170,
+          "url": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "status": 200,
+          "type": "application/json"
         }
-      ]
+      ],
+      "failure": "SELECTOR_TABS_ENDPOINT_FAILED expected=3 actual=0"
     }
   ],
   "teacher": {

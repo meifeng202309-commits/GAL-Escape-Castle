@@ -27,7 +27,8 @@ const sharedAssets={"shared.library":"game-assets/shared.library/v002/shared.lib
 function pocket(role,active=true){return active?{active:true,items:role.items.map(item_key=>({item_key,name_text_key:names[item_key],current_view:item_key==="gitte_castle_map"?"map":item_key==="anna_servant_diary"?"open":"front"})),inspected_item_keys:[...role.items],group_items:[],observations:[],shared_photos:[],scene:{allow_share_photo:false}}:{active:false}}
 async function open(browser,role,viewport={width:1366,height:768}){
   const state=createPilotState("act3"),context=await browser.newContext({viewport,deviceScaleFactor:1}),page=await context.newPage();
-  const network=[];page.on("response",r=>{if(r.url().includes("/storage/v1/object/public/"))network.push({url:r.url(),status:r.status(),type:r.headers()["content-type"]||""})});
+  const traceId=`pocket.${role.slot}.${viewport.width}x${viewport.height}.${Date.now()}`,started=performance.now(),network=[],trace=[];
+  page.on("response",r=>{if(/\/storage\/v1\/object\/public\/|\/rest\/v1\/rpc\/(s3_get_player_state|asset_resolve)/.test(r.url())){const event={atMs:Math.round(performance.now()-started),url:r.url(),status:r.status(),type:r.headers()["content-type"]||""};network.push(event);trace.push({kind:"resource-response",...event})}});
   await installPlayerRoutes(page,"act3",{state,playerIndex:role.index});
   await page.route("**/rest/v1/rpc/**",async route=>{
     const rpc=new URL(route.request().url()).pathname.split("/").pop();
@@ -39,13 +40,26 @@ async function open(browser,role,viewport={width:1366,height:768}){
     return route.fallback();
   });
   // The deployed client polls continuously, so networkidle is not a stable readiness gate.
+  trace.push({kind:"navigation-start",atMs:Math.round(performance.now()-started)});
   await page.goto(`${live}/?p0p1=${role.slot}`,{waitUntil:"domcontentloaded"});
+  trace.push({kind:"dom-content-loaded",atMs:Math.round(performance.now()-started),browserAtMs:await page.evaluate(()=>Math.round(performance.now()))});
   await page.locator("#libraryCode").waitFor();
-  await page.waitForFunction(expected=>document.querySelectorAll("#pocketMount [data-pocket-item]").length===expected,role.items.length);
-  // Observe rather than require image decode: a zero natural size after HTTP 200 is
-  // the production race this investigation is intended to preserve as evidence.
-  await page.waitForTimeout(3000);
-  return{context,page,network};
+  try{await page.waitForFunction(expected=>document.querySelectorAll("#pocketMount [data-select-pocket-item]").length===expected,role.items.length,{timeout:5000})}catch(error){
+    const actual=await page.locator("#pocketMount [data-select-pocket-item]").count(),failure=`SELECTOR_TABS_ENDPOINT_FAILED expected=${role.items.length} actual=${actual}`;
+    trace.push({kind:"failure",atMs:Math.round(performance.now()-started),failure});
+    return{context,page,network,traceId,trace,selections:[],failure};
+  }
+  trace.push({kind:"selector-tabs-ready",atMs:Math.round(performance.now()-started),count:role.items.length});
+  const selections=[];
+  for(const item of role.items){
+    const selector=`#pocketMount [data-select-pocket-item="${item}"]`;
+    trace.push({kind:"select-click",item,atMs:Math.round(performance.now()-started)});
+    await page.locator(selector).click();
+    await page.waitForFunction(({item,key})=>{const detail=document.querySelector(`#pocketMount [data-pocket-item="${item}"]`),media=detail?.querySelector(`img[data-asset-key="${key}"]`),r=media?.getBoundingClientRect();return Boolean(detail&&media?.isConnected&&media.naturalWidth>0&&media.dataset.assetState==="decoded"&&r.width>0&&r.height>0)}, {item,key:assetKeys[item]}, {timeout:15000});
+    const endpoint=await page.evaluate(({item,key})=>{const detail=document.querySelector(`#pocketMount [data-pocket-item="${item}"]`),media=detail?.querySelector(`img[data-asset-key="${key}"]`),r=media.getBoundingClientRect();return{item,key,browserAtMs:Math.round(performance.now()),selected:document.querySelector(`[data-select-pocket-item="${item}"]`)?.getAttribute("aria-selected"),naturalWidth:media.naturalWidth,naturalHeight:media.naturalHeight,state:media.dataset.assetState,visible:r.width>0&&r.height>0,src:media.currentSrc||media.src}}, {item,key:assetKeys[item]});
+    selections.push(endpoint);trace.push({kind:"selected-detail-media-endpoint",atMs:Math.round(performance.now()-started),...endpoint});
+  }
+  return{context,page,network,traceId,trace,selections};
 }
 const rect=node=>{const r=node.getBoundingClientRect();return{x:Math.round(r.x),y:Math.round(r.y),width:Math.round(r.width),height:Math.round(r.height),scrollHeight:node.scrollHeight,clientHeight:node.clientHeight}};
 
@@ -55,14 +69,17 @@ async function main(){
   try{
     for(const role of roles){
       for(const viewport of[{width:1366,height:768},{width:1280,height:720}]){
-        const {context,page,network}=await open(browser,role,viewport);
+        let opened;
+        try{opened=await open(browser,role,viewport)}catch(error){evidence.push({role:role.slot,name:role.name,phase:"act3_library/library_box",viewport,status:"FAIL",failure:error.message});continue}
+        const {context,page,network,traceId,trace,selections,failure}=opened;
+        if(failure){evidence.push({role:role.slot,name:role.name,phase:"act3_library/library_box",viewport,status:"FAIL",traceId,trace,network,failure});await context.close();continue}
         const metrics=await page.evaluate(()=>{
           const q=s=>document.querySelector(s),imgs=[...document.querySelectorAll("img")];
           return{regions:{scene:(q(".v4-scene-region")),runtime:q(".v4-story-region"),action:q(".v4-action-region"),discussion:q(".v4-discussion-region"),pocket:q(".v4-pocket-region")},images:imgs.map(n=>({id:n.id||null,key:n.dataset.pocketAsset||null,naturalWidth:n.naturalWidth,naturalHeight:n.naturalHeight,visible:n.getBoundingClientRect().width>0&&n.getBoundingClientRect().height>0})),pocketItems:[...document.querySelectorAll("#pocketMount [data-pocket-item]")].map(n=>n.dataset.pocketItem),bilingual:[...document.querySelectorAll(".bilingual")].slice(0,3).map(n=>({fontSize:getComputedStyle(n).fontSize,lineHeight:getComputedStyle(n).lineHeight,nl:n.querySelector('[lang="nl"]')?.textContent||"",zh:n.querySelector('[lang="zh"]')?.textContent||""}))};
         });
         for(const [key,node] of Object.entries(metrics.regions))metrics.regions[key]=await page.locator(`.v4-${key==="runtime"?"story":key}-region`).evaluate(rect);
         const shot=`${role.name.toLowerCase()}-act3-${viewport.width}x${viewport.height}.png`;await page.screenshot({path:path.join(out,shot),fullPage:true});
-        evidence.push({role:role.slot,name:role.name,phase:"act3_library/library_box",viewport,screenshot:shot,...metrics,network});
+        evidence.push({role:role.slot,name:role.name,phase:"act3_library/library_box",viewport,status:"PASS",traceId,trace,selections,screenshot:shot,...metrics,network});
         await context.close();
       }
     }

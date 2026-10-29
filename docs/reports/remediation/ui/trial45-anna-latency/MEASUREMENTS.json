@@ -1,15 +1,17 @@
 {
-  "generatedAt": "2026-10-29T00:11:44.846Z",
+  "generatedAt": "2026-10-29T01:07:46.503Z",
   "clock": {
     "navigation": "recorded separately",
     "gateA": "DOMContentLoaded to correct connected decoded visible Scene image",
-    "gateB": "immediately before three controlled refreshes to current correct connected decoded visible Scene image"
+    "gateB": "only after Gate A PASS: immediately before three controlled refreshes to same correct connected decoded visible Scene image"
   },
   "resolverDelayMs": 250,
-  "thresholdMs": 2500,
+  "initialThresholdMs": 15000,
+  "refreshThresholdMs": 2500,
   "mediaUrl": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
   "records": [
     {
+      "traceId": "recovered-public.cold-context.1280x720.0",
       "label": "recovered-public",
       "viewport": {
         "width": 1280,
@@ -17,630 +19,1584 @@
       },
       "cacheState": "cold-context",
       "index": 0,
-      "navigationMs": 6115,
-      "domContentLoadedAt": 6147,
-      "gateAMs": 2504,
-      "gateAEndpointAt": 8653,
+      "navigationMs": 1385,
+      "domContentLoadedAt": 1438,
+      "gateAMs": 15015,
+      "gateAEndpointAt": 16461,
       "gateATimedOut": true,
       "gateAPass": false,
       "baseline": {
-        "present": true,
-        "connected": true,
+        "present": false,
+        "connected": false,
+        "visible": false,
         "width": 0,
-        "state": "loading"
+        "state": null
       },
-      "refreshStartedAt": 8655,
-      "refreshEndMs": 22,
-      "refreshEndedAt": 8677,
-      "gateBMs": 2508,
-      "gateBEndpointAt": 11163,
-      "gateBTimedOut": true,
+      "refreshStartedAt": null,
+      "refreshEndMs": null,
+      "refreshEndedAt": null,
+      "gateBMs": null,
+      "gateBEndpointAt": null,
+      "gateBTimedOut": false,
+      "gateBNotRunReason": "NOT_RUN_PREREQUISITE_FAILED",
       "gateBPass": false,
-      "connected": true,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 1441,
+          "endAt": 1462
+        },
+        {
+          "kind": "resolver",
+          "at": 1475,
+          "endAt": 1739
+        },
+        {
+          "kind": "resource",
+          "at": 1743,
+          "endAt": 3308
+        },
+        {
+          "kind": "initial-failure-endpoint",
+          "at": 16461
+        },
+        {
+          "kind": "refresh-not-run",
+          "at": 16461,
+          "reason": "NOT_RUN_PREREQUISITE_FAILED"
+        }
+      ],
+      "connected": false,
       "visible": false,
       "naturalWidth": 0,
       "naturalHeight": 0,
-      "state": "loading",
-      "baselineStillConnected": true,
-      "entries": [],
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1743,
+          "duration": 1565,
+          "endTime": 3308,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
       "resources": [
         {
           "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 4733,
-          "duration": 627,
-          "endTime": 5359,
-          "transferSize": 4487
+          "startTime": 940,
+          "duration": 204,
+          "endTime": 1144,
+          "transferSize": 3997
         },
         {
           "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 4733,
-          "duration": 626,
-          "endTime": 5359,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 63.899999998509884,
-        "transitions": [
-          {
-            "at": 4786,
-            "state": "absent"
-          },
-          {
-            "at": 6187,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 6444,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "cold-context",
-      "index": 1,
-      "navigationMs": 7437,
-      "domContentLoadedAt": 7504,
-      "gateAMs": 2501,
-      "gateAEndpointAt": 10012,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 10016,
-      "refreshEndMs": 39,
-      "refreshEndedAt": 10055,
-      "gateBMs": 61,
-      "gateBEndpointAt": 10077,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 4943,
-          "duration": 582,
-          "endTime": 5524,
-          "transferSize": 4487
+          "startTime": 956,
+          "duration": 168,
+          "endTime": 1124,
+          "transferSize": 18533
         },
         {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 4943,
-          "duration": 843,
-          "endTime": 5786,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 71.79999999701977,
-        "transitions": [
-          {
-            "at": 5010,
-            "state": "absent"
-          },
-          {
-            "at": 7554,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 7853,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 9555,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 10050,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "cold-context",
-      "index": 2,
-      "navigationMs": 2420,
-      "domContentLoadedAt": 2481,
-      "gateAMs": 2503,
-      "gateAEndpointAt": 4989,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 4991,
-      "refreshEndMs": 38,
-      "refreshEndedAt": 5030,
-      "gateBMs": 41,
-      "gateBEndpointAt": 5032,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 1301,
-          "duration": 666,
-          "endTime": 1967,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 1302,
-          "duration": 709,
-          "endTime": 2011,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 62.399999998509884,
-        "transitions": [
-          {
-            "at": 1355,
-            "state": "absent"
-          },
-          {
-            "at": 2555,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 2805,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 4456,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 5005,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "warm-context",
-      "index": 0,
-      "navigationMs": 3399,
-      "domContentLoadedAt": 3455,
-      "gateAMs": 2502,
-      "gateAEndpointAt": 5962,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 0,
-        "state": "loading"
-      },
-      "refreshStartedAt": 5967,
-      "refreshEndMs": 55,
-      "refreshEndedAt": 6021,
-      "gateBMs": 1205,
-      "gateBEndpointAt": 7178,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
           "startTime": 1367,
-          "duration": 206,
-          "endTime": 1573,
-          "transferSize": 4487
+          "duration": 17,
+          "endTime": 1384,
+          "transferSize": 0
         },
         {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 1373,
-          "duration": 690,
-          "endTime": 2063,
-          "transferSize": 19435
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1422,
+          "duration": 18,
+          "endTime": 1440,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1441,
+          "duration": 20,
+          "endTime": 1462,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1442,
+          "duration": 21,
+          "endTime": 1462,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1442,
+          "duration": 20,
+          "endTime": 1462,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1442,
+          "duration": 20,
+          "endTime": 1462,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1443,
+          "duration": 20,
+          "endTime": 1463,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1475,
+          "duration": 265,
+          "endTime": 1739,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1477,
+          "duration": 265,
+          "endTime": 1741,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1743,
+          "duration": 1565,
+          "endTime": 3308,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2688,
+          "duration": 5,
+          "endTime": 2693,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 2694,
+          "duration": 4,
+          "endTime": 2698,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 2699,
+          "duration": 7,
+          "endTime": 2705,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 2699,
+          "duration": 11,
+          "endTime": 2710,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 2699,
+          "duration": 11,
+          "endTime": 2710,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2700,
+          "duration": 11,
+          "endTime": 2711,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 2700,
+          "duration": 11,
+          "endTime": 2711,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3914,
+          "duration": 4,
+          "endTime": 3918,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 3920,
+          "duration": 3,
+          "endTime": 3923,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 3924,
+          "duration": 5,
+          "endTime": 3929,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 3924,
+          "duration": 8,
+          "endTime": 3932,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 3924,
+          "duration": 8,
+          "endTime": 3933,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3925,
+          "duration": 8,
+          "endTime": 3933,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 3925,
+          "duration": 8,
+          "endTime": 3933,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 5135,
+          "duration": 3,
+          "endTime": 5138,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 5139,
+          "duration": 3,
+          "endTime": 5142,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 5143,
+          "duration": 9,
+          "endTime": 5151,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 5143,
+          "duration": 9,
+          "endTime": 5152,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 5144,
+          "duration": 9,
+          "endTime": 5152,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 5144,
+          "duration": 8,
+          "endTime": 5152,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 5144,
+          "duration": 9,
+          "endTime": 5153,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6356,
+          "duration": 26,
+          "endTime": 6382,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 6384,
+          "duration": 3,
+          "endTime": 6387,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 6388,
+          "duration": 7,
+          "endTime": 6395,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 6388,
+          "duration": 7,
+          "endTime": 6396,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 6388,
+          "duration": 7,
+          "endTime": 6396,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6389,
+          "duration": 8,
+          "endTime": 6397,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 6389,
+          "duration": 8,
+          "endTime": 6397,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7600,
+          "duration": 14,
+          "endTime": 7614,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 7616,
+          "duration": 14,
+          "endTime": 7630,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 7631,
+          "duration": 15,
+          "endTime": 7645,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 7631,
+          "duration": 15,
+          "endTime": 7646,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 7631,
+          "duration": 15,
+          "endTime": 7646,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7632,
+          "duration": 15,
+          "endTime": 7647,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 7632,
+          "duration": 15,
+          "endTime": 7647,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8852,
+          "duration": 4,
+          "endTime": 8855,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 8856,
+          "duration": 3,
+          "endTime": 8859,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 8861,
+          "duration": 4,
+          "endTime": 8864,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 8861,
+          "duration": 8,
+          "endTime": 8869,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 8861,
+          "duration": 8,
+          "endTime": 8869,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8861,
+          "duration": 9,
+          "endTime": 8871,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 8862,
+          "duration": 9,
+          "endTime": 8871,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 10073,
+          "duration": 4,
+          "endTime": 10077,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 10078,
+          "duration": 3,
+          "endTime": 10081,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 10082,
+          "duration": 8,
+          "endTime": 10090,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 10083,
+          "duration": 9,
+          "endTime": 10091,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 10083,
+          "duration": 8,
+          "endTime": 10091,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 10083,
+          "duration": 9,
+          "endTime": 10092,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 10083,
+          "duration": 8,
+          "endTime": 10092,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 11297,
+          "duration": 5,
+          "endTime": 11301,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 11303,
+          "duration": 3,
+          "endTime": 11307,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 11308,
+          "duration": 7,
+          "endTime": 11315,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 11308,
+          "duration": 7,
+          "endTime": 11315,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 11308,
+          "duration": 7,
+          "endTime": 11316,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 11309,
+          "duration": 7,
+          "endTime": 11316,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 11309,
+          "duration": 7,
+          "endTime": 11316,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12519,
+          "duration": 3,
+          "endTime": 12522,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 12523,
+          "duration": 4,
+          "endTime": 12527,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 12528,
+          "duration": 8,
+          "endTime": 12536,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 12528,
+          "duration": 9,
+          "endTime": 12538,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 12529,
+          "duration": 10,
+          "endTime": 12539,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12529,
+          "duration": 10,
+          "endTime": 12539,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 12529,
+          "duration": 10,
+          "endTime": 12539,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13742,
+          "duration": 4,
+          "endTime": 13746,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 13748,
+          "duration": 4,
+          "endTime": 13752,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 13753,
+          "duration": 6,
+          "endTime": 13759,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 13753,
+          "duration": 8,
+          "endTime": 13761,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 13754,
+          "duration": 10,
+          "endTime": 13763,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13754,
+          "duration": 10,
+          "endTime": 13764,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 13754,
+          "duration": 10,
+          "endTime": 13764,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14973,
+          "duration": 5,
+          "endTime": 14978,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 14979,
+          "duration": 2,
+          "endTime": 14982,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 14983,
+          "duration": 5,
+          "endTime": 14988,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 14983,
+          "duration": 6,
+          "endTime": 14989,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 14983,
+          "duration": 7,
+          "endTime": 14990,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14984,
+          "duration": 7,
+          "endTime": 14991,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 14984,
+          "duration": 7,
+          "endTime": 14991,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 16206,
+          "duration": 3,
+          "endTime": 16210,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 16212,
+          "duration": 3,
+          "endTime": 16214,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 16215,
+          "duration": 8,
+          "endTime": 16223,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 16215,
+          "duration": 11,
+          "endTime": 16226,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 16215,
+          "duration": 11,
+          "endTime": 16227,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 16216,
+          "duration": 11,
+          "endTime": 16227,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 16216,
+          "duration": 11,
+          "endTime": 16227,
+          "transferSize": 0
         }
       ],
       "trace": {
-        "maxTimerGapMs": 65.5,
+        "maxTimerGapMs": 76.69999998807907,
         "transitions": [
           {
-            "at": 1421,
+            "at": 1004,
             "state": "absent"
-          },
-          {
-            "at": 3521,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 3773,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 6271,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 7171,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
           }
         ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "warm-context",
-      "index": 1,
-      "navigationMs": 1832,
-      "domContentLoadedAt": 1841,
-      "gateAMs": 1267,
-      "gateAEndpointAt": 3113,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 3116,
-      "refreshEndMs": 58,
-      "refreshEndedAt": 3174,
-      "gateBMs": 63,
-      "gateBEndpointAt": 3179,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 646,
-          "duration": 721,
-          "endTime": 1366,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 652,
-          "duration": 734,
-          "endTime": 1386,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 62.30000000447035,
-        "transitions": [
-          {
-            "at": 699,
-            "state": "absent"
-          },
-          {
-            "at": 1910,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 2149,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 2498,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 3149,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "warm-context",
-      "index": 2,
-      "navigationMs": 1757,
-      "domContentLoadedAt": 1759,
-      "gateAMs": 1296,
-      "gateAEndpointAt": 3058,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 3060,
-      "refreshEndMs": 53,
-      "refreshEndedAt": 3114,
-      "gateBMs": 58,
-      "gateBEndpointAt": 3118,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 365,
-          "duration": 469,
-          "endTime": 834,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 365,
-          "duration": 485,
-          "endTime": 850,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 63.399999998509884,
-        "transitions": [
-          {
-            "at": 413,
-            "state": "absent"
-          },
-          {
-            "at": 1813,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 2113,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 2363,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 3063,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "cold-context",
-      "index": 0,
-      "navigationMs": 102,
-      "domContentLoadedAt": 151,
-      "gateAMs": 2503,
-      "gateAEndpointAt": 2666,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 0,
-        "state": "loading"
-      },
-      "refreshStartedAt": 2670,
-      "refreshEndMs": 41,
-      "refreshEndedAt": 2711,
-      "gateBMs": 2480,
-      "gateBEndpointAt": 5157,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 22,
-          "duration": 13,
-          "endTime": 35,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 23,
-          "duration": 13,
-          "endTime": 36,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 65.70000000298023,
-        "transitions": [
-          {
-            "at": 78,
-            "state": "absent"
-          },
-          {
-            "at": 230,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 526,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 3926,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          }
-        ],
+        "loads": [],
         "longTasks": [
           {
-            "start": 88,
-            "duration": 50
+            "start": 1363,
+            "duration": 52
           }
         ]
       }
     },
     {
-      "label": "candidate-local-control-production-media",
+      "traceId": "recovered-public.warm-context.1280x720.0",
+      "label": "recovered-public",
       "viewport": {
         "width": 1280,
         "height": 720
       },
-      "cacheState": "cold-context",
-      "index": 1,
-      "navigationMs": 88,
-      "domContentLoadedAt": 140,
-      "gateAMs": 2504,
-      "gateAEndpointAt": 2649,
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 1033,
+      "domContentLoadedAt": 1087,
+      "gateAMs": 15017,
+      "gateAEndpointAt": 16110,
       "gateATimedOut": true,
       "gateAPass": false,
       "baseline": {
-        "present": true,
-        "connected": true,
+        "present": false,
+        "connected": false,
+        "visible": false,
         "width": 0,
-        "state": "loading"
+        "state": null
       },
-      "refreshStartedAt": 2651,
-      "refreshEndMs": 35,
-      "refreshEndedAt": 2686,
-      "gateBMs": 1237,
-      "gateBEndpointAt": 3888,
+      "refreshStartedAt": null,
+      "refreshEndMs": null,
+      "refreshEndedAt": null,
+      "gateBMs": null,
+      "gateBEndpointAt": null,
       "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
+      "gateBNotRunReason": "NOT_RUN_PREREQUISITE_FAILED",
+      "gateBPass": false,
+      "timeline": [
         {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 12,
-          "duration": 13,
-          "endTime": 25,
-          "transferSize": 15210
+          "kind": "rpc",
+          "at": 1111,
+          "endAt": 1122
         },
         {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 12,
-          "duration": 19,
-          "endTime": 31,
-          "transferSize": 80433
+          "kind": "resolver",
+          "at": 1128,
+          "endAt": 1394
+        },
+        {
+          "kind": "resource",
+          "at": 1397,
+          "endAt": 2751
+        },
+        {
+          "kind": "initial-failure-endpoint",
+          "at": 16110
+        },
+        {
+          "kind": "refresh-not-run",
+          "at": 16110,
+          "reason": "NOT_RUN_PREREQUISITE_FAILED"
+        }
+      ],
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1397,
+          "duration": 1355,
+          "endTime": 2751,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 570,
+          "duration": 125,
+          "endTime": 695,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 571,
+          "duration": 224,
+          "endTime": 795,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1025,
+          "duration": 4,
+          "endTime": 1029,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1076,
+          "duration": 25,
+          "endTime": 1101,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1111,
+          "duration": 11,
+          "endTime": 1122,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1112,
+          "duration": 11,
+          "endTime": 1123,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1112,
+          "duration": 11,
+          "endTime": 1123,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1112,
+          "duration": 11,
+          "endTime": 1123,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1113,
+          "duration": 11,
+          "endTime": 1123,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1128,
+          "duration": 267,
+          "endTime": 1394,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1129,
+          "duration": 266,
+          "endTime": 1395,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1397,
+          "duration": 1355,
+          "endTime": 2751,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2330,
+          "duration": 4,
+          "endTime": 2334,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 2335,
+          "duration": 3,
+          "endTime": 2338,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 2340,
+          "duration": 10,
+          "endTime": 2350,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 2340,
+          "duration": 10,
+          "endTime": 2350,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 2340,
+          "duration": 10,
+          "endTime": 2350,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2341,
+          "duration": 10,
+          "endTime": 2351,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 2341,
+          "duration": 10,
+          "endTime": 2351,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3555,
+          "duration": 3,
+          "endTime": 3557,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 3559,
+          "duration": 3,
+          "endTime": 3562,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 3563,
+          "duration": 7,
+          "endTime": 3570,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 3563,
+          "duration": 7,
+          "endTime": 3570,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 3563,
+          "duration": 8,
+          "endTime": 3571,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3564,
+          "duration": 11,
+          "endTime": 3575,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 3564,
+          "duration": 11,
+          "endTime": 3575,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 4777,
+          "duration": 3,
+          "endTime": 4780,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 4781,
+          "duration": 4,
+          "endTime": 4785,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 4787,
+          "duration": 5,
+          "endTime": 4792,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 4787,
+          "duration": 9,
+          "endTime": 4796,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 4787,
+          "duration": 10,
+          "endTime": 4797,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 4788,
+          "duration": 10,
+          "endTime": 4797,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 4788,
+          "duration": 10,
+          "endTime": 4798,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6004,
+          "duration": 5,
+          "endTime": 6009,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 6010,
+          "duration": 3,
+          "endTime": 6013,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 6013,
+          "duration": 8,
+          "endTime": 6021,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 6014,
+          "duration": 8,
+          "endTime": 6021,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 6014,
+          "duration": 8,
+          "endTime": 6022,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6014,
+          "duration": 8,
+          "endTime": 6022,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 6015,
+          "duration": 7,
+          "endTime": 6022,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7225,
+          "duration": 5,
+          "endTime": 7230,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 7231,
+          "duration": 3,
+          "endTime": 7233,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 7234,
+          "duration": 8,
+          "endTime": 7242,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 7235,
+          "duration": 8,
+          "endTime": 7243,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 7235,
+          "duration": 8,
+          "endTime": 7243,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7235,
+          "duration": 10,
+          "endTime": 7245,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 7236,
+          "duration": 10,
+          "endTime": 7246,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8448,
+          "duration": 8,
+          "endTime": 8457,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 8459,
+          "duration": 4,
+          "endTime": 8463,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 8465,
+          "duration": 14,
+          "endTime": 8479,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 8465,
+          "duration": 14,
+          "endTime": 8480,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 8466,
+          "duration": 14,
+          "endTime": 8480,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8467,
+          "duration": 13,
+          "endTime": 8480,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 8468,
+          "duration": 13,
+          "endTime": 8480,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 9684,
+          "duration": 3,
+          "endTime": 9687,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 9689,
+          "duration": 4,
+          "endTime": 9693,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 9694,
+          "duration": 8,
+          "endTime": 9703,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 9695,
+          "duration": 12,
+          "endTime": 9706,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 9695,
+          "duration": 12,
+          "endTime": 9707,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 9695,
+          "duration": 12,
+          "endTime": 9707,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 9695,
+          "duration": 12,
+          "endTime": 9707,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 10911,
+          "duration": 4,
+          "endTime": 10915,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 10916,
+          "duration": 4,
+          "endTime": 10920,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 10922,
+          "duration": 9,
+          "endTime": 10931,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 10923,
+          "duration": 9,
+          "endTime": 10931,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 10923,
+          "duration": 9,
+          "endTime": 10932,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 10923,
+          "duration": 9,
+          "endTime": 10932,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 10923,
+          "duration": 13,
+          "endTime": 10936,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12139,
+          "duration": 3,
+          "endTime": 12142,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 12143,
+          "duration": 3,
+          "endTime": 12146,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 12147,
+          "duration": 9,
+          "endTime": 12156,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 12147,
+          "duration": 14,
+          "endTime": 12161,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 12148,
+          "duration": 14,
+          "endTime": 12162,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12148,
+          "duration": 14,
+          "endTime": 12163,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 12149,
+          "duration": 14,
+          "endTime": 12163,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13365,
+          "duration": 3,
+          "endTime": 13368,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 13369,
+          "duration": 3,
+          "endTime": 13372,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 13373,
+          "duration": 5,
+          "endTime": 13377,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 13373,
+          "duration": 7,
+          "endTime": 13380,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 13373,
+          "duration": 12,
+          "endTime": 13385,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13373,
+          "duration": 12,
+          "endTime": 13385,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 13374,
+          "duration": 12,
+          "endTime": 13386,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14590,
+          "duration": 4,
+          "endTime": 14594,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 14595,
+          "duration": 3,
+          "endTime": 14597,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 14598,
+          "duration": 7,
+          "endTime": 14605,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 14599,
+          "duration": 7,
+          "endTime": 14606,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 14599,
+          "duration": 7,
+          "endTime": 14606,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14599,
+          "duration": 7,
+          "endTime": 14607,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 14599,
+          "duration": 7,
+          "endTime": 14607,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 15823,
+          "duration": 7,
+          "endTime": 15830,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 15831,
+          "duration": 3,
+          "endTime": 15834,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 15835,
+          "duration": 8,
+          "endTime": 15843,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 15836,
+          "duration": 8,
+          "endTime": 15844,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 15836,
+          "duration": 8,
+          "endTime": 15844,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 15836,
+          "duration": 8,
+          "endTime": 15845,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 15836,
+          "duration": 8,
+          "endTime": 15845,
+          "transferSize": 0
         }
       ],
       "trace": {
-        "maxTimerGapMs": 63.79999999701977,
+        "maxTimerGapMs": 87.90000000596046,
         "transitions": [
           {
-            "at": 66,
+            "at": 626,
             "state": "absent"
-          },
-          {
-            "at": 220,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 466,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 3217,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
           }
         ],
+        "loads": [],
         "longTasks": []
       }
     },
     {
+      "traceId": "candidate-local-control-production-media.cold-context.1280x720.0",
       "label": "candidate-local-control-production-media",
       "viewport": {
         "width": 1280,
         "height": 720
       },
       "cacheState": "cold-context",
-      "index": 2,
-      "navigationMs": 95,
-      "domContentLoadedAt": 148,
-      "gateAMs": 2492,
-      "gateAEndpointAt": 2645,
+      "index": 0,
+      "navigationMs": 100,
+      "domContentLoadedAt": 153,
+      "gateAMs": 1276,
+      "gateAEndpointAt": 1436,
       "gateATimedOut": false,
       "gateAPass": true,
       "baseline": {
         "present": true,
         "connected": true,
+        "visible": true,
         "width": 2048,
         "state": "decoded"
       },
-      "refreshStartedAt": 2647,
-      "refreshEndMs": 35,
-      "refreshEndedAt": 2682,
-      "gateBMs": 38,
-      "gateBEndpointAt": 2685,
+      "refreshStartedAt": 1440,
+      "refreshEndMs": 43,
+      "refreshEndedAt": 1483,
+      "gateBMs": 48,
+      "gateBEndpointAt": 1488,
       "gateBTimedOut": false,
+      "gateBNotRunReason": null,
       "gateBPass": true,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 178,
+          "endAt": 182
+        },
+        {
+          "kind": "resolver",
+          "at": 190,
+          "endAt": 459
+        },
+        {
+          "kind": "render",
+          "at": 232
+        },
+        {
+          "kind": "src",
+          "at": 481
+        },
+        {
+          "kind": "resource-start",
+          "at": 481
+        },
+        {
+          "kind": "decode",
+          "at": 1430
+        },
+        {
+          "kind": "initial-final-endpoint",
+          "at": 1436
+        },
+        {
+          "kind": "refresh-final-endpoint",
+          "at": 1488
+        }
+      ],
       "connected": true,
       "visible": true,
       "naturalWidth": 2048,
@@ -650,25 +1606,2384 @@
       "entries": [],
       "resources": [
         {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 12,
-          "duration": 14,
-          "endTime": 25,
+          "name": "http://127.0.0.1:60649/src/styles/app.css",
+          "startTime": 26,
+          "duration": 15,
+          "endTime": 40,
           "transferSize": 15210
         },
         {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 12,
-          "duration": 20,
-          "endTime": 32,
+          "name": "http://127.0.0.1:60649/src/game/app.js",
+          "startTime": 26,
+          "duration": 16,
+          "endTime": 43,
           "transferSize": 80433
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 94,
+          "duration": 5,
+          "endTime": 98,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 144,
+          "duration": 22,
+          "endTime": 167,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 178,
+          "duration": 4,
+          "endTime": 182,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 178,
+          "duration": 8,
+          "endTime": 186,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 179,
+          "duration": 8,
+          "endTime": 186,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 179,
+          "duration": 8,
+          "endTime": 187,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 179,
+          "duration": 8,
+          "endTime": 187,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 190,
+          "duration": 268,
+          "endTime": 459,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1403,
+          "duration": 3,
+          "endTime": 1407,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1408,
+          "duration": 4,
+          "endTime": 1411,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1412,
+          "duration": 9,
+          "endTime": 1421,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1412,
+          "duration": 9,
+          "endTime": 1421,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1413,
+          "duration": 9,
+          "endTime": 1421,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1413,
+          "duration": 9,
+          "endTime": 1422,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1413,
+          "duration": 9,
+          "endTime": 1423,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1444,
+          "duration": 3,
+          "endTime": 1447,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1448,
+          "duration": 3,
+          "endTime": 1450,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1451,
+          "duration": 8,
+          "endTime": 1459,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1452,
+          "duration": 8,
+          "endTime": 1460,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1452,
+          "duration": 8,
+          "endTime": 1460,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1452,
+          "duration": 8,
+          "endTime": 1460,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1452,
+          "duration": 9,
+          "endTime": 1462,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1463,
+          "duration": 4,
+          "endTime": 1467,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1468,
+          "duration": 3,
+          "endTime": 1471,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1472,
+          "duration": 6,
+          "endTime": 1478,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1472,
+          "duration": 6,
+          "endTime": 1478,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1472,
+          "duration": 6,
+          "endTime": 1479,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1473,
+          "duration": 6,
+          "endTime": 1479,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1473,
+          "duration": 7,
+          "endTime": 1479,
+          "transferSize": 0
         }
       ],
       "trace": {
-        "maxTimerGapMs": 61.600000001490116,
+        "maxTimerGapMs": 63.900000005960464,
         "transitions": [
           {
-            "at": 74,
+            "at": 80,
+            "state": "absent"
+          },
+          {
+            "at": 232,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 481,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1130,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1430,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "loads": [],
+        "longTasks": []
+      }
+    },
+    {
+      "traceId": "candidate-local-control-production-media.warm-context.1280x720.0",
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 89,
+      "domContentLoadedAt": 139,
+      "gateAMs": 1273,
+      "gateAEndpointAt": 1415,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "visible": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1419,
+      "refreshEndMs": 57,
+      "refreshEndedAt": 1477,
+      "gateBMs": 62,
+      "gateBEndpointAt": 1481,
+      "gateBTimedOut": false,
+      "gateBNotRunReason": null,
+      "gateBPass": true,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 146,
+          "endAt": 153
+        },
+        {
+          "kind": "resolver",
+          "at": 163,
+          "endAt": 439
+        },
+        {
+          "kind": "render",
+          "at": 179
+        },
+        {
+          "kind": "src",
+          "at": 475
+        },
+        {
+          "kind": "resource-start",
+          "at": 475
+        },
+        {
+          "kind": "initial-final-endpoint",
+          "at": 1415
+        },
+        {
+          "kind": "decode",
+          "at": 1425
+        },
+        {
+          "kind": "refresh-final-endpoint",
+          "at": 1481
+        }
+      ],
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:60649/src/styles/app.css",
+          "startTime": 21,
+          "duration": 14,
+          "endTime": 36,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:60649/src/game/app.js",
+          "startTime": 22,
+          "duration": 15,
+          "endTime": 37,
+          "transferSize": 80433
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 80,
+          "duration": 7,
+          "endTime": 87,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 131,
+          "duration": 14,
+          "endTime": 145,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 146,
+          "duration": 7,
+          "endTime": 153,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 147,
+          "duration": 9,
+          "endTime": 155,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 147,
+          "duration": 12,
+          "endTime": 159,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 147,
+          "duration": 12,
+          "endTime": 159,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 147,
+          "duration": 12,
+          "endTime": 159,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 163,
+          "duration": 276,
+          "endTime": 439,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1379,
+          "duration": 4,
+          "endTime": 1383,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1384,
+          "duration": 6,
+          "endTime": 1390,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1391,
+          "duration": 9,
+          "endTime": 1400,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1391,
+          "duration": 10,
+          "endTime": 1401,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1391,
+          "duration": 10,
+          "endTime": 1401,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1392,
+          "duration": 12,
+          "endTime": 1403,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1392,
+          "duration": 12,
+          "endTime": 1404,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1422,
+          "duration": 4,
+          "endTime": 1426,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1427,
+          "duration": 6,
+          "endTime": 1433,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1434,
+          "duration": 9,
+          "endTime": 1443,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1434,
+          "duration": 9,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1435,
+          "duration": 9,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1435,
+          "duration": 9,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1435,
+          "duration": 9,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1448,
+          "duration": 7,
+          "endTime": 1455,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1456,
+          "duration": 4,
+          "endTime": 1460,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1461,
+          "duration": 10,
+          "endTime": 1471,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1461,
+          "duration": 10,
+          "endTime": 1471,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1462,
+          "duration": 10,
+          "endTime": 1472,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1462,
+          "duration": 10,
+          "endTime": 1472,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1462,
+          "duration": 11,
+          "endTime": 1473,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 56.1000000089407,
+        "transitions": [
+          {
+            "at": 75,
+            "state": "absent"
+          },
+          {
+            "at": 179,
+            "state": "attached:true|src:false|complete:true|width:0|state:"
+          },
+          {
+            "at": 475,
+            "state": "attached:true|src:true|complete:false|width:0|state:loading"
+          },
+          {
+            "at": 1075,
+            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
+          },
+          {
+            "at": 1425,
+            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
+          }
+        ],
+        "loads": [],
+        "longTasks": []
+      }
+    },
+    {
+      "traceId": "recovered-public.cold-context.1366x768.0",
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 1072,
+      "domContentLoadedAt": 1133,
+      "gateAMs": 15009,
+      "gateAEndpointAt": 16145,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "visible": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": null,
+      "refreshEndMs": null,
+      "refreshEndedAt": null,
+      "gateBMs": null,
+      "gateBEndpointAt": null,
+      "gateBTimedOut": false,
+      "gateBNotRunReason": "NOT_RUN_PREREQUISITE_FAILED",
+      "gateBPass": false,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 1154,
+          "endAt": 1169
+        },
+        {
+          "kind": "resolver",
+          "at": 1176,
+          "endAt": 1442
+        },
+        {
+          "kind": "resource",
+          "at": 1444,
+          "endAt": 7031
+        },
+        {
+          "kind": "initial-failure-endpoint",
+          "at": 16145
+        },
+        {
+          "kind": "refresh-not-run",
+          "at": 16145,
+          "reason": "NOT_RUN_PREREQUISITE_FAILED"
+        }
+      ],
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1444,
+          "duration": 5587,
+          "endTime": 7031,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 644,
+          "duration": 122,
+          "endTime": 766,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 644,
+          "duration": 178,
+          "endTime": 822,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1065,
+          "duration": 5,
+          "endTime": 1070,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1114,
+          "duration": 28,
+          "endTime": 1142,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1154,
+          "duration": 15,
+          "endTime": 1169,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1154,
+          "duration": 18,
+          "endTime": 1172,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1154,
+          "duration": 18,
+          "endTime": 1172,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1155,
+          "duration": 18,
+          "endTime": 1172,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1155,
+          "duration": 18,
+          "endTime": 1173,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1176,
+          "duration": 266,
+          "endTime": 1442,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1178,
+          "duration": 264,
+          "endTime": 1443,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1444,
+          "duration": 5587,
+          "endTime": 7031,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2383,
+          "duration": 3,
+          "endTime": 2386,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 2387,
+          "duration": 3,
+          "endTime": 2390,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 2391,
+          "duration": 8,
+          "endTime": 2399,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 2392,
+          "duration": 10,
+          "endTime": 2402,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 2392,
+          "duration": 12,
+          "endTime": 2404,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2392,
+          "duration": 12,
+          "endTime": 2405,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 2393,
+          "duration": 12,
+          "endTime": 2405,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3608,
+          "duration": 3,
+          "endTime": 3611,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 3612,
+          "duration": 3,
+          "endTime": 3615,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 3616,
+          "duration": 6,
+          "endTime": 3622,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 3616,
+          "duration": 9,
+          "endTime": 3625,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 3617,
+          "duration": 10,
+          "endTime": 3626,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3617,
+          "duration": 11,
+          "endTime": 3628,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 3617,
+          "duration": 11,
+          "endTime": 3629,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 4831,
+          "duration": 4,
+          "endTime": 4835,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 4837,
+          "duration": 3,
+          "endTime": 4839,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 4841,
+          "duration": 7,
+          "endTime": 4847,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 4841,
+          "duration": 7,
+          "endTime": 4848,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 4841,
+          "duration": 7,
+          "endTime": 4848,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 4841,
+          "duration": 7,
+          "endTime": 4849,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 4842,
+          "duration": 7,
+          "endTime": 4849,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6052,
+          "duration": 8,
+          "endTime": 6061,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 6062,
+          "duration": 4,
+          "endTime": 6066,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 6069,
+          "duration": 8,
+          "endTime": 6076,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 6069,
+          "duration": 13,
+          "endTime": 6082,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 6069,
+          "duration": 14,
+          "endTime": 6083,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6069,
+          "duration": 14,
+          "endTime": 6084,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 6070,
+          "duration": 14,
+          "endTime": 6084,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7286,
+          "duration": 5,
+          "endTime": 7291,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 7292,
+          "duration": 7,
+          "endTime": 7298,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 7300,
+          "duration": 10,
+          "endTime": 7310,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 7300,
+          "duration": 10,
+          "endTime": 7311,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 7300,
+          "duration": 10,
+          "endTime": 7311,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7301,
+          "duration": 10,
+          "endTime": 7311,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 7301,
+          "duration": 10,
+          "endTime": 7311,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8515,
+          "duration": 4,
+          "endTime": 8519,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 8520,
+          "duration": 3,
+          "endTime": 8522,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 8523,
+          "duration": 4,
+          "endTime": 8528,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 8524,
+          "duration": 8,
+          "endTime": 8531,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 8524,
+          "duration": 7,
+          "endTime": 8531,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8524,
+          "duration": 7,
+          "endTime": 8531,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 8524,
+          "duration": 7,
+          "endTime": 8532,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 9735,
+          "duration": 3,
+          "endTime": 9738,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 9739,
+          "duration": 3,
+          "endTime": 9742,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 9744,
+          "duration": 5,
+          "endTime": 9749,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 9744,
+          "duration": 7,
+          "endTime": 9751,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 9744,
+          "duration": 7,
+          "endTime": 9752,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 9745,
+          "duration": 7,
+          "endTime": 9752,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 9745,
+          "duration": 7,
+          "endTime": 9752,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 10955,
+          "duration": 3,
+          "endTime": 10957,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 10958,
+          "duration": 3,
+          "endTime": 10961,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 10962,
+          "duration": 5,
+          "endTime": 10967,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 10962,
+          "duration": 7,
+          "endTime": 10969,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 10962,
+          "duration": 7,
+          "endTime": 10970,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 10963,
+          "duration": 7,
+          "endTime": 10970,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 10963,
+          "duration": 8,
+          "endTime": 10971,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12175,
+          "duration": 5,
+          "endTime": 12180,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 12182,
+          "duration": 3,
+          "endTime": 12185,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 12187,
+          "duration": 6,
+          "endTime": 12193,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 12188,
+          "duration": 5,
+          "endTime": 12193,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 12189,
+          "duration": 9,
+          "endTime": 12197,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12189,
+          "duration": 9,
+          "endTime": 12198,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 12189,
+          "duration": 9,
+          "endTime": 12198,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13410,
+          "duration": 21,
+          "endTime": 13430,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 13432,
+          "duration": 4,
+          "endTime": 13436,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 13437,
+          "duration": 7,
+          "endTime": 13443,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 13437,
+          "duration": 7,
+          "endTime": 13444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 13437,
+          "duration": 7,
+          "endTime": 13444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13437,
+          "duration": 7,
+          "endTime": 13445,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 13438,
+          "duration": 7,
+          "endTime": 13445,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14649,
+          "duration": 4,
+          "endTime": 14652,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 14654,
+          "duration": 3,
+          "endTime": 14658,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 14659,
+          "duration": 4,
+          "endTime": 14663,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 14659,
+          "duration": 5,
+          "endTime": 14665,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 14660,
+          "duration": 7,
+          "endTime": 14667,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14660,
+          "duration": 9,
+          "endTime": 14669,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 14660,
+          "duration": 10,
+          "endTime": 14670,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 15873,
+          "duration": 4,
+          "endTime": 15877,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 15878,
+          "duration": 3,
+          "endTime": 15881,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 15883,
+          "duration": 5,
+          "endTime": 15887,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 15883,
+          "duration": 6,
+          "endTime": 15888,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 15883,
+          "duration": 6,
+          "endTime": 15889,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 15883,
+          "duration": 10,
+          "endTime": 15893,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 15884,
+          "duration": 10,
+          "endTime": 15893,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 63.6000000089407,
+        "transitions": [
+          {
+            "at": 710,
+            "state": "absent"
+          }
+        ],
+        "loads": [],
+        "longTasks": []
+      }
+    },
+    {
+      "traceId": "recovered-public.warm-context.1366x768.0",
+      "label": "recovered-public",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "warm-context",
+      "index": 0,
+      "navigationMs": 1077,
+      "domContentLoadedAt": 1131,
+      "gateAMs": 15011,
+      "gateAEndpointAt": 16154,
+      "gateATimedOut": true,
+      "gateAPass": false,
+      "baseline": {
+        "present": false,
+        "connected": false,
+        "visible": false,
+        "width": 0,
+        "state": null
+      },
+      "refreshStartedAt": null,
+      "refreshEndMs": null,
+      "refreshEndedAt": null,
+      "gateBMs": null,
+      "gateBEndpointAt": null,
+      "gateBTimedOut": false,
+      "gateBNotRunReason": "NOT_RUN_PREREQUISITE_FAILED",
+      "gateBPass": false,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 1138,
+          "endAt": 1149
+        },
+        {
+          "kind": "resolver",
+          "at": 1163,
+          "endAt": 1438
+        },
+        {
+          "kind": "resource",
+          "at": 1440,
+          "endAt": 2573
+        },
+        {
+          "kind": "initial-failure-endpoint",
+          "at": 16154
+        },
+        {
+          "kind": "refresh-not-run",
+          "at": 16154,
+          "reason": "NOT_RUN_PREREQUISITE_FAILED"
+        }
+      ],
+      "connected": false,
+      "visible": false,
+      "naturalWidth": 0,
+      "naturalHeight": 0,
+      "state": null,
+      "baselineStillConnected": false,
+      "entries": [
+        {
+          "startTime": 1440,
+          "duration": 1133,
+          "endTime": 2573,
+          "transferSize": 0,
+          "encodedBodySize": 0,
+          "decodedBodySize": 0
+        }
+      ],
+      "resources": [
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
+          "startTime": 644,
+          "duration": 143,
+          "endTime": 787,
+          "transferSize": 3997
+        },
+        {
+          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
+          "startTime": 645,
+          "duration": 198,
+          "endTime": 843,
+          "transferSize": 18533
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1070,
+          "duration": 4,
+          "endTime": 1074,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1119,
+          "duration": 17,
+          "endTime": 1136,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1138,
+          "duration": 11,
+          "endTime": 1149,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1138,
+          "duration": 20,
+          "endTime": 1158,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1139,
+          "duration": 20,
+          "endTime": 1158,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1139,
+          "duration": 20,
+          "endTime": 1158,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1139,
+          "duration": 19,
+          "endTime": 1159,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1163,
+          "duration": 275,
+          "endTime": 1438,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 1165,
+          "duration": 273,
+          "endTime": 1438,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
+          "startTime": 1440,
+          "duration": 1133,
+          "endTime": 2573,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2366,
+          "duration": 3,
+          "endTime": 2369,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 2370,
+          "duration": 3,
+          "endTime": 2373,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 2374,
+          "duration": 7,
+          "endTime": 2381,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 2374,
+          "duration": 7,
+          "endTime": 2381,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 2374,
+          "duration": 8,
+          "endTime": 2382,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 2375,
+          "duration": 8,
+          "endTime": 2382,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 2375,
+          "duration": 8,
+          "endTime": 2383,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3595,
+          "duration": 4,
+          "endTime": 3599,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 3600,
+          "duration": 3,
+          "endTime": 3603,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 3603,
+          "duration": 7,
+          "endTime": 3610,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 3604,
+          "duration": 6,
+          "endTime": 3610,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 3604,
+          "duration": 6,
+          "endTime": 3610,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 3604,
+          "duration": 6,
+          "endTime": 3610,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 3604,
+          "duration": 8,
+          "endTime": 3612,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 4815,
+          "duration": 68,
+          "endTime": 4883,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 4885,
+          "duration": 3,
+          "endTime": 4888,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 4888,
+          "duration": 8,
+          "endTime": 4896,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 4889,
+          "duration": 9,
+          "endTime": 4898,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 4889,
+          "duration": 11,
+          "endTime": 4900,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 4889,
+          "duration": 15,
+          "endTime": 4904,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 4889,
+          "duration": 15,
+          "endTime": 4904,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6112,
+          "duration": 10,
+          "endTime": 6122,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 6124,
+          "duration": 10,
+          "endTime": 6134,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 6136,
+          "duration": 6,
+          "endTime": 6141,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 6136,
+          "duration": 7,
+          "endTime": 6143,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 6136,
+          "duration": 7,
+          "endTime": 6144,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 6137,
+          "duration": 7,
+          "endTime": 6144,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 6137,
+          "duration": 7,
+          "endTime": 6144,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7350,
+          "duration": 7,
+          "endTime": 7357,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 7358,
+          "duration": 2,
+          "endTime": 7360,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 7362,
+          "duration": 5,
+          "endTime": 7367,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 7362,
+          "duration": 5,
+          "endTime": 7367,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 7362,
+          "duration": 5,
+          "endTime": 7367,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 7363,
+          "duration": 7,
+          "endTime": 7369,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 7363,
+          "duration": 7,
+          "endTime": 7370,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8573,
+          "duration": 5,
+          "endTime": 8578,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 8579,
+          "duration": 2,
+          "endTime": 8581,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 8582,
+          "duration": 9,
+          "endTime": 8591,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 8582,
+          "duration": 11,
+          "endTime": 8594,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 8583,
+          "duration": 12,
+          "endTime": 8595,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 8583,
+          "duration": 13,
+          "endTime": 8596,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 8583,
+          "duration": 14,
+          "endTime": 8597,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 9799,
+          "duration": 43,
+          "endTime": 9843,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 9844,
+          "duration": 3,
+          "endTime": 9847,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 9848,
+          "duration": 5,
+          "endTime": 9853,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 9848,
+          "duration": 5,
+          "endTime": 9853,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 9848,
+          "duration": 8,
+          "endTime": 9856,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 9849,
+          "duration": 8,
+          "endTime": 9857,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 9849,
+          "duration": 8,
+          "endTime": 9857,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 11061,
+          "duration": 4,
+          "endTime": 11065,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 11066,
+          "duration": 3,
+          "endTime": 11069,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 11070,
+          "duration": 9,
+          "endTime": 11080,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 11070,
+          "duration": 9,
+          "endTime": 11080,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 11071,
+          "duration": 9,
+          "endTime": 11080,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 11071,
+          "duration": 9,
+          "endTime": 11080,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 11071,
+          "duration": 9,
+          "endTime": 11080,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12285,
+          "duration": 4,
+          "endTime": 12289,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 12289,
+          "duration": 3,
+          "endTime": 12292,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 12293,
+          "duration": 12,
+          "endTime": 12306,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 12294,
+          "duration": 12,
+          "endTime": 12306,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 12294,
+          "duration": 12,
+          "endTime": 12306,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 12294,
+          "duration": 12,
+          "endTime": 12306,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 12294,
+          "duration": 12,
+          "endTime": 12306,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13511,
+          "duration": 5,
+          "endTime": 13515,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 13516,
+          "duration": 5,
+          "endTime": 13521,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 13523,
+          "duration": 9,
+          "endTime": 13531,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 13523,
+          "duration": 9,
+          "endTime": 13532,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 13523,
+          "duration": 10,
+          "endTime": 13533,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 13523,
+          "duration": 10,
+          "endTime": 13533,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 13524,
+          "duration": 10,
+          "endTime": 13533,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14736,
+          "duration": 4,
+          "endTime": 14740,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 14741,
+          "duration": 3,
+          "endTime": 14744,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 14745,
+          "duration": 5,
+          "endTime": 14750,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 14746,
+          "duration": 7,
+          "endTime": 14753,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 14746,
+          "duration": 7,
+          "endTime": 14753,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 14746,
+          "duration": 10,
+          "endTime": 14756,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 14747,
+          "duration": 10,
+          "endTime": 14756,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 15960,
+          "duration": 3,
+          "endTime": 15963,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 15964,
+          "duration": 3,
+          "endTime": 15967,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 15968,
+          "duration": 5,
+          "endTime": 15973,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 15968,
+          "duration": 7,
+          "endTime": 15975,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 15968,
+          "duration": 10,
+          "endTime": 15979,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 15969,
+          "duration": 11,
+          "endTime": 15979,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 15969,
+          "duration": 11,
+          "endTime": 15979,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 75.6000000089407,
+        "transitions": [
+          {
+            "at": 683,
+            "state": "absent"
+          }
+        ],
+        "loads": [],
+        "longTasks": []
+      }
+    },
+    {
+      "traceId": "candidate-local-control-production-media.cold-context.1366x768.0",
+      "label": "candidate-local-control-production-media",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "cacheState": "cold-context",
+      "index": 0,
+      "navigationMs": 86,
+      "domContentLoadedAt": 138,
+      "gateAMs": 1269,
+      "gateAEndpointAt": 1410,
+      "gateATimedOut": false,
+      "gateAPass": true,
+      "baseline": {
+        "present": true,
+        "connected": true,
+        "visible": true,
+        "width": 2048,
+        "state": "decoded"
+      },
+      "refreshStartedAt": 1412,
+      "refreshEndMs": 36,
+      "refreshEndedAt": 1448,
+      "gateBMs": 39,
+      "gateBEndpointAt": 1451,
+      "gateBTimedOut": false,
+      "gateBNotRunReason": null,
+      "gateBPass": true,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 159,
+          "endAt": 167
+        },
+        {
+          "kind": "resolver",
+          "at": 175,
+          "endAt": 459
+        },
+        {
+          "kind": "render",
+          "at": 215
+        },
+        {
+          "kind": "src",
+          "at": 465
+        },
+        {
+          "kind": "resource-start",
+          "at": 465
+        },
+        {
+          "kind": "initial-final-endpoint",
+          "at": 1410
+        },
+        {
+          "kind": "decode",
+          "at": 1415
+        },
+        {
+          "kind": "refresh-final-endpoint",
+          "at": 1451
+        }
+      ],
+      "connected": true,
+      "visible": true,
+      "naturalWidth": 2048,
+      "naturalHeight": 1282,
+      "state": "decoded",
+      "baselineStillConnected": true,
+      "entries": [],
+      "resources": [
+        {
+          "name": "http://127.0.0.1:60649/src/styles/app.css",
+          "startTime": 12,
+          "duration": 12,
+          "endTime": 23,
+          "transferSize": 15210
+        },
+        {
+          "name": "http://127.0.0.1:60649/src/game/app.js",
+          "startTime": 12,
+          "duration": 13,
+          "endTime": 25,
+          "transferSize": 80433
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 79,
+          "duration": 4,
+          "endTime": 83,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 130,
+          "duration": 19,
+          "endTime": 148,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 159,
+          "duration": 8,
+          "endTime": 167,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 160,
+          "duration": 11,
+          "endTime": 171,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 161,
+          "duration": 10,
+          "endTime": 171,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 161,
+          "duration": 10,
+          "endTime": 171,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 161,
+          "duration": 10,
+          "endTime": 171,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 175,
+          "duration": 285,
+          "endTime": 459,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1391,
+          "duration": 3,
+          "endTime": 1394,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1395,
+          "duration": 3,
+          "endTime": 1398,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1399,
+          "duration": 4,
+          "endTime": 1403,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1399,
+          "duration": 5,
+          "endTime": 1404,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1399,
+          "duration": 6,
+          "endTime": 1406,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1400,
+          "duration": 7,
+          "endTime": 1406,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1400,
+          "duration": 7,
+          "endTime": 1406,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1414,
+          "duration": 3,
+          "endTime": 1417,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1418,
+          "duration": 2,
+          "endTime": 1420,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1421,
+          "duration": 3,
+          "endTime": 1424,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1421,
+          "duration": 7,
+          "endTime": 1429,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1422,
+          "duration": 8,
+          "endTime": 1429,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1422,
+          "duration": 8,
+          "endTime": 1430,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1422,
+          "duration": 8,
+          "endTime": 1430,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1431,
+          "duration": 3,
+          "endTime": 1434,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1435,
+          "duration": 2,
+          "endTime": 1437,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1437,
+          "duration": 6,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1438,
+          "duration": 7,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1438,
+          "duration": 6,
+          "endTime": 1444,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1438,
+          "duration": 6,
+          "endTime": 1445,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1438,
+          "duration": 6,
+          "endTime": 1445,
+          "transferSize": 0
+        }
+      ],
+      "trace": {
+        "maxTimerGapMs": 58.5,
+        "transitions": [
+          {
+            "at": 70,
             "state": "absent"
           },
           {
@@ -676,48 +3991,88 @@
             "state": "attached:true|src:false|complete:true|width:0|state:"
           },
           {
-            "at": 466,
+            "at": 465,
             "state": "attached:true|src:true|complete:false|width:0|state:loading"
           },
           {
-            "at": 1765,
+            "at": 1116,
             "state": "attached:true|src:true|complete:false|width:2048|state:loading"
           },
           {
-            "at": 2665,
+            "at": 1415,
             "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
           }
         ],
+        "loads": [],
         "longTasks": []
       }
     },
     {
+      "traceId": "candidate-local-control-production-media.warm-context.1366x768.0",
       "label": "candidate-local-control-production-media",
       "viewport": {
-        "width": 1280,
-        "height": 720
+        "width": 1366,
+        "height": 768
       },
       "cacheState": "warm-context",
       "index": 0,
-      "navigationMs": 93,
-      "domContentLoadedAt": 136,
-      "gateAMs": 2505,
-      "gateAEndpointAt": 2648,
+      "navigationMs": 88,
+      "domContentLoadedAt": 146,
+      "gateAMs": 1290,
+      "gateAEndpointAt": 1438,
       "gateATimedOut": false,
-      "gateAPass": false,
+      "gateAPass": true,
       "baseline": {
         "present": true,
         "connected": true,
+        "visible": true,
         "width": 2048,
         "state": "decoded"
       },
-      "refreshStartedAt": 2651,
-      "refreshEndMs": 45,
-      "refreshEndedAt": 2696,
-      "gateBMs": 48,
-      "gateBEndpointAt": 2699,
+      "refreshStartedAt": 1440,
+      "refreshEndMs": 55,
+      "refreshEndedAt": 1495,
+      "gateBMs": 58,
+      "gateBEndpointAt": 1498,
       "gateBTimedOut": false,
+      "gateBNotRunReason": null,
       "gateBPass": true,
+      "timeline": [
+        {
+          "kind": "rpc",
+          "at": 163,
+          "endAt": 170
+        },
+        {
+          "kind": "resolver",
+          "at": 176,
+          "endAt": 448
+        },
+        {
+          "kind": "render",
+          "at": 195
+        },
+        {
+          "kind": "src",
+          "at": 478
+        },
+        {
+          "kind": "resource-start",
+          "at": 478
+        },
+        {
+          "kind": "decode",
+          "at": 1427
+        },
+        {
+          "kind": "initial-final-endpoint",
+          "at": 1438
+        },
+        {
+          "kind": "refresh-final-endpoint",
+          "at": 1498
+        }
+      ],
       "connected": true,
       "visible": true,
       "naturalWidth": 2048,
@@ -727,1206 +4082,317 @@
       "entries": [],
       "resources": [
         {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 23,
-          "duration": 13,
-          "endTime": 36,
+          "name": "http://127.0.0.1:60649/src/styles/app.css",
+          "startTime": 22,
+          "duration": 11,
+          "endTime": 33,
           "transferSize": 15210
         },
         {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
+          "name": "http://127.0.0.1:60649/src/game/app.js",
           "startTime": 23,
-          "duration": 14,
-          "endTime": 38,
+          "duration": 12,
+          "endTime": 34,
           "transferSize": 80433
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 83,
+          "duration": 4,
+          "endTime": 86,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 132,
+          "duration": 20,
+          "endTime": 153,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 163,
+          "duration": 7,
+          "endTime": 170,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 164,
+          "duration": 7,
+          "endTime": 171,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 164,
+          "duration": 7,
+          "endTime": 171,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 164,
+          "duration": 9,
+          "endTime": 173,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 165,
+          "duration": 9,
+          "endTime": 173,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/asset_resolve",
+          "startTime": 176,
+          "duration": 272,
+          "endTime": 448,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1396,
+          "duration": 3,
+          "endTime": 1399,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1400,
+          "duration": 3,
+          "endTime": 1403,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1406,
+          "duration": 7,
+          "endTime": 1413,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1407,
+          "duration": 12,
+          "endTime": 1418,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1407,
+          "duration": 12,
+          "endTime": 1419,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1407,
+          "duration": 12,
+          "endTime": 1419,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1407,
+          "duration": 12,
+          "endTime": 1419,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1444,
+          "duration": 9,
+          "endTime": 1453,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1454,
+          "duration": 3,
+          "endTime": 1457,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1458,
+          "duration": 9,
+          "endTime": 1467,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1458,
+          "duration": 9,
+          "endTime": 1468,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1459,
+          "duration": 9,
+          "endTime": 1468,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1459,
+          "duration": 9,
+          "endTime": 1468,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1459,
+          "duration": 9,
+          "endTime": 1468,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1470,
+          "duration": 4,
+          "endTime": 1474,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s2_get_player_state",
+          "startTime": 1475,
+          "duration": 4,
+          "endTime": 1479,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3b_get_player_state",
+          "startTime": 1481,
+          "duration": 10,
+          "endTime": 1490,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s5_get_player_state",
+          "startTime": 1482,
+          "duration": 9,
+          "endTime": 1491,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s6_get_player_state",
+          "startTime": 1482,
+          "duration": 10,
+          "endTime": 1492,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s8_get_player_state",
+          "startTime": 1482,
+          "duration": 10,
+          "endTime": 1492,
+          "transferSize": 0
+        },
+        {
+          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/rest/v1/rpc/s3_get_player_state",
+          "startTime": 1482,
+          "duration": 10,
+          "endTime": 1492,
+          "transferSize": 0
         }
       ],
       "trace": {
-        "maxTimerGapMs": 58.399999998509884,
+        "maxTimerGapMs": 63.5,
         "transitions": [
           {
             "at": 77,
             "state": "absent"
           },
           {
-            "at": 231,
+            "at": 195,
             "state": "attached:true|src:false|complete:true|width:0|state:"
           },
           {
-            "at": 480,
+            "at": 478,
             "state": "attached:true|src:true|complete:false|width:0|state:loading"
           },
           {
-            "at": 2226,
+            "at": 1178,
             "state": "attached:true|src:true|complete:false|width:2048|state:loading"
           },
           {
-            "at": 2677,
+            "at": 1427,
             "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
           }
         ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "warm-context",
-      "index": 1,
-      "navigationMs": 67,
-      "domContentLoadedAt": 71,
-      "gateAMs": 1290,
-      "gateAEndpointAt": 1372,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 1388,
-      "refreshEndMs": 61,
-      "refreshEndedAt": 1449,
-      "gateBMs": 66,
-      "gateBEndpointAt": 1453,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 13,
-          "duration": 15,
-          "endTime": 28,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 13,
-          "duration": 17,
-          "endTime": 30,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 58.70000000298023,
-        "transitions": [
-          {
-            "at": 66,
-            "state": "absent"
-          },
-          {
-            "at": 115,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 415,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 767,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 1366,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1280,
-        "height": 720
-      },
-      "cacheState": "warm-context",
-      "index": 2,
-      "navigationMs": 81,
-      "domContentLoadedAt": 86,
-      "gateAMs": 1268,
-      "gateAEndpointAt": 1363,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 1365,
-      "refreshEndMs": 38,
-      "refreshEndedAt": 1403,
-      "gateBMs": 42,
-      "gateBEndpointAt": 1407,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 16,
-          "duration": 18,
-          "endTime": 35,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 17,
-          "duration": 19,
-          "endTime": 36,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 56.5,
-        "transitions": [
-          {
-            "at": 70,
-            "state": "absent"
-          },
-          {
-            "at": 173,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 424,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 670,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 1369,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "cold-context",
-      "index": 0,
-      "navigationMs": 5770,
-      "domContentLoadedAt": 5829,
-      "gateAMs": 2486,
-      "gateAEndpointAt": 8321,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 8324,
-      "refreshEndMs": 47,
-      "refreshEndedAt": 8372,
-      "gateBMs": 51,
-      "gateBEndpointAt": 8375,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 3768,
-          "duration": 558,
-          "endTime": 4326,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 3769,
-          "duration": 1305,
-          "endTime": 5074,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 80.5,
-        "transitions": [
-          {
-            "at": 3833,
-            "state": "absent"
-          },
-          {
-            "at": 5875,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 6173,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 7622,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 8322,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": [
-          {
-            "start": 5758,
-            "duration": 52
-          }
-        ]
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "cold-context",
-      "index": 1,
-      "navigationMs": 3579,
-      "domContentLoadedAt": 3631,
-      "gateAMs": 2496,
-      "gateAEndpointAt": 6133,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 6136,
-      "refreshEndMs": 43,
-      "refreshEndedAt": 6180,
-      "gateBMs": 47,
-      "gateBEndpointAt": 6183,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 2531,
-          "duration": 203,
-          "endTime": 2734,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 2532,
-          "duration": 541,
-          "endTime": 3072,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 76.19999999552965,
-        "transitions": [
-          {
-            "at": 2594,
-            "state": "absent"
-          },
-          {
-            "at": 3686,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 3935,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 5386,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 6135,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "cold-context",
-      "index": 2,
-      "navigationMs": 2920,
-      "domContentLoadedAt": 2949,
-      "gateAMs": 2466,
-      "gateAEndpointAt": 5418,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 5419,
-      "refreshEndMs": 21,
-      "refreshEndedAt": 5440,
-      "gateBMs": 23,
-      "gateBEndpointAt": 5442,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 1327,
-          "duration": 924,
-          "endTime": 2251,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 1328,
-          "duration": 1075,
-          "endTime": 2402,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 63.100000001490116,
-        "transitions": [
-          {
-            "at": 1381,
-            "state": "absent"
-          },
-          {
-            "at": 2980,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 3280,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 4633,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 5430,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "warm-context",
-      "index": 0,
-      "navigationMs": 3905,
-      "domContentLoadedAt": 3966,
-      "gateAMs": 2504,
-      "gateAEndpointAt": 6474,
-      "gateATimedOut": false,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 6477,
-      "refreshEndMs": 52,
-      "refreshEndedAt": 6529,
-      "gateBMs": 56,
-      "gateBEndpointAt": 6533,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 1988,
-          "duration": 1055,
-          "endTime": 3044,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 1989,
-          "duration": 913,
-          "endTime": 2901,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 67.19999999552965,
-        "transitions": [
-          {
-            "at": 2043,
-            "state": "absent"
-          },
-          {
-            "at": 4005,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 4299,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 5642,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 6491,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "warm-context",
-      "index": 1,
-      "navigationMs": 1518,
-      "domContentLoadedAt": 1519,
-      "gateAMs": 1229,
-      "gateAEndpointAt": 2750,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 2751,
-      "refreshEndMs": 19,
-      "refreshEndedAt": 2770,
-      "gateBMs": 20,
-      "gateBEndpointAt": 2771,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 168,
-          "duration": 169,
-          "endTime": 337,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 168,
-          "duration": 856,
-          "endTime": 1023,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 64.79999999701977,
-        "transitions": [
-          {
-            "at": 235,
-            "state": "absent"
-          },
-          {
-            "at": 1574,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 1826,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 2030,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 2771,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "recovered-public",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "warm-context",
-      "index": 2,
-      "navigationMs": 1292,
-      "domContentLoadedAt": 1294,
-      "gateAMs": 2504,
-      "gateAEndpointAt": 3799,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 0,
-        "state": "loading"
-      },
-      "refreshStartedAt": 3800,
-      "refreshEndMs": 20,
-      "refreshEndedAt": 3820,
-      "gateBMs": 2506,
-      "gateBEndpointAt": 6306,
-      "gateBTimedOut": true,
-      "gateBPass": false,
-      "connected": true,
-      "visible": false,
-      "naturalWidth": 0,
-      "naturalHeight": 0,
-      "state": "loading",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/styles/app.css",
-          "startTime": 157,
-          "duration": 666,
-          "endTime": 823,
-          "transferSize": 4487
-        },
-        {
-          "name": "https://meifeng202309-commits.github.io/GAL-Escape-Castle/src/game/app.js",
-          "startTime": 157,
-          "duration": 670,
-          "endTime": 828,
-          "transferSize": 19435
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 64.70000000298023,
-        "transitions": [
-          {
-            "at": 209,
-            "state": "absent"
-          },
-          {
-            "at": 1359,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 1610,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "cold-context",
-      "index": 0,
-      "navigationMs": 45,
-      "domContentLoadedAt": 79,
-      "gateAMs": 2463,
-      "gateAEndpointAt": 2543,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 2544,
-      "refreshEndMs": 20,
-      "refreshEndedAt": 2565,
-      "gateBMs": 22,
-      "gateBEndpointAt": 2566,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 7,
-          "duration": 9,
-          "endTime": 16,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 7,
-          "duration": 9,
-          "endTime": 16,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 63.79999999701977,
-        "transitions": [
-          {
-            "at": 73,
-            "state": "absent"
-          },
-          {
-            "at": 110,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 410,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 2410,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 2560,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "cold-context",
-      "index": 1,
-      "navigationMs": 39,
-      "domContentLoadedAt": 82,
-      "gateAMs": 2453,
-      "gateAEndpointAt": 2537,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 2538,
-      "refreshEndMs": 26,
-      "refreshEndedAt": 2564,
-      "gateBMs": 28,
-      "gateBEndpointAt": 2566,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 12,
-          "duration": 7,
-          "endTime": 19,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 13,
-          "duration": 7,
-          "endTime": 20,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 58.100000001490116,
-        "transitions": [
-          {
-            "at": 73,
-            "state": "absent"
-          },
-          {
-            "at": 120,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 420,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 1865,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 2565,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "cold-context",
-      "index": 2,
-      "navigationMs": 57,
-      "domContentLoadedAt": 95,
-      "gateAMs": 2451,
-      "gateAEndpointAt": 2549,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 2550,
-      "refreshEndMs": 24,
-      "refreshEndedAt": 2575,
-      "gateBMs": 26,
-      "gateBEndpointAt": 2577,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 17,
-          "duration": 8,
-          "endTime": 25,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 18,
-          "duration": 8,
-          "endTime": 26,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 70.10000000149012,
-        "transitions": [
-          {
-            "at": 89,
-            "state": "absent"
-          },
-          {
-            "at": 121,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 430,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 2270,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 2570,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "warm-context",
-      "index": 0,
-      "navigationMs": 55,
-      "domContentLoadedAt": 87,
-      "gateAMs": 2461,
-      "gateAEndpointAt": 2549,
-      "gateATimedOut": false,
-      "gateAPass": true,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 2048,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 2551,
-      "refreshEndMs": 19,
-      "refreshEndedAt": 2570,
-      "gateBMs": 21,
-      "gateBEndpointAt": 2571,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 2048,
-      "naturalHeight": 1282,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 14,
-          "duration": 8,
-          "endTime": 22,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 14,
-          "duration": 8,
-          "endTime": 23,
-          "transferSize": 80433
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 63.70000000298023,
-        "transitions": [
-          {
-            "at": 80,
-            "state": "absent"
-          },
-          {
-            "at": 118,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 368,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          },
-          {
-            "at": 1367,
-            "state": "attached:true|src:true|complete:false|width:2048|state:loading"
-          },
-          {
-            "at": 2567,
-            "state": "attached:true|src:true|complete:false|width:2048|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "warm-context",
-      "index": 1,
-      "navigationMs": 43,
-      "domContentLoadedAt": 44,
-      "gateAMs": 25701926,
-      "gateAEndpointAt": 25702015,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 1,
-        "state": "decoded"
-      },
-      "refreshStartedAt": 25702064,
-      "refreshEndMs": 90,
-      "refreshEndedAt": 25702111,
-      "gateBMs": 99,
-      "gateBEndpointAt": 25702120,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 1,
-      "naturalHeight": 1,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [
-        {
-          "startTime": 450,
-          "duration": 13,
-          "endTime": 463,
-          "transferSize": 0,
-          "encodedBodySize": 0,
-          "decodedBodySize": 0
-        }
-      ],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 9,
-          "duration": 9,
-          "endTime": 17,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 9,
-          "duration": 9,
-          "endTime": 17,
-          "transferSize": 80433
-        },
-        {
-          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
-          "startTime": 450,
-          "duration": 13,
-          "endTime": 463,
-          "transferSize": 0
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 25701553,
-        "transitions": [
-          {
-            "at": 61,
-            "state": "absent"
-          },
-          {
-            "at": 111,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 25701969,
-            "state": "attached:true|src:true|complete:true|width:1|state:decoded"
-          }
-        ],
-        "longTasks": []
-      }
-    },
-    {
-      "label": "candidate-local-control-production-media",
-      "viewport": {
-        "width": 1366,
-        "height": 768
-      },
-      "cacheState": "warm-context",
-      "index": 2,
-      "navigationMs": 1163,
-      "domContentLoadedAt": 1153,
-      "gateAMs": 2509,
-      "gateAEndpointAt": 3662,
-      "gateATimedOut": true,
-      "gateAPass": false,
-      "baseline": {
-        "present": true,
-        "connected": true,
-        "width": 0,
-        "state": "loading"
-      },
-      "refreshStartedAt": 3675,
-      "refreshEndMs": 121,
-      "refreshEndedAt": 3796,
-      "gateBMs": 587,
-      "gateBEndpointAt": 4262,
-      "gateBTimedOut": false,
-      "gateBPass": true,
-      "connected": true,
-      "visible": true,
-      "naturalWidth": 1,
-      "naturalHeight": 1,
-      "state": "decoded",
-      "baselineStillConnected": true,
-      "entries": [
-        {
-          "startTime": 1433,
-          "duration": 2818,
-          "endTime": 4251,
-          "transferSize": 0,
-          "encodedBodySize": 0,
-          "decodedBodySize": 0
-        }
-      ],
-      "resources": [
-        {
-          "name": "http://127.0.0.1:52394/src/styles/app.css",
-          "startTime": 1123,
-          "duration": 11,
-          "endTime": 1133,
-          "transferSize": 15210
-        },
-        {
-          "name": "http://127.0.0.1:52394/src/game/app.js",
-          "startTime": 1123,
-          "duration": 11,
-          "endTime": 1134,
-          "transferSize": 80433
-        },
-        {
-          "name": "https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp",
-          "startTime": 1433,
-          "duration": 2818,
-          "endTime": 4251,
-          "transferSize": 0
-        }
-      ],
-      "trace": {
-        "maxTimerGapMs": 58.79999999701977,
-        "transitions": [
-          {
-            "at": 1176,
-            "state": "attached:true|src:false|complete:true|width:0|state:"
-          },
-          {
-            "at": 1475,
-            "state": "attached:true|src:true|complete:false|width:0|state:loading"
-          }
-        ],
+        "loads": [],
         "longTasks": []
       }
     }
   ],
   "groups": {
     "recovered-public/cold-context": {
-      "n": 6,
+      "n": 2,
       "gateA": {
-        "min": 2466,
-        "median": 2501,
-        "p90": 2504,
-        "max": 2504
+        "min": 15009,
+        "median": 15015,
+        "p90": 15015,
+        "max": 15015
       },
-      "gateB": {
-        "min": 23,
-        "median": 51,
-        "p90": 2508,
-        "max": 2508
-      },
-      "gateAFailures": 3,
-      "gateBFailures": 1,
+      "gateB": null,
+      "gateAFailures": 2,
+      "gateBFailures": 0,
+      "gateBNotRun": 2,
       "detachedBaselines": 0
     },
     "recovered-public/warm-context": {
-      "n": 6,
+      "n": 2,
       "gateA": {
-        "min": 1229,
-        "median": 2502,
-        "p90": 2504,
-        "max": 2504
+        "min": 15011,
+        "median": 15017,
+        "p90": 15017,
+        "max": 15017
       },
-      "gateB": {
-        "min": 20,
-        "median": 63,
-        "p90": 2506,
-        "max": 2506
-      },
-      "gateAFailures": 3,
-      "gateBFailures": 1,
+      "gateB": null,
+      "gateAFailures": 2,
+      "gateBFailures": 0,
+      "gateBNotRun": 2,
       "detachedBaselines": 0
     },
     "candidate-local-control-production-media/cold-context": {
-      "n": 6,
+      "n": 2,
       "gateA": {
-        "min": 2451,
-        "median": 2492,
-        "p90": 2504,
-        "max": 2504
+        "min": 1269,
+        "median": 1276,
+        "p90": 1276,
+        "max": 1276
       },
       "gateB": {
-        "min": 22,
-        "median": 38,
-        "p90": 2480,
-        "max": 2480
+        "min": 39,
+        "median": 48,
+        "p90": 48,
+        "max": 48
       },
-      "gateAFailures": 2,
+      "gateAFailures": 0,
       "gateBFailures": 0,
+      "gateBNotRun": 0,
       "detachedBaselines": 0
     },
     "candidate-local-control-production-media/warm-context": {
-      "n": 6,
+      "n": 2,
       "gateA": {
-        "min": 1268,
-        "median": 2505,
-        "p90": 25701926,
-        "max": 25701926
+        "min": 1273,
+        "median": 1290,
+        "p90": 1290,
+        "max": 1290
       },
       "gateB": {
-        "min": 21,
-        "median": 66,
-        "p90": 587,
-        "max": 587
+        "min": 58,
+        "median": 62,
+        "p90": 62,
+        "max": 62
       },
-      "gateAFailures": 3,
+      "gateAFailures": 0,
       "gateBFailures": 0,
+      "gateBNotRun": 0,
       "detachedBaselines": 0
     }
   }

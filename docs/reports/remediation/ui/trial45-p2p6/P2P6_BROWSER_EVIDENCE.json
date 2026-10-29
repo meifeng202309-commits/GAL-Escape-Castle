@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-28T02:28:47.846Z",
+  "generatedAt": "2026-10-29T01:01:05.194Z",
   "players": [
     {
       "role": "GAL-A",
@@ -15,7 +15,7 @@
         "state": "decoded",
         "visible": true
       },
-      "sceneVisibleMs": 596,
+      "sceneVisibleMs": 1044,
       "pocketMedia": [
         {
           "asset": "prop_gitte_castle_map",
@@ -71,7 +71,7 @@
         "state": "decoded",
         "visible": true
       },
-      "sceneVisibleMs": 1053,
+      "sceneVisibleMs": 651,
       "pocketMedia": [
         {
           "asset": "prop_gitte_castle_map",
@@ -127,7 +127,7 @@
         "state": "decoded",
         "visible": true
       },
-      "sceneVisibleMs": 540,
+      "sceneVisibleMs": 598,
       "pocketMedia": [
         {
           "asset": "prop_anna_diary_open",
@@ -177,7 +177,7 @@
         "state": "decoded",
         "visible": true
       },
-      "sceneVisibleMs": 552,
+      "sceneVisibleMs": 1134,
       "pocketMedia": [
         {
           "asset": "prop_anna_diary_open",
@@ -227,7 +227,7 @@
         "state": "decoded",
         "visible": true
       },
-      "sceneVisibleMs": 555,
+      "sceneVisibleMs": 606,
       "pocketMedia": [
         {
           "asset": "prop_linda_watch_face",
@@ -289,7 +289,7 @@
         "state": "decoded",
         "visible": true
       },
-      "sceneVisibleMs": 524,
+      "sceneVisibleMs": 551,
       "pocketMedia": [
         {
           "asset": "prop_linda_watch_face",
@@ -352,7 +352,7 @@
       "state": "decoded",
       "visible": true
     },
-    "sceneVisibleMs": 560,
+    "sceneVisibleMs": 1197,
     "pocketMedia": [
       {
         "asset": "prop_gitte_castle_map",
@@ -402,14 +402,14 @@
           "width": 1366,
           "height": 768
         },
-        "sceneVisibleMs": 540
+        "sceneVisibleMs": 598
       },
       {
         "viewport": {
           "width": 1280,
           "height": 720
         },
-        "sceneVisibleMs": 552
+        "sceneVisibleMs": 1134
       }
     ]
   },

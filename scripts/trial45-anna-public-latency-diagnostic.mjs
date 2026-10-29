@@ -9,6 +9,8 @@ const {createPilotState,installPlayerRoutes}=require("../tests/helpers/v4-two-sc
 const root=process.cwd();
 const output=path.join(root,"docs/reports/remediation/ui/trial45-anna-latency/MEASUREMENTS.json");
 const chrome=process.env.GAL_A1_BROWSER||"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+const INITIAL_GATE_MS=15000,REFRESH_GATE_MS=2500;
+const SAMPLE_COUNT=Math.max(1,Number(process.env.GAL_TRACE_SAMPLES||3));
 const diaryPath="game-assets/prop_anna_diary_open/v001/prop_anna_diary_open__v001.webp";
 const diaryUrl=`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${diaryPath}`;
 const assert=(value,message)=>{if(!value)throw new Error(message)};
@@ -35,7 +37,8 @@ function pocket(){return{active:true,items:[{item_key:"anna_servant_diary",name_
 async function install(page){
   await page.addInitScript(()=>{globalThis.__GAL_A1_TEST_HOOKS__={}});
   await page.addInitScript(()=>{
-    globalThis.__GAL_LATENCY_TRACE__={maxTimerGapMs:0,transitions:[],longTasks:[]};
+    globalThis.__GAL_LATENCY_TRACE__={maxTimerGapMs:0,transitions:[],loads:[],longTasks:[]};
+    document.addEventListener("load",event=>{const n=event.target;if(n instanceof HTMLImageElement&&n.dataset.assetKey==="prop_anna_diary_open")globalThis.__GAL_LATENCY_TRACE__.loads.push({at:Math.round(performance.now()),src:n.currentSrc||n.src,width:n.naturalWidth})},true);
     let previous=performance.now(),signature="";
     setInterval(()=>{
       const now=performance.now(),gap=now-previous;previous=now;
@@ -56,6 +59,7 @@ async function install(page){
   });
 }
 async function sample(browser,label,base,viewport,context,page,index,cacheState){
+  const traceId=`${label}.${cacheState}.${viewport.width}x${viewport.height}.${index}`;
   if(!page){context=await browser.newContext({viewport,deviceScaleFactor:1});page=await context.newPage();await install(page)}
   const navigationStarted=performance.now();
   await page.goto(`${base}/index.html?diagnostic=${label}-${viewport.width}-${index}-${Date.now()}`,{waitUntil:"domcontentloaded"});
@@ -63,41 +67,42 @@ async function sample(browser,label,base,viewport,context,page,index,cacheState)
   const domContentLoadedAt=await page.evaluate(()=>Math.round(performance.now()));
   const gateAStarted=performance.now();
   let gateATimedOut=false;
-  try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]'),r=n?.getBoundingClientRect();return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"&&r.width>0&&r.height>0},null,{timeout:2500})}catch{gateATimedOut=true}
+  try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]'),r=n?.getBoundingClientRect();return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"&&r.width>0&&r.height>0},null,{timeout:INITIAL_GATE_MS})}catch{gateATimedOut=true}
   const gateAMs=Math.round(performance.now()-gateAStarted);
   const gateAEndpointAt=await page.evaluate(()=>Math.round(performance.now()));
-  const baseline=await page.evaluate(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');globalThis.__GAL_BASELINE_DIARY_NODE__=n;return{present:Boolean(n),connected:Boolean(n?.isConnected),width:n?.naturalWidth||0,state:n?.dataset.assetState||null}});
-  const gateBStarted=performance.now();
-  const refreshStartedAt=await page.evaluate(()=>Math.round(performance.now()));
-  await Promise.all([0,1,2].map(()=>page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState())));
-  const refreshEndMs=Math.round(performance.now()-gateBStarted);
-  const refreshEndedAt=await page.evaluate(()=>Math.round(performance.now()));
-  let gateBTimedOut=false;
-  try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]'),r=n?.getBoundingClientRect();return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"&&r.width>0&&r.height>0},null,{timeout:Math.max(1,2500-refreshEndMs)})}catch{gateBTimedOut=true}
-  const gateBMs=Math.round(performance.now()-gateBStarted);
-  const gateBEndpointAt=await page.evaluate(()=>Math.round(performance.now()));
+  const baseline=await page.evaluate(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');globalThis.__GAL_BASELINE_DIARY_NODE__=n;const r=n?.getBoundingClientRect();return{present:Boolean(n),connected:Boolean(n?.isConnected),visible:Boolean(r&&r.width>0&&r.height>0),width:n?.naturalWidth||0,state:n?.dataset.assetState||null}});
+  const gateAPass=!gateATimedOut&&gateAMs<=INITIAL_GATE_MS&&baseline.connected&&baseline.visible&&baseline.width>0&&baseline.state==="decoded";
+  let refreshStartedAt=null,refreshEndMs=null,refreshEndedAt=null,gateBMs=null,gateBEndpointAt=null,gateBTimedOut=false,gateBNotRunReason=null;
+  if(gateAPass){const gateBStarted=performance.now();refreshStartedAt=await page.evaluate(()=>Math.round(performance.now()));await Promise.all([0,1,2].map(()=>page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState())));refreshEndMs=Math.round(performance.now()-gateBStarted);refreshEndedAt=await page.evaluate(()=>Math.round(performance.now()));try{await page.waitForFunction(()=>{const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]'),r=n?.getBoundingClientRect();return n?.isConnected&&n.naturalWidth>0&&n.dataset.assetState==="decoded"&&r.width>0&&r.height>0},null,{timeout:Math.max(1,REFRESH_GATE_MS-refreshEndMs)})}catch{gateBTimedOut=true}gateBMs=Math.round(performance.now()-gateBStarted);gateBEndpointAt=await page.evaluate(()=>Math.round(performance.now()))}else gateBNotRunReason="NOT_RUN_PREREQUISITE_FAILED";
   const detail=await page.evaluate(url=>{
     const n=document.querySelector('#formalSceneMount img[data-asset-key="prop_anna_diary_open"]');
     const entries=performance.getEntriesByName(url).map(e=>({startTime:Math.round(e.startTime),duration:Math.round(e.duration),endTime:Math.round(e.startTime+e.duration),transferSize:e.transferSize,encodedBodySize:e.encodedBodySize,decodedBodySize:e.decodedBodySize}));
-    const resources=performance.getEntriesByType("resource").filter(e=>/src\/game\/app\.js|src\/styles\/app\.css|prop_anna_diary_open/.test(e.name)).map(e=>({name:e.name,startTime:Math.round(e.startTime),duration:Math.round(e.duration),endTime:Math.round(e.startTime+e.duration),transferSize:e.transferSize}));
+    const resources=performance.getEntriesByType("resource").filter(e=>/rest\/v1\/rpc|src\/game\/app\.js|src\/styles\/app\.css|prop_anna_diary_open/.test(e.name)).map(e=>({name:e.name,startTime:Math.round(e.startTime),duration:Math.round(e.duration),endTime:Math.round(e.startTime+e.duration),transferSize:e.transferSize}));
     const rect=n?.getBoundingClientRect();
     return{connected:Boolean(n?.isConnected),visible:Boolean(rect&&rect.width>0&&rect.height>0),naturalWidth:n?.naturalWidth||0,naturalHeight:n?.naturalHeight||0,state:n?.dataset.assetState||null,baselineStillConnected:Boolean(globalThis.__GAL_BASELINE_DIARY_NODE__?.isConnected),entries,resources,trace:globalThis.__GAL_LATENCY_TRACE__};
   },diaryUrl);
-  const gateAPass=!gateATimedOut&&gateAMs<=2500&&baseline.connected&&baseline.width>0&&baseline.state==="decoded";
-  const gateBPass=!gateBTimedOut&&gateBMs<=2500&&detail.connected&&detail.visible&&detail.naturalWidth>0&&detail.state==="decoded";
-  return{record:{label,viewport,cacheState,index,navigationMs,domContentLoadedAt,gateAMs,gateAEndpointAt,gateATimedOut,gateAPass,baseline,refreshStartedAt,refreshEndMs,refreshEndedAt,gateBMs,gateBEndpointAt,gateBTimedOut,gateBPass,...detail},context,page};
+  const firstResource=pattern=>detail.resources.find(entry=>pattern.test(entry.name));
+  const firstTransition=pattern=>detail.trace.transitions.find(entry=>pattern.test(entry.state));
+  const rpc=firstResource(/s3b_get_player_state|s3_get_player_state/),resolver=firstResource(/asset_resolve/),render=firstTransition(/attached:true/),src=firstTransition(/src:true/),load=detail.trace.loads[0],decoded=firstTransition(/state:decoded/),media=detail.entries[0];
+  const gateBPass=gateAPass&&!gateBTimedOut&&gateBMs<=REFRESH_GATE_MS&&detail.connected&&detail.visible&&detail.naturalWidth>0&&detail.state==="decoded"&&detail.baselineStillConnected;
+  const timeline=[
+    rpc&&{kind:"rpc",at:rpc.startTime,endAt:rpc.endTime},render&&{kind:"render",at:render.at},resolver&&{kind:"resolver",at:resolver.startTime,endAt:resolver.endTime},src&&{kind:"src",at:src.at},media?{kind:"resource",at:media.startTime,endAt:media.endTime}:{kind:"resource-start",at:src?.at},load&&{kind:"load",at:load.at},decoded&&{kind:"load-decode",at:decoded.at},
+    {kind:gateAPass?"initial-final-endpoint":"initial-failure-endpoint",at:gateAEndpointAt},
+    gateAPass?{kind:gateBPass?"refresh-final-endpoint":"refresh-failure-endpoint",at:gateBEndpointAt}:{kind:"refresh-not-run",at:gateAEndpointAt,reason:gateBNotRunReason},
+  ].filter(Boolean).sort((a,b)=>a.at-b.at);
+  return{record:{traceId,label,viewport,cacheState,index,navigationMs,domContentLoadedAt,gateAMs,gateAEndpointAt,gateATimedOut,gateAPass,baseline,refreshStartedAt,refreshEndMs,refreshEndedAt,gateBMs,gateBEndpointAt,gateBTimedOut,gateBNotRunReason,gateBPass,timeline,...detail},context,page};
 }
 async function series(browser,label,base,viewport){
   const records=[];
-  for(let i=0;i<3;i++){const x=await sample(browser,label,base,viewport,null,null,i,"cold-context");records.push(x.record);await x.context.close()}
+  for(let i=0;i<SAMPLE_COUNT;i++){const x=await sample(browser,label,base,viewport,null,null,i,"cold-context");records.push(x.record);await x.context.close()}
   let context=null,page=null;
-  for(let i=0;i<3;i++){const x=await sample(browser,label,base,viewport,context,page,i,"warm-context");records.push(x.record);context=x.context;page=x.page}
+  for(let i=0;i<SAMPLE_COUNT;i++){const x=await sample(browser,label,base,viewport,context,page,i,"warm-context");records.push(x.record);context=x.context;page=x.page}
   await context.close();
   return records;
 }
 function summarize(records){
-  const distribution=key=>{const values=records.map(x=>x[key]).sort((a,b)=>a-b);return{min:values[0],median:values[Math.floor(values.length/2)],p90:values[Math.ceil(values.length*.9)-1],max:values.at(-1)}};
-  return{n:records.length,gateA:distribution("gateAMs"),gateB:distribution("gateBMs"),gateAFailures:records.filter(x=>!x.gateAPass).length,gateBFailures:records.filter(x=>!x.gateBPass).length,detachedBaselines:records.filter(x=>x.baseline.present&&!x.baselineStillConnected).length};
+  const distribution=key=>{const values=records.map(x=>x[key]).filter(Number.isFinite).sort((a,b)=>a-b);return values.length?{min:values[0],median:values[Math.floor(values.length/2)],p90:values[Math.ceil(values.length*.9)-1],max:values.at(-1)}:null};
+  return{n:records.length,gateA:distribution("gateAMs"),gateB:distribution("gateBMs"),gateAFailures:records.filter(x=>!x.gateAPass).length,gateBFailures:records.filter(x=>x.gateAPass&&!x.gateBPass).length,gateBNotRun:records.filter(x=>x.gateBNotRunReason).length,detachedBaselines:records.filter(x=>x.baseline.present&&x.gateAPass&&!x.baselineStillConnected).length};
 }
 async function main(){
   const local=await server(),browser=await chromium.launch({headless:true,executablePath:chrome});
@@ -112,12 +117,12 @@ async function main(){
       const subset=records.filter(x=>x.label===label&&x.cacheState===cacheState);
       groups[`${label}/${cacheState}`]=summarize(subset);
     }
-    const result={generatedAt:new Date().toISOString(),clock:{navigation:"recorded separately",gateA:"DOMContentLoaded to correct connected decoded visible Scene image",gateB:"immediately before three controlled refreshes to current correct connected decoded visible Scene image"},resolverDelayMs:250,thresholdMs:2500,mediaUrl:diaryUrl,records,groups};
+    const result={generatedAt:new Date().toISOString(),clock:{navigation:"recorded separately",gateA:"DOMContentLoaded to correct connected decoded visible Scene image",gateB:"only after Gate A PASS: immediately before three controlled refreshes to same correct connected decoded visible Scene image"},resolverDelayMs:250,initialThresholdMs:INITIAL_GATE_MS,refreshThresholdMs:REFRESH_GATE_MS,mediaUrl:diaryUrl,records,groups};
     await mkdir(path.dirname(output),{recursive:true});
     await writeFile(output,JSON.stringify(result,null,2));
     console.log(JSON.stringify({groups},null,2));
     const candidate=records.filter(x=>x.label==="candidate-local-control-production-media");
-    assert(candidate.length===12,"candidate sample count mismatch");
+    assert(candidate.length===4*SAMPLE_COUNT,"candidate sample count mismatch");
     assert(candidate.every(x=>x.gateAPass&&x.gateBPass&&x.connected&&x.visible&&x.naturalWidth>0&&x.state==="decoded"),"candidate two-gate harness failure");
   }finally{await browser.close();await new Promise(resolve=>local.instance.close(resolve))}
 }
