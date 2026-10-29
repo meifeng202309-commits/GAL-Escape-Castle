@@ -20,19 +20,13 @@ function mime(file) {
   return "application/octet-stream";
 }
 
-async function server(candidate) {
+async function server() {
   const instance = http.createServer(async (req, res) => {
     try {
       const relative = decodeURIComponent(new URL(req.url, "http://x").pathname).replace(/^\/+/, "") || "index.html";
       const file = path.resolve(root, relative);
       assert(file.startsWith(root + path.sep), "path escape");
       let body = await readFile(file);
-      if (candidate && relative === "src/game/app.js") {
-        const source = body.toString("utf8");
-        const marker = "  const runtimeViewport={top:sprint3bPanel.scrollTop,identity:sprint3bPanel.dataset.runtimeIdentity||\"\"};";
-        assert(source.includes(marker), "candidate transform marker missing");
-        body = Buffer.from(source.replace(marker, `  currentSprint5State = frame.sprint5State?.active ? frame.sprint5State : null;\n${marker}`));
-      }
       res.writeHead(200, { "Content-Type": mime(file), "Cache-Control": "no-store" });
       res.end(body);
     } catch (error) {
@@ -52,18 +46,18 @@ const s3b = () => ({
   queued_first_messages: [], act4_revealed: [],
 });
 const pocket = () => ({ active: true, items: [], inspected_item_keys: [], group_items: [], observations: [], shared_photos: [], scene: { allow_share_photo: false } });
-const s2Discussion = submitted => ({
+const discussionPayload = (discussionId, submitted, myVote = null) => ({
   active: true,
-  discussion: { discussion_session_id: act1DiscussionId, topic: "Where next?", status: "voting", vote_round: 1, phase_deadline: null, require_final_vote: true, vote_options: [{ id: "library", label: "Library" }], show_initial_choices: false },
-  initial_choices: [], messages: [], submitted_vote_count: submitted, my_vote: null, revealed_votes: [], vote_history: [],
+  discussion: { discussion_session_id: discussionId, topic: "Where next?", status: "voting", vote_round: 1, phase_deadline: null, require_final_vote: true, vote_options: [{ id: "library", label: "Library" }], show_initial_choices: false },
+  initial_choices: [], messages: [], submitted_vote_count: submitted, my_vote: myVote, revealed_votes: [], vote_history: [],
 });
 const s5State = active => active ? { active: true, state: { run_id: runId, phase_key: "act6_vote", vote_round: 1, act_no: 6 }, discussion: { discussion_session_id: s5DiscussionId, vote_round: 1 }, presentation_text_key: "act06.001", private_choices_revealed: [], my_private_choice: null } : { active: false };
 
-async function gate(browser, candidate) {
-  const local = await server(candidate);
+async function gate(browser) {
+  const local = await server();
   const context = await browser.newContext({ viewport: { width: 1280, height: 720 } });
   const page = await context.newPage();
-  let mode = "s5", submitted = 2;
+  let mode = "s5", submitted = 2, committedAnnaVote = false, failFirstS2Response = true;
   const calls = [];
   await page.addInitScript(session => {
     localStorage.setItem("gal_castle_escape_session_v1", JSON.stringify(session));
@@ -72,21 +66,26 @@ async function gate(browser, candidate) {
   await page.route("**/rest/v1/rpc/**", route => {
     const name = new URL(route.request().url()).pathname.split("/").pop();
     const body = route.request().postDataJSON?.() || {};
-    if (name === "s5_submit_vote") {
-      calls.push({ name, body, outcome: "Stale Sprint 5 discussion identity." });
-      return json(route, 400, { message: "Stale Sprint 5 discussion identity." });
+    if (name === "s5_submit_vote" || name === "s5_send_message") {
+      calls.push({ name, body, outcome: "accepted" });
+      return json(route, 200, { ok: true });
     }
     if (name === "s2_submit_vote") {
       assert(body.p_expected_discussion_session_id === act1DiscussionId, "S2 retry used stale discussion identity");
-      submitted = 3;
-      calls.push({ name, body, outcome: "accepted" });
+      if (!committedAnnaVote) { committedAnnaVote = true; submitted = 3; }
+      if (failFirstS2Response) {
+        failFirstS2Response = false;
+        calls.push({ name, body, outcome: "synthetic lost response after commit" });
+        return json(route, 500, { message: "Synthetic lost response after commit" });
+      }
+      calls.push({ name, body, outcome: "accepted idempotent existing vote" });
       return json(route, 200, { ok: true, submitted_vote_count: submitted });
     }
     const value = name === "s8_get_player_state" ? { active: false }
-      : name === "s2_get_player_state" ? (mode === "s5" ? { active: true, discussion: null } : s2Discussion(submitted))
+      : name === "s2_get_player_state" ? (mode === "s5" ? { active: true, discussion: null } : discussionPayload(act1DiscussionId, submitted, committedAnnaVote ? { choice_id: "library" } : null))
       : name === "s3b_get_player_state" ? s3b()
       : name === "s5_get_player_state" ? s5State(mode === "s5")
-      : name === "s5_get_discussion_state" ? { active: false }
+      : name === "s5_get_discussion_state" ? discussionPayload(s5DiscussionId, 0)
       : name === "s6_get_player_state" ? { active: false }
       : name === "s3_get_player_state" ? pocket()
       : name === "asset_resolve" ? { ok: false }
@@ -95,23 +94,32 @@ async function gate(browser, candidate) {
   });
   try {
     await page.goto(`${local.url}/index.html`, { waitUntil: "networkidle" });
+    await page.locator("#messageText").fill("Sprint5 ownership check");
+    await Promise.all([
+      page.waitForResponse(response => response.url().endsWith("/rpc/s5_send_message")),
+      page.locator("#sendMessageButton").click(),
+    ]);
+    await Promise.all([
+      page.waitForResponse(response => response.url().endsWith("/rpc/s5_submit_vote")),
+      page.locator('[data-vote-id="library"]').click(),
+    ]);
     await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
     mode = "act1";
     assert((await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())).status === "committed", "ACT1 frame did not commit");
-    const expectedRpc = candidate ? "s2_submit_vote" : "s5_submit_vote";
     await Promise.all([
-      page.waitForResponse(response => response.url().endsWith(`/rpc/${expectedRpc}`)),
+      page.waitForResponse(response => response.url().endsWith("/rpc/s2_submit_vote")),
       page.locator('[data-vote-id="library"]').click(),
     ]);
-    if (candidate) {
-      assert(submitted === 3, "candidate retry did not advance Teacher projection to 3/3");
-      assert(calls.at(-1)?.name === "s2_submit_vote", "candidate still routed ACT1 vote to Sprint5");
-    } else {
-      await page.waitForFunction(() => document.querySelector("#discussionStatus")?.textContent.includes("Stale Sprint 5 discussion identity."));
-      assert(submitted === 2, "baseline stale route unexpectedly changed vote count");
-      assert(calls.at(-1)?.name === "s5_submit_vote", "baseline did not reproduce stale Sprint5 routing");
-    }
-    return { candidate, submitted, calls };
+    await page.waitForFunction(() => document.querySelector("#discussionStatus")?.textContent.includes("Synthetic lost response"));
+    await Promise.all([
+      page.waitForResponse(response => response.url().endsWith("/rpc/s2_submit_vote")),
+      page.locator('[data-vote-id="library"]').click(),
+    ]);
+    assert(submitted === 3, "ACT1 retry did not advance Teacher projection to 3/3");
+    assert(calls.filter(call => call.name === "s2_submit_vote").length === 2, "ACT1 lost-response retry count mismatch");
+    assert(calls.filter(call => call.name === "s5_submit_vote").length === 1, "ACT1 was misrouted to Sprint5 or S5 gate was not exercised");
+    await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
+    return { submitted, uniqueAnnaDecisions: committedAnnaVote ? 1 : 0, calls };
   } finally {
     await context.close();
     await new Promise(resolve => local.instance.close(resolve));
@@ -122,10 +130,10 @@ async function main() {
   await mkdir(out, { recursive: true });
   const browser = await chromium.launch({ headless: true, executablePath: chrome });
   try {
-    const evidence = { generatedAt: new Date().toISOString(), baseline: await gate(browser, false), candidate: await gate(browser, true) };
+    const evidence = { generatedAt: new Date().toISOString(), permanentRegression: await gate(browser) };
     await writeFile(path.join(out, "TRIAL6_ACT1_VOTE_BROWSER_EVIDENCE.json"), JSON.stringify(evidence, null, 2));
     console.log(JSON.stringify(evidence, null, 2));
-    console.log("Trial 6 ACT1 stale identity baseline/candidate browser gate passed.");
+    console.log("Trial 6 ACT1 stale identity permanent browser regression passed.");
   } finally { await browser.close(); }
 }
 
