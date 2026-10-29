@@ -65,10 +65,20 @@ const trialAssetResolver=createAssetResolver(rpc);
 const discussionViewportState=new Map(),pendingMessageAcks=new Map();
 const stableHtmlByNode=new WeakMap(),assetUrlCache=new Map();
 let selectedPocketItem="";
-let playerCompositionActive=false,deferredCompositionFrame=null;
+let playerCompositionActive=false,deferredCompositionFrame=null,playerCompositionTarget=null;
 
-document.addEventListener("compositionstart",event=>{if(event.target?.matches?.("#messageText,#s6MessageText,#libraryCode"))playerCompositionActive=true},true);
-document.addEventListener("compositionend",event=>{if(!event.target?.matches?.("#messageText,#s6MessageText,#libraryCode"))return;playerCompositionActive=false;const frame=deferredCompositionFrame;deferredCompositionFrame=null;if(frame)commitPlayerFrame(frame);queueMicrotask(()=>void refreshState())},true);
+function finishPlayerComposition(target=playerCompositionTarget,commitDeferred=true){
+  if(!playerCompositionActive&&!playerCompositionTarget&&!deferredCompositionFrame)return;
+  if(target&&playerCompositionTarget&&target!==playerCompositionTarget)return;
+  playerCompositionActive=false;playerCompositionTarget=null;
+  const frame=deferredCompositionFrame;deferredCompositionFrame=null;
+  if(commitDeferred&&frame)commitPlayerFrame(frame);
+  if(commitDeferred)queueMicrotask(()=>void refreshState());
+}
+document.addEventListener("compositionstart",event=>{if(event.target?.matches?.("#messageText,#s6MessageText,#libraryCode")){playerCompositionActive=true;playerCompositionTarget=event.target}},true);
+document.addEventListener("compositionend",event=>{if(event.target?.matches?.("#messageText,#s6MessageText,#libraryCode"))finishPlayerComposition(event.target)},true);
+document.addEventListener("focusout",event=>{if(event.target!==playerCompositionTarget)return;queueMicrotask(()=>{if(event.target!==document.activeElement)finishPlayerComposition(event.target)})},true);
+window.addEventListener("blur",()=>finishPlayerComposition());
 
 function sprint6AudioOutbox() {
   try {
@@ -101,6 +111,7 @@ document.addEventListener("pointerdown", armSprint6Audio, { once: true });
 document.addEventListener("pointerdown", retryPendingSprint6Audio);
 sendMessageButton.addEventListener("click", sendMessage);
 messageText.addEventListener("keydown", (event) => {
+  if (event.isComposing || event.keyCode === 229 || playerCompositionActive) return;
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
     sendMessage();
@@ -110,6 +121,8 @@ leaveButton.addEventListener("click", () => {
   clearSession();
   session = null;
   stopPolling();
+  messageText.value = "";
+  pendingMessageAcks.clear();
   showJoin();
 });
 
@@ -136,6 +149,8 @@ async function joinRoom() {
       p_join_code: joinCode,
     });
     stopPolling();
+    messageText.value = "";
+    pendingMessageAcks.clear();
     session = {
       room_code: roomCode,
       player_id: result.player_id,
@@ -238,7 +253,7 @@ async function loadPlayerFrame(activeSession) {
 }
 
 function commitPlayerFrame(frame) {
-  if(playerCompositionActive){deferredCompositionFrame=frame;return}
+  if(playerCompositionActive&&playerCompositionTarget?.id!=="messageText"){deferredCompositionFrame=frame;return}
   currentSprint5State = frame.kind === "active" && frame.sprint5State?.active ? frame.sprint5State : null;
   restoreRefreshDisabledPlayerMutations();
   gameStatus.textContent = "";
@@ -268,6 +283,7 @@ function commitPlayerFrame(frame) {
     renderAct6EntryBarrier();
     return;
   }
+  sceneTitle.textContent="";
   const runtimeViewport={top:sprint3bPanel.scrollTop,identity:sprint3bPanel.dataset.runtimeIdentity||""};
   renderDiscussion(frame.discussionView);
   if (frame.sprint8State.active) renderSprint8(frame.sprint8State);
@@ -973,6 +989,7 @@ function stopPolling() {
   pollingEnabled = false;
   playerSessionEpoch += 1;
   currentSprint5State = null;
+  finishPlayerComposition(playerCompositionTarget,false);
   if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
   lastConfirmedFrame = null;
