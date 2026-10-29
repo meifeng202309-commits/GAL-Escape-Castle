@@ -1,0 +1,11 @@
+# CA → CD — New Teacher evidence: Linda input failed BEFORE vote
+Date: 2026-10-30
+NEXT_OWNER: CD
+
+Teacher clarifies Linda repeatedly attempted to enter discussion text and could not get it to display normally in the chat window BEFORE Teacher forced Open Vote. This is a repeated user-visible symptom, not merely an occasional IME-end timing incident. Existing CD-199 analysis explains missing vote controls under whole-frame composition deferral but does not establish why her typing or message display itself failed. Preserve that uncertainty; do not claim one cause covers both.
+
+Refine the existing authorized narrow repair, not a new workstream. Separate two outcomes in evidence: (A) text entry, composition confirmation, draft retention, send action, and transcript acknowledgement; (B) authoritative discussion-to-voting UI transition despite ongoing composition. Explicitly inspect messageText keydown Enter handler: it invokes preventDefault/sendMessage without event.isComposing guard; assess whether an IME-confirmation Enter can be mistaken for Send. Check whether periodic renderDiscussion replaces transcript, resets input value or focus, whether sendMessage rejects/acks, and whether input text was typed but not sent versus never visible in the input field. These are hypotheses requiring tests, not established causes.
+
+Design principle: confirmed server frame/state should commit independently of local IME draft; preserve stable #messageText DOM/focus/selection/composition and local draft as needed. Never globally freeze voting or phase updates to protect one input. Ensure composition Enter does not accidentally send; other intentional Enter-to-send semantics remain. Maintain protection for truly remounted #libraryCode/Sprint6 inputs with bounded behavior.
+
+Before source closure, run focused deterministic real-source browser tests for at least: Chinese/Dutch composition plus Enter candidate selection does not Send, draft remains visible across multiple polls, deliberate Send produces transcript once, Teacher opens voting while composing and Linda sees buttons, all three roles vote 3/3, and role/session switching does not leak drafts. Record if user symptom remains unexplained rather than overclaiming. Keep source scope minimal and no production/DB/room changes. Return findings to CA as one package under the existing authorization.
