@@ -47,7 +47,9 @@ function probe({ testId, role }) {
   }).observe(document, { childList: true, subtree: true, characterData: true });
 }
 try {
-  for (let repetition = 1; repetition <= 5; repetition++) {
+  const repetitionCount = traceMode === "interleaved" ? 10 : 5;
+  for (let repetition = 1; repetition <= repetitionCount; repetition++) {
+    const caseTraceMode = traceMode === "interleaved" ? (repetition % 2 ? "off" : "on") : traceMode;
     const testId = `ACT2_concurrent_${repetition}`, start = performance.now();
     let status = "discussion";
     const votes = new Map(), serverEvents = [], pages = [];
@@ -80,8 +82,8 @@ try {
         else return route.fulfill({ status: 400, contentType: "application/json", body: JSON.stringify({ message: `Unexpected ${rpc}` }) });
         await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(value) });
       });
-      await page.goto(`http://127.0.0.1:${server.address().port}/${role === "Teacher" ? "teacher.html" : "index.html"}${traceMode ? "?perfTrace=supervised" : ""}`, { waitUntil: "networkidle" });
-      if (traceMode === "on") await page.locator("#supervisedPerformanceTrace button").first().click();
+      await page.goto(`http://127.0.0.1:${server.address().port}/${role === "Teacher" ? "teacher.html" : "index.html"}${caseTraceMode ? "?perfTrace=supervised" : ""}`, { waitUntil: "networkidle" });
+      if (caseTraceMode === "on") await page.locator("#supervisedPerformanceTrace button").first().click();
       if (role === "Teacher") { await page.fill("#roomCode", "B5MOCK"); await page.fill("#teacherToken", "TOKEN"); await page.click("#watchButton"); }
       else await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
     }
@@ -98,7 +100,7 @@ try {
     allRows.push(...serverEvents);
     for (const { page, role } of pages) {
       allRows.push(...await page.evaluate(() => globalThis.__B5_CONCURRENT__.rows));
-      if (traceMode === "on") {
+      if (caseTraceMode === "on") {
         if (role !== "Teacher") await page.locator("#leaveButton").click();
         await page.evaluate(() => {
           const trace = document.querySelector("#supervisedPerformanceTrace");
@@ -115,12 +117,12 @@ try {
         if (role !== "Teacher" && !trace.rows.some(row => row.event === "click" && row.target === "leaveButton")) throw Error("Session-switch trace missing");
         if (!trace.clock_note.includes("one-way latency is not identifiable")) throw Error("Clock caveat missing");
         exports.push({ test_id: testId, role, rows: trace.rows.length, dropped: trace.dropped, events: [...new Set(trace.rows.map(row => row.event))] });
-      } else if (traceMode === "off" && await page.locator("#supervisedPerformanceTrace").isVisible()) {
+      } else if (caseTraceMode === "off" && await page.locator("#supervisedPerformanceTrace").isVisible()) {
         if (!await page.locator("#supervisedPerformanceTrace button").nth(1).isDisabled()) throw Error("Default-off trace exported without opt-in");
       }
       await page.close();
     }
-    summary.push({ test_id: testId, votes: votes.size, teacher_gate_end_utc: serverEvents.find(e => e.event_name === "teacher_gate_end").utc, barrier_end_utc: serverEvents.find(e => e.event_name === "three_player_barrier_end").utc });
+    summary.push({ test_id: testId, trace_mode: caseTraceMode, votes: votes.size, teacher_gate_end_utc: serverEvents.find(e => e.event_name === "teacher_gate_end").utc, barrier_end_utc: serverEvents.find(e => e.event_name === "three_player_barrier_end").utc });
     console.log(`PASS ${testId}`);
   }
   allRows.sort((a, b) => Date.parse(a.utc) - Date.parse(b.utc));
