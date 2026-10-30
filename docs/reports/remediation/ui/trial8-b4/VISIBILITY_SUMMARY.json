@@ -1,0 +1,117 @@
+{
+  "manifest": {
+    "fixture_version": "trial8-b4-v1",
+    "seed": 8301930,
+    "randomness": "none used; seed reserved for future randomized ordering",
+    "browser": "local Chrome via Playwright",
+    "source": [
+      "index.html",
+      "teacher.html",
+      "src/game/app.js",
+      "src/teacher/teacher-console.js"
+    ],
+    "backend": "isolated deterministic mocked RPC route; no live room",
+    "repetitions": 5,
+    "read_delay_ms": [
+      0,
+      100,
+      250,
+      1000
+    ],
+    "cases": [
+      "ACT2_chat",
+      "ACT2_vote",
+      "ACT9_red",
+      "ACT10_leave",
+      "ACT10_continue",
+      "ACT11_allocation",
+      "Teacher_start",
+      "Teacher_open_vote"
+    ],
+    "extra_cases": [
+      "ACT12_station",
+      "ACT13_continue"
+    ],
+    "faults": [
+      "read400",
+      "read500",
+      "read_network",
+      "missed_response",
+      "stalled_read",
+      "queued_old_poll"
+    ],
+    "trace_clock": "browser performance.now() since navigation; UTC Date/ISO per event; Node server events use monotonic clock since case start"
+  },
+  "summaries": [
+    {
+      "test_id": "ACT9_red_background_1",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 250,
+      "fault": "background",
+      "click_to_mutation_ms": 1,
+      "mutation_to_authoritative_ms": 4,
+      "mutation_response_ms": 8.3,
+      "authoritative_to_visible_ms": 1080,
+      "click_to_visible_ms": 1085.1,
+      "server_transition_utc": "2026-10-30T05:15:59.362Z"
+    },
+    {
+      "test_id": "ACT9_red_background_2",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 250,
+      "fault": "background",
+      "click_to_mutation_ms": 0.9,
+      "mutation_to_authoritative_ms": 3,
+      "mutation_response_ms": 9,
+      "authoritative_to_visible_ms": 1085,
+      "click_to_visible_ms": 1089.6,
+      "server_transition_utc": "2026-10-30T05:16:02.575Z"
+    },
+    {
+      "test_id": "ACT9_red_background_3",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 250,
+      "fault": "background",
+      "click_to_mutation_ms": 0.7,
+      "mutation_to_authoritative_ms": 2,
+      "mutation_response_ms": 9.7,
+      "authoritative_to_visible_ms": 1090,
+      "click_to_visible_ms": 1093.4,
+      "server_transition_utc": "2026-10-30T05:16:05.773Z"
+    },
+    {
+      "test_id": "ACT9_red_background_4",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 250,
+      "fault": "background",
+      "click_to_mutation_ms": 1.1,
+      "mutation_to_authoritative_ms": 2,
+      "mutation_response_ms": 10,
+      "authoritative_to_visible_ms": 1098,
+      "click_to_visible_ms": 1101.4,
+      "server_transition_utc": "2026-10-30T05:16:08.955Z"
+    },
+    {
+      "test_id": "ACT9_red_background_5",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 250,
+      "fault": "background",
+      "click_to_mutation_ms": 0.9,
+      "mutation_to_authoritative_ms": 5,
+      "mutation_response_ms": 8.5,
+      "authoritative_to_visible_ms": 1082,
+      "click_to_visible_ms": 1087.6,
+      "server_transition_utc": "2026-10-30T05:16:12.176Z"
+    }
+  ]
+}
