@@ -63,6 +63,22 @@ let sprint6VolumeMode = localStorage.getItem("gal.s6.audio-mode") || "full";
 const SPRINT6_AUDIO_OUTBOX_KEY = "gal.s6.audio-consumption-outbox";
 const trialAssetResolver=createAssetResolver(rpc);
 const discussionViewportState=new Map(),pendingMessageAcks=new Map();
+let pendingInteraction=null;
+function beginInteractionStatus(element){
+  const marker={element,activeSession:session,epoch:playerSessionEpoch};
+  pendingInteraction=marker;
+  element.innerHTML=localizedHtml("act01-g.033");
+  element.setAttribute("role","status");
+  element.setAttribute("aria-busy","true");
+  return marker;
+}
+function endInteractionStatus(marker){
+  if(pendingInteraction!==marker)return;
+  pendingInteraction=null;
+  marker.element.removeAttribute("aria-busy");
+  if(session===marker.activeSession&&playerSessionEpoch===marker.epoch)marker.element.textContent="";
+}
+function interactionStatusActive(element){return pendingInteraction?.element===element&&pendingInteraction.activeSession===session&&pendingInteraction.epoch===playerSessionEpoch}
 const stableHtmlByNode=new WeakMap(),assetUrlCache=new Map();
 let selectedPocketItem="";
 let playerCompositionActive=false,deferredCompositionFrame=null,playerCompositionTarget=null;
@@ -665,7 +681,7 @@ function setSprint6Volume(mode){sprint6VolumeMode=mode;localStorage.setItem("gal
 function fadeSprint6Audio(audio,duration){const started=performance.now();audio.volume=0;const timer=setInterval(()=>{const progress=Math.min(1,(performance.now()-started)/duration);audio.volume=sprint6AudioVolume()*progress;if(progress===1)clearInterval(timer)},50)}
 async function flushSprint6AudioConsumptions(){if(!session)return;const outbox=sprint6AudioOutbox();for(const[occurrenceId,outcome]of Object.entries(outbox)){try{await rpc("s6_mark_audio_consumed",{p_room_code:session.room_code,p_session_token:session.session_token,p_occurrence_id:occurrenceId,p_outcome:outcome});delete outbox[occurrenceId];saveSprint6AudioOutbox(outbox)}catch(error){console.warn("Sprint6 audio consumption remains queued",occurrenceId,error)}}}
 async function markSprint6AudioConsumed(occurrenceId,outcome="ended"){if(!occurrenceId)return;const outbox=sprint6AudioOutbox();outbox[occurrenceId]=outcome;saveSprint6AudioOutbox(outbox);await flushSprint6AudioConsumptions()}
-function clearSprint6Status(){sprint3bStatus.textContent="";delete sprint3bStatus.dataset.sprint6Status}
+function clearSprint6Status(){if(interactionStatusActive(sprint3bStatus))return;sprint3bStatus.textContent="";delete sprint3bStatus.dataset.sprint6Status}
 async function playSprint6Audio(key,asset,occurrenceId){const url=sprint6AudioUrls.get(key)||`https://qdcbdcjobzytzhnhfwyn.supabase.co/storage/v1/object/public/${asset.storage_path}`,audio=new Audio(url);audio.preload="auto";audio.volume=key==="audio.wet_scraping"?0:sprint6AudioVolume();audio.dataset.occurrenceId=occurrenceId||"";sprint6AudioHandles.set(key,audio);audio.addEventListener("ended",()=>{sprint6AudioHandles.delete(key);markSprint6AudioConsumed(occurrenceId)},{once:true});try{await audio.play();sprint6PendingAudio=null;if(sprint3bStatus.dataset.sprint6Status==="audio-blocked")clearSprint6Status();if(key==="audio.wet_scraping")fadeSprint6Audio(audio,1500)}catch(error){sprint6PendingAudio={key,asset,occurrenceId};console.warn("Sprint6 audio playback paused",key,error);sprint3bStatus.dataset.sprint6Status="audio-blocked";sprint3bStatus.innerHTML=localizedHtml("runtime.audio.blocked")}}
 function retryPendingSprint6Audio(){if(sprint6AudioArmed&&sprint6PendingAudio){const pending=sprint6PendingAudio;sprint6PendingAudio=null;playSprint6Audio(pending.key,pending.asset,pending.occurrenceId)}}
 function setSprint6CinematicMode(state){const cinematic=state.phase_key==="act12_cinematic",stage=cinematic?state.cinematic_stage:0;document.body.classList.toggle("s6-fading",stage>=4&&stage<=9);document.body.classList.toggle("s6-blackout",stage===10);document.body.dataset.s6Stage=String(stage)}
@@ -742,7 +758,7 @@ function renderSprint8(payload){
 async function hydrateSprint6(payload){let scene=null;if(S6_SCENE_ASSETS.has(payload.scene_asset_key))scene=await setS5Asset("s6SceneImage",payload.scene_asset_key);if(scene&&payload.state.act_no===9)document.querySelectorAll(".s6-door[data-anchor]").forEach(node=>{const a=anchor(scene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`})});if(scene&&[11,12].includes(payload.state.act_no))document.querySelectorAll(".s6-station-label[data-anchor]").forEach(node=>{const a=anchor(scene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`});node.hidden=false});if(payload.state.phase_key==="act12_cinematic"&&payload.state.cinematic_stage===10){for(const audio of sprint6AudioHandles.values()){audio.pause();audio.currentTime=0;markSprint6AudioConsumed(audio.dataset.occurrenceId,"stopped")}sprint6AudioHandles.clear()}const key=payload.state.feedback_audio_key,identity=payload.audio_occurrence_id,locallyConsumed=Boolean(sprint6AudioOutbox()[identity]);await flushSprint6AudioConsumptions();if(!key||!identity||payload.audio_consumed||locallyConsumed||identity===sprint6AudioIdentity)return;sprint6AudioIdentity=identity;const asset=await rpc("asset_resolve",{p_asset_key:key}).catch(()=>null);if(!asset?.ok){await markSprint6AudioConsumed(identity,"stopped");return}if(!sprint6AudioArmed){sprint6PendingAudio={key,asset,occurrenceId:identity};return}await playSprint6Audio(key,asset,identity)}
 async function sendSprint6Message(event){event.preventDefault();const input=document.getElementById("s6MessageText"),d=currentSprint6State.discussion,text=input.value,pending=requestIdentity("s6-message",d.discussion_session_id,{session:d.discussion_session_id,text});try{await rpc("s6_send_message_v2",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_discussion_session_id:d.discussion_session_id,p_client_request_id:pending.requestId,p_message_text:text});clearRequestIdentity(pending.key);pendingMessageAcks.set(sprint6DiscussionIdentity(currentSprint6State),{text,displayName:session.display_name});await refreshState()}catch(error){sprint3bStatus.textContent=error.message}}
 async function submitSprint6Station(event){event.preventDefault();const button=event.currentTarget.querySelector("button");button.dataset.s6Rpc="s6_complete_station_v2";button.dataset.s6Value=document.getElementById("s6StationValue").value;await runSprint6Action(button)}
-async function runSprint6Action(button){button.disabled=true;const rpcName=button.dataset.s6Rpc,body={p_room_code:session.room_code,p_session_token:session.session_token,...sprint6Identity()};if(rpcName==="s6_close_discussion_v2")body.p_expected_discussion_session_id=button.dataset.s6Discussion;if(button.dataset.s6Choice)body[rpcName==="s6_submit_allocation_v2"?"p_role_key":"p_choice_id"]=button.dataset.s6Choice;if(button.dataset.s6Role)body.p_role_key=button.dataset.s6Role;if(button.dataset.s6Value)body.p_task_value=button.dataset.s6Value;const identity=`${body.p_expected_phase}.${body.p_expected_step}.${body.p_expected_round}.${button.dataset.s6Discussion||""}`,pending=requestIdentity(rpcName,identity,body);body.p_client_request_id=pending.requestId;try{await rpc(rpcName,body);clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
+async function runSprint6Action(button){button.disabled=true;const rpcName=button.dataset.s6Rpc,body={p_room_code:session.room_code,p_session_token:session.session_token,...sprint6Identity()};if(rpcName==="s6_close_discussion_v2")body.p_expected_discussion_session_id=button.dataset.s6Discussion;if(button.dataset.s6Choice)body[rpcName==="s6_submit_allocation_v2"?"p_role_key":"p_choice_id"]=button.dataset.s6Choice;if(button.dataset.s6Role)body.p_role_key=button.dataset.s6Role;if(button.dataset.s6Value)body.p_task_value=button.dataset.s6Value;const identity=`${body.p_expected_phase}.${body.p_expected_step}.${body.p_expected_round}.${button.dataset.s6Discussion||""}`,pending=requestIdentity(rpcName,identity,body);body.p_client_request_id=pending.requestId;const status=beginInteractionStatus(sprint3bStatus);try{await rpc(rpcName,body);clearRequestIdentity(pending.key);await refreshState()}catch(error){endInteractionStatus(status);sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}finally{endInteractionStatus(status)}}
 async function runSprint5Action(button){button.disabled=true;const payload={p_room_code:session.room_code,p_session_token:session.session_token};let request;if(button.dataset.s5Choice){payload.p_choice_id=button.dataset.s5Choice;request=requestIdentity("s5",`${button.dataset.s5Rpc}.${currentSprint5State.state.phase_key}.${currentSprint5State.state.vote_round}`,{choice:payload.p_choice_id});payload.p_client_request_id=request.requestId}if(button.dataset.s5Rpc==="s5_submit_vote"){payload.p_expected_discussion_session_id=currentSprint5State.discussion.discussion_session_id;payload.p_expected_vote_round=currentSprint5State.discussion.vote_round}try{await rpc(button.dataset.s5Rpc,payload);if(request)clearRequestIdentity(request.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}}
 
 async function runSprint3bAction(button) {
@@ -785,7 +801,7 @@ function renderDiscussion(state) {
   discussionTopic.innerHTML = discussion.topic.includes(".") ? localizedHtml(discussion.topic) : escapeHtml(discussion.topic);
   discussionMeta.innerHTML = localizedTemplateHtml("discussion.vote_round", {round_no:String(discussion.vote_round)});
   discussionDeadline.textContent = formatDeadline(discussion.phase_deadline, discussion.status);
-  discussionStatus.textContent = "";
+  if(!interactionStatusActive(discussionStatus))discussionStatus.textContent = "";
 
   initialChoiceArea.innerHTML = state.initial_choices.length
     ? `<div class="notice"><h4>${localizedHtml("discussion.initial_choices")}</h4>${state.initial_choices.map((choice) =>
@@ -862,6 +878,7 @@ async function sendMessage() {
   if (!text || !session || !currentDiscussion) return;
   const request = requestIdentity("message", currentDiscussion.discussion_session_id, { text });
   sendMessageButton.disabled = true;
+  const status=beginInteractionStatus(discussionStatus);
   try {
     await rpc(currentSprint5State?.active ? "s5_send_message" : "s2_send_message", {
       p_room_code: session.room_code,
@@ -875,8 +892,10 @@ async function sendMessage() {
     pendingMessageAcks.set(currentDiscussion.discussion_session_id,{text,displayName:session.display_name});
     await refreshState();
   } catch (error) {
+    endInteractionStatus(status);
     discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
   } finally {
+    endInteractionStatus(status);
     sendMessageButton.disabled = false;
   }
 }
@@ -884,6 +903,7 @@ async function sendMessage() {
 async function submitVote(choiceId) {
   if (!currentDiscussion) return;
   voteArea.querySelectorAll("button").forEach((button) => { button.disabled = true; });
+  const status=beginInteractionStatus(discussionStatus);
   try {
     const request=requestIdentity("s5-vote",currentDiscussion.discussion_session_id,{choiceId});
     await rpc(currentSprint5State?.active ? "s5_submit_vote" : "s2_submit_vote", {
@@ -897,8 +917,11 @@ async function submitVote(choiceId) {
     clearRequestIdentity(request.key);
     await refreshState();
   } catch (error) {
+    endInteractionStatus(status);
     discussionStatus.innerHTML = `<span class="bad">${escapeHtml(error.message)}</span>`;
     voteArea.querySelectorAll("button").forEach((button) => { button.disabled = false; });
+  } finally {
+    endInteractionStatus(status);
   }
 }
 

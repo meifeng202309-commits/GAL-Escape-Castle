@@ -50,6 +50,12 @@ try {
     await page.fill("#messageText", `delay-${delayMs}`);
     const started = await page.evaluate(text => { const probe = globalThis.__TRIAL8_LATENCY__; probe.watchSelector = "#transcript"; probe.watchText = text; return performance.now(); }, `delay-${delayMs}`);
     await page.click("#sendMessageButton");
+    let chatStatusMs = null;
+    if (delayMs) {
+      await page.locator("#discussionStatus[aria-busy='true']").waitFor({ state: "visible" });
+      chatStatusMs = await page.evaluate(start => performance.now() - start, started);
+      assert(!(await page.locator("#transcript").textContent()).includes(`delay-${delayMs}`), "Chat appeared before projection confirmation");
+    }
     await page.waitForFunction(text => document.querySelector("#transcript")?.textContent.includes(text), `delay-${delayMs}`);
     const evidence = await page.evaluate(({ started, delayMs }) => {
       const probe = globalThis.__TRIAL8_LATENCY__;
@@ -61,16 +67,22 @@ try {
     assert(mutation && evidence.visibleAt, "Transcript did not produce a post-mutation visible marker");
     const timing = decomposeLatency(evidence.records, started, evidence.visibleAt, "s2_send_message");
     assert(messages.length === 1 && timing.readRpcNames.includes("s2_get_player_state"), "Missing exact-once mutation or follow-up projection");
-    cases.push({ delayMs, family: "ACT2 Chat", timing });
+    cases.push({ delayMs, family: "ACT2 Chat", chatStatusMs, timing });
     voting = true;
     await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState());
     await page.locator('[data-vote-id="library"]').waitFor({ state: "visible" });
     const voteStarted = await page.evaluate(() => { const probe = globalThis.__TRIAL8_LATENCY__; probe.watchSelector = "#voteArea .good"; probe.watchText = null; return performance.now(); });
     await page.locator('[data-vote-id="library"]').click();
+    let voteStatusMs = null;
+    if (delayMs) {
+      await page.locator("#discussionStatus[aria-busy='true']").waitFor({ state: "visible" });
+      voteStatusMs = await page.evaluate(start => performance.now() - start, voteStarted);
+      assert(await page.locator("#voteArea .good").count() === 0, "Vote locked before projection confirmation");
+    }
     await page.locator("#voteArea .good").waitFor({ state: "visible" });
     const voteEvidence = await page.evaluate(start => { const probe = globalThis.__TRIAL8_LATENCY__; const mutation = probe.records.find(record => record.rpc === "s2_submit_vote" && record.started >= start); return { records: probe.records, visibleAt: probe.visible.find(marker => marker.at >= mutation.finished && marker.targetVisible)?.at }; }, voteStarted);
     assert(voted && voteEvidence.visibleAt, "Vote did not render the locked acknowledgement");
-    cases.push({ delayMs, family: "ACT2 Vote", timing: decomposeLatency(voteEvidence.records, voteStarted, voteEvidence.visibleAt, "s2_submit_vote") });
+    cases.push({ delayMs, family: "ACT2 Vote", voteStatusMs, timing: decomposeLatency(voteEvidence.records, voteStarted, voteEvidence.visibleAt, "s2_submit_vote") });
     await page.close();
   }
   assert(Object.keys(interactionFamilies).length === 14, "ACT1–ACT13 inventory is incomplete");

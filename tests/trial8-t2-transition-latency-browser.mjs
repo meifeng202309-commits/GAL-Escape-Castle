@@ -52,6 +52,12 @@ try {
     const measure = async (label, rpc, action, selector) => {
       const start = await page.evaluate(selector => { const probe = globalThis.__TRIAL8_LATENCY__; probe.watchSelector = selector; probe.watchText = null; return performance.now(); }, selector);
       await action();
+      let statusVisibleMs = null;
+      if (delayMs) {
+        await page.locator("#sprint3bStatus[aria-busy='true']").waitFor({ state: "visible" });
+        statusVisibleMs = await page.evaluate(start => performance.now() - start, start);
+        assert(await page.locator(selector).count() === 0, `${label} became authoritative before delayed reads`);
+      }
       await page.locator(selector).waitFor({ state: "visible", timeout: 10000 });
       const evidence = await page.evaluate(({ start, selector, rpc }) => {
         const probe = globalThis.__TRIAL8_LATENCY__;
@@ -61,7 +67,7 @@ try {
       }, { start, selector, rpc });
       const at = evidence.visibleAt || await page.evaluate(() => performance.now());
       const timing = decomposeLatency(evidence.records, start, at, rpc);
-      samples.push({ label, delayMs, timing });
+      samples.push({ label, delayMs, statusVisibleMs, timing });
     };
     await measure("ACT9 RED→DO_NOT_ENTER", "s6_submit_group_choice_v2", () => page.locator('[data-s6-choice="red"]').click(), '[data-s6-choice="do_not_enter"]');
     phase = "act10_private"; step = 4; round = 1;
