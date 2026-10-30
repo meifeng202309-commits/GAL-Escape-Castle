@@ -223,6 +223,8 @@ function renderDiscussionState(state) {
   voteOptionsInput.disabled = canonicalFlowActive;
   openVoteButton.disabled=!state.discussion||state.discussion.status!=="discussion"||(teacherDiscussionOwner==="s6"&&(state.run.run_mode!=="normal"||!["act9_discussion","act10_discussion"].includes(state.discussion.phase_key)));
   if (!state.active) {
+    runModeInput.disabled = false;
+    startRunButton.disabled = false;
     addTimeButton.hidden=true;
     runBadge.textContent = "No active run";
     discussionState.innerHTML = "<p class='muted'>Join all three players, then start a formal run.</p>";
