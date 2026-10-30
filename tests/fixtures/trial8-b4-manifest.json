@@ -9,6 +9,9 @@
   "read_delay_ms": [0, 100, 250, 1000],
   "cases": ["ACT2_chat", "ACT2_vote", "ACT9_red", "ACT10_leave", "ACT10_continue", "ACT11_allocation", "Teacher_start", "Teacher_open_vote"],
   "extra_cases": ["ACT12_station", "ACT13_continue"],
+  "b5_cases": ["ACT1_ack", "ACT3_code", "ACT4_choice", "ACT5_route_vote", "ACT6_advance", "ACT7_advance", "ACT8_advance", "ACT11_chat"],
+  "b5_concurrent": "ACT2 Teacher Open Vote plus three Player votes, five repetitions",
+  "b5_targeted": "ACT9 test-only sidecar target projection versus unchanged production full-frame DOM, 0/100/250/1000 ms, five repetitions",
   "faults": ["read400", "read500", "read_network", "missed_response", "stalled_read", "queued_old_poll"],
   "trace_clock": "browser performance.now() since navigation; UTC Date/ISO per event; Node server events use monotonic clock since case start"
 }

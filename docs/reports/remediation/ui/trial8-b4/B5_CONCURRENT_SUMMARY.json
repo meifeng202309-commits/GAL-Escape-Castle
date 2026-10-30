@@ -1,0 +1,34 @@
+{
+  "summary": [
+    {
+      "test_id": "ACT2_concurrent_1",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T09:20:44.992Z",
+      "barrier_end_utc": "2026-10-30T09:20:45.215Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_2",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T09:20:48.956Z",
+      "barrier_end_utc": "2026-10-30T09:20:49.100Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_3",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T09:20:52.773Z",
+      "barrier_end_utc": "2026-10-30T09:20:52.973Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_4",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T09:20:56.736Z",
+      "barrier_end_utc": "2026-10-30T09:20:56.922Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_5",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T09:21:00.563Z",
+      "barrier_end_utc": "2026-10-30T09:21:00.754Z"
+    }
+  ]
+}

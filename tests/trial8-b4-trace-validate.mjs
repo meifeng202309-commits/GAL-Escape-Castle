@@ -6,6 +6,8 @@ const sets = [
   ["", 160],
   ["FAULT_", 30],
   ["EXTRA_", 30],
+  ["B5_", 120],
+  ["B5_TARGETED_", 20],
 ];
 for (const [prefix, expected] of sets) {
   const { summaries } = JSON.parse(await readFile(`${base}${prefix}SUMMARY.json`, "utf8"));
@@ -22,3 +24,11 @@ for (const [prefix, expected] of sets) {
   }
   console.log(`${prefix || "MAIN"}: ${expected} cases, ${rows.length} events validated`);
 }
+const concurrent = (await readFile(`${base}B5_CONCURRENT_TIMELINE.jsonl`, "utf8")).trim().split("\n").map(JSON.parse);
+for (let repetition = 1; repetition <= 5; repetition++) {
+  const id = `ACT2_concurrent_${repetition}`, rows = concurrent.filter(row => row.test_id === id);
+  assert.equal(rows.filter(row => row.event_name === "teacher_gate_end").length, 1);
+  assert.equal(rows.filter(row => row.event_name === "three_player_barrier_end").length, 1);
+  assert.equal(rows.filter(row => row.event_name === "rpc_start" && row.rpc === "s2_submit_vote").length, 3);
+}
+console.log("B5_CONCURRENT: 5 Teacher/three-Player cases validated");
