@@ -1,6 +1,7 @@
 import { getScene } from "../content/scenes.js";
 import { loadSession, saveSession, clearSession } from "../state/session.js";
-import { rpc } from "../supabase/client.js";
+import { rpc as baseRpc } from "../supabase/client.js";
+import { installPerformanceTrace } from "../trace/performance-trace.js";
 import { escapeHtml } from "../utils/html.js";
 import { resolveLocalizedText } from "../content/localization.generated.js";
 import { createAssetResolver } from "./asset-runtime.js";
@@ -51,6 +52,8 @@ let currentDiscussion = null;
 let currentSprint5State = null;
 let currentSprint6State = null;
 let currentSprint3bState = null;
+const performanceTrace = installPerformanceTrace({ role: "Player", rpc: baseRpc, phase: () => currentSprint6State?.state?.phase_key || currentSprint5State?.state?.phase_key || currentSprint3bState?.scene?.phase_key || null, version: () => currentSprint6State?.state?.state_version || currentSprint5State?.state?.state_version || null });
+const rpc = performanceTrace.rpc;
 let sprint8RevealRunId = "";
 let sprint8RevealTimer = null;
 let sprint6AudioIdentity = "";
@@ -357,6 +360,7 @@ function startQueuedPlayerRefresh() {
   refreshQueued = null;
   if (!queued) return false;
   if (queued.epoch !== playerSessionEpoch || queued.activeSession !== session) {
+    performanceTrace.record("refresh_discarded", { generation: queued.generation, session_epoch: queued.epoch, status: "invalidated" });
     queued.deferred.resolve({ status: "invalidated" });
     return false;
   }
@@ -367,17 +371,21 @@ function startQueuedPlayerRefresh() {
 function startPlayerRefresh(activeSession, epoch, generation, deferred = createRefreshDeferred()) {
   const run = { activeSession, epoch, generation, deferred, cancelled: false, settled: false };
   refreshInFlight = run;
+  performanceTrace.record("refresh_in_flight", { generation, session_epoch: epoch });
   void (async () => {
     let result;
     try {
       const frame = await loadPlayerFrame(activeSession);
-      if (!refreshCanCommit(run)) result = { status: "discarded" };
+      if (!refreshCanCommit(run)) { performanceTrace.record("refresh_discarded", { generation, session_epoch: epoch }); result = { status: "discarded" }; }
       else {
         commitPlayerFrame(frame);
+        performanceTrace.record("refresh_committed", { generation, session_epoch: epoch });
+        performanceTrace.recordVisibleAction("#sprint3bActions button:not([disabled]),#choiceArea button:not([disabled]),#voteArea button:not([disabled])");
         lastConfirmedFrame = frame;
         result = { status: "committed", generation };
       }
     } catch (error) {
+      performanceTrace.record("refresh_error", { generation, session_epoch: epoch, error_category: error.name || "Error" });
       if (refreshCanCommit(run)) showPlayerRefreshFailure(error);
       const failedStatus = error.name === "PlayerRefreshInvariantError" ? "invariant_breach" : "fetch_error";
       result = { status: refreshCanCommit(run) ? failedStatus : "discarded", error };
@@ -403,6 +411,7 @@ function refreshState() {
     if (!refreshQueued || refreshQueued.epoch !== epoch || refreshQueued.activeSession !== activeSession) {
       const deferred = createRefreshDeferred();
       refreshQueued = { activeSession, epoch, generation: ++refreshGeneration, deferred, promise: deferred.promise };
+      performanceTrace.record("refresh_queued", { generation: refreshGeneration, session_epoch: epoch });
     }
     return refreshQueued.promise;
   }

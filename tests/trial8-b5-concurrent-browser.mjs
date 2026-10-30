@@ -19,6 +19,8 @@ const server = http.createServer(async (request, response) => {
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 const browser = await chromium.launch({ headless: true, executablePath: process.env.GAL_A1_BROWSER || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" });
 const allRows = [], summary = [];
+const traceMode = process.argv.find(arg => arg.startsWith("--trace-mode="))?.split("=")[1] || null;
+const exports = [];
 function probe({ testId, role }) {
   const started = performance.now(), rows = [];
   const emit = (event_name, extra = {}) => rows.push({ test_id: testId, ACT: "ACT2", role, action: "Teacher_open_vote_plus_three_Player_votes", attempt: 1, event_name, utc: new Date().toISOString(), monotonic_ms: +(performance.now() - started).toFixed(3), clock_domain: "browser", ...extra });
@@ -78,7 +80,8 @@ try {
         else return route.fulfill({ status: 400, contentType: "application/json", body: JSON.stringify({ message: `Unexpected ${rpc}` }) });
         await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(value) });
       });
-      await page.goto(`http://127.0.0.1:${server.address().port}/${role === "Teacher" ? "teacher.html" : "index.html"}`, { waitUntil: "networkidle" });
+      await page.goto(`http://127.0.0.1:${server.address().port}/${role === "Teacher" ? "teacher.html" : "index.html"}${traceMode ? "?perfTrace=supervised" : ""}`, { waitUntil: "networkidle" });
+      if (traceMode === "on") await page.locator("#supervisedPerformanceTrace button").first().click();
       if (role === "Teacher") { await page.fill("#roomCode", "B5MOCK"); await page.fill("#teacherToken", "TOKEN"); await page.click("#watchButton"); }
       else await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
     }
@@ -93,11 +96,35 @@ try {
     await Promise.all(pages.filter(item => item.role !== "Teacher").map(({ page }) => page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.refreshState())));
     await Promise.all(pages.filter(item => item.role !== "Teacher").map(({ page }) => page.waitForFunction(() => document.querySelector("#voteArea")?.textContent.includes("Library"))));
     allRows.push(...serverEvents);
-    for (const { page, role } of pages) { allRows.push(...await page.evaluate(() => globalThis.__B5_CONCURRENT__.rows)); await page.close(); }
+    for (const { page, role } of pages) {
+      allRows.push(...await page.evaluate(() => globalThis.__B5_CONCURRENT__.rows));
+      if (traceMode === "on") {
+        if (role !== "Teacher") await page.locator("#leaveButton").click();
+        await page.evaluate(() => {
+          const trace = document.querySelector("#supervisedPerformanceTrace");
+          if (!trace) throw Error("Trace panel missing");
+          window.dispatchEvent(new Event("blur"));
+          document.dispatchEvent(new Event("visibilitychange"));
+        });
+        const downloadPromise = page.waitForEvent("download");
+        await page.locator("#supervisedPerformanceTrace button").nth(1).click();
+        const download = await downloadPromise;
+        const trace = JSON.parse(await readFile(await download.path(), "utf8"));
+        if (trace.rows.some(row => JSON.stringify(row).includes("p_session_token") || JSON.stringify(row).includes("choice_label"))) throw Error("Sensitive data in trace export");
+        if (!trace.rows.some(row => row.event === "visibilitychange") || !trace.rows.some(row => row.event === "blur")) throw Error("Focus/visibility trace missing");
+        if (role !== "Teacher" && !trace.rows.some(row => row.event === "click" && row.target === "leaveButton")) throw Error("Session-switch trace missing");
+        if (!trace.clock_note.includes("one-way latency is not identifiable")) throw Error("Clock caveat missing");
+        exports.push({ test_id: testId, role, rows: trace.rows.length, dropped: trace.dropped, events: [...new Set(trace.rows.map(row => row.event))] });
+      } else if (traceMode === "off" && await page.locator("#supervisedPerformanceTrace").isVisible()) {
+        if (!await page.locator("#supervisedPerformanceTrace button").nth(1).isDisabled()) throw Error("Default-off trace exported without opt-in");
+      }
+      await page.close();
+    }
     summary.push({ test_id: testId, votes: votes.size, teacher_gate_end_utc: serverEvents.find(e => e.event_name === "teacher_gate_end").utc, barrier_end_utc: serverEvents.find(e => e.event_name === "three_player_barrier_end").utc });
     console.log(`PASS ${testId}`);
   }
   allRows.sort((a, b) => Date.parse(a.utc) - Date.parse(b.utc));
-  await writeFile("docs/reports/remediation/ui/trial8-b4/B5_CONCURRENT_TIMELINE.jsonl", allRows.map(row => JSON.stringify(row)).join("\n") + "\n");
-  await writeFile("docs/reports/remediation/ui/trial8-b4/B5_CONCURRENT_SUMMARY.json", JSON.stringify({ summary }, null, 2) + "\n");
+  const base = traceMode ? `docs/reports/remediation/ui/trial8-b6/B6_REAL_CLIENT_TRACE_${traceMode.toUpperCase()}` : "docs/reports/remediation/ui/trial8-b4/B5_CONCURRENT";
+  await writeFile(`${base}_TIMELINE.jsonl`, allRows.map(row => JSON.stringify(row)).join("\n") + "\n");
+  await writeFile(`${base}_SUMMARY.json`, JSON.stringify({ summary, exports }, null, 2) + "\n");
 } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }

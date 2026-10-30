@@ -1,4 +1,5 @@
-import { rpc } from "../supabase/client.js";
+import { rpc as baseRpc } from "../supabase/client.js";
+import { installPerformanceTrace } from "../trace/performance-trace.js";
 import { escapeHtml } from "../utils/html.js";
 
 const roomCodeInput = document.getElementById("roomCode");
@@ -48,6 +49,8 @@ let pollTimer = null;
 let sprint5TeacherActive = false;
 let teacherDiscussionOwner = "s2";
 let currentTeacherDiscussionState = null;
+const performanceTrace = installPerformanceTrace({ role: "Teacher", rpc: baseRpc, phase: () => currentTeacherDiscussionState?.discussion?.status || null, version: () => currentTeacherDiscussionState?.state_version || null });
+const rpc = performanceTrace.rpc;
 let operationsLoadGeneration = 0;
 
 createRoomButton.addEventListener("click", createRoom);
@@ -106,12 +109,15 @@ async function watchRoom() {
 async function loadState() {
   const payload = baseTeacherPayload(false);
   if (!payload) return;
+  performanceTrace.record("refresh_in_flight");
   try {
     const state = await rpc("s1_get_teacher_state", payload);
     renderTeacherState(state);
     await Promise.all([loadDiscussionState(),loadOperationsState()]);
+    performanceTrace.record("refresh_committed");
     teacherStatus.textContent = `Watching room ${state.room_code}`;
   } catch (error) {
+    performanceTrace.record("refresh_error", { error_category: error.name || "Error" });
     roomState.innerHTML = `<p class="bad">${escapeHtml(error.message)}</p>`;
   }
 }
@@ -174,12 +180,16 @@ async function openDiscussion() {
 async function openVote() {
   const payload = baseTeacherPayload();
   if (!payload) return;
+  performanceTrace.record("teacher_gate_start", { gate: "open_vote" });
   try {
     const votePayload=teacherDiscussionOwner==="s6"?sprint6OpenVotePayload(payload,currentTeacherDiscussionState):sprint5TeacherActive?sprint5OpenVotePayload(payload,currentTeacherDiscussionState):payload;
     await rpc(teacherDiscussionOwner==="s6"?"s6_teacher_open_vote":sprint5TeacherActive?"s5_teacher_open_vote":"s2_open_vote",votePayload);
+    performanceTrace.record("teacher_gate_ack", { gate: "open_vote" });
     discussionTeacherStatus.textContent = "Voting opened.";
+    performanceTrace.recordVisibleAction("#discussionTeacherStatus");
     await loadDiscussionState();
   } catch (error) {
+    performanceTrace.record("teacher_gate_error", { gate: "open_vote", error_category: error.name || "Error" });
     discussionTeacherStatus.textContent = `Open vote failed: ${error.message}`;
   }
 }

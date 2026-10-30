@@ -1,0 +1,27 @@
+# Trial 8 opt-in performance trace source evidence
+
+Governance: `CA_to_CD_20261030T122246Z_trace_optin_source_authorized.md`. Scope was narrow disabled-by-default Player/Teacher source instrumentation and isolated validation. No deployment, database/schema/Storage, live room, consolidated read, B1/B3, common button or unrelated Teacher UI change occurred.
+
+## Candidate implementation
+
+`src/trace/performance-trace.js` provides one local-only recorder shared by Player and Teacher. It is available only when the URL contains `?perfTrace=supervised`, remains disabled until the operator presses **Enable supervised trace**, retains at most 2,048 metadata rows, reports dropped rows and exports one local JSON file. No trace network request or persistent browser storage is added. Player and Teacher wrap their existing RPC function without changing mutation/read selection; Player records refresh in-flight/queued/discarded/error/committed and post-commit visible Action, while Teacher records refresh, Open Vote gate and its visible acknowledgement. Input, focus and visibility events are recorded. Session switch remains an ordinary click and does not log the replacement credential.
+
+The row allowlist excludes payloads, session/join/Teacher tokens, message text, private clues, codes and vote choices. RPC completion may retain only safe request ID, RPC name, projected phase and authoritative version when present. Each row has UTC ISO and same-browser monotonic time. Export includes up to 16 four-timestamp RTT calibration samples, estimated offset and uncertainty, plus the explicit statement that one observation cannot identify one-way latency. The candidate cannot obtain real server receive/send timestamps without a separately reviewed server boundary; therefore the current browser test uses a known synthetic calibration sample and makes no cross-device latency claim.
+
+Usage for a supervised test: append `?perfTrace=supervised` to each Player and Teacher URL, press **Enable supervised trace** independently, run the interaction, then press **Download trace** once in each browser. Preserve all four JSON files and match `interaction_id`, `request_id`, projected phase/version and local event order. The page does not upload the files. The supervised URL exposes `window.__GAL_PERFORMANCE_TRACE__` only as a test hook; ordinary URLs do not expose it.
+
+## Evidence
+
+`tests/trial8-b5-concurrent-browser.mjs` ran the existing real-client mocked ACT2 Teacher + three Player vote/barrier fixture five times with tracing disabled and five with tracing enabled. Both sets passed all four pages. Disabled runs produced no exports. Enabled runs exported 20 browser files, 1,195 rows total and zero drops; exports contained click, RPC, refresh, Teacher gate/visible Action, focus/visibility handler and Player session-switch evidence, with no credential/message/vote field. The headless browser kept pages visible, so the test dispatches focus/visibility handlers but does **not** claim a genuine OS background transition.
+
+Teacher Open Vote click-to-visible samples were 49/60/49/62/49 ms with tracing disabled (median 49 ms) and 130/128/114/128/127 ms enabled (median 128 ms). These are five sequential mocked local samples per mode, not an interleaved production benchmark. The observed +79 ms median is material and blocks any claim that tracing overhead is negligible. Raw per-step UTC/monotonic events are retained under `docs/reports/remediation/ui/trial8-b6/B6_REAL_CLIENT_TRACE_*`; a later supervised test should interleave on/off runs and measure actual devices before release.
+
+`tests/trial8-b4-timestamped-browser.mjs --trace-faults` passed one each of HTTP 500 recovery, 2-second stalled read, queued old poll and headless background-attempt cases. The queued case exported `refresh_queued`, `refresh_discarded` and `refresh_committed`; HTTP 500 exported `rpc_error`, `refresh_error` and later commit. Stalled and recovery timings are in `B6_REAL_CLIENT_FAULT_*`. Again, headless visibility stayed visible.
+
+`tests/performance-trace-source-browser.mjs` passed the recorder contract: an ordinary URL exposed neither controls nor test hook; supervised default-off captured zero rows; 2,055 probe records plus trace/RPC events retained exactly 2,048 and reported 11 dropped; all forbidden synthetic secret/body/vote fields were absent; RPC phase/version and actual visible-Action events were present. The 2,055-record loop took 6.6 ms on this machine, which is a recorder microbenchmark and does not override the full-flow overhead above. Its synthetic timestamps produced offset estimate 3 ms with ±14 ms uncertainty and preserved the one-way caveat in `B6_TRACE_SOURCE_CONTRACT.json`.
+
+Existing regressions passed: `a1-player-polling-static-check`, `bmin-teacher-operations-static-check`, `sprint8-static-check`, `a1-player-polling-browser`, and `bmin-teacher-polling-order-negative`. The source and changed harness files also passed `node --check` and `git diff --check`.
+
+## Audit disposition requested
+
+The source candidate satisfies the bounded, local, metadata-only and default-off behavior, but its full-flow enabled measurements show material overhead in this fixture and genuine hidden/background behavior remains unmeasured. Keep it unreleased. CA should audit the source and evidence, then either authorize a focused overhead reduction/interleaved test or reject this candidate. A production/live trial, server timestamps and deployment require separate authorization.

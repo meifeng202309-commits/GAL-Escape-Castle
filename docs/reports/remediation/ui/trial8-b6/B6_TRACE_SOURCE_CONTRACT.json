@@ -1,0 +1,17 @@
+{
+  "record_elapsed_ms": 6.600000001490116,
+  "rows": 2048,
+  "dropped": 11,
+  "calibration": [
+    {
+      "offset_estimate_ms": 3,
+      "uncertainty_ms": 14,
+      "client_send_utc_ms": 1000,
+      "server_receive_utc_ms": 1017,
+      "server_send_utc_ms": 1019,
+      "client_receive_utc_ms": 1030
+    }
+  ],
+  "sensitive_fields_absent": true,
+  "one_way_caveat": "Offset is an RTT estimate with uncertainty; one-way latency is not identifiable from one observation."
+}

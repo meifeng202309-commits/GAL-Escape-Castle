@@ -13,6 +13,7 @@ const visibilityOnly = process.argv.includes("--visibility");
 const extraOnly = process.argv.includes("--extra");
 const b5Only = process.argv.includes("--b5");
 const targetedOnly = process.argv.includes("--targeted");
+const traceFaults = process.argv.includes("--trace-faults");
 const onlyCase = process.argv.find(arg => arg.startsWith("--only="))?.slice(7);
 const cases = ["ACT2_chat", "ACT2_vote", "ACT9_red", "ACT10_leave", "ACT10_continue", "ACT11_allocation", "Teacher_start", "Teacher_open_vote"];
 const delays = quick ? [0] : manifest.read_delay_ms;
@@ -31,6 +32,7 @@ const server = http.createServer(async (request, response) => {
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 const browser = await chromium.launch({ headless: true, executablePath: process.env.GAL_A1_BROWSER || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" });
 const rows = [], summaries = [];
+const traceExports = [];
 const output = "docs/reports/remediation/ui/trial8-b4";
 function browserProbe({ testId, act, role }) {
   const started = performance.now();
@@ -193,7 +195,8 @@ async function runCase(name, delayMs, repetition, fault = null) {
     await route.fulfill({ status, contentType: "application/json", body: JSON.stringify(value) });
   });
   try {
-    await page.goto(`http://127.0.0.1:${server.address().port}/${info.role === "Teacher" ? "teacher.html" : "index.html"}`, { waitUntil: "networkidle" });
+    await page.goto(`http://127.0.0.1:${server.address().port}/${info.role === "Teacher" ? "teacher.html" : "index.html"}${traceFaults ? "?perfTrace=supervised" : ""}`, { waitUntil: "networkidle" });
+    if (traceFaults) await page.locator("#supervisedPerformanceTrace button").first().click();
     if (info.role === "Player") await page.evaluate(() => globalThis.__GAL_A1_TEST_HOOKS__.stopPolling());
     else { await page.fill("#roomCode", "B4MOCK"); await page.fill("#teacherToken", "TOKEN"); await page.click("#watchButton"); }
     let target = info.target;
@@ -273,6 +276,13 @@ async function runCase(name, delayMs, repetition, fault = null) {
     assert(transitionCount === 1, `${testId}: duplicate authoritative transition`);
     const targeted = events.find(e => e.event_name === "targeted_read_end");
     summaries.push({ test_id: testId, ACT: info.act, role: info.role, action: name, read_delay_ms: delayMs, fault, click_to_mutation_ms: click ? +(mutation.monotonic_ms - click.monotonic_ms).toFixed(3) : null, mutation_to_authoritative_ms: serverTransition ? Date.parse(serverTransition) - Date.parse(mutation.utc) : null, mutation_response_ms: response ? +(response.monotonic_ms - mutation.monotonic_ms).toFixed(3) : null, authoritative_to_visible_ms: serverTransition ? Date.parse(visible.utc) - Date.parse(serverTransition) : null, click_to_visible_ms: click ? +(visible.monotonic_ms - click.monotonic_ms).toFixed(3) : null, click_to_targeted_read_ms: targeted && click ? +(targeted.monotonic_ms - click.monotonic_ms).toFixed(3) : null, targeted_valid: targeted?.valid ?? null, server_transition_utc: serverTransition });
+    if (traceFaults) {
+      const downloadPromise = page.waitForEvent("download");
+      await page.locator("#supervisedPerformanceTrace button").nth(1).click();
+      const exported = JSON.parse(await readFile(await (await downloadPromise).path(), "utf8"));
+      assert(!JSON.stringify(exported).includes("p_session_token") && !JSON.stringify(exported).includes("message_text"), `${testId}: sensitive trace field`);
+      traceExports.push({ test_id: testId, fault, rows: exported.rows.length, dropped: exported.dropped, events: [...new Set(exported.rows.map(row => row.event))] });
+    }
   } finally { await page.close(); }
 }
 try {
@@ -292,6 +302,10 @@ try {
     await runCase("ACT9_red", 250, repetition, "background");
     console.log(`PASS ACT9_red background rep=${repetition}`);
   }
+  else if (traceFaults) for (const fault of ["read500", "stalled_read", "queued_old_poll", "background"]) {
+    await runCase("ACT9_red", fault === "queued_old_poll" ? 250 : 0, 1, fault);
+    console.log(`PASS ACT9_red trace fault=${fault}`);
+  }
   else if (faultsOnly) for (const fault of ["read400", "read500", "read_network", "missed_response", "stalled_read", "queued_old_poll"]) for (let repetition = 1; repetition <= 5; repetition++) {
     await runCase("ACT9_red", fault === "queued_old_poll" ? 250 : 0, repetition, fault);
     console.log(`PASS ACT9_red fault=${fault} rep=${repetition}`);
@@ -302,8 +316,8 @@ try {
   }
   await mkdir(output, { recursive: true });
   rows.sort((a, b) => Date.parse(a.utc) - Date.parse(b.utc));
-  const prefix = targetedOnly ? "B5_TARGETED_" : b5Only ? "B5_" : faultsOnly ? "FAULT_" : visibilityOnly ? "VISIBILITY_" : extraOnly ? "EXTRA_" : "";
+  const prefix = traceFaults ? "../trial8-b6/B6_REAL_CLIENT_FAULT_" : targetedOnly ? "B5_TARGETED_" : b5Only ? "B5_" : faultsOnly ? "FAULT_" : visibilityOnly ? "VISIBILITY_" : extraOnly ? "EXTRA_" : "";
   await writeFile(`${output}/${prefix}TIMELINE.jsonl`, rows.map(row => JSON.stringify(row)).join("\n") + "\n");
-  await writeFile(`${output}/${prefix}SUMMARY.json`, JSON.stringify({ manifest, summaries }, null, 2) + "\n");
+  await writeFile(`${output}/${prefix}SUMMARY.json`, JSON.stringify({ manifest, summaries, traceExports }, null, 2) + "\n");
   console.log(`WROTE ${summaries.length} cases, ${rows.length} events`);
 } finally { await browser.close(); await new Promise(resolve => server.close(resolve)); }

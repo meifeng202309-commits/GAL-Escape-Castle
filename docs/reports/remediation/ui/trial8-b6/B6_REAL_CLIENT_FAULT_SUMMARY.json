@@ -1,0 +1,193 @@
+{
+  "manifest": {
+    "fixture_version": "trial8-b4-v1",
+    "seed": 8301930,
+    "randomness": "none used; seed reserved for future randomized ordering",
+    "browser": "local Chrome via Playwright",
+    "source": [
+      "index.html",
+      "teacher.html",
+      "src/game/app.js",
+      "src/teacher/teacher-console.js"
+    ],
+    "backend": "isolated deterministic mocked RPC route; no live room",
+    "repetitions": 5,
+    "read_delay_ms": [
+      0,
+      100,
+      250,
+      1000
+    ],
+    "cases": [
+      "ACT2_chat",
+      "ACT2_vote",
+      "ACT9_red",
+      "ACT10_leave",
+      "ACT10_continue",
+      "ACT11_allocation",
+      "Teacher_start",
+      "Teacher_open_vote"
+    ],
+    "extra_cases": [
+      "ACT12_station",
+      "ACT13_continue"
+    ],
+    "b5_cases": [
+      "ACT1_ack",
+      "ACT3_code",
+      "ACT4_choice",
+      "ACT5_route_vote",
+      "ACT6_advance",
+      "ACT7_advance",
+      "ACT8_advance",
+      "ACT11_chat"
+    ],
+    "b5_concurrent": "ACT2 Teacher Open Vote plus three Player votes, five repetitions",
+    "b5_targeted": "ACT9 test-only sidecar target projection versus unchanged production full-frame DOM, 0/100/250/1000 ms, five repetitions",
+    "faults": [
+      "read400",
+      "read500",
+      "read_network",
+      "missed_response",
+      "stalled_read",
+      "queued_old_poll"
+    ],
+    "trace_clock": "browser performance.now() since navigation; UTC Date/ISO per event; Node server events use monotonic clock since case start"
+  },
+  "summaries": [
+    {
+      "test_id": "ACT9_red_read500_1",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 0,
+      "fault": "read500",
+      "click_to_mutation_ms": 1.1,
+      "mutation_to_authoritative_ms": 3,
+      "mutation_response_ms": 10.9,
+      "authoritative_to_visible_ms": 122,
+      "click_to_visible_ms": 126.5,
+      "click_to_targeted_read_ms": null,
+      "targeted_valid": null,
+      "server_transition_utc": "2026-10-30T13:25:10.781Z"
+    },
+    {
+      "test_id": "ACT9_red_stalled_read_1",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 0,
+      "fault": "stalled_read",
+      "click_to_mutation_ms": 1,
+      "mutation_to_authoritative_ms": 3,
+      "mutation_response_ms": 20,
+      "authoritative_to_visible_ms": 2053,
+      "click_to_visible_ms": 2056.7,
+      "click_to_targeted_read_ms": null,
+      "targeted_valid": null,
+      "server_transition_utc": "2026-10-30T13:25:12.114Z"
+    },
+    {
+      "test_id": "ACT9_red_queued_old_poll_1",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 250,
+      "fault": "queued_old_poll",
+      "click_to_mutation_ms": 0.6,
+      "mutation_to_authoritative_ms": 4,
+      "mutation_response_ms": 13.3,
+      "authoritative_to_visible_ms": 2061,
+      "click_to_visible_ms": 2065.6,
+      "click_to_targeted_read_ms": null,
+      "targeted_valid": null,
+      "server_transition_utc": "2026-10-30T13:25:16.312Z"
+    },
+    {
+      "test_id": "ACT9_red_background_1",
+      "ACT": "ACT9",
+      "role": "Player",
+      "action": "ACT9_red",
+      "read_delay_ms": 0,
+      "fault": "background",
+      "click_to_mutation_ms": 0.9,
+      "mutation_to_authoritative_ms": 3,
+      "mutation_response_ms": 11.2,
+      "authoritative_to_visible_ms": 35,
+      "click_to_visible_ms": 38.1,
+      "click_to_targeted_read_ms": null,
+      "targeted_valid": null,
+      "server_transition_utc": "2026-10-30T13:25:19.632Z"
+    }
+  ],
+  "traceExports": [
+    {
+      "test_id": "ACT9_red_read500_1",
+      "fault": "read500",
+      "rows": 50,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "rpc_error",
+        "refresh_error",
+        "refresh_committed",
+        "action_dom_visible"
+      ]
+    },
+    {
+      "test_id": "ACT9_red_stalled_read_1",
+      "fault": "stalled_read",
+      "rows": 34,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible"
+      ]
+    },
+    {
+      "test_id": "ACT9_red_queued_old_poll_1",
+      "fault": "queued_old_poll",
+      "rows": 53,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "refresh_in_flight",
+        "rpc_start",
+        "rpc_end",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "refresh_committed",
+        "action_dom_visible"
+      ]
+    },
+    {
+      "test_id": "ACT9_red_background_1",
+      "fault": "background",
+      "rows": 34,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible"
+      ]
+    }
+  ]
+}

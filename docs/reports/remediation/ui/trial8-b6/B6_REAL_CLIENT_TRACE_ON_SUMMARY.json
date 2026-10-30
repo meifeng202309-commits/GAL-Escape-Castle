@@ -1,0 +1,436 @@
+{
+  "summary": [
+    {
+      "test_id": "ACT2_concurrent_1",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T13:22:26.000Z",
+      "barrier_end_utc": "2026-10-30T13:22:26.231Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_2",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T13:22:30.582Z",
+      "barrier_end_utc": "2026-10-30T13:22:30.718Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_3",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T13:22:35.188Z",
+      "barrier_end_utc": "2026-10-30T13:22:35.304Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_4",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T13:22:39.581Z",
+      "barrier_end_utc": "2026-10-30T13:22:39.721Z"
+    },
+    {
+      "test_id": "ACT2_concurrent_5",
+      "votes": 3,
+      "teacher_gate_end_utc": "2026-10-30T13:22:44.098Z",
+      "barrier_end_utc": "2026-10-30T13:22:44.237Z"
+    }
+  ],
+  "exports": [
+    {
+      "test_id": "ACT2_concurrent_1",
+      "role": "GAL-A",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_1",
+      "role": "GAL-B",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_1",
+      "role": "GAL-C",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_1",
+      "role": "Teacher",
+      "rows": 32,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "rpc_start",
+        "rpc_end",
+        "refresh_committed",
+        "teacher_gate_start",
+        "teacher_gate_ack",
+        "action_dom_visible",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_2",
+      "role": "GAL-A",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_2",
+      "role": "GAL-B",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_2",
+      "role": "GAL-C",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_2",
+      "role": "Teacher",
+      "rows": 32,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "rpc_start",
+        "rpc_end",
+        "refresh_committed",
+        "teacher_gate_start",
+        "teacher_gate_ack",
+        "action_dom_visible",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_3",
+      "role": "GAL-A",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_3",
+      "role": "GAL-B",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_3",
+      "role": "GAL-C",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_3",
+      "role": "Teacher",
+      "rows": 32,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "rpc_start",
+        "rpc_end",
+        "refresh_committed",
+        "teacher_gate_start",
+        "teacher_gate_ack",
+        "action_dom_visible",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_4",
+      "role": "GAL-A",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_4",
+      "role": "GAL-B",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_4",
+      "role": "GAL-C",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_4",
+      "role": "Teacher",
+      "rows": 32,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "rpc_start",
+        "rpc_end",
+        "refresh_committed",
+        "teacher_gate_start",
+        "teacher_gate_ack",
+        "action_dom_visible",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_5",
+      "role": "GAL-A",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_5",
+      "role": "GAL-B",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_5",
+      "role": "GAL-C",
+      "rows": 69,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "rpc_start",
+        "rpc_end",
+        "refresh_in_flight",
+        "refresh_committed",
+        "action_dom_visible",
+        "click",
+        "handler_turn_end",
+        "refresh_queued",
+        "refresh_discarded",
+        "blur",
+        "visibilitychange"
+      ]
+    },
+    {
+      "test_id": "ACT2_concurrent_5",
+      "role": "Teacher",
+      "rows": 32,
+      "dropped": 0,
+      "events": [
+        "trace_toggle",
+        "click",
+        "handler_turn_end",
+        "refresh_in_flight",
+        "rpc_start",
+        "rpc_end",
+        "refresh_committed",
+        "teacher_gate_start",
+        "teacher_gate_ack",
+        "action_dom_visible",
+        "blur",
+        "visibilitychange"
+      ]
+    }
+  ]
+}
