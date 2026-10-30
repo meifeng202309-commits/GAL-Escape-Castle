@@ -2,6 +2,7 @@ import http from "node:http";
 import path from "node:path";
 import { readFile } from "node:fs/promises";
 import { createRequire } from "node:module";
+import { installLatencyObserver, decomposeLatency } from "./helpers/trial8-latency-observer.mjs";
 
 const { chromium } = createRequire(import.meta.url)("playwright");
 const root = process.cwd();
@@ -19,6 +20,7 @@ const server = http.createServer(async (request, response) => {
 await new Promise(resolve => server.listen(0, "127.0.0.1", resolve));
 const browser = await chromium.launch({ headless: true, executablePath: process.env.GAL_A1_BROWSER || "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" });
 const page = await browser.newPage();
+await page.addInitScript(installLatencyObserver);
 let starts = 0;
 const calls = [];
 await page.route("**/rest/v1/rpc/**", async route => {
@@ -55,9 +57,19 @@ try {
   await page.waitForFunction(() => document.querySelector("#runBadge")?.textContent === "No active run");
   assert(await page.locator("#startRunButton").isEnabled(), "Fresh room Start retained stale disabled state");
   assert(await page.locator("#runMode").isEnabled(), "Fresh room run mode retained stale disabled state");
+  const started = await page.evaluate(() => { const probe = globalThis.__TRIAL8_LATENCY__; probe.watchSelector = "#discussionTeacherStatus"; probe.watchText = "Formal run ready"; return performance.now(); });
   await page.click("#startRunButton");
   await page.waitForFunction(() => document.querySelector("#discussionTeacherStatus")?.textContent.includes("Formal run ready"));
   assert(starts === 1 && calls.some(call => call.name === "s9_start_formal_game" && call.room === "NEW"), "Fresh room Start did not dispatch exactly once");
+  const evidence = await page.evaluate(start => {
+    const probe = globalThis.__TRIAL8_LATENCY__;
+    const mutation = probe.records.find(record => record.rpc === "s9_start_formal_game" && record.started >= start);
+    const visibleAt = probe.visible.find(marker => marker.at >= mutation.finished && marker.targetVisible)?.at;
+    return { records: probe.records, visibleAt };
+  }, started);
+  assert(evidence.visibleAt, "Teacher Start acknowledgement lacked a DOM marker");
+  const timing = decomposeLatency(evidence.records, started, evidence.visibleAt, "s9_start_formal_game");
+  console.log(JSON.stringify({ gate: "Teacher Start retained page", timing }));
   console.log("Trial8 retained Teacher page active→new room Start regression passed.");
 } finally {
   await browser.close();

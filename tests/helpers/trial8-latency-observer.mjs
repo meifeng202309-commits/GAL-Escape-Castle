@@ -14,9 +14,13 @@ export function installLatencyObserver() {
     } finally { record.finished = performance.now(); }
   };
   const visible = [];
-  new MutationObserver(() => visible.push({ at: performance.now(), text: document.body?.innerText?.slice(0, 300) || "" }))
+  const observer = { records, visible, watchSelector: null, watchText: null, mark: () => performance.now() };
+  new MutationObserver(() => {
+    const target = observer.watchSelector && document.querySelector(observer.watchSelector);
+    visible.push({ at: performance.now(), targetVisible: Boolean(target && (!observer.watchText || target.textContent.includes(observer.watchText))) });
+  })
     .observe(document, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ["disabled", "class"] });
-  globalThis.__TRIAL8_LATENCY__ = { records, visible, mark: () => performance.now() };
+  globalThis.__TRIAL8_LATENCY__ = observer;
 }
 
 export const interactionFamilies = Object.freeze({
