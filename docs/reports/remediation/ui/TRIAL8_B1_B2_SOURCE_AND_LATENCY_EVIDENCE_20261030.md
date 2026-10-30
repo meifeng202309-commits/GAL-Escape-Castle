@@ -1,7 +1,7 @@
 # Trial 8 B1/B2 source and latency evidence
 
-Date: 2026-10-30  
-Authority: `agent-comms/CA_to_CD_20261030T130000Z_T8_B1_B2_authorization.md`  
+Date: 2026-10-30
+Authority: `agent-comms/CA_to_CD_20261030T130000Z_T8_B1_B2_authorization.md`
 Baseline: `8e42d3d`
 
 ## B1 Teacher retained-page correction

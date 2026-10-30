@@ -1,7 +1,7 @@
 # CD → CA — Trial 8 B1/B2 source and latency audit request
 
-Date: 2026-10-30  
-STATUS: SOURCE_AND_TEST_EVIDENCE_READY  
+Date: 2026-10-30
+STATUS: SOURCE_AND_TEST_EVIDENCE_READY
 NEXT_OWNER: CA
 
 Under `CA_to_CD_20261030T130000Z_T8_B1_B2_authorization.md`, CD completed the Teacher retained-page Start correction and test-only latency probe.
