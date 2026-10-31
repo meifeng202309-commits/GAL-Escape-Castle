@@ -7,168 +7,102 @@
 <link rel="stylesheet" href="./src/styles/app.css">
 </head>
 <body class="teacher">
-<main class="shell wide teacher-v4-shell">
-  <div class="top teacher-v4-top">
-  <section class="panel title-panel">
-    <p class="eyebrow">Teacher Console</p>
-    <h1>GAL Castle Escape</h1>
-    <p class="muted">Prototype access is protected by a room-specific teacher token. Do not share it with students.</p>
-  </section>
-  <div class="host teacher-host-summary"><strong>主要主持控制 / HOOFDBESTURING</strong>当前房间与游戏状态 / Huidige kamer- en spelstatus</div>
+<main class="shell wide teacher-v4-shell teacher-v5-shell">
+  <header class="top teacher-v4-top teacher-v5-top">
+    <section class="panel title-panel">
+      <h1>教师控制台 / LEERKRACHTCONSOLE</h1>
+      <p class="muted">房间与三名玩家的当前状态 / Huidige kamer- en spelerstatus</p>
+    </section>
+    <div class="host teacher-host-summary"><strong>主要主持控制 / HOOFDBESTURING</strong>当前房间与游戏状态 / Huidige kamer- en spelstatus</div>
+  </header>
+
+  <div class="main teacher-v4-main teacher-v5-main">
+    <section class="panel teacher-live-panel" aria-labelledby="operationsTitle">
+      <div class="topline"><div><p class="eyebrow">实时运行 / LIVE BEDIENING</p><h2 id="operationsTitle">游戏控制 / SPELVERLOOP</h2></div><span id="operationsBadge" class="badge">—</span></div>
+      <div id="roomState"><p><b>房间代码 / Kamercode:</b> </p><div class="teacher-player-grid"><article class="teacher-player-card"><strong>Gitte</strong><span>&nbsp;</span><span>&nbsp;</span></article><article class="teacher-player-card"><strong>Anna</strong><span>&nbsp;</span><span>&nbsp;</span></article><article class="teacher-player-card"><strong>Linda</strong><span>&nbsp;</span><span>&nbsp;</span></article></div></div>
+      <hr>
+      <div class="button-row teacher-refresh-row"><button id="refreshOperationsButton" class="secondary small" type="button">Refresh</button></div>
+      <p id="operationsStatus" class="status muted"></p>
+      <div id="operationsState"><div class="teacher-current-state"><p><b>当前幕 / Huidige ACT:</b> </p><p><b>当前阶段 / Huidige fase:</b> </p><p><b>当前地点 / Huidige locatie:</b> </p></div></div>
+    </section>
+
+    <section class="panel teacher-discussion-panel">
+      <div class="topline"><div><p class="eyebrow">讨论室 / DISCUSSIERUIMTE</p><h2>Discussion observation</h2></div><span id="runBadge" class="badge">No active run</span></div>
+      <div class="button-row teacher-vote-row"><button id="openVoteButton" type="button" disabled>立即投票 / Nu stemmen</button><button id="addTimeButton" class="secondary" type="button" hidden>Add 30 seconds</button></div>
+      <p id="discussionTeacherStatus" class="status muted" aria-live="polite"></p>
+      <div id="discussionState">No active formal run.</div>
+    </section>
   </div>
 
-  <div class="main teacher-v4-main">
+  <div class="teacher-v5-lower">
+    <div class="teacher-v5-tools">
+      <section class="panel teacher-session-panel">
+        <h2>课程结束 / 导出与重置 · SESSIE AFRONDEN / EXPORT EN HERSTEL</h2>
+        <div class="button-row teacher-export-row"><button id="exportCurrentSnapshotButton" type="button" disabled>导出当前快照 / Huidige snapshot exporteren</button><span id="currentExportStatus" class="status muted" aria-live="polite">Last export: —</span></div>
+        <div class="button-row teacher-final-export-row"><select id="exportRunSelect" aria-label="Completed run to export" hidden></select><button id="exportSessionButton" class="secondary" type="button" disabled>Export final session</button></div>
+        <hr>
+        <label class="check-row teacher-clear-confirm"><input id="confirmExportSaved" type="checkbox"> I confirm that I saved the export file.</label>
+        <div class="button-row"><button id="clearRoomButton" class="danger" type="button" disabled>清除房间用于下一场 / Kamer wissen</button></div>
+        <p id="clearRoomStatus" class="status muted" aria-live="polite"></p>
+      </section>
 
-  <section class="panel teacher-host-panel">
-    <h2>Create or reconnect room</h2>
-    <div class="field-grid teacher-grid">
-      <label>Room code <input id="roomCode" autocomplete="off" placeholder="TEST1001"></label>
-      <label>Teacher token
-        <span class="password-row">
-          <input id="teacherToken" type="password" autocomplete="off" placeholder="Choose or reuse a room token">
-          <button id="toggleTeacherToken" class="secondary small" type="button">Show</button>
-        </span>
-      </label>
-      <label>Gitte join code <input id="codeGitte" autocomplete="off" placeholder="Give to GAL-A"></label>
-      <label>Anna join code <input id="codeAnna" autocomplete="off" placeholder="Give to GAL-B"></label>
-      <label>Linda join code <input id="codeLinda" autocomplete="off" placeholder="Give to GAL-C"></label>
-    </div>
-    <div class="button-row">
-      <button id="createRoomButton">Create room</button>
-      <button id="watchButton" class="secondary">Watch room</button>
-    </div>
-    <p id="teacherStatus" class="status muted"></p>
-    <details>
-      <summary>Legacy prototype diagnostics</summary>
-      <p class="muted">Regression support only. These controls do not operate the formal ACT 1–14 run.</p>
-      <div class="button-row">
-        <button id="advanceButton" class="secondary">Advance legacy scene</button>
-        <button id="resetButton" class="danger">Reset legacy room state</button>
-      </div>
-    </details>
-  </section>
-  <section class="panel teacher-room-panel">
-    <h2>Room state</h2>
-    <div id="roomState">Not connected.</div>
-  </section>
+      <details class="panel collapsed teacher-recovery-panel">
+        <summary>紧急 / 恢复 · NOOD / HERSTEL</summary>
+        <div class="collapsed-body">
+          <p class="muted">Only server-approved recovery actions for the current phase are shown. There is no generic next-ACT jump.</p>
+          <div class="button-row"><button class="secondary release-session" data-role-slot="GAL-A">Release Gitte session</button><button class="secondary release-session" data-role-slot="GAL-B">Release Anna session</button><button class="secondary release-session" data-role-slot="GAL-C">Release Linda session</button></div>
+          <details id="overridePanel" class="teacher-scoped-override">
+            <summary>Phase-specific recovery actions</summary>
+            <label>Reason <textarea id="overrideReason" rows="3" maxlength="500"></textarea></label>
+            <div id="overrideActions" class="button-row"></div><p id="overrideStatus" class="status muted"></p><div id="overrideHistory"></div>
+          </details>
+          <details class="teacher-flow-recovery"><summary>Canonical-flow diagnostics</summary><div class="button-row"><button id="initializeSprint3bButton" class="secondary" type="button">Recover ACT 1–5 flow</button><button id="initializeSprint5Button" class="secondary" type="button">Recover ACT 6–8 flow</button><button id="initializeSprint6Button" class="secondary" type="button">Recover ACT 9–13 flow</button></div></details>
+        </div>
+      </details>
 
-  <section class="panel teacher-operations-panel" aria-labelledby="operationsTitle">
-    <div class="topline">
-      <div><p class="eyebrow">Sprint 7</p><h2 id="operationsTitle">Live operations</h2></div>
-      <span id="operationsBadge" class="badge">Not connected</span>
-    </div>
-    <div class="button-row">
-      <button id="refreshOperationsButton" class="secondary" type="button">Refresh</button>
-      <label class="check-row"><input id="auditPrivateDebug" type="checkbox"> AUDIT private debug</label>
-      <select id="exportRunSelect" aria-label="Completed run to export" hidden></select>
-      <button id="exportSessionButton" class="secondary" type="button" disabled>Export session</button>
-    </div>
-    <p id="operationsStatus" class="status muted"></p>
-    <div id="operationsState"><p class="muted">Connect to a room to load ACT 1-13 operations.</p></div>
-  </section>
-
-  <details class="panel collapsed teacher-recovery-panel">
-    <summary>紧急 / 恢复 · NOOD / HERSTEL</summary>
-    <div class="collapsed-body"><h2>Prototype recovery</h2>
-    <p class="muted">Use only when a student lost their original browser session. This clears that role's session token and logs a teacher recovery event.</p>
-    <div class="button-row">
-      <button class="secondary release-session" data-role-slot="GAL-A">Release Gitte session</button>
-      <button class="secondary release-session" data-role-slot="GAL-B">Release Anna session</button>
-      <button class="secondary release-session" data-role-slot="GAL-C">Release Linda session</button>
-    </div></div>
-  </details>
-
-  <section class="panel teacher-discussion-controls">
-    <div class="topline">
-      <div>
-        <p class="eyebrow">Sprint 2</p>
-        <h2>Reusable DiscussionRoom</h2>
-      </div>
-      <span id="runBadge" class="badge">No active run</span>
-    </div>
-    <div class="field-grid teacher-grid">
-      <label>Run mode
-        <select id="runMode">
-          <option value="normal">NORMAL</option>
-          <option value="audit">AUDIT</option>
-        </select>
-      </label>
-      <label>Discussion seconds <input id="discussionSeconds" type="number" min="5" max="3600" value="90"></label>
-      <label>Vote seconds <input id="voteSeconds" type="number" min="5" max="3600" value="60"></label>
-    </div>
-    <div class="button-row">
-      <button id="startRunButton" type="button">Start formal run</button>
-    </div>
-    <p class="muted">Starting a formal run creates ACT 1 atomically. Later act groups enter automatically.</p>
-    <details>
-      <summary>Emergency canonical-flow recovery</summary>
-      <p class="muted">Use only after diagnosing a failed automatic transition.</p>
-      <div class="button-row">
-        <button id="initializeSprint3bButton" class="secondary" type="button">Recover ACT 1–5 flow</button>
-        <button id="initializeSprint5Button" class="secondary" type="button">Recover ACT 6–8 flow</button>
-        <button id="initializeSprint6Button" class="secondary" type="button">Recover ACT 9–13 flow</button>
-      </div>
-    </details>
-    <hr>
-    <div class="field-grid teacher-grid">
-      <label class="span-two">Topic <input id="discussionTopicInput" value="Choose the safest route out of the castle"></label>
-      <label>Tie policy
-        <select id="tiePolicy">
-          <option value="REPEAT_UNTIL_MAJORITY">Repeat until majority</option>
-          <option value="SINGLE_REVOTE_THEN_FALLBACK">One re-vote then fallback</option>
-          <option value="NO_TIE_POSSIBLE">No tie possible</option>
-        </select>
-      </label>
-      <label>Re-vote seconds <input id="revoteSeconds" type="number" min="5" max="3600" value="30"></label>
-      <label>Maximum re-votes <input id="maxRevotes" type="number" min="0" value="1"></label>
-      <label>Fallback choice ID <input id="fallbackResolution" value="inspect" placeholder="Required for single re-vote"></label>
-      <label class="span-two">Vote options, one <code>id|label</code> per line
-        <textarea id="voteOptions" rows="4">known|Take the known route
+      <details class="panel collapsed teacher-assets-panel">
+        <summary>维护 / 开发者 · ONDERHOUD / ONTWIKKELAAR</summary>
+        <div class="collapsed-body">
+          <section class="teacher-discussion-controls">
+            <h2>Discussion configuration and diagnostics</h2>
+            <div class="field-grid teacher-grid">
+              <label>Discussion seconds <input id="discussionSeconds" type="number" min="5" max="3600" value="90"></label><label>Vote seconds <input id="voteSeconds" type="number" min="5" max="3600" value="60"></label>
+              <label class="span-two">Topic <input id="discussionTopicInput" value="Choose the safest route out of the castle"></label>
+              <label>Tie policy<select id="tiePolicy"><option value="REPEAT_UNTIL_MAJORITY">Repeat until majority</option><option value="SINGLE_REVOTE_THEN_FALLBACK">One re-vote then fallback</option><option value="NO_TIE_POSSIBLE">No tie possible</option></select></label>
+              <label>Re-vote seconds <input id="revoteSeconds" type="number" min="5" max="3600" value="30"></label><label>Maximum re-votes <input id="maxRevotes" type="number" min="0" value="1"></label><label>Fallback choice ID <input id="fallbackResolution" value="inspect"></label>
+              <label class="span-two">Vote options<textarea id="voteOptions" rows="4">known|Take the known route
 unknown|Try the unknown passage
-inspect|Inspect before deciding</textarea>
-      </label>
+inspect|Inspect before deciding</textarea></label>
+            </div>
+            <div class="check-row"><label><input id="showInitialChoices" type="checkbox" checked> Reveal configured initial choices</label><label><input id="requireFinalVote" type="checkbox" checked> Require final vote</label><label><input id="silentTextingMode" type="checkbox"> Silent texting mode</label></div>
+            <div class="button-row"><button id="openDiscussionButton" type="button">Open discussion</button></div>
+          </section>
+          <hr>
+          <section><h2>Legacy and private diagnostics</h2><label class="check-row"><input id="auditPrivateDebug" type="checkbox"> AUDIT private debug</label><div class="button-row"><button id="advanceButton" class="secondary">Advance legacy scene</button><button id="resetButton" class="danger">Reset legacy room state</button></div></section>
+          <hr>
+          <section>
+            <div class="topline"><div><p class="eyebrow">Sprint 4</p><h2>Game Assets</h2></div><span id="assetReadyBadge" class="badge">Not loaded</span></div>
+            <div class="button-row"><button id="loadAssetsButton" class="secondary" type="button">Refresh assets</button></div><p id="assetStatus" class="status muted"></p><div id="assetManagerState"><p class="muted">Connect with a Teacher token to review image and audio candidates.</p></div>
+            <dialog id="anchorDialog"><form method="dialog"><div class="topline"><h3>Mark required anchor</h3><button value="cancel" class="secondary" type="submit">Close</button></div></form><label>Required anchor<select id="anchorNameSelect"></select></label><p id="anchorPrompt" class="muted"></p><div id="anchorStage" class="anchor-stage"><img id="anchorImage" alt="Asset preview"><div id="anchorBox" class="anchor-box" hidden></div></div><div class="button-row"><button id="saveAnchorButton" type="button">Save anchor</button></div><p id="anchorStatus" class="status muted"></p></dialog>
+          </section>
+        </div>
+      </details>
     </div>
-    <div class="check-row">
-      <label><input id="showInitialChoices" type="checkbox" checked> Reveal configured initial choices</label>
-      <label><input id="requireFinalVote" type="checkbox" checked> Require final vote</label>
-      <label><input id="silentTextingMode" type="checkbox"> Silent texting mode</label>
-    </div>
-    <div class="button-row">
-      <button id="openDiscussionButton" type="button">Open discussion</button>
-      <button id="openVoteButton" class="secondary" type="button">Open vote now</button>
-      <button id="addTimeButton" class="secondary" type="button" hidden>Add 30 seconds</button>
-    </div>
-    <p id="discussionTeacherStatus" class="status muted"></p>
-  </section>
 
-  <section class="panel collapsed teacher-override-panel">
-    <details id="overridePanel">
-      <summary>Advanced / Emergency Override</summary>
-      <div class="field-grid teacher-grid">
-        <label class="span-two">Reason <textarea id="overrideReason" rows="3" maxlength="500"></textarea></label>
+    <section class="panel teacher-host-panel">
+      <h2>创建或重新连接房间 · KAMER MAKEN OF OPNIEUW VERBINDEN</h2>
+      <div class="field-grid teacher-room-fields">
+        <label>Room code <input id="roomCode" autocomplete="off" placeholder="TEST1001"></label>
+        <label>Teacher token<span class="password-row"><input id="teacherToken" type="password" autocomplete="off" placeholder="Choose or reuse a room token"><button id="toggleTeacherToken" class="secondary small" type="button">Show</button></span></label>
+        <label>Gitte join code <input id="codeGitte" autocomplete="off" placeholder="Give to GAL-A"></label><label>Anna join code <input id="codeAnna" autocomplete="off" placeholder="Give to GAL-B"></label><label>Linda join code <input id="codeLinda" autocomplete="off" placeholder="Give to GAL-C"></label>
+        <label>Run mode<select id="runMode"><option value="normal">NORMAL</option><option value="audit">AUDIT</option></select></label>
       </div>
-      <div id="overrideActions" class="button-row"></div>
-      <p id="overrideStatus" class="status muted"></p>
-      <div id="overrideHistory"></div>
-    </details>
-  </section>
-
-  <section class="panel teacher-discussion-panel">
-    <h2>Discussion observation</h2>
-    <div id="discussionState">No active formal run.</div>
-  </section>
-
-  <details class="panel collapsed teacher-assets-panel">
-    <summary>维护 / 开发者 · ONDERHOUD / ONTWIKKELAAR</summary>
-    <div class="collapsed-body"><div class="topline"><div><p class="eyebrow">Sprint 4</p><h2>Game Assets</h2></div><span id="assetReadyBadge" class="badge">Not loaded</span></div>
-    <div class="button-row"><button id="loadAssetsButton" class="secondary" type="button">Refresh assets</button></div>
-    <p id="assetStatus" class="status muted"></p>
-    <div id="assetManagerState"><p class="muted">Connect with a Teacher token to review image and audio candidates.</p></div>
-    <dialog id="anchorDialog"><form method="dialog"><div class="topline"><h3>Mark required anchor</h3><button value="cancel" class="secondary" type="submit">Close</button></div></form><label>Required anchor<select id="anchorNameSelect"></select></label><p id="anchorPrompt" class="muted"></p><div id="anchorStage" class="anchor-stage"><img id="anchorImage" alt="Asset preview"><div id="anchorBox" class="anchor-box" hidden></div></div><div class="button-row"><button id="saveAnchorButton" type="button">Save anchor</button></div><p id="anchorStatus" class="status muted"></p></dialog></div>
-  </details>
+      <div class="button-row"><button id="createRoomButton">Create room</button><button id="watchButton" class="secondary">Watch / Reconnect room</button></div>
+      <p id="teacherStatus" class="status muted" aria-live="polite"></p>
+      <div class="teacher-start-dock"><button id="startRunButton" type="button" disabled>开始正式游戏 / Formeel spel starten</button><p id="startRunStatus" class="status muted" aria-live="polite"></p></div>
+    </section>
   </div>
 </main>
-
 <script type="module" src="./src/teacher/teacher-console.js"></script>
 </body>
 </html>

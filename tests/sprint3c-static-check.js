@@ -12,7 +12,7 @@ requireAll(sql,"015",[
   "s2_get_teacher_state_pre015","allowed_actions","teacher_override"
 ]);
 for(const forbidden of ["p_next_scene","p_player_id","p_choice_id","p_resolution","p_safe_resolution"]){if(sql.includes(forbidden))throw new Error(`Override RPC exposes forbidden input: ${forbidden}`)}
-requireAll(html,"Teacher HTML",["Advanced / Emergency Override","overrideReason","overrideActions","overrideHistory"]);
+requireAll(html,"Teacher HTML",["紧急 / 恢复","Phase-specific recovery actions","overrideReason","overrideActions","overrideHistory"]);
 requireAll(js,"Teacher client",["teacher_apply_override","This action may invalidate behavior data for the current phase. Continue?","A reason is required.","OVERRIDE USED"]);
 requireAll(correction,"016",["teacher_apply_override_pre016","set act1_stage='complete'","act1_stage<>'complete'","create or replace function public.s2_log_event","active_override_id","'upstream_teacher_override',true","'override_id',v_override.override_id"]);
 requireAll(entryCorrection,"017",["create or replace function public.s3b_submit_first_meeting","progress.act1_stage<>'complete'","first_meeting_choice=p_choice_id","s3b_log_formal_event_at_context"]);

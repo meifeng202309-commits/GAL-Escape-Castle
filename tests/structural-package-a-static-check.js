@@ -14,8 +14,8 @@ function assert(condition,message){if(!condition)throw new Error(message)}
 
 assert(teacher.includes('rpc("s9_start_formal_game"'),"Teacher start must use the transactional formal-start authority.");
 assert(!teacher.match(/async function startRun[\s\S]*?rpc\("s2_start_run"/),"Normal Teacher start still calls the split run-only RPC.");
-assert(html.includes("Legacy prototype diagnostics"),"Legacy Sprint1 controls are not isolated as diagnostics.");
-assert(html.includes("Emergency canonical-flow recovery"),"Manual canonical initialization controls lack emergency-only framing.");
+assert(html.includes("Legacy and private diagnostics"),"Legacy Sprint1 controls are not isolated under Maintenance diagnostics.");
+assert(html.includes("Canonical-flow diagnostics"),"Manual canonical initialization controls lack emergency-only framing.");
 
 const completionIndex=app.indexOf('rpc("s8_get_player_state"');
 const activeIndex=app.indexOf('rpc("s2_get_player_state"');
