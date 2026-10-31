@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-10-31T03:52:02.347Z",
+  "desktop": {
+    "live": {
+      "x": 14.65625,
+      "y": 178.65625,
+      "width": 784.609375,
+      "height": 520
+    },
+    "discussion": {
+      "x": 813.265625,
+      "y": 178.65625,
+      "width": 523.078125,
+      "height": 520
+    },
+    "tools": {
+      "x": 14.65625,
+      "y": 712.65625,
+      "width": 784.609375,
+      "height": 575
+    },
+    "host": {
+      "x": 813.265625,
+      "y": 712.65625,
+      "width": 523.078125,
+      "height": 575
+    },
+    "overflow": -15
+  },
+  "narrow": {
+    "liveY": 261,
+    "discussionY": 729,
+    "hostY": 992,
+    "toolsY": 1553,
+    "overflow": -15
+  },
+  "calls": [
+    "s1_get_teacher_state",
+    "s6_get_teacher_discussion_state",
+    "s7_get_teacher_console",
+    "s5_get_teacher_discussion_state",
+    "s8_get_finalization_state",
+    "s2_get_teacher_state",
+    "s9_start_formal_game",
+    "s9_start_formal_game",
+    "s6_get_teacher_discussion_state",
+    "s7_get_teacher_console",
+    "s5_get_teacher_discussion_state",
+    "s8_get_finalization_state",
+    "s2_get_teacher_state",
+    "s10_export_session_snapshot",
+    "s10_reset_room_for_next_session",
+    "s1_get_teacher_state",
+    "s6_get_teacher_discussion_state",
+    "s7_get_teacher_console",
+    "s5_get_teacher_discussion_state",
+    "s8_get_finalization_state",
+    "s2_get_teacher_state"
+  ],
+  "assertions": {
+    "threeOfThreeStartGate": true,
+    "processing": true,
+    "failedCode": true,
+    "startHidesWhenActive": true,
+    "startRestoresAfterClear": true,
+    "snapshotEnablesExactExportClear": true,
+    "clearReleasesPlayers": true,
+    "backupAttestationWarning": true,
+    "responsiveWholePageScroll": true
+  }
+}

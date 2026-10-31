@@ -4,7 +4,9 @@ begin;
 
 create table public.s10_teacher_exports(
   export_id uuid primary key default gen_random_uuid(),
-  run_id uuid not null references public.game_runs(run_id) on delete cascade,
+  -- Deliberately not an FK: interrupted active runs are deleted during guarded
+  -- room reuse, while this immutable export audit identity must survive.
+  run_id uuid not null,
   room_code text not null references public.s1_rooms(room_code) on delete cascade,
   export_kind text not null check(export_kind in('in_progress_snapshot','final_snapshot')),
   exported_at timestamptz not null default clock_timestamp()
@@ -65,7 +67,8 @@ begin
       'export_schema_version','2.0-snapshot','snapshot_type',kind,
       'snapshot_consistency','single_statement_database_snapshot','exported_at',exported,
       'game_completed',g.game_completed,'session_integrity_verified',g.session_integrity_verified,
-      'restorable',false),
+      'restorable',false,
+      'local_file_confirmation_scope','teacher_attestation_only_not_backup_validation'),
     'current_state',jsonb_build_object(
       'run',to_jsonb(g)-'active_override_id',
       'legacy_room',(select to_jsonb(x)from public.s1_room_state x where x.room_code=room),
@@ -176,7 +179,7 @@ declare
 begin
   perform public.s1_assert_teacher(room,p_teacher_token);
   if not coalesce(p_confirm_export_saved,false)then
-    raise exception 'Confirm that the session export file was saved before clearing the room.';
+    raise exception 'Confirm that the export files were saved before clearing. This attestation does not validate backup completeness or readability.';
   end if;
 
   perform 1 from public.s1_rooms where room_code=room for update;
@@ -240,7 +243,8 @@ begin
   update public.s1_rooms set updated_at=clock_timestamp()where room_code=room;
   insert into public.s1_game_events(room_code,event_type,details)
     values(room,'teacher_room_prepared_for_next_session',jsonb_build_object(
-      'deleted_active_run_id',deleted_active_run,'confirmed_export_id',p_expected_export_id,'export_confirmed',true));
+      'deleted_active_run_id',deleted_active_run,'confirmed_export_id',p_expected_export_id,
+      'teacher_file_saved_attestation',true,'backup_validated',false));
 
   return jsonb_build_object('ok',true,'room_code',room,'deleted_active_run_id',deleted_active_run,'players_released',3);
 end;

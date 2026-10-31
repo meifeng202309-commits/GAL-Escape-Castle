@@ -3,6 +3,7 @@ const assert=(value,message)=>{if(!value)throw new Error(message)};
 const html=fs.readFileSync("teacher.html","utf8");
 const css=fs.readFileSync("src/styles/app.css","utf8");
 const app=fs.readFileSync("src/teacher/teacher-console.js","utf8");
+const client=fs.readFileSync("src/supabase/client.js","utf8");
 const sql=fs.readFileSync("database/074_teacher_console_v5_snapshot_and_room_reuse.sql","utf8");
 
 for(const id of[
@@ -27,6 +28,7 @@ for(const token of[
   'button.textContent=acceptedText','Failed ${actionError(error)}','s10_export_session_snapshot',
   's10_reset_room_for_next_session','p_expected_export_id:latestExportId','p_confirm_export_saved:true','latestExportedRunId!==currentSessionRunId'
 ])assert(app.includes(token),`Teacher V5 behavior contract missing: ${token}`);
+assert(client.includes('error.code = body?.code || `HTTP_${response.status}`'),"Supabase RPC errors must preserve a concrete code for Teacher Failed state");
 
 for(const token of[
   "create table public.s10_teacher_exports","create function public.s10_export_session_snapshot",
@@ -39,6 +41,14 @@ for(const token of[
   "where export_id=p_expected_export_id and run_id=g.run_id",
   "update public.s1_room_players set session_token_hash=null,joined_at=null,last_seen_at=null"
 ])assert(sql.includes(token),`Migration 074 contract missing: ${token}`);
+assert(!sql.includes("run_id uuid not null references public.game_runs(run_id) on delete cascade"),"Export audit must not cascade away with an interrupted active run");
+const resetFunction=sql.slice(sql.indexOf("create function public.s10_reset_room_for_next_session"));
+assert(sql.includes("run_id uuid not null,"),"Durable export audit must retain the source run UUID");
+assert(!resetFunction.includes("delete from public.s10_teacher_exports"),"Room reuse must retain export audit history");
+assert(resetFunction.includes("'confirmed_export_id',p_expected_export_id"),"Room reset audit must retain the confirmed export identity");
+for(const token of["teacher_attestation_only_not_backup_validation","'backup_validated',false","This does not verify that the backup is complete or readable"]){
+  assert(sql.includes(token)||html.includes(token),`Backup-attestation boundary missing: ${token}`);
+}
 
 const runScopedTables=[...sql.matchAll(/delete from public\.([a-z0-9_]+) where run_id=g\.run_id/g)].map(match=>match[1]);
 const resetTables=[

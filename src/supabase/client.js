@@ -21,7 +21,10 @@ export async function rpc(functionName, payload = {}) {
 
   if (!response.ok) {
     const message = body && (body.message || body.error_description || body.details) ? (body.message || body.error_description || body.details) : text;
-    throw new Error(message || `Supabase RPC failed: ${response.status}`);
+    const error = new Error(message || `Supabase RPC failed: ${response.status}`);
+    error.code = body?.code || `HTTP_${response.status}`;
+    error.details = body?.details || null;
+    throw error;
   }
 
   return body;

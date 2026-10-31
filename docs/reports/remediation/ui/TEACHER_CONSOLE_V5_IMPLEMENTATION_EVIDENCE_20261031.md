@@ -1,5 +1,7 @@
 # Teacher Console V5 implementation evidence
 
+> CA review update: export-audit retention, backup-attestation language, RPC error-code propagation, and an executed raw-CDP Chrome browser gate were added after the initial CD-218 review request. See `TEACHER_CONSOLE_V5_CA_REVIEW_CORRECTION_20261031.md` for the focused evidence.
+
 ## Outcome
 
 The Teacher-approved V5 layout and behavior are implemented in production source. The work is source-only pending CA audit: migration 074 has not been applied, no live room was changed, and no deployment was made.
@@ -31,7 +33,7 @@ The proposed `s10_reset_room_for_next_session` RPC requires all of:
 4. explicit confirmation that the files were saved;
 5. no different active run.
 
-For an interrupted active run, it deletes all run-scoped records in FK-safe order, resets legacy room state, and releases all three Player sessions while retaining the room, Teacher token, role assignments, and join-code hashes. Completed historical formal runs remain stored. A new room-prepared audit event records the deleted active run and confirmed export ID. The audit table has RLS, no direct anon/authenticated table access, indexed FKs, and RPC-only execution grants.
+For an interrupted active run, it deletes all run-scoped records in FK-safe order, resets legacy room state, and releases all three Player sessions while retaining the room, Teacher token, role assignments, and join-code hashes. Completed historical formal runs remain stored. A new room-prepared audit event records the deleted active run and confirmed export ID. The export audit retains its source run UUID without a cascading run FK because interrupted runs are intentionally deleted; its room FK remains indexed. The table has RLS, no direct anon/authenticated access, and RPC-only writes.
 
 This does not implement upload-and-resume. Snapshot files are research/recovery evidence, not trusted restorable game state.
 
@@ -47,7 +49,7 @@ Passed:
 - read-only live PostgreSQL catalog comparison of every FK directly referencing `public.game_runs`; migration 074 reset/export coverage matches the deployed table inventory
 - local Chrome 1366×768 render inspection: `docs/reports/remediation/ui/teacher-console-v5-production-1366x768.png`
 
-The V5-aware Trial4/5 Teacher browser gate was updated from the approved V4 prototype to the approved V5 prototype, but could not execute because this executor has no `playwright` module. It passed JavaScript syntax validation. No live E2E for the two new RPCs is possible before migration 074 is audited and applied.
+The V5-aware Trial4/5 Playwright gate remains unavailable in this executor. A new dependency-free raw-CDP Chrome gate executed successfully at 1366×768 and 900×768 with mocked RPC boundaries. It verified 3/3 Start gating, Processing, service error-code display, active-run Start hiding, inactive restoration, snapshot/clear exact-export flow, Player release, backup-attestation warning, and responsive whole-page layout. No live E2E for the two new RPCs is possible before migration 074 is audited and applied.
 
 A broad 35-test static/unit sweep initially produced 30 passes and five failures. Two were V5-invalidated legacy Teacher assertions; both were updated and then passed. The remaining three are unrelated baseline failures: migration071 operator-host pinned hash, Sprint9 ACTIVE storage telemetry, and the Package C source-string expectation. The targeted rerun is green.
 
@@ -61,6 +63,7 @@ A broad 35-test static/unit sweep initially produced 30 passes and five failures
 - `tests/sprint3c-static-check.js`
 - `tests/structural-package-a-static-check.js`
 - `tests/trial45-p2p6-browser.mjs`
+- `tests/teacher-console-v5-browser.mjs`
 - `docs/reports/remediation/ui/teacher-console-v5-production-1366x768.png`
 
 ## Audit boundary
