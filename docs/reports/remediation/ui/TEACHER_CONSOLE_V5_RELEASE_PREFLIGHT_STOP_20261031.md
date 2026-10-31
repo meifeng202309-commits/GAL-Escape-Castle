@@ -1,7 +1,7 @@
 # Teacher Console V5 controlled-release preflight — STOP
 
-Date: 2026-10-31  
-Authority: `agent-comms/CA_to_CD_20261031T041813Z_v5_migration074_guarded_release_authorized.md`  
+Date: 2026-10-31
+Authority: `agent-comms/CA_to_CD_20261031T041813Z_v5_migration074_guarded_release_authorized.md`
 Candidate branch/head: `remediation/sprint9-structural-v1@52021c29e2179e6fabf3ae898b1eb5a1f2afd6dc`
 
 ## Disposition
