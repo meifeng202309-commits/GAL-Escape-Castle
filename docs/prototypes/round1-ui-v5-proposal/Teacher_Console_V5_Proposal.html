@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teacher Console V5 Layout Proposal</title>
+<style>
+:root{--bg:#101927;--shell:#172232;--panel:#1f2b3b;--panel2:#243246;--line:#53647a;--text:#fff;--muted:#c9d3df;--accent:#dcecff;--blue:#2f6eaa;--danger:#9d4545;--ok:#8ec7a2}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);font-family:"Noto Sans SC","Microsoft YaHei","Segoe UI",Arial,sans-serif;color:var(--text);line-height:1.42}
+button,input,select{font:inherit}.page{width:100%;padding:clamp(7px,1vw,18px)}.shell{width:100%;background:var(--shell);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.top{display:grid;grid-template-columns:minmax(420px,1.45fr) minmax(360px,1fr);gap:18px;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px;margin-bottom:16px}.title{font-size:clamp(28px,2.5vw,42px);font-weight:900;margin-bottom:4px}.subtitle{font-size:15px;color:var(--muted)}.host{background:#30445d;border-radius:10px;padding:12px 14px;font-size:15px}.host strong{display:block;margin-bottom:3px}
+.main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(455px,1fr);grid-template-areas:"live discussion" "live setup";gap:14px;align-items:start}.panel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}.live{grid-area:live;min-height:586px}.discussion{grid-area:discussion}.setup{grid-area:setup}.head{padding:11px 14px;background:#182536;border-bottom:1px solid var(--line);color:var(--accent);font-size:16px;font-weight:800}.body{padding:15px}.room{font-size:15px;margin-bottom:12px}.players{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.player{border:1px solid var(--line);border-radius:10px;padding:12px;background:#1b2838;font-size:14px}.player strong{font-size:15px}.muted{color:var(--muted)}.ok{color:var(--ok)}
+.ops{margin-top:12px;border:1px solid #607692;border-radius:10px;background:var(--panel2);padding:13px;font-size:15px}.ops div{margin:3px 0}.statusline{margin:10px 0}.buttons{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:1px solid #7e98b8;border-radius:8px;padding:9px 13px;background:#27384d;color:#fff;font-size:14px;font-weight:800;cursor:pointer}.btn.primary{background:var(--blue);border-color:#77a7da}.btn.danger{background:var(--danger)}.btn:disabled,.btn.disabled{background:#334155;border-color:#516074;color:#9aa7b6;cursor:not-allowed}.btn.processing{color:#fff;background:#44576e}.btn.small{padding:6px 10px;font-size:12px}
+.transcript{height:clamp(260px,34vh,430px);overflow-y:auto;margin-top:10px;border:1px solid #657a94;border-radius:10px;background:#111c2a;padding:8px}.bubble{padding:9px 8px;border-bottom:1px solid #44566d;font-size:14px}.bubble:last-child{border-bottom:0}.bubble .nl{color:var(--muted)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:9px 10px}.fields label{font-size:12px;font-weight:800;color:var(--muted)}.fields input,.fields select{width:100%;margin-top:4px;padding:8px 9px;border:1px solid #657a94;border-radius:7px;color:#fff;background:#111c2a}.span2{grid-column:1/-1}.setup-note{font-size:12px;color:var(--muted);margin:9px 0 0}.start-row{display:flex;justify-content:flex-end;margin-top:10px}.start-row .btn{min-width:220px}
+.lower{margin-top:14px}.fold{border:1px solid #657a94;border-radius:10px;background:#1b2838;margin-top:10px;overflow:hidden}.fold summary{cursor:pointer;padding:13px 14px;font-size:15px;font-weight:800}.fold-body{padding:0 14px 14px}.finish-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}.snapshot{border:1px solid #607692;border-radius:9px;background:var(--panel2);padding:11px;font-size:13px}.snapshot strong{display:block;margin-bottom:3px}.danger-zone{border-top:1px solid #53647a;margin-top:12px;padding-top:12px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.legend span{font-size:11px;border:1px solid #607692;border-radius:6px;padding:4px 7px;color:var(--muted)}
+.proposal-banner{margin:0 0 12px;padding:9px 12px;border:1px dashed #80a7d0;border-radius:8px;color:#dcecff;background:#1b3047;font-size:13px}
+@media(max-width:999px){.top,.main{grid-template-columns:1fr}.main{grid-template-areas:"live" "discussion" "setup"}.live{min-height:auto}.players,.fields,.finish-grid{grid-template-columns:1fr}.span2{grid-column:auto}.transcript{height:360px}.start-row{justify-content:stretch}.start-row .btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="page"><div class="shell">
+  <div class="proposal-banner"><strong>V5 layout proposal only.</strong> 本页用于版面审批；不连接数据库，不代表生产功能已经发布。</div>
+  <header class="top">
+    <div><div class="title">教师控制台 / LEERKRACHTCONSOLE</div><div class="subtitle">房间已就绪 · 3名玩家已连接 / Kamer gereed · 3 spelers verbonden</div></div>
+    <div class="host"><strong>主要主持控制 / HOOFDBESTURING</strong>当前房间与游戏状态 / Huidige kamer- en spelstatus</div>
+  </header>
+
+  <main class="main">
+    <section class="panel live">
+      <div class="head">实时运行 / 游戏控制　·　LIVE BEDIENING / SPELVERLOOP</div>
+      <div class="body">
+        <div class="room"><strong>房间代码 / Kamercode:</strong> XXXX　<span class="muted">Run: 83f…b12</span></div>
+        <div class="players">
+          <div class="player"><strong>Gitte</strong><br><span class="ok">已连接 ✓ / Verbonden ✓</span><br><span class="muted">等待投票 / wacht op stemming</span></div>
+          <div class="player"><strong>Anna</strong><br><span class="ok">已连接 ✓ / Verbonden ✓</span><br><span class="muted">已投票 / gestemd</span></div>
+          <div class="player"><strong>Linda</strong><br><span class="ok">已连接 ✓ / Verbonden ✓</span><br><span class="muted">已投票 / gestemd</span></div>
+        </div>
+        <div class="ops">
+          <div><strong>当前幕 / Huidige ACT:</strong> 第7幕 — 钟表厅 / ACT 7 — Klokkenkamer</div>
+          <div><strong>当前阶段 / Huidige fase:</strong> 第2轮投票 / Stemronde 2</div>
+          <div><strong>当前地点 / Huidige locatie:</strong> 钟表厅 / Klokkenkamer</div>
+          <div><strong>最近更新 / Laatste update:</strong> 10:56:18</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel discussion">
+      <div class="head">讨论室　·　DISCUSSIERUIMTE</div>
+      <div class="body">
+        <div class="statusline"><strong>当前讨论状态 / Huidige discussiestatus:</strong> 讨论中 / in bespreking</div>
+        <div class="buttons">
+          <button class="btn primary" type="button" id="voteDemo">立即投票 / Nu stemmen</button>
+          <span class="muted" id="voteDemoStatus" aria-live="polite"></span>
+        </div>
+        <div class="transcript">
+          <div class="bubble"><strong>Gitte:</strong> 我认为箱子的密码要用那张纸条。<br><span class="nl">Ik denk dat de code van de kist het briefje gebruikt.</span></div>
+          <div class="bubble"><strong>Anna:</strong> 我同意。我们应该试最后一位数字。<br><span class="nl">Ik ben het eens. We moeten het laatste cijfer proberen.</span></div>
+          <div class="bubble"><strong>Linda:</strong> 我们投票决定最后一位吧。<br><span class="nl">Laten we stemmen over het laatste cijfer.</span></div>
+          <div class="bubble"><strong>Gitte:</strong> 我先看数字纸条。<br><span class="nl">Ik kijk eerst naar het cijferbriefje.</span></div>
+          <div class="bubble"><strong>Anna:</strong> 我来核对地图。<br><span class="nl">Ik controleer de kaart.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel setup">
+      <div class="head">创建或重新连接房间　·　KAMER MAKEN OF OPNIEUW VERBINDEN</div>
+      <div class="body">
+        <div class="fields">
+          <label>Room code<input value="XXXX" aria-label="Room code"></label>
+          <label>Teacher token<input type="password" value="prototype-token" aria-label="Teacher token"></label>
+          <label>Gitte join code<input value="GIT-204" aria-label="Gitte join code"></label>
+          <label>Anna join code<input value="ANN-731" aria-label="Anna join code"></label>
+          <label>Linda join code<input value="LIN-895" aria-label="Linda join code"></label>
+          <label>Run mode<select aria-label="Run mode"><option>NORMAL</option><option>AUDIT</option></select></label>
+        </div>
+        <div class="buttons" style="margin-top:10px"><button class="btn" type="button">Create room</button><button class="btn" type="button">Watch / Reconnect room</button></div>
+        <p class="setup-note">未建房时保持本区域和字段位置不变，只将值留空。建房后仍保留，便于再次查看和重连。</p>
+        <div class="start-row"><button class="btn primary" type="button">开始正式游戏 / Formeel spel starten</button></div>
+      </div>
+    </section>
+  </main>
+
+  <section class="lower">
+    <details class="fold" open>
+      <summary>课程结束 / 导出与重置　·　SESSIE AFRONDEN / EXPORT EN HERSTEL</summary>
+      <div class="fold-body">
+        <div class="finish-grid">
+          <div class="snapshot"><strong>当前数据快照 / Huidige gegevenssnapshot</strong>任何阶段均可导出。包含截至导出时刻的对话、投票、物品、事件和运行状态；进行中快照不会被标记为完整 Session。</div>
+          <div class="buttons"><button class="btn primary" type="button" id="exportDemo">导出当前快照 / Huidige snapshot exporteren</button></div>
+        </div>
+        <p class="muted" id="exportDemoStatus" aria-live="polite">Snapshot type: IN-PROGRESS · Last export: —</p>
+        <div class="danger-zone">
+          <div class="buttons"><button class="btn disabled" type="button" disabled>清除房间用于下一场 / Kamer wissen</button><span class="muted">完成导出并确认文件已保存后才可启用。</span></div>
+        </div>
+      </div>
+    </details>
+    <details class="fold">
+      <summary>紧急 / 恢复　·　NOOD / HERSTEL</summary>
+      <div class="fold-body">
+        <p class="muted">这里只显示服务端对当前阶段明确允许的局部恢复动作；不提供通用“跳到下一 ACT”。</p>
+        <label class="muted">恢复原因 / Reden voor herstel<br><input style="width:min(680px,100%);margin-top:5px;padding:8px;border:1px solid #657a94;border-radius:7px;color:#fff;background:#111c2a" placeholder="Required before a recovery action"></label>
+        <div class="buttons" style="margin-top:10px"><button class="btn" type="button">Release Gitte session</button><button class="btn" type="button">Release Anna session</button><button class="btn" type="button">Release Linda session</button><button class="btn disabled" type="button" disabled>当前无其他安全恢复动作</button></div>
+      </div>
+    </details>
+    <details class="fold">
+      <summary>维护 / 开发者　·　ONDERHOUD / ONTWIKKELAAR</summary>
+      <div class="fold-body"><p class="muted">现有诊断、Asset Manager 与开发者工具保留在这里，默认折叠。</p></div>
+    </details>
+    <div class="legend"><span>Processing: 按钮显示 Processing… 并禁用</span><span>Accepted: 按钮暂时变灰</span><span>Failed: 显示错误代码直至状态解除</span><span>Unavailable / stale: 持续变灰直至重新可用</span></div>
+  </section>
+</div></div>
+<script>
+const voteButton=document.getElementById("voteDemo"),voteStatus=document.getElementById("voteDemoStatus");
+voteButton.addEventListener("click",()=>{voteButton.disabled=true;voteButton.classList.add("processing");voteButton.textContent="Processing...";voteStatus.textContent="";setTimeout(()=>{voteButton.classList.remove("processing");voteButton.classList.add("disabled");voteButton.textContent="Accepted";voteStatus.textContent="投票状态已开放 / stemming geopend"},700)});
+const exportButton=document.getElementById("exportDemo"),exportStatus=document.getElementById("exportDemoStatus");
+exportButton.addEventListener("click",()=>{exportButton.disabled=true;exportButton.classList.add("processing");exportButton.textContent="Processing...";setTimeout(()=>{exportButton.disabled=false;exportButton.classList.remove("processing");exportButton.textContent="导出当前快照 / Huidige snapshot exporteren";exportStatus.textContent="Snapshot type: IN-PROGRESS · Prototype export generated just now"},700)});
+</script>
+</body>
+</html>
