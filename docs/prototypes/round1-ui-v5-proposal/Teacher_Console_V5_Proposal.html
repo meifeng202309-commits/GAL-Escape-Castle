@@ -9,13 +9,13 @@
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:var(--bg);font-family:"Noto Sans SC","Microsoft YaHei","Segoe UI",Arial,sans-serif;color:var(--text);line-height:1.42}
 button,input,select{font:inherit}.page{width:100%;padding:clamp(7px,1vw,18px)}.shell{width:100%;background:var(--shell);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 .top{display:grid;grid-template-columns:minmax(420px,1.45fr) minmax(360px,1fr);gap:18px;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:16px;margin-bottom:16px}.title{font-size:clamp(28px,2.5vw,42px);font-weight:900;margin-bottom:4px}.subtitle{font-size:15px;color:var(--muted)}.host{background:#30445d;border-radius:10px;padding:12px 14px;font-size:15px}.host strong{display:block;margin-bottom:3px}
-.main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(455px,1fr);grid-template-areas:"live discussion" "live setup";gap:14px;align-items:start}.panel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}.live{grid-area:live;min-height:586px}.discussion{grid-area:discussion}.setup{grid-area:setup}.head{padding:11px 14px;background:#182536;border-bottom:1px solid var(--line);color:var(--accent);font-size:16px;font-weight:800}.body{padding:15px}.room{font-size:15px;margin-bottom:12px}.players{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.player{border:1px solid var(--line);border-radius:10px;padding:12px;background:#1b2838;font-size:14px}.player strong{font-size:15px}.muted{color:var(--muted)}.ok{color:var(--ok)}
+.main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(455px,1fr);grid-template-areas:"live discussion";gap:14px;align-items:stretch}.panel{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}.live{grid-area:live;min-height:520px}.discussion{grid-area:discussion}.setup{grid-area:setup}.head{padding:11px 14px;background:#182536;border-bottom:1px solid var(--line);color:var(--accent);font-size:16px;font-weight:800}.body{padding:15px}.room{font-size:15px;margin-bottom:12px}.players{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.player{border:1px solid var(--line);border-radius:10px;padding:12px;background:#1b2838;font-size:14px}.player strong{font-size:15px}.muted{color:var(--muted)}.ok{color:var(--ok)}
 .ops{margin-top:12px;border:1px solid #607692;border-radius:10px;background:var(--panel2);padding:13px;font-size:15px}.ops div{margin:3px 0}.statusline{margin:10px 0}.buttons{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.btn{border:1px solid #7e98b8;border-radius:8px;padding:9px 13px;background:#27384d;color:#fff;font-size:14px;font-weight:800;cursor:pointer}.btn.primary{background:var(--blue);border-color:#77a7da}.btn.danger{background:var(--danger)}.btn:disabled,.btn.disabled{background:#334155;border-color:#516074;color:#9aa7b6;cursor:not-allowed}.btn.processing{color:#fff;background:#44576e}.btn.small{padding:6px 10px;font-size:12px}
 .transcript{height:clamp(260px,34vh,430px);overflow-y:auto;margin-top:10px;border:1px solid #657a94;border-radius:10px;background:#111c2a;padding:8px}.bubble{padding:9px 8px;border-bottom:1px solid #44566d;font-size:14px}.bubble:last-child{border-bottom:0}.bubble .nl{color:var(--muted)}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:9px 10px}.fields label{font-size:12px;font-weight:800;color:var(--muted)}.fields input,.fields select{width:100%;margin-top:4px;padding:8px 9px;border:1px solid #657a94;border-radius:7px;color:#fff;background:#111c2a}.span2{grid-column:1/-1}.setup-note{font-size:12px;color:var(--muted);margin:9px 0 0}.start-row{display:flex;justify-content:flex-end;margin-top:10px}.start-row .btn{min-width:220px}
-.lower{margin-top:14px}.fold{border:1px solid #657a94;border-radius:10px;background:#1b2838;margin-top:10px;overflow:hidden}.fold summary{cursor:pointer;padding:13px 14px;font-size:15px;font-weight:800}.fold-body{padding:0 14px 14px}.finish-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}.snapshot{border:1px solid #607692;border-radius:9px;background:var(--panel2);padding:11px;font-size:13px}.snapshot strong{display:block;margin-bottom:3px}.danger-zone{border-top:1px solid #53647a;margin-top:12px;padding-top:12px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.legend span{font-size:11px;border:1px solid #607692;border-radius:6px;padding:4px 7px;color:var(--muted)}
+.lower-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(455px,1fr);grid-template-areas:"tools setup";gap:14px;align-items:stretch;margin-top:14px}.lower{grid-area:tools}.lower>.fold:first-child{margin-top:0}.setup{height:100%;display:flex;flex-direction:column}.setup .body{display:flex;flex:1;flex-direction:column;min-height:0}.setup .start-row{margin-top:auto;padding-top:20px}.fold{border:1px solid #657a94;border-radius:10px;background:#1b2838;margin-top:10px;overflow:hidden}.fold summary{cursor:pointer;padding:13px 14px;font-size:15px;font-weight:800}.fold-body{padding:0 14px 14px}.finish-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.danger-zone{border-top:1px solid #53647a;margin-top:12px;padding-top:12px}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.legend span{font-size:11px;border:1px solid #607692;border-radius:6px;padding:4px 7px;color:var(--muted)}
 .proposal-banner{margin:0 0 12px;padding:9px 12px;border:1px dashed #80a7d0;border-radius:8px;color:#dcecff;background:#1b3047;font-size:13px}
-@media(max-width:999px){.top,.main{grid-template-columns:1fr}.main{grid-template-areas:"live" "discussion" "setup"}.live{min-height:auto}.players,.fields,.finish-grid{grid-template-columns:1fr}.span2{grid-column:auto}.transcript{height:360px}.start-row{justify-content:stretch}.start-row .btn{width:100%}}
+@media(max-width:999px){.top,.main,.lower-grid{grid-template-columns:1fr}.main{grid-template-areas:"live" "discussion"}.lower-grid{grid-template-areas:"setup" "tools"}.live{min-height:auto}.players,.fields{grid-template-columns:1fr}.span2{grid-column:auto}.transcript{height:360px}.start-row{justify-content:stretch}.start-row .btn{width:100%}}
 </style>
 </head>
 <body>
@@ -63,6 +63,34 @@ button,input,select{font:inherit}.page{width:100%;padding:clamp(7px,1vw,18px)}.s
       </div>
     </section>
 
+  </main>
+
+  <section class="lower-grid">
+    <div class="lower">
+      <details class="fold" open>
+        <summary>课程结束 / 导出与重置　·　SESSIE AFRONDEN / EXPORT EN HERSTEL</summary>
+        <div class="fold-body">
+          <div class="finish-actions"><button class="btn primary" type="button" id="exportDemo">导出当前快照 / Huidige snapshot exporteren</button><span class="muted" id="exportDemoStatus" aria-live="polite">Last export: —</span></div>
+          <div class="danger-zone">
+            <div class="buttons"><button class="btn disabled" type="button" disabled>清除房间用于下一场 / Kamer wissen</button><span class="muted">完成导出并确认文件已保存后才可启用。</span></div>
+          </div>
+        </div>
+      </details>
+      <details class="fold">
+        <summary>紧急 / 恢复　·　NOOD / HERSTEL</summary>
+        <div class="fold-body">
+          <p class="muted">这里只显示服务端对当前阶段明确允许的局部恢复动作；不提供通用“跳到下一 ACT”。</p>
+          <label class="muted">恢复原因 / Reden voor herstel<br><input style="width:min(680px,100%);margin-top:5px;padding:8px;border:1px solid #657a94;border-radius:7px;color:#fff;background:#111c2a" placeholder="Required before a recovery action"></label>
+          <div class="buttons" style="margin-top:10px"><button class="btn" type="button">Release Gitte session</button><button class="btn" type="button">Release Anna session</button><button class="btn" type="button">Release Linda session</button><button class="btn disabled" type="button" disabled>当前无其他安全恢复动作</button></div>
+        </div>
+      </details>
+      <details class="fold">
+        <summary>维护 / 开发者　·　ONDERHOUD / ONTWIKKELAAR</summary>
+        <div class="fold-body"><p class="muted">现有诊断、Asset Manager 与开发者工具保留在这里，默认折叠。</p></div>
+      </details>
+      <div class="legend"><span>Processing: 按钮显示 Processing… 并禁用</span><span>Accepted: 按钮暂时变灰</span><span>Failed: 显示错误代码直至状态解除</span><span>Unavailable / stale: 持续变灰直至重新可用</span></div>
+    </div>
+
     <section class="panel setup">
       <div class="head">创建或重新连接房间　·　KAMER MAKEN OF OPNIEUW VERBINDEN</div>
       <div class="body">
@@ -79,42 +107,13 @@ button,input,select{font:inherit}.page{width:100%;padding:clamp(7px,1vw,18px)}.s
         <div class="start-row"><button class="btn primary" type="button">开始正式游戏 / Formeel spel starten</button></div>
       </div>
     </section>
-  </main>
-
-  <section class="lower">
-    <details class="fold" open>
-      <summary>课程结束 / 导出与重置　·　SESSIE AFRONDEN / EXPORT EN HERSTEL</summary>
-      <div class="fold-body">
-        <div class="finish-grid">
-          <div class="snapshot"><strong>当前数据快照 / Huidige gegevenssnapshot</strong>任何阶段均可导出。包含截至导出时刻的对话、投票、物品、事件和运行状态；进行中快照不会被标记为完整 Session。</div>
-          <div class="buttons"><button class="btn primary" type="button" id="exportDemo">导出当前快照 / Huidige snapshot exporteren</button></div>
-        </div>
-        <p class="muted" id="exportDemoStatus" aria-live="polite">Snapshot type: IN-PROGRESS · Last export: —</p>
-        <div class="danger-zone">
-          <div class="buttons"><button class="btn disabled" type="button" disabled>清除房间用于下一场 / Kamer wissen</button><span class="muted">完成导出并确认文件已保存后才可启用。</span></div>
-        </div>
-      </div>
-    </details>
-    <details class="fold">
-      <summary>紧急 / 恢复　·　NOOD / HERSTEL</summary>
-      <div class="fold-body">
-        <p class="muted">这里只显示服务端对当前阶段明确允许的局部恢复动作；不提供通用“跳到下一 ACT”。</p>
-        <label class="muted">恢复原因 / Reden voor herstel<br><input style="width:min(680px,100%);margin-top:5px;padding:8px;border:1px solid #657a94;border-radius:7px;color:#fff;background:#111c2a" placeholder="Required before a recovery action"></label>
-        <div class="buttons" style="margin-top:10px"><button class="btn" type="button">Release Gitte session</button><button class="btn" type="button">Release Anna session</button><button class="btn" type="button">Release Linda session</button><button class="btn disabled" type="button" disabled>当前无其他安全恢复动作</button></div>
-      </div>
-    </details>
-    <details class="fold">
-      <summary>维护 / 开发者　·　ONDERHOUD / ONTWIKKELAAR</summary>
-      <div class="fold-body"><p class="muted">现有诊断、Asset Manager 与开发者工具保留在这里，默认折叠。</p></div>
-    </details>
-    <div class="legend"><span>Processing: 按钮显示 Processing… 并禁用</span><span>Accepted: 按钮暂时变灰</span><span>Failed: 显示错误代码直至状态解除</span><span>Unavailable / stale: 持续变灰直至重新可用</span></div>
   </section>
 </div></div>
 <script>
 const voteButton=document.getElementById("voteDemo"),voteStatus=document.getElementById("voteDemoStatus");
 voteButton.addEventListener("click",()=>{voteButton.disabled=true;voteButton.classList.add("processing");voteButton.textContent="Processing...";voteStatus.textContent="";setTimeout(()=>{voteButton.classList.remove("processing");voteButton.classList.add("disabled");voteButton.textContent="Accepted";voteStatus.textContent="投票状态已开放 / stemming geopend"},700)});
 const exportButton=document.getElementById("exportDemo"),exportStatus=document.getElementById("exportDemoStatus");
-exportButton.addEventListener("click",()=>{exportButton.disabled=true;exportButton.classList.add("processing");exportButton.textContent="Processing...";setTimeout(()=>{exportButton.disabled=false;exportButton.classList.remove("processing");exportButton.textContent="导出当前快照 / Huidige snapshot exporteren";exportStatus.textContent="Snapshot type: IN-PROGRESS · Prototype export generated just now"},700)});
+exportButton.addEventListener("click",()=>{exportButton.disabled=true;exportButton.classList.add("processing");exportButton.textContent="Processing...";setTimeout(()=>{exportButton.disabled=false;exportButton.classList.remove("processing");exportButton.textContent="导出当前快照 / Huidige snapshot exporteren";exportStatus.textContent="Exported just now"},700)});
 </script>
 </body>
 </html>
