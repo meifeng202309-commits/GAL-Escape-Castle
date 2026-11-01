@@ -1,12 +1,84 @@
--- Teacher Console V5: any-time research snapshot export and guarded room reuse.
+-- Teacher Console V5: any-time research snapshot export and non-destructive
+-- run isolation for reusing one durable room identity.
 -- Migrations 001-073 are deployed immutable history.
 begin;
 
+alter table public.s1_rooms
+  add column session_generation uuid not null default gen_random_uuid();
+
+alter table public.s1_room_players
+  add column session_generation uuid;
+
+-- Preserve sessions that are live when this additive migration is installed.
+-- A later prepare-next-run call rotates the room generation and invalidates them.
+update public.s1_room_players p
+set session_generation=r.session_generation
+from public.s1_rooms r
+where r.room_code=p.room_code
+  and p.session_token_hash is not null
+  and p.session_generation is null;
+
+alter table public.game_runs drop constraint if exists game_runs_status_check;
+alter table public.game_runs
+  add constraint game_runs_status_check check(status in('active','completed','interrupted')),
+  add column interrupted_at timestamptz,
+  add column interruption_reason text;
+
+create or replace function public.s1_join_player(p_room_code text,p_join_code text)
+returns jsonb
+language plpgsql
+security definer
+set search_path=public
+as $$
+declare
+  room text:=upper(trim(p_room_code));
+  player public.s1_room_players%rowtype;
+  generation uuid;
+  token text:=gen_random_uuid()::text;
+begin
+  if room=''or trim(coalesce(p_join_code,''))=''then raise exception 'Room code and join code are required.';end if;
+  select session_generation into generation from public.s1_rooms where room_code=room for key share;
+  if not found then raise exception 'Invalid room code or join code.';end if;
+  select * into player from public.s1_room_players
+    where room_code=room and join_code_hash=public.s1_hash_token(p_join_code) for update;
+  if not found then raise exception 'Invalid room code or join code.';end if;
+  if player.session_token_hash is not null then
+    raise exception 'This role is already claimed. Reopen the original browser session, or ask the teacher to release this player session.';
+  end if;
+  update public.s1_room_players set
+    session_token_hash=public.s1_hash_token(token),session_generation=generation,
+    joined_at=clock_timestamp(),last_seen_at=clock_timestamp()
+    where player_id=player.player_id;
+  insert into public.s1_game_events(room_code,event_type,actor_player_id,details)
+    values(room,'player_joined',player.player_id,jsonb_build_object('role_slot',player.role_slot,'session_generation',generation));
+  return jsonb_build_object('room_code',room,'player_id',player.player_id,'role_slot',player.role_slot,
+    'display_name',player.display_name,'session_token',token,'session_generation',generation);
+end;
+$$;
+
+create or replace function public.s1_get_player_by_session(p_room_code text,p_session_token text)
+returns public.s1_room_players
+language plpgsql
+security definer
+set search_path=public
+as $$
+declare player public.s1_room_players%rowtype;
+begin
+  select p.* into player from public.s1_room_players p
+  join public.s1_rooms r on r.room_code=p.room_code
+  where p.room_code=upper(trim(p_room_code))
+    and p.session_token_hash=public.s1_hash_token(p_session_token)
+    and p.session_generation is not null
+    and p.session_generation=r.session_generation;
+  if not found then raise exception 'Invalid or expired player session.';end if;
+  update public.s1_room_players set last_seen_at=clock_timestamp() where player_id=player.player_id;
+  return player;
+end;
+$$;
+
 create table public.s10_teacher_exports(
   export_id uuid primary key default gen_random_uuid(),
-  -- Deliberately not an FK: interrupted active runs are deleted during guarded
-  -- room reuse, while this immutable export audit identity must survive.
-  run_id uuid not null,
+  run_id uuid not null references public.game_runs(run_id),
   room_code text not null references public.s1_rooms(room_code) on delete cascade,
   export_kind text not null check(export_kind in('in_progress_snapshot','final_snapshot')),
   exported_at timestamptz not null default clock_timestamp()
@@ -71,16 +143,16 @@ begin
       'local_file_confirmation_scope','teacher_attestation_only_not_backup_validation'),
     'current_state',jsonb_build_object(
       'run',to_jsonb(g)-'active_override_id',
-      'legacy_room',(select to_jsonb(x)from public.s1_room_state x where x.room_code=room),
       'scene',(select to_jsonb(x)from public.s3_runtime_scene_state x where x.run_id=g.run_id),
       'acts1_5',(select to_jsonb(x)from public.s3b_run_state x where x.run_id=g.run_id),
       'acts6_8',(select to_jsonb(x)from public.s5_run_state x where x.run_id=g.run_id),
       'acts9_14',(select to_jsonb(x)from public.s6_run_state x where x.run_id=g.run_id),
       'finalization',(select to_jsonb(x)from public.s8_finalizations x where x.run_id=g.run_id)),
-    'legacy_decisions',(select coalesce(jsonb_agg(to_jsonb(x)order by x.locked_at,x.decision_id),'[]')
-      from public.s1_player_decisions x where x.room_code=room),
-    'room_events',(select coalesce(jsonb_agg(to_jsonb(x)order by x.created_at,x.event_id),'[]')
-      from public.s1_game_events x where x.room_code=room),
+    'legacy_room_history',jsonb_build_object(
+      'scope','room_history_not_current_run_evidence',
+      'room_state',(select to_jsonb(x)from public.s1_room_state x where x.room_code=room),
+      'decisions',(select coalesce(jsonb_agg(to_jsonb(x)order by x.locked_at,x.decision_id),'[]')from public.s1_player_decisions x where x.room_code=room),
+      'events',(select coalesce(jsonb_agg(to_jsonb(x)order by x.created_at,x.event_id),'[]')from public.s1_game_events x where x.room_code=room)),
     'players',(select coalesce(jsonb_agg(jsonb_build_object(
       'player_id',player_id,'role_slot',role_slot,'display_name',display_name,
       'joined_at',joined_at,'last_seen_at',last_seen_at)order by role_slot),'[]')
@@ -161,12 +233,10 @@ begin
 end;
 $$;
 
-create function public.s10_reset_room_for_next_session(
+create function public.s10_prepare_room_for_next_run(
   p_room_code text,
   p_teacher_token text,
-  p_expected_run_id uuid,
-  p_expected_export_id uuid,
-  p_confirm_export_saved boolean
+  p_expected_run_id uuid
 ) returns jsonb
 language plpgsql
 security definer
@@ -175,84 +245,29 @@ as $$
 declare
   room text:=upper(trim(p_room_code));
   g public.game_runs%rowtype;
-  deleted_active_run uuid;
+  generation uuid;
 begin
   perform public.s1_assert_teacher(room,p_teacher_token);
-  if not coalesce(p_confirm_export_saved,false)then
-    raise exception 'Confirm that the export files were saved before clearing. This attestation does not validate backup completeness or readability.';
-  end if;
-
-  perform 1 from public.s1_rooms where room_code=room for update;
+  select session_generation into generation from public.s1_rooms where room_code=room for update;
   if not found then raise exception 'Room is unavailable.';end if;
-  select * into g from public.game_runs where run_id=p_expected_run_id and room_code=room for update;
-  if not found then raise exception 'Stale or invalid session identity.';end if;
-  if exists(select 1 from public.game_runs where room_code=room and status='active'and run_id<>g.run_id)then
-    raise exception 'Another active session exists for this room.';
-  end if;
-  if not exists(select 1 from public.s10_teacher_exports where export_id=p_expected_export_id and run_id=g.run_id)then
-    raise exception 'Export the current session again before clearing the room.';
-  end if;
-
-  if g.status='active'then
-    deleted_active_run:=g.run_id;
-    update public.game_runs set active_override_id=null where run_id=g.run_id;
-    delete from public.teacher_override_validity where run_id=g.run_id;
-    delete from public.teacher_overrides where run_id=g.run_id;
-    delete from public.s8_finalizations where run_id=g.run_id;
-    delete from public.dialogue_messages where run_id=g.run_id;
-    delete from public.runtime_player_decisions where run_id=g.run_id;
-    delete from public.runtime_events where run_id=g.run_id;
-    delete from public.discussion_sessions where run_id=g.run_id;
-    delete from public.s6_run_state where run_id=g.run_id;
-    delete from public.s6_audio_consumptions where occurrence_id in(select occurrence_id from public.s6_audio_occurrences where run_id=g.run_id);
-    delete from public.s6_audio_occurrences where run_id=g.run_id;
-    delete from public.act6_13_event_ledger where run_id=g.run_id;
-    delete from public.s6_station_b_progress where run_id=g.run_id;
-    delete from public.s6_station_tasks where run_id=g.run_id;
-    delete from public.s6_engagements where run_id=g.run_id;
-    delete from public.s6_allocations where run_id=g.run_id;
-    delete from public.s6_allocation_attempts where run_id=g.run_id;
-    delete from public.s6_action_receipts where run_id=g.run_id;
-    delete from public.s6_choices where run_id=g.run_id;
-    delete from public.s6_private_clues where run_id=g.run_id;
-    delete from public.s5_act8_private_choices where run_id=g.run_id;
-    delete from public.s5_votes where run_id=g.run_id;
-    delete from public.s5_rounds where run_id=g.run_id;
-    delete from public.s5_run_state where run_id=g.run_id;
-    delete from public.s3b_post_inspection_route_votes where run_id=g.run_id;
-    delete from public.s3b_action_receipts where run_id=g.run_id;
-    delete from public.s3b_library_attempts where run_id=g.run_id;
-    delete from public.s3b_player_facts where run_id=g.run_id;
-    delete from public.s3b_player_progress where run_id=g.run_id;
-    delete from public.s3b_run_state where run_id=g.run_id;
-    delete from public.s9_pocket_item_inspections where run_id=g.run_id;
-    delete from public.s3_player_item_view_state where run_id=g.run_id;
-    delete from public.s3_shared_photos where run_id=g.run_id;
-    delete from public.s3_player_knowledge where run_id=g.run_id;
-    delete from public.s3_player_observations where run_id=g.run_id;
-    delete from public.s3_group_items where run_id=g.run_id;
-    delete from public.s3_player_items where run_id=g.run_id;
-    delete from public.s3_runtime_scene_state where run_id=g.run_id;
-    delete from public.game_runs where run_id=g.run_id;
-  end if;
-
-  delete from public.s1_player_decisions where room_code=room;
-  delete from public.s1_game_events where room_code=room;
-  update public.s1_room_state set current_scene=1,phase='collecting',updated_at=clock_timestamp()where room_code=room;
-  update public.s1_room_players set session_token_hash=null,joined_at=null,last_seen_at=null where room_code=room;
-  update public.s1_rooms set updated_at=clock_timestamp()where room_code=room;
+  select * into g from public.game_runs where run_id=p_expected_run_id and room_code=room and status='active' for update;
+  if not found then raise exception 'Stale or invalid active run identity.';end if;
+  update public.game_runs set status='interrupted',interrupted_at=clock_timestamp(),
+    interruption_reason='teacher_prepare_next_run',active_override_id=null where run_id=g.run_id;
+  generation:=gen_random_uuid();
+  update public.s1_rooms set session_generation=generation,updated_at=clock_timestamp()where room_code=room;
+  update public.s1_room_players set session_token_hash=null,session_generation=null,joined_at=null,last_seen_at=null where room_code=room;
   insert into public.s1_game_events(room_code,event_type,details)
-    values(room,'teacher_room_prepared_for_next_session',jsonb_build_object(
-      'deleted_active_run_id',deleted_active_run,'confirmed_export_id',p_expected_export_id,
-      'teacher_file_saved_attestation',true,'backup_validated',false));
-
-  return jsonb_build_object('ok',true,'room_code',room,'deleted_active_run_id',deleted_active_run,'players_released',3);
+    values(room,'teacher_room_prepared_for_next_run',jsonb_build_object(
+      'interrupted_run_id',g.run_id,'new_session_generation',generation,'rows_deleted',false));
+  return jsonb_build_object('ok',true,'room_code',room,'interrupted_run_id',g.run_id,
+    'session_generation',generation,'players_released',3,'rows_deleted',false);
 end;
 $$;
 
 revoke all on function public.s10_export_session_snapshot(text,text,uuid)from public;
-revoke all on function public.s10_reset_room_for_next_session(text,text,uuid,uuid,boolean)from public;
+revoke all on function public.s10_prepare_room_for_next_run(text,text,uuid)from public;
 grant execute on function public.s10_export_session_snapshot(text,text,uuid)to anon,authenticated;
-grant execute on function public.s10_reset_room_for_next_session(text,text,uuid,uuid,boolean)to anon,authenticated;
+grant execute on function public.s10_prepare_room_for_next_run(text,text,uuid)to anon,authenticated;
 
 commit;

@@ -43,7 +43,7 @@ function responseFor(name){
   if(name==="s8_get_finalization_state")return{};
   if(name==="s9_start_formal_game"){if(state.failStart){state.failStart=false;return{error:{code:"START_FAIL",message:"Injected start failure"}}}state.active=true;return{run_id:runId,formal_state:"active"}}
   if(name==="s10_export_session_snapshot")return{export_id:exportId,run_id:runId,json_filename:"v5_in_progress.json",csv_filename:"v5_in_progress.csv",json:{header:{restorable:false}},csv:"timestamp,record_type\n"};
-  if(name==="s10_reset_room_for_next_session"){state.active=false;state.joined=false;return{ok:true,room_code:"V5TEST",deleted_active_run_id:runId,players_released:3}}
+  if(name==="s10_prepare_room_for_next_run"){state.active=false;state.joined=false;return{ok:true,room_code:"V5TEST",interrupted_run_id:runId,players_released:3,rows_deleted:false}}
   return{};
 }
 
@@ -62,7 +62,7 @@ async function main(){
       try{
         const url=new URL(event.request.url);
         if(event.request.method==="OPTIONS"){await cdp.send("Fetch.fulfillRequest",{requestId:event.requestId,responseCode:204,responseHeaders:[{name:"Access-Control-Allow-Origin",value:"*"},{name:"Access-Control-Allow-Headers",value:"*"},{name:"Access-Control-Allow-Methods",value:"POST, OPTIONS"}]});return}
-        const name=url.pathname.split("/").pop();state.calls.push(name);if(["s9_start_formal_game","s10_export_session_snapshot","s10_reset_room_for_next_session"].includes(name))await sleep(180);
+        const name=url.pathname.split("/").pop();state.calls.push(name);if(["s9_start_formal_game","s10_export_session_snapshot","s10_prepare_room_for_next_run"].includes(name))await sleep(180);
         const value=responseFor(name),failed=value?.error;await cdp.send("Fetch.fulfillRequest",{requestId:event.requestId,responseCode:failed?400:200,responseHeaders:[{name:"Content-Type",value:"application/json"},{name:"Access-Control-Allow-Origin",value:"*"}],body:Buffer.from(JSON.stringify(failed?value.error:value)).toString("base64")});
       }catch(error){await cdp.send("Fetch.failRequest",{requestId:event.requestId,errorReason:"Failed"}).catch(()=>{});throw error}
     });
@@ -76,14 +76,14 @@ async function main(){
     await evaluate(cdp,"startRunButton.click();true");await waitFor(cdp,"startRunButton.textContent==='Processing...'","Start did not show Processing");await waitFor(cdp,"startRunStatus.textContent.includes('[START_FAIL]')&&!startRunButton.disabled","Failed start did not expose code and recover availability");
     await evaluate(cdp,"startRunButton.click();true");await waitFor(cdp,"startRunButton.textContent==='Processing...'","Successful Start did not show Processing");await waitFor(cdp,"startRunButton.hidden&&exportCurrentSnapshotButton.dataset.runId","Active run did not hide Start or enable snapshot export");
     await evaluate(cdp,"exportCurrentSnapshotButton.click();true");await waitFor(cdp,"exportCurrentSnapshotButton.textContent==='Processing...'","Snapshot did not show Processing");await waitFor(cdp,"currentExportStatus.textContent.includes('v5_in_progress.json')","Snapshot did not complete");
-    await evaluate(cdp,"confirmExportSaved.checked=true;confirmExportSaved.dispatchEvent(new Event('change'));true");assert(await evaluate(cdp,"!clearRoomButton.disabled"),"Exact-export attestation did not enable Clear");
-    await evaluate(cdp,"clearRoomButton.click();true");await waitFor(cdp,"clearRoomButton.textContent==='Processing...'","Clear did not show Processing");await waitFor(cdp,"document.querySelector('#roomState')?.innerText.includes('0/3 connected')","Clear did not release Players");assert(await evaluate(cdp,"!startRunButton.hidden&&startRunButton.textContent.includes('开始正式游戏')&&!startRunStatus.textContent"),"Start did not restore its normal unavailable state after room clear");
-    const attestation=await evaluate(cdp,"document.querySelector('.teacher-clear-confirm').innerText");assert(attestation.includes("does not verify")&&attestation.includes("complete or readable"),"Backup attestation warning is missing");
+    assert(await evaluate(cdp,"!clearRoomButton.disabled"),"Active run did not enable Prepare next run");
+    await evaluate(cdp,"clearRoomButton.click();true");await waitFor(cdp,"clearRoomButton.textContent==='Processing...'","Prepare did not show Processing");await waitFor(cdp,"document.querySelector('#roomState')?.innerText.includes('0/3 connected')","Prepare did not release Players");await waitFor(cdp,"!startRunButton.hidden&&startRunButton.textContent.includes('开始正式游戏')&&!startRunStatus.textContent","Start did not restore its normal unavailable state after run isolation");
+    const isolationNote=await evaluate(cdp,"document.querySelector('.teacher-run-isolation-note').innerText");assert(isolationNote.includes("preserves prior test rows")&&isolationNote.includes("expires all Player sessions"),"Run isolation warning is missing");
     await cdp.send("Emulation.setDeviceMetricsOverride",{width:900,height:768,deviceScaleFactor:1,mobile:false});await sleep(150);
     const narrow=await evaluate(cdp,`(()=>{const r=s=>document.querySelector(s).getBoundingClientRect();const live=r('.teacher-live-panel'),discussion=r('.teacher-discussion-panel'),host=r('.teacher-host-panel'),tools=r('.teacher-v5-tools');return{liveY:live.y,discussionY:discussion.y,hostY:host.y,toolsY:tools.y,overflow:document.documentElement.scrollWidth-innerWidth}})()`);
     assert(narrow.liveY<narrow.discussionY&&narrow.hostY<narrow.toolsY,"Narrow whole-page order failed");assert(narrow.overflow<=1,"Narrow horizontal overflow detected");
     const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:true});await fsp.writeFile(path.join(out,"teacher-v5-cdp-900x768.png"),Buffer.from(shot.data,"base64"));
-    const evidence={generatedAt:new Date().toISOString(),desktop,narrow,calls:state.calls,assertions:{threeOfThreeStartGate:true,processing:true,failedCode:true,startHidesWhenActive:true,startRestoresAfterClear:true,snapshotEnablesExactExportClear:true,clearReleasesPlayers:true,backupAttestationWarning:true,responsiveWholePageScroll:true}};
+    const evidence={generatedAt:new Date().toISOString(),desktop,narrow,calls:state.calls,assertions:{threeOfThreeStartGate:true,processing:true,failedCode:true,startHidesWhenActive:true,startRestoresAfterClear:true,activeRunEnablesPrepare:true,prepareReleasesPlayers:true,priorRowsPreservedWarning:true,responsiveWholePageScroll:true}};
     await fsp.writeFile(path.join(out,"TEACHER_V5_BROWSER_EVIDENCE.json"),JSON.stringify(evidence,null,2));console.log(JSON.stringify(evidence,null,2));console.log("Teacher Console V5 raw-CDP browser gate passed.");
   }finally{cdp?.close();child.kill();await new Promise(resolve=>local.server.close(resolve));await fsp.rm(profile,{recursive:true,force:true}).catch(()=>{})}
 }

@@ -43,7 +43,7 @@ const overrideActions = document.getElementById("overrideActions");
 const overrideStatus = document.getElementById("overrideStatus");
 const overrideHistory = document.getElementById("overrideHistory");
 const operationsBadge=document.getElementById("operationsBadge"),operationsStatus=document.getElementById("operationsStatus"),operationsState=document.getElementById("operationsState"),refreshOperationsButton=document.getElementById("refreshOperationsButton"),auditPrivateDebug=document.getElementById("auditPrivateDebug"),exportRunSelect=document.getElementById("exportRunSelect"),exportSessionButton=document.getElementById("exportSessionButton");
-const exportCurrentSnapshotButton=document.getElementById("exportCurrentSnapshotButton"),currentExportStatus=document.getElementById("currentExportStatus"),confirmExportSaved=document.getElementById("confirmExportSaved"),clearRoomButton=document.getElementById("clearRoomButton"),clearRoomStatus=document.getElementById("clearRoomStatus");
+const exportCurrentSnapshotButton=document.getElementById("exportCurrentSnapshotButton"),currentExportStatus=document.getElementById("currentExportStatus"),clearRoomButton=document.getElementById("clearRoomButton"),clearRoomStatus=document.getElementById("clearRoomStatus");
 const loadAssetsButton=document.getElementById("loadAssetsButton"),assetReadyBadge=document.getElementById("assetReadyBadge"),assetStatus=document.getElementById("assetStatus"),assetManagerState=document.getElementById("assetManagerState");
 const anchorDialog=document.getElementById('anchorDialog'),anchorStage=document.getElementById('anchorStage'),anchorImage=document.getElementById('anchorImage'),anchorBox=document.getElementById('anchorBox'),anchorPrompt=document.getElementById('anchorPrompt'),anchorStatus=document.getElementById('anchorStatus'),anchorNameSelect=document.getElementById('anchorNameSelect'),saveAnchorButton=document.getElementById('saveAnchorButton');let anchorDraft=null,anchorCandidate=null,anchorStart=null;
 
@@ -57,8 +57,6 @@ let operationsLoadGeneration = 0;
 let joinedPlayerCount = 0;
 let formalRunActive = false;
 let currentSessionRunId = "";
-let latestExportedRunId = "";
-let latestExportId = "";
 
 createRoomButton.addEventListener("click", createRoom);
 watchButton.addEventListener("click", watchRoom);
@@ -81,9 +79,8 @@ auditPrivateDebug.addEventListener("change",setAuditPrivateDebug);
 exportSessionButton.addEventListener("click",exportSprint8Session);
 exportRunSelect.addEventListener("change",()=>{exportSessionButton.dataset.runId=exportRunSelect.value;exportSessionButton.disabled=!exportRunSelect.value;});
 exportCurrentSnapshotButton.addEventListener("click",exportCurrentSnapshot);
-confirmExportSaved.addEventListener("change",syncClearRoomAvailability);
 clearRoomButton.addEventListener("click",clearRoomForNextSession);
-roomCodeInput.addEventListener("input",()=>{joinedPlayerCount=0;formalRunActive=false;currentSessionRunId="";latestExportedRunId="";latestExportId="";syncStartAvailability();syncSessionActions()});
+roomCodeInput.addEventListener("input",()=>{joinedPlayerCount=0;formalRunActive=false;currentSessionRunId="";syncStartAvailability();syncSessionActions()});
 teacherTokenInput.addEventListener("input",syncStartAvailability);
 
 function actionError(error){return `[${error?.code||"RPC_ERROR"}] ${error?.message||"Unknown error"}`}
@@ -106,7 +103,7 @@ function syncStartAvailability(){
   runModeInput.disabled=formalRunActive;
 }
 
-function syncClearRoomAvailability(){clearRoomButton.disabled=!currentSessionRunId||latestExportedRunId!==currentSessionRunId||!latestExportId||!confirmExportSaved.checked}
+function syncClearRoomAvailability(){clearRoomButton.disabled=!currentSessionRunId}
 function syncSessionActions(){exportCurrentSnapshotButton.dataset.runId=currentSessionRunId;exportCurrentSnapshotButton.disabled=!currentSessionRunId;clearRoomButton.dataset.runId=currentSessionRunId;syncClearRoomAvailability()}
 
 async function createRoom() {
@@ -349,8 +346,8 @@ function syncExportRunSelection(select,button,completedRuns,fallbackRunId,fallba
 }
 function downloadExport(filename,content,type){const url=URL.createObjectURL(new Blob([content],{type}));const anchor=document.createElement("a");anchor.href=url;anchor.download=filename;document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 async function exportSprint8Session(){const payload=baseTeacherPayload();if(!payload)return;const runId=exportSessionButton.dataset.runId;try{await runButtonAction(exportSessionButton,operationsStatus,async()=>{const result=await rpc("s8_export_session",runId?{...payload,p_run_id:runId}:payload);downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");operationsStatus.textContent=`Exported ${result.json_filename} and ${result.csv_filename}.`;await loadOperationsState()},"Accepted",()=>{void loadOperationsState()})}catch{}}
-async function exportCurrentSnapshot(){const payload=baseTeacherPayload();const runId=exportCurrentSnapshotButton.dataset.runId;if(!payload||!runId)return;try{await runButtonAction(exportCurrentSnapshotButton,currentExportStatus,async()=>{const result=await rpc("s10_export_session_snapshot",{...payload,p_run_id:runId});downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");latestExportedRunId=result.run_id;latestExportId=result.export_id;confirmExportSaved.checked=false;currentExportStatus.textContent=`Exported ${result.json_filename}`;syncClearRoomAvailability()},"Accepted",syncSessionActions)}catch{}}
-async function clearRoomForNextSession(){const payload=baseTeacherPayload();const runId=clearRoomButton.dataset.runId;if(!payload||!runId||!latestExportId||!confirmExportSaved.checked)return;if(!confirm(`Clear the current session for room ${payload.p_room_code}? Player sessions will be released. Completed historical runs remain stored. Saving the files has not validated their completeness or readability.`))return;try{await runButtonAction(clearRoomButton,clearRoomStatus,async()=>{await rpc("s10_reset_room_for_next_session",{...payload,p_expected_run_id:runId,p_expected_export_id:latestExportId,p_confirm_export_saved:true});formalRunActive=false;currentSessionRunId="";latestExportedRunId="";latestExportId="";joinedPlayerCount=0;confirmExportSaved.checked=false;clearRoomStatus.textContent="Room ready for the next session. All three Players must rejoin. The saved-file attestation was not backup validation.";syncStartAvailability();syncSessionActions();await loadState()},"Accepted",syncSessionActions)}catch{}}
+async function exportCurrentSnapshot(){const payload=baseTeacherPayload();const runId=exportCurrentSnapshotButton.dataset.runId;if(!payload||!runId)return;try{await runButtonAction(exportCurrentSnapshotButton,currentExportStatus,async()=>{const result=await rpc("s10_export_session_snapshot",{...payload,p_run_id:runId});downloadExport(result.json_filename,JSON.stringify(result.json,null,2),"application/json");downloadExport(result.csv_filename,result.csv,"text/csv;charset=utf-8");currentExportStatus.textContent=`Exported ${result.json_filename}`},"Accepted",syncSessionActions)}catch{}}
+async function clearRoomForNextSession(){const payload=baseTeacherPayload();const runId=clearRoomButton.dataset.runId;if(!payload||!runId)return;if(!confirm(`Interrupt the current run for room ${payload.p_room_code} and expire all three Player sessions? Existing run data will be preserved.`))return;try{await runButtonAction(clearRoomButton,clearRoomStatus,async()=>{await rpc("s10_prepare_room_for_next_run",{...payload,p_expected_run_id:runId});formalRunActive=false;currentSessionRunId="";joinedPlayerCount=0;clearRoomStatus.textContent="Previous run preserved and isolated. All three Players must rejoin before starting the next run.";syncStartAvailability();syncSessionActions();await loadState()},"Accepted",syncSessionActions)}catch{}}
 async function initializeSprint5(){const payload=baseTeacherPayload();if(!payload)return;try{await runButtonAction(initializeSprint5Button,discussionTeacherStatus,async()=>{const result=await rpc("s5_initialize",payload);discussionTeacherStatus.textContent=`ACT 6–8 flow initialized: ${result.run_id}`;await loadDiscussionState()})}catch{}}
 async function initializeSprint6(){const payload=baseTeacherPayload();if(!payload)return;try{await runButtonAction(initializeSprint6Button,discussionTeacherStatus,async()=>{const result=await rpc("s6_initialize",payload);discussionTeacherStatus.textContent=`ACT 9–13 flow initialized: ${result.run_id}`;await loadDiscussionState()})}catch{}}
 

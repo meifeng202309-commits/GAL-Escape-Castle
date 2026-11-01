@@ -63,6 +63,7 @@ let sprint6AudioArmed = false;
 let sprint6PendingAudio = null;
 let sprint6LeverTimer = null;
 let sprint6VolumeMode = localStorage.getItem("gal.s6.audio-mode") || "full";
+let lastObservedRunId = "";
 const SPRINT6_AUDIO_OUTBOX_KEY = "gal.s6.audio-consumption-outbox";
 const trialAssetResolver=createAssetResolver(rpc);
 const discussionViewportState=new Map(),pendingMessageAcks=new Map();
@@ -124,6 +125,17 @@ function requestIdentity(kind, identity, payload) {
 function clearRequestIdentity(key) {
   sessionStorage.removeItem(key);
 }
+
+function resetRunScopedClientState() {
+  currentDiscussion=null;currentSprint3bState=null;currentSprint5State=null;currentSprint6State=null;
+  sprint8RevealRunId="";sprint6AudioIdentity="";sprint6PendingAudio=null;selectedPocketItem="";
+  discussionViewportState.clear();pendingMessageAcks.clear();localStorage.removeItem(SPRINT6_AUDIO_OUTBOX_KEY);
+  for(let i=sessionStorage.length-1;i>=0;i--){const key=sessionStorage.key(i);if(key?.startsWith("gal.pending."))sessionStorage.removeItem(key)}
+}
+
+function frameRunId(frame){return frame?.completedState?.run_id||frame?.discussionState?.run?.run_id||frame?.sprint3bState?.run_id||frame?.sprint5State?.state?.run_id||frame?.sprint6State?.state?.run_id||""}
+function expiredPlayerSession(error){return /invalid or expired player session/i.test(`${error?.message||""} ${error?.cause?.message||""}`)}
+function expirePlayerSession(){stopPolling();clearSession();session=null;lastObservedRunId="";resetRunScopedClientState();showJoin();joinStatus.textContent="Your previous run session expired. Rejoin for the next run."}
 
 joinButton.addEventListener("click", joinRoom);
 document.addEventListener("pointerdown", armSprint6Audio, { once: true });
@@ -273,6 +285,7 @@ async function loadPlayerFrame(activeSession) {
 
 function commitPlayerFrame(frame) {
   if(playerCompositionActive&&playerCompositionTarget?.id!=="messageText"){deferredCompositionFrame=frame;return}
+  const observedRunId=frameRunId(frame);if(observedRunId&&lastObservedRunId&&observedRunId!==lastObservedRunId)resetRunScopedClientState();if(observedRunId)lastObservedRunId=observedRunId;
   currentSprint5State = frame.kind === "active" && frame.sprint5State?.active ? frame.sprint5State : null;
   restoreRefreshDisabledPlayerMutations();
   gameStatus.textContent = "";
@@ -386,7 +399,8 @@ function startPlayerRefresh(activeSession, epoch, generation, deferred = createR
       }
     } catch (error) {
       performanceTrace.record("refresh_error", { generation, session_epoch: epoch, error_category: error.name || "Error" });
-      if (refreshCanCommit(run)) showPlayerRefreshFailure(error);
+      if (refreshCanCommit(run)&&expiredPlayerSession(error))expirePlayerSession();
+      else if (refreshCanCommit(run)) showPlayerRefreshFailure(error);
       const failedStatus = error.name === "PlayerRefreshInvariantError" ? "invariant_breach" : "fetch_error";
       result = { status: refreshCanCommit(run) ? failedStatus : "discarded", error };
     } finally {

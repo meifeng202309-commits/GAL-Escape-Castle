@@ -1,0 +1,54 @@
+name: Teacher V5 Option B disposable PostgreSQL gate
+
+on:
+  push:
+    branches: [remediation/sprint9-structural-v1]
+    paths:
+      - database/074_teacher_console_v5_snapshot_and_room_reuse.sql
+      - tests/teacher-v5-option-b-postgresql.sql
+      - .github/workflows/teacher-v5-option-b-postgres.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  two-run-isolation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: optionb
+          POSTGRES_PASSWORD: optionb-ephemeral-only
+          POSTGRES_DB: optionb
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U optionb -d optionb"
+          --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGUSER: optionb
+      PGPASSWORD: optionb-ephemeral-only
+      PGDATABASE: optionb
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bootstrap disposable Supabase-compatible roles
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists(select 1 from pg_roles where rolname='anon')then create role anon nologin;end if;if not exists(select 1 from pg_roles where rolname='authenticated')then create role authenticated nologin;end if;if not exists(select 1 from pg_roles where rolname='service_role')then create role service_role nologin;end if;end \$\$;"
+          psql -X -v ON_ERROR_STOP=1 -c "create schema if not exists storage;create table if not exists storage.buckets(id text primary key,name text not null,public boolean not null default false,file_size_limit bigint,allowed_mime_types text[]);"
+      - name: Apply immutable migrations 001 through 073
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r file;do name="${file##*/}";if [[ "$name" =~ ^([0-9]{3})([^0-9].*)?\.sql$ ]];then n=$((10#${BASH_REMATCH[1]}));if ((n>=1&&n<=73));then echo "MIGRATION_APPLY: $name";psql -X -v ON_ERROR_STOP=1 -q -f "$file";fi;fi;done < <(find database -maxdepth 1 -type f -name '*.sql'|LC_ALL=C sort)
+      - name: Apply revised 074 and run two-run isolation matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f database/074_teacher_console_v5_snapshot_and_room_reuse.sql
+          psql -X -v ON_ERROR_STOP=1 -f tests/teacher-v5-option-b-postgresql.sql

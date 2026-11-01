@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-31T03:52:02.347Z",
+  "generatedAt": "2026-11-01T15:07:55.701Z",
   "desktop": {
     "live": {
       "x": 14.65625,
@@ -49,7 +49,13 @@
     "s8_get_finalization_state",
     "s2_get_teacher_state",
     "s10_export_session_snapshot",
-    "s10_reset_room_for_next_session",
+    "s10_prepare_room_for_next_run",
+    "s1_get_teacher_state",
+    "s6_get_teacher_discussion_state",
+    "s7_get_teacher_console",
+    "s5_get_teacher_discussion_state",
+    "s8_get_finalization_state",
+    "s2_get_teacher_state",
     "s1_get_teacher_state",
     "s6_get_teacher_discussion_state",
     "s7_get_teacher_console",
@@ -63,9 +69,9 @@
     "failedCode": true,
     "startHidesWhenActive": true,
     "startRestoresAfterClear": true,
-    "snapshotEnablesExactExportClear": true,
-    "clearReleasesPlayers": true,
-    "backupAttestationWarning": true,
+    "activeRunEnablesPrepare": true,
+    "prepareReleasesPlayers": true,
+    "priorRowsPreservedWarning": true,
     "responsiveWholePageScroll": true
   }
 }
