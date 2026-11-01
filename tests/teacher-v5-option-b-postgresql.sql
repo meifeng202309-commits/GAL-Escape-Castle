@@ -19,7 +19,7 @@ begin
 
   insert into public.s3_item_catalog(item_key,name_text_key)values('opt74_test_item','opt74.test.item')on conflict do nothing;
   insert into public.s3_player_items(run_id,item_key,physical_owner_id,acquired_at)
-    values(run_a,player_a,'opt74_test_item',player_a,clock_timestamp());
+    values(run_a,'opt74_test_item',player_a,clock_timestamp());
   insert into public.discussion_sessions(run_id,scene_id,phase_key,step_key,round_no,vote_round,topic,status,discussion_time_limit_sec,vote_time_limit_sec)
     values(run_a,'option_b_test','discussion','vote',1,1,'Run A evidence','voting',60,60)returning discussion_session_id into discussion;
   insert into public.dialogue_messages(run_id,discussion_session_id,scene_id,phase_key,step_key,player_id,message_text)
