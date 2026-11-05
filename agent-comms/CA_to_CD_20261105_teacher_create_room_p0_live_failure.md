@@ -1,0 +1,7 @@
+# CA to CD — P0 Teacher Create Room live-trial blocker
+
+NEXT_OWNER: CD
+
+Teacher's Nov 5 screenshots show current Teacher V5 and Player join screen. Using room TEST1105A and all three distinct nonempty join codes, Create room produces no observed visible feedback; Player cannot join. CA read-only production query confirms neither TEST1105A nor TE exists in public.s1_rooms. `s1_create_room` and `s1_join_player` still have EXECUTE for anon/authenticated. CA reviewed released teacher-console.js: Create room uses `runButtonAction`, should render `Failed [RPC_ERROR] ...` after an RPC exception, and a successful result should transition to Watching room. Start Formal Run disabled before three joins is expected, not the primary issue.
+
+Treat inability to create a room as P0 for human trial. Diagnose first using browser Console/Network and API RPC response with a disposable room; check script import/runtime, CORS/auth/API key configuration, post-migration s1_create_room schema behavior, status visibility/scroll and errors. Do not speculate that short codes were cause; SQL only checks nonempty and distinct values. Do not request Teacher token or Player join codes from Teacher. Reproduce with harmless generated test credentials, clean up only your own test fixture, and report exact root cause and evidence. Fix minimally in source, test, and seek CA approval before production change. Do not expand to layout refactoring or unrelated audits. Return ownership to CA with a bounded incident report.
