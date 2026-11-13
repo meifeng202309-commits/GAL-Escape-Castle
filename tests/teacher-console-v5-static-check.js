@@ -26,7 +26,7 @@ assert(html.includes("Phase-specific recovery actions"),"Bounded phase-specific 
 for(const token of[
   'joinedPlayerCount!==3','startRunButton.hidden=formalRunActive','button.textContent="Processing..."',
   'button.textContent=acceptedText','Failed ${actionError(error)}','s10_export_session_snapshot',
-  's10_prepare_room_for_next_run','p_expected_run_id:runId','Previous run preserved and isolated'
+  's10_prepare_room_for_next_run','p_expected_run_id:runId','Previous run preserved and room prepared'
 ])assert(app.includes(token),`Teacher V5 behavior contract missing: ${token}`);
 assert(client.includes('error.code = body?.code || `HTTP_${response.status}`'),"Supabase RPC errors must preserve a concrete code for Teacher Failed state");
 

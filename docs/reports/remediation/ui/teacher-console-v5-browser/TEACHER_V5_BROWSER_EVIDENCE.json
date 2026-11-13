@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-01T15:07:55.701Z",
+  "generatedAt": "2026-11-13T12:22:42.265Z",
   "desktop": {
     "live": {
       "x": 14.65625,
@@ -55,12 +55,6 @@
     "s7_get_teacher_console",
     "s5_get_teacher_discussion_state",
     "s8_get_finalization_state",
-    "s2_get_teacher_state",
-    "s1_get_teacher_state",
-    "s6_get_teacher_discussion_state",
-    "s7_get_teacher_console",
-    "s5_get_teacher_discussion_state",
-    "s8_get_finalization_state",
     "s2_get_teacher_state"
   ],
   "assertions": {
@@ -69,6 +63,8 @@
     "failedCode": true,
     "startHidesWhenActive": true,
     "startRestoresAfterClear": true,
+    "teacherVoteStageVisible": true,
+    "perPlayerSubmissionVisible": true,
     "activeRunEnablesPrepare": true,
     "prepareReleasesPlayers": true,
     "priorRowsPreservedWarning": true,
