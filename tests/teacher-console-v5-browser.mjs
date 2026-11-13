@@ -32,18 +32,18 @@ async function evaluate(cdp,expression){const result=await cdp.send("Runtime.eva
 
 const runId="00000000-0000-4000-8000-000000000074";
 const exportId="00000000-0000-4000-8000-000000000e74";
-const state={joined:true,active:false,failStart:true,calls:[]};
+const state={joined:true,active:false,completed:false,failStart:true,calls:[]};
 const players=()=>["Gitte","Anna","Linda"].map((display_name,index)=>({player_id:`00000000-0000-4000-8000-00000000000${index+1}`,role_slot:["GAL-A","GAL-B","GAL-C"][index],display_name,joined:state.joined,last_seen_at:"2026-10-31T06:00:00Z"}));
 function responseFor(name){
   if(name==="s1_get_teacher_state")return{room_code:"V5TEST",phase:"collecting",players:players(),decisions:[]};
   if(name==="s6_get_teacher_discussion_state")return{sprint6_active:false};
   if(name==="s5_get_teacher_discussion_state")return{sprint5_active:false};
   if(name==="s2_get_teacher_state")return state.active?{active:true,canonical_flow_active:true,run:{run_id:runId,run_mode:"normal",behavior_dataset_eligible:true},discussion:null,current_votes:[],messages:[],teacher_override:{allowed_actions:[],history:[]}}:{active:false,teacher_override:{allowed_actions:[],history:[]}};
-  if(name==="s7_get_teacher_console")return state.active?{active:true,run:{run_id:runId,run_mode:"normal",audit_private_debug_view:false},current:{act_no:9,scene_id:"great_hall",phase_key:"act9_discussion",step_key:"step_1",current_route:null,display_mode:"ACTION_SCREEN"},players:players().map((p,index)=>({...p,online:true,submitted:index===0})),operations_v1:players().map((p,index)=>({player_id:p.player_id,discussion_or_vote_state:index===0?"SUBMITTED":"WAITING"})),discussion:{status:"voting"},pockets:[],group_items:[],countdown:{remaining_seconds:null},audio:{recent:[]},phase_behavior_validity:[],teacher_interventions:[],override_history:[],export:{}}:{active:false,export:{}};
-  if(name==="s8_get_finalization_state")return{};
+  if(name==="s7_get_teacher_console")return state.active?{active:true,run:{run_id:runId,run_mode:"normal",audit_private_debug_view:false},current:{act_no:9,scene_id:"great_hall",phase_key:"act9_discussion",step_key:"step_1",current_route:null,display_mode:"ACTION_SCREEN"},players:players().map((p,index)=>({...p,online:true,submitted:index===0})),operations_v1:players().map((p,index)=>({player_id:p.player_id,discussion_or_vote_state:index===0?"SUBMITTED":"WAITING"})),discussion:{status:"voting"},pockets:[],group_items:[],countdown:{remaining_seconds:null},audio:{recent:[]},phase_behavior_validity:[],teacher_interventions:[],override_history:[],export:{}}:{active:false,export:state.completed?{run_id:runId,export_ready:true,completed_runs:[{run_id:runId,json_filename:"completed.json"}],json_filename:"completed.json"}:{}};
+  if(name==="s8_get_finalization_state")return state.completed?{run_id:runId,export_ready:true,completed_runs:[{run_id:runId,json_filename:"completed.json"}],json_filename:"completed.json"}:{};
   if(name==="s9_start_formal_game"){if(state.failStart){state.failStart=false;return{error:{code:"START_FAIL",message:"Injected start failure"}}}state.active=true;return{run_id:runId,formal_state:"active"}}
   if(name==="s10_export_session_snapshot")return{export_id:exportId,run_id:runId,json_filename:"v5_in_progress.json",csv_filename:"v5_in_progress.csv",json:{header:{restorable:false}},csv:"timestamp,record_type\n"};
-  if(name==="s10_prepare_room_for_next_run"){state.active=false;state.joined=false;return{ok:true,room_code:"V5TEST",interrupted_run_id:runId,players_released:3,rows_deleted:false}}
+  if(name==="s10_prepare_room_for_next_run"){state.active=false;state.completed=false;state.joined=false;return{ok:true,room_code:"V5TEST",previous_run_id:runId,players_released:3,rows_deleted:false}}
   return{};
 }
 
@@ -79,12 +79,15 @@ async function main(){
     await evaluate(cdp,"exportCurrentSnapshotButton.click();true");await waitFor(cdp,"exportCurrentSnapshotButton.textContent==='Processing...'","Snapshot did not show Processing");await waitFor(cdp,"currentExportStatus.textContent.includes('v5_in_progress.json')","Snapshot did not complete");
     assert(await evaluate(cdp,"!clearRoomButton.disabled"),"Active run did not enable Prepare next run");
     await evaluate(cdp,"clearRoomButton.click();true");await waitFor(cdp,"clearRoomButton.textContent==='Processing...'","Prepare did not show Processing");await waitFor(cdp,"document.querySelector('#roomState')?.innerText.includes('0/3 connected')","Prepare did not release Players");await waitFor(cdp,"!startRunButton.hidden&&startRunButton.textContent.includes('开始正式游戏')&&!startRunStatus.textContent","Start did not restore its normal unavailable state after run isolation");
+    state.completed=true;state.joined=true;
+    await evaluate(cdp,"watchButton.click();true");await waitFor(cdp,"operationsState.innerText.includes('Run this room again')&&!clearRoomButton.disabled","Watch/Reconnect did not expose completed-run Prepare action and operator route");
+    await evaluate(cdp,"clearRoomButton.click();true");await waitFor(cdp,"clearRoomButton.textContent==='Processing...'","Completed-run Prepare did not show Processing");await waitFor(cdp,"document.querySelector('#roomState')?.innerText.includes('0/3 connected')","Completed-run Prepare did not release Players");
     const isolationNote=await evaluate(cdp,"document.querySelector('.teacher-run-isolation-note').innerText");assert(isolationNote.includes("preserves prior test rows")&&isolationNote.includes("expires all Player sessions"),"Run isolation warning is missing");
     await cdp.send("Emulation.setDeviceMetricsOverride",{width:900,height:768,deviceScaleFactor:1,mobile:false});await sleep(150);
     const narrow=await evaluate(cdp,`(()=>{const r=s=>document.querySelector(s).getBoundingClientRect();const live=r('.teacher-live-panel'),discussion=r('.teacher-discussion-panel'),host=r('.teacher-host-panel'),tools=r('.teacher-v5-tools');return{liveY:live.y,discussionY:discussion.y,hostY:host.y,toolsY:tools.y,overflow:document.documentElement.scrollWidth-innerWidth}})()`);
     assert(narrow.liveY<narrow.discussionY&&narrow.hostY<narrow.toolsY,"Narrow whole-page order failed");assert(narrow.overflow<=1,"Narrow horizontal overflow detected");
     const shot=await cdp.send("Page.captureScreenshot",{format:"png",captureBeyondViewport:true});await fsp.writeFile(path.join(out,"teacher-v5-cdp-900x768.png"),Buffer.from(shot.data,"base64"));
-    const evidence={generatedAt:new Date().toISOString(),desktop,narrow,calls:state.calls,assertions:{threeOfThreeStartGate:true,processing:true,failedCode:true,startHidesWhenActive:true,startRestoresAfterClear:true,teacherVoteStageVisible:true,perPlayerSubmissionVisible:true,activeRunEnablesPrepare:true,prepareReleasesPlayers:true,priorRowsPreservedWarning:true,responsiveWholePageScroll:true}};
+    const evidence={generatedAt:new Date().toISOString(),desktop,narrow,calls:state.calls,assertions:{threeOfThreeStartGate:true,processing:true,failedCode:true,startHidesWhenActive:true,startRestoresAfterClear:true,teacherVoteStageVisible:true,perPlayerSubmissionVisible:true,activeRunEnablesPrepare:true,completedRunWatchExposesPrepare:true,completedRunOperatorRouteVisible:true,prepareReleasesPlayers:true,priorRowsPreservedWarning:true,responsiveWholePageScroll:true}};
     await fsp.writeFile(path.join(out,"TEACHER_V5_BROWSER_EVIDENCE.json"),JSON.stringify(evidence,null,2));console.log(JSON.stringify(evidence,null,2));console.log("Teacher Console V5 raw-CDP browser gate passed.");
   }finally{cdp?.close();child.kill();await new Promise(resolve=>local.server.close(resolve));await fsp.rm(profile,{recursive:true,force:true}).catch(()=>{})}
 }

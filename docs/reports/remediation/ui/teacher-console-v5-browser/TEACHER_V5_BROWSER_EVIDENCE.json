@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-13T12:22:42.265Z",
+  "generatedAt": "2026-11-13T12:33:35.850Z",
   "desktop": {
     "live": {
       "x": 14.65625,
@@ -55,6 +55,19 @@
     "s7_get_teacher_console",
     "s5_get_teacher_discussion_state",
     "s8_get_finalization_state",
+    "s2_get_teacher_state",
+    "s1_get_teacher_state",
+    "s6_get_teacher_discussion_state",
+    "s7_get_teacher_console",
+    "s5_get_teacher_discussion_state",
+    "s8_get_finalization_state",
+    "s2_get_teacher_state",
+    "s10_prepare_room_for_next_run",
+    "s1_get_teacher_state",
+    "s6_get_teacher_discussion_state",
+    "s7_get_teacher_console",
+    "s5_get_teacher_discussion_state",
+    "s8_get_finalization_state",
     "s2_get_teacher_state"
   ],
   "assertions": {
@@ -66,6 +79,8 @@
     "teacherVoteStageVisible": true,
     "perPlayerSubmissionVisible": true,
     "activeRunEnablesPrepare": true,
+    "completedRunWatchExposesPrepare": true,
+    "completedRunOperatorRouteVisible": true,
     "prepareReleasesPlayers": true,
     "priorRowsPreservedWarning": true,
     "responsiveWholePageScroll": true

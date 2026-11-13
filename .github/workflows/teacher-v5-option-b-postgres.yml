@@ -6,6 +6,8 @@ on:
     paths:
       - database/074_teacher_console_v5_snapshot_and_room_reuse.sql
       - tests/teacher-v5-option-b-postgresql.sql
+      - database/075_teacher_trial_p1_room_reuse.sql
+      - tests/teacher-trial-20261113-room-reuse-postgresql.sql
       - .github/workflows/teacher-v5-option-b-postgres.yml
   workflow_dispatch:
 
@@ -52,3 +54,10 @@ jobs:
           set -euo pipefail
           psql -X -v ON_ERROR_STOP=1 -f database/074_teacher_console_v5_snapshot_and_room_reuse.sql
           psql -X -v ON_ERROR_STOP=1 -f tests/teacher-v5-option-b-postgresql.sql
+      - name: Apply 075 and run completed-room two-run reuse matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f database/075_teacher_trial_p1_room_reuse.sql
+          psql -X -v ON_ERROR_STOP=1 -f tests/teacher-trial-20261113-room-reuse-postgresql.sql
+          test "$(psql -X -v ON_ERROR_STOP=1 -Atc "select count(*) from public.s1_rooms where room_code in ('OPT74B','P1REUSE');")" = "0"
