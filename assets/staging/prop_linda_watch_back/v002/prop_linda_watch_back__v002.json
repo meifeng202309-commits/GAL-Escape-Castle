@@ -1,0 +1,22 @@
+{
+  "asset_key": "prop_linda_watch_back",
+  "display_name": "Linda's Watch Back",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "paired_asset_group": "linda_pocket_watch",
+  "required_anchors": [],
+  "filename": "prop_linda_watch_back__v002.webp",
+  "width_px": 792,
+  "height_px": 1024,
+  "sha256": "8e37cff45a269c87577ab339bb95d177b68c84a20c846617b8ab9370506ebab5",
+  "source_png_sha256": "57b4ec480ec92a9215f05f28f91518c7b81aa554966ebfbb713b2d173406c803",
+  "creator": "VA",
+  "revision_note": "Teacher-approved replacement for Linda's pocket-watch back. Adds a clear five-pointed star clue on the antique silver back cover while preserving the canonical asset identity.",
+  "technical_notes": "Teacher approval is final for visual content. WebP resized to 792x1024 to match v001 runtime dimensions. v001 remains immutable for rollback. APPROVED is not ACTIVE; CD/Asset Manager must publish and activate v002 under authorized runtime workflow."
+}
