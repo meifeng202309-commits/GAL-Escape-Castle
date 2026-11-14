@@ -1,0 +1,22 @@
+{
+  "asset_key": "prop_anna_diary_open",
+  "display_name": "Anna's Open Diary",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "required_anchors": [],
+  "filename": "prop_anna_diary_open__v002.webp",
+  "width_px": 2048,
+  "height_px": 1282,
+  "sha256": "c4373391c48cadce8cb1baca1019466e603618a3d0c76bd2558629ce39f2cc37",
+  "source_png_sha256": "2c3bb8f17f3f15964f6dab8fd970048190e90ba81eeede6735e649dfb007d3e9",
+  "source_note": "Teacher-approved revised top-down late-19th-century open diary image. Exact visible diary text is baked into the image; CD must not add duplicate HTML/UI text overlay when this full image is displayed.",
+  "compliance_note": "Teacher-approved replacement candidate. Preserve existing canonical asset identity. v001 remains rollback version. APPROVED is not ACTIVE; CD/Asset Manager controls runtime publication and activation.",
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}

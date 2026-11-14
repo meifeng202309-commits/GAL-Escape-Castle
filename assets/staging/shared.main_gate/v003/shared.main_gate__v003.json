@@ -1,0 +1,31 @@
+{
+  "asset_key": "shared.main_gate",
+  "display_name": "Main Gate",
+  "asset_type": "image",
+  "version": 3,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-01",
+    "MASTER-03"
+  ],
+  "required_anchors": [
+    "main_gate_station_A",
+    "main_gate_station_B",
+    "main_gate_station_C",
+    "main_gate_watcher_corridor"
+  ],
+  "ui_anchors_status": "REQUIRES_CD_VALIDATION_BEFORE_ACTIVATION",
+  "filename": "shared.main_gate__v003.webp",
+  "width_px": 1448,
+  "height_px": 1086,
+  "sha256": "f68ea8c1f86a1fa3345fbb2e7842fd34e8e66c1256d71030c993366ea5068de4",
+  "source_png_sha256": "fecffed3249471f76a2d271ecc7f6830cb22c19078d3ac5289bfaae958cba2b5",
+  "source_file": "21 大门 revised.png",
+  "replaces_original": "21 大门.png",
+  "revision_note": "Teacher-approved revised main gate, A B C incised in the stone pedestal fronts with moonlight-consistent shadows. No CD duplicate explanation text overlay.",
+  "workflow_note": "Local package prepared. Repository binary, registry latest_version, runtime publication and activation not yet completed. Existing v001/v002 retained. Must verify existing station anchor coordinates against materially changed image composition and confirm runtime A/B/C labels before CD activation.",
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}

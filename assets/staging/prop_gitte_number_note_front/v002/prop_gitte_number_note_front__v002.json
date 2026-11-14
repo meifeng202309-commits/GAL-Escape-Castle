@@ -1,0 +1,23 @@
+{
+  "asset_key": "prop_gitte_number_note_front",
+  "display_name": "Number Note Front",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "paired_asset_group": "gitte_number_note",
+  "required_anchors": [],
+  "filename": "prop_gitte_number_note_front__v002.webp",
+  "width_px": 2048,
+  "height_px": 1536,
+  "sha256": "4ce14eff58783665f6fcbe5626fc8afe62b87b1a1a1d8a38f261161b2be88402",
+  "source_png_sha256": "5faae0e78699ab1a907eac30e36796fecaa78c46af3ae18a70664d784ddff704",
+  "source_note": "Teacher-approved revised front side. Exact visible 41739 is baked into image; do not overlay duplicate runtime text or symbol.",
+  "compliance_note": "Paired replacement candidate; preserve existing asset identity and v001 rollback. Candidate is not GitHub-staged or ACTIVE until binary staging and Asset Manager publication/activation are completed.",
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}

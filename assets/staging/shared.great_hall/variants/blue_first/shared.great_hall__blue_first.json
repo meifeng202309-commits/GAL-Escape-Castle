@@ -1,0 +1,19 @@
+{
+  "asset_key": "shared.great_hall",
+  "display_name": "Great Hall — blue door opened",
+  "asset_type": "image",
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "scene_variant": "blue_first",
+  "base_asset_key": "shared.great_hall",
+  "base_scene_not_replaced": true,
+  "source_filename": "19 三扇门-blue door opened.png",
+  "source_png_sha256": "cbf2c010e4fcde95b8ff132a6c5a0237aba71489e4a1975cd399bd620c3caff2",
+  "teacher_usage_note": "to be used when blue door is opened first",
+  "technical_notes": "Supplemental door-state image; preserve shared.great_hall base. Runtime integration requires CD/GA reconciliation with UI-owned door-state contract. Door anchors require checking.",
+  "sha256": "429a9369c7cfa7146230c7bc3557aeaa12c20d385382b484ebe6f1826e7bc4d8",
+  "width_px": 1448,
+  "height_px": 1086,
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}
