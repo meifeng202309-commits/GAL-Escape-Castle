@@ -57,6 +57,23 @@ For the exact WebP staging paths and binary SHA-256, consult `docs/tmp files/VA_
 
 Each target must also receive the matching JSON sidecar from the ZIP, beside the WebP. The ZIP contains **10 WebPs + 10 JSON sidecars**, SHA index, README and `stage_va_image_batch.py`. All local ZIP contents and image SHA-256 were checked. **ZIP SHA-256:** `3009d25adb8aa0de061400835500c1c990ddeff3a6d5b430be6316697ace8da0`; **size:** 15,370,870 bytes. **The ZIP itself is not a GitHub asset or accessible to other agents through a GitHub URL**; the Teacher can supply the local downloaded ZIP to a connected Codex/local git workspace.
 
+### B1. Source integrity and dimensions for every locally prepared file
+
+These are **source PNG** SHA-256 values, separate from the WebP SHA-256 values in table B.
+
+| Approved image | Source PNG SHA-256 | WebP dimensions |
+|---|---|---|
+| `10 政府公告纸 revised.png` | `2d9ad7c3c6a182e7e216a674013c2ddc40024fc4f57e323dd6d7637b4a9ee9c6` | 1575 × 1577 |
+| `写着密码的纸-擦除了数字 正面 revised.png` | `5faae0e78699ab1a907eac30e36796fecaa78c46af3ae18a70664d784ddff704` | 2048 × 1536 |
+| `写着密码的纸-擦除了数字 背面 revised.png` | `2fb6aa57503a08b7f1c2e34474a8a766a0ba5a4ff9cabf0bbdffa6c5f16b82b9` | 2048 × 1536 |
+| `19世纪末风格日记本生成 俯视图 revised.png` | `2c3bb8f17f3f15964f6dab8fd970048190e90ba81eeede6735e649dfb007d3e9` | 2048 × 1282 |
+| `密码箱中的碎纸条 revised.png` | `18e4386620332a55e5d743285d399597d81cf8576aa7629b03341009f80b0518` | 1536 × 1024 |
+| `21 大门 revised.png` | `fecffed3249471f76a2d271ecc7f6830cb22c19078d3ac5289bfaae958cba2b5` | 1448 × 1086 |
+| `12 图书馆-2nd scene.png` | `df25f4f10df2ef8d5265e3d5f5f00bc23528940632cd145325844685da91fc64` | 1448 × 1086 |
+| `19 三扇门-red door opened.png` | `f2bd6748f412743c1bde020708565438ef79619329791ca0930904f9f2cea510` | 1448 × 1086 |
+| `19 三扇门-blue door opened.png` | `cbf2c010e4fcde95b8ff132a6c5a0237aba71489e4a1975cd399bd620c3caff2` | 1448 × 1086 |
+| `19 三扇门-both doors opened.png` | `756bd07470a69b74615530e4b91c8635db09c106ee610d2b17bb5be10c123fe2` | 1448 × 1086 |
+
 ## C. Blocker and proposed path to unblock
 
 **Confirmed blocker:** GitHub connector can write UTF-8 records and create Git blobs from explicit base64 strings. The local image bytes are present in the isolated conversation container, but cannot be handed as an authorized local-file stream to that connector; no authenticated direct push from this container was available. Thus no pending image binary staging claim is made.
@@ -81,3 +98,10 @@ Each target must also receive the matching JSON sidecar from the ZIP, beside the
 - Approved binary assets already stored in `assets/staging/prop_linda_watch_back/v002/`, `assets/staging/prop_gitte_castle_map/v002/` and `assets/masters/MASTER-03/`
 
 **Open status:** 10 images still **NOT GitHub-staged**, 0 of those runtime-activated. The earlier summary “9 pending” was a counting error; the correct count is **10**.
+
+### Troubleshooting communications (Teacher-authorized before final handoff)
+
+- `agent-comms/VA_to_CA_20261114T115500Z_approved-visual-batch-binary-staging-blocker-review.md` — asks CA for minimal independent technical review/owner recommendation.
+- `agent-comms/VA_to_CD_20261114T115500Z_approved-visual-batch-binary-upload-solution-request.md` — asks CD for a feasible exact-byte upload method without assigning premature integration or release.
+
+These are **technical-unblocking requests**, not the deferred completed-batch CD handoff.
