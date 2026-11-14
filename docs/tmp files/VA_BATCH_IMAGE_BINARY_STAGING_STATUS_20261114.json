@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-14",
+  "status": "BLOCKED_ON_BINARY_TRANSPORT",
+  "teacher_approved": true,
+  "files_count": 10,
+  "files": [
+    {
+      "asset_key": "prop_linda_closure_order",
+      "version_or_variant": "v002",
+      "path": "assets/staging/prop_linda_closure_order/v002/prop_linda_closure_order__v002.webp",
+      "sha256": "c1b3b9dc7f8b3d39f18de0e5306fd42be592b2aed7efae5484a2a2788b9a06fd",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "prop_gitte_number_note_front",
+      "version_or_variant": "v002",
+      "path": "assets/staging/prop_gitte_number_note_front/v002/prop_gitte_number_note_front__v002.webp",
+      "sha256": "4ce14eff58783665f6fcbe5626fc8afe62b87b1a1a1d8a38f261161b2be88402",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "prop_gitte_number_note_back",
+      "version_or_variant": "v002",
+      "path": "assets/staging/prop_gitte_number_note_back/v002/prop_gitte_number_note_back__v002.webp",
+      "sha256": "61a57c7937444bca85c2a1a0e3def5213f480c612dbd9214553322a3402e7fd0",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "prop_anna_diary_open",
+      "version_or_variant": "v002",
+      "path": "assets/staging/prop_anna_diary_open/v002/prop_anna_diary_open__v002.webp",
+      "sha256": "c4373391c48cadce8cb1baca1019466e603618a3d0c76bd2558629ce39f2cc37",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "prop.library_clock_clue_note",
+      "version_or_variant": "v002",
+      "path": "assets/staging/prop.library_clock_clue_note/v002/prop.library_clock_clue_note__v002.webp",
+      "sha256": "5f4998c57e51a147b414714860307785230276bae41c49e951c2a42c581f8f93",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "shared.main_gate",
+      "version_or_variant": "v003",
+      "path": "assets/staging/shared.main_gate/v003/shared.main_gate__v003.webp",
+      "sha256": "f68ea8c1f86a1fa3345fbb2e7842fd34e8e66c1256d71030c993366ea5068de4",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "shared.library",
+      "version_or_variant": "hidden_door_ajar",
+      "path": "assets/staging/shared.library/variants/hidden_door_ajar/shared.library__hidden_door_ajar.webp",
+      "sha256": "44592196fbc7462b9d00345262b44e7316cde88334ec29af0c6d906a828e419a",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "shared.great_hall",
+      "version_or_variant": "red_first",
+      "path": "assets/staging/shared.great_hall/variants/red_first/shared.great_hall__red_first.webp",
+      "sha256": "af463e9ae529d5f7de8935f7e7794b4879cd2f15635d9617139fb52fb7ac9936",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "shared.great_hall",
+      "version_or_variant": "blue_first",
+      "path": "assets/staging/shared.great_hall/variants/blue_first/shared.great_hall__blue_first.webp",
+      "sha256": "429a9369c7cfa7146230c7bc3557aeaa12c20d385382b484ebe6f1826e7bc4d8",
+      "binary_uploaded_to_github": false
+    },
+    {
+      "asset_key": "shared.great_hall",
+      "version_or_variant": "both_open",
+      "path": "assets/staging/shared.great_hall/variants/both_open/shared.great_hall__both_open.webp",
+      "sha256": "338bbed29fd64537741615e76f5ddd52f688263ae23c734de3ffb63b42381284",
+      "binary_uploaded_to_github": false
+    }
+  ],
+  "locally_built_archive": "GAL_VA_APPROVED_IMAGES_GITHUB_STAGING_READY_2026-11-14.zip",
+  "verified_local_archive": true,
+  "github_binary_uploaded_count": 0,
+  "github_registry_updated": false,
+  "runtime_activated": false,
+  "blocker": "GitHub connector supports create_blob with base64 content but no direct container-file source; container cannot reach github.com or api.github.com. No authorized tool bridge for exact multi-MB WebP bytes is available. Do not claim staging completed.",
+  "next_action": "Transfer the exact archive's 10 images via binary-capable authenticated GitHub git push or an approved external upload tool; verify Git blob SHA-256 and sidecars before registry latest_version updates. Preserve active_version and existing originals.",
+  "cd_handoff_gate": "Teacher says 已经完成全部图片替换工作"
+}
