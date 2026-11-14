@@ -1,0 +1,23 @@
+{
+  "asset_key": "prop_linda_closure_order",
+  "display_name": "Laarne Closure Order",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "required_anchors": [],
+  "filename": "prop_linda_closure_order__v002.webp",
+  "width_px": 1575,
+  "height_px": 1577,
+  "sha256": "c1b3b9dc7f8b3d39f18de0e5306fd42be592b2aed7efae5484a2a2788b9a06fd",
+  "source_png_sha256": "2d9ad7c3c6a182e7e216a674013c2ddc40024fc4f57e323dd6d7637b4a9ee9c6",
+  "source_filename": "10 政府公告纸 revised.png",
+  "revision_note": "Teacher explicitly selected full-text revised Dutch closure-order image (Option B). Keep the exact artwork and its readable text; do not paint out or recreate lettering.",
+  "technical_notes": "This metadata is a LOCAL PRE-STAGING CANDIDATE, not a GitHub-staged/ACTIVE version. Preserve immutable v001 and registry latest_version=1 until WebP binary is successfully placed in GitHub staging and verified. CD must not overlay duplicate notice text on full-image inspection. Present only the initial summary before deep-read, avoiding premature reveal of masonry/snake details. Coordinate GA-owned V4.0 wording/display contract if required; do not have VA alter gameplay semantics. Publication/ACTIVE solely CD-owned.",
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}

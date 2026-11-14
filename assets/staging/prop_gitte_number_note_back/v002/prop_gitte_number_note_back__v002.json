@@ -1,0 +1,23 @@
+{
+  "asset_key": "prop_gitte_number_note_back",
+  "display_name": "Number Note Back",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "paired_asset_group": "gitte_number_note",
+  "required_anchors": [],
+  "filename": "prop_gitte_number_note_back__v002.webp",
+  "width_px": 2048,
+  "height_px": 1536,
+  "sha256": "61a57c7937444bca85c2a1a0e3def5213f480c612dbd9214553322a3402e7fd0",
+  "source_png_sha256": "2fb6aa57503a08b7f1c2e34474a8a766a0ba5a4ff9cabf0bbdffa6c5f16b82b9",
+  "source_note": "Teacher-approved revised back side. Exact visible star is baked into image; do not overlay duplicate runtime text or symbol.",
+  "compliance_note": "Paired replacement candidate; preserve existing asset identity and v001 rollback. Candidate is not GitHub-staged or ACTIVE until binary staging and Asset Manager publication/activation are completed.",
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}

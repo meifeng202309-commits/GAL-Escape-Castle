@@ -1,0 +1,19 @@
+{
+  "asset_key": "shared.great_hall",
+  "display_name": "Great Hall — both doors opened",
+  "asset_type": "image",
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "scene_variant": "both_open",
+  "base_asset_key": "shared.great_hall",
+  "base_scene_not_replaced": true,
+  "source_filename": "19 三扇门-both doors opened.png",
+  "source_png_sha256": "756bd07470a69b74615530e4b91c8635db09c106ee610d2b17bb5be10c123fe2",
+  "teacher_usage_note": "to be used when both red/blue doors are opened",
+  "technical_notes": "Supplemental door-state image; preserve shared.great_hall base. Runtime integration requires CD/GA reconciliation with UI-owned door-state contract. Door anchors require checking.",
+  "sha256": "338bbed29fd64537741615e76f5ddd52f688263ae23c734de3ffb63b42381284",
+  "width_px": 1448,
+  "height_px": 1086,
+  "package_stage": "TEACHER_APPROVED_READY_FOR_GITHUB_STAGING",
+  "runtime_activation": "NOT_DONE_CD_OWNED"
+}
