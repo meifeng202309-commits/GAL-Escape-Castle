@@ -1428,7 +1428,7 @@ Asset identity/version authority:
 `assets/asset-registry.json`
 
 ```text
-VA latest Action = VA-028
+VA latest Action = VA-029
 VA checkpoint = VA-020
 Current VA-owned production / repair / review = NONE
 Next VA 10-action checkpoint = VA-030
