@@ -1428,9 +1428,9 @@ Asset identity/version authority:
 `assets/asset-registry.json`
 
 ```text
-VA latest Action = VA-034
+VA latest Action = VA-035
 VA checkpoint = VA-030
-Current VA-owned production / repair / review = prop_linda_closure_order v002 GitHub binary staging BLOCKED (local approved candidate prepared)
+Current VA-owned production / repair / review = approved revised-image candidates awaiting binary GitHub staging: prop_linda_closure_order v002; prop_gitte_number_note_front/back v002; prop_anna_diary_open v002
 Next VA 10-action checkpoint = VA-040
 ```
 
