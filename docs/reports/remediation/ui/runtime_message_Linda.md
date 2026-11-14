@@ -1,6 +1,6 @@
 # Runtime message review — Linda
 
-Status: GA CHINESE REVIEW PROPOSED — PENDING TEACHER APPROVAL / NOT CANONICAL / NOT IMPLEMENTED
+Status: TEACHER-APPROVED CHINESE REVIEW E — DUTCH TRANSLATED / CANONICAL SOURCE IMPLEMENTATION PENDING
 Source evidence: `docs/reports/remediation/ui/TEACHER_TRIAL_20261113_PLAYER_RUNTIME_TEXT_EVIDENCE.csv` (unchanged, 86 rows).
 Ordering: source-evidenced Runtime appearance order. Conditional alternatives remain separate rows and are not implied to appear consecutively.
 Column E now contains GA's proposed complete Chinese Runtime text; Column F remains blank for Teacher revision.
