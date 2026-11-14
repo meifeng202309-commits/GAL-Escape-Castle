@@ -38,7 +38,7 @@ GA has completed its latest checkpoint through GA-040. CA has completed its late
 GA_CHECKPOINT = GA-040
 CA_CHECKPOINT = CA-145
 CD_CHECKPOINT = NONE
-VA_CHECKPOINT = VA-020
+VA_CHECKPOINT = VA-030
 ISA_CHECKPOINT = NONE
 ```
 
@@ -1419,7 +1419,7 @@ CA -> CD:
 
 ## 9. Visual / asset snapshot
 
-VA visual snapshot refreshed: 2026-11-14T04:08:00Z by VA.
+VA visual snapshot refreshed: 2026-11-14T04:18:00Z by VA.
 
 Current canonical visual source:
 `docs/specs/current/Castle Visual V2.1.md`
@@ -1428,10 +1428,10 @@ Asset identity/version authority:
 `assets/asset-registry.json`
 
 ```text
-VA latest Action = VA-029
-VA checkpoint = VA-020
+VA latest Action = VA-031
+VA checkpoint = VA-030
 Current VA-owned production / repair / review = NONE
-Next VA 10-action checkpoint = VA-030
+Next VA 10-action checkpoint = VA-040
 ```
 
 Latest runtime candidate handoff:
@@ -1449,6 +1449,7 @@ Other reconciled items:
 
 - `prop.golden_key` v001 is present in canonical staging with APPROVED / Teacher APPROVED metadata and Registry `latest_version=1`; its remaining mechanical ingestion was transferred to CD under VA-010 / VA-012. No VA action remains on the older VA-008 row.
 - The six Sprint9 audio candidates' Teacher-review work was completed through VA-016..VA-020; subsequent publication / ACTIVE integration is CD-owned.
+- Teacher-directed map runtime synchronization: `prop_gitte_castle_map` v002 is a byte-identical APPROVED staged counterpart of the revised MASTER-03 WebP, with `latest_version=2` and `active_version=null`; v001 remains immutable. This is VA production complete; CD publication/activation and map-overlay route-highlighting verification remain pending. Record as a pending batched CD integration item, with no duplicate letter before Teacher batch-completion phrase.
 - `MASTER-03` is an APPROVED canonical visual reference at `assets/masters/MASTER-03/MASTER-03-reference.webp`; it is explicitly non-runtime and is not an Asset Registry asset.
 - VA-027 instructs that no additional VA-to-CD letter be issued before the Teacher's explicit batch-completion phrase. The existing watch-back v002 handoff remains valid; no duplicate handoff or visual review is required.
 
