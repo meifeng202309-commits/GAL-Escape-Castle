@@ -1,0 +1,21 @@
+{
+  "asset_key": "prop_gitte_castle_map",
+  "display_name": "Castle Map",
+  "asset_type": "image",
+  "version": 2,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-03"
+  ],
+  "required_anchors": [],
+  "filename": "prop_gitte_castle_map__v002.webp",
+  "width_px": 1447,
+  "height_px": 1087,
+  "sha256": "428ec257d67493b30f5821ae3b56e3b63840b587a1242f0eb9c07248a8623f83",
+  "source_png_sha256": "0ec3de07d7a35a4d8fb15a5736f22007641b64d781ca28f41e8e272663bfd33b",
+  "source_note": "Exact byte-for-byte reuse of Teacher-approved revised MASTER-03 reference as existing runtime asset identity prop_gitte_castle_map. The reference is non-runtime; this immutable staging candidate is the runtime counterpart.",
+  "revision_note": "Teacher-directed synchronization of revised Castle Map: three former character-specific bedroom labels generalized to player's room; no Unknown Passage; Main Hall and all established routes/labels retained.",
+  "technical_notes": "Reuse MASTER-03-reference.webp Git blob without re-encoding. v001 retained immutable for rollback. APPROVED does not mean ACTIVE. CD/Asset Manager alone publishes and activates this version, checks map overlays and runtime resolution. Handoff to be batched after Teacher explicit completion phrase."
+}
