@@ -1428,7 +1428,7 @@ Asset identity/version authority:
 `assets/asset-registry.json`
 
 ```text
-VA latest Action = VA-032
+VA latest Action = VA-034
 VA checkpoint = VA-030
 Current VA-owned production / repair / review = prop_linda_closure_order v002 GitHub binary staging BLOCKED (local approved candidate prepared)
 Next VA 10-action checkpoint = VA-040
@@ -1442,7 +1442,7 @@ latest_version = 2
 active_version = null
 v002 review = APPROVED / Teacher APPROVED
 next owner = CD — publication, activation, and runtime resolver verification
-handoff = agent-comms/VA_to_CD_20261113T132900Z_prop-linda-watch-back-v002-approved-replacement-handoff.md
+handoff = deferred until Teacher phrase: 已经完成全部图片替换工作
 ```
 
 Other reconciled items:
