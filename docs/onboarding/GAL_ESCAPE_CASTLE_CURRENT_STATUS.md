@@ -1428,7 +1428,7 @@ Asset identity/version authority:
 `assets/asset-registry.json`
 
 ```text
-VA latest Action = VA-040
+VA latest Action = VA-043
 VA checkpoint = VA-040
 Current VA-owned production / repair / review = approved revised-image candidates awaiting binary GitHub staging: prop_linda_closure_order v002; prop_gitte_number_note_front/back v002; prop_anna_diary_open v002
 Next VA 10-action checkpoint = VA-050
@@ -1444,6 +1444,8 @@ v002 review = APPROVED / Teacher APPROVED
 next owner = CD — publication, activation, and runtime resolver verification
 handoff = deferred until Teacher phrase: 已经完成全部图片替换工作
 ```
+
+Teacher-directed unblocking milestone (VA-041..043; 2026-11-14): the full 12-image authoritative batch inventory is now in `docs/tmp files/VA_APPROVED_IMAGE_BATCH_MASTER_RECORD_20261114.md`, with correct accounting (2 new GitHub-staged image identities, 10 image binaries still local-only). At Teacher's explicit request, VA issued targeted **technical assistance letters**, `agent-comms/VA_to_CA_20261114T115500Z_approved-visual-batch-binary-staging-blocker-review.md` and `agent-comms/VA_to_CD_20261114T115500Z_approved-visual-batch-binary-upload-solution-request.md`. Responses are outstanding; these letters do **not** transfer overall ownership, authorize runtime activation, or constitute the deferred consolidated image handoff.
 
 Batch binary-transport status (VA-040): **10** Teacher-approved images remain locally prepared but not in GitHub staging (6 versioned replacement candidates + 4 supplemental state images). Verified local staging ZIP `GAL_VA_APPROVED_IMAGES_GITHUB_STAGING_READY_2026-11-14.zip` contains 10 lossless WebPs, 10 metadata sidecars, SHA-256 manifest and a local git staging helper. The GitHub connector can write text or accept base64-encoded blobs but cannot directly read local sandbox binary files; the current container cannot connect to GitHub. Binary transfer is still blocked, not silently completed. Exact paths/hashes: `docs/tmp files/VA_BATCH_IMAGE_BINARY_STAGING_STATUS_20261114.json`. No new binaries are claimed in GitHub, and no registry latest_version or ACTIVE changes were made. VA-040 checkpoint reviewed VA-031..VA-040. No CD handoff until Teacher explicit batch-completion phrase.
 
