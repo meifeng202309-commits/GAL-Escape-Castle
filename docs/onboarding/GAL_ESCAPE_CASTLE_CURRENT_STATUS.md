@@ -1428,9 +1428,9 @@ Asset identity/version authority:
 `assets/asset-registry.json`
 
 ```text
-VA latest Action = VA-031
+VA latest Action = VA-032
 VA checkpoint = VA-030
-Current VA-owned production / repair / review = NONE
+Current VA-owned production / repair / review = prop_linda_closure_order v002 GitHub binary staging BLOCKED (local approved candidate prepared)
 Next VA 10-action checkpoint = VA-040
 ```
 
@@ -1449,6 +1449,7 @@ Other reconciled items:
 
 - `prop.golden_key` v001 is present in canonical staging with APPROVED / Teacher APPROVED metadata and Registry `latest_version=1`; its remaining mechanical ingestion was transferred to CD under VA-010 / VA-012. No VA action remains on the older VA-008 row.
 - The six Sprint9 audio candidates' Teacher-review work was completed through VA-016..VA-020; subsequent publication / ACTIVE integration is CD-owned.
+- Teacher selected full-image Dutch municipal notice, no CD duplicate text overlay: `prop_linda_closure_order` v002 WebP candidate is prepared locally at 1575×1577, SHA256 `c1b3b9dc7f8b3d39f18de0e5306fd42be592b2aed7efae5484a2a2788b9a06fd`. GitHub binary transport is not available in current VA tooling, therefore v002 is NOT staged to GitHub and Registry still records `latest_version=1`, `active_version=null`. VA-032 tracks the open transport task. After batch completion, CD needs to avoid overlaid duplicate text and preserve first-summary versus deep-read information timing; synchronize GA-owned display contract if needed.
 - Teacher-directed map runtime synchronization: `prop_gitte_castle_map` v002 is a byte-identical APPROVED staged counterpart of the revised MASTER-03 WebP, with `latest_version=2` and `active_version=null`; v001 remains immutable. This is VA production complete; CD publication/activation and map-overlay route-highlighting verification remain pending. Record as a pending batched CD integration item, with no duplicate letter before Teacher batch-completion phrase.
 - `MASTER-03` is an APPROVED canonical visual reference at `assets/masters/MASTER-03/MASTER-03-reference.webp`; it is explicitly non-runtime and is not an Asset Registry asset.
 - VA-027 instructs that no additional VA-to-CD letter be issued before the Teacher's explicit batch-completion phrase. The existing watch-back v002 handoff remains valid; no duplicate handoff or visual review is required.
