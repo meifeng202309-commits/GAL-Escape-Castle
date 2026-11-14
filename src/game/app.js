@@ -459,6 +459,7 @@ function renderAct6EntryBarrier(){
 
 function renderLifecycleNotice(state,message){
   currentDiscussion=null;
+  selectedPocketItem="";
   formalSceneMount.replaceChildren();
   choiceArea.classList.add("hidden");
   revealArea.classList.add("hidden");
@@ -471,6 +472,8 @@ function renderLifecycleNotice(state,message){
   sprint3bActions.innerHTML="";
   sprint3bStatus.textContent="";
   gameStatus.textContent="";
+  setStableHtml(pocketMount,'<p class="v4-region-title">Pocket · 随身物品</p><p class="muted">No projected items.</p>');
+  pocketMount.scrollTop=0;
 }
 
 function renderAct5Handoff(sprint3bState,sprint5State){
@@ -506,6 +509,7 @@ const LOCATION_KEYS = {library:"act01-g.009",great_hall:"act01-g.010",main_gate:
 const ROUTE_CHOICES = [["known","act04-05.005"],["unknown","act04-05.006"],["inspect","act04-05.007"],["ask","act04-05.008"]];
 const S5_PRIVATE=[["main_gate","act08.001"],["west_tower","act08.002"],["compare","act08.003"],["follow_group","act08.004"]];
 const S6_DOORS=[["red","act09.011"],["blue","act09.012"],["black","act09.013"]];
+const DISPLAY_NAME_BY_ROLE={"GAL-A":"Gitte","GAL-B":"Anna","GAL-C":"Linda"};
 const S6_SCENE_ASSETS=new Set(["shared.great_hall","prop.golden_key","shared.main_gate","ending.castle_exterior"]);
 const TRIAL_PLACEHOLDER_PATHS={"opening.gitte_room":"assets/staging/opening.gitte_room/v001/opening.gitte_room__v001.svg","opening.anna_room":"assets/staging/opening.anna_room/v001/opening.anna_room__v001.svg","opening.linda_study":"assets/staging/opening.linda_study/v001/opening.linda_study__v001.svg","ending.castle_exterior":"assets/staging/ending.castle_exterior/v001/ending.castle_exterior__v001.svg"};
 const EMPTY_IMAGE="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
@@ -539,7 +543,8 @@ function routeFormalPresentation(){
     if(node){desired.push(node);if(node.parentElement!==formalSceneMount)formalSceneMount.append(node)}
   }
   if(desired.length)for(const node of[...formalSceneMount.children])if(!desired.includes(node))node.remove();
-  for(const node of sprint3bActions.querySelectorAll(":scope > .notice, :scope > .bilingual, :scope > .warn, :scope > span[lang]"))sprint3bText.append(node);
+  for(const node of sprint3bText.querySelectorAll(":scope > [data-formal-routed-action]"))node.remove();
+  for(const node of sprint3bActions.querySelectorAll(":scope > .notice, :scope > .bilingual, :scope > .warn, :scope > span[lang]")){node.dataset.formalRoutedAction="true";sprint3bText.append(node)}
   const audioControls=sprint3bText.querySelector(":scope > .s6-audio-controls");
   if(audioControls)sprint3bActions.prepend(audioControls);
 }
@@ -562,7 +567,7 @@ function act4ComparisonHtml() {
 function act4RevealHtml(revealed=[]) {
   if(revealed.length!==3)return"";
   const choiceKeys=Object.fromEntries(ROUTE_CHOICES);
-  return `<section class="notice act4-reveal" aria-live="polite"><div class="bilingual">${localizedHtml("act04-05.018")}</div><ol>${revealed.map(item=>`<li><b>${escapeHtml(item.role_slot)}</b>${localizedHtml(choiceKeys[item.choice_id])}</li>`).join("")}</ol></section>`;
+  return `<section class="notice act4-reveal" aria-live="polite"><div class="bilingual">${localizedHtml("act04-05.018")}</div><ol>${revealed.map(item=>`<li><b>${escapeHtml(DISPLAY_NAME_BY_ROLE[item.role_slot]||item.role_slot)}</b>${localizedHtml(choiceKeys[item.choice_id])}</li>`).join("")}</ol></section>`;
 }
 
 async function hydrateAct4Comparison() {
@@ -663,7 +668,7 @@ function pocketEvidencePanel(pocket,phase){
   const groupHtml=(pocket.group_items||[]).map(item=>`<details class="evidence-item"><summary>${localizedHtml(item.label_text_key)}</summary>${item.item_key==="library_torn_note"?localizedHtml("act03.016"):localizedHtml(item.label_text_key)}</details>`).join("");
   const memoryHtml=(pocket.observations||[]).map(item=>localizedHtml(item.display_text_key)).join("")+(pocket.shared_photos||[]).map(item=>localizedHtml(item.label_text_key)).join("");
   const shareable=(pocket.scene?.allow_share_photo?pocket.items||[]:[]).filter(item=>item.current_view);
-  const shareHtml=shareable.map(item=>`<div class="button-row">${["GAL-A","GAL-B","GAL-C"].filter(role=>role!==session.role_slot).map(role=>`<button data-share-role="${role}" data-share-item="${escapeHtml(item.item_key)}" data-share-view="${escapeHtml(item.current_view)}">${localizedHtml(item.name_text_key)} · ${escapeHtml(role)}</button>`).join("")}</div>`).join("");
+  const shareHtml=shareable.map(item=>`<div class="button-row">${["GAL-A","GAL-B","GAL-C"].filter(role=>role!==session.role_slot).map(role=>`<button data-share-role="${role}" data-share-item="${escapeHtml(item.item_key)}" data-share-view="${escapeHtml(item.current_view)}">${localizedHtml(item.name_text_key)} · ${escapeHtml(DISPLAY_NAME_BY_ROLE[role]||role)}</button>`).join("")}</div>`).join("");
   return `<section class="notice evidence-panel" data-s5-evidence-phase="${escapeHtml(phase)}">${itemTabs}${itemHtml}${groupHtml}${memoryHtml}${shareHtml}</section>`;
 }
 async function hydratePocketAssets(){await Promise.all([...pocketMount.querySelectorAll("[data-pocket-asset]")].map(async requested=>{const key=requested.dataset.pocketAsset,result=await trialAssetResolver.resolve(key),node=pocketMount.querySelector(`[data-pocket-asset="${CSS.escape(key)}"]`);if(!node||!node.isConnected||node.dataset.pocketAsset!==key)return;if(!result?.ok){applyTrialPlaceholder(node,key);return}applyResolvedAsset(node,key,result)}))}

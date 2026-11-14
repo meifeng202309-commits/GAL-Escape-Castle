@@ -41,7 +41,7 @@
         <div class="button-row teacher-export-row"><button id="exportCurrentSnapshotButton" type="button" disabled>导出当前快照 / Huidige snapshot exporteren</button><span id="currentExportStatus" class="status muted" aria-live="polite">Last export: —</span></div>
         <div class="button-row teacher-final-export-row"><select id="exportRunSelect" aria-label="Completed run to export" hidden></select><button id="exportSessionButton" class="secondary" type="button" disabled>Export final session</button></div>
         <hr>
-        <p class="muted teacher-run-isolation-note">Preparing the next run preserves prior test rows, interrupts the current run, and expires all Player sessions.</p>
+        <p class="muted teacher-run-isolation-note">Preparing the next run preserves prior test rows, closes an active run if needed, and expires all Player sessions. For an existing room, Watch/Reconnect first, then use this action.</p>
         <div class="button-row"><button id="clearRoomButton" class="danger" type="button" disabled>准备下一场 / Volgende run voorbereiden</button></div>
         <p id="clearRoomStatus" class="status muted" aria-live="polite"></p>
       </section>
