@@ -38,7 +38,7 @@ GA has completed its latest checkpoint through GA-040. CA has completed its late
 GA_CHECKPOINT = GA-040
 CA_CHECKPOINT = CA-145
 CD_CHECKPOINT = NONE
-VA_CHECKPOINT = NONE
+VA_CHECKPOINT = VA-020
 ISA_CHECKPOINT = NONE
 ```
 
