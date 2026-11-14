@@ -1419,14 +1419,38 @@ CA -> CD:
 
 ## 9. Visual / asset snapshot
 
-Visual production may continue under Castle Visual V2.1 + `assets/asset-registry.json` governance.
+VA visual snapshot refreshed: 2026-11-14T04:08:00Z by VA.
+
+Current canonical visual source:
+`docs/specs/current/Castle Visual V2.1.md`
+
+Asset identity/version authority:
+`assets/asset-registry.json`
 
 ```text
-MASTER identities = canonical visual references
-MASTER identities ≠ automatic runtime asset_keys
+VA latest Action = VA-028
+VA checkpoint = VA-020
+Current VA-owned production / repair / review = NONE
+Next VA 10-action checkpoint = VA-030
 ```
 
----
+Latest runtime candidate handoff:
+
+```text
+asset_key = prop_linda_watch_back
+latest_version = 2
+active_version = null
+v002 review = APPROVED / Teacher APPROVED
+next owner = CD — publication, activation, and runtime resolver verification
+handoff = agent-comms/VA_to_CD_20261113T132900Z_prop-linda-watch-back-v002-approved-replacement-handoff.md
+```
+
+Other reconciled items:
+
+- `prop.golden_key` v001 is present in canonical staging with APPROVED / Teacher APPROVED metadata and Registry `latest_version=1`; its remaining mechanical ingestion was transferred to CD under VA-010 / VA-012. No VA action remains on the older VA-008 row.
+- The six Sprint9 audio candidates' Teacher-review work was completed through VA-016..VA-020; subsequent publication / ACTIVE integration is CD-owned.
+- `MASTER-03` is an APPROVED canonical visual reference at `assets/masters/MASTER-03/MASTER-03-reference.webp`; it is explicitly non-runtime and is not an Asset Registry asset.
+- VA-027 instructs that no additional VA-to-CD letter be issued before the Teacher's explicit batch-completion phrase. The existing watch-back v002 handoff remains valid; no duplicate handoff or visual review is required.
 
 ## 10. Memory-system adoption
 
