@@ -1,0 +1,305 @@
+"player_role","act","scene_id","phase_key","trigger_choice_outcome","ordered_runtime_text_keys","rendered_nl","rendered_zh","source_file_or_function","parameters","fixture_evidence","uncertainty"
+"GAL-A / Gitte","1","act1_wake_up","private_first_action","opening","act01-g.001 | act01-g.002 | act01-g.003 | act01-g.004 | act01-g.005 | act01-g.007 | act01-g.008 | act01-g.016 | act01-g.017 | act01-g.018","Een lage, kleverige, nat klinkende stem blijft fluisteren:
+De Slangenkoning in de kapel... is heel kwaad.
+Je wordt wakker in een oud houten bed. De stem is weg.
+TIJD — 23:47
+GEEN SIGNAAL
+4 – 1 – 7 – 3 – 9
+VERTREK VOOR MIDDERNACHT
+Boem.
+Het klinkt alsof er iets tegen de muur botst.
+Wat doe je eerst?","一个低沉、黏糊、湿漉漉的声音在反复低语：
+礼拜堂里的蛇王……很生气。
+你在一张旧木床上醒来。那个声音消失了。
+时间 — 23:47
+无信号
+4 – 1 – 7 – 3 – 9
+午夜前离开
+咚。
+像有东西撞上了墙。
+你首先做什么？","database/014b_sprint3b_targeted_closure_corrections.sql:s3b_initialize_flow","{}","tests/sprint3b-live-e2e.js",""
+"GAL-B / Anna","1","act1_wake_up","private_first_action","opening","act01-a.001 | act01-g.004 | act01-g.005 | act01-a.003 | act01-a.004 | act01-a.005","Je wordt wakker terwijl je op de koude vloer zit.
+TIJD — 23:47
+GEEN SIGNAAL
+M. DE WIT — 1897
+OOSTELIJKE GASTENVLEUGEL
+NA DE NACHTKLOK WORDT DE BUITENTOEGANG TOT DE GROTE ZAAL VAN BINNENUIT AFGESLOTEN.","你醒来时正坐在冰冷的地板上。
+时间 — 23:47
+无信号
+M. DE WIT — 1897
+东侧客房区
+夜钟响过后，大厅的外部入口会从内部封闭。","database/014b_sprint3b_targeted_closure_corrections.sql:s3b_initialize_flow","{}","tests/sprint3b-live-e2e.js",""
+"GAL-C / Linda","1","act1_wake_up","private_first_action","opening","act01-l.001 | act01-l.002 | act01-g.005 | act01-l.004 | act01-l.005 | act01-l.006 | act01-l.007 | act01-l.008 | act01-l.009 | act01-l.010 | act01-l.011","Je wordt wakker in een kleine studeerkamer.
+TIJD — 23:49
+GEEN SIGNAAL
+23:49
+★ ZILVEREN SLEUTEL
+Je staat op en stoot tegen de rand van het bureau.
+Het zware boek valt op de vloer.
+Een vergeeld vel papier glijdt tussen de bladzijden vandaan.
+GEMEENTE LAARNE
+SLUITINGSBEVEL — 01. 04. 1897
+WESTTOREN TOT NADER ORDER GESLOTEN","你在一间小书房里醒来。
+时间 — 23:49
+无信号
+23:49
+★ 银钥匙
+你站起来时撞到了桌边。
+那本厚重的书掉到了地上。
+一张泛黄的纸从书页之间滑了出来。
+拉尔讷市政府
+封闭令 — 1897.04.01
+西塔关闭，直至另行通知","database/014b_sprint3b_targeted_closure_corrections.sql:s3b_initialize_flow","{}","tests/sprint3b-live-e2e.js",""
+"GAL-A / Gitte","1","act1_wake_up","private_first_action","choice=study_map consequence","act01-g.023 | act01-g.024","De Bibliotheek heeft duidelijke routes die verschillende delen met elkaar verbinden.
+Bij de Grote Zaal is een constructie met een ijzeren binnenpoort.","图书馆有明确通路连接不同区域。
+大厅附近有一处内侧铁门结构。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""study_map""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-A / Gitte","1","act1_wake_up","private_first_action","choice=check_sound consequence","act01-g.025 | act01-g.026 | act01-g.027","Je gaat naar de deur en kijkt naar buiten.
+Aan het einde van de gang schiet een schaduw voorbij.
+Een paar seconden later hoor je in de verte metaal schuren.","你走到门边向外看。
+走廊尽头有一个人影快速闪过。
+几秒后，你听见远处传来金属摩擦声。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""check_sound""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-A / Gitte","1","act1_wake_up","private_first_action","choice=study_number_note consequence","act01-g.007 | act01-g.028 | act01-g.029","4 – 1 – 7 – 3 – 9
+[OMDRAAIEN]
+★","4 – 1 – 7 – 3 – 9
+[翻面]
+★","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""study_number_note""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-A / Gitte","1","act1_wake_up","private_first_action","choice=search_room consequence","act01-g.030","Onder het bed vind je een oude zaklamp.","你在床下找到一只旧手电筒。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""search_room""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-B / Anna","1","act1_wake_up","private_first_action","choice=read_diary consequence","act01-a.010","Rond middernacht worden de oude verwarmingsgangen weer warm. De slangen verlaten de lagere tunnels.","接近午夜时，旧暖气通道会再次变暖。蛇会离开地下通道。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""read_diary""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-B / Anna","1","act1_wake_up","private_first_action","choice=check_door consequence","act01-a.011 | act01-a.012 | act01-a.013","Het slot kan van binnenuit worden geopend.
+Aan de achterkant van het slot zitten oude krassen.
+BIBLIOTHEEK — CENTRALE DOORGANG","门锁可以从内部打开。
+锁背面有旧刻痕。
+图书馆 — 中央通道","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""check_door""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-B / Anna","1","act1_wake_up","private_first_action","choice=check_phone consequence","act01-a.014 | act01-g.005","LOKALE APPARATEN GEDETECTEERD: 2
+GEEN SIGNAAL","检测到本地设备：2
+无信号","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""check_phone""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-B / Anna","1","act1_wake_up","private_first_action","choice=check_vent consequence","act01-a.015 | act01-a.016","Je voelt een ongewoon warme luchtstroom.
+Van binnen klinkt een heel zacht schurend geluid.","你感觉到一股异常温热的空气。
+里面传来很轻的摩擦声。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""check_vent""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-C / Linda","1","act1_wake_up","private_first_action","choice=read_notice consequence","act01-l.016","Op bevel van de Gemeente Laarne worden de Westtoren en de aangrenzende westelijke dienstgangen tot nader order gesloten wegens onveilige toestand van het metselwerk en meldingen van giftige slangen. Toegang verboden.","奉拉尔讷市政府命令，西塔及相邻的西侧服务通道因砌体结构存在安全隐患并有毒蛇出没报告而关闭，直至另行通知。禁止进入。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""read_notice""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-C / Linda","1","act1_wake_up","private_first_action","choice=study_watch consequence","act01-l.004 | act01-g.028 | act01-l.017","23:49
+[OMDRAAIEN]
+ONTHOUD WANNEER JE WAKKER WERD.","23:49
+[翻面]
+记住你醒来的时间。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""study_watch""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-C / Linda","1","act1_wake_up","private_first_action","choice=try_star_key consequence","act01-l.018 | act01-l.019","De zilveren sleutel past in het sleutelgat, maar draait niet.
+Deze deur gaat er niet mee open.","银钥匙能插进锁孔，但转不动。
+它打不开这扇门。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""try_star_key""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"GAL-C / Linda","1","act1_wake_up","private_first_action","choice=check_mirror consequence","act01-l.020 | act01-l.021","Achter de spiegellijst staat tekst in de steen gekrast.
+ALS DE LAATSTE KLOK SLAAT, VOLG DAN DE WARME LUCHT NIET.","镜框背后的石墙上刻着文字。
+当最后的钟声响起时，不要跟着暖空气走。","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_submit_act1_choice","{""choice"":""check_mirror""}","tests/trial6-act1-vote-stale-identity-browser.mjs",""
+"ALL","2","act2_first_contact","private_first_meeting","all ACT1 complete","act02.002","SIGNAAL ONSTABIEL","信号不稳定","database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_complete_act1","{}","tests/sprint3b-live-e2e.js",""
+"ALL","2","act2_route_update","route_update","meeting result=library","act02.032 | act02.033","AFSPREEKPUNT BIJGEWERKT: Bibliotheek
+Verander nu van route.","会合地点已更新：图书馆
+现在改变路线。","src/game/app.js:renderSprint3b + database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""library"",""location_text_key"":""act01-g.009""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_route_update","route_update","meeting result=great_hall","act02.032 | act02.033","AFSPREEKPUNT BIJGEWERKT: Grote Zaal
+Verander nu van route.","会合地点已更新：大厅
+现在改变路线。","src/game/app.js:renderSprint3b + database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""great_hall"",""location_text_key"":""act01-g.010""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_route_update","route_update","meeting result=main_gate","act02.032 | act02.033","AFSPREEKPUNT BIJGEWERKT: Hoofdpoort
+Verander nu van route.","会合地点已更新：主门
+现在改变路线。","src/game/app.js:renderSprint3b + database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""main_gate"",""location_text_key"":""act01-g.011""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_route_update","route_update","meeting result=west_tower","act02.032 | act02.033","AFSPREEKPUNT BIJGEWERKT: Westtoren
+Verander nu van route.","会合地点已更新：西塔
+现在改变路线。","src/game/app.js:renderSprint3b + database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""west_tower"",""location_text_key"":""act01-g.012""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_route_update","route_update","meeting result=chapel","act02.032 | act02.033","AFSPREEKPUNT BIJGEWERKT: Kapel
+Verander nu van route.","会合地点已更新：礼拜堂
+现在改变路线。","src/game/app.js:renderSprint3b + database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""chapel"",""location_text_key"":""act01-g.013""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_rendezvous","route_consequence","route=library","act03.001","Je ziet een oud koperen richtingbord:","你看到一块旧黄铜方向牌：","database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""library""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_rendezvous","route_consequence","route=great_hall","act02.038","Je bereikt een ijzeren toegangspoort.","你们来到一道铁制通行门前。","database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""great_hall""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_rendezvous","route_consequence","route=main_gate","act02.043","De stenen vloer voor je lijkt te bewegen.","前方的石地面似乎在动。","database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""main_gate""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_rendezvous","route_consequence","route=west_tower","act02.046","Een dichtgemetselde trap en een oud gemeentelijk zegel blokkeren de westelijke toegang.","一段被砖封的楼梯和一枚旧市政封条堵住了西侧入口。","database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""west_tower""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","2","act2_rendezvous","route_consequence","route=chapel","act02.049","Achter de deuren van de kapel klinkt een langzaam, nat schurend geluid.","礼拜堂门后传来缓慢、湿黏的摩擦声。","database/012_sprint3b_internal_wrapper_lockdown_and_route_delivery.sql:s3b_ack_route_update","{""route"":""chapel""}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","3","act3_library","library_box","box locked","act03.008","WAT JE EERST KREEG
+OPENT WAT HIERNA KOMT.","最先得到的东西
+打开接下来之物。","database/054_level3_integrated_closure.sql:teacher_apply_override + src/game/app.js:renderSprint3b","{}","tests/v4-player-integrated-runtime-browser.mjs","Normal player-driven entry uses the same stored scene; this row is source-proven, not a fresh live projection capture."
+"ALL","3","act3_library","library_box","fallback hint stage=1","act03.011","De kist blijft op slot.","盒子仍然锁着。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":1}","tests/sprint3b-remediation-live-e2e.js","Stages 1-3 originate in earlier deployed fallback logic; later stages are explicit in migration 011."
+"ALL","3","act3_library","library_box","fallback hint stage=2","act03.012","Iets dat een van jullie vanaf het begin bij zich had, kan belangrijk zijn. Kijk in je inventaris.","你们中有人从一开始就带着的东西可能很重要。检查随身物品。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":2}","tests/sprint3b-remediation-live-e2e.js","Stages 1-3 originate in earlier deployed fallback logic; later stages are explicit in migration 011."
+"ALL","3","act3_library","library_box","fallback hint stage=3","act03.013","Zoek naar een reeks van vijf cijfers.","寻找一个由五个数字组成的序列。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":3}","tests/sprint3b-remediation-live-e2e.js","Stages 1-3 originate in earlier deployed fallback logic; later stages are explicit in migration 011."
+"ALL","3","act3_library","library_box","fallback hint stage=4","act03.014","Een van de vijf wieltjes klikt op zijn plaats.","五个转轮中的一个咔哒一声卡入正确位置。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":4}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","3","act3_library","library_box","fallback hint stage=5","act03.017","Een tweede wieltje klikt op zijn plaats.","第二个转轮咔哒一声卡入正确位置。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":5}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","3","act3_library","library_box","fallback hint stage=6","act03.018","Een derde wieltje klikt op zijn plaats.","第三个转轮咔哒一声卡入正确位置。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":6}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","3","act3_library","library_box","fallback hint stage=7","act03.019","Een vierde wieltje klikt op zijn plaats.","第四个转轮咔哒一声卡入正确位置。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":7}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","3","act3_library","library_box","fallback hint stage=8","act03.020","Het laatste wieltje draait en klikt op zijn plaats.","最后一个转轮转动并咔哒一声卡入正确位置。","src/game/app.js:renderSprint3b + database/011_sprint3b_transition_and_act1_delivery_integrity.sql:s3b_refresh_puzzle_fallback","{""puzzle_hint_stage"":8}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","4","act4_known_unknown","private_route_choice","initial or box resolved","act04-05.002","Deze deur staat niet op de kasteelkaart.","这扇门没有出现在城堡地图上。","database/014_sprint3b_evidence_and_puzzle_integrity.sql + src/game/app.js:renderSprint3b","{}","tests/sprint3b-remediation-live-e2e.js","Linda additionally sees act04-05.003 in the Scene comparison, not Runtime narration; excluded here."
+"ALL","5","act5_route_discussion","discussion","private choices differ","act04-05.009","Vergelijk wat jullie weten vóór de stemming over de route.","在路线投票前，先比较你们掌握的信息。","database/054_level3_integrated_closure.sql + src/game/app.js:renderSprint3b","{}","tests/sprint3b-remediation-live-e2e.js","Discussion UI/chat is excluded from Runtime text."
+"ALL","5","act5_inspect_first","post_inspection_route","inspect-first branch","act04-05.015 | act04-05.016 | act04-05.017","Je opent de deur maar een klein stukje.
+De doorgang is smal, maar begaanbaar.
+Je kunt nog steeds niet zien waar de doorgang eindigt.","你把门只打开了一点点。
+通道很窄，但可以通过。
+你仍然看不到通道尽头。","database/054_level3_integrated_closure.sql + src/game/app.js:renderSprint3b","{}","tests/sprint3b-remediation-live-e2e.js",""
+"ALL","5","act5_route_resolved","terminal","known route","act04-05.019 | act04-05.020 | act04-05.021 | act04-05.022 | act04-05.023","Jullie nemen de bredere gang.
+De route is duidelijk, maar lang.
+De portretten aan de muren worden nieuwer naarmate jullie dieper het kasteel in gaan.
+Jullie bereiken een lange galerij vol portretten.
+[GA DE PORTRETTENGALERIJ IN]","你们走进较宽的走廊。
+路线清楚，但很长。
+随着你们深入城堡，墙上的肖像看起来越来越新。
+你们来到一条两侧挂满肖像的长廊。
+[进入肖像长廊]","src/game/app.js:renderAct5Handoff","{""group_route"":""known""}","tests/v4-player-integrated-runtime-browser.mjs","act04-05.023 is also the Action button label; included because the current handoff renderer places the same key in Runtime."
+"ALL","5","act5_route_resolved","terminal","unknown route","act04-05.024 | act04-05.025 | act04-05.026 | act04-05.027 | act04-05.022 | act04-05.023","Linda gebruikt de ★ zilveren sleutel. Het slot draait open.
+De smalle doorgang daalt af achter de muur van de Bibliotheek.
+Oude slangenhuiden kleven aan de steen, maar er verschijnt niets levends.
+De doorgang is korter dan de route op de kaart.
+Jullie bereiken een lange galerij vol portretten.
+[GA DE PORTRETTENGALERIJ IN]","Linda用★银钥匙开锁。锁转动了。
+狭窄的通道沿着图书馆墙后向下延伸。
+旧蛇蜕粘在石墙上，但没有活物出现。
+这条通道比地图上的路线更短。
+你们来到一条两侧挂满肖像的长廊。
+[进入肖像长廊]","src/game/app.js:renderAct5Handoff","{""group_route"":""unknown""}","tests/v4-player-integrated-runtime-browser.mjs","act04-05.023 is also the Action button label; included because the current handoff renderer places the same key in Runtime."
+"ALL","6","act6_portrait","act6_answer","portrait result=1897","act06.008","In 1897 sloten ze het westen af, maar ze konden de klokken niet laten vergeten.","1897年，他们封死了西侧，却无法让钟表忘记。","database/027_sprint5_act6_8_runtime.sql:s5_resolve_round + src/game/app.js:renderSprint5","{""outcome"":""1897""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"ALL","6","act6_portrait","act6_answer","portrait result=fallback","act06.006","Te traag. Zoek de kamer waar de tijd stilstond.","太慢了。去找时间停止的房间。","database/027_sprint5_act6_8_runtime.sql:s5_resolve_round + src/game/app.js:renderSprint5","{""outcome"":""fallback""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"ALL","6","act6_portrait","act6_answer","portrait result=escape","act06.007","De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.","大门不是起点。先找到时间停止的房间。","database/027_sprint5_act6_8_runtime.sql:s5_resolve_round + src/game/app.js:renderSprint5","{""outcome"":""escape""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"ALL","6","act6_portrait","act6_answer","portrait result=time_stopped","act06.009","Volg de gang met twaalf klokken. Eén ervan herinnert zich een horloge dat stopte.","沿着有十二只钟的走廊走。其中一只记得一只停下的怀表。","database/027_sprint5_act6_8_runtime.sql:s5_resolve_round + src/game/app.js:renderSprint5","{""outcome"":""time_stopped""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"ALL","6","act6_portrait","act6_answer","portrait result=same_person","act06.010","Het kasteel houdt zijn antwoorden voor zich. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.","城堡把答案藏着。先逃出去。去找时间停止的房间。","database/027_sprint5_act6_8_runtime.sql:s5_resolve_round + src/game/app.js:renderSprint5","{""outcome"":""same_person""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"ALL","7","act7_clock_room","act7_vote","initial/revote","act07.001 | act07.002 | act07.003 | act07.004 | act07.005 | act07.006 | act07.007","TIJD — 23:54
+EEN TOONT HET NU.
+EEN LOOPT ACHTERUIT.
+EEN HERINNERT ZICH WANNEER HET HORLOGE STOPTE.
+RAAK DEGENE AAN DIE HET ZICH HERINNERT.
+GROEPSVONDSTEN → Gescheurd briefje
+MIJN VOORWERPEN → Stilstaand horloge","时间 — 23:54
+一只显示现在。
+一只倒着走。
+一只记得怀表停止的时刻。
+触碰那只记得的钟。
+团队发现物品 → 撕破的纸条
+我的物品 → 停走的怀表","src/game/app.js:renderSprint5","{}","tests/act7-v4-normal-timeout-browser.mjs",""
+"ALL","7","act7_clock_room","act7_vote","wrong majority attempt=1","act07.001 | act07.002 | act07.003 | act07.004 | act07.005 | act07.006 | act07.007 | act07.012","TIJD — 23:54
+EEN TOONT HET NU.
+EEN LOOPT ACHTERUIT.
+EEN HERINNERT ZICH WANNEER HET HORLOGE STOPTE.
+RAAK DEGENE AAN DIE HET ZICH HERINNERT.
+GROEPSVONDSTEN → Gescheurd briefje
+MIJN VOORWERPEN → Stilstaand horloge
+Er gebeurt niets.","时间 — 23:54
+一只显示现在。
+一只倒着走。
+一只记得怀表停止的时刻。
+触碰那只记得的钟。
+团队发现物品 → 撕破的纸条
+我的物品 → 停走的怀表
+什么也没有发生。","src/game/app.js:renderSprint5 + database/027_sprint5_act6_8_runtime.sql","{""act7_wrong_attempts"":1}","tests/act7-v4-normal-timeout-browser.mjs",""
+"ALL","7","act7_clock_room","act7_vote","wrong majority attempt=2","act07.001 | act07.002 | act07.003 | act07.004 | act07.005 | act07.006 | act07.007 | act07.013","TIJD — 23:54
+EEN TOONT HET NU.
+EEN LOOPT ACHTERUIT.
+EEN HERINNERT ZICH WANNEER HET HORLOGE STOPTE.
+RAAK DEGENE AAN DIE HET ZICH HERINNERT.
+GROEPSVONDSTEN → Gescheurd briefje
+MIJN VOORWERPEN → Stilstaand horloge
+Een stilstaand horloge in iemands inventaris kan belangrijk zijn.","时间 — 23:54
+一只显示现在。
+一只倒着走。
+一只记得怀表停止的时刻。
+触碰那只记得的钟。
+团队发现物品 → 撕破的纸条
+我的物品 → 停走的怀表
+某人随身物品里的停走怀表可能很重要。","src/game/app.js:renderSprint5 + database/027_sprint5_act6_8_runtime.sql","{""act7_wrong_attempts"":2}","tests/act7-v4-normal-timeout-browser.mjs",""
+"ALL","7","act7_clock_room","act7_vote","wrong majority attempt=3","act07.001 | act07.002 | act07.003 | act07.004 | act07.005 | act07.006 | act07.007 | act07.014","TIJD — 23:54
+EEN TOONT HET NU.
+EEN LOOPT ACHTERUIT.
+EEN HERINNERT ZICH WANNEER HET HORLOGE STOPTE.
+RAAK DEGENE AAN DIE HET ZICH HERINNERT.
+GROEPSVONDSTEN → Gescheurd briefje
+MIJN VOORWERPEN → Stilstaand horloge
+Vergelijk het stilstaande horloge met de klokken.","时间 — 23:54
+一只显示现在。
+一只倒着走。
+一只记得怀表停止的时刻。
+触碰那只记得的钟。
+团队发现物品 → 撕破的纸条
+我的物品 → 停走的怀表
+把停走的怀表和这些钟比较一下。","src/game/app.js:renderSprint5 + database/027_sprint5_act6_8_runtime.sql","{""act7_wrong_attempts"":3}","tests/act7-v4-normal-timeout-browser.mjs",""
+"ALL","8","act8_route","act8_route","main_gate route","act08.005 | act08.006 | act08.007","Jullie volgen de route op de kaart naar de Hoofdpoort.
+Het binnenmechanisme beweegt vanaf deze kant niet.
+BEDIENING HOOFDPOORT → GROTE ZAAL","你们沿地图上的路线前往主门。
+内侧机关从这一边无法启动。
+主门控制装置 → 大厅","src/game/app.js:renderSprint5","{""route_taken_act8"":""main_gate""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"ALL","8","act8_route","act8_route","west_tower route","act08.010 | act08.011","Jullie herkennen de dienstgang uit de foto van 1897.
+DIENSTGANG → GROTE ZAAL","你们认出了1897年照片中的仆人通道。
+仆人通道 → 大厅","src/game/app.js:renderSprint5","{""route_taken_act8"":""west_tower""}","tests/v4-player-integrated-runtime-browser.mjs",""
+"GAL-A / Gitte","9","act9_great_hall","act9_discussion","initial private clue","act09.004 | act09.005","EEN DEUR KAN WORDEN GEACTIVEERD ZONDER ERIN TE GAAN.
+DE RODE DEUR GAAT EERST OPEN.","门可以在不进入的情况下被启动。
+红门先打开。","database/033_sprint6_act9_13_runtime.sql:s6_deliver_clues + src/game/app.js:renderSprint6","{""role_private"":true}","tests/v4-player-integrated-runtime-browser.mjs","Role-private key appears only for its owner; discussion controls/chat are excluded."
+"GAL-B / Anna","9","act9_great_hall","act9_discussion","initial private clue","act09.004 | act09.006","EEN DEUR KAN WORDEN GEACTIVEERD ZONDER ERIN TE GAAN.
+DE EERSTE DEUR IS NIET VEILIG.","门可以在不进入的情况下被启动。
+第一扇门不安全。","database/033_sprint6_act9_13_runtime.sql:s6_deliver_clues + src/game/app.js:renderSprint6","{""role_private"":true}","tests/v4-player-integrated-runtime-browser.mjs","Role-private key appears only for its owner; discussion controls/chat are excluded."
+"GAL-C / Linda","9","act9_great_hall","act9_discussion","initial private clue","act09.004 | act09.007","EEN DEUR KAN WORDEN GEACTIVEERD ZONDER ERIN TE GAAN.
+BLAUW GAAT PAS OPEN NA ROOD.","门可以在不进入的情况下被启动。
+蓝门只能在红门之后打开。","database/033_sprint6_act9_13_runtime.sql:s6_deliver_clues + src/game/app.js:renderSprint6","{""role_private"":true}","tests/v4-player-integrated-runtime-browser.mjs","Role-private key appears only for its owner; discussion controls/chat are excluded."
+"ALL","9","act9_great_hall","act9_console","1:1:1 no consensus","act09.009","GEEN CONSENSUS. GEEN ACTIE.","没有共识。不执行行动。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","step1 red correct","act09.014","RODE DEUR GEACTIVEERD.","红门已启动。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","step2 do_not_enter correct","act09.017 | act09.018","Een dof blauw controlelampje flikkert aan.
+BLAUW BESCHIKBAAR","一盏暗淡的蓝色指示灯闪了起来。
+蓝门可用","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","step3 blue correct","act09.019","BLAUWE DEUR GEACTIVEERD.","蓝门已启动。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","step4 stay","act09.021","BLIJVEN","留下","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","wrong step1","act09.022","ROOD GAAT EERST OPEN.","红门先开。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","wrong step2","act09.023 | act09.024 | act09.006","Achter de Rode Deur beweegt een slangachtige schaduw.
+De Rode Deur slaat dicht.
+DE EERSTE DEUR IS NIET VEILIG.","红门后有一道蛇一样的影子在移动。
+红门砰地关上。
+第一扇门不安全。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","wrong step3","act09.007","BLAUW GAAT PAS OPEN NA ROOD.","蓝门只能在红门之后打开。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","wrong step4","act09.023 | act09.024","Achter de Rode Deur beweegt een slangachtige schaduw.
+De Rode Deur slaat dicht.","红门后有一道蛇一样的影子在移动。
+红门砰地关上。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"ALL","9","act9_great_hall","act9_console","step4 enter_blue correct","act09.026 | act09.027","De Blauwe Deur opent naar een smalle stenen kamer.
+Op een kleine sokkel ligt iets goudkleurigs.","蓝门打开，后面是一间狭窄的石室。
+一个小基座上放着一件金色的东西。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded + src/game/app.js:renderSprint6","{}","tests/act9-073-postgresql-transaction.sql",""
+"GAL-A / Gitte","10","act10_golden_key","act10_private","role-private golden-key clue","act10.001","Neem hem. Zonder deze sleutel heb je meer tijd nodig om de Hoofdpoort te openen.","拿上它。没有它，你们打开主门会需要更多时间。","database/033_sprint6_act9_13_runtime.sql:s6_deliver_clues + src/game/app.js:renderSprint6","{""role_private"":true}","tests/v4-player-integrated-runtime-browser.mjs","Only the owner receives this private clue."
+"GAL-B / Anna","10","act10_golden_key","act10_private","role-private golden-key clue","act10.002","Neem hem niet. Het alarm zal afgaan en ze zullen sneller hier zijn.","别拿。警报会响，他们会更快赶到这里。","database/033_sprint6_act9_13_runtime.sql:s6_deliver_clues + src/game/app.js:renderSprint6","{""role_private"":true}","tests/v4-player-integrated-runtime-browser.mjs","Only the owner receives this private clue."
+"GAL-C / Linda","10","act10_golden_key","act10_private","role-private golden-key clue","act10.003","De poort kan ook zonder deze sleutel open. Waarom zou je hem nemen?","没有它也能打开大门。何必拿呢？","database/033_sprint6_act9_13_runtime.sql:s6_deliver_clues + src/game/app.js:renderSprint6","{""role_private"":true}","tests/v4-player-integrated-runtime-browser.mjs","Only the owner receives this private clue."
+"ALL","10","act10_golden_key","act10_result","group takes key","act10.008","Er klinkt ergens binnen de muren een schelle alarmbel.","城堡墙体内部某处响起刺耳的警铃。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded","{""winner"":""take""}","tests/ca284-act10-teacher-open-vote-browser.mjs",""
+"ALL","10","act10_golden_key","act10_result","group leaves key","act10.009","Jullie verlaten de kamer en volgen de binnenroute naar de Hoofdpoort.","你们离开石室，沿内部路线前往主门。","database/035_sprint6_focused_audit_corrections.sql:s6_submit_group_choice_guarded","{""winner"":""leave""}","tests/ca284-act10-teacher-open-vote-browser.mjs",""
+"ALL","11","act11_main_gate","act11_discussion","after ACT10 result","act11.001 | act11.002 | act11.003 | act11.004","TIJD — 23:58
+STATION A — CIJFERWIEL
+STATION B — HENDEL
+STATION C — SLEUTELMECHANISME","时间 — 23:58
+A站 — 数字轮盘
+B站 — 杠杆
+C站 — 钥匙机构","database/035_sprint6_focused_audit_corrections.sql:s6_advance_guarded","{}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_pressure","mechanism failure station=A","act12.005","FOUT — CIJFERWIEL GEBLOKKEERD","错误 — 数字轮盘卡住","database/035_sprint6_focused_audit_corrections.sql:s6_engage_guarded","{""mechanism_failure_station"":""A""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_pressure","mechanism failure station=B","act12.006","FOUT — HENDEL GEBLOKKEERD","错误 — 杠杆锁死","database/035_sprint6_focused_audit_corrections.sql:s6_engage_guarded","{""mechanism_failure_station"":""B""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_pressure","mechanism failure station=C","act12.007","FOUT — SLEUTELMECHANISME VASTGELOPEN","错误 — 钥匙机构卡住","database/035_sprint6_focused_audit_corrections.sql:s6_engage_guarded","{""mechanism_failure_station"":""C""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=1","act12.016","Niets wordt beter. Weglopen is geen optie meer. Je doet wat je kunt.","情况一点也没有好转。逃跑已经不再是选项。你只能尽你所能。","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""1""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=2","act12.017 | act12.018 | act12.019","Uit elke gang komt het natte schuren van iets dat over steen beweegt.
+Dichterbij. Uit elke richting.
+Maar je ziet niets.","每一条走廊里都传来某种东西在石面上爬行的湿黏摩擦声。
+越来越近。从四面八方。
+但你什么也看不见。","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""2""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=4","act12.021","Je ruikt nu hun vochtige adem.","你现在已经能闻到它们湿漉漉的呼吸。","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""4""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=5","act12.022","5","5","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""5""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=6","act12.023","4","4","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""6""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=7","act12.024","3","3","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""7""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=8","act12.025","2","2","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""8""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=9","act12.026","1","1","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""9""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=13","act12.027 | act13.001 | act13.002 | act13.003 | act02.024","ONTSNAPPING GESLAAGD
+De Hoofdpoort slaat met geweld open.
+Jullie drieën rennen erdoorheen.
+TIJD — 00:00
+SIGNAAL HERSTELD","逃脱成功
+主门轰然打开。
+你们三个人冲了出去。
+时间 — 00:00
+信号已恢复","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""13""}","tests/sprint6-static-check.js","Final array includes act02.024 by effective migration 036; GA should review whether this is intended Runtime copy."
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=3_take","act12.020","Er is al iets in de gang.","走廊里已经有东西了。","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""3_take""}","tests/sprint6-static-check.js",""
+"ALL","12","act12_main_gate","act12_cinematic","cinematic stage=3_leave","act12.018","Dichterbij. Uit elke richting.","越来越近。从四面八方。","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{""cinematic_stage"":""3_leave""}","tests/sprint6-static-check.js",""
+"ALL","13","act13_escape","act13_escape","cinematic completion","act12.027 | act13.001 | act13.002 | act13.003 | act02.024","ONTSNAPPING GESLAAGD
+De Hoofdpoort slaat met geweld open.
+Jullie drieën rennen erdoorheen.
+TIJD — 00:00
+SIGNAAL HERSTELD","逃脱成功
+主门轰然打开。
+你们三个人冲了出去。
+时间 — 00:00
+信号已恢复","database/036_sprint6_four_open_findings.sql:s6_tick_cinematic + src/game/app.js:renderSprint6","{}","tests/v4-player-integrated-runtime-browser.mjs","ACT13 renderer receives the effective final feedback array; local Continue is an Action and excluded."
+"ALL","14","act14_final_reveal","act14_complete","finalization ready","act14.001 | act14.002 | act14.003 | act14.004 | act14.005","Missie voltooid.
+Jullie zijn ontsnapt.
+Maar het kasteel herinnerde zich alles wat jullie deden.
+ZIJ weten wie jullie zijn.
+Einde","任务完成。
+你们逃出来了。
+但是城堡记住了你们做的一切。
+他们知道你们是谁。
+结束","database/048_sprint8_focused_level1_corrections.sql:s8_get_player_state + src/game/app.js:renderSprint8","{}","tests/sprint8-act14-presentation-static-check.js",""
