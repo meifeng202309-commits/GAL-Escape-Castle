@@ -82,5 +82,8 @@
   "runtime_activated": false,
   "blocker": "GitHub connector supports create_blob with base64 content but no direct container-file source; container cannot reach github.com or api.github.com. No authorized tool bridge for exact multi-MB WebP bytes is available. Do not claim staging completed.",
   "next_action": "Transfer the exact archive's 10 images via binary-capable authenticated GitHub git push or an approved external upload tool; verify Git blob SHA-256 and sidecars before registry latest_version updates. Preserve active_version and existing originals.",
-  "cd_handoff_gate": "Teacher says 已经完成全部图片替换工作"
+  "cd_handoff_gate": "Teacher says 已经完成全部图片替换工作",
+  "locally_built_archive_sha256": "3009d25adb8aa0de061400835500c1c990ddeff3a6d5b430be6316697ace8da0",
+  "locally_built_archive_size_bytes": 15370870,
+  "locally_built_archive_contents": "10 exact WebP binaries + 10 metadata JSON + SHA index + local staging helper + README"
 }
