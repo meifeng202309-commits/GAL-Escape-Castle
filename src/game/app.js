@@ -591,10 +591,13 @@ function renderSprint3b(state,pocket) {
   const act1OutcomeAsset=me.act1_stage==="consequence"?({study_map:"prop_gitte_castle_map",study_number_note:"prop_gitte_number_note_front",read_diary:"prop_anna_diary_open",read_notice:"prop_linda_closure_order",study_watch:"prop_linda_watch_face",try_star_key:"prop_linda_star_key"}[me.act1_choice_id]||null):null;
   const sceneAsset=act1OutcomeAsset||(scene.scene_id==="act1_wake_up"?({"GAL-A":"opening.gitte_room","GAL-B":"opening.anna_room","GAL-C":"opening.linda_study"}[session.role_slot]):(scene.scene_id==="act3_library"?"shared.library":null));
   if(!showAct4Comparison&&!sceneAsset)formalSceneMount.replaceChildren();
+  const libraryDiscovery=scene.phase_key==="library_discovery";
+  const libraryDiscoveryHtml=libraryDiscovery?`<section class="notice library-discovery" data-library-discovery="${escapeHtml(state.run_id)}"><p>${localizedHtml("act03.015")}</p><article><h3>${localizedHtml("item.photo_1897")}</h3><img id="libraryDiscoveryPhoto" class="v4-pocket-media" alt=""></article><article><h3>${localizedHtml("item.torn_note")}</h3><img id="libraryDiscoveryNote" class="v4-pocket-media" alt="">${localizedHtml("act03.016")}</article></section>`:"";
   setStableHtml(sprint3bText,(showAct4Comparison?act4ComparisonHtml():sceneAsset?`<img id="s3bSceneImage" class="s5-scene" data-asset-key="${escapeHtml(sceneAsset)}" alt="">`:"")+(scene.phase_key==="route_update"
     ? `<div class="bilingual">${localizedTemplateHtml("act02.032",{location:routeLocationKey ? resolveLocalizedText(routeLocationKey) : ""})}${localizedHtml("act02.033")}</div>`
-    : `<div class="bilingual">${localizedHtml(state.scene.text_key)}</div>${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`)+act4RevealHtml(state.act4_revealed));
+    : `<div class="bilingual">${localizedHtml(state.scene.text_key)}</div>${libraryDiscoveryHtml}${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`)+act4RevealHtml(state.act4_revealed));
   if(sceneAsset)void setS5Asset("s3bSceneImage",sceneAsset);
+  if(libraryDiscovery)void hydrateLibraryDiscovery();
   if(showAct4Comparison)hydrateAct4Comparison();
   if (scene.scene_id==="act1_wake_up" && me.act1_stage==="opening") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_ack_act1_opening">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="action") html=actionButtons(ACT1_CHOICES[session.role_slot]||[],"s3b_submit_act1_choice");
@@ -609,6 +612,8 @@ function renderSprint3b(state,pocket) {
   else if (scene.phase_key==="wayfinding" && me.player_location!=="library") html=`<button type="button" data-s3b-rpc="s3b_follow_sign">${localizedHtml("act03.003")}</button>`;
   else if (scene.phase_key==="wayfinding" && me.player_location==="library") html=acceptedWaiting();
   else if (scene.phase_key==="library_box" && !state.flow.puzzle_resolved_at) { const locked=state.flow.puzzle_locked_prefix||""; const remaining=5-locked.length; html=`<form id="libraryCodeForm" class="composer"><div class="locked-wheels"><b>${escapeHtml(locked)}</b><input id="libraryCode" inputmode="numeric" maxlength="${remaining}" pattern="[0-9]{${remaining}}" data-locked-prefix="${escapeHtml(locked)}"></div><button>${localizedHtml("act03.009")}</button></form>${state.flow.puzzle_hint_stage ? `<div class="notice">${localizedHtml([null,"act03.011","act03.012","act03.013","act03.014","act03.017","act03.018","act03.019","act03.020"][state.flow.puzzle_hint_stage])}</div>` : ""}`; }
+  else if (scene.phase_key==="library_discovery" && !me.library_discovery_ack_at) html=`<button type="button" data-s3b-rpc="s3b_ack_library_discovery" data-s3b-run="${escapeHtml(state.run_id)}">${localizedHtml("common.004")}</button>`;
+  else if (scene.phase_key==="library_discovery") html=acceptedWaiting();
   else if (scene.scene_id==="act4_known_unknown" && !me.act4_locked_at) html=actionButtons(ROUTE_CHOICES,"s3b_submit_act4_choice");
   else if (scene.scene_id==="act4_known_unknown" && me.act4_locked_at) html=acceptedWaiting();
   else if (scene.phase_key==="post_inspection_route") {
@@ -631,6 +636,8 @@ function renderSprint3b(state,pocket) {
   document.getElementById("libraryCodeForm")?.addEventListener("submit",submitLibraryCode);
   restoreLibraryDraft(libraryDraft,state);
 }
+
+async function hydrateLibraryDiscovery(){await Promise.all([setS5Asset("libraryDiscoveryPhoto","prop.photo_1897"),setS5Asset("libraryDiscoveryNote","prop.library_clock_clue_note")])}
 
 function inputDraft(input,identity,viewport=false){return input?{identity,value:input.value,focused:document.activeElement===input,selectionStart:input.selectionStart,selectionEnd:input.selectionEnd,scrollX:viewport?window.scrollX:null,scrollY:viewport?window.scrollY:null}:null}
 function restoreInputDraft(draft,input,identity,viewport=false){if(!draft||!input||draft.identity!==identity)return;input.value=draft.value;if(draft.focused){input.focus({preventScroll:true});if(draft.selectionStart!==null&&draft.selectionEnd!==null)input.setSelectionRange(draft.selectionStart,draft.selectionEnd)}if(viewport&&draft.scrollX!==null&&draft.scrollY!==null)window.scrollTo(draft.scrollX,draft.scrollY)}
@@ -655,6 +662,11 @@ function pocketItemContent(item){
   if(item.item_key==="linda_closure_order")return `${media}${localizedKeys(["act01-l.009","act01-l.010","act01-l.016"])}`;
   return"";
 }
+function groupItemContent(item){
+  if(item.item_key==="library_photo_1897")return `<img class="v4-pocket-media" data-pocket-asset="prop.photo_1897" alt="">${localizedHtml("item.photo_1897")}`;
+  if(item.item_key==="library_torn_note")return `<img class="v4-pocket-media" data-pocket-asset="prop.library_clock_clue_note" alt="">${localizedHtml("act03.016")}`;
+  return localizedHtml(item.label_text_key);
+}
 function pocketEvidencePanel(pocket,phase){
   if(!pocket?.active)return"";
   const inspected=new Set(pocket.inspected_item_keys||[]);
@@ -665,7 +677,7 @@ function pocketEvidencePanel(pocket,phase){
   const itemHtml=!selected?"":inspected.has(selected.item_key)
     ? `<article class="evidence-item pocket-item-detail" data-pocket-item="${escapeHtml(selected.item_key)}"><p class="muted">${escapeHtml(selected.current_view||"")}</p>${pocketItemContent(selected)}</article>`
     : `<button type="button" class="evidence-item" data-inspect-item="${escapeHtml(selected.item_key)}" aria-expanded="false">${localizedHtml(selected.name_text_key)}</button>`;
-  const groupHtml=(pocket.group_items||[]).map(item=>`<details class="evidence-item"><summary>${localizedHtml(item.label_text_key)}</summary>${item.item_key==="library_torn_note"?localizedHtml("act03.016"):localizedHtml(item.label_text_key)}</details>`).join("");
+  const groupHtml=(pocket.group_items||[]).map(item=>`<details class="evidence-item" data-group-item="${escapeHtml(item.item_key)}"><summary>${localizedHtml(item.label_text_key)}</summary>${groupItemContent(item)}</details>`).join("");
   const memoryHtml=(pocket.observations||[]).map(item=>localizedHtml(item.display_text_key)).join("")+(pocket.shared_photos||[]).map(item=>localizedHtml(item.label_text_key)).join("");
   const shareable=(pocket.scene?.allow_share_photo?pocket.items||[]:[]).filter(item=>item.current_view);
   const shareHtml=shareable.map(item=>`<div class="button-row">${["GAL-A","GAL-B","GAL-C"].filter(role=>role!==session.role_slot).map(role=>`<button data-share-role="${role}" data-share-item="${escapeHtml(item.item_key)}" data-share-view="${escapeHtml(item.current_view)}">${localizedHtml(item.name_text_key)} · ${escapeHtml(DISPLAY_NAME_BY_ROLE[role]||role)}</button>`).join("")}</div>`).join("");
@@ -798,6 +810,7 @@ async function runSprint3bAction(button) {
     pending=requestIdentity("s3b-grab-leave",runId,{action:"grab_leave",expected_run_id:runId});
     payload.p_client_request_id=pending.requestId;payload.p_expected_run_id=runId;
   }
+  if(button.dataset.s3bRpc==="s3b_ack_library_discovery")payload.p_expected_run_id=button.dataset.s3bRun;
   try { await rpc(button.dataset.s3bRpc,payload);if(pending)clearRequestIdentity(pending.key);await refreshState(); }
   catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false;}
 }
