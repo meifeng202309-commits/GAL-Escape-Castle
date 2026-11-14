@@ -39,9 +39,9 @@ export const LOCALIZATION_CATALOG = {
   "act01-g.001": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "A low, sticky, wet-sounding voice keeps whispering:",
-    "nl": "Een lage, kleverige, nat klinkende stem blijft fluisteren:",
-    "zh": "一个低沉、黏糊、湿漉漉的声音在反复低语："
+    "englishMaster": "A low, cold voice sounds close to your ear. It seems to come from everywhere and from deep inside your own mind. The voice whispers:",
+    "nl": "Een lage, koude stem klinkt vlak bij je oor. Het lijkt alsof ze van alle kanten komt, maar ook diep uit je eigen gedachten. De stem fluistert:",
+    "zh": "一个低沉、冰冷的声音在耳边响起。它似乎来自四面八方，又似乎来自你自己的内心深处。那个声音低语道："
   },
   "act01-g.002": {
     "textType": "static",
@@ -368,9 +368,9 @@ export const LOCALIZATION_CATALOG = {
   "act01-a.014": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "LOCAL DEVICES DETECTED: 2",
-    "nl": "LOKALE APPARATEN GEDETECTEERD: 2",
-    "zh": "检测到本地设备：2"
+    "englishMaster": "You take out your phone and try to contact someone outside.",
+    "nl": "Je haalt je telefoon boven en probeert iemand buiten het kasteel te bereiken.",
+    "zh": "你拿出手机，尝试联系外界。"
   },
   "act01-a.015": {
     "textType": "static",
@@ -956,9 +956,9 @@ export const LOCALIZATION_CATALOG = {
   "act03.008": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "WHAT WAS GIVEN FIRST\r\nOPENS WHAT COMES NEXT.",
-    "nl": "WAT JE EERST KREEG\r\nOPENT WAT HIERNA KOMT.",
-    "zh": "最先得到的东西\r\n打开接下来之物。"
+    "englishMaster": "WHAT WAS GIVEN FIRST\nOPENS WHAT COMES NEXT.",
+    "nl": "WAT JE EERST KREEG\nOPENT WAT HIERNA KOMT.",
+    "zh": "最先得到的东西\n打开接下来之物。"
   },
   "act03.009": {
     "textType": "static",
@@ -1012,9 +1012,9 @@ export const LOCALIZATION_CATALOG = {
   "act03.016": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "THE ROOM WHERE TIME STOPPED\r\nREMEMBERS WHEN THE WATCH STOPPED.",
-    "nl": "DE KAMER WAAR DE TIJD STILSTOND\r\nHERINNERT ZICH WANNEER HET HORLOGE STOPTE.",
-    "zh": "时间停止的房间\r\n记得怀表停止的时刻。"
+    "englishMaster": "THE ROOM WHERE TIME STOPPED\nREMEMBERS WHEN THE WATCH STOPPED.",
+    "nl": "DE KAMER WAAR DE TIJD STILSTOND\nHERINNERT ZICH WANNEER HET HORLOGE STOPTE.",
+    "zh": "时间停止的房间\n记得怀表停止的时刻。"
   },
   "act04-05.001": {
     "textType": "static",
@@ -2380,6 +2380,27 @@ export const LOCALIZATION_CATALOG = {
     "englishMaster": "Sound couldn't start. Choose a volume setting to try again.",
     "nl": "Het geluid kon niet starten. Kies een volume-instelling om het opnieuw te proberen.",
     "zh": "声音未能播放。请选择一个音量设置后重试。"
+  },
+  "act01-a.014b": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "For now you cannot reach anyone with your phone.",
+    "nl": "Je kunt voorlopig niemand met je telefoon bereiken.",
+    "zh": "你暂时无法通过手机与任何人取得联系。"
+  },
+  "runtime.castle_voice.first_audible": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "The huge portrait stares at you. A low, cold voice sounds close to your ear. It seems to come from everywhere and from within your own mind. The voice says:",
+    "nl": "Het grote portret kijkt jullie aan. Een lage, koude stem klinkt vlak bij je oor. Het lijkt alsof ze van alle kanten komt, maar ook diep uit je eigen gedachten. De stem zegt:",
+    "zh": "那幅巨大的肖像注视着你们。一个低沉、冰冷的声音在耳边响起。它似乎来自四面八方，又似乎来自你自己的内心深处。那个声音说道："
+  },
+  "runtime.castle_voice.returning": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "The huge portrait stares at you. That mysterious voice returns:",
+    "nl": "Het grote portret kijkt jullie aan. Die mysterieuze stem klinkt opnieuw:",
+    "zh": "那幅巨大的肖像注视着你们。那个神秘的声音又出现了："
   }
 };
 
