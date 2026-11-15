@@ -18,8 +18,7 @@ async function fixture(){
   for(const [i,p_choice_id]of [[0,"study_map"],[1,"check_phone"],[2,"study_watch"]])await rpc("s3b_submit_act1_choice",{...auth(f,i),p_choice_id});
   await Promise.all([0,1,2].map(i=>rpc("s3b_complete_act1",auth(f,i))));
   await Promise.all([0,1,2].map(i=>rpc("s3b_submit_first_meeting",{...auth(f,i),p_choice_id:"library"})));
-  await Promise.all([0,1,2].map(i=>rpc("s3b_grab",auth(f,i))));
-  await Promise.all([0,1,2].map(i=>rpc("s3b_leave_start_room",auth(f,i))));
+  await Promise.all([0,1,2].map(i=>rpc("s3b_grab_and_leave",{...auth(f,i),p_client_request_id:crypto.randomUUID(),p_expected_run_id:started.run_id})));
   const legacy=await rpc("s2_get_teacher_state",{p_room_code:room,p_teacher_token:teacher});
   await rpc("s2_open_vote",{p_room_code:room,p_teacher_token:teacher});
   for(let i=0;i<3;i++)await rpc("s2_submit_vote",{...auth(f,i),p_expected_discussion_session_id:legacy.discussion.discussion_session_id,p_expected_vote_round:legacy.discussion.vote_round,p_choice_id:"library"});
@@ -29,7 +28,13 @@ async function fixture(){
   await rpc("s3b_submit_library_code",{...auth(f,0),p_client_request_id:crypto.randomUUID(),p_code:"41739"});
   await Promise.all([0,1,2].map(i=>rpc("s3b_ack_library_discovery",{...auth(f,i),p_expected_run_id:started.run_id})));
   await Promise.all([0,1,2].map(i=>rpc("s3b_submit_act4_choice",{...auth(f,i),p_choice_id:"known"})));
-  await rpc("s5_initialize",{p_room_code:room,p_teacher_token:teacher});
+  const completed=await Promise.all([0,1,2].map(i=>rpc("s3b_get_player_state",auth(f,i))));
+  assert(completed.every(state=>state.flow.terminal_state==="SPRINT3B_COMPLETE"),"ACT5 did not reach its authoritative terminal state.");
+  for(let i=0;i<3;i++){
+    await rpc("s9_observe_act5_handoff",{...auth(f,i),p_expected_run_id:started.run_id});
+    const entered=await rpc("s9_enter_act6",{...auth(f,i),p_expected_run_id:started.run_id});
+    assert(entered.entered_players===i+1,`ACT6 entry barrier count did not reach ${i+1}.`);
+  }
   return{...f,runId:started.run_id};
 }
 
@@ -39,7 +44,10 @@ async function main(){
   assert(states.every(state=>state.state.phase_key==="act6_vote"),"Fixture did not enter genuine ACT6 through the server lifecycle.");
   assert(states[0].castle_voice_intro_key==="runtime.castle_voice.returning","Gitte must hear returning Voice at ACT6.");
   assert(states[1].castle_voice_intro_key==="runtime.castle_voice.first_audible"&&states[2].castle_voice_intro_key==="runtime.castle_voice.first_audible","Anna and Linda must hear their first audible Voice at ACT6.");
-  const discussion=states[0].discussion;
+  const teacher=await rpc("s5_get_teacher_discussion_state",{p_room_code:f.room,p_teacher_token:f.teacher});
+  const discussion=teacher.discussion;
+  assert(discussion?.status==="discussion","ACT6 did not expose the canonical pre-vote discussion.");
+  const opened=await rpc("s5_teacher_open_vote",{p_room_code:f.room,p_teacher_token:f.teacher,p_expected_run_id:f.runId,p_expected_phase:"act6_vote",p_expected_vote_round:discussion.vote_round,p_expected_discussion_session_id:discussion.discussion_session_id});
   await expectReject(()=>rpc("s5_submit_vote",{...auth(f,0),p_expected_discussion_session_id:discussion.discussion_session_id,p_expected_vote_round:discussion.vote_round,p_client_request_id:crypto.randomUUID(),p_choice_id:"escape"}),/must be acknowledged/);
   await expectReject(()=>rpc("s10_ack_castle_voice_intro",{...auth(f,0),p_expected_run_id:crypto.randomUUID()}),/Stale or invalid/);
   for(let i=0;i<3;i++){
@@ -49,7 +57,8 @@ async function main(){
   }
   states=await Promise.all([0,1,2].map(i=>rpc("s5_get_player_state",auth(f,i))));
   assert(states.every(state=>state.castle_voice_intro_acknowledged),"Reconnect projection lost an ACT6 acknowledgement.");
-  for(let i=0;i<3;i++)await rpc("s5_submit_vote",{...auth(f,i),p_expected_discussion_session_id:discussion.discussion_session_id,p_expected_vote_round:discussion.vote_round,p_client_request_id:crypto.randomUUID(),p_choice_id:"escape"});
+  assert(opened.discussion_session_id===discussion.discussion_session_id&&opened.vote_round===discussion.vote_round,"Teacher opened a different ACT6 ballot.");
+  for(let i=0;i<3;i++)await rpc("s5_submit_vote",{...auth(f,i),p_expected_discussion_session_id:opened.discussion_session_id,p_expected_vote_round:opened.vote_round,p_client_request_id:crypto.randomUUID(),p_choice_id:"escape"});
   const resolved=await rpc("s5_get_player_state",auth(f,0));
   assert(resolved.state.phase_key==="act6_answer","Three acknowledged players did not reach the ACT6 answer.");
   console.log("GA147 genuine three-player ACT6 lifecycle E2E passed.");
