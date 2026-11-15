@@ -6,6 +6,7 @@ on:
     paths:
       - database/076_act3_library_discovery_gate.sql
       - database/077_ga147_castle_voice_and_runtime_callers.sql
+      - database/078_ca327_castle_voice_phase_guard.sql
       - tests/ga147-canonical-copy-integration-live-e2e.js
       - tests/act9-asset-variants-postgresql.sql
       - .github/workflows/ga147-act6-disposable-postgrest.yml
@@ -44,7 +45,7 @@ jobs:
           set -euo pipefail
           psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists(select 1 from pg_roles where rolname='anon')then create role anon nologin;end if;if not exists(select 1 from pg_roles where rolname='authenticated')then create role authenticated nologin;end if;if not exists(select 1 from pg_roles where rolname='service_role')then create role service_role nologin;end if;end \$\$;"
           psql -X -v ON_ERROR_STOP=1 -c "create schema if not exists storage;create table if not exists storage.buckets(id text primary key,name text not null,public boolean not null default false,file_size_limit bigint,allowed_mime_types text[]);"
-      - name: Apply migration history through 077
+      - name: Apply migration history through 078
         shell: bash
         run: |
           set -euo pipefail
@@ -52,7 +53,7 @@ jobs:
             name="${file##*/}"
             if [[ "$name" =~ ^([0-9]{3})([^0-9].*)?\.sql$ ]];then
               n=$((10#${BASH_REMATCH[1]}))
-              if ((n>=1&&n<=77));then echo "MIGRATION_APPLY: $name";psql -X -v ON_ERROR_STOP=1 -q -f "$file";fi
+              if ((n>=1&&n<=78));then echo "MIGRATION_APPLY: $name";psql -X -v ON_ERROR_STOP=1 -q -f "$file";fi
             fi
           done < <(find database -maxdepth 1 -type f -name '*.sql'|LC_ALL=C sort)
       - name: Start disposable PostgREST

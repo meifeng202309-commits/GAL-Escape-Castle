@@ -1,6 +1,7 @@
 const fs=require("fs");
 const assert=(value,message)=>{if(!value)throw new Error(message)};
 const sql=fs.readFileSync("database/077_ga147_castle_voice_and_runtime_callers.sql","utf8");
+const phaseGuard=fs.readFileSync("database/078_ca327_castle_voice_phase_guard.sql","utf8");
 const app=fs.readFileSync("src/game/app.js","utf8");
 const bundle=fs.readFileSync("src/content/localization.generated.js","utf8");
 
@@ -20,6 +21,14 @@ for(const token of[
   "s.phase_key not like'act6%'",
   "Castle Voice player progress is unavailable."
 ])assert(sql.includes(token),`GA147 database contract missing: ${token}`);
+
+for(const token of[
+  "s10_ack_castle_voice_intro_pre078",
+  "state.act6_entered_at is null",
+  "progress.act6_entered_at is null",
+  "Castle Voice introduction is unavailable."
+])assert(phaseGuard.includes(token),`CA327 ACT6 phase guard missing: ${token}`);
+assert(!/\b(delete|truncate)\b/i.test(phaseGuard),"CA327 phase guard must not delete gameplay history");
 
 for(const token of[
   'scene.phase_key==="route_consequence"&&scene.current_route_target==="main_gate"',
