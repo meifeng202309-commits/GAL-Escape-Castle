@@ -9,6 +9,7 @@ declare
   result jsonb;
 begin
   perform public.s1_create_room('A9ASSET',teacher,'A9-GITTE','A9-ANNA','A9-LINDA');
+  insert into public.asset_manager_reviewers(token_hash,label,enabled)values(public.s1_hash_token(teacher),'isolated ACT9 lifecycle reviewer',true);
   result:=public.asset_manager_sync_registry(teacher,repeat('a',64),jsonb_build_array(
     jsonb_build_object('asset_key','shared.great_hall.red_first','display_name','Great Hall — Red Door Open','aliases','[]'::jsonb,'asset_type','image','latest_version',1,'active_version',1,'continuity_refs','["shared.great_hall"]'::jsonb,'required_anchors','[]'::jsonb,'runtime_required',false),
     jsonb_build_object('asset_key','shared.great_hall.both_open','display_name','Great Hall — Red and Blue Doors Open','aliases','[]'::jsonb,'asset_type','image','latest_version',1,'active_version',1,'continuity_refs','["shared.great_hall"]'::jsonb,'required_anchors','[]'::jsonb,'runtime_required',false)
