@@ -68,7 +68,17 @@ jobs:
           exit 1
       - name: Verify isolated ACT9 publication and activation lifecycle
         shell: bash
-        run: psql -X -v ON_ERROR_STOP=1 -f tests/act9-asset-variants-postgresql.sql
+        run: |
+          set +e
+          output="$(psql -X -v ON_ERROR_STOP=1 -f tests/act9-asset-variants-postgresql.sql 2>&1)"
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          if ((status!=0));then
+            diagnostic="$(printf '%s\n' "$output"|tail -n 12|tr '\n' ' '|sed 's/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')"
+            echo "::error title=ACT9 isolated asset lifecycle failure::$diagnostic"
+            exit "$status"
+          fi
       - name: Run genuine ACT1-to-ACT6 lifecycle and acknowledgement gate
         shell: bash
         run: |
