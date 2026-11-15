@@ -12,6 +12,10 @@ for(const token of[
   "runtime.castle_voice.first_audible",
   "runtime.castle_voice.returning",
   "s10_ack_castle_voice_intro",
+  "Castle Voice introduction must be acknowledged before ACT 6 voting.",
+  "All players must acknowledge the Castle Voice introduction before leaving ACT 6.",
+  "s5_submit_vote_pre077",
+  "s5_advance_pre077",
   "run.run_id<>p_expected_run_id",
   "s.phase_key not like'act6%'",
   "Castle Voice player progress is unavailable."
@@ -24,6 +28,7 @@ for(const token of[
   'data-s5-rpc="s10_ack_castle_voice_intro"',
   'payload.p_expected_run_id=button.dataset.s5Run'
 ])assert(app.includes(token),`GA147 player caller missing: ${token}`);
+assert(!app.includes('${localizedHtml("common.004")}</button>${actions}'),"ACT6 progression controls remain visible before Voice acknowledgement");
 
 for(const key of[
   '"act01-a.014b"',

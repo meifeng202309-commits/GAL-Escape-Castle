@@ -61,7 +61,31 @@ begin
   return jsonb_build_object('ok',true,'run_id',run.run_id,'intro_key',intro,'acknowledged',true);
 end$$;
 
+alter function public.s5_submit_vote(text,text,uuid,integer,uuid,text) rename to s5_submit_vote_pre077;
+revoke execute on function public.s5_submit_vote_pre077(text,text,uuid,integer,uuid,text) from public,anon,authenticated;
+create function public.s5_submit_vote(p_room_code text,p_session_token text,p_expected_discussion_session_id uuid,p_expected_vote_round int,p_client_request_id uuid,p_choice_id text)
+returns jsonb language plpgsql security definer set search_path=public as $$
+declare room text:=upper(trim(p_room_code));player public.s1_room_players%rowtype;run public.game_runs%rowtype;state public.s5_run_state%rowtype;
+begin
+  player:=public.s1_get_player_by_session(room,p_session_token);run:=public.s2_get_active_run(room);
+  select * into state from public.s5_run_state where run_id=run.run_id;
+  if state.phase_key='act6_vote'and not exists(select 1 from public.s3b_player_progress where run_id=run.run_id and player_id=player.player_id and act6_voice_intro_ack_at is not null)then raise exception'Castle Voice introduction must be acknowledged before ACT 6 voting.';end if;
+  return public.s5_submit_vote_pre077(p_room_code,p_session_token,p_expected_discussion_session_id,p_expected_vote_round,p_client_request_id,p_choice_id);
+end$$;
+
+alter function public.s5_advance(text,text) rename to s5_advance_pre077;
+revoke execute on function public.s5_advance_pre077(text,text) from public,anon,authenticated;
+create function public.s5_advance(p_room_code text,p_session_token text)
+returns jsonb language plpgsql security definer set search_path=public as $$
+declare room text:=upper(trim(p_room_code));player public.s1_room_players%rowtype;run public.game_runs%rowtype;state public.s5_run_state%rowtype;
+begin
+  player:=public.s1_get_player_by_session(room,p_session_token);run:=public.s2_get_active_run(room);
+  select * into state from public.s5_run_state where run_id=run.run_id;
+  if state.phase_key='act6_answer'and exists(select 1 from public.s3b_player_progress where run_id=run.run_id and act6_voice_intro_ack_at is null)then raise exception'All players must acknowledge the Castle Voice introduction before leaving ACT 6.';end if;
+  return public.s5_advance_pre077(p_room_code,p_session_token);
+end$$;
+
 revoke all on function public.s10_ack_castle_voice_intro(text,text,uuid) from public;
-grant execute on function public.s3b_initialize_flow(text,text),public.s5_get_player_state(text,text),public.s10_ack_castle_voice_intro(text,text,uuid) to anon,authenticated;
+grant execute on function public.s3b_initialize_flow(text,text),public.s5_get_player_state(text,text),public.s10_ack_castle_voice_intro(text,text,uuid),public.s5_submit_vote(text,text,uuid,integer,uuid,text),public.s5_advance(text,text) to anon,authenticated;
 
 commit;

@@ -39,7 +39,8 @@ begin
     raise exception 'Anna check-phone canonical order is incorrect.';
   end if;
 
-  insert into public.s5_run_state(run_id) values(fixture_run_id);
+  update public.s3b_run_state set terminal_state='SPRINT3B_COMPLETE' where run_id=fixture_run_id;
+  perform public.s5_initialize(room,teacher);
   projection:=public.s5_get_player_state(room,anna);
   if projection->>'castle_voice_intro_key'<>'runtime.castle_voice.first_audible' or (projection->>'castle_voice_intro_acknowledged')::boolean then
     raise exception 'Anna ACT 6 first-audible projection is incorrect: %',projection;

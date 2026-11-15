@@ -701,7 +701,7 @@ function renderSprint5(payload,pocket){
   else if(s.phase_key==="act7_solved")actions=`${localizedKeys(["act07.015","act07.016","act07.017"])}<button type="button" data-s5-rpc="s5_advance">${localizedHtml("act07.018")}</button>`;
   else if(s.phase_key==="act8_route")actions=`<button type="button" data-s5-rpc="s5_advance">${localizedHtml(s.route_taken_act8==="main_gate"?"act08.008":"act08.012")}</button>`;
   else actions=localizedHtml(s.route_taken_act8==="main_gate"?"act08.009":"act08.013");
-  if(s.phase_key.startsWith("act6")&&!payload.castle_voice_intro_acknowledged)actions=`<button type="button" data-s5-rpc="s10_ack_castle_voice_intro" data-s5-run="${escapeHtml(payload.run_id||s.run_id)}">${localizedHtml("common.004")}</button>${actions}`;
+  if(s.phase_key.startsWith("act6")&&!payload.castle_voice_intro_acknowledged)actions=`<button type="button" data-s5-rpc="s10_ack_castle_voice_intro" data-s5-run="${escapeHtml(payload.run_id||s.run_id)}">${localizedHtml("common.004")}</button>`;
   setStableHtml(sprint3bText,`<p class="eyebrow">ACT ${s.act_no}</p>${visual}`);sprint3bActions.innerHTML=actions;routeFormalPresentation();
   hydrateS5Assets(s);
   sprint3bActions.querySelectorAll("[data-s5-rpc]").forEach(button=>button.addEventListener("click",()=>runSprint5Action(button)));
