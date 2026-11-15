@@ -242,7 +242,7 @@ act09.018,ACT 9 — Great Hall,static,bilingual,BLUE AVAILABLE,BLAUW BESCHIKBAAR
 act09.019,ACT 9 — Great Hall,static,bilingual,BLUE DOOR ACTIVATED.,BLAUWE DEUR GEACTIVEERD.,蓝门已启动。,REUSED_REVIEWED,
 act09.020,ACT 9 — Great Hall,static,bilingual,ENTER BLUE,GA DOOR BLAUW,进入蓝门,REUSED_REVIEWED,
 act09.021,ACT 9 — Great Hall,static,bilingual,STAY,BLIJVEN,留下,REUSED_REVIEWED,
-act09.022,ACT 9 — Great Hall,static,bilingual,RED OPENS FIRST.,ROOD GAAT EERST OPEN.,红门先开。,REUSED_REVIEWED,
+act09.022,ACT 9 — Great Hall,static,bilingual,The door does not respond.,De deur reageert niet.,门没有反应。,GA_APPROVED_2026_11_15,GA-148 Step 1 wrong-majority feedback and retry topic for blue or black.
 act09.023,ACT 9 — Great Hall,static,bilingual,A snake-like shadow moves behind the Red Door.,Achter de Rode Deur beweegt een slangachtige schaduw.,红门后有一道蛇一样的影子在移动。,REUSED_REVIEWED,
 act09.024,ACT 9 — Great Hall,static,bilingual,The Red Door slams shut.,De Rode Deur slaat dicht.,红门砰地关上。,REUSED_REVIEWED,
 act09.025,ACT 9 — Great Hall,static,bilingual,ENTER BLUE / STAY,GA DOOR BLAUW / BLIJVEN,进入蓝门 / 留下,REUSED_REVIEWED,

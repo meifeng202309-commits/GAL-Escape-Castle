@@ -1663,9 +1663,9 @@ export const LOCALIZATION_CATALOG = {
   "act09.022": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "RED OPENS FIRST.",
-    "nl": "ROOD GAAT EERST OPEN.",
-    "zh": "红门先开。"
+    "englishMaster": "The door does not respond.",
+    "nl": "De deur reageert niet.",
+    "zh": "门没有反应。"
   },
   "act09.023": {
     "textType": "static",
