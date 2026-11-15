@@ -73,7 +73,7 @@ jobs:
           payload='{"role":"anon","exp":4102444800}'
           jwt="$(node -e 'const c=require("crypto"),b=x=>Buffer.from(x).toString("base64url"),h=process.argv[1],p=process.argv[2],s=process.env.PGRST_JWT_SECRET,m=b(h)+"."+b(p);process.stdout.write(m+"."+c.createHmac("sha256",s).update(m).digest("base64url"))' "$header" "$payload")"
           set +e
-          output="$(GAL_NONPROD_SUPABASE_URL=http://127.0.0.1:3000 GAL_NONPROD_SUPABASE_ANON_KEY="$jwt" node tests/ga147-canonical-copy-integration-live-e2e.js 2>&1)"
+          output="$(GAL_NONPROD_SUPABASE_URL=http://127.0.0.1:3000 GAL_NONPROD_SUPABASE_ANON_KEY="$jwt" GAL_NONPROD_POSTGREST_DIRECT=1 node tests/ga147-canonical-copy-integration-live-e2e.js 2>&1)"
           status=$?
           set -e
           printf '%s\n' "$output"

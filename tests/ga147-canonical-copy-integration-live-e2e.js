@@ -2,9 +2,10 @@ const ENDPOINT=process.env.GAL_NONPROD_SUPABASE_URL;
 const KEY=process.env.GAL_NONPROD_SUPABASE_ANON_KEY;
 if(!ENDPOINT||!KEY)throw new Error("Set GAL_NONPROD_SUPABASE_URL and GAL_NONPROD_SUPABASE_ANON_KEY for an authorized disposable nonproduction target.");
 if(new URL(ENDPOINT).hostname==="qdcbdcjobzytzhnhfwyn.supabase.co")throw new Error("Refusing to run GA147 fixtures against the known production project.");
+const REST_BASE=process.env.GAL_NONPROD_POSTGREST_DIRECT==="1"?ENDPOINT:`${ENDPOINT}/rest/v1`;
 const assert=(value,message)=>{if(!value)throw new Error(message)};
 const id=prefix=>`${prefix}${Date.now().toString(36)}${Math.random().toString(36).slice(2,6)}`.toUpperCase().slice(0,14);
-async function rpc(name,body){const response=await fetch(`${ENDPOINT}/rest/v1/rpc/${name}`,{method:"POST",headers:{apikey:KEY,Authorization:`Bearer ${KEY}`,"Content-Type":"application/json"},body:JSON.stringify(body)});const text=await response.text(),json=text?JSON.parse(text):null;if(!response.ok)throw new Error(`${name}: ${json?.message||text}`);return json}
+async function rpc(name,body){const response=await fetch(`${REST_BASE}/rpc/${name}`,{method:"POST",headers:{apikey:KEY,Authorization:`Bearer ${KEY}`,"Content-Type":"application/json"},body:JSON.stringify(body)});const text=await response.text();let json=null;try{json=text?JSON.parse(text):null}catch{}if(!response.ok)throw new Error(`${name} HTTP ${response.status}: ${json?.message||text||response.statusText}`);return json}
 const auth=(fixture,index)=>({p_room_code:fixture.room,p_session_token:fixture.players[index].session_token});
 async function expectReject(work,pattern){let message="";try{await work()}catch(error){message=error.message}assert(pattern.test(message),`Expected rejection ${pattern}, got: ${message||"success"}`)}
 
