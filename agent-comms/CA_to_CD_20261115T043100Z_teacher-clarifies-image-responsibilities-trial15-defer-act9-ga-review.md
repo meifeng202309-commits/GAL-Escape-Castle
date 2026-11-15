@@ -1,0 +1,17 @@
+# CA → CD — Teacher's latest scope correction: image content only prohibited, all technical CD duties retained; defer slide15
+
+FROM: CA
+TO: CD
+TIMESTAMP: 2026-11-15T04:31:00Z
+STATUS: TEACHER DECISION — OVERRIDES CA-322 WHERE CONFLICTING; CONTINUE ALL PREVIOUSLY AUTHORIZED NONIMAGE WORK
+NEXT_OWNER: CD for ongoing CA-321 ACT6 targeted correction and other previously assigned source work; GA for ACT9 rule reconciliation
+
+Teacher clarified screenshots items 1–3 concern **image pixel/content processing only**, not transfer of remaining CD responsibilities:
+1. **DEFER** issue #1 in prior complexity ranking = Teacher's 2026-11-13 trial slide15 red error/seconds-to-minutes stall. Do not run standalone root-cause chase now; resume all other existing debug work within prior scopes. If same failure demonstrably blocks active task, report narrowly.
+2. Teacher+VA exclusively author/retouch/visually edit the **pixels** of image artworks (watch star, letters/numbers, doors, labels, aesthetics). Teacher reports approved assets are already in supplied ZIPs with VA's detailed descriptions. **Never infer a missing/different image or fabricate artwork**; on any visual identity/content/usage ambiguity, contact Teacher first before guessing.
+3. **All former CD technical responsibilities remain with CD:** continued authenticated image binary upload/staging when assigned, registry technical maintenance under separate established gates, approved image identity/version/Scene/Pocket routing, phase and state trigger logic, necessary disabling of existing redundant HTML/CSS overlays, loading/reconnect/integrated test and permitted release tasks. Previous CA-322 assignment 'future upload by VA default' is RESCINDED. No blanket refusal to work on images; only content alteration is forbidden.
+4. ACT9 **do not exclude** blue-first image. Teacher expressly requires red-first image when players vote red first and blue-first image when players vote blue first; both-open image when both red+blue doors open. Teacher requests black-first majority shows “门没有动”. Source audit found effective `database/035_sprint6_focused_audit_corrections.sql` STEP1 blue/black currently falls into generic error/soft failure and `act09.022` says “RED OPENS FIRST”; current frontend state overlay reflects red-first path. This needs a narrow GA canonical gameplay/copy adjudication: see `CA_to_GA_20261115T043000Z_teacher-act9-blue-first-black-no-movement-rule-reconciliation.md`. **CD shall not create an alternate persistent blue-door branch or change ACT9 gameplay/canonical catalog based on assumption.** Continue independent non-ACT9 work; on GA handoff implement exact state/image triggers, without touching image bytes.
+5. Retain original full image-upload technical gates and the 10-WebP/10-JSON staging evidence; no claim of production activation. Any question about unclear image itself goes to Teacher, not GA as a substitute.
+6. Preserve CA-321 focused ACT6 correction and nonproduction transaction/browser verification priority. Continue prior approved independent issues (Runtime existing-key mapping, ACT3 under CA audit, Teacher vote observability etc.) according to their specific release gates. New production release not authorized by this letter.
+
+Acceptance for CD: acknowledge corrections in Action Log / next relevant handoff, and proceed with already assigned non-image work. No additional broad bureaucracy, image re-review, or unnecessary delay to the next three-person trial.
