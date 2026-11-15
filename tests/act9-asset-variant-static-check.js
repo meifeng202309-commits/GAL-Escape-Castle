@@ -21,7 +21,7 @@ for(const key of ["shared.great_hall.red_first","shared.great_hall.both_open"]){
   if(!entry||entry.latest_version!==1||entry.active_version!==null)throw Error(`${key} registry lifecycle is not source-only v001`);
   if(!app.includes(`"${key}"`))throw Error(`${key} is not allowlisted by the Player runtime`);
 }
-if(!app.includes('if(!scene&&key!==payload.scene_asset_key'))throw Error("ACT9 variant failure lacks the base-image fallback");
+if(!app.includes('{fallbackKey:payload.scene_asset_key,onFallback:restoreBase}'))throw Error("ACT9 variant failure lacks the base-image fallback");
 if(!app.includes('trialAssetResolver.resolve("shared.great_hall")'))throw Error("ACT9 variants do not reuse the approved base anchors for UI labels");
 if(!app.includes('node.classList.toggle("artwork-state"'))throw Error("ACT9 artwork variants do not suppress the duplicate HTML door effect");
 if(!catalog.includes('act09.022')||!catalog.includes('门没有反应。')||!catalog.includes('De deur reageert niet.'))throw Error("GA-149 canonical feedback is missing");
