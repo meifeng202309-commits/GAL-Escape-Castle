@@ -361,6 +361,40 @@
       "runtime_required": true
     },
     {
+      "asset_key": "shared.great_hall.red_first",
+      "display_name": "Great Hall — Red Door Open",
+      "aliases": [
+        "Great Hall red first",
+        "Great Hall red door opened"
+      ],
+      "asset_type": "image",
+      "latest_version": 1,
+      "active_version": null,
+      "continuity_refs": [
+        "shared.great_hall"
+      ],
+      "paired_asset_group": null,
+      "required_anchors": [],
+      "runtime_required": false
+    },
+    {
+      "asset_key": "shared.great_hall.both_open",
+      "display_name": "Great Hall — Red and Blue Doors Open",
+      "aliases": [
+        "Great Hall both open",
+        "Great Hall both doors opened"
+      ],
+      "asset_type": "image",
+      "latest_version": 1,
+      "active_version": null,
+      "continuity_refs": [
+        "shared.great_hall"
+      ],
+      "paired_asset_group": null,
+      "required_anchors": [],
+      "runtime_required": false
+    },
+    {
       "asset_key": "prop.golden_key",
       "display_name": "Golden Key",
       "aliases": [

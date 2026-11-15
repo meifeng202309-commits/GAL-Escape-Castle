@@ -28,7 +28,7 @@ const entry=(i,overrides={})=>({
 async function makeRoot(){
   const root=await mkdtemp(join(tmpdir(),"gal-s9-validator-"));
   await mkdir(join(root,"assets","staging"),{recursive:true});
-  const assets=Array.from({length:28},(_,i)=>entry(i));
+  const assets=Array.from({length:30},(_,i)=>entry(i));
   await writeFile(join(root,"assets","asset-registry.json"),JSON.stringify({schema_version:"1.0",assets},null,2));
   return{root,assets};
 }
@@ -60,7 +60,7 @@ try{
     f.assets[0].runtime_required=true;await candidate(f.root,f.assets[0]);await saveRegistry(f.root,f.assets);
     let r=run(f.root,"integrity");
     assert(r.status===0,"healthy integrity fixture failed");
-    assert(r.report.summary.valid_approved===1&&r.report.summary.absent===27,"healthy counts wrong");
+    assert(r.report.summary.valid_approved===1&&r.report.summary.absent===29,"healthy counts wrong");
     r=run(f.root,"readiness");assert(r.status===0&&r.report.summary.readiness_ok,"healthy readiness fixture failed");
   }
   {

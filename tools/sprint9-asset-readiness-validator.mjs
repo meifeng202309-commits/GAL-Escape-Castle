@@ -5,7 +5,7 @@ import {readFile,readdir,stat} from "node:fs/promises";
 import {dirname,extname,join,resolve} from "node:path";
 import {fileURLToPath} from "node:url";
 
-const EXPECTED_REGISTRY_COUNT=28;
+const EXPECTED_REGISTRY_COUNT=30;
 const scriptDir=dirname(fileURLToPath(import.meta.url));
 
 function parseArgs(argv){

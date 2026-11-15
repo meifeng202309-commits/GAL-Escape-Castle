@@ -1,0 +1,75 @@
+name: GA147 ACT6 disposable PostgREST lifecycle
+
+on:
+  push:
+    branches: [remediation/sprint9-structural-v1]
+    paths:
+      - database/076_act3_library_discovery_gate.sql
+      - database/077_ga147_castle_voice_and_runtime_callers.sql
+      - tests/ga147-canonical-copy-integration-live-e2e.js
+      - .github/workflows/ga147-act6-disposable-postgrest.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  genuine-act6-lifecycle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: ga147
+          POSTGRES_PASSWORD: ga147-ephemeral-only
+          POSTGRES_DB: ga147
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U ga147 -d ga147"
+          --health-interval 5s --health-timeout 3s --health-retries 10
+    env:
+      PGHOST: 127.0.0.1
+      PGPORT: "5432"
+      PGUSER: ga147
+      PGPASSWORD: ga147-ephemeral-only
+      PGDATABASE: ga147
+      PGRST_JWT_SECRET: ga147-disposable-jwt-secret-at-least-thirty-two-bytes
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bootstrap disposable Supabase-compatible roles and storage catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -c "do \$\$ begin if not exists(select 1 from pg_roles where rolname='anon')then create role anon nologin;end if;if not exists(select 1 from pg_roles where rolname='authenticated')then create role authenticated nologin;end if;if not exists(select 1 from pg_roles where rolname='service_role')then create role service_role nologin;end if;end \$\$;"
+          psql -X -v ON_ERROR_STOP=1 -c "create schema if not exists storage;create table if not exists storage.buckets(id text primary key,name text not null,public boolean not null default false,file_size_limit bigint,allowed_mime_types text[]);"
+      - name: Apply migration history through 077
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r file;do
+            name="${file##*/}"
+            if [[ "$name" =~ ^([0-9]{3})([^0-9].*)?\.sql$ ]];then
+              n=$((10#${BASH_REMATCH[1]}))
+              if ((n>=1&&n<=77));then echo "MIGRATION_APPLY: $name";psql -X -v ON_ERROR_STOP=1 -q -f "$file";fi
+            fi
+          done < <(find database -maxdepth 1 -type f -name '*.sql'|LC_ALL=C sort)
+      - name: Start disposable PostgREST
+        shell: bash
+        run: |
+          set -euo pipefail
+          docker run -d --name ga147-postgrest --add-host=host.docker.internal:host-gateway -p 3000:3000 \
+            -e PGRST_DB_URI=postgres://ga147:ga147-ephemeral-only@host.docker.internal:5432/ga147 \
+            -e PGRST_DB_SCHEMAS=public -e PGRST_DB_ANON_ROLE=anon \
+            -e PGRST_JWT_SECRET="$PGRST_JWT_SECRET" postgrest/postgrest:v12.2.3
+          for attempt in {1..30};do curl -fsS http://127.0.0.1:3000/ >/dev/null && exit 0;sleep 1;done
+          docker logs ga147-postgrest
+          exit 1
+      - name: Run genuine ACT1-to-ACT6 lifecycle and acknowledgement gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          header='{"alg":"HS256","typ":"JWT"}'
+          payload='{"role":"anon","exp":4102444800}'
+          jwt="$(node -e 'const c=require("crypto"),b=x=>Buffer.from(x).toString("base64url"),h=process.argv[1],p=process.argv[2],s=process.env.PGRST_JWT_SECRET,m=b(h)+"."+b(p);process.stdout.write(m+"."+c.createHmac("sha256",s).update(m).digest("base64url"))' "$header" "$payload")"
+          GAL_NONPROD_SUPABASE_URL=http://127.0.0.1:3000 GAL_NONPROD_SUPABASE_ANON_KEY="$jwt" node tests/ga147-canonical-copy-integration-live-e2e.js
