@@ -5,9 +5,10 @@ const assert=(value,message)=>{if(!value)throw new Error(message)};
 
 for(const key of ['opening.gitte_room','opening.anna_room','opening.linda_study','shared.library','ending.castle_exterior'])assert(app.includes(key),`missing trial scene binding: ${key}`);
 for(const token of ['applyTrialPlaceholder','trial-asset-placeholder','Temporary media placeholder','markSprint6AudioConsumed(identity,"stopped")'])assert(app.includes(token),`missing trial fallback behavior: ${token}`);
-const resolver=app.slice(app.indexOf('async function setS5Asset'),app.indexOf('async function hydrateS5Assets'));
-assert(resolver.indexOf('trialAssetResolver.resolve(key)')<resolver.indexOf('applyTrialPlaceholder(node,key)'), 'runtime resolver must remain primary');
-assert(resolver.includes('reportActiveLoadFailure(result)'),'ACTIVE storage failure telemetry missing');
+const resolution=app.slice(app.indexOf('async function setS5Asset'),app.indexOf('async function hydrateS5Assets'));
+const resolvedAsset=app.slice(app.indexOf('function applyResolvedAsset'),app.indexOf('async function setS5Asset'));
+assert(resolution.indexOf('trialAssetResolver.resolve(key)')<resolution.indexOf('applyTrialPlaceholder(node,key)'), 'runtime resolver must remain primary');
+assert(resolvedAsset.includes('reportActiveLoadFailure(result)'),'ACTIVE storage failure telemetry missing');
 const overlay=app.slice(app.indexOf('if(s.act_no===6){'),app.indexOf('if(s.act_no===7)document'));
 assert(overlay.includes('trialAssetResolver.resolve("overlay.portrait_eyes_open")'),'ACT6 overlay bypasses the bounded resolver');
 assert(overlay.includes('reportActiveLoadFailure(overlay)'),'ACTIVE overlay storage failure telemetry missing');
