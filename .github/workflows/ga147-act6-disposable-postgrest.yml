@@ -72,4 +72,13 @@ jobs:
           header='{"alg":"HS256","typ":"JWT"}'
           payload='{"role":"anon","exp":4102444800}'
           jwt="$(node -e 'const c=require("crypto"),b=x=>Buffer.from(x).toString("base64url"),h=process.argv[1],p=process.argv[2],s=process.env.PGRST_JWT_SECRET,m=b(h)+"."+b(p);process.stdout.write(m+"."+c.createHmac("sha256",s).update(m).digest("base64url"))' "$header" "$payload")"
-          GAL_NONPROD_SUPABASE_URL=http://127.0.0.1:3000 GAL_NONPROD_SUPABASE_ANON_KEY="$jwt" node tests/ga147-canonical-copy-integration-live-e2e.js
+          set +e
+          output="$(GAL_NONPROD_SUPABASE_URL=http://127.0.0.1:3000 GAL_NONPROD_SUPABASE_ANON_KEY="$jwt" node tests/ga147-canonical-copy-integration-live-e2e.js 2>&1)"
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          if ((status!=0));then
+            diagnostic="$(printf '%s\n' "$output"|tail -n 8|tr '\n' ' '|sed 's/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')"
+            echo "::error title=GA147 disposable lifecycle failure::$diagnostic"
+            exit "$status"
+          fi
