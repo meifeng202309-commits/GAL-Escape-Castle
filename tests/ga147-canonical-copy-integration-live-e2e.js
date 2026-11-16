@@ -88,10 +88,10 @@ async function main(){
   assert(outcome.no_consensus&&act9.state.act9_step===1&&!act9.state.red_activated&&!act9.state.blue_activated,"ACT9 1:1:1 changed the door state.");
   await s6Close(f);
   outcome=await s6Group(f,["blue","blue","red"]);act9=await s6State(f);
-  assert(outcome.soft_failure&&outcome.feedback_text_key==="act09.022"&&act9.state.act9_step===1&&!act9.state.red_activated&&!act9.state.blue_activated,"ACT9 blue majority did not use the approved no-reaction retry.");
+  assert(outcome.soft_failure&&act9.state.feedback_text_keys?.includes("act09.022")&&act9.state.act9_step===1&&!act9.state.red_activated&&!act9.state.blue_activated,"ACT9 blue majority did not use the approved no-reaction retry.");
   await s6Close(f);
   outcome=await s6Group(f,["black","black","red"]);act9=await s6State(f);
-  assert(outcome.soft_failure&&outcome.feedback_text_key==="act09.022"&&act9.state.act9_step===1&&!act9.state.red_activated&&!act9.state.blue_activated,"ACT9 black majority did not use the approved no-reaction retry.");
+  assert(outcome.soft_failure&&act9.state.feedback_text_keys?.includes("act09.022")&&act9.state.act9_step===1&&!act9.state.red_activated&&!act9.state.blue_activated,"ACT9 black majority did not use the approved no-reaction retry.");
   await s6Close(f);
   await s6Group(f,["red","red","blue"]);act9=await s6State(f);
   assert(act9.state.act9_step===2&&act9.state.red_activated&&!act9.state.blue_activated,"ACT9 red majority did not expose the red-first authoritative state.");
