@@ -1,7 +1,6 @@
 name: CA328 ACT9 Real Browser
 
 on:
-  workflow_dispatch:
   push:
     branches: [remediation/sprint9-structural-v1]
     paths:
@@ -13,6 +12,10 @@ on:
       - assets/staging/shared.great_hall.red_first/**
       - assets/staging/shared.great_hall.both_open/**
       - .github/workflows/ca328-act9-real-browser.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   real-browser:
