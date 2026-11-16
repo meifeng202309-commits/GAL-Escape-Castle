@@ -40,14 +40,14 @@ begin
   recovery_digest:=encode(extensions.digest(convert_to(recovery::text,'UTF8'),'sha256'),'hex');
 
   if jsonb_array_length(planned)<>30 or jsonb_array_length(recovery)<>30 then raise exception 'Complete registry payload count changed';end if;
-  if planned_digest='dd8c4a692bea7c6575b4bd76865e5a4cf336f45786fbd78e2fe9c2fc8dc20ee2' then raise exception 'RPC digest incorrectly equals source-file digest';end if;
+  if planned_digest='de2a2fc0583bbb668c596cf83a97abd69256b54ea70481b31071cfd2eba31bf9' then raise exception 'RPC digest incorrectly equals source-file digest';end if;
 
   perform public.s1_create_room('CA331R',teacher,'CA331-G','CA331-A','CA331-L');
   insert into public.asset_manager_reviewers(token_hash,label,enabled)
   values(public.s1_hash_token(teacher),'CA331 disposable release reviewer',true);
 
   begin
-    perform public.asset_manager_sync_registry(teacher,'dd8c4a692bea7c6575b4bd76865e5a4cf336f45786fbd78e2fe9c2fc8dc20ee2',planned);
+    perform public.asset_manager_sync_registry(teacher,'de2a2fc0583bbb668c596cf83a97abd69256b54ea70481b31071cfd2eba31bf9',planned);
     raise exception 'Source-file digest was incorrectly accepted by sync RPC';
   exception when others then
     if sqlerrm not like '%Registry content hash mismatch%' then raise;end if;
