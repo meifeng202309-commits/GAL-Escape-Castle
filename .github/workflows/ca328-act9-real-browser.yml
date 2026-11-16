@@ -31,6 +31,4 @@ jobs:
       - name: Install Chromium
         run: "$RUNNER_TEMP/ca328/node_modules/.bin/playwright" install --with-deps chromium
       - name: Run actual Player browser and HTTP image checks
-        env:
-          NODE_PATH: ${{ runner.temp }}/ca328/node_modules
-        run: node tests/act9-asset-fallback-browser.mjs
+        run: NODE_PATH="$RUNNER_TEMP/ca328/node_modules" node tests/act9-asset-fallback-browser.mjs
