@@ -18,7 +18,7 @@ const cases=[
 for(const [red,blue,key] of cases)if(context.pick(payload(red,blue))!==key)throw Error(`ACT9 ${red}/${blue} selected the wrong asset`);
 for(const key of ["shared.great_hall.red_first","shared.great_hall.both_open"]){
   const entry=registry.assets.find(asset=>asset.asset_key===key);
-  if(!entry||entry.latest_version!==1||entry.active_version!==null)throw Error(`${key} registry lifecycle is not source-only v001`);
+  if(!entry||entry.latest_version!==1||entry.active_version!==1)throw Error(`${key} registry does not authorize the accepted v001 release`);
   if(!app.includes(`"${key}"`))throw Error(`${key} is not allowlisted by the Player runtime`);
 }
 if(!app.includes('{fallbackKey:payload.scene_asset_key,onFallback:restoreBase}'))throw Error("ACT9 variant failure lacks the base-image fallback");

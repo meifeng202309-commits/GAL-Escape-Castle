@@ -369,7 +369,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "shared.great_hall"
       ],
@@ -386,7 +386,7 @@
       ],
       "asset_type": "image",
       "latest_version": 1,
-      "active_version": null,
+      "active_version": 1,
       "continuity_refs": [
         "shared.great_hall"
       ],

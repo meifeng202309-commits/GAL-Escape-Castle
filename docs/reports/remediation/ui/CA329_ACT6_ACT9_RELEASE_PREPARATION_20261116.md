@@ -1,13 +1,14 @@
-# CA-329 ACT6/ACT9 release-preparation packet
+# CA-330 ACT3/ACT6/ACT9 corrected release-preparation packet
 
 UTC checkpoint: 2026-11-16T02:42:17Z  
 Disposition: READY FOR SEPARATE RELEASE DECISION; no production execution authorized
 
 ## Frozen candidate
 
-- Accepted implementation and verification baseline: `707414bacd3298e826eb1f049bdf9eb19c9dff55`.
+- Accepted gameplay implementation and verification baseline: `707414bacd3298e826eb1f049bdf9eb19c9dff55`.
+- CA-330 registry authorization delta: only the two ACT9 variant `active_version` values change from `null` to `1`; accepted WebPs and gameplay code are byte-identical.
 - CA acceptance: CA-329 / `agent-comms/CA_to_CD_20261116T023941Z_ca329-act9-browser-acceptance.md`.
-- Current branch contains no later changes to any payload file.
+- Current branch contains no later changes to the accepted SQL, Player, localization or WebP payloads; the separately identified CA-330 registry authorization delta is the only new payload change.
 - Backend and isolated Asset Manager evidence: Actions `43790473810` — PASS.
 - Actual Player Chromium evidence: Actions `43791745213` — PASS.
 
@@ -30,9 +31,28 @@ The production database reported by the last accepted release is through migrati
 | `shared.great_hall.red_first` v001 | `assets/staging/shared.great_hall.red_first/v001/shared.great_hall.red_first__v001.webp` | 2,017,766 | `af463e9ae529d5f7de8935f7e7794b4879cd2f15635d9617139fb52fb7ac9936` |
 | `shared.great_hall.both_open` v001 | `assets/staging/shared.great_hall.both_open/v001/shared.great_hall.both_open__v001.webp` | 2,030,640 | `338bbed29fd64537741615e76f5ddd52f688263ae23c734de3ffb63b42381284` |
 
-Source-sidecar blobs are respectively `49c910a063b4a8cd6438f1450553905ab7b0f20a` and `0cfe6e34b6dba2fb241fc5795b94f0094bc0f253`. The repository registry blob is `634a4b8987bef55956d2d5b06fea2e6b3aa43b12`; both variant entries deliberately remain source-only (`active_version: null`) until a separately authorized production Asset Manager transaction.
+Source-sidecar blobs are respectively `49c910a063b4a8cd6438f1450553905ab7b0f20a` and `0cfe6e34b6dba2fb241fc5795b94f0094bc0f253`.
 
-Pending production asset steps are: register the two exact v001 candidates, independently review/approve, upload the exact bytes to unique Storage paths, mark those exact hashes published, activate each key, and read back `asset_resolve` with the expected path/hash. Do not replace or deactivate `shared.great_hall`; it is the required fallback and anchor source.
+## Exact registry authorization and full-projection sync
+
+The supported `asset_manager_sync_registry` helper does not accept a two-row partial projection: after upserting its input it requires the input count to equal the entire projection count. The release payload therefore uses the complete 30-entry `assets[]` from `assets/asset-registry.json` while changing exactly these two canonical fields:
+
+```diff
+ shared.great_hall.red_first: active_version null -> 1
+ shared.great_hall.both_open: active_version null -> 1
+```
+
+- Pre-authorization registry blob/hash: `634a4b8987bef55956d2d5b06fea2e6b3aa43b12` / `edd598c8f586baf3fd1c28d811421be1414b401f3011ed24ad224a3fdbf4a170`.
+- Planned registry blob/hash: `b2e55afecfb34692d4bb2167fe84c59295a29c7e` / `dd8c4a692bea7c6575b4bd76865e5a4cf336f45786fbd78e2fe9c2fc8dc20ee2`.
+- Exact semantic diff: two deletions and two insertions; every non-variant asset field and the base `shared.great_hall` row are unchanged.
+
+Before sync, capture an ordered JSON snapshot of every live `asset_registry_projection` row, both variant candidate histories, both variant events, and the base Great Hall resolver result. The accepted starting state is either (a) both variant projection rows absent, or (b) both rows exactly match the pre-authorization registry with `latest_version=1`, `active_version=null` and no conflicting v001 candidate. All existing unrelated keys and semantic fields must exactly match the pre-authorization complete registry. Require one current registry hash across the existing projection, the expected key count for the observed starting state, base resolution unchanged, and no existing `(variant key, version 1)` candidate. Any extra/missing unrelated key, field drift, mixed registry hash, candidate conflict, or base-resolution mismatch is a hard STOP for CA review.
+
+Call `asset_manager_sync_registry` once with the full planned 30-entry `assets[]` and registry SHA-256 `dd8c4a...20ee2`. Read back all 30 rows and compare every semantic field to the full planned payload. The helper necessarily refreshes `registry_sha256` and `projected_at` on all rows; the separate production decision must explicitly accept this metadata-only full-projection refresh. No unrelated semantic field may change.
+
+Then register the two exact v001 candidates, independently review/approve, upload the exact bytes to unique Storage paths, mark those exact hashes published, and activate each key. Verify `asset_resolve` returns the requested key, version `1`, and exact unique path. Because the resolver does not return a digest, download/read back each published object from its resolved path and require the exact SHA-256 above before Player publication. Re-resolve `shared.great_hall` and require its key/version/path and object bytes to remain unchanged.
+
+Scoped recovery uses the same supported helper with a complete 30-row recovery payload whose only difference is both variant `active_version:null`. This immediately makes both variant resolvers return no active asset while preserving the live base hall and every unrelated semantic row. Candidate/event records and uploaded objects remain as audit evidence; they are not deleted. Read back both disabled resolvers, the unchanged base resolver, and all unrelated semantic rows. If the helper cannot restore this state exactly, stop for CA rather than using direct table edits.
 
 ## Exact Player Pages target
 
@@ -48,14 +68,14 @@ The protected localization catalog is a read-only provenance source, not a deplo
 
 ## Required release order and closure gates
 
-1. Obtain the separate CA/Teacher production decision naming this frozen candidate and release window.
-2. Fresh read-only preflight: production migration ledger at 075, activity/room safety gate, current function definitions/owners/ACLs, existing base Great Hall resolution, and recovery baselines.
-3. Apply 076 → 077 → 078 in order; record migration receipts and read back exact function definitions, owner, security-definer posture and grants. Stop/recover on any mismatch.
-4. Execute the two isolated Asset Manager publication/activation transactions with exact hashes; read back resolution and decode both public objects. Preserve the base key.
+1. Obtain the separate CA/Teacher production decision naming the ACT3/ACT6/ACT9 frozen payload, complete-registry metadata refresh and release window.
+2. Fresh read-only preflight: production migration ledger at 075, activity/room safety gate, current function definitions/owners/ACLs, full registry/candidate/event snapshot, existing base Great Hall resolution, and recovery baselines.
+3. Apply 076 → 077 → 078 in order; record migration receipts and read back exact function definitions, owner, security-definer posture and grants. Stop/recover on any mismatch. Migration 076 is the ACT3 Library Box discovery change.
+4. Sync the full 30-row authorized registry projection, then execute the two Asset Manager publication/activation transactions; verify key/version/path plus downloaded object SHA-256 and preserve the base key.
 5. Publish only the three frozen Player files; require successful Pages run, exact head, HTTP 200 and the LF-normalized public hashes above.
 6. Run bounded public smoke for ACT6 entry/Voice acknowledgement/vote/advance and ACT9 base/red-first/both-open/retry/refresh/fallback. Confirm labels and playable controls remain available and no unexpected browser/RPC errors occur.
 7. Return migration, Asset Manager, Storage, Pages and smoke receipts to CA. Human trial resumption remains a CA/Teacher disposition.
 
 ## Protected boundaries
 
-No change is authorized here to the canonical localization catalog, narrative specifications, asset authorship sidecars, approved WebP bytes, or other-role Action Logs. No SQL, Storage, Asset Manager, Pages, room, or gameplay mutation occurred during this preparation.
+No change is authorized here to the canonical localization catalog, narrative specifications, asset authorship sidecars, approved WebP bytes, gameplay code, or other-role Action Logs. The only source authorization delta is the two-field registry change above. No SQL, Storage, Asset Manager, Pages, room, or gameplay mutation occurred during this preparation.
