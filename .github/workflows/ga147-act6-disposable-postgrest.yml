@@ -9,6 +9,8 @@ on:
       - database/078_ca327_castle_voice_phase_guard.sql
       - tests/ga147-canonical-copy-integration-live-e2e.js
       - tests/act9-asset-variants-postgresql.sql
+      - tests/ca331-act9-registry-release-rehearsal.sql
+      - assets/asset-registry.json
       - .github/workflows/ga147-act6-disposable-postgrest.yml
   workflow_dispatch:
 
@@ -80,6 +82,12 @@ jobs:
             echo "::error title=ACT9 isolated asset lifecycle failure::$diagnostic"
             exit "$status"
           fi
+      - name: Rehearse CA331 full registry projection and reversal
+        shell: bash
+        run: |
+          set -euo pipefail
+          registry_json="$(jq -c '.assets' assets/asset-registry.json)"
+          psql -X -v ON_ERROR_STOP=1 -v registry_json="$registry_json" -f tests/ca331-act9-registry-release-rehearsal.sql
       - name: Run genuine ACT1-to-ACT6 lifecycle and acknowledgement gate
         shell: bash
         run: |
