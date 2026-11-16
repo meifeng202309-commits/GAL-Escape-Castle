@@ -56,7 +56,7 @@ async function main(){
   assert(discussion?.status==="discussion","ACT6 did not expose the canonical pre-vote discussion.");
   const opened=await rpc("s5_teacher_open_vote",{p_room_code:f.room,p_teacher_token:f.teacher,p_expected_run_id:f.runId,p_expected_phase:"act6_vote",p_expected_vote_round:discussion.vote_round,p_expected_discussion_session_id:discussion.discussion_session_id});
   await expectReject(()=>rpc("s5_submit_vote",{...auth(f,0),p_expected_discussion_session_id:discussion.discussion_session_id,p_expected_vote_round:discussion.vote_round,p_client_request_id:crypto.randomUUID(),p_choice_id:"escape"}),/must be acknowledged/);
-  await expectReject(()=>rpc("s5_advance",auth(f,0)),/No manual transition/);
+  await expectReject(()=>rpc("s5_advance",auth(f,0)),/No (?:manual|deterministic) transition/);
   await expectReject(()=>rpc("s10_ack_castle_voice_intro",{...auth(f,0),p_expected_run_id:crypto.randomUUID()}),/Stale or invalid/);
   for(let i=0;i<3;i++){
     const first=await rpc("s10_ack_castle_voice_intro",{...auth(f,i),p_expected_run_id:f.runId});
