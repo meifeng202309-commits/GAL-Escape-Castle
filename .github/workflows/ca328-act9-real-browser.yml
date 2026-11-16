@@ -29,6 +29,6 @@ jobs:
       - name: Install isolated Playwright runtime
         run: npm install --prefix "$RUNNER_TEMP/ca328" playwright@1.56.1
       - name: Install Chromium
-        run: "$RUNNER_TEMP/ca328/node_modules/.bin/playwright" install --with-deps chromium
+        run: $RUNNER_TEMP/ca328/node_modules/.bin/playwright install --with-deps chromium
       - name: Run actual Player browser and HTTP image checks
         run: NODE_PATH="$RUNNER_TEMP/ca328/node_modules" node tests/act9-asset-fallback-browser.mjs
