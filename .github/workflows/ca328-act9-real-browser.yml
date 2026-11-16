@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 22
       - name: Install isolated Playwright runtime
-        run: npm install --prefix "$RUNNER_TEMP/ca328" playwright@1.56.1
+        run: npm install --prefix "$RUNNER_TEMP/ca328" playwright@latest
       - name: Install Chromium
         run: $RUNNER_TEMP/ca328/node_modules/.bin/playwright install --with-deps chromium
       - name: Run actual Player browser and HTTP image checks
