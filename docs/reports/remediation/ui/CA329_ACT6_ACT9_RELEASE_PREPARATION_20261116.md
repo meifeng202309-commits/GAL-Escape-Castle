@@ -1,4 +1,4 @@
-# CA-330 ACT3/ACT6/ACT9 corrected release-preparation packet
+# CA-331 ACT3/ACT6/ACT9 corrected release-preparation packet
 
 UTC checkpoint: 2026-11-16T02:42:17Z  
 Disposition: READY FOR SEPARATE RELEASE DECISION; no production execution authorized
@@ -35,7 +35,7 @@ Source-sidecar blobs are respectively `49c910a063b4a8cd6438f1450553905ab7b0f20a`
 
 ## Exact registry authorization and full-projection sync
 
-The supported `asset_manager_sync_registry` helper does not accept a two-row partial projection: after upserting its input it requires the input count to equal the entire projection count. The release payload therefore uses the complete 30-entry `assets[]` from `assets/asset-registry.json` while changing exactly these two canonical fields:
+The effective helper is the 024 definition of `asset_manager_sync_registry`. It verifies the SHA-256 of UTF-8 PostgreSQL `p_assets::text` and deletes every projection row omitted from the input. A two-row call would therefore delete all unrelated registry authority. The release payload must use the complete 30-entry `assets[]` from `assets/asset-registry.json` while changing exactly these two canonical fields:
 
 ```diff
  shared.great_hall.red_first: active_version null -> 1
@@ -43,16 +43,20 @@ The supported `asset_manager_sync_registry` helper does not accept a two-row par
 ```
 
 - Pre-authorization registry blob/hash: `634a4b8987bef55956d2d5b06fea2e6b3aa43b12` / `edd598c8f586baf3fd1c28d811421be1414b401f3011ed24ad224a3fdbf4a170`.
-- Planned registry blob/hash: `b2e55afecfb34692d4bb2167fe84c59295a29c7e` / `dd8c4a692bea7c6575b4bd76865e5a4cf336f45786fbd78e2fe9c2fc8dc20ee2`.
+- Planned registry blob/source-file SHA-256: `b2e55afecfb34692d4bb2167fe84c59295a29c7e` / `dd8c4a692bea7c6575b4bd76865e5a4cf336f45786fbd78e2fe9c2fc8dc20ee2`.
+- Apply RPC digest over exact PostgreSQL JSONB `p_assets::text`: `9f836e31d20a168d7f3a0e246d10b7f006280425d96d2ec4bce7784d17c40665`.
+- Recovery RPC digest over the same complete array with only the two variant active versions set to JSON null: `a4bc45f3ab028a635d2c9182143381793a9a382795a610515d35d4f644c18b01`.
 - Exact semantic diff: two deletions and two insertions; every non-variant asset field and the base `shared.great_hall` row are unchanged.
 
 Before sync, capture an ordered JSON snapshot of every live `asset_registry_projection` row, both variant candidate histories, both variant events, and the base Great Hall resolver result. The accepted starting state is either (a) both variant projection rows absent, or (b) both rows exactly match the pre-authorization registry with `latest_version=1`, `active_version=null` and no conflicting v001 candidate. All existing unrelated keys and semantic fields must exactly match the pre-authorization complete registry. Require one current registry hash across the existing projection, the expected key count for the observed starting state, base resolution unchanged, and no existing `(variant key, version 1)` candidate. Any extra/missing unrelated key, field drift, mixed registry hash, candidate conflict, or base-resolution mismatch is a hard STOP for CA review.
 
-Call `asset_manager_sync_registry` once with the full planned 30-entry `assets[]` and registry SHA-256 `dd8c4a...20ee2`. Read back all 30 rows and compare every semantic field to the full planned payload. The helper necessarily refreshes `registry_sha256` and `projected_at` on all rows; the separate production decision must explicitly accept this metadata-only full-projection refresh. No unrelated semantic field may change.
+Call `asset_manager_sync_registry` as `service_role`, passing the enabled independent reviewer token, the full planned 30-entry `assets[]`, and RPC digest `9f836e31...c40665`. Do **not** pass source-file digest `dd8c4a...20ee2`; the disposable rehearsal proves the current helper rejects it with `Registry content hash mismatch`. Read back all 30 rows and compare every semantic field to the full planned payload. The helper necessarily refreshes `registry_sha256` and `projected_at` on all rows; the separate production decision must explicitly accept this metadata-only full-projection refresh. No unrelated semantic field may change.
 
-Then register the two exact v001 candidates, independently review/approve, upload the exact bytes to unique Storage paths, mark those exact hashes published, and activate each key. Verify `asset_resolve` returns the requested key, version `1`, and exact unique path. Because the resolver does not return a digest, download/read back each published object from its resolved path and require the exact SHA-256 above before Player publication. Re-resolve `shared.great_hall` and require its key/version/path and object bytes to remain unchanged.
+The supported lifecycle sequence is exact: `service_role` calls `asset_manager_import_candidate` separately for each key (025 revoked old `asset_manager_register_candidate`), then `asset_manager_submit_for_review`; an enabled independent reviewer calls `asset_manager_review(...,'APPROVED',...)`; after exact-byte Storage upload, `service_role` calls `asset_manager_mark_published`; finally `service_role` calls `asset_manager_activate_group(reviewer_token, ARRAY[asset_id])` once per key. Both variants are unpaired, so each activation array must contain exactly one candidate. Verify candidate status `ACTIVE`, projection `active_version=1`, and `asset_resolve` requested key/version `1`/exact unique path. Because the resolver does not return a digest, download/read back each published object from its resolved path and require the exact SHA-256 above before Player publication. Re-resolve `shared.great_hall` and require its key/version/path and object bytes to remain unchanged.
 
-Scoped recovery uses the same supported helper with a complete 30-row recovery payload whose only difference is both variant `active_version:null`. This immediately makes both variant resolvers return no active asset while preserving the live base hall and every unrelated semantic row. Candidate/event records and uploaded objects remain as audit evidence; they are not deleted. Read back both disabled resolvers, the unchanged base resolver, and all unrelated semantic rows. If the helper cannot restore this state exactly, stop for CA rather than using direct table edits.
+Scoped recovery uses the same supported 024 helper as `service_role`, the complete 30-row recovery payload, and RPC digest `a4bc45f3...4c18b01`; its only semantic difference is both variant `active_version:null`. This immediately makes both variant resolvers return no active asset while preserving the live base hall and every unrelated semantic row. Candidate/event records and uploaded objects remain as audit evidence; they are not deleted. Read back both disabled resolvers, the unchanged base resolver, and all unrelated semantic rows. If the helper cannot restore this state exactly, stop for CA rather than using direct table edits.
+
+Disposable Actions run `43857316713`, job `133264795249`, applied migrations 001–078 and passed the complete 30-row apply/recovery transaction. It seeded an ACTIVE base Great Hall and an unrelated projection row; rejected the Git source-file digest; exercised `import_candidate`, `submit_for_review`, independent review, publish and single-unpaired `activate_group` for both variants; verified key/version/path, preserved base resolution, disabled both variants on recovery and preserved the unrelated semantic row. The whole rehearsal rolled back.
 
 ## Exact Player Pages target
 
@@ -73,7 +77,7 @@ The protected localization catalog is a read-only provenance source, not a deplo
 3. Apply 076 → 077 → 078 in order; record migration receipts and read back exact function definitions, owner, security-definer posture and grants. Stop/recover on any mismatch. Migration 076 is the ACT3 Library Box discovery change.
 4. Sync the full 30-row authorized registry projection, then execute the two Asset Manager publication/activation transactions; verify key/version/path plus downloaded object SHA-256 and preserve the base key.
 5. Publish only the three frozen Player files; require successful Pages run, exact head, HTTP 200 and the LF-normalized public hashes above.
-6. Run bounded public smoke for ACT6 entry/Voice acknowledgement/vote/advance and ACT9 base/red-first/both-open/retry/refresh/fallback. Confirm labels and playable controls remain available and no unexpected browser/RPC errors occur.
+6. Run bounded public smoke for ACT3 Library Box code `41739`, the `library_discovery/box_opened` scene, all three discovery acknowledgements and the supported next transition; ACT6 entry/Voice acknowledgement/vote/advance; and ACT9 base/red-first/both-open/retry/refresh/fallback. Confirm labels and playable controls remain available and no unexpected browser/RPC errors occur.
 7. Return migration, Asset Manager, Storage, Pages and smoke receipts to CA. Human trial resumption remains a CA/Teacher disposition.
 
 ## Protected boundaries
