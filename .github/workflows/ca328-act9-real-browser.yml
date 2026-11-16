@@ -1,0 +1,33 @@
+name: CA328 ACT9 Real Browser
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [remediation/sprint9-structural-v1]
+    paths:
+      - tests/act9-asset-fallback-browser.mjs
+      - tests/helpers/v4-two-scene-pilot-driver.js
+      - src/game/app.js
+      - index.html
+      - assets/staging/shared.great_hall/**
+      - assets/staging/shared.great_hall.red_first/**
+      - assets/staging/shared.great_hall.both_open/**
+      - .github/workflows/ca328-act9-real-browser.yml
+
+jobs:
+  real-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install isolated Playwright runtime
+        run: npm install --prefix "$RUNNER_TEMP/ca328" playwright@1.56.1
+      - name: Install Chromium
+        run: "$RUNNER_TEMP/ca328/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Run actual Player browser and HTTP image checks
+        env:
+          NODE_PATH: ${{ runner.temp }}/ca328/node_modules
+        run: node tests/act9-asset-fallback-browser.mjs
