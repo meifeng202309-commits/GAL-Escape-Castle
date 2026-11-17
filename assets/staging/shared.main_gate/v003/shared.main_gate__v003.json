@@ -16,7 +16,37 @@
     "main_gate_station_C",
     "main_gate_watcher_corridor"
   ],
-  "ui_anchors_status": "REQUIRES_CD_VALIDATION_BEFORE_ACTIVATION",
+  "ui_anchors": [
+    {
+      "anchor_name": "main_gate_station_A",
+      "x_percent": 1.0,
+      "y_percent": 48.0,
+      "width_percent": 31.0,
+      "height_percent": 44.0
+    },
+    {
+      "anchor_name": "main_gate_station_B",
+      "x_percent": 42.0,
+      "y_percent": 55.0,
+      "width_percent": 20.0,
+      "height_percent": 38.0
+    },
+    {
+      "anchor_name": "main_gate_station_C",
+      "x_percent": 75.0,
+      "y_percent": 55.0,
+      "width_percent": 24.0,
+      "height_percent": 39.0
+    },
+    {
+      "anchor_name": "main_gate_watcher_corridor",
+      "x_percent": 32.0,
+      "y_percent": 17.0,
+      "width_percent": 36.0,
+      "height_percent": 48.0
+    }
+  ],
+  "ui_anchors_status": "CD_SOURCE_VALIDATED_PENDING_BROWSER_GATE",
   "filename": "shared.main_gate__v003.webp",
   "width_px": 1448,
   "height_px": 1086,

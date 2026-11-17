@@ -8,6 +8,9 @@ on:
       - src/styles/app.css
       - tests/ca338-completed-replay-browser.mjs
       - tests/ca338-completed-replay-static-check.js
+      - tests/ca338-main-gate-v3-static-check.js
+      - tests/ca338-main-gate-v3-browser.mjs
+      - assets/staging/shared.main_gate/v003/**
       - .github/workflows/ca338-completed-replay-browser.yml
   workflow_dispatch:
 
@@ -26,6 +29,7 @@ jobs:
       - name: Static checks
         run: |
           node tests/ca338-completed-replay-static-check.js
+          node tests/ca338-main-gate-v3-static-check.js
           node tests/sprint8-static-check.js
           node tests/v4-player-integration-static-check.js
       - name: Install disposable browser dependency
@@ -33,4 +37,6 @@ jobs:
       - name: Install Chromium
         run: $RUNNER_TEMP/ca338/node_modules/.bin/playwright install --with-deps chromium
       - name: Browser checks
-        run: NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-completed-replay-browser.mjs
+        run: |
+          NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-completed-replay-browser.mjs
+          NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-main-gate-v3-browser.mjs
