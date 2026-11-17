@@ -22,6 +22,12 @@ CA-338 required CD to preserve a blind independent record before opening the two
 | Main Gate v003 | Sidecar hash passes and requires validation of four anchors against changed composition; current runtime also renders station labels. | Agrees with CA duplicate/anchor risk. | Staged and latest-version ready; activation remains blocked on focused anchor/label browser evidence. |
 | Great Hall variants | Red-first and both-open are active and bound to authoritative state; blue-first bytes are present but the Teacher-approved rule defers it. | Agrees. | Preserve red-first rule; do not register/activate blue-first. |
 
+## Focused validation receipts
+
+- GitHub Actions run `44037368534`: PASS. Real Chromium verified first finale presentation, a persistently visible finale Switch session control, cancellation of the active finale timer on exit, same-run reload without replay, and preservation of pre-run/in-progress reconnect behavior.
+- Main Gate v003 source validation: approved image SHA-256 `f68ea8c1f86a1fa3345fbb2e7842fd34e8e66c1256d71030c993366ea5068de4` matches; four bounded v003 anchors were added as CD technical metadata. Because the artwork already contains A/B/C, runtime suppresses duplicate A/B/C overlay and legend text while retaining assignment highlighting, accessible/action controls, and the non-baked WATCHER label. Browser validation is pending the triggered Actions run.
+- Chrome Join diagnostic is intentionally evidence-only: a mocked first click must issue one normalized `s1_join_player`, transition immediately to the waiting lifecycle without reload, and emit no browser errors; a separate Enter-key probe records the current no-submit behavior. No Join behavior change is authorized from the incomplete human observation alone.
+
 ## Current source baseline
 
 - Imported the exact approved ten-WebP staging commit `e1fdccfa921aad403a95278bba213763e888b875` without activation.

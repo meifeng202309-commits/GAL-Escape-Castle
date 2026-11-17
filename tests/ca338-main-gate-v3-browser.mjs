@@ -27,7 +27,7 @@ try{
   assert(await page.locator('.s6-station-legend [data-station-role="A"] .localized').isHidden(),"Legend duplicated baked station A");
   const controls=page.locator('#sprint3bActions button[data-s6-rpc="s6_submit_allocation_v2"]');assert(await controls.count()===3,"A/B/C playable controls were lost");for(const control of await controls.all())assert(await control.isEnabled(),"Main Gate allocation control is disabled");
 
-  state.goldKey=true;await page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState());await page.waitForFunction(()=>document.querySelector('.s6-station-label[data-station-role="WATCHER"]'));
+  state.goldKey=true;await page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState());await page.waitForFunction(()=>{const node=document.querySelector('.s6-station-label[data-station-role="WATCHER"]');return node&&!node.hidden&&!node.classList.contains("artwork-state")});
   assert(await page.locator('.s6-station-label[data-station-role="WATCHER"] .localized').isVisible(),"Watcher label was hidden even though it is not baked into the image");
   assert(await page.locator('#sprint3bActions button[data-s6-choice="WATCHER"]').isEnabled(),"Watcher playable control was lost");
   console.log("CA338 Main Gate v003 decoded image, anchors, baked-label suppression and controls passed.");
