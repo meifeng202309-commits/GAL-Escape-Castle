@@ -18,12 +18,17 @@ try{
   const page=await context.newPage();await routeRpc(page,true);await page.goto(local.url,{waitUntil:"networkidle"});
   assert(await page.locator('[data-s8-stage="fade"]').count()===1,"First completion did not start the finale");
   const firstSwitch=page.locator("#s8SwitchSession");assert(await firstSwitch.isVisible()&&await firstSwitch.isEnabled(),"Finale hid the session switch");
+  await firstSwitch.click();
+  assert(await page.locator("#joinPanel").isVisible(),"Finale switch did not return to Join");
+  assert(await page.evaluate(()=>localStorage.getItem("gal_castle_escape_session_v1"))===null,"Finale switch retained the old session");
+  await page.waitForTimeout(2100);assert(!await page.locator(".s8-ending").isVisible(),"Cancelled finale timer overlaid Join again");
+
+  await page.evaluate(saved=>localStorage.setItem("gal_castle_escape_session_v1",JSON.stringify(saved)),session);
   await page.reload({waitUntil:"networkidle"});
   assert(await page.locator('[data-s8-stage="end"]').count()===1,"Refresh replayed a previously presented finale");
   await page.locator("#s8SwitchSession").click();
   assert(await page.locator("#joinPanel").isVisible(),"Finale switch did not return to Join");
   assert(await page.evaluate(()=>localStorage.getItem("gal_castle_escape_session_v1"))===null,"Finale switch retained the old session");
-  await page.waitForTimeout(2100);assert(await page.locator(".s8-ending").count()===0,"Cancelled finale timer overlaid Join again");
 
   const reconnect=await context.newPage();await routeRpc(reconnect,false);await reconnect.goto(local.url,{waitUntil:"networkidle"});
   assert(await reconnect.locator("#gamePanel").isVisible()&&await reconnect.locator("#joinPanel").isHidden(),"In-progress/pre-run reconnect was incorrectly discarded");
