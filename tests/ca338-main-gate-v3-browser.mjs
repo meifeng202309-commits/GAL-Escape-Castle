@@ -28,7 +28,8 @@ try{
   const controls=page.locator('#sprint3bActions button[data-s6-rpc="s6_submit_allocation_v2"]');assert(await controls.count()===3,"A/B/C playable controls were lost");for(const control of await controls.all())assert(await control.isEnabled(),"Main Gate allocation control is disabled");
 
   state.goldKey=true;await page.evaluate(()=>globalThis.__GAL_A1_TEST_HOOKS__.refreshState());await page.waitForFunction(()=>{const node=document.querySelector('.s6-station-label[data-station-role="WATCHER"]');return node&&!node.hidden&&!node.classList.contains("artwork-state")});
-  assert(await page.locator('.s6-station-label[data-station-role="WATCHER"] .localized').isVisible(),"Watcher label was hidden even though it is not baked into the image");
+  const watcher=await page.locator('.s6-station-label[data-station-role="WATCHER"]').evaluate(node=>{const text=node.querySelector(".localized"),box=node.getBoundingClientRect();return{hidden:node.hidden,className:node.className,text:node.textContent.trim(),nodeVisibility:getComputedStyle(node).visibility,textVisibility:text?getComputedStyle(text).visibility:null,width:box.width,height:box.height}});
+  assert(!watcher.hidden&&!watcher.className.includes("artwork-state")&&watcher.text.includes("HOUD DE GANG")&&watcher.nodeVisibility!=="hidden"&&watcher.textVisibility!=="hidden"&&watcher.width>0&&watcher.height>0,`Watcher label was hidden even though it is not baked into the image: ${JSON.stringify(watcher)}`);
   assert(await page.locator('#sprint3bActions button[data-s6-choice="WATCHER"]').isEnabled(),"Watcher playable control was lost");
   console.log("CA338 Main Gate v003 decoded image, anchors, baked-label suppression and controls passed.");
 }finally{await context.close();await browser.close();await new Promise(resolve=>local.instance.close(resolve))}
