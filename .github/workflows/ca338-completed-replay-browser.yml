@@ -1,0 +1,35 @@
+name: CA338 completed replay browser
+
+on:
+  push:
+    branches: [remediation/sprint9-structural-v1]
+    paths:
+      - src/game/app.js
+      - src/styles/app.css
+      - tests/ca338-completed-replay-browser.mjs
+      - tests/ca338-completed-replay-static-check.js
+      - .github/workflows/ca338-completed-replay-browser.yml
+  workflow_dispatch:
+
+jobs:
+  completed-replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Static checks
+        run: |
+          node tests/ca338-completed-replay-static-check.js
+          node tests/sprint8-static-check.js
+          node tests/v4-player-integration-static-check.js
+      - name: Install disposable browser dependency
+        run: npm install --prefix "$RUNNER_TEMP/ca338" playwright@latest
+      - name: Install Chromium
+        run: "$RUNNER_TEMP/ca338/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Browser checks
+        env:
+          NODE_PATH: ${{ runner.temp }}/ca338/node_modules
+        run: node tests/ca338-completed-replay-browser.mjs

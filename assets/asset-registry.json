@@ -90,7 +90,7 @@
         "Number note front"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
@@ -107,7 +107,7 @@
         "Number note back"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
@@ -124,7 +124,7 @@
         "Open diary"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
@@ -158,7 +158,7 @@
         "Pocket watch back"
       ],
       "asset_type": "image",
-      "latest_version": 2,
+      "latest_version": 1,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
@@ -176,7 +176,7 @@
         "1897 closure order"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
@@ -250,7 +250,7 @@
         "Library torn note"
       ],
       "asset_type": "image",
-      "latest_version": 1,
+      "latest_version": 2,
       "active_version": 1,
       "continuity_refs": [
         "MASTER-04"
@@ -420,7 +420,7 @@
         "Final mechanism gate"
       ],
       "asset_type": "image",
-      "latest_version": 2,
+      "latest_version": 3,
       "active_version": 2,
       "continuity_refs": [
         "MASTER-01",

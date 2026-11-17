@@ -56,6 +56,7 @@ const performanceTrace = installPerformanceTrace({ role: "Player", rpc: baseRpc,
 const rpc = performanceTrace.rpc;
 let sprint8RevealRunId = "";
 let sprint8RevealTimer = null;
+const SPRINT8_LAST_PRESENTED_RUN_KEY = "gal.s8.last-presented-run-id";
 let sprint6AudioIdentity = "";
 const sprint6AudioHandles = new Map();
 const sprint6AudioUrls = new Map();
@@ -126,8 +127,14 @@ function clearRequestIdentity(key) {
   sessionStorage.removeItem(key);
 }
 
+function cancelSprint8Reveal() {
+  if (sprint8RevealTimer) clearTimeout(sprint8RevealTimer);
+  sprint8RevealTimer = null;
+}
+
 function resetRunScopedClientState() {
   currentDiscussion=null;currentSprint3bState=null;currentSprint5State=null;currentSprint6State=null;
+  cancelSprint8Reveal();
   sprint8RevealRunId="";sprint6AudioIdentity="";sprint6PendingAudio=null;selectedPocketItem="";
   discussionViewportState.clear();pendingMessageAcks.clear();localStorage.removeItem(SPRINT6_AUDIO_OUTBOX_KEY);
   for(let i=sessionStorage.length-1;i>=0;i--){const key=sessionStorage.key(i);if(key?.startsWith("gal.pending."))sessionStorage.removeItem(key)}
@@ -148,14 +155,15 @@ messageText.addEventListener("keydown", (event) => {
     sendMessage();
   }
 });
-leaveButton.addEventListener("click", () => {
+function switchPlayerSession() {
   clearSession();
   session = null;
   stopPolling();
   messageText.value = "";
   pendingMessageAcks.clear();
   showJoin();
-});
+}
+leaveButton.addEventListener("click", switchPlayerSession);
 
 if (session && session.room_code && session.session_token) {
   roomCodeInput.value = session.room_code;
@@ -776,10 +784,12 @@ function renderSprint8(payload){
   sprint3bStatus.textContent="";
   if(sprint8RevealRunId===payload.run_id)return;
   sprint8RevealRunId=payload.run_id;
-  clearTimeout(sprint8RevealTimer);
+  cancelSprint8Reveal();
 
   const previousExteriorSrc=document.getElementById("s6SceneImage")?.src||"";
-  let stage=0;
+  const alreadyPresented=localStorage.getItem(SPRINT8_LAST_PRESENTED_RUN_KEY)===payload.run_id;
+  localStorage.setItem(SPRINT8_LAST_PRESENTED_RUN_KEY,payload.run_id);
+  let stage=alreadyPresented?5:0;
   const stageNames=["fade","mission","escaped","remembered","they","end"];
   const frames=[
     `<div class="s8-exterior-stage"><img id="s8ExteriorImage" class="s8-exterior-image" ${previousExteriorSrc?`src="${escapeHtml(previousExteriorSrc)}"`:""} alt=""><div class="s8-fade" aria-hidden="true"></div></div>`,
@@ -792,7 +802,8 @@ function renderSprint8(payload){
 
   const advance=()=>{
     const fadeClass=stage===0?" s8-fade-stage":"";
-    sprint3bText.innerHTML=`<section class="s8-ending${fadeClass} s8-stage-${stage}" data-s8-stage="${stageNames[stage]}" aria-live="polite">${frames[stage]}</section>`;
+    sprint3bText.innerHTML=`<section class="s8-ending${fadeClass} s8-stage-${stage}" data-s8-stage="${stageNames[stage]}" aria-live="polite"><div class="s8-ending-frame">${frames[stage]}</div><button id="s8SwitchSession" type="button" class="secondary s8-switch-session">Switch session</button></section>`;
+    document.getElementById("s8SwitchSession")?.addEventListener("click",switchPlayerSession);
     if(stage===0&&!previousExteriorSrc)setS5Asset("s8ExteriorImage","ending.castle_exterior");
     if(stage<frames.length-1)sprint8RevealTimer=setTimeout(()=>{stage+=1;advance()},delays[stage]);
   };
@@ -1057,6 +1068,7 @@ function stopPolling() {
   playerSessionEpoch += 1;
   currentSprint5State = null;
   finishPlayerComposition(playerCompositionTarget,false);
+  cancelSprint8Reveal();
   if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
   lastConfirmedFrame = null;
