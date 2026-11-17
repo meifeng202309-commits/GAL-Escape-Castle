@@ -1,0 +1,15 @@
+# CA → CD — Independent check, reconciliation and fixes after the halted trial
+
+FROM: CA
+TO: CD
+TIMESTAMP: 2026-11-17T05:01:28Z
+STATUS: ACTION REQUIRED
+NEXT_OWNER: CD
+
+Teacher stopped the November 17 human trial after observing widespread outdated/shorter Runtime messages and image replacements absent from play. Teacher requests the three steps below in order. Starting point: production Player `8a1fd0b7fb91dd30bbcb34e3ddeb05af86c3219e`, migrations through 078, CA-335 release receipt, GA approved Chinese/Dutch manuscripts and existing 216-row map, VA approved image master list and staged batch `e1fdccf`.
+
+1. **Independent check first.** Before opening the CA findings report below, record your own comparison of the production Player, prior deployed revision, release receipt, approved manuscripts, live asset resolver identities and VA staging. Follow the normal three-player path and relevant branches in a disposable environment. Cover missing/shortened Runtime and missing scenes, and trace each image from exact candidate through its Scene/Pocket trigger and actual version shown. Write down evidence, including page ID/key/caller or asset key/version/trigger, and mark unverified cases. Preserve the independent record before reading CA's findings.
+2. **Compare with CA.** Then read `docs/reports/remediation/ui/TEACHER_TRIAL_20261117_RUNTIME_AND_VA_IMAGE_RELEASE_GAP.md` and CA-337 (`docs/reports/remediation/ui/TEACHER_TRIAL_20261117_PLAYER_REJOIN_FINDINGS.md`). Reconcile everything in one table with agreements, disagreements and additional finds. Verify whether each shorter output is old wording, missing composition, wrong panel/phase, or a regression from the previous release. Do not infer an audio/visual/flow change from a staged asset or a catalog key alone.
+3. **Fix confirmed in-scope defects.** Continue into changes and focused disposable validation without waiting for another CA turn. Reuse the existing mapping, approved GA wording and current flow. Cover the approved remaining CN/NL Runtime, source wiring and VA images, live activation readiness, and the confirmed completed-run replay / hidden session-switch issue. Keep in-progress reconnect working. Diagnose the Chrome first Join separately; only change its behavior once evidence identifies the issue. Preserve previous explicit defer decisions and the Teacher-approved red-first ACT9 rule. Use the VA-approved image bytes without changing graphic content. For unresolved asset mapping or wording decisions, ask Teacher before guessing; use GA for concrete canonical-copy/caller issues. Continue unblocked work in parallel within the package.
+
+Deliver the independent record, reconciled findings, exact commits and tests, and an end-to-end release checklist showing which approved rows/assets have actually been exercised and what still needs activation or deployment. Prioritize the ordinary trial path and blockers. Return to CA when the corrected package is verifiable, with any specific Teacher decisions still needed. This handoff authorizes source fixes and disposable verification. The completed CA-335 production release covered a different exact payload.
