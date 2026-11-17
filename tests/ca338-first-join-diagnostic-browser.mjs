@@ -17,6 +17,7 @@ try{
   await page.waitForFunction(()=>document.querySelector("#sprint3bText")?.textContent.includes("Wait for the Teacher"));
   const joins=calls.filter(call=>call.name==="s1_join_player"),unexpected=calls.filter(call=>!["s1_join_player","s8_get_player_state","s2_get_player_state","asset_resolve"].includes(call.name));assert(joins.length===1,"First Join click did not issue exactly one RPC");assert(joins[0].body.p_room_code==="CA338"&&joins[0].body.p_join_code==="FIRST","Join normalization changed the supplied credentials");assert(await page.locator("#gamePanel").isVisible(),"Successful first Join required a refresh before showing the game");assert(unexpected.length===0,`First Join issued unexpected RPCs: ${unexpected.map(call=>call.name).join(",")}`);assert(errors.length===0,`First Join emitted browser errors: ${errors.join(" | ")}`);
 
+  await page.evaluate(()=>localStorage.removeItem("gal_castle_escape_session_v1"));
   const enterPage=await context.newPage(),enterCalls=[];await install(enterPage,enterCalls);await enterPage.goto(local.url,{waitUntil:"networkidle"});await enterPage.locator("#roomCode").fill("CA338E");await enterPage.locator("#joinCode").fill("ENTER");await enterPage.locator("#joinCode").press("Enter");await enterPage.waitForTimeout(100);
   assert(enterCalls.filter(call=>call.name==="s1_join_player").length===0,"Diagnostic assumption changed: Enter now submits Join");
   console.log(JSON.stringify({firstClick:"PASS_WITHOUT_REFRESH",enterKey:"NO_SUBMISSION_CURRENT_BEHAVIOR",rpcCount:joins.length,browserErrors:errors.length}));
