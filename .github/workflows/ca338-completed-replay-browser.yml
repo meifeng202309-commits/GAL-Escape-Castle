@@ -10,6 +10,7 @@ on:
       - tests/ca338-completed-replay-static-check.js
       - tests/ca338-main-gate-v3-static-check.js
       - tests/ca338-main-gate-v3-browser.mjs
+      - tests/ca338-first-join-diagnostic-browser.mjs
       - assets/staging/shared.main_gate/v003/**
       - .github/workflows/ca338-completed-replay-browser.yml
   workflow_dispatch:
@@ -40,3 +41,4 @@ jobs:
         run: |
           NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-completed-replay-browser.mjs
           NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-main-gate-v3-browser.mjs
+          NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-first-join-diagnostic-browser.mjs
