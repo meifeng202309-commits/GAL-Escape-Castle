@@ -1,8 +1,8 @@
-# GAL Escape Castle — 提高开发效率，简化繁复流程规则 V0.2（Teacher 待批准）
+# GAL Escape Castle — 提高开发效率，简化繁复流程规则 V0.2（Teacher 已批准，ACTIVE）
 
 Date: 2026-11-23
 Author: CA, on Teacher request, after separate CD/GA critical reviews
-Status: **DRAFT — NOT ACTIVE UNTIL TEACHER APPROVAL**
+Status: **ACTIVE — Teacher approved 2026-11-23 (Asia/Singapore)**
 Inputs:
 - `docs/plans/GAL_ESCAPE_CASTLE_LEAN_DEVELOPMENT_RULES_DRAFT_V0.1.md`
 - `agent-comms/CD_to_CA_20261123T_lean-development-v01-critical-review.md` (AMEND)
@@ -65,6 +65,6 @@ VA 对正式获批图片只核对准确字节/sidecar 与素材来源；CD 不�
 
 ## 8. 与旧规则的优先关系（避免再多一套流程）
 
-本规则一旦获 Teacher 批准，作为 `DEBUG_V4_TRIAL_FIRST_AUDIT_PROCESS_V1.0.md` 的**单一可操作效率补充／特定冲突优先条款**：在 CA-338 及后续同类教学修复的任务打包、文档、测试、子阶段审批和交接上，以本规则为准；不要求执行两套重复检查。原 Trial-First 的 P0/P1/P2 和生产安全底线继续有效；具体受保护写入、作者权威、Agent Action Log 强制事项优先于本草案，直到经合法权限正式修订相关条款。不得以本文件自动增加一次独立 review。
+本规则经 Teacher 于 2026-11-23 正式批准，自此作为 `DEBUG_V4_TRIAL_FIRST_AUDIT_PROCESS_V1.0.md` 的**单一可操作效率补充／特定冲突优先条款**：在 CA-338 及后续同类教学修复的任务打包、文档、测试、子阶段审批和交接上，以本规则为准；不要求执行两套重复检查。原 Trial-First 的 P0/P1/P2 和生产安全底线继续有效；具体受保护写入、作者权威、Agent Action Log 强制事项优先于本草案，直到经合法权限正式修订相关条款。不得以本文件自动增加一次独立 review。
 
-**Only becomes ACTIVE after explicit Teacher approval.** Discussions alone cannot change permissions, rules or production.
+**ACTIVE from Teacher approval on 2026-11-23.** This approval authorizes the lean development workflow, not any independent production deployment or protected-resource mutation. Existing already-authorized substantive work continues without reapproval; newly requested production writes still require their own explicit authorization.
