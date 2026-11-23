@@ -76,7 +76,9 @@ act01-l.019,ACT 1 — Linda,static,bilingual,It cannot open this door.,Deze deur
 act01-l.020,ACT 1 — Linda,static,bilingual,There is writing carved into the stone behind the mirror frame.,Achter de spiegellijst staat tekst in de steen gekrast.,镜框背后的石墙上刻着文字。,REUSED_REVIEWED,
 act01-l.021,ACT 1 — Linda,static,bilingual,"WHEN THE LAST BELL RINGS, DO NOT FOLLOW THE WARM AIR.","ALS DE LAATSTE KLOK SLAAT, VOLG DAN DE WARME LUCHT NIET.",当最后的钟声响起时，不要跟着暖空气走。,REUSED_REVIEWED,
 act02.001,ACT 2 — First Contact,static,bilingual,TIME — 23:50,TIJD — 23:50,时间 — 23:50,REUSED_REVIEWED,
-act02.002,ACT 2 — First Contact,static,bilingual,SIGNAL UNSTABLE,SIGNAAL ONSTABIEL,信号不稳定,REUSED_REVIEWED,
+act02.002,ACT 2 — First Contact,static,bilingual,SIGNAL UNSTABLE,"Je merkt dat je telefoon weer een zwak signaal heeft, maar de verbinding is erg onstabiel.
+Je kunt proberen contact te leggen met de twee andere meisjes. Kies bij Action welk bericht je nu wilt versturen.","你发现手机出现了一点信号，但连接很不稳定。
+你可以尝试联系另外两位伙伴。请在 Action 区选择你现在想发送的信息。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-006/GITTE-006/LINDA-006; NL/ZH newlines must be rendered as separate lines.
 act02.003,ACT 2 — First Contact,static,bilingual,You only have time to send one message before you move.,Je hebt alleen tijd om één bericht te sturen voordat je moet vertrekken.,你只有时间发送一条消息，然后就必须行动。,REUSED_REVIEWED,
 act02.004,ACT 2 — First Contact,static,bilingual,I'm heading to the Library.,Ik ga naar de Bibliotheek.,我去图书馆。,REUSED_REVIEWED,
 act02.005,ACT 2 — First Contact,static,bilingual,I'm heading to the Great Hall.,Ik ga naar de Grote Zaal.,我去大厅。,REUSED_REVIEWED,
@@ -112,7 +114,9 @@ act02.034,ACT 2 — First Contact,static,bilingual,No consensus. One final 30-se
 act02.035,ACT 2 — First Contact,static,bilingual,UNKNOWN SENDER:,ONBEKENDE AFZENDER:,未知发送者：,REUSED_REVIEWED,
 act02.036,ACT 2 — First Contact,static,bilingual,Three girls. Three answers. How disappointing.,Drie meisjes. Drie antwoorden. Wat teleurstellend.,三个女孩。三个答案。真令人失望。,REUSED_REVIEWED,
 act02.037,ACT 2 — First Contact,static,bilingual,Go to the Library. Try not to die on the way.,Ga naar de Bibliotheek. Probeer onderweg niet dood te gaan.,去图书馆。路上尽量别死。,REUSED_REVIEWED,
-act02.038,ACT 2 — First Contact,static,bilingual,You reach an iron access gate.,Je bereikt een ijzeren toegangspoort.,你们来到一道铁制通行门前。,REUSED_REVIEWED,
+act02.038,ACT 2 — First Contact,static,bilingual,You reach an iron access gate.,"Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.","沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-013/GITTE-013/LINDA-013; NL/ZH newlines must be rendered as separate lines.
 act02.039,ACT 2 — First Contact,static,bilingual,It is locked from the other side.,Ze is aan de andere kant vergrendeld.,门从另一侧锁住了。,REUSED_REVIEWED,
 act02.040,ACT 2 — First Contact,static,bilingual,"Beyond it, a worn brass sign points toward the Library.",Daarachter wijst een versleten koperen bord richting de Bibliotheek.,门后，一块磨损的黄铜指示牌指向图书馆。,REUSED_REVIEWED,
 act02.041,ACT 2 — First Contact,static,bilingual,RENDEZVOUS POINT UNREACHABLE,AFSPREEKPUNT ONBEREIKBAAR,无法到达会合地点,REUSED_REVIEWED,
@@ -120,15 +124,23 @@ act02.042,ACT 2 — First Contact,static,bilingual,FOLLOW THE LIBRARY SIGNS.,VOL
 act02.043,ACT 2 — First Contact,static,bilingual,The stone floor ahead seems to move.,De stenen vloer voor je lijkt te bewegen.,前方的石地面似乎在动。,REUSED_REVIEWED,
 act02.044,ACT 2 — First Contact,static,bilingual,Snakes slide out from cracks and block the corridor.,Slangen glijden uit de spleten en blokkeren de gang.,蛇从裂缝中滑出，堵住了走廊。,REUSED_REVIEWED,
 act02.045,ACT 2 — First Contact,static,bilingual,You cannot reach the common entrance.,Je kunt de gezamenlijke ingang niet bereiken.,你们无法到达公共入口。,REUSED_REVIEWED,
-act02.046,ACT 2 — First Contact,static,bilingual,A bricked stairway and an old municipal seal block the western access.,Een dichtgemetselde trap en een oud gemeentelijk zegel blokkeren de westelijke toegang.,一段被砖封的楼梯和一枚旧市政封条堵住了西侧入口。,REUSED_REVIEWED,
+act02.046,ACT 2 — First Contact,static,bilingual,A bricked stairway and an old municipal seal block the western access.,"De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.","通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-015/GITTE-015/LINDA-015; NL/ZH newlines must be rendered as separate lines.
 act02.047,ACT 2 — First Contact,static,bilingual,A surviving brass corridor sign points back toward the Library.,Een overgebleven koperen gangbord wijst terug naar de Bibliotheek.,一块残存的黄铜走廊指示牌指回图书馆。,REUSED_REVIEWED,
 act02.048,ACT 2 — First Contact,static,bilingual,MUNICIPALITY OF LAARNE — ACCESS CLOSED,GEMEENTE LAARNE — TOEGANG GESLOTEN,拉尔讷市政府 — 入口关闭,REUSED_REVIEWED,
-act02.049,ACT 2 — First Contact,static,bilingual,"A slow, wet scraping sound comes from behind the chapel doors.","Achter de deuren van de kapel klinkt een langzaam, nat schurend geluid.",礼拜堂门后传来缓慢、湿黏的摩擦声。,REUSED_REVIEWED,
+act02.049,ACT 2 — First Contact,static,bilingual,"A slow, wet scraping sound comes from behind the chapel doors.","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.","你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-016/GITTE-016/LINDA-016; NL/ZH newlines must be rendered as separate lines.
 act02.050,ACT 2 — First Contact,static,bilingual,The air smells damp and strangely sour.,De lucht ruikt vochtig en vreemd zuur.,空气潮湿，还带着一种奇怪的酸味。,REUSED_REVIEWED,
 act02.051,ACT 2 — First Contact,static,bilingual,Something heavy moves across stone.,Iets zwaars beweegt over de stenen vloer.,有什么沉重的东西正从石地面上移动。,REUSED_REVIEWED,
 act02.052,ACT 2 — First Contact,static,bilingual,Very angry...,Heel kwaad...,很生气……,REUSED_REVIEWED,
 act02.053,ACT 2 — First Contact,static,bilingual,THIS ROUTE IS TOO DANGEROUS.,DEZE ROUTE IS TE GEVAARLIJK.,这条路线太危险。,REUSED_REVIEWED,
-act03.001,ACT 3 — Library,static,bilingual,You see an old brass direction plaque:,Je ziet een oud koperen richtingbord:,你看到一块旧黄铜方向牌：,REUSED_REVIEWED,
+act03.001,ACT 3 — Library,static,bilingual,You see an old brass direction plaque:,"Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.","沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-012/GITTE-012/LINDA-012; NL/ZH newlines must be rendered as separate lines.
 act03.002,ACT 3 — Library,static,bilingual,LIBRARY →,BIBLIOTHEEK →,图书馆 →,REUSED_REVIEWED,
 act03.003,ACT 3 — Library,static,bilingual,[FOLLOW SIGN],[VOLG HET BORD],[跟随指示牌],REUSED_REVIEWED,
 act03.004,ACT 3 — Library,static,bilingual,"At last, the three of you reach the same room.",Eindelijk bereiken jullie alle drie dezelfde kamer.,终于，你们三个人来到了同一个房间。,REUSED_REVIEWED,
@@ -136,29 +148,49 @@ act03.005,ACT 3 — Library,static,bilingual,They can hear. Shut up or get caugh
 act03.006,ACT 3 — Library,static,bilingual,GROUP FOUND ITEMS,GROEPSVONDSTEN,团队发现物品,REUSED_REVIEWED,
 act03.007,ACT 3 — Library,static,bilingual,Gitte spreads the Castle Map across the table.,Gitte spreidt de kasteelkaart over de tafel uit.,Gitte把城堡地图铺在桌上。,REUSED_REVIEWED,
 act03.008,ACT 3 — Library,static,bilingual,"WHAT WAS GIVEN FIRST
-OPENS WHAT COMES NEXT.","WAT JE EERST KREEG
-OPENT WAT HIERNA KOMT.","最先得到的东西
-打开接下来之物。",REUSED_REVIEWED,
+OPENS WHAT COMES NEXT.","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.","你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-017/GITTE-017/LINDA-017; NL/ZH newlines must be rendered as separate lines.
 act03.009,ACT 3 — Library,static,bilingual,5-DIGIT LOCK,SLOT MET 5 CIJFERS,五位数字锁,REUSED_REVIEWED,
 act03.010,ACT 3 — Library,static,bilingual,41739,41739,41739,REUSED_REVIEWED,
-act03.011,ACT 3 — Library,static,bilingual,The box remains locked.,De kist blijft op slot.,盒子仍然锁着。,REUSED_REVIEWED,
-act03.012,ACT 3 — Library,static,bilingual,Something one of you carried from the beginning may matter. Check your Pocket.,"Iets dat een van jullie vanaf het begin bij zich had, kan belangrijk zijn. Kijk in je inventaris.",你们中有人从一开始就带着的东西可能很重要。检查随身物品。,REUSED_REVIEWED,
-act03.013,ACT 3 — Library,static,bilingual,Look for a five-number sequence.,Zoek naar een reeks van vijf cijfers.,寻找一个由五个数字组成的序列。,REUSED_REVIEWED,
-act03.014,ACT 3 — Library,static,bilingual,One of the five wheels clicks into place.,Een van de vijf wieltjes klikt op zijn plaats.,五个转轮中的一个咔哒一声卡入正确位置。,REUSED_REVIEWED,
+act03.011,ACT 3 — Library,static,bilingual,The box remains locked.,"Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.","盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-018/GITTE-018/LINDA-018; NL/ZH newlines must be rendered as separate lines.
+act03.012,ACT 3 — Library,static,bilingual,Something one of you carried from the beginning may matter. Check your Pocket.,"Het kistje zit nog op slot.
+Een nieuwe hint zegt dat iets wat een van jullie vanaf het begin bij zich had, belangrijk kan zijn.
+Bekijk ieder je eigen Pocket en bespreek de relevante aanwijzingen.","盒子仍然锁着。
+新提示提醒你们：有人从一开始就带着的某样东西可能很重要。
+请检查各自的 Pocket，并交流相关线索。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-019/GITTE-019/LINDA-019; NL/ZH newlines must be rendered as separate lines.
+act03.013,ACT 3 — Library,static,bilingual,Look for a five-number sequence.,"Het kistje zit nog op slot.
+De nieuwe hint luidt: zoek een reeks van vijf cijfers.
+Denk terug aan de aanwijzingen die jullie al hebben gezien.","盒子仍然锁着。
+新的提示是：寻找一串由五个数字组成的信息。
+请回想你们已经看到的线索。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-020/GITTE-020/LINDA-020; NL/ZH newlines must be rendered as separate lines.
+act03.014,ACT 3 — Library,static,bilingual,One of the five wheels clicks into place.,"Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.","第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-021/GITTE-021/LINDA-021; NL/ZH newlines must be rendered as separate lines.
 act03.015,ACT 3 — Library,static,bilingual,The lock releases with a dry click.,Het slot springt met een droge klik open.,锁发出一声干涩的咔哒声，打开了。,REUSED_REVIEWED,
 act03.016,ACT 3 — Library,static,bilingual,"THE ROOM WHERE TIME STOPPED
 REMEMBERS WHEN THE WATCH STOPPED.","DE KAMER WAAR DE TIJD STILSTOND
 HERINNERT ZICH WANNEER HET HORLOGE STOPTE.","时间停止的房间
 记得怀表停止的时刻。",REUSED_REVIEWED,
 act04-05.001,ACT 4–5 — Known / Unknown Route,static,bilingual,Library → Main Hall → Portrait Hall,Bibliotheek → Hoofdhal → Portrettengalerij,图书馆 → 主厅 → 肖像长廊,REUSED_REVIEWED,
-act04-05.002,ACT 4–5 — Known / Unknown Route,static,bilingual,This door is not shown on the Castle Map.,Deze deur staat niet op de kasteelkaart.,这扇门没有出现在城堡地图上。,REUSED_REVIEWED,
+act04-05.002,ACT 4–5 — Known / Unknown Route,static,bilingual,This door is not shown on the Castle Map.,"In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.","你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-026/GITTE-026/LINDA-026; NL/ZH newlines must be rendered as separate lines.
 act04-05.003,ACT 4–5 — Known / Unknown Route,static,bilingual,The ★ matches the mark on your Silver Key.,De ★ komt overeen met het teken op je zilveren sleutel.,这个★和你银钥匙上的标记一致。,REUSED_REVIEWED,
 act04-05.004,ACT 4–5 — Known / Unknown Route,static,bilingual,"You have a flashlight. Darkness is less of a problem, but the route is still unknown.","Je hebt een zaklamp. De duisternis is minder een probleem, maar de route blijft onbekend.",你有一只手电筒。黑暗不再是大问题，但这条路线仍然未知。,REUSED_REVIEWED,
 act04-05.005,ACT 4–5 — Known / Unknown Route,static,bilingual,Take the known route now.,Neem nu de bekende route.,现在走已知路线。,REUSED_REVIEWED,
 act04-05.006,ACT 4–5 — Known / Unknown Route,static,bilingual,Try the unknown passage now.,Probeer nu de onbekende doorgang.,现在尝试未知通道。,REUSED_REVIEWED,
 act04-05.007,ACT 4–5 — Known / Unknown Route,static,bilingual,Inspect the unknown passage before deciding.,Bekijk de onbekende doorgang voordat je beslist.,先检查未知通道，再做决定。,REUSED_REVIEWED,
 act04-05.008,ACT 4–5 — Known / Unknown Route,static,bilingual,Ask the others what they think before committing.,Vraag eerst wat de anderen denken voordat je beslist.,先问问其他人的想法，再决定。,REUSED_REVIEWED,
-act04-05.009,ACT 4–5 — Known / Unknown Route,static,bilingual,Compare what you know before the route vote.,Vergelijk wat jullie weten vóór de stemming over de route.,在路线投票前，先比较你们掌握的信息。,REUSED_REVIEWED,
+act04-05.009,ACT 4–5 — Known / Unknown Route,static,bilingual,Compare what you know before the route vote.,"Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.","你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
+请先在 Discussion 区分享各自已知的信息，再进行路线投票。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-027/GITTE-027/LINDA-027; NL/ZH newlines must be rendered as separate lines.
 act04-05.010,ACT 4–5 — Known / Unknown Route,static,bilingual,Known Route,Bekende route,已知路线,REUSED_REVIEWED,
 act04-05.011,ACT 4–5 — Known / Unknown Route,static,bilingual,Unknown Passage,Onbekende doorgang,未知通道,REUSED_REVIEWED,
 act04-05.012,ACT 4–5 — Known / Unknown Route,static,bilingual,Inspect the Unknown Passage first,Bekijk eerst de onbekende doorgang,先检查未知通道,REUSED_REVIEWED,
@@ -229,17 +261,23 @@ act09.005,ACT 9 — Great Hall,static,bilingual,THE RED DOOR OPENS FIRST.,DE ROD
 act09.006,ACT 9 — Great Hall,static,bilingual,THE FIRST DOOR IS NOT SAFE.,DE EERSTE DEUR IS NIET VEILIG.,第一扇门不安全。,REUSED_REVIEWED,
 act09.007,ACT 9 — Great Hall,static,bilingual,BLUE OPENS ONLY AFTER RED.,BLAUW GAAT PAS OPEN NA ROOD.,蓝门只能在红门之后打开。,REUSED_REVIEWED,
 act09.008,ACT 9 — Great Hall,static,bilingual,3 minutes,3 minuten,3分钟,REUSED_REVIEWED,
-act09.009,ACT 9 — Great Hall,static,bilingual,NO CONSENSUS. NO ACTION.,GEEN CONSENSUS. GEEN ACTIE.,没有共识。不执行行动。,REUSED_REVIEWED,
+act09.009,ACT 9 — Great Hall,static,bilingual,NO CONSENSUS. NO ACTION.,"Bij deze stemming werd geen overeenstemming bereikt. Daarom heeft het systeem geen deur geactiveerd en is niemand door een deur gegaan.
+Overleg verder en wacht tot de leerkracht de volgende stemronde opent.","这轮投票没有形成共识，所以系统没有执行开门或进入的动作。
+请继续讨论，等待 Teacher 开放下一轮投票。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-043/GITTE-043/LINDA-043; NL/ZH newlines must be rendered as separate lines.
 act09.010,ACT 9 — Great Hall,static,bilingual,ACTIVATE WHICH DOOR FIRST?,WELKE DEUR ACTIVEER JE EERST?,先启动哪一扇门？,REUSED_REVIEWED,
 act09.011,ACT 9 — Great Hall,static,bilingual,RED,ROOD,红,REUSED_REVIEWED,
 act09.012,ACT 9 — Great Hall,static,bilingual,BLUE,BLAUW,蓝,REUSED_REVIEWED,
 act09.013,ACT 9 — Great Hall,static,bilingual,BLACK,ZWART,黑,REUSED_REVIEWED,
-act09.014,ACT 9 — Great Hall,static,bilingual,RED DOOR ACTIVATED.,RODE DEUR GEACTIVEERD.,红门已启动。,REUSED_REVIEWED,
+act09.014,ACT 9 — Great Hall,static,bilingual,RED DOOR ACTIVATED.,"De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.","红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-044/GITTE-044/LINDA-044; NL/ZH newlines must be rendered as separate lines.
 act09.015,ACT 9 — Great Hall,static,bilingual,ENTER RED,GA DOOR ROOD,进入红门,REUSED_REVIEWED,
 act09.016,ACT 9 — Great Hall,static,bilingual,DO NOT ENTER,NIET BINNENGAAN,不要进入,REUSED_REVIEWED,
 act09.017,ACT 9 — Great Hall,static,bilingual,A dull blue indicator flickers on.,Een dof blauw controlelampje flikkert aan.,一盏暗淡的蓝色指示灯闪了起来。,REUSED_REVIEWED,
 act09.018,ACT 9 — Great Hall,static,bilingual,BLUE AVAILABLE,BLAUW BESCHIKBAAR,蓝门可用,REUSED_REVIEWED,
-act09.019,ACT 9 — Great Hall,static,bilingual,BLUE DOOR ACTIVATED.,BLAUWE DEUR GEACTIVEERD.,蓝门已启动。,REUSED_REVIEWED,
+act09.019,ACT 9 — Great Hall,static,bilingual,BLUE DOOR ACTIVATED.,"De blauwe deur is geactiveerd.
+Beslis bij Action of jullie nu door de blauwe deur gaan.","蓝门已经启动。
+请在 Action 区决定下一步是否进入蓝门。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-046/GITTE-046/LINDA-046; NL/ZH newlines must be rendered as separate lines.
 act09.020,ACT 9 — Great Hall,static,bilingual,ENTER BLUE,GA DOOR BLAUW,进入蓝门,REUSED_REVIEWED,
 act09.021,ACT 9 — Great Hall,static,bilingual,STAY,BLIJVEN,留下,REUSED_REVIEWED,
 act09.022,ACT 9 — Great Hall,static,bilingual,The door does not respond.,De deur reageert niet.,门没有反应。,GA_APPROVED_2026_11_15,GA-148 Step 1 wrong-majority feedback and retry topic for blue or black.
@@ -249,15 +287,33 @@ act09.025,ACT 9 — Great Hall,static,bilingual,ENTER BLUE / STAY,GA DOOR BLAUW 
 act09.026,ACT 9 — Great Hall,static,bilingual,The Blue Door opens into a narrow stone chamber.,De Blauwe Deur opent naar een smalle stenen kamer.,蓝门打开，后面是一间狭窄的石室。,REUSED_REVIEWED,
 act09.027,ACT 9 — Great Hall,static,bilingual,Something gold lies on a small pedestal.,Op een kleine sokkel ligt iets goudkleurigs.,一个小基座上放着一件金色的东西。,REUSED_REVIEWED,
 act09.028,ACT 9 — Great Hall,static,bilingual,[ENTER],[GA NAAR BINNEN],[进入],REUSED_REVIEWED,
-act10.001,ACT 10 — Golden Key,static,bilingual,"Take it. Without it, you'll need more time to open the Main Gate.",Neem hem. Zonder deze sleutel heb je meer tijd nodig om de Hoofdpoort te openen.,拿上它。没有它，你们打开主门会需要更多时间。,REUSED_REVIEWED,
-act10.002,ACT 10 — Golden Key,static,bilingual,"Don't take it. The alarm will go off, and they'll get here sooner.",Neem hem niet. Het alarm zal afgaan en ze zullen sneller hier zijn.,别拿。警报会响，他们会更快赶到这里。,REUSED_REVIEWED,
-act10.003,ACT 10 — Golden Key,static,bilingual,The gate can be opened without it. Why bother?,De poort kan ook zonder deze sleutel open. Waarom zou je hem nemen?,没有它也能打开大门。何必拿呢？,REUSED_REVIEWED,
+act10.001,ACT 10 — Golden Key,static,bilingual,"Take it. Without it, you'll need more time to open the Main Gate.","Je krijgt een advies dat alleen jij kunt zien:
+‘Neem de gouden sleutel mee. Zonder die sleutel kan het langer duren om de hoofdpoort te openen.’
+Beslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.","你得到一条只有自己能看到的建议：
+“带走金钥匙。没有它，打开主门可能需要更多时间。”
+请在讨论中决定是否告诉伙伴，再参与团队选择。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) GITTE-053; NL/ZH newlines must be rendered as separate lines.
+act10.002,ACT 10 — Golden Key,static,bilingual,"Don't take it. The alarm will go off, and they'll get here sooner.","Je krijgt een advies dat alleen jij kunt zien:
+‘Neem de gouden sleutel niet mee. Anders gaat het alarm af en kunnen ze hier sneller zijn.’
+Beslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.","你得到一条只有自己能看到的建议：
+“不要拿走金钥匙。否则警报会响，它们可能更快来到这里。”
+请在讨论中决定是否告诉伙伴，再参与团队选择。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-053; NL/ZH newlines must be rendered as separate lines.
+act10.003,ACT 10 — Golden Key,static,bilingual,The gate can be opened without it. Why bother?,"Je krijgt een advies dat alleen jij kunt zien:
+‘Ook zonder deze gouden sleutel kun je de hoofdpoort openen. Waarom zou je hem dan toch meenemen?’
+Beslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.","你得到一条只有自己能看到的建议：
+“不带走这把金钥匙，也能打开主门。那么，为什么一定要带走它？”
+请在讨论中决定是否告诉伙伴，再参与团队选择。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) LINDA-053; NL/ZH newlines must be rendered as separate lines.
 act10.004,ACT 10 — Golden Key,static,bilingual,Take the key,Neem de sleutel,拿走钥匙,REUSED_REVIEWED,
 act10.005,ACT 10 — Golden Key,static,bilingual,Leave the key,Laat de sleutel liggen,留下钥匙,REUSED_REVIEWED,
 act10.006,ACT 10 — Golden Key,static,bilingual,TAKE,NEMEN,拿走,REUSED_REVIEWED,
 act10.007,ACT 10 — Golden Key,static,bilingual,LEAVE,LATEN LIGGEN,留下,REUSED_REVIEWED,
-act10.008,ACT 10 — Golden Key,static,bilingual,A harsh alarm bell rings somewhere inside the walls.,Er klinkt ergens binnen de muren een schelle alarmbel.,城堡墙体内部某处响起刺耳的警铃。,UPDATED_V4,Removed unnecessary 'mechanical'.
-act10.009,ACT 10 — Golden Key,static,bilingual,You leave the chamber and follow the inner route toward the Main Gate.,Jullie verlaten de kamer en volgen de binnenroute naar de Hoofdpoort.,你们离开石室，沿内部路线前往主门。,REUSED_REVIEWED,
+act10.008,ACT 10 — Golden Key,static,bilingual,A harsh alarm bell rings somewhere inside the walls.,"Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.","你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。",GA_TEACHER_APPROVED_2026_11_23,Removed unnecessary 'mechanical'. | GA approved page(s) ANNA-054/GITTE-054/LINDA-054; NL/ZH newlines must be rendered as separate lines.
+act10.009,ACT 10 — Golden Key,static,bilingual,You leave the chamber and follow the inner route toward the Main Gate.,"Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.","你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-055/GITTE-055/LINDA-055; NL/ZH newlines must be rendered as separate lines.
 act10.010,ACT 10 — Golden Key,static,bilingual,[GO TO MAIN GATE],[GA NAAR DE HOOFDPOORT],[前往主门],REUSED_REVIEWED,
 act11.001,ACT 11 — Main Gate Roles,static,bilingual,TIME — 23:58,TIJD — 23:58,时间 — 23:58,REUSED_REVIEWED,
 act11.002,ACT 11 — Main Gate Roles,static,bilingual,STATION A — NUMBER WHEEL,STATION A — CIJFERWIEL,A站 — 数字轮盘,REUSED_REVIEWED,
@@ -281,9 +337,15 @@ act12.001,ACT 12 — Final Pressure,static,bilingual,[ENGAGE],[ACTIVEREN],[启�
 act12.002,ACT 12 — Final Pressure,static,bilingual,[HOLD LEVER],[HENDEL VASTHOUDEN],[按住杠杆],REUSED_REVIEWED,
 act12.003,ACT 12 — Final Pressure,static,bilingual,[INSERT ★ SILVER KEY],[STEEK ★ ZILVEREN SLEUTEL IN],[插入★银钥匙],REUSED_REVIEWED,
 act12.004,ACT 12 — Final Pressure,static,bilingual,[WATCH CORRIDOR],[HOUD DE GANG IN DE GATEN],[监视走廊],REUSED_REVIEWED,
-act12.005,ACT 12 — Final Pressure,static,bilingual,ERROR — NUMBER WHEEL JAMMED,FOUT — CIJFERWIEL GEBLOKKEERD,错误 — 数字轮盘卡住,REUSED_REVIEWED,
-act12.006,ACT 12 — Final Pressure,static,bilingual,ERROR — LEVER LOCKED,FOUT — HENDEL GEBLOKKEERD,错误 — 杠杆锁死,REUSED_REVIEWED,
-act12.007,ACT 12 — Final Pressure,static,bilingual,ERROR — KEY MECHANISM STUCK,FOUT — SLEUTELMECHANISME VASTGELOPEN,错误 — 钥匙机构卡住,REUSED_REVIEWED,
+act12.005,ACT 12 — Final Pressure,static,bilingual,ERROR — NUMBER WHEEL JAMMED,"Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
+Reageer via de keuzes die nu bij Action verschijnen.","A站的数字轮盘卡住了，暂时无法正常转动。
+请根据 Action 区当前提供的选项作出反应。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-057/GITTE-057/LINDA-057; NL/ZH newlines must be rendered as separate lines.
+act12.006,ACT 12 — Final Pressure,static,bilingual,ERROR — LEVER LOCKED,"De hefboom bij post B zit vast en kan voorlopig niet worden gebruikt.
+Reageer via de keuzes die nu bij Action verschijnen.","B站的杠杆卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-058/GITTE-058/LINDA-058; NL/ZH newlines must be rendered as separate lines.
+act12.007,ACT 12 — Final Pressure,static,bilingual,ERROR — KEY MECHANISM STUCK,"Het sleutelmechanisme bij post C is vastgelopen en werkt voorlopig niet.
+Reageer via de keuzes die nu bij Action verschijnen.","C站的钥匙机构卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-059/GITTE-059/LINDA-059; NL/ZH newlines must be rendered as separate lines.
 act12.008,ACT 12 — Final Pressure,static,bilingual,Continue trying alone,Blijf alleen proberen,继续独自尝试,REUSED_REVIEWED,
 act12.009,ACT 12 — Final Pressure,static,bilingual,Ask the others for help immediately,Vraag de anderen meteen om hulp,立即向其他人求助,REUSED_REVIEWED,
 act12.010,ACT 12 — Final Pressure,static,bilingual,Try a different method,Probeer een andere methode,尝试另一种方法,REUSED_REVIEWED,
@@ -292,17 +354,25 @@ act12.012,ACT 12 — Final Pressure,static,bilingual,Stay at your assigned posit
 act12.013,ACT 12 — Final Pressure,static,bilingual,Go help immediately,Ga meteen helpen,立即去帮忙,REUSED_REVIEWED,
 act12.014,ACT 12 — Final Pressure,static,bilingual,Ask what went wrong first,Vraag eerst wat er misging,先问清楚出了什么问题,REUSED_REVIEWED,
 act12.015,ACT 12 — Final Pressure,static,bilingual,Call for a quick role switch,Stel snel een rolwissel voor,提出快速交换角色,REUSED_REVIEWED,
-act12.016,ACT 12 — Final Pressure,static,bilingual,Nothing is getting better. Running is no longer an option. You do what you can.,Niets wordt beter. Weglopen is geen optie meer. Je doet wat je kunt.,情况一点也没有好转。逃跑已经不再是选项。你只能尽你所能。,REUSED_REVIEWED,
+act12.016,ACT 12 — Final Pressure,static,bilingual,Nothing is getting better. Running is no longer an option. You do what you can.,"Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.","机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-060/GITTE-060/LINDA-060; NL/ZH newlines must be rendered as separate lines.
 act12.017,ACT 12 — Final Pressure,static,bilingual,From every corridor comes the wet scrape of something moving over stone.,Uit elke gang komt het natte schuren van iets dat over steen beweegt.,每一条走廊里都传来某种东西在石面上爬行的湿黏摩擦声。,REUSED_REVIEWED,
 act12.018,ACT 12 — Final Pressure,static,bilingual,Closer. From every direction.,Dichterbij. Uit elke richting.,越来越近。从四面八方。,REUSED_REVIEWED,
 act12.019,ACT 12 — Final Pressure,static,bilingual,But you can't see anything.,Maar je ziet niets.,但你什么也看不见。,REUSED_REVIEWED,
-act12.020,ACT 12 — Final Pressure,static,bilingual,Something is already in the corridor.,Er is al iets in de gang.,走廊里已经有东西了。,REUSED_REVIEWED,
-act12.021,ACT 12 — Final Pressure,static,bilingual,You can smell their wet breath now.,Je ruikt nu hun vochtige adem.,你现在已经能闻到它们湿漉漉的呼吸。,REUSED_REVIEWED,
-act12.022,ACT 12 — Final Pressure,static,bilingual,5,5,5,REUSED_REVIEWED,
-act12.023,ACT 12 — Final Pressure,static,bilingual,4,4,4,REUSED_REVIEWED,
-act12.024,ACT 12 — Final Pressure,static,bilingual,3,3,3,REUSED_REVIEWED,
-act12.025,ACT 12 — Final Pressure,static,bilingual,2,2,2,REUSED_REVIEWED,
-act12.026,ACT 12 — Final Pressure,static,bilingual,1,1,1,REUSED_REVIEWED,
+act12.020,ACT 12 — Final Pressure,static,bilingual,Something is already in the corridor.,"Er bevindt zich al iets in de gang.
+Jullie kunnen nog niet zien wat het is.","走廊里已经有什么东西靠近了。
+你们还看不清它是什么。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-069/GITTE-069/LINDA-069; NL/ZH newlines must be rendered as separate lines.
+act12.021,ACT 12 — Final Pressure,static,bilingual,You can smell their wet breath now.,"Nu kunnen jullie zelfs de vochtige adem van iets ruiken.
+Het lijkt al heel dichtbij te zijn.","现在，你们甚至能闻到某些东西潮湿的气息。
+它们似乎已经非常靠近。",GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-062/GITTE-062/LINDA-062; NL/ZH newlines must be rendered as separate lines.
+act12.022,ACT 12 — Final Pressure,static,bilingual,5,5,5,GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-063/GITTE-063/LINDA-063; NL/ZH newlines must be rendered as separate lines.
+act12.023,ACT 12 — Final Pressure,static,bilingual,4,4,4,GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-064/GITTE-064/LINDA-064; NL/ZH newlines must be rendered as separate lines.
+act12.024,ACT 12 — Final Pressure,static,bilingual,3,3,3,GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-065/GITTE-065/LINDA-065; NL/ZH newlines must be rendered as separate lines.
+act12.025,ACT 12 — Final Pressure,static,bilingual,2,2,2,GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-066/GITTE-066/LINDA-066; NL/ZH newlines must be rendered as separate lines.
+act12.026,ACT 12 — Final Pressure,static,bilingual,1,1,1,GA_TEACHER_APPROVED_2026_11_23, | GA approved page(s) ANNA-067/GITTE-067/LINDA-067; NL/ZH newlines must be rendered as separate lines.
 act12.027,ACT 12 — Final Pressure,static,bilingual,ESCAPE SUCCESSFUL,ONTSNAPPING GESLAAGD,逃脱成功,REUSED_REVIEWED,
 act13.001,ACT 13 — Final Escape,static,bilingual,The Main Gate crashes open.,De Hoofdpoort slaat met geweld open.,主门轰然打开。,REUSED_REVIEWED,
 act13.002,ACT 13 — Final Escape,static,bilingual,The three of you run through.,Jullie drieën rennen erdoorheen.,你们三个人冲了出去。,REUSED_REVIEWED,
@@ -315,10 +385,18 @@ act14.005,ACT 14 — Final Reveal,static,bilingual,End,Einde,结束,UPDATED_V4,A
 system.001,Connection / system error,static,bilingual,Failed to fetch,Ophalen mislukt,获取失败,REUSED_REVIEWED,
 system.002,Connection / system error,static,bilingual,Unable to connect to the game server.,Kan geen verbinding maken met de gameserver.,无法连接到游戏服务器。,REUSED_REVIEWED,
 system.003,Connection / system error,static,bilingual,Check server configuration or internet connection.,Controleer de serverconfiguratie of de internetverbinding.,请检查服务器配置或网络连接。,REUSED_REVIEWED,
-act03.017,ACT 3 — Library,static,bilingual,A second wheel clicks into place.,Een tweede wieltje klikt op zijn plaats.,第二个转轮咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback stage 5.
-act03.018,ACT 3 — Library,static,bilingual,A third wheel clicks into place.,Een derde wieltje klikt op zijn plaats.,第三个转轮咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback stage 6.
-act03.019,ACT 3 — Library,static,bilingual,A fourth wheel clicks into place.,Een vierde wieltje klikt op zijn plaats.,第四个转轮咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback stage 7.
-act03.020,ACT 3 — Library,static,bilingual,The final wheel turns and clicks into place.,Het laatste wieltje draait en klikt op zijn plaats.,最后一个转轮转动并咔哒一声卡入正确位置。,ADDED_SPRINT3B_CA_CLARIFICATION,Post-90-second server fallback final stage; followed by existing act03.015.
+act03.017,ACT 3 — Library,static,bilingual,A second wheel clicks into place.,"Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.","第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。",GA_TEACHER_APPROVED_2026_11_23,Post-90-second server fallback stage 5. | GA approved page(s) ANNA-022/GITTE-022/LINDA-022; NL/ZH newlines must be rendered as separate lines.
+act03.018,ACT 3 — Library,static,bilingual,A third wheel clicks into place.,"Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.","第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。",GA_TEACHER_APPROVED_2026_11_23,Post-90-second server fallback stage 6. | GA approved page(s) ANNA-023/GITTE-023/LINDA-023; NL/ZH newlines must be rendered as separate lines.
+act03.019,ACT 3 — Library,static,bilingual,A fourth wheel clicks into place.,"Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.","第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。",GA_TEACHER_APPROVED_2026_11_23,Post-90-second server fallback stage 7. | GA approved page(s) ANNA-024/GITTE-024/LINDA-024; NL/ZH newlines must be rendered as separate lines.
+act03.020,ACT 3 — Library,static,bilingual,The final wheel turns and clicks into place.,"Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。",GA_TEACHER_APPROVED_2026_11_23,Post-90-second server fallback final stage; followed by existing act03.015. | GA approved page(s) ANNA-025/GITTE-025/LINDA-025; NL/ZH newlines must be rendered as separate lines.
 item.castle_map,ACT 1–5 — Item label,static,bilingual,Castle Map,Kasteelkaart,城堡地图,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
 item.number_note,ACT 1–5 — Item label,static,bilingual,Number Note,Briefje met cijfers,数字纸条,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical Pocket item display label.
 item.flashlight,ACT 1–5 — Item label,static,bilingual,Flashlight,Zaklamp,手电筒,ADDED_SPRINT3B_CA_CLARIFICATION,Canonical optional Pocket item display label.
