@@ -515,6 +515,8 @@ const ACT1_CHOICES = {
 const MEETING_CHOICES = [["library","act02.004"],["great_hall","act02.005"],["main_gate","act02.006"],["west_tower","act02.007"],["chapel","act02.008"],["help","act02.009"]];
 const LOCATION_KEYS = {library:"act01-g.009",great_hall:"act01-g.010",main_gate:"act01-g.011",west_tower:"act01-g.012",chapel:"act01-g.013"};
 const ROUTE_CHOICES = [["known","act04-05.005"],["unknown","act04-05.006"],["inspect","act04-05.007"],["ask","act04-05.008"]];
+const LIBRARY_AJAR_ASSET_KEY="shared.library.hidden_door_ajar";
+function sprint3bSceneAssetKey(state){const scene=state?.scene;if(scene?.scene_id==="act5_inspect_first"&&scene.phase_key==="post_inspection_route")return LIBRARY_AJAR_ASSET_KEY;if(scene?.scene_id==="act3_library")return"shared.library";return null}
 const S5_PRIVATE=[["main_gate","act08.001"],["west_tower","act08.002"],["compare","act08.003"],["follow_group","act08.004"]];
 const S6_DOORS=[["red","act09.011"],["blue","act09.012"],["black","act09.013"]];
 const DISPLAY_NAME_BY_ROLE={"GAL-A":"Gitte","GAL-B":"Anna","GAL-C":"Linda"};
@@ -598,7 +600,7 @@ function renderSprint3b(state,pocket) {
   const routeLocationKey=LOCATION_KEYS[scene.current_route_target];
   const showAct4Comparison=["act4_known_unknown","act5_route_discussion","act5_inspect_first"].includes(scene.scene_id);
   const act1OutcomeAsset=me.act1_stage==="consequence"?({study_map:"prop_gitte_castle_map",study_number_note:"prop_gitte_number_note_front",read_diary:"prop_anna_diary_open",read_notice:"prop_linda_closure_order",study_watch:"prop_linda_watch_face",try_star_key:"prop_linda_star_key"}[me.act1_choice_id]||null):null;
-  const sceneAsset=act1OutcomeAsset||(scene.scene_id==="act1_wake_up"?({"GAL-A":"opening.gitte_room","GAL-B":"opening.anna_room","GAL-C":"opening.linda_study"}[session.role_slot]):(scene.scene_id==="act3_library"?"shared.library":null));
+  const sceneAsset=act1OutcomeAsset||(scene.scene_id==="act1_wake_up"?({"GAL-A":"opening.gitte_room","GAL-B":"opening.anna_room","GAL-C":"opening.linda_study"}[session.role_slot]):sprint3bSceneAssetKey(state));
   if(!showAct4Comparison&&!sceneAsset)formalSceneMount.replaceChildren();
   const libraryDiscovery=scene.phase_key==="library_discovery";
   const libraryDiscoveryHtml=libraryDiscovery?`<section class="notice library-discovery" data-library-discovery="${escapeHtml(state.run_id)}"><p>${localizedHtml("act03.015")}</p><article><h3>${localizedHtml("item.photo_1897")}</h3><img id="libraryDiscoveryPhoto" class="v4-pocket-media" alt=""></article><article><h3>${localizedHtml("item.torn_note")}</h3><img id="libraryDiscoveryNote" class="v4-pocket-media" alt="">${localizedHtml("act03.016")}</article></section>`:"";
@@ -606,7 +608,7 @@ function renderSprint3b(state,pocket) {
   setStableHtml(sprint3bText,(showAct4Comparison?act4ComparisonHtml():sceneAsset?`<img id="s3bSceneImage" class="s5-scene" data-asset-key="${escapeHtml(sceneAsset)}" alt="">`:"")+(scene.phase_key==="route_update"
     ? `<div class="bilingual">${localizedTemplateHtml("act02.032",{location:routeLocationKey ? resolveLocalizedText(routeLocationKey) : ""})}${localizedHtml("act02.033")}</div>`
     : `<div class="bilingual">${routeConsequenceHtml}</div>${libraryDiscoveryHtml}${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`)+act4RevealHtml(state.act4_revealed));
-  if(sceneAsset)void setS5Asset("s3bSceneImage",sceneAsset);
+  if(sceneAsset)void setS5Asset("s3bSceneImage",sceneAsset,sceneAsset===LIBRARY_AJAR_ASSET_KEY?{fallbackKey:"shared.library"}:{});
   if(libraryDiscovery)void hydrateLibraryDiscovery();
   if(showAct4Comparison)hydrateAct4Comparison();
   if (scene.scene_id==="act1_wake_up" && me.act1_stage==="opening") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_ack_act1_opening">${localizedHtml("common.004")}</button>`;

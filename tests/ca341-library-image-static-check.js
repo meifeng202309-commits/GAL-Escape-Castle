@@ -1,0 +1,11 @@
+const fs=require("fs"),crypto=require("crypto");
+const app=fs.readFileSync("src/game/app.js","utf8"),registry=JSON.parse(fs.readFileSync("assets/asset-registry.json","utf8"));
+const sidecar=JSON.parse(fs.readFileSync("assets/staging/shared.library/variants/hidden_door_ajar/shared.library__hidden_door_ajar.json","utf8"));
+const bytes=fs.readFileSync("assets/staging/shared.library/variants/hidden_door_ajar/shared.library__hidden_door_ajar.webp");
+const assert=(value,message)=>{if(!value)throw Error(message)};
+assert(crypto.createHash("sha256").update(bytes).digest("hex")===sidecar.sha256,"Library ajar WebP does not match approved sidecar");
+const variant=registry.assets.find(item=>item.asset_key==="shared.library.hidden_door_ajar");
+assert(variant?.latest_version===1&&variant.active_version===null,"Library ajar candidate must remain staged and inactive");
+assert(app.includes('scene?.scene_id==="act5_inspect_first"&&scene.phase_key==="post_inspection_route"'),"Library ajar mapping is not limited to the authoritative resolved Inspect First phase");
+assert(app.includes('sceneAsset===LIBRARY_AJAR_ASSET_KEY?{fallbackKey:"shared.library"}:{}'),"Inactive/missing ajar candidate does not safely retain the original Library visual");
+console.log("CA341 Library image mapping static checks passed.");
