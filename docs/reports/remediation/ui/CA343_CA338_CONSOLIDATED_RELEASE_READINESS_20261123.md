@@ -3,6 +3,21 @@
 Status: PREPARED FOR CA FOCUSED CHECK — PRODUCTION NOT AUTHORIZED
 Owner after this packet: CA
 
+## CA-348 final candidate addendum (2026-11-23)
+
+The GA owner gap described in the original packet is now resolved by GA-151/GA-152 and CD candidate `e17c243a77fa2364e8dc9e41e7bfa98d587de4a3`. The exact coherent Player Pages payload is now these **four changed files**, published together with the repository's unchanged transitive modules:
+
+| Changed file | SHA-256 |
+|---|---|
+| `src/game/app.js` | `555cae01ceafdce2b9b1aac32e37c46c20a9ac2aea080e3b512a429fc4b92001` |
+| `src/styles/app.css` | `1c1b5630c945fc2cd97a453145ea48fa746545ce22156934c9648b23e0c27c05` |
+| `src/content/localization.generated.js` | `e3508548c3ed6b1c0348a3a3dae5ce8bb138a3282536924a89e4ec85d10c0ae5` |
+| `src/content/runtime-page-text.generated.js` | `b0a98399c4ad0f01014a5050c31f2f06e07fbc97437ec8f79c528cdc11cd1c77` |
+
+The existing recursive module-closure gate traverses ten Player modules from `src/game/app.js`, explicitly includes the new Runtime module, and reports zero missing dependencies. Production is currently through migration 078; additive migration `079_ca347_runtime_consumer_integration.sql` must be applied and verified before this Pages payload. This addendum does not authorize or perform either production operation.
+
+GA-152 provides exact owner copy for 92 Page-ID appearances; GA-151 supplies the protected catalog additions. The old Runtime-owner blocker below is retained as historical packet context and is superseded by this addendum. Linda watch v002 remains omitted because its approved-byte mismatch is unresolved. The other eight ready visuals remain as listed.
+
 ## 1. Exact source baseline
 
 The Player implementation baseline is `48567890fcb7ab53404c73bac89ab0f42ad0e6e1`; later commits through this packet add only tests, evidence and coordination records. Current deployable file hashes are:
@@ -51,7 +66,7 @@ GA still owns the requested protected catalog/key-split commit, the distinct ACT
 3. Download/read back each public Storage URL and require byte-for-byte SHA-256 equality before registry activation.
 4. Build an exact 31-row planned registry projection: preserve every unrelated row and six audio activations; activate the seven existing successors; add `shared.library.hidden_door_ajar` latest/active v1.
 5. Import each candidate, submit for review, record independent APPROVED review, mark the verified unique Storage path published, then activate each unpaired identity separately. Re-read candidates, projection and resolver paths/versions; download and hash resolved objects again.
-6. Publish the exact reviewed Player Pages payload only after its source/localization scope is accepted. Public smoke must cover first Join, completed-run replay/switch, original Library before resolution, ajar only after resolved Inspect First and after reconnect, Main Gate v003 A/B/C/WATCHER controls, all changed props and preserved ACT9/audio.
+6. After migration079 verification, publish the exact reviewed four-file changed Player Pages payload in the CA-348 addendum with its complete unchanged transitive module tree. Public smoke must cover first Join, completed-run replay/switch, original Library before resolution, ajar only after resolved Inspect First and after reconnect, Main Gate v003 A/B/C/WATCHER controls, all changed props and preserved ACT9/audio.
 7. Recovery keeps all uploaded immutable objects and candidate records. Restore seven existing keys to their prior active versions, restore Main Gate v2, and retain the 31st ajar registry identity with `active_version=null`. Restore the prior Pages head. Re-resolve and re-hash original Library, ACT9 and six audio.
 
 Disposable proof `45104960594` validates the ajar 31-row activation/inactive recovery and preservation invariants; it is not evidence of live upload, URL readability or real-room behavior.

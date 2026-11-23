@@ -13,6 +13,10 @@ on:
       - tests/ca338-first-join-diagnostic-browser.mjs
       - tests/ca341-library-image-static-check.js
       - tests/ca341-library-image-browser.mjs
+      - tests/v4-player-integrated-runtime-browser.mjs
+      - tests/helpers/v4-two-scene-pilot-driver.js
+      - tests/teacher-v5-pages-module-closure.test.mjs
+      - src/content/runtime-page-text.generated.js
       - assets/asset-registry.json
       - assets/staging/shared.library/variants/hidden_door_ajar/**
       - assets/staging/shared.main_gate/v003/**
@@ -38,6 +42,7 @@ jobs:
           node tests/ca341-library-image-static-check.js
           node tests/sprint8-static-check.js
           node tests/v4-player-integration-static-check.js
+          node tests/teacher-v5-pages-module-closure.test.mjs
       - name: Install disposable browser dependency
         run: npm install --prefix "$RUNNER_TEMP/ca338" playwright@latest
       - name: Install Chromium
@@ -48,3 +53,4 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-main-gate-v3-browser.mjs
           NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca338-first-join-diagnostic-browser.mjs
           NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/ca341-library-image-browser.mjs
+          NODE_PATH="$RUNNER_TEMP/ca338/node_modules" node tests/v4-player-integrated-runtime-browser.mjs
