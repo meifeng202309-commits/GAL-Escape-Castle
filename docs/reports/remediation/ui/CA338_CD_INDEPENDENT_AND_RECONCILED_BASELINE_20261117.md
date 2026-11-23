@@ -1,7 +1,7 @@
 # CA-338 CD production/manuscript/asset baseline
 
-Status: IN PROGRESS  
-Owner: CD  
+Status: CD SOURCE/DISPOSABLE WORK COMPLETE — RETURNED TO CA
+Owner: CA for audit/release gate; GA and VA own the explicitly separated canonical inputs
 Starting production: Player `8a1fd0b7fb91dd30bbcb34e3ddeb05af86c3219e`, migrations through 078
 
 ## Evidence-order limitation
@@ -25,8 +25,9 @@ CA-338 required CD to preserve a blind independent record before opening the two
 ## Focused validation receipts
 
 - GitHub Actions run `44037368534`: PASS. Real Chromium verified first finale presentation, a persistently visible finale Switch session control, cancellation of the active finale timer on exit, same-run reload without replay, and preservation of pre-run/in-progress reconnect behavior.
-- Main Gate v003 source validation: approved image SHA-256 `f68ea8c1f86a1fa3345fbb2e7842fd34e8e66c1256d71030c993366ea5068de4` matches; four bounded v003 anchors were added as CD technical metadata. Because the artwork already contains A/B/C, runtime suppresses duplicate A/B/C overlay and legend text while retaining assignment highlighting, accessible/action controls, and the non-baked WATCHER label. Browser validation is pending the triggered Actions run.
+- Main Gate v003 source validation: approved image SHA-256 `f68ea8c1f86a1fa3345fbb2e7842fd34e8e66c1256d71030c993366ea5068de4` matches; four bounded v003 anchors were added as CD technical metadata. Because the artwork already contains A/B/C, runtime suppresses duplicate A/B/C overlay and legend text while retaining assignment highlighting, accessible/action controls, and the non-baked WATCHER label.
 - Chrome Join diagnostic is intentionally evidence-only: a mocked first click must issue one normalized `s1_join_player`, transition immediately to the waiting lifecycle without reload, and emit no browser errors; a separate Enter-key probe records the current no-submit behavior. No Join behavior change is authorized from the incomplete human observation alone.
+- GitHub Actions run `44042459482` at exact head `4d4af1a031ff947d7e29b09534190fb5316683b5`: PASS. Real Chromium decoded Main Gate v003, verified all four anchors, suppressed duplicate baked A/B/C text, retained playable A/B/C controls and visible WATCHER semantics; it also proved the first Join click issues exactly one normalized RPC, reaches waiting without refresh or browser errors, and separately records that Enter currently does not submit.
 
 ## Current source baseline
 
@@ -34,3 +35,22 @@ CA-338 required CD to preserve a blind independent record before opening the two
 - Imported the separate approved Castle Map v002 and Linda watch-back v002 histories. The latter was stopped at integrity validation and its registry successor was not accepted.
 - Registry `latest_version` is advanced, while current `active_version` is preserved, for Castle Map, closure order, number-note front/back, Anna diary, library clue note and Main Gate. Publication/activation remains a separate release operation.
 - No protected localization catalog, image pixels, production database, Storage object or Pages branch was changed by CA-338 source work.
+
+## End-to-end release checklist
+
+| Item | Exercised result | Release disposition |
+|---|---|---|
+| Completed-run finale | Chromium PASS: first presentation, same-run no replay, visible Switch session, timer cancellation, in-progress reconnect retained | Source candidate ready for CA audit; not deployed |
+| Main Gate v003 | Exact hash and real-image decode PASS; four anchors and interactive labels/controls PASS | Candidate staged, Registry latest v3/active v2; activation remains a separate CA release gate |
+| Castle Map, number-note front/back, closure order, Anna diary, library clue note successors | Exact candidate/sidecar hashes pass; version-independent callers and current trigger mappings inspected | Candidates staged, `latest_version` advanced and `active_version` preserved; not published/activated |
+| Linda watch back v002 | FAIL: binary hash does not match its approved sidecar | Registry deliberately remains latest/active v1; VA exact-byte repair required |
+| Library hidden-door variant | Bytes exist, but no independent resolver identity or canonical trigger mapping exists | Teacher/GA/CA mapping decision required; CD did not invent a key/path |
+| Remaining approved CN/NL manuscript | 216-row matrix reconciled: 132 role-row copy candidates, 80 composed rows, three locked ACT14 rows and one consumer check | GA must commit the exact protected catalog/key split and regenerated output; CD did not edit owner-protected sources |
+| Chrome first Join | Chromium diagnostic PASS for button path; one RPC, waiting state, no reload/error. Enter is a separately recorded no-submit behavior | No product behavior change: reported human failure still lacks request/response evidence |
+| ACT9 Great Hall | Existing red-first and both-open bindings preserved; blue-first remains deferred | No CA-338 release mutation |
+
+## Exact implementation baseline and ownership return
+
+CA-338 implementation spans `382d972` through `4d4af1a031ff947d7e29b09534190fb5316683b5` on `remediation/sprint9-structural-v1`. The final focused CI receipt is Actions `44042459482` (PASS). No production release authority was exercised.
+
+CD closure is complete for all work possible within its authorized source/disposable envelope. CA is the next owner for independent audit and any future release decision. The remaining canonical inputs stay with their source owners: GA for protected Runtime catalog/key boundaries and generated localization output; VA for the exact approved Linda watch v002 bytes; Teacher/GA/CA for the Library hidden-door resolver identity/trigger decision.
