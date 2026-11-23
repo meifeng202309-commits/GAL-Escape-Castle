@@ -3,7 +3,7 @@ begin;
 create temp table ca342_payload as select :'registry_json'::jsonb as recovery;
 do $$
 declare
-  teacher text:='CA342-ASSET-REVIEWER'; recovery jsonb; planned jsonb; result jsonb; candidate_id uuid; seed_id uuid; cue jsonb;
+  teacher text:='CA342-ASSET-REVIEWER'; original jsonb; recovery jsonb; planned jsonb; result jsonb; candidate_id uuid; seed_id uuid; cue jsonb;
   planned_digest text; recovery_digest text; base_before jsonb; audio_before jsonb;
   cues jsonb:=jsonb_build_array(
     jsonb_build_object('key','audio.gate_opening','version',2,'sha','e2afea0715eb8df87fb20c5df3f77233957489be4fa40a5b29b34e92e7af3e55'),
@@ -13,18 +13,23 @@ declare
     jsonb_build_object('key','audio.snakes_approaching','version',2,'sha','f70052670176e50e631313e8c388de414a201e53b625358dfd282e232e99d8e8'),
     jsonb_build_object('key','audio.wet_scraping','version',1,'sha','fbe5707576b680ff01363f3ac4cee9c4f2c717b5f98f362b34ee1654e846c0f9'));
 begin
-  select p.recovery into recovery from ca342_payload p;
-  planned:=recovery||jsonb_build_array(jsonb_build_object(
+  select p.recovery into original from ca342_payload p;
+  recovery:=original||jsonb_build_array(jsonb_build_object(
+    'asset_key','shared.library.hidden_door_ajar','display_name','Library — Hidden Door Ajar',
+    'aliases',jsonb_build_array('Library 2nd scene','12 图书馆-2nd scene.png'),'asset_type','image',
+    'latest_version',1,'active_version',null,'continuity_refs',jsonb_build_array('shared.library'),
+    'paired_asset_group',null,'required_anchors','[]'::jsonb,'runtime_required',false));
+  planned:=original||jsonb_build_array(jsonb_build_object(
     'asset_key','shared.library.hidden_door_ajar','display_name','Library — Hidden Door Ajar',
     'aliases',jsonb_build_array('Library 2nd scene','12 图书馆-2nd scene.png'),'asset_type','image',
     'latest_version',1,'active_version',1,'continuity_refs',jsonb_build_array('shared.library'),
     'paired_asset_group',null,'required_anchors','[]'::jsonb,'runtime_required',false));
-  if jsonb_array_length(recovery)<>30 or jsonb_array_length(planned)<>31 then raise exception 'Unexpected registry projection size';end if;
+  if jsonb_array_length(original)<>30 or jsonb_array_length(recovery)<>31 or jsonb_array_length(planned)<>31 then raise exception 'Unexpected registry projection size';end if;
   recovery_digest:=encode(extensions.digest(convert_to(recovery::text,'UTF8'),'sha256'),'hex');
   planned_digest:=encode(extensions.digest(convert_to(planned::text,'UTF8'),'sha256'),'hex');
   perform public.s1_create_room('CA342R',teacher,'CA342-G','CA342-A','CA342-L');
   insert into public.asset_manager_reviewers(token_hash,label,enabled)values(public.s1_hash_token(teacher),'CA342 disposable reviewer',true);
-  perform public.asset_manager_sync_registry(teacher,recovery_digest,recovery);
+  perform public.asset_manager_sync_registry(teacher,encode(extensions.digest(convert_to(original::text,'UTF8'),'sha256'),'hex'),original);
 
   result:=public.asset_manager_import_candidate('shared.library',jsonb_build_object('version',2,'asset_type','image','creator','VA','mime_type','image/webp','width_px',1536,'height_px',1024,'sha256','1744eadaa32a5b5827004f70d7c420fb23a8c279875901adb7c09cbb64b045a3','ui_anchors',jsonb_build_array(jsonb_build_object('anchor_name','library_unknown_door','x_percent',66,'y_percent',48,'width_percent',4.5,'height_percent',13))));
   seed_id:=(result->>'asset_id')::uuid;perform public.asset_manager_submit_for_review(seed_id);perform public.asset_manager_review(teacher,seed_id,'APPROVED','base seed');perform public.asset_manager_mark_published(teacher,seed_id,'seed/shared.library/v002.webp','1744eadaa32a5b5827004f70d7c420fb23a8c279875901adb7c09cbb64b045a3');perform public.asset_manager_activate_group(teacher,array[seed_id]);
