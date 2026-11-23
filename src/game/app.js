@@ -598,7 +598,7 @@ function renderSprint3b(state,pocket) {
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
   const me=state.me, scene=state.scene; let html="";
   const routeLocationKey=LOCATION_KEYS[scene.current_route_target];
-  const showAct4Comparison=["act4_known_unknown","act5_route_discussion","act5_inspect_first"].includes(scene.scene_id);
+  const showAct4Comparison=["act4_known_unknown","act5_route_discussion","act5_inspect_first"].includes(scene.scene_id)&&scene.phase_key!=="post_inspection_route";
   const act1OutcomeAsset=me.act1_stage==="consequence"?({study_map:"prop_gitte_castle_map",study_number_note:"prop_gitte_number_note_front",read_diary:"prop_anna_diary_open",read_notice:"prop_linda_closure_order",study_watch:"prop_linda_watch_face",try_star_key:"prop_linda_star_key"}[me.act1_choice_id]||null):null;
   const sceneAsset=act1OutcomeAsset||(scene.scene_id==="act1_wake_up"?({"GAL-A":"opening.gitte_room","GAL-B":"opening.anna_room","GAL-C":"opening.linda_study"}[session.role_slot]):sprint3bSceneAssetKey(state));
   if(!showAct4Comparison&&!sceneAsset)formalSceneMount.replaceChildren();
