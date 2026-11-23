@@ -5,6 +5,7 @@ const phaseGuard=fs.readFileSync("database/078_ca327_castle_voice_phase_guard.sq
 const consumerIntegration=fs.readFileSync("database/079_ca347_runtime_consumer_integration.sql","utf8");
 const app=fs.readFileSync("src/game/app.js","utf8");
 const bundle=fs.readFileSync("src/content/localization.generated.js","utf8");
+const pageBundle=fs.readFileSync("src/content/runtime-page-text.generated.js","utf8");
 
 for(const token of[
   "castle_voice_heard_at timestamptz",
@@ -45,6 +46,21 @@ for(const token of[
 ])assert(app.includes(token),`GA147 player caller missing: ${token}`);
 assert(app.includes('<span class="localized-line" lang="nl">'),"Canonical Runtime spans do not preserve approved line breaks");
 assert(!app.includes('${localizedHtml("common.004")}</button>${actions}'),"ACT6 progression controls remain visible before Voice acknowledgement");
+for(const token of[
+  'resolveApprovedRuntimePage',
+  'function act1RuntimePage(me)',
+  'route==="known"?29:30',
+  's.phase_key==="act7_vote"?approvedRuntimePageHtml(page)',
+  's.route_taken_act8==="main_gate"?40:41',
+  'function sprint6RuntimePage(payload)',
+  '"act09.017|act09.018":45',
+  's.phase_key==="act11_discussion")return 56',
+  's.cinematic_stage===13)return 68',
+  's.phase_key==="act13_escape")return 71'
+])assert(app.includes(token),`GA152 Page-ID Runtime caller missing: ${token}`);
+assert(app.includes('[["enter_blue","act09.020"],["stay","act09.021"]]'),"ACT9 protected STAY Action caller changed");
+assert(pageBundle.includes('export function resolveApprovedRuntimePage(pageId)'),"GA152 Page-ID resolver export missing");
+assert((pageBundle.match(/^  "(?:ANNA|GITTE|LINDA)-\d{3}": "runtime\.page\.v1\.\d{3}",?$/gm)||[]).length===92,"GA152 generated Page-ID map is not exactly 92 appearances");
 
 for(const key of[
   '"act01-a.014b"',
