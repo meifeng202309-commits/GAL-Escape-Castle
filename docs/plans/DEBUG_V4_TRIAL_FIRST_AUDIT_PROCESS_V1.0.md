@@ -2,7 +2,8 @@
 
 Date: 2026-10-21
 Owner: CA
-Status: ACTIVE — Teacher-directed audit prioritization, subject to existing production write permissions
+Status: ACTIVE — baseline Trial-First principles; on operational workflow overlaps, Teacher-approved Lean Development V0.2 (2026-11-23) takes priority, without changing protected production permissions
+Operational priority: `docs/plans/GAL_ESCAPE_CASTLE_LEAN_DEVELOPMENT_RULES_DRAFT_V0.2.md` (ACTIVE; filename retains draft historical suffix). Do not duplicate checks, reviews or stage gates from both documents.
 Parent: docs/plans/Debug Implementation Plan V4.md
 
 ## 1. 最高目标与边界
