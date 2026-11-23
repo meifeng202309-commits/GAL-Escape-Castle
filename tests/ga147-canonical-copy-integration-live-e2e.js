@@ -22,6 +22,8 @@ async function fixture(){
   const started=await rpc("s9_start_formal_game",{p_room_code:room,p_teacher_token:teacher,p_run_mode:"audit"});
   await Promise.all([0,1,2].map(i=>rpc("s3b_ack_act1_opening",auth(f,i))));
   for(const [i,p_choice_id]of [[0,"study_map"],[1,"check_phone"],[2,"study_watch"]])await rpc("s3b_submit_act1_choice",{...auth(f,i),p_choice_id});
+  const annaPhone=await rpc("s3b_get_player_state",auth(f,1));
+  assert(JSON.stringify(annaPhone.me.act1_text_keys)===JSON.stringify(["act01-a.014","act01-g.005"]),"Anna phone consequence retained obsolete device-discovery copy.");
   await Promise.all([0,1,2].map(i=>rpc("s3b_complete_act1",auth(f,i))));
   await Promise.all([0,1,2].map(i=>rpc("s3b_submit_first_meeting",{...auth(f,i),p_choice_id:"library"})));
   await Promise.all([0,1,2].map(i=>rpc("s3b_grab_and_leave",{...auth(f,i),p_client_request_id:crypto.randomUUID(),p_expected_run_id:started.run_id})));

@@ -35,7 +35,7 @@ begin
   select player_id into anna_id from public.s1_room_players where room_code=room and role_slot='GAL-B';
   update public.s3b_player_progress set act1_stage='action',act1_choice_id=null,act1_locked_at=null where run_id=fixture_run_id and player_id=anna_id;
   perform public.s3b_submit_act1_choice(room,anna,'check_phone');
-  if (select act1_text_keys from public.s3b_player_progress where run_id=fixture_run_id and player_id=anna_id) <> '["act01-a.014","act01-g.005","act01-a.014b"]'::jsonb then
+  if (select act1_text_keys from public.s3b_player_progress where run_id=fixture_run_id and player_id=anna_id) <> '["act01-a.014","act01-g.005"]'::jsonb then
     raise exception 'Anna check-phone canonical order is incorrect.';
   end if;
 
