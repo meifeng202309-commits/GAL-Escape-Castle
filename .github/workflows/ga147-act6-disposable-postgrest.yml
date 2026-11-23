@@ -94,7 +94,16 @@ jobs:
         run: |
           set -euo pipefail
           registry_json="$(jq -c '.assets' assets/asset-registry.json)"
-          psql -X -v ON_ERROR_STOP=1 -v registry_json="$registry_json" -f tests/ca342-library-ajar-release-rehearsal.sql
+          set +e
+          output="$(psql -X -v ON_ERROR_STOP=1 -v registry_json="$registry_json" -f tests/ca342-library-ajar-release-rehearsal.sql 2>&1)"
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          if ((status!=0));then
+            diagnostic="$(printf '%s\n' "$output"|tail -n 12|tr '\n' ' '|sed 's/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')"
+            echo "::error title=CA342 Library asset lifecycle failure::$diagnostic"
+            exit "$status"
+          fi
       - name: Run genuine ACT1-to-ACT6 lifecycle and acknowledgement gate
         shell: bash
         run: |
