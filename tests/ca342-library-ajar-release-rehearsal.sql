@@ -26,8 +26,8 @@ begin
   insert into public.asset_manager_reviewers(token_hash,label,enabled)values(public.s1_hash_token(teacher),'CA342 disposable reviewer',true);
   perform public.asset_manager_sync_registry(teacher,recovery_digest,recovery);
 
-  result:=public.asset_manager_import_candidate('shared.library',jsonb_build_object('version',2,'asset_type','image','creator','VA','mime_type','image/webp','width_px',1448,'height_px',1086,'sha256',repeat('a',64)));
-  seed_id:=(result->>'asset_id')::uuid;perform public.asset_manager_submit_for_review(seed_id);perform public.asset_manager_review(teacher,seed_id,'APPROVED','base seed');perform public.asset_manager_mark_published(teacher,seed_id,'seed/shared.library/v002.webp',repeat('a',64));perform public.asset_manager_activate_group(teacher,array[seed_id]);
+  result:=public.asset_manager_import_candidate('shared.library',jsonb_build_object('version',2,'asset_type','image','creator','VA','mime_type','image/webp','width_px',1536,'height_px',1024,'sha256','1744eadaa32a5b5827004f70d7c420fb23a8c279875901adb7c09cbb64b045a3','ui_anchors',jsonb_build_array(jsonb_build_object('anchor_name','library_unknown_door','x_percent',66,'y_percent',48,'width_percent',4.5,'height_percent',13))));
+  seed_id:=(result->>'asset_id')::uuid;perform public.asset_manager_submit_for_review(seed_id);perform public.asset_manager_review(teacher,seed_id,'APPROVED','base seed');perform public.asset_manager_mark_published(teacher,seed_id,'seed/shared.library/v002.webp','1744eadaa32a5b5827004f70d7c420fb23a8c279875901adb7c09cbb64b045a3');perform public.asset_manager_activate_group(teacher,array[seed_id]);
   base_before:=public.asset_resolve('shared.library');
   for cue in select * from jsonb_array_elements(cues) loop
     result:=public.asset_manager_import_candidate(cue->>'key',jsonb_build_object('version',(cue->>'version')::int,'asset_type','audio','creator','VA','mime_type','audio/mpeg','duration_ms',1000,'loopable',false,'sha256',cue->>'sha'));
