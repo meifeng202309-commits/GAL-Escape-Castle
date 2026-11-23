@@ -526,7 +526,7 @@ const TRIAL_PLACEHOLDER_PATHS={"opening.gitte_room":"assets/staging/opening.gitt
 const EMPTY_IMAGE="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
 
 function localizedHtml(key) {
-  try { const value=resolveLocalizedText(key); return `<span class="localized" lang="nl">${escapeHtml(value.nl)}</span>${value.zh ? `<span class="localized" lang="zh">${escapeHtml(value.zh)}</span>` : ""}`; }
+  try { const value=resolveLocalizedText(key); return `<span class="localized-line" lang="nl">${escapeHtml(value.nl)}</span>${value.zh ? `<span class="localized-line" lang="zh">${escapeHtml(value.zh)}</span>` : ""}`; }
   catch { return `<span class="bad">Missing text: ${escapeHtml(key)}</span>`; }
 }
 

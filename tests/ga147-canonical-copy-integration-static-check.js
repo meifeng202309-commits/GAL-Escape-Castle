@@ -43,7 +43,7 @@ for(const token of[
   'data-s5-rpc="s10_ack_castle_voice_intro"',
   'payload.p_expected_run_id=button.dataset.s5Run'
 ])assert(app.includes(token),`GA147 player caller missing: ${token}`);
-assert(app.includes('<span class="localized" lang="nl">'),"Canonical Runtime spans do not preserve approved line breaks");
+assert(app.includes('<span class="localized-line" lang="nl">'),"Canonical Runtime spans do not preserve approved line breaks");
 assert(!app.includes('${localizedHtml("common.004")}</button>${actions}'),"ACT6 progression controls remain visible before Voice acknowledgement");
 
 for(const key of[

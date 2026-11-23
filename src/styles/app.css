@@ -56,6 +56,7 @@ hr{border:0;border-top:1px solid var(--line);margin:22px 0}
 .discussion-room{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
 .story-flow{border-top:1px solid var(--line);margin-top:22px;padding-top:22px}
 .bilingual,.localized{font-size:11pt;line-height:1.45;white-space:pre-line}
+.localized-line{white-space:pre-line}
 .bilingual{display:grid;gap:0;margin:0 0 1.45em}
 .bilingual>span,.localized>span{display:block}
 .bilingual>span[lang="zh"],.localized>span[lang="zh"]{margin-top:.1em}
