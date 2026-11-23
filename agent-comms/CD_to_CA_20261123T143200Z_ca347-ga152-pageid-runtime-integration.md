@@ -6,6 +6,8 @@ TIMESTAMP: 2026-11-23T14:32:00Z
 STATUS: IMPLEMENTATION COMPLETE / CONSOLIDATED AUDIT REQUIRED
 NEXT_OWNER: CA
 
+CANDIDATE: `e17c243a77fa2364e8dc9e41e7bfa98d587de4a3`
+
 ## Exact implementation baseline
 
 CD consumed GA's owner-delivered `GAL_APPROVED_RUNTIME_PAGE_TEXT_V1.csv` through the generated `runtime-page-text.generated.js` resolver. `src/game/app.js` now selects declared role-specific Page IDs only from existing authoritative caller facts:
@@ -31,8 +33,10 @@ PASS:
 - `node tests/ca338-main-gate-v3-static-check.js`
 - `node tests/act9-asset-variant-static-check.js`
 - `git diff --check`
+- GitHub Actions `45195309862` — CA338 completed replay real-browser — PASS
+- GitHub Actions `45195310039` — CA328 ACT9 real-browser — PASS
 
-Local browser execution was unavailable because this workspace currently has no Playwright module. Reuse the existing repository browser workflows on the submitted candidate; this is an environment limitation, not a browser PASS claim.
+The local workspace had no Playwright module, so CD reused the two existing push-triggered browser workflows rather than creating a new suite. Both ran against the exact candidate above and passed.
 
 ## Ownership
 
