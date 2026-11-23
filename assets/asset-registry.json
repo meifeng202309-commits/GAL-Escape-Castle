@@ -224,23 +224,6 @@
       "runtime_required": true
     },
     {
-      "asset_key": "shared.library.hidden_door_ajar",
-      "display_name": "Library — Hidden Door Ajar",
-      "aliases": [
-        "Library 2nd scene",
-        "12 图书馆-2nd scene.png"
-      ],
-      "asset_type": "image",
-      "latest_version": 1,
-      "active_version": null,
-      "continuity_refs": [
-        "shared.library"
-      ],
-      "paired_asset_group": null,
-      "required_anchors": [],
-      "runtime_required": false
-    },
-    {
       "asset_key": "prop.photo_1897",
       "display_name": "1897 Photograph",
       "aliases": [
