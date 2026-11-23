@@ -544,8 +544,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "SIGNAL UNSTABLE",
-    "nl": "SIGNAAL ONSTABIEL",
-    "zh": "信号不稳定"
+    "nl": "Je merkt dat je telefoon weer een zwak signaal heeft, maar de verbinding is erg onstabiel.\nJe kunt proberen contact te leggen met de twee andere meisjes. Kies bij Action welk bericht je nu wilt versturen.",
+    "zh": "你发现手机出现了一点信号，但连接很不稳定。\n你可以尝试联系另外两位伙伴。请在 Action 区选择你现在想发送的信息。"
   },
   "act02.003": {
     "textType": "static",
@@ -796,8 +796,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "You reach an iron access gate.",
-    "nl": "Je bereikt een ijzeren toegangspoort.",
-    "zh": "你们来到一道铁制通行门前。"
+    "nl": "Op de gekozen route komen jullie bij een ijzeren doorgangspoort.\nBekijk de poort voor jullie en let op wat er vervolgens gebeurt.",
+    "zh": "沿着选定的路线，你们来到一道铁制通行门前。\n请观察眼前的门，留意后续提示。"
   },
   "act02.039": {
     "textType": "static",
@@ -852,8 +852,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "A bricked stairway and an old municipal seal block the western access.",
-    "nl": "Een dichtgemetselde trap en een oud gemeentelijk zegel blokkeren de westelijke toegang.",
-    "zh": "一段被砖封的楼梯和一枚旧市政封条堵住了西侧入口。"
+    "nl": "De toegang tot de westtoren is afgesloten.\nJullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.\nLangs deze weg kunnen jullie voorlopig niet verder.",
+    "zh": "通往西塔的入口被封住了。\n你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。\n这条路目前无法直接通过。"
   },
   "act02.047": {
     "textType": "static",
@@ -873,8 +873,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "A slow, wet scraping sound comes from behind the chapel doors.",
-    "nl": "Achter de deuren van de kapel klinkt een langzaam, nat schurend geluid.",
-    "zh": "礼拜堂门后传来缓慢、湿黏的摩擦声。"
+    "nl": "Jullie staan voor de deur van de kapel.\nAchter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.",
+    "zh": "你们来到礼拜堂门外。\n从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。"
   },
   "act02.050": {
     "textType": "static",
@@ -908,8 +908,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "You see an old brass direction plaque:",
-    "nl": "Je ziet een oud koperen richtingbord:",
-    "zh": "你看到一块旧黄铜方向牌："
+    "nl": "Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.\nLees welke richting de wegwijzer aangeeft en ga dan verder.",
+    "zh": "沿着选定路线前进时，你看见一块旧黄铜路牌。\n请阅读路牌指示的方向，然后继续前进。"
   },
   "act03.002": {
     "textType": "static",
@@ -957,8 +957,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "WHAT WAS GIVEN FIRST\nOPENS WHAT COMES NEXT.",
-    "nl": "WAT JE EERST KREEG\nOPENT WAT HIERNA KOMT.",
-    "zh": "最先得到的东西\n打开接下来之物。"
+    "nl": "In de bibliotheek ontdekken jullie een afgesloten kistje.\nEr staat een raadsel op gegraveerd:\n‘Wat je als eerste kreeg, opent wat hierna komt.’\nProbeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.",
+    "zh": "你们在图书馆发现一个上锁的盒子。\n盒子上刻着一句谜语：\n“最先得到的东西，打开接下来之物。”\n请结合此前发现的线索，尝试打开盒子。"
   },
   "act03.009": {
     "textType": "static",
@@ -978,29 +978,29 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "The box remains locked.",
-    "nl": "De kist blijft op slot.",
-    "zh": "盒子仍然锁着。"
+    "nl": "Het kistje zit nog op slot.\nJullie hebben nog niet ontdekt hoe je het kunt openen.",
+    "zh": "盒子仍然锁着。\n你们还没有找到能让它打开的正确方法。"
   },
   "act03.012": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Something one of you carried from the beginning may matter. Check your Pocket.",
-    "nl": "Iets dat een van jullie vanaf het begin bij zich had, kan belangrijk zijn. Kijk in je inventaris.",
-    "zh": "你们中有人从一开始就带着的东西可能很重要。检查随身物品。"
+    "nl": "Het kistje zit nog op slot.\nEen nieuwe hint zegt dat iets wat een van jullie vanaf het begin bij zich had, belangrijk kan zijn.\nBekijk ieder je eigen Pocket en bespreek de relevante aanwijzingen.",
+    "zh": "盒子仍然锁着。\n新提示提醒你们：有人从一开始就带着的某样东西可能很重要。\n请检查各自的 Pocket，并交流相关线索。"
   },
   "act03.013": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Look for a five-number sequence.",
-    "nl": "Zoek naar een reeks van vijf cijfers.",
-    "zh": "寻找一个由五个数字组成的序列。"
+    "nl": "Het kistje zit nog op slot.\nDe nieuwe hint luidt: zoek een reeks van vijf cijfers.\nDenk terug aan de aanwijzingen die jullie al hebben gezien.",
+    "zh": "盒子仍然锁着。\n新的提示是：寻找一串由五个数字组成的信息。\n请回想你们已经看到的线索。"
   },
   "act03.014": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "One of the five wheels clicks into place.",
-    "nl": "Een van de vijf wieltjes klikt op zijn plaats.",
-    "zh": "五个转轮中的一个咔哒一声卡入正确位置。"
+    "nl": "Het eerste cijferwieltje klikt op de juiste plaats.\nHet kistje is nog niet helemaal open.",
+    "zh": "第一个密码转轮发出咔哒一声，卡在了正确位置。\n盒子还没有完全打开。"
   },
   "act03.015": {
     "textType": "static",
@@ -1027,8 +1027,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "This door is not shown on the Castle Map.",
-    "nl": "Deze deur staat niet op de kasteelkaart.",
-    "zh": "这扇门没有出现在城堡地图上。"
+    "nl": "In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.\nDe doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",
+    "zh": "你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。\n眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。"
   },
   "act04-05.003": {
     "textType": "static",
@@ -1076,8 +1076,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Compare what you know before the route vote.",
-    "nl": "Vergelijk wat jullie weten vóór de stemming over de route.",
-    "zh": "在路线投票前，先比较你们掌握的信息。"
+    "nl": "Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.\nDeel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",
+    "zh": "你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。\n请先在 Discussion 区分享各自已知的信息，再进行路线投票。"
   },
   "act04-05.010": {
     "textType": "static",
@@ -1573,8 +1573,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "NO CONSENSUS. NO ACTION.",
-    "nl": "GEEN CONSENSUS. GEEN ACTIE.",
-    "zh": "没有共识。不执行行动。"
+    "nl": "Bij deze stemming werd geen overeenstemming bereikt. Daarom heeft het systeem geen deur geactiveerd en is niemand door een deur gegaan.\nOverleg verder en wacht tot de leerkracht de volgende stemronde opent.",
+    "zh": "这轮投票没有形成共识，所以系统没有执行开门或进入的动作。\n请继续讨论，等待 Teacher 开放下一轮投票。"
   },
   "act09.010": {
     "textType": "static",
@@ -1608,8 +1608,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "RED DOOR ACTIVATED.",
-    "nl": "RODE DEUR GEACTIVEERD.",
-    "zh": "红门已启动。"
+    "nl": "De rode deur is geactiveerd.\nLet op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.",
+    "zh": "红门已经启动。\n请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。"
   },
   "act09.015": {
     "textType": "static",
@@ -1643,8 +1643,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "BLUE DOOR ACTIVATED.",
-    "nl": "BLAUWE DEUR GEACTIVEERD.",
-    "zh": "蓝门已启动。"
+    "nl": "De blauwe deur is geactiveerd.\nBeslis bij Action of jullie nu door de blauwe deur gaan.",
+    "zh": "蓝门已经启动。\n请在 Action 区决定下一步是否进入蓝门。"
   },
   "act09.020": {
     "textType": "static",
@@ -1713,22 +1713,22 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Take it. Without it, you'll need more time to open the Main Gate.",
-    "nl": "Neem hem. Zonder deze sleutel heb je meer tijd nodig om de Hoofdpoort te openen.",
-    "zh": "拿上它。没有它，你们打开主门会需要更多时间。"
+    "nl": "Je krijgt een advies dat alleen jij kunt zien:\n‘Neem de gouden sleutel mee. Zonder die sleutel kan het langer duren om de hoofdpoort te openen.’\nBeslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.",
+    "zh": "你得到一条只有自己能看到的建议：\n“带走金钥匙。没有它，打开主门可能需要更多时间。”\n请在讨论中决定是否告诉伙伴，再参与团队选择。"
   },
   "act10.002": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Don't take it. The alarm will go off, and they'll get here sooner.",
-    "nl": "Neem hem niet. Het alarm zal afgaan en ze zullen sneller hier zijn.",
-    "zh": "别拿。警报会响，他们会更快赶到这里。"
+    "nl": "Je krijgt een advies dat alleen jij kunt zien:\n‘Neem de gouden sleutel niet mee. Anders gaat het alarm af en kunnen ze hier sneller zijn.’\nBeslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.",
+    "zh": "你得到一条只有自己能看到的建议：\n“不要拿走金钥匙。否则警报会响，它们可能更快来到这里。”\n请在讨论中决定是否告诉伙伴，再参与团队选择。"
   },
   "act10.003": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "The gate can be opened without it. Why bother?",
-    "nl": "De poort kan ook zonder deze sleutel open. Waarom zou je hem nemen?",
-    "zh": "没有它也能打开大门。何必拿呢？"
+    "nl": "Je krijgt een advies dat alleen jij kunt zien:\n‘Ook zonder deze gouden sleutel kun je de hoofdpoort openen. Waarom zou je hem dan toch meenemen?’\nBeslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.",
+    "zh": "你得到一条只有自己能看到的建议：\n“不带走这把金钥匙，也能打开主门。那么，为什么一定要带走它？”\n请在讨论中决定是否告诉伙伴，再参与团队选择。"
   },
   "act10.004": {
     "textType": "static",
@@ -1762,15 +1762,15 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "A harsh alarm bell rings somewhere inside the walls.",
-    "nl": "Er klinkt ergens binnen de muren een schelle alarmbel.",
-    "zh": "城堡墙体内部某处响起刺耳的警铃。"
+    "nl": "Jullie kiezen ervoor het gouden voorwerp mee te nemen.\nPlotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.\nLet op wat er daarna gebeurt.",
+    "zh": "你们选择拿走金色物品。\n突然，城堡墙壁内部响起刺耳的警铃。\n请留意警报带来的后续变化。"
   },
   "act10.009": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "You leave the chamber and follow the inner route toward the Main Gate.",
-    "nl": "Jullie verlaten de kamer en volgen de binnenroute naar de Hoofdpoort.",
-    "zh": "你们离开石室，沿内部路线前往主门。"
+    "nl": "Jullie besluiten het gouden voorwerp niet mee te nemen.\nSamen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.",
+    "zh": "你们决定不拿走金色物品。\n大家离开石室，沿内部通道前往主门。"
   },
   "act10.010": {
     "textType": "static",
@@ -1937,22 +1937,22 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "ERROR — NUMBER WHEEL JAMMED",
-    "nl": "FOUT — CIJFERWIEL GEBLOKKEERD",
-    "zh": "错误 — 数字轮盘卡住"
+    "nl": "Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.\nReageer via de keuzes die nu bij Action verschijnen.",
+    "zh": "A站的数字轮盘卡住了，暂时无法正常转动。\n请根据 Action 区当前提供的选项作出反应。"
   },
   "act12.006": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "ERROR — LEVER LOCKED",
-    "nl": "FOUT — HENDEL GEBLOKKEERD",
-    "zh": "错误 — 杠杆锁死"
+    "nl": "De hefboom bij post B zit vast en kan voorlopig niet worden gebruikt.\nReageer via de keuzes die nu bij Action verschijnen.",
+    "zh": "B站的杠杆卡住了，暂时无法正常使用。\n请根据 Action 区当前提供的选项作出反应。"
   },
   "act12.007": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "ERROR — KEY MECHANISM STUCK",
-    "nl": "FOUT — SLEUTELMECHANISME VASTGELOPEN",
-    "zh": "错误 — 钥匙机构卡住"
+    "nl": "Het sleutelmechanisme bij post C is vastgelopen en werkt voorlopig niet.\nReageer via de keuzes die nu bij Action verschijnen.",
+    "zh": "C站的钥匙机构卡住了，暂时无法正常使用。\n请根据 Action 区当前提供的选项作出反应。"
   },
   "act12.008": {
     "textType": "static",
@@ -2014,8 +2014,8 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Nothing is getting better. Running is no longer an option. You do what you can.",
-    "nl": "Niets wordt beter. Weglopen is geen optie meer. Je doet wat je kunt.",
-    "zh": "情况一点也没有好转。逃跑已经不再是选项。你只能尽你所能。"
+    "nl": "Het mechanisme werkt nog steeds niet zoals het moet.\nHet gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.\nJullie kunnen alleen blijven proberen.",
+    "zh": "机关仍未恢复正常。\n危险正在逼近，而你们已来不及另找逃生路线。\n现在只能尽力完成眼前的操作。"
   },
   "act12.017": {
     "textType": "static",
@@ -2042,15 +2042,15 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "Something is already in the corridor.",
-    "nl": "Er is al iets in de gang.",
-    "zh": "走廊里已经有东西了。"
+    "nl": "Er bevindt zich al iets in de gang.\nJullie kunnen nog niet zien wat het is.",
+    "zh": "走廊里已经有什么东西靠近了。\n你们还看不清它是什么。"
   },
   "act12.021": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "You can smell their wet breath now.",
-    "nl": "Je ruikt nu hun vochtige adem.",
-    "zh": "你现在已经能闻到它们湿漉漉的呼吸。"
+    "nl": "Nu kunnen jullie zelfs de vochtige adem van iets ruiken.\nHet lijkt al heel dichtbij te zijn.",
+    "zh": "现在，你们甚至能闻到某些东西潮湿的气息。\n它们似乎已经非常靠近。"
   },
   "act12.022": {
     "textType": "static",
@@ -2175,29 +2175,29 @@ export const LOCALIZATION_CATALOG = {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "A second wheel clicks into place.",
-    "nl": "Een tweede wieltje klikt op zijn plaats.",
-    "zh": "第二个转轮咔哒一声卡入正确位置。"
+    "nl": "Ook het tweede cijferwieltje klikt op de juiste plaats.\nEr zijn nog wieltjes die moeten worden ingesteld.",
+    "zh": "第二个密码转轮也卡到了正确位置。\n还有转轮需要调整。"
   },
   "act03.018": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "A third wheel clicks into place.",
-    "nl": "Een derde wieltje klikt op zijn plaats.",
-    "zh": "第三个转轮咔哒一声卡入正确位置。"
+    "nl": "Het derde cijferwieltje klikt op de juiste plaats.\nHet kistje is nog steeds niet helemaal open.",
+    "zh": "第三个密码转轮也卡到了正确位置。\n盒子仍未完全打开。"
   },
   "act03.019": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "A fourth wheel clicks into place.",
-    "nl": "Een vierde wieltje klikt op zijn plaats.",
-    "zh": "第四个转轮咔哒一声卡入正确位置。"
+    "nl": "Het vierde cijferwieltje klikt op de juiste plaats.\nEr blijft nog één wieltje over.",
+    "zh": "第四个密码转轮也卡到了正确位置。\n只剩下最后一个转轮。"
   },
   "act03.020": {
     "textType": "static",
     "displayPolicy": "bilingual",
     "englishMaster": "The final wheel turns and clicks into place.",
-    "nl": "Het laatste wieltje draait en klikt op zijn plaats.",
-    "zh": "最后一个转轮转动并咔哒一声卡入正确位置。"
+    "nl": "Het laatste cijferwieltje draait en klikt op de juiste plaats.\nLet op wat er nu met het kistje gebeurt.",
+    "zh": "最后一个密码转轮转动，咔哒一声卡到了正确位置。\n请注意盒子的下一步变化。"
   },
   "item.castle_map": {
     "textType": "static",
