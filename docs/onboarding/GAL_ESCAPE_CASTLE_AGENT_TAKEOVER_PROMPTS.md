@@ -161,6 +161,12 @@ docs/onboarding/START_HERE.md
 
 不要继续执行这个 prompt 里不存在的旧 migration task、asset task 或旧 handoff；所有 fast-changing work 都必须从当前 repository 重新解析。
 
+在不降低正确性、验证强度或 required evidence 的前提下，尽量减少不必要的 token 消耗：
+- 不要高频轮询测试、CI、Agent 来信或其他外部状态；使用合理间隔，只在预期可能发生变化时查询；
+- 工具查询只返回完成当前判断所需的精简状态字段；
+- 不要读取或输出完整 workflow JSON、大段无关日志或其他可由小范围查询替代的内容；
+- 外部状态没有变化时，不要重复读取相同证据或重复进行同一轮分析。
+
 完成 Cold Start 后：
 1. 确认当前 authorized implementation scope；
 2. 确认哪些 canonical sources 是只读 / protected；
