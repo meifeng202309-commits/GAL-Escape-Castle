@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-25T02:52:00Z
+> Last refreshed: 2026-11-25T07:40:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
-CURRENT_GATE          = CA349_SOURCE_BROWSER_PASS / RELEASE_HOLD_PENDING_TEACHER_APPROVED_WATCH_V003_STAGING
-CURRENT_OWNER         = CD — stage VA-prepared approved watch v003 binary via previously proven local Git route
-NEXT_REQUIRED_ACTION  = CD obtain VA-prepared v003 zip (one Teacher/local transfer only if inaccessible), upload exact image and metadata to GitHub, verify bytes, preserve v001/v002 and active_version=1; include in existing CA338 unified release packet, then CA requests one Teacher production decision. No production writes authorized.
+CURRENT_GATE          = CA354_NINE_IMAGES_AND_RUNTIME_RELEASE_PACKET_READY / TEACHER_PRODUCTION_AUTHORIZATION_PENDING
+CURRENT_OWNER         = Teacher — decide one unified CA338 production release authorization
+NEXT_REQUIRED_ACTION  = Teacher approve or withhold unified coordinated release: migration079, nine approved images/registry activation, reviewed four-file Pages payload, minimal live smoke and tested recovery; if authorized CD executes one batch, otherwise HOLD. No production writes yet.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
