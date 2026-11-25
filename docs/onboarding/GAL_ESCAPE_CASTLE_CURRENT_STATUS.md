@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-25T02:38:00Z
+> Last refreshed: 2026-11-25T02:52:00Z
 > Updated by: CA
 
 ---
@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
 CURRENT_GATE          = CA349_SOURCE_BROWSER_PASS / RELEASE_HOLD_PENDING_TEACHER_APPROVED_WATCH_V003_STAGING
-CURRENT_OWNER         = CA — coordinate an authenticated binary-capable executor for VA-prepared exact approved Linda watch-back v003 (GitHub staging not yet done)
-NEXT_REQUIRED_ACTION  = CA arrange access for a binary-capable local Git/Codex executor to upload the VA-prepared v003 WebP + JSON sidecar at the specified immutable staging path; independently verify SHA-256 ca9a31b2... and change Registry latest_version 1→3 in a separate commit while keeping active_version=1. CD then folds verified v003 into existing CA338 release packet; CA requests one Teacher production authorization. No production writes authorized.
+CURRENT_OWNER         = CD — stage VA-prepared approved watch v003 binary via previously proven local Git route
+NEXT_REQUIRED_ACTION  = CD obtain VA-prepared v003 zip (one Teacher/local transfer only if inaccessible), upload exact image and metadata to GitHub, verify bytes, preserve v001/v002 and active_version=1; include in existing CA338 unified release packet, then CA requests one Teacher production decision. No production writes authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
