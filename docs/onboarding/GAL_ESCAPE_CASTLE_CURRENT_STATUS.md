@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
 CURRENT_GATE          = CA349_SOURCE_BROWSER_PASS / RELEASE_HOLD_PENDING_TEACHER_APPROVED_WATCH_V003_STAGING
-CURRENT_OWNER         = VA — stage and verify Teacher-approved newly uploaded Linda watch-back image as immutable v003
-NEXT_REQUIRED_ACTION  = VA stage exact 2026-11-25 Teacher-provided Linda watch-back image as approved immutable v003 without artistic edits, preserve disputed v002 and v001, verify binary/sidecar hashes and hand one commit/path to CD+CA. CD then folds v003 into existing CA338 package; CA requests one Teacher production authorization. No production writes authorized.
+CURRENT_OWNER         = CA — coordinate an authenticated binary-capable executor for VA-prepared exact approved Linda watch-back v003 (GitHub staging not yet done)
+NEXT_REQUIRED_ACTION  = CA arrange access for a binary-capable local Git/Codex executor to upload the VA-prepared v003 WebP + JSON sidecar at the specified immutable staging path; independently verify SHA-256 ca9a31b2... and change Registry latest_version 1→3 in a separate commit while keeping active_version=1. CD then folds verified v003 into existing CA338 release packet; CA requests one Teacher production authorization. No production writes authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -33,6 +33,8 @@ Teacher/User audit sequencing update (2026-09-27):
 Teacher follow-up 2026-11-25: explicitly chose **Option C**; the newly uploaded Linda watch-back PNG is approved as a *new* v003 candidate without graphic modification. CA returned bounded implementation ownership to VA by `agent-comms/CA_to_VA_20261125T023700Z_teacher-approves-option-c-watch-back-v003-exact-new-image.md`. The earlier v002 provenance investigation remains factual history only; there is no requirement to find its historical exact bytes. Production HOLD remains until a unified Teacher-authorized release.
 
 Teacher-directed VA→CA ownership return (2026-11-25): VA independently checked both branches' v002 Git blob (same SHA, 15,009 bytes), original Nov 13 staging commit, v002 sidecar, CA's actual-WebP SHA mismatch report, and Teacher's newly uploaded 872×1125 PNG. No accessible exact-byte original matching recorded approved SHA was located. Source decision remains BLOCKED; VA did NOT modify art, metadata, Registry or runtime. Detailed evidence: `docs/tmp files/VA_LINDA_WATCH_BACK_V002_PROVENANCE_RECONCILIATION_20261125.md`; handoff: `agent-comms/VA_to_CA_20261125T021428Z_linda-watch-v002-provenance-blocked-decision-ownership-return.md`. Next decision owner is CA; production HOLD unchanged.
+
+VA art/provenance work on Teacher-approved Option C (2026-11-25) complete locally: exact PNG source SHA-256 `68c6144247054bd409ed02d3c21c05ff4d7bf369262652c016c653ac59e6cc89`; lossless 872×1125 WebP decoded pixels equal PNG, SHA-256 `ca9a31b2bd7b880f88b4dfabcfcb5d973b4c19a3dc9d482796afa60b83320469`, size 1,060,604 bytes. Exact original + WebP + sidecar in user-downloadable VA conversation ZIP `GAL_Linda_Watch_Back_v003_Approved_Staging.zip` (SHA-256 `f295f6f81f25febd5dc25c48100c7db2b64552352de6e5e3d7a3cf3627d304bb`). GitHub cannot access VA's local binary; **NOT STAGED**, registry latest/active still `1/1`, runtime and production unchanged; v001 and disputed v002 preserved. Details `docs/tmp files/VA_LINDA_WATCH_BACK_V003_TEACHER_APPROVED_STAGE_PENDING_20261125.md`, request letters `agent-comms/VA_to_CA_20261125T024800Z_linda-watch-v003-approved-exact-source-binary-transfer-blocker.md` and `agent-comms/VA_to_CD_20261125T024800Z_linda-watch-v003-lossless-staging-transfer-request.md`. CA owns exact file transfer/verification coordination; release HOLD.
 
 ## 2. Action Log checkpoints
 
