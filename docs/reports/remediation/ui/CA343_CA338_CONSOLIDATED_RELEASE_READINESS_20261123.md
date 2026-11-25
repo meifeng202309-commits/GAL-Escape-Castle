@@ -16,7 +16,9 @@ The GA owner gap described in the original packet is now resolved by GA-151/GA-1
 
 The existing recursive module-closure gate traverses ten Player modules from `src/game/app.js`, explicitly includes the new Runtime module, and reports zero missing dependencies. Production is currently through migration 078; additive migration `079_ca347_runtime_consumer_integration.sql` must be applied and verified before this Pages payload. This addendum does not authorize or perform either production operation.
 
-GA-152 provides exact owner copy for 92 Page-ID appearances; GA-151 supplies the protected catalog additions. The old Runtime-owner blocker below is retained as historical packet context and is superseded by this addendum. Linda watch v002 remains omitted because its approved-byte mismatch is unresolved. The other eight ready visuals remain as listed.
+GA-152 provides exact owner copy for 92 Page-ID appearances; GA-151 supplies the protected catalog additions. The old Runtime-owner blocker below is retained as historical packet context and is superseded by this addendum.
+
+On 2026-11-25 Teacher approved immutable Linda watch-back v003 (Option C), superseding the disputed v002 for this release. CD staged the exact VA-prepared 872×1125 lossless WebP (`ca9a31b2bd7b880f88b4dfabcfcb5d973b4c19a3dc9d482796afa60b83320469`, 1,060,604 bytes) with its APPROVED sidecar. Registry source now records latest v3 while preserving active v1. The coherent visual candidate set is therefore nine images; v001 and v002 remain immutable history.
 
 ## 1. Exact source baseline
 
@@ -32,7 +34,7 @@ No migration beyond production 078 is required by the ready visual/source subset
 
 ## 2. Ready approved visual set
 
-All existing-key callers are version-independent. Main Gate v003 and Library ajar have targeted source/browser coverage. These eight candidates can be grouped into one bounded visual release after CA/Teacher authorization:
+All existing-key callers are version-independent. Main Gate v003 and Library ajar have targeted source/browser coverage. These nine candidates can be grouped into one bounded visual release after CA/Teacher authorization:
 
 | Asset/version | Exact SHA-256 | Current registry | Required production outcome |
 |---|---|---|---|
@@ -44,6 +46,7 @@ All existing-key callers are version-independent. Main Gate v003 and Library aja
 | `prop.library_clock_clue_note` v002 | `5f4998c57e51a147b414714860307785230276bae41c49e951c2a42c581f8f93` | latest 2 / active 1 | publish and activate v2 |
 | `shared.main_gate` v003 | `f68ea8c1f86a1fa3345fbb2e7842fd34e8e66c1256d71030c993366ea5068de4` | latest 3 / active 2 | publish and activate v3; use v3 embedded-label behavior |
 | `shared.library.hidden_door_ajar` v001 | `44592196fbc7462b9d00345262b44e7316cde88334ec29af0c6d906a828e419a` | absent | add immutable 31st identity, publish/activate v1 |
+| `prop_linda_watch_back` v003 | `ca9a31b2bd7b880f88b4dfabcfcb5d973b4c19a3dc9d482796afa60b83320469` | latest 3 / active 1 | publish and activate v3 only under final release authority; retain v001/v002 |
 
 ACT9 `shared.great_hall.red_first` and `shared.great_hall.both_open` remain active v1 and unchanged. Blue-first remains deferred. Original `shared.library` remains active v2. All six authorized audio identities and versions must remain unchanged.
 
@@ -57,22 +60,22 @@ GA still owns the requested protected catalog/key-split commit, the distinct ACT
 
 ### Linda watch back
 
-`prop_linda_watch_back` remains latest/active v1. Its v002 sidecar approves `8e37cff45a269c87577ab339bb95d177b68c84a20c846617b8ab9370506ebab5`, but the committed WebP is `06c593576ae9af6f9dff354def49c54e64fae7048b437913da8c0d95ac213d0f`. VA must restore exact approved bytes or issue an evidence-backed corrected sidecar. It must not enter a release payload meanwhile.
+The v002 checksum mismatch remains preserved as historical evidence and v002 must not be activated. Teacher resolved the release choice through Option C: immutable v003 is the approved candidate listed above. No v001/v002 file was overwritten.
 
 ## 4. Deployable apply and recovery sequence
 
 1. Fresh preflight: require production migrations through 078, expected Pages head, no active trial rooms/runs, exact current 30-row registry, original Library v2, ACT9 variants and all six audio resolver/object hashes unchanged. Any drift stops the release.
-2. Verify every local WebP against the table and sidecar. Upload the eight ready objects to unique versioned `game-assets/<asset-key>/vNNN/` paths without overwriting existing objects.
+2. Verify every local WebP against the table and sidecar. Upload the nine ready objects to unique versioned `game-assets/<asset-key>/vNNN/` paths without overwriting existing objects.
 3. Download/read back each public Storage URL and require byte-for-byte SHA-256 equality before registry activation.
-4. Build an exact 31-row planned registry projection: preserve every unrelated row and six audio activations; activate the seven existing successors; add `shared.library.hidden_door_ajar` latest/active v1.
+4. Build an exact 31-row planned registry projection: preserve every unrelated row and six audio activations; activate the eight existing-key successors (including watch v003); add `shared.library.hidden_door_ajar` latest/active v1.
 5. Import each candidate, submit for review, record independent APPROVED review, mark the verified unique Storage path published, then activate each unpaired identity separately. Re-read candidates, projection and resolver paths/versions; download and hash resolved objects again.
 6. After migration079 verification, publish the exact reviewed four-file changed Player Pages payload in the CA-348 addendum with its complete unchanged transitive module tree. Public smoke must cover first Join, completed-run replay/switch, original Library before resolution, ajar only after resolved Inspect First and after reconnect, Main Gate v003 A/B/C/WATCHER controls, all changed props and preserved ACT9/audio.
-7. Recovery keeps all uploaded immutable objects and candidate records. Restore seven existing keys to their prior active versions, restore Main Gate v2, and retain the 31st ajar registry identity with `active_version=null`. Restore the prior Pages head. Re-resolve and re-hash original Library, ACT9 and six audio.
+7. Recovery keeps all uploaded immutable objects and candidate records. Restore the eight existing keys to their prior active versions, including Main Gate v2 and watch v1, and retain the 31st ajar registry identity with `active_version=null`. Restore the prior Pages head. Re-resolve and re-hash original Library, ACT9 and six audio.
 
 Disposable proof `45104960594` validates the ajar 31-row activation/inactive recovery and preservation invariants; it is not evidence of live upload, URL readability or real-room behavior.
 
 ## 5. Minimal realistic grouping and authorization
 
-Preferred coherent trial-oriented release is one CA-reviewed packet containing: GA's owner-authored catalog/generated output when available; the eight ready visuals above; Player source baseline including replay/Main Gate/Library fixes; and explicit exclusion of Linda watch v002 unless VA repairs it first. If GA or VA remains blocked, Teacher must explicitly decide whether to authorize a partial release and accept the listed omissions; absence of a reply is not authorization.
+Preferred coherent trial-oriented release is one CA-reviewed packet containing: GA's owner-authored catalog/generated output; the nine ready visuals above including approved watch v003; migration079; and the four-file Player Pages payload including replay/Main Gate/Library fixes. The disputed watch v002 is excluded and retained only as immutable history. Absence of a final production decision is not authorization.
 
 Actual production Storage upload, registry registration/publication/activation, Pages publication and any rollback require a new explicit Teacher/CA production gate with exact planned/recovery payload digests and the frozen public-smoke checklist. This document performs none of those writes.
