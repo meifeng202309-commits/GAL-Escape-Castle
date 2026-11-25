@@ -12,8 +12,8 @@
 ```text
 CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
 CURRENT_GATE          = CA349_SOURCE_AND_DISPOSABLE_BROWSER_PASS / PRODUCTION_HOLD_TEACHER_REQUIRES_VA_WATCH_V002
-CURRENT_OWNER         = VA — reconcile approved Linda watch back v002 exact original and sidecar
-NEXT_REQUIRED_ACTION  = VA reconcile approved watch-back v002 and hand one verified exact image/hash/owner packet to CD+CA; CD then consolidates existing eight visuals + corrected watch + GA text + migration079 + four-file Pages; CA routes ONE Teacher production authorization decision. No production writes authorized.
+CURRENT_OWNER         = CA — Linda watch-back v002 approved-original provenance / minimal Teacher-decision coordination (VA investigation complete but byte reconciliation BLOCKED)
+NEXT_REQUIRED_ACTION  = CA read VA provenance report and VA→CA 2026-11-25 ownership handoff, then recover exact approved PNG/WebP or obtain evidence-backed Teacher authorization for safe corrected/new version; assign minimal verified image-byte correction to appropriate VA/binary-capable executor, then CD consolidates existing approved visuals + corrected watch + GA text + migration079 + four-file Pages; CA routes ONE Teacher production authorization decision. No production writes authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -29,6 +29,8 @@ Teacher/User audit sequencing update (2026-09-27):
 
 
 ---
+
+Teacher-directed VA→CA ownership return (2026-11-25): VA independently checked both branches' v002 Git blob (same SHA, 15,009 bytes), original Nov 13 staging commit, v002 sidecar, CA's actual-WebP SHA mismatch report, and Teacher's newly uploaded 872×1125 PNG. No accessible exact-byte original matching recorded approved SHA was located. Source decision remains BLOCKED; VA did NOT modify art, metadata, Registry or runtime. Detailed evidence: `docs/tmp files/VA_LINDA_WATCH_BACK_V002_PROVENANCE_RECONCILIATION_20261125.md`; handoff: `agent-comms/VA_to_CA_20261125T021428Z_linda-watch-v002-provenance-blocked-decision-ownership-return.md`. Next decision owner is CA; production HOLD unchanged.
 
 ## 2. Action Log checkpoints
 
