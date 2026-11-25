@@ -2,18 +2,18 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-10-21T02:30:00Z
-> Updated by: CD
+> Last refreshed: 2026-11-25T01:36:00Z
+> Updated by: CA
 
 ---
 
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = Round-1 Human Acceptance Remediation — ACT7 migration 071 narrow production-maintenance gate
-CURRENT_GATE = ACT1_14_TRIAL_FIRST_READINESS / CA272_RECOVERY_REPORTED / NO_NEW_PRODUCTION_AUTH
-CURRENT_OWNER = CD — one-batch read-only/source-only shortest playable-route assessment
-NEXT_REQUIRED_ACTION = CD identify current deployed ACT1–14 diagnostic trial route, up to three evidenced P0 blockers, and minimal Teacher steps; report to CA, no writes.
+CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
+CURRENT_GATE          = CA349_SOURCE_AND_DISPOSABLE_BROWSER_PASS / PRODUCTION_HOLD_TEACHER_REQUIRES_VA_WATCH_V002
+CURRENT_OWNER         = VA — reconcile approved Linda watch back v002 exact original and sidecar
+NEXT_REQUIRED_ACTION  = VA reconcile approved watch-back v002 and hand one verified exact image/hash/owner packet to CD+CA; CD then consolidates existing eight visuals + corrected watch + GA text + migration079 + four-file Pages; CA routes ONE Teacher production authorization decision. No production writes authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
@@ -36,7 +36,7 @@ GA has completed its latest checkpoint through GA-100. CA's latest newer actions
 
 ```text
 GA_CHECKPOINT = GA-100
-CA_CHECKPOINT = CA-273
+CA_CHECKPOINT = CA-350
 CD_CHECKPOINT = CD-120
 VA_CHECKPOINT = NONE
 ISA_CHECKPOINT = NONE
