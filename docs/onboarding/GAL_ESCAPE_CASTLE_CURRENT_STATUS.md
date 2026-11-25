@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-25T07:40:00Z
+> Last refreshed: 2026-11-25T07:46:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
-CURRENT_GATE          = CA354_NINE_IMAGES_AND_RUNTIME_RELEASE_PACKET_READY / TEACHER_PRODUCTION_AUTHORIZATION_PENDING
-CURRENT_OWNER         = Teacher — decide one unified CA338 production release authorization
-NEXT_REQUIRED_ACTION  = Teacher approve or withhold unified coordinated release: migration079, nine approved images/registry activation, reviewed four-file Pages payload, minimal live smoke and tested recovery; if authorized CD executes one batch, otherwise HOLD. No production writes yet.
+CURRENT_GATE          = CA355_TEACHER_PRODUCTION_GO / CD_ONE_BATCH_RELEASE_EXECUTION
+CURRENT_OWNER         = CD — execute Teacher-authorized single CA338 release after no-active-human-run preflight
+NEXT_REQUIRED_ACTION  = CD execute scoped migration079, nine approved visual objects/registry, coherent four-file Pages, public smoke and minimal rollback if needed; stop on active human trial or material baseline drift. Report one CD→CA release result. Teacher authorization recorded in CA_to_CD_20261125T074500Z_ca355-teacher-authorizes-unified-ca338-production-release.md.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
