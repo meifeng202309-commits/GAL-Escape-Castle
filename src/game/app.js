@@ -4,6 +4,7 @@ import { rpc as baseRpc } from "../supabase/client.js";
 import { installPerformanceTrace } from "../trace/performance-trace.js";
 import { escapeHtml } from "../utils/html.js";
 import { resolveLocalizedText } from "../content/localization.generated.js";
+import { resolveApprovedRuntimePage } from "../content/runtime-page-text.generated.js";
 import { createAssetResolver } from "./asset-runtime.js";
 
 const joinPanel = document.getElementById("joinPanel");
@@ -56,6 +57,7 @@ const performanceTrace = installPerformanceTrace({ role: "Player", rpc: baseRpc,
 const rpc = performanceTrace.rpc;
 let sprint8RevealRunId = "";
 let sprint8RevealTimer = null;
+const SPRINT8_LAST_PRESENTED_RUN_KEY = "gal.s8.last-presented-run-id";
 let sprint6AudioIdentity = "";
 const sprint6AudioHandles = new Map();
 const sprint6AudioUrls = new Map();
@@ -126,8 +128,14 @@ function clearRequestIdentity(key) {
   sessionStorage.removeItem(key);
 }
 
+function cancelSprint8Reveal() {
+  if (sprint8RevealTimer) clearTimeout(sprint8RevealTimer);
+  sprint8RevealTimer = null;
+}
+
 function resetRunScopedClientState() {
   currentDiscussion=null;currentSprint3bState=null;currentSprint5State=null;currentSprint6State=null;
+  cancelSprint8Reveal();
   sprint8RevealRunId="";sprint6AudioIdentity="";sprint6PendingAudio=null;selectedPocketItem="";
   discussionViewportState.clear();pendingMessageAcks.clear();localStorage.removeItem(SPRINT6_AUDIO_OUTBOX_KEY);
   for(let i=sessionStorage.length-1;i>=0;i--){const key=sessionStorage.key(i);if(key?.startsWith("gal.pending."))sessionStorage.removeItem(key)}
@@ -148,14 +156,15 @@ messageText.addEventListener("keydown", (event) => {
     sendMessage();
   }
 });
-leaveButton.addEventListener("click", () => {
+function switchPlayerSession() {
   clearSession();
   session = null;
   stopPolling();
   messageText.value = "";
   pendingMessageAcks.clear();
   showJoin();
-});
+}
+leaveButton.addEventListener("click", switchPlayerSession);
 
 if (session && session.room_code && session.session_token) {
   roomCodeInput.value = session.room_code;
@@ -484,7 +493,7 @@ function renderAct5Handoff(sprint3bState,sprint5State){
   sprint3bStatus.textContent="";
   const route=sprint3bState.flow?.group_route;
   const keys=route==="known"?["act04-05.019","act04-05.020","act04-05.021","act04-05.022","act04-05.023"]:["act04-05.024","act04-05.025","act04-05.026","act04-05.027","act04-05.022","act04-05.023"];
-  sprint3bText.innerHTML=`<div class="bilingual">${localizedKeys(keys)}</div>`;
+  sprint3bText.innerHTML=`<div class="bilingual">${approvedRuntimePageHtml(route==="known"?29:30)||localizedKeys(keys)}</div>`;
   sprint3bActions.innerHTML=`<button id="enterAct6" type="button" disabled>${localizedHtml("act04-05.023")}</button>`;
   const enterButton=document.getElementById("enterAct6");
   rpc("s9_observe_act5_handoff",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_run_id:sprint5State.state.run_id})
@@ -507,18 +516,25 @@ const ACT1_CHOICES = {
 const MEETING_CHOICES = [["library","act02.004"],["great_hall","act02.005"],["main_gate","act02.006"],["west_tower","act02.007"],["chapel","act02.008"],["help","act02.009"]];
 const LOCATION_KEYS = {library:"act01-g.009",great_hall:"act01-g.010",main_gate:"act01-g.011",west_tower:"act01-g.012",chapel:"act01-g.013"};
 const ROUTE_CHOICES = [["known","act04-05.005"],["unknown","act04-05.006"],["inspect","act04-05.007"],["ask","act04-05.008"]];
+const LIBRARY_AJAR_ASSET_KEY="shared.library.hidden_door_ajar";
+function sprint3bSceneAssetKey(state){const scene=state?.scene;if(scene?.scene_id==="act5_inspect_first"&&scene.phase_key==="post_inspection_route")return LIBRARY_AJAR_ASSET_KEY;if(scene?.scene_id==="act3_library")return"shared.library";return null}
 const S5_PRIVATE=[["main_gate","act08.001"],["west_tower","act08.002"],["compare","act08.003"],["follow_group","act08.004"]];
 const S6_DOORS=[["red","act09.011"],["blue","act09.012"],["black","act09.013"]];
 const DISPLAY_NAME_BY_ROLE={"GAL-A":"Gitte","GAL-B":"Anna","GAL-C":"Linda"};
+const PAGE_ROLE_BY_SLOT={"GAL-A":"GITTE","GAL-B":"ANNA","GAL-C":"LINDA"};
 const S6_SCENE_ASSETS=new Set(["shared.great_hall","shared.great_hall.red_first","shared.great_hall.both_open","prop.golden_key","shared.main_gate","ending.castle_exterior"]);
 function sprint6SceneAssetKey(payload){const s=payload.state;if(s?.act_no!==9)return payload.scene_asset_key;if(s.red_activated&&s.blue_activated)return"shared.great_hall.both_open";if(s.red_activated)return"shared.great_hall.red_first";return"shared.great_hall"}
 const TRIAL_PLACEHOLDER_PATHS={"opening.gitte_room":"assets/staging/opening.gitte_room/v001/opening.gitte_room__v001.svg","opening.anna_room":"assets/staging/opening.anna_room/v001/opening.anna_room__v001.svg","opening.linda_study":"assets/staging/opening.linda_study/v001/opening.linda_study__v001.svg","ending.castle_exterior":"assets/staging/ending.castle_exterior/v001/ending.castle_exterior__v001.svg"};
 const EMPTY_IMAGE="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
 
 function localizedHtml(key) {
-  try { const value=resolveLocalizedText(key); return `<span lang="nl">${escapeHtml(value.nl)}</span>${value.zh ? `<span lang="zh">${escapeHtml(value.zh)}</span>` : ""}`; }
+  try { const value=resolveLocalizedText(key); return `<span class="localized-line" lang="nl">${escapeHtml(value.nl)}</span>${value.zh ? `<span class="localized-line" lang="zh">${escapeHtml(value.zh)}</span>` : ""}`; }
   catch { return `<span class="bad">Missing text: ${escapeHtml(key)}</span>`; }
 }
+
+function runtimePageId(number){return `${PAGE_ROLE_BY_SLOT[session.role_slot]}-${String(number).padStart(3,"0")}`}
+function approvedRuntimePageHtml(number){const value=resolveApprovedRuntimePage(runtimePageId(number));return value?`<span class="localized-line" lang="nl">${escapeHtml(value.nl)}</span><span class="localized-line" lang="zh">${escapeHtml(value.zh)}</span>`:""}
+function act1RuntimePage(me){if(me.act1_stage==="opening")return 1;if(me.act1_stage!=="consequence")return null;return({"GAL-A":{study_map:2,check_sound:3,study_number_note:4,search_room:5},"GAL-B":{read_diary:2,check_door:3,check_vent:5},"GAL-C":{read_notice:2,study_watch:3,try_star_key:4,check_mirror:5}}[session.role_slot]||{})[me.act1_choice_id]||null}
 
 function localizedTemplateHtml(key, replacements={}) {
   try {
@@ -588,22 +604,25 @@ function renderSprint3b(state,pocket) {
   sprint3bPanel.classList.remove("hidden"); sprint3bStatus.textContent="";
   const me=state.me, scene=state.scene; let html="";
   const routeLocationKey=LOCATION_KEYS[scene.current_route_target];
-  const showAct4Comparison=["act4_known_unknown","act5_route_discussion","act5_inspect_first"].includes(scene.scene_id);
+  const showAct4Comparison=["act4_known_unknown","act5_route_discussion","act5_inspect_first"].includes(scene.scene_id)&&scene.phase_key!=="post_inspection_route";
   const act1OutcomeAsset=me.act1_stage==="consequence"?({study_map:"prop_gitte_castle_map",study_number_note:"prop_gitte_number_note_front",read_diary:"prop_anna_diary_open",read_notice:"prop_linda_closure_order",study_watch:"prop_linda_watch_face",try_star_key:"prop_linda_star_key"}[me.act1_choice_id]||null):null;
-  const sceneAsset=act1OutcomeAsset||(scene.scene_id==="act1_wake_up"?({"GAL-A":"opening.gitte_room","GAL-B":"opening.anna_room","GAL-C":"opening.linda_study"}[session.role_slot]):(scene.scene_id==="act3_library"?"shared.library":null));
+  const sceneAsset=act1OutcomeAsset||(scene.scene_id==="act1_wake_up"?({"GAL-A":"opening.gitte_room","GAL-B":"opening.anna_room","GAL-C":"opening.linda_study"}[session.role_slot]):sprint3bSceneAssetKey(state));
   if(!showAct4Comparison&&!sceneAsset)formalSceneMount.replaceChildren();
   const libraryDiscovery=scene.phase_key==="library_discovery";
   const libraryDiscoveryHtml=libraryDiscovery?`<section class="notice library-discovery" data-library-discovery="${escapeHtml(state.run_id)}"><p>${localizedHtml("act03.015")}</p><article><h3>${localizedHtml("item.photo_1897")}</h3><img id="libraryDiscoveryPhoto" class="v4-pocket-media" alt=""></article><article><h3>${localizedHtml("item.torn_note")}</h3><img id="libraryDiscoveryNote" class="v4-pocket-media" alt="">${localizedHtml("act03.016")}</article></section>`:"";
+  const act1Page=act1RuntimePage(me);
+  const routePage=({library:7,great_hall:8,main_gate:9,west_tower:10,chapel:11})[scene.current_route_target];
+  const runtimePage=scene.phase_key==="route_update"?routePage:scene.phase_key==="post_inspection_route"?28:scene.scene_id==="act1_wake_up"?act1Page:null;
   const routeConsequenceHtml=scene.phase_key==="route_consequence"&&scene.current_route_target==="main_gate"?localizedKeys(["act02.043","act02.044","act02.045"]):localizedHtml(state.scene.text_key);
   setStableHtml(sprint3bText,(showAct4Comparison?act4ComparisonHtml():sceneAsset?`<img id="s3bSceneImage" class="s5-scene" data-asset-key="${escapeHtml(sceneAsset)}" alt="">`:"")+(scene.phase_key==="route_update"
-    ? `<div class="bilingual">${localizedTemplateHtml("act02.032",{location:routeLocationKey ? resolveLocalizedText(routeLocationKey) : ""})}${localizedHtml("act02.033")}</div>`
-    : `<div class="bilingual">${routeConsequenceHtml}</div>${libraryDiscoveryHtml}${state.scene.phase_key==="post_inspection_route" ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`)+act4RevealHtml(state.act4_revealed));
-  if(sceneAsset)void setS5Asset("s3bSceneImage",sceneAsset);
+    ? `<div class="bilingual">${approvedRuntimePageHtml(runtimePage)||`${localizedTemplateHtml("act02.032",{location:routeLocationKey ? resolveLocalizedText(routeLocationKey) : ""})}${localizedHtml("act02.033")}`}</div>`
+    : `<div class="bilingual">${approvedRuntimePageHtml(runtimePage)||routeConsequenceHtml}</div>${libraryDiscoveryHtml}${state.scene.phase_key==="post_inspection_route"&&!runtimePage ? `<div class="bilingual">${localizedHtml("act04-05.016")}${localizedHtml("act04-05.017")}</div>` : ""}`)+act4RevealHtml(state.act4_revealed));
+  if(sceneAsset)void setS5Asset("s3bSceneImage",sceneAsset,sceneAsset===LIBRARY_AJAR_ASSET_KEY?{fallbackKey:"shared.library"}:{});
   if(libraryDiscovery)void hydrateLibraryDiscovery();
   if(showAct4Comparison)hydrateAct4Comparison();
-  if (scene.scene_id==="act1_wake_up" && me.act1_stage==="opening") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_ack_act1_opening">${localizedHtml("common.004")}</button>`;
+  if (scene.scene_id==="act1_wake_up" && me.act1_stage==="opening") html=`<button type="button" data-s3b-rpc="s3b_ack_act1_opening">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="action") html=actionButtons(ACT1_CHOICES[session.role_slot]||[],"s3b_submit_act1_choice");
-  else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="consequence") html=`<div class="notice">${localizedKeys(me.act1_text_keys)}</div><button type="button" data-s3b-rpc="s3b_complete_act1">${localizedHtml("common.004")}</button>`;
+  else if (scene.scene_id==="act1_wake_up" && me.act1_stage==="consequence") html=`${act1Page?"":`<div class="notice">${localizedKeys(me.act1_text_keys)}</div>`}<button type="button" data-s3b-rpc="s3b_complete_act1">${localizedHtml("common.004")}</button>`;
   else if (scene.scene_id==="act1_wake_up") html=`<p class="warn">${localizedHtml("act01-g.031")}</p>`;
   else if (!me.first_meeting_locked_at) html=actionButtons(MEETING_CHOICES,"s3b_submit_first_meeting");
   else if (!me.grab_complete && !me.left_start_room) html=`<button type="button" data-s3b-rpc="s3b_grab_and_leave" data-s3b-run="${escapeHtml(state.run_id)}">${localizedHtml("act02.022")}</button>`;
@@ -692,10 +711,10 @@ function renderSprint5(payload,pocket){
   choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");sprint3bStatus.textContent="";
   const s=payload.state;let visual="",actions="";
   if(s.phase_key.startsWith("act6")){const intro=!payload.castle_voice_intro_acknowledged&&payload.castle_voice_intro_key?`<div class="notice" data-castle-voice-intro="${escapeHtml(payload.castle_voice_intro_key)}">${localizedHtml(payload.castle_voice_intro_key)}</div>`:"";visual=`<div class="portrait-stage"><img id="s5SceneImage" alt=""><img id="s5OverlayImage" class="portrait-overlay" alt=""></div>${intro}${localizedHtml(payload.presentation_text_key||"act06.001")}${s.phase_key==="act6_answer"?`<div class="route-evidence"><img id="s5MapImage" class="s5-scene" alt=""><div class="route-board"><b>${localizedHtml("act01-g.014")}</b><span aria-hidden="true">→</span><b>${localizedHtml("act01-g.015")}</b></div></div>`:""}`;}
-  if(s.phase_key.startsWith("act7"))visual=`<div class="clock-stage"><img id="s5SceneImage" class="s5-scene" alt=""><div class="clock" data-anchor="clock_A_face"><b>A</b><span>23:54</span><i class="hand clockwise"></i></div><div class="clock" data-anchor="clock_B_face"><b>B</b><span>11:54</span><i class="hand counterclockwise"></i></div><div class="clock" data-anchor="clock_C_face"><b>C</b><span>23:49</span><i class="hand stopped"></i></div></div><div class="bilingual">${localizedKeys(["act07.001","act07.002","act07.003","act07.004","act07.005","act07.006","act07.007"])}</div>${s.act7_wrong_attempts?localizedHtml(s.act7_wrong_attempts===1?"act07.012":s.act7_wrong_attempts===2?"act07.013":"act07.014"):""}`;
+  if(s.phase_key.startsWith("act7")){const page=s.act7_wrong_attempts?Math.min(39,36+s.act7_wrong_attempts):36,narrative=s.phase_key==="act7_vote"?approvedRuntimePageHtml(page):localizedKeys(["act07.001","act07.002","act07.003","act07.004","act07.005","act07.006","act07.007"]);visual=`<div class="clock-stage"><img id="s5SceneImage" class="s5-scene" alt=""><div class="clock" data-anchor="clock_A_face"><b>A</b><span>23:54</span><i class="hand clockwise"></i></div><div class="clock" data-anchor="clock_B_face"><b>B</b><span>11:54</span><i class="hand counterclockwise"></i></div><div class="clock" data-anchor="clock_C_face"><b>C</b><span>23:49</span><i class="hand stopped"></i></div></div><div class="bilingual">${narrative}</div>`;}
   const pocketHtml="";
   if(s.phase_key.startsWith("act6")||s.phase_key.startsWith("act7"))visual+=pocketHtml;
-  if(s.phase_key.startsWith("act8"))visual=`${["act8_private","act8_final_vote"].includes(s.phase_key)?`<div class="act8-evidence"><img id="s5MapImage" class="s5-scene" alt=""><img id="s5PhotoImage" class="s5-scene" alt="">${localizedHtml("item.photo_1897")}</div>`:`<img id="s5SceneImage" class="s5-scene" alt="">`}<div class="bilingual">${s.phase_key==="act8_route"?localizedKeys(s.route_taken_act8==="main_gate"?["act08.005","act08.006","act08.007"]:["act08.010","act08.011"]):""}</div>${payload.private_choices_revealed.length?`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(({main_gate:"act08.001",west_tower:"act08.002",compare:"act08.003",follow_group:"act08.004"})[x.choice_id])}`).join("")}</div>`:""}${pocketHtml}`;
+  if(s.phase_key.startsWith("act8"))visual=`${["act8_private","act8_final_vote"].includes(s.phase_key)?`<div class="act8-evidence"><img id="s5MapImage" class="s5-scene" alt=""><img id="s5PhotoImage" class="s5-scene" alt="">${localizedHtml("item.photo_1897")}</div>`:`<img id="s5SceneImage" class="s5-scene" alt="">`}<div class="bilingual">${s.phase_key==="act8_route"?approvedRuntimePageHtml(s.route_taken_act8==="main_gate"?40:41):""}</div>${payload.private_choices_revealed.length?`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(({main_gate:"act08.001",west_tower:"act08.002",compare:"act08.003",follow_group:"act08.004"})[x.choice_id])}`).join("")}</div>`:""}${pocketHtml}`;
   if(["act6_vote","act7_vote","act8_final_vote"].includes(s.phase_key))actions="";
   else if(s.phase_key==="act8_private")actions=payload.my_private_choice?acceptedWaiting(`${payload.private_choices_revealed?.length||1}/3`):s5Buttons(S5_PRIVATE,"s5_submit_private_choice");
   else if(s.phase_key==="act6_answer")actions=`${localizedHtml("act06.011")}<button type="button" data-s5-rpc="s5_advance">${localizedHtml("act06.012")}</button>`;
@@ -743,18 +762,29 @@ function renderSprint6AcceptedWaiting(payload){
     sprint3bActions.innerHTML=acceptedWaiting(progress);
   }
 }
+function sprint6RuntimePage(payload){
+  const s=payload.state,signature=(s.feedback_text_keys||[]).join("|");
+  if(s.phase_key==="act9_discussion"&&payload.private_clue)return 42;
+  if(s.act_no===9){return({"act09.017|act09.018":45,"act09.021":47,"act09.023|act09.024|act09.006":49,"act09.007":50,"act09.023|act09.024":51,"act09.026|act09.027":52})[signature]||null}
+  if(s.phase_key==="act11_discussion")return 56;
+  if(s.phase_key==="act12_cinematic"&&s.cinematic_stage===2)return 61;
+  if(s.phase_key==="act12_cinematic"&&s.cinematic_stage===3&&!s.gold_key)return 70;
+  if(s.phase_key==="act12_cinematic"&&s.cinematic_stage===13)return 68;
+  if(s.phase_key==="act13_escape")return 71;
+  return null;
+}
 const sprint5EvidencePanel=pocketEvidencePanel;
 function mainGateOverlayHtml(state){
   if(![11,12].includes(state.act_no))return"";
   const stations=state.gold_key
     ? [["main_gate_station_A","act11.002","A"],["main_gate_station_B","act11.003","B"],["main_gate_watcher_corridor","act11.015","WATCHER"]]
     : [["main_gate_station_A","act11.002","A"],["main_gate_station_B","act11.003","B"],["main_gate_station_C","act11.004","C"]];
-  return `<div class="s6-station-layer">${stations.map(([anchorName,label,role])=>`<span data-anchor="${anchorName}" class="s6-station-label ${currentSprint6State?.allocation===role?"assigned":""}" hidden>${localizedHtml(label)}</span>`).join("")}</div>`;
+  return `<div class="s6-station-layer">${stations.map(([anchorName,label,role])=>`<span data-anchor="${anchorName}" data-station-role="${role}" class="s6-station-label ${currentSprint6State?.allocation===role?"assigned":""}" hidden>${localizedHtml(label)}</span>`).join("")}</div>`;
 }
 function mainGateLegendHtml(state){
   if(![11,12].includes(state.act_no))return"";
-  const labels=state.gold_key?["act11.002","act11.003","act11.015"]:["act11.002","act11.003","act11.004"];
-  return `<div class="s6-station-legend">${labels.map(localizedHtml).join("")}</div>`;
+  const labels=state.gold_key?[["A","act11.002"],["B","act11.003"],["WATCHER","act11.015"]]:[["A","act11.002"],["B","act11.003"],["C","act11.004"]];
+  return `<div class="s6-station-legend">${labels.map(([role,key])=>`<div data-station-role="${role}">${localizedHtml(key)}</div>`).join("")}</div>`;
 }
 function sprint6StationIdentity(payload){const s=payload?.state;return s&&payload.allocation==="A"&&!payload.station_task&&s.phase_key==="act12_tasks"?`${s.run_id}.${s.phase_key}.${s.act9_step}.${s.round_no}`:""}
 function captureSprint6StationDraft(){const identity=sprint6StationIdentity(currentSprint6State);return identity?inputDraft(document.getElementById("s6StationValue"),identity,true):null}
@@ -762,7 +792,7 @@ function restoreSprint6StationDraft(draft,payload){const identity=sprint6Station
 function sprint6DiscussionIdentity(payload){const s=payload?.state,d=payload?.discussion;return s&&d&&["act9_discussion","act10_discussion","act11_discussion"].includes(s.phase_key)&&d.phase_key===s.phase_key?`${s.run_id}.${s.phase_key}.${d.discussion_session_id}`:""}
 function captureSprint6DiscussionDraft(){const identity=sprint6DiscussionIdentity(currentSprint6State);return identity?inputDraft(document.getElementById("s6MessageText"),identity):null}
 function restoreSprint6DiscussionDraft(draft,payload){const identity=sprint6DiscussionIdentity(payload);if(identity)restoreInputDraft(draft,document.getElementById("s6MessageText"),identity)}
-function renderSprint6(payload){const stationDraft=captureSprint6StationDraft(),discussionDraft=captureSprint6DiscussionDraft();currentSprint6State=payload;const s=payload.state;clearSprint6Status();setSprint6CinematicMode(s);choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");const black=s.phase_key==="act12_cinematic"&&s.cinematic_stage===10;const hall=s.act_no===9?`<div class="s6-door-layer"><span data-anchor="great_hall_red_door" class="s6-door red ${s.act9_step>=2?"open":""}">${localizedHtml("act09.001")}</span><span data-anchor="great_hall_blue_door" class="s6-door blue ${s.act9_step>=3?"available":""} ${s.act9_step>=4?"open":""}">${localizedHtml("act09.002")}</span><span data-anchor="great_hall_black_door" class="s6-door black">${localizedHtml("act09.003")}</span></div>`:"",mainGate=mainGateOverlayHtml(s),mainGateLegend=mainGateLegendHtml(s);let body=`<div class="s6-stage ${black?"blackout":""}">${black?"":`<p class="eyebrow">ACT ${s.act_no}</p>${payload.scene_asset_key?`<div class="s6-scene-wrap"><img id="s6SceneImage" class="s5-scene" alt="">${hall}${mainGate}</div>${mainGateLegend}`:""}${payload.private_clue?`<div class="notice">${localizedHtml(payload.private_clue.text_key)}</div>`:""}${localizedKeys(s.feedback_text_keys||[])}`}</div>`,actions="";body+=sprint6AudioControls();if(payload.private_choices_revealed?.length)body+=`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(x.choice_id==="take"?"act10.004":"act10.005")}`).join("<br>")}</div>`;if(payload.discussion)actions=sprint6Discussion(payload);if(s.phase_key==="act9_console"){const choices=s.act9_step===1||s.act9_step===3?S6_DOORS:s.act9_step===2?[["enter_red","act09.015"],["do_not_enter","act09.016"]]:[["enter_blue","act09.020"],["stay","act09.021"]];actions=s5Buttons(choices,"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act10_private")actions=s5Buttons([["take","act10.004"],["leave","act10.005"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_final_vote")actions=s5Buttons([["take","act10.006"],["leave","act10.007"]],"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_result")actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("act10.010")}</button>`;if(s.phase_key==="act11_allocation")actions=s5Buttons((s.gold_key?[["A","act11.012"],["B","act11.013"],["WATCHER","act11.014"]]:[["A","act11.012"],["B","act11.013"],["C","act11.004"]]),"s6_submit_allocation_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act12_tasks"&&payload.allocation){const task={A:["act11.005","1897"],B:["act11.007",payload.station_b_stage==="lever_held"?"lever_center":"lever_hold"],C:["act11.008","silver_key_inserted"],WATCHER:["act11.015","corridor_watched"]}[payload.allocation];actions=payload.station_task?`<button data-s6-rpc="s6_engage_v2" data-s6-role="${escapeHtml(payload.allocation)}">${localizedHtml(payload.allocation==="WATCHER"?"act12.004":"act12.001")}</button>`:`${localizedHtml(task[0])}${payload.allocation==="B"&&payload.station_b_stage==="lever_held"?`<span class="s6-lever-track" aria-hidden="true"><span></span></span>`:""}${payload.allocation==="A"?`<form id="s6StationForm" class="composer"><input id="s6StationValue" inputmode="numeric" maxlength="4" required><button>${localizedHtml("act12.001")}</button></form>`:payload.allocation==="B"&&payload.station_b_stage==="lever_held"?"":`<button data-s6-rpc="s6_complete_station_v2" data-s6-value="${task[1]}">${localizedHtml(payload.allocation==="B"?"act12.002":payload.allocation==="C"?"act12.003":"act12.004")}</button>`}`}if(s.phase_key==="act12_pressure"){const failing=payload.allocation===s.mechanism_failure_station;actions=s5Buttons(failing?[["one","act12.008"],["two","act12.009"],["three","act12.010"],["four","act12.011"]]:[["hold","act12.012"],["encourage","act12.013"],["watch","act12.014"],["prepare","act12.015"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act13_escape"&&Date.parse(payload.act13_continue_at)<=Date.now())actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("common.004")}</button>`;if(s.phase_key==="act13_boundary")actions=`<button id="s8Finalize">${localizedHtml("common.004")}</button>`;setStableHtml(sprint3bText,body);if(!payload.scene_asset_key)formalSceneMount.replaceChildren();sprint3bActions.innerHTML=actions;routeFormalPresentation();restoreSprint6StationDraft(stationDraft,payload);restoreSprint6DiscussionDraft(discussionDraft,payload);hydrateSprint6(payload);sprint3bActions.querySelectorAll("[data-s6-rpc]").forEach(b=>b.addEventListener("click",()=>runSprint6Action(b)));document.getElementById("s8Finalize")?.addEventListener("click",finalizeSprint8);document.getElementById("s6MessageForm")?.addEventListener("submit",sendSprint6Message);document.getElementById("s6StationForm")?.addEventListener("submit",submitSprint6Station);document.querySelectorAll("[data-s6-volume]").forEach(button=>button.addEventListener("click",()=>setSprint6Volume(button.dataset.s6Volume)));scheduleSprint6LeverCenter(payload)}
+function renderSprint6(payload){const stationDraft=captureSprint6StationDraft(),discussionDraft=captureSprint6DiscussionDraft();currentSprint6State=payload;const s=payload.state,page=sprint6RuntimePage(payload),pageHtml=page?approvedRuntimePageHtml(page):"";clearSprint6Status();setSprint6CinematicMode(s);choiceArea.classList.add("hidden");revealArea.classList.add("hidden");sprint3bPanel.classList.remove("hidden");const black=s.phase_key==="act12_cinematic"&&s.cinematic_stage===10;const hall=s.act_no===9?`<div class="s6-door-layer"><span data-anchor="great_hall_red_door" class="s6-door red ${s.act9_step>=2?"open":""}">${localizedHtml("act09.001")}</span><span data-anchor="great_hall_blue_door" class="s6-door blue ${s.act9_step>=3?"available":""} ${s.act9_step>=4?"open":""}">${localizedHtml("act09.002")}</span><span data-anchor="great_hall_black_door" class="s6-door black">${localizedHtml("act09.003")}</span></div>`:"",mainGate=mainGateOverlayHtml(s),mainGateLegend=mainGateLegendHtml(s);let body=`<div class="s6-stage ${black?"blackout":""}">${black?"":`<p class="eyebrow">ACT ${s.act_no}</p>${payload.scene_asset_key?`<div class="s6-scene-wrap"><img id="s6SceneImage" class="s5-scene" alt="">${hall}${mainGate}</div>${mainGateLegend}`:""}${pageHtml||`${payload.private_clue?`<div class="notice">${localizedHtml(payload.private_clue.text_key)}</div>`:""}${localizedKeys(s.feedback_text_keys||[])}`}`}</div>`,actions="";body+=sprint6AudioControls();if(payload.private_choices_revealed?.length)body+=`<div class="notice">${payload.private_choices_revealed.map(x=>`${escapeHtml(x.role_slot)}: ${localizedHtml(x.choice_id==="take"?"act10.004":"act10.005")}`).join("<br>")}</div>`;if(payload.discussion)actions=sprint6Discussion(payload);if(s.phase_key==="act9_console"){const choices=s.act9_step===1||s.act9_step===3?S6_DOORS:s.act9_step===2?[["enter_red","act09.015"],["do_not_enter","act09.016"]]:[["enter_blue","act09.020"],["stay","act09.021"]];actions=s5Buttons(choices,"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act10_private")actions=s5Buttons([["take","act10.004"],["leave","act10.005"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_final_vote")actions=s5Buttons([["take","act10.006"],["leave","act10.007"]],"s6_submit_group_choice_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act10_result")actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("act10.010")}</button>`;if(s.phase_key==="act11_allocation")actions=s5Buttons((s.gold_key?[["A","act11.012"],["B","act11.013"],["WATCHER","act11.014"]]:[["A","act11.012"],["B","act11.013"],["C","act11.004"]]),"s6_submit_allocation_v2").replaceAll("data-s5-","data-s6-");if(s.phase_key==="act12_tasks"&&payload.allocation){const task={A:["act11.005","1897"],B:["act11.007",payload.station_b_stage==="lever_held"?"lever_center":"lever_hold"],C:["act11.008","silver_key_inserted"],WATCHER:["act11.015","corridor_watched"]}[payload.allocation];actions=payload.station_task?`<button data-s6-rpc="s6_engage_v2" data-s6-role="${escapeHtml(payload.allocation)}">${localizedHtml(payload.allocation==="WATCHER"?"act12.004":"act12.001")}</button>`:`${localizedHtml(task[0])}${payload.allocation==="B"&&payload.station_b_stage==="lever_held"?`<span class="s6-lever-track" aria-hidden="true"><span></span></span>`:""}${payload.allocation==="A"?`<form id="s6StationForm" class="composer"><input id="s6StationValue" inputmode="numeric" maxlength="4" required><button>${localizedHtml("act12.001")}</button></form>`:payload.allocation==="B"&&payload.station_b_stage==="lever_held"?"":`<button data-s6-rpc="s6_complete_station_v2" data-s6-value="${task[1]}">${localizedHtml(payload.allocation==="B"?"act12.002":payload.allocation==="C"?"act12.003":"act12.004")}</button>`}`}if(s.phase_key==="act12_pressure"){const failing=payload.allocation===s.mechanism_failure_station;actions=s5Buttons(failing?[["one","act12.008"],["two","act12.009"],["three","act12.010"],["four","act12.011"]]:[["hold","act12.012"],["encourage","act12.013"],["watch","act12.014"],["prepare","act12.015"]],"s6_submit_private_choice_v2").replaceAll("data-s5-","data-s6-")}if(s.phase_key==="act13_escape"&&Date.parse(payload.act13_continue_at)<=Date.now())actions=`<button data-s6-rpc="s6_advance_v2">${localizedHtml("common.004")}</button>`;if(s.phase_key==="act13_boundary")actions=`<button id="s8Finalize">${localizedHtml("common.004")}</button>`;setStableHtml(sprint3bText,body);if(!payload.scene_asset_key)formalSceneMount.replaceChildren();sprint3bActions.innerHTML=actions;routeFormalPresentation();restoreSprint6StationDraft(stationDraft,payload);restoreSprint6DiscussionDraft(discussionDraft,payload);hydrateSprint6(payload);sprint3bActions.querySelectorAll("[data-s6-rpc]").forEach(b=>b.addEventListener("click",()=>runSprint6Action(b)));document.getElementById("s8Finalize")?.addEventListener("click",finalizeSprint8);document.getElementById("s6MessageForm")?.addEventListener("submit",sendSprint6Message);document.getElementById("s6StationForm")?.addEventListener("submit",submitSprint6Station);document.querySelectorAll("[data-s6-volume]").forEach(button=>button.addEventListener("click",()=>setSprint6Volume(button.dataset.s6Volume)));scheduleSprint6LeverCenter(payload)}
 
 async function finalizeSprint8(){const button=document.getElementById("s8Finalize");if(button)button.disabled=true;try{await flushSprint6AudioConsumptions();const runId=currentSprint6State?.state?.run_id;if(!runId)throw new Error("Finalization run identity is unavailable.");const pending=requestIdentity("s8-finalize",runId,{boundary:"act14",run_id:runId});await rpc("s8_finalize",{p_room_code:session.room_code,p_session_token:session.session_token,p_client_request_id:pending.requestId,p_expected_run_id:runId});clearRequestIdentity(pending.key);await refreshState()}catch(error){sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;if(button)button.disabled=false}}
 function renderSprint8(payload){
@@ -776,10 +806,12 @@ function renderSprint8(payload){
   sprint3bStatus.textContent="";
   if(sprint8RevealRunId===payload.run_id)return;
   sprint8RevealRunId=payload.run_id;
-  clearTimeout(sprint8RevealTimer);
+  cancelSprint8Reveal();
 
   const previousExteriorSrc=document.getElementById("s6SceneImage")?.src||"";
-  let stage=0;
+  const alreadyPresented=localStorage.getItem(SPRINT8_LAST_PRESENTED_RUN_KEY)===payload.run_id;
+  localStorage.setItem(SPRINT8_LAST_PRESENTED_RUN_KEY,payload.run_id);
+  let stage=alreadyPresented?5:0;
   const stageNames=["fade","mission","escaped","remembered","they","end"];
   const frames=[
     `<div class="s8-exterior-stage"><img id="s8ExteriorImage" class="s8-exterior-image" ${previousExteriorSrc?`src="${escapeHtml(previousExteriorSrc)}"`:""} alt=""><div class="s8-fade" aria-hidden="true"></div></div>`,
@@ -792,13 +824,14 @@ function renderSprint8(payload){
 
   const advance=()=>{
     const fadeClass=stage===0?" s8-fade-stage":"";
-    sprint3bText.innerHTML=`<section class="s8-ending${fadeClass} s8-stage-${stage}" data-s8-stage="${stageNames[stage]}" aria-live="polite">${frames[stage]}</section>`;
+    sprint3bText.innerHTML=`<section class="s8-ending${fadeClass} s8-stage-${stage}" data-s8-stage="${stageNames[stage]}" aria-live="polite"><div class="s8-ending-frame">${frames[stage]}</div><button id="s8SwitchSession" type="button" class="secondary s8-switch-session">Switch session</button></section>`;
+    document.getElementById("s8SwitchSession")?.addEventListener("click",switchPlayerSession);
     if(stage===0&&!previousExteriorSrc)setS5Asset("s8ExteriorImage","ending.castle_exterior");
     if(stage<frames.length-1)sprint8RevealTimer=setTimeout(()=>{stage+=1;advance()},delays[stage]);
   };
   advance();
 }
-async function hydrateSprint6(payload){let scene=null,key=sprint6SceneAssetKey(payload),restoreBase=()=>document.querySelectorAll(".s6-door[data-anchor]").forEach(node=>node.classList.remove("artwork-state"));if(S6_SCENE_ASSETS.has(key))scene=await setS5Asset("s6SceneImage",key,key!==payload.scene_asset_key?{fallbackKey:payload.scene_asset_key,onFallback:restoreBase}:{});key=document.getElementById("s6SceneImage")?.dataset.assetKey||key;if(scene&&payload.state.act_no===9){const anchorScene=key==="shared.great_hall"?scene:await trialAssetResolver.resolve("shared.great_hall");document.querySelectorAll(".s6-door[data-anchor]").forEach(node=>{const a=anchor(anchorScene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`});node.classList.toggle("artwork-state",key!=="shared.great_hall");node.hidden=false})}if(scene&&[11,12].includes(payload.state.act_no))document.querySelectorAll(".s6-station-label[data-anchor]").forEach(node=>{const a=anchor(scene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`});node.hidden=false});if(payload.state.phase_key==="act12_cinematic"&&payload.state.cinematic_stage===10){for(const audio of sprint6AudioHandles.values()){audio.pause();audio.currentTime=0;markSprint6AudioConsumed(audio.dataset.occurrenceId,"stopped")}sprint6AudioHandles.clear()}const audioKey=payload.state.feedback_audio_key,identity=payload.audio_occurrence_id,locallyConsumed=Boolean(sprint6AudioOutbox()[identity]);await flushSprint6AudioConsumptions();if(!audioKey||!identity||payload.audio_consumed||locallyConsumed||identity===sprint6AudioIdentity)return;sprint6AudioIdentity=identity;const asset=await rpc("asset_resolve",{p_asset_key:audioKey}).catch(()=>null);if(!asset?.ok){await markSprint6AudioConsumed(identity,"stopped");return}if(!sprint6AudioArmed){sprint6PendingAudio={key:audioKey,asset,occurrenceId:identity};return}await playSprint6Audio(audioKey,asset,identity)}
+async function hydrateSprint6(payload){let scene=null,key=sprint6SceneAssetKey(payload),restoreBase=()=>document.querySelectorAll(".s6-door[data-anchor]").forEach(node=>node.classList.remove("artwork-state"));if(S6_SCENE_ASSETS.has(key))scene=await setS5Asset("s6SceneImage",key,key!==payload.scene_asset_key?{fallbackKey:payload.scene_asset_key,onFallback:restoreBase}:{});key=document.getElementById("s6SceneImage")?.dataset.assetKey||key;if(scene&&payload.state.act_no===9){const anchorScene=key==="shared.great_hall"?scene:await trialAssetResolver.resolve("shared.great_hall");document.querySelectorAll(".s6-door[data-anchor]").forEach(node=>{const a=anchor(anchorScene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`});node.classList.toggle("artwork-state",key!=="shared.great_hall");node.hidden=false})}if(scene&&[11,12].includes(payload.state.act_no)){const embeddedStations=key==="shared.main_gate"&&Number(scene.version)>=3;document.querySelectorAll(".s6-station-label[data-anchor]").forEach(node=>{const a=anchor(scene,node.dataset.anchor);if(!a){node.hidden=true;return}Object.assign(node.style,{left:`${a.x_percent}%`,top:`${a.y_percent}%`,width:`${a.width_percent}%`,height:`${a.height_percent}%`});node.classList.toggle("artwork-state",embeddedStations&&node.dataset.stationRole!=="WATCHER");node.hidden=false});document.querySelectorAll(".s6-station-legend [data-station-role]").forEach(node=>node.classList.toggle("artwork-state",embeddedStations&&node.dataset.stationRole!=="WATCHER"))}if(payload.state.phase_key==="act12_cinematic"&&payload.state.cinematic_stage===10){for(const audio of sprint6AudioHandles.values()){audio.pause();audio.currentTime=0;markSprint6AudioConsumed(audio.dataset.occurrenceId,"stopped")}sprint6AudioHandles.clear()}const audioKey=payload.state.feedback_audio_key,identity=payload.audio_occurrence_id,locallyConsumed=Boolean(sprint6AudioOutbox()[identity]);await flushSprint6AudioConsumptions();if(!audioKey||!identity||payload.audio_consumed||locallyConsumed||identity===sprint6AudioIdentity)return;sprint6AudioIdentity=identity;const asset=await rpc("asset_resolve",{p_asset_key:audioKey}).catch(()=>null);if(!asset?.ok){await markSprint6AudioConsumed(identity,"stopped");return}if(!sprint6AudioArmed){sprint6PendingAudio={key:audioKey,asset,occurrenceId:identity};return}await playSprint6Audio(audioKey,asset,identity)}
 async function sendSprint6Message(event){event.preventDefault();const input=document.getElementById("s6MessageText"),d=currentSprint6State.discussion,text=input.value,pending=requestIdentity("s6-message",d.discussion_session_id,{session:d.discussion_session_id,text});try{await rpc("s6_send_message_v2",{p_room_code:session.room_code,p_session_token:session.session_token,p_expected_discussion_session_id:d.discussion_session_id,p_client_request_id:pending.requestId,p_message_text:text});clearRequestIdentity(pending.key);pendingMessageAcks.set(sprint6DiscussionIdentity(currentSprint6State),{text,displayName:session.display_name});await refreshState()}catch(error){sprint3bStatus.textContent=error.message}}
 async function submitSprint6Station(event){event.preventDefault();const button=event.currentTarget.querySelector("button");button.dataset.s6Rpc="s6_complete_station_v2";button.dataset.s6Value=document.getElementById("s6StationValue").value;await runSprint6Action(button)}
 async function runSprint6Action(button){button.disabled=true;const rpcName=button.dataset.s6Rpc,body={p_room_code:session.room_code,p_session_token:session.session_token,...sprint6Identity()};if(rpcName==="s6_close_discussion_v2")body.p_expected_discussion_session_id=button.dataset.s6Discussion;if(button.dataset.s6Choice)body[rpcName==="s6_submit_allocation_v2"?"p_role_key":"p_choice_id"]=button.dataset.s6Choice;if(button.dataset.s6Role)body.p_role_key=button.dataset.s6Role;if(button.dataset.s6Value)body.p_task_value=button.dataset.s6Value;const identity=`${body.p_expected_phase}.${body.p_expected_step}.${body.p_expected_round}.${button.dataset.s6Discussion||""}`,pending=requestIdentity(rpcName,identity,body);body.p_client_request_id=pending.requestId;const status=beginInteractionStatus(sprint3bStatus);try{await rpc(rpcName,body);clearRequestIdentity(pending.key);await refreshState()}catch(error){endInteractionStatus(status);sprint3bStatus.innerHTML=`<span class="bad">${escapeHtml(error.message)}</span>`;button.disabled=false}finally{endInteractionStatus(status)}}
@@ -1057,6 +1090,7 @@ function stopPolling() {
   playerSessionEpoch += 1;
   currentSprint5State = null;
   finishPlayerComposition(playerCompositionTarget,false);
+  cancelSprint8Reveal();
   if (pollTimer) clearTimeout(pollTimer);
   pollTimer = null;
   lastConfirmedFrame = null;
