@@ -1,0 +1,22 @@
+{
+  "asset_key": "prop_linda_watch_back",
+  "display_name": "Linda's Watch Back",
+  "asset_type": "image",
+  "version": 3,
+  "status": "APPROVED",
+  "teacher_review": "APPROVED",
+  "runtime_required": true,
+  "continuity_refs": [
+    "MASTER-04"
+  ],
+  "paired_asset_group": "linda_pocket_watch",
+  "required_anchors": [],
+  "filename": "prop_linda_watch_back__v003.webp",
+  "width_px": 872,
+  "height_px": 1125,
+  "sha256": "ca9a31b2bd7b880f88b4dfabcfcb5d973b4c19a3dc9d482796afa60b83320469",
+  "source_png_sha256": "68c6144247054bd409ed02d3c21c05ff4d7bf369262652c016c653ac59e6cc89",
+  "creator": "VA",
+  "revision_note": "Teacher-approved immutable v003 replacement for Linda's pocket-watch back under Option C. Preserves the supplied five-pointed star image without artistic alteration.",
+  "technical_notes": "Lossless WebP prepared and pixel-equivalence verified by VA from the Teacher-supplied 872x1125 PNG. v001 and disputed v002 remain immutable history. APPROVED is not ACTIVE; active_version remains 1 until a separately authorized production release."
+}
