@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-26T02:05:00Z
+> Last refreshed: 2026-11-26T03:42:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
-CURRENT_GATE          = CA356_CA355_PRODUCTION_DEPLOY_SUCCESS / LIVE_VISUAL_TEACHER_TRIAL_REMAINS_NOT_VERIFIED
-CURRENT_OWNER         = Teacher — perform targeted real-browser visual/classroom trial acceptance
-NEXT_REQUIRED_ACTION  = Teacher play/check changed images, Library ajar, Main Gate, ACT9, Runtime text and completed replay/switch on actual public site; report only concrete defects to CA/CD. CA independently confirmed Pages run 45654674163 success, not entire visual gameplay. No new code gates.
+CURRENT_SPRINT        = CA-357 — Teacher report residual-bug selective-fix triage after CA355
+CURRENT_GATE          = CA357_SOURCE_ONLY_FINAL_NEXT_FIX_ASSIGNED / CA355_LIVE_TRIAL_STILL_PENDING
+CURRENT_OWNER         = CD — isolated finale Next source fix; Teacher retains separate live trial responsibility
+NEXT_REQUIRED_ACTION  = CD fix only slide25 ACT14 finale automatic caption pacing to explicit Next (no DB/new narrative) and hand one source/test result to CA; do NOT deploy without new Teacher authorization. All other Nov13/Nov17 residual observations await Teacher public human trial.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
