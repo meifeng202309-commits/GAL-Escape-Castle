@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-25T07:46:00Z
+> Last refreshed: 2026-11-26T02:05:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = CA-338 — Lean V0.2 integrated Teacher trial fixes (ACT1–14)
-CURRENT_GATE          = CA355_TEACHER_PRODUCTION_GO / CD_ONE_BATCH_RELEASE_EXECUTION
-CURRENT_OWNER         = CD — execute Teacher-authorized single CA338 release after no-active-human-run preflight
-NEXT_REQUIRED_ACTION  = CD execute scoped migration079, nine approved visual objects/registry, coherent four-file Pages, public smoke and minimal rollback if needed; stop on active human trial or material baseline drift. Report one CD→CA release result. Teacher authorization recorded in CA_to_CD_20261125T074500Z_ca355-teacher-authorizes-unified-ca338-production-release.md.
+CURRENT_GATE          = CA356_CA355_PRODUCTION_DEPLOY_SUCCESS / LIVE_VISUAL_TEACHER_TRIAL_REMAINS_NOT_VERIFIED
+CURRENT_OWNER         = Teacher — perform targeted real-browser visual/classroom trial acceptance
+NEXT_REQUIRED_ACTION  = Teacher play/check changed images, Library ajar, Main Gate, ACT9, Runtime text and completed replay/switch on actual public site; report only concrete defects to CA/CD. CA independently confirmed Pages run 45654674163 success, not entire visual gameplay. No new code gates.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
