@@ -379,14 +379,10 @@ A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
 Hier zijn drie werkposten:
 Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
 Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
-这里有三个操作位置：
-A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
-请在 Discussion 区协调分工，再按 Action 区的提示操作。
-你们来到主门机关前。请先在 Discussion 区协调每个人的工作位置，再在 Action 区选择当前游戏允许的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
-Hier zijn drie werkposten:
-Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
-Verdeel de taken bij Discussion en volg daarna de instructies bij Action.
-Jullie staan voor het mechanisme van de hoofdpoort. Verdeel eerst de taken bij Discussion en kies daarna bij Action de posten die het spel nu aanbiedt.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。
+这里有几处操作岗位，实际可以选择的岗位取决于你们此前的决定。
+请先在 Discussion 区协调分工，再在 Action 区选择当前显示的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Er zijn meerdere bedieningsposten. Welke posten beschikbaar zijn, hangt af van jullie eerdere keuze.
+Verdeel eerst de taken bij Discussion en kies daarna de posten die bij Action verschijnen.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。 不可固定声称永远有 A/B/C 岗位；由 CA 确认是否存在 WATCHER 变体。
 ANNA-057,Anna,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"A站的数字轮盘卡住了，暂时无法正常转动。
 请根据 Action 区当前提供的选项作出反应。","Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
 Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
@@ -468,12 +464,22 @@ Plotseling klinkt een doffe bons, alsof er iets tegen de muur is gebotst.
 Kies bij Action wat je eerst wilt doen.",,,,
 GITTE-002,Gitte,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你仔细研究墙上的古堡地图，看到图书馆与其他区域之间的路线，以及大厅附近的一道内部铁门。
 地图说明了地点和路线，但没有告诉你西塔为什么被封闭。","Je bestudeert de kasteelkaart aan de muur en ziet de routes tussen de bibliotheek en andere delen van het kasteel, en een ijzeren binnendeur vlak bij de grote zaal.
-De kaart toont plaatsen en routes, maar vertelt je niet waarom de westtoren is afgesloten.",地图上可以看到各区域路线，但没有说明西塔被封的原因。请记住地图线索，再在 Action 区选择下一项调查。,"Op de kaart staan routes, maar niet waarom de westtoren is afgesloten. Onthoud deze aanwijzing en kies daarna bij Action wat je verder onderzoekt.",REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+De kaart toont plaatsen en routes, maar vertelt je niet waarom de westtoren is afgesloten.","你仔细研究墙上的古堡地图，看到图书馆与其他区域之间的路线，以及大厅附近的一道内部铁门。
+地图说明了地点和路线，但没有告诉你西塔为什么被封闭。
+地图上可以看到各区域路线，但没有说明西塔被封的原因。请记住地图线索，再在 Action 区选择下一项调查。","Je bestudeert de kasteelkaart aan de muur en ziet de routes tussen de bibliotheek en andere delen van het kasteel, en een ijzeren binnendeur vlak bij de grote zaal.
+De kaart toont plaatsen en routes, maar vertelt je niet waarom de westtoren is afgesloten.
+Op de kaart staan routes, maar niet waarom de westtoren is afgesloten. Onthoud deze aanwijzing en kies daarna bij Action wat je verder onderzoekt.",APPEND_ACTION_TO_PRESERVED_STORY,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
 GITTE-003,Gitte,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你走到门边向外看，发现走廊尽头有一个模糊的人影快速闪过。
 几秒钟后，远处又传来金属摩擦声。
 你还不知道那个影子是谁。","Je loopt naar de deur en kijkt naar buiten. Helemaal aan het einde van de gang schiet een vage schaduw voorbij.
 Enkele seconden later hoor je in de verte metaal schuren.
-Je weet niet wie of wat die schaduw was.",走廊尽头闪过模糊的影子，远处传来金属摩擦声。请在 Action 区选择下一项调查。,Aan het einde van de gang verdwijnt een vage schaduw en je hoort metaal schuren. Kies bij Action wat je verder onderzoekt.,REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+Je weet niet wie of wat die schaduw was.","你走到门边向外看，发现走廊尽头有一个模糊的人影快速闪过。
+几秒钟后，远处又传来金属摩擦声。
+你还不知道那个影子是谁。
+走廊尽头闪过模糊的影子，远处传来金属摩擦声。请在 Action 区选择下一项调查。","Je loopt naar de deur en kijkt naar buiten. Helemaal aan het einde van de gang schiet een vage schaduw voorbij.
+Enkele seconden later hoor je in de verte metaal schuren.
+Je weet niet wie of wat die schaduw was.
+Aan het einde van de gang verdwijnt een vage schaduw en je hoort metaal schuren. Kies bij Action wat je verder onderzoekt.",APPEND_ACTION_TO_PRESERVED_STORY,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
 GITTE-004,Gitte,1,1,REVISE_ACTION_CLARITY,P1,ACT1 手机无信号，不可让玩家误以为现在可发送短信。,"你仔细研究桌上的旧纸条。
 纸条正面写着“4 – 1 – 7 – 3 – 9”，翻到背面还能看到一颗手绘五角星（★）。
 请记住这张纸条正反两面的线索。","Je onderzoekt het oude briefje op tafel.
@@ -819,14 +825,10 @@ A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
 Hier zijn drie werkposten:
 Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
 Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
-这里有三个操作位置：
-A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
-请在 Discussion 区协调分工，再按 Action 区的提示操作。
-你们来到主门机关前。请先在 Discussion 区协调每个人的工作位置，再在 Action 区选择当前游戏允许的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
-Hier zijn drie werkposten:
-Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
-Verdeel de taken bij Discussion en volg daarna de instructies bij Action.
-Jullie staan voor het mechanisme van de hoofdpoort. Verdeel eerst de taken bij Discussion en kies daarna bij Action de posten die het spel nu aanbiedt.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。
+这里有几处操作岗位，实际可以选择的岗位取决于你们此前的决定。
+请先在 Discussion 区协调分工，再在 Action 区选择当前显示的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Er zijn meerdere bedieningsposten. Welke posten beschikbaar zijn, hangt af van jullie eerdere keuze.
+Verdeel eerst de taken bij Discussion en kies daarna de posten die bij Action verschijnen.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。 不可固定声称永远有 A/B/C 岗位；由 CA 确认是否存在 WATCHER 变体。
 GITTE-057,Gitte,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"A站的数字轮盘卡住了，暂时无法正常转动。
 请根据 Action 区当前提供的选项作出反应。","Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
 Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
@@ -908,7 +910,15 @@ LINDA-002,Linda,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确
 这是旧公告记载的危险信息，不代表你已经亲眼看到西塔现状。","Je leest het gemeentelijke sluitingsbevel uit 1897 dat uit het dikke boek is gevallen.
 Volgens de bekendmaking zijn de westtoren en de aangrenzende westelijke dienstgangen tot nader order gesloten vanwege onveilig metselwerk en meldingen van giftige slangen.
 Onderaan staat: ‘Toegang verboden’.
-Dit is een waarschuwing uit een oud document; je hebt zelf nog niet gezien hoe het er nu bij de westtoren uitziet.",你读到了1897年市政府封闭西塔的旧公告。请记住这份警告，再在 Action 区选择下一项调查。,Je leest de gemeentelijke bekendmaking uit 1897 over de afgesloten westtoren. Onthoud de waarschuwing en kies daarna bij Action wat je verder onderzoekt.,REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+Dit is een waarschuwing uit een oud document; je hebt zelf nog niet gezien hoe het er nu bij de westtoren uitziet.","你仔细阅读从厚书中掉出来的1897年市政府封闭令。
+公告写明：因墙体结构不安全，并有毒蛇出没报告，西塔和附近的西侧服务通道被关闭，直至另行通知。
+公告最后写着“禁止进入”。
+这是旧公告记载的危险信息，不代表你已经亲眼看到西塔现状。
+你读到了1897年市政府封闭西塔的旧公告。请记住这份警告，再在 Action 区选择下一项调查。","Je leest het gemeentelijke sluitingsbevel uit 1897 dat uit het dikke boek is gevallen.
+Volgens de bekendmaking zijn de westtoren en de aangrenzende westelijke dienstgangen tot nader order gesloten vanwege onveilig metselwerk en meldingen van giftige slangen.
+Onderaan staat: ‘Toegang verboden’.
+Dit is een waarschuwing uit een oud document; je hebt zelf nog niet gezien hoe het er nu bij de westtoren uitziet.
+Je leest de gemeentelijke bekendmaking uit 1897 over de afgesloten westtoren. Onthoud de waarschuwing en kies daarna bij Action wat je verder onderzoekt.",APPEND_ACTION_TO_PRESERVED_STORY,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
 LINDA-003,Linda,1,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你仔细查看怀表，发现表针停在23:49。
 翻到背面，上面写着：“记住你醒来的时间。”
 请留意这个时间线索。","Je bekijkt het zakhorloge aandachtig en ziet dat de wijzers op 23.49 uur zijn blijven staan.
@@ -930,12 +940,18 @@ Dat betekent niet dat de sleutel nergens anders voor dient.","你把带五角星
 银钥匙无法打开你房间的门，但可能在别处派上用场。请在 Action 区选择下一项调查。","Je steekt de zilveren sleutel met het ★-teken in het slot van de kamerdeur.
 De sleutel past, maar je kunt hem niet omdraaien. Je kunt deze deur er dus niet mee openen.
 Dat betekent niet dat de sleutel nergens anders voor dient.
-De zilveren sleutel opent je kamerdeur niet, maar kan elders nog nuttig zijn. Kies bij Action wat je verder onderzoekt.",APPEND_GUARD,检查当前 ACT1 phone consequence 是否仍有可选项；不可提前声明 signal restored。
+De zilveren sleutel opent je kamerdeur niet, maar kan elders nog nuttig zijn. Kies bij Action wat je verder onderzoekt.",APPEND_ACTION_TO_PRESERVED_STORY,检查当前 ACT1 phone consequence 是否仍有可选项；不可提前声明 signal restored。
 LINDA-005,Linda,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你检查破裂镜子后面，发现镜框后的石墙上刻着一句警告：
 “当最后的钟声响起时，不要跟随暖空气。”
 你还不知道这句话是谁留下的。","Je kijkt achter de gebarsten spiegel en ontdekt een waarschuwing die in de stenen muur achter de lijst is gekrast:
 ‘Wanneer de laatste klok slaat, volg dan de warme lucht niet.’
-Je weet nog niet wie deze woorden heeft achtergelaten.",镜子后面的警告提到最后的钟声和暖空气。请记住线索，再在 Action 区选择下一项调查。,De waarschuwing achter de spiegel noemt de laatste klokslag en warme lucht. Onthoud deze aanwijzing en kies bij Action wat je verder onderzoekt.,REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+Je weet nog niet wie deze woorden heeft achtergelaten.","你检查破裂镜子后面，发现镜框后的石墙上刻着一句警告：
+“当最后的钟声响起时，不要跟随暖空气。”
+你还不知道这句话是谁留下的。
+镜子后面的警告提到最后的钟声和暖空气。请记住线索，再在 Action 区选择下一项调查。","Je kijkt achter de gebarsten spiegel en ontdekt een waarschuwing die in de stenen muur achter de lijst is gekrast:
+‘Wanneer de laatste klok slaat, volg dan de warme lucht niet.’
+Je weet nog niet wie deze woorden heeft achtergelaten.
+De waarschuwing achter de spiegel noemt de laatste klokslag en warme lucht. Onthoud deze aanwijzing en kies bij Action wat je verder onderzoekt.",APPEND_ACTION_TO_PRESERVED_STORY,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
 LINDA-006,Linda,2,1;4,VERIFY_LIVE_PHASE,—,PPT第1页显示弱信号时旧指令仍指向 Action；第4页 restored signal 另需 Discussion 明确指令。,"你发现手机出现了一点信号，但连接很不稳定。
 你可以尝试联系另外两位伙伴。请在 Action 区选择你现在想发送的信息。","Je merkt dat je telefoon weer een zwak signaal heeft, maar de verbinding is erg onstabiel.
 Je kunt proberen contact te leggen met de twee andere meisjes. Kies bij Action welk bericht je nu wilt versturen.",,,,ACT2 weak signal 初次联系与 signal restored + 阅读群消息是两个不同触发事件；不可用第4页文字覆盖第一阶段。
@@ -1263,14 +1279,10 @@ A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
 Hier zijn drie werkposten:
 Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
 Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
-这里有三个操作位置：
-A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
-请在 Discussion 区协调分工，再按 Action 区的提示操作。
-你们来到主门机关前。请先在 Discussion 区协调每个人的工作位置，再在 Action 区选择当前游戏允许的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
-Hier zijn drie werkposten:
-Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
-Verdeel de taken bij Discussion en volg daarna de instructies bij Action.
-Jullie staan voor het mechanisme van de hoofdpoort. Verdeel eerst de taken bij Discussion en kies daarna bij Action de posten die het spel nu aanbiedt.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。
+这里有几处操作岗位，实际可以选择的岗位取决于你们此前的决定。
+请先在 Discussion 区协调分工，再在 Action 区选择当前显示的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Er zijn meerdere bedieningsposten. Welke posten beschikbaar zijn, hangt af van jullie eerdere keuze.
+Verdeel eerst de taken bij Discussion en kies daarna de posten die bij Action verschijnen.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。 不可固定声称永远有 A/B/C 岗位；由 CA 确认是否存在 WATCHER 变体。
 LINDA-057,Linda,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"A站的数字轮盘卡住了，暂时无法正常转动。
 请根据 Action 区当前提供的选项作出反应。","Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
 Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
