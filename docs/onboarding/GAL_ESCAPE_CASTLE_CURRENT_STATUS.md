@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-26T03:42:00Z
+> Last refreshed: 2026-11-27T14:05:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = CA-357 — Teacher report residual-bug selective-fix triage after CA355
-CURRENT_GATE          = CA357_SOURCE_ONLY_FINAL_NEXT_FIX_ASSIGNED / CA355_LIVE_TRIAL_STILL_PENDING
-CURRENT_OWNER         = CD — isolated finale Next source fix; Teacher retains separate live trial responsibility
-NEXT_REQUIRED_ACTION  = CD fix only slide25 ACT14 finale automatic caption pacing to explicit Next (no DB/new narrative) and hand one source/test result to CA; do NOT deploy without new Teacher authorization. All other Nov13/Nov17 residual observations await Teacher public human trial.
+CURRENT_SPRINT        = CA-358 — 27 Nov 21-slide Teacher live report: GA Runtime queue + CA functional root-cause investigation
+CURRENT_GATE          = CA358_GA_RUNTIME_REVIEW_AND_CA_NON_RUNTIME_DIAGNOSIS / NO_NEW_PRODUCTION_GO
+CURRENT_OWNER         = GA for 27 Nov Runtime text/placement; CA for other bug coordination; CD retains isolated CA357 finale Next source task
+NEXT_REQUIRED_ACTION  = GA review 27 Nov Runtime content and wording with Teacher; CA source/database root-cause report CA358 ready; CD continues ONLY previously assigned CA357 Next fix. Any additional CD fixes require one consolidated CA handoff after coordination. No production writes authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
