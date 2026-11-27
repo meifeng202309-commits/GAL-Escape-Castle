@@ -1,0 +1,1351 @@
+Record_ID,Role,ACT,Debug_report_slide,Review_status,Priority,Issue_or_rationale_CN,Current_CN,Current_NL,Proposed_CN,Proposed_NL,Change_type,Source_and_implementation_guard
+ANNA-001,Anna,1,,PASS_OPENING_ACTION,—,角色开场已有调查 Action 指引。,"你在冰冷的地板上醒来，发现自己身处一间破旧的房间。
+现在是23:47，手机显示没有信号。
+桌上的旧日记封面写着“M. DE WIT — 1897”。
+门旁铜牌写着“东侧客房区”，牌下还有一句警告：“夜钟响过后，大厅的外部入口会从内部封闭。”
+请先观察房间，再在 Action 区选择你想检查的东西。","Je komt bij op de koude vloer, in een vervallen kamer.
+Het is 23.47 uur en je telefoon heeft geen bereik.
+Op de kaft van een oud dagboek op tafel staat ‘M. DE WIT — 1897’.
+Op een koperen bordje naast de deur staat ‘Oostelijke gastenvleugel’. Daaronder lees je een waarschuwing: ‘Na de nachtklok wordt de buitentoegang tot de grote zaal van binnenuit afgesloten.’
+Kijk eerst rond en kies bij Action wat je wilt onderzoeken.",,,,
+ANNA-002,Anna,1,2,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你打开桌上的旧仆人日记，看到其中写着：
+“接近午夜时，旧暖气通道会再次变暖。蛇会离开地下通道。”
+这是日记中留下的线索，请记住它。","Je opent het oude dagboek van een bediende op tafel en leest:
+‘Rond middernacht worden de oude verwarmingsgangen weer warm. De slangen verlaten de lagere tunnels.’
+Dit is een aanwijzing uit het dagboek. Onthoud ze.","你打开桌上的旧仆人日记，看到其中写着：
+“接近午夜时，旧暖气通道会再次变暖。蛇会离开地下通道。”
+这是日记中留下的线索，请记住它。
+请在自己的 Pocket 中保留这条线索，并继续在 Action 区查看其他可调查的物品。","Je opent het oude dagboek van een bediende op tafel en leest:
+‘Rond middernacht worden de oude verwarmingsgangen weer warm. De slangen verlaten de lagere tunnels.’
+Dit is een aanwijzing uit het dagboek. Onthoud ze.
+Bewaar deze aanwijzing in je Pocket en bekijk bij Action welke andere voorwerpen je kunt onderzoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-003,Anna,1,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你检查了木门，发现门锁可以从里面打开。
+锁背面有旧刻痕，门旁还有“图书馆 — 中央通道”的方向标记。
+请记住通向图书馆的线索。","Je onderzoekt de houten deur en ontdekt dat je het slot van binnenuit kunt openen.
+Op de achterkant van het slot staan oude krassen. Naast de deur wijst een bordje ‘Bibliotheek — centrale gang’ aan.
+Onthoud deze aanwijzing over de weg naar de bibliotheek.","你检查了木门，发现门锁可以从里面打开。
+锁背面有旧刻痕，门旁还有“图书馆 — 中央通道”的方向标记。
+请记住通向图书馆的线索。
+请记住这条路线线索，并在 Action 区选择下一项调查。","Je onderzoekt de houten deur en ontdekt dat je het slot van binnenuit kunt openen.
+Op de achterkant van het slot staan oude krassen. Naast de deur wijst een bordje ‘Bibliotheek — centrale gang’ aan.
+Onthoud deze aanwijzing over de weg naar de bibliotheek.
+Onthoud deze aanwijzing over de route en kies bij Action wat je verder wilt onderzoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-004,Anna,1,1,REVISE_ACTION_CLARITY,P1,ACT1 手机无信号，不可让玩家误以为现在可发送短信。,"你拿出手机，尝试联系外界。
+手机屏幕显示：没有手机信号。
+你暂时无法通过手机与任何人取得联系。","Je haalt je telefoon boven en probeert iemand buiten het kasteel te bereiken.
+Op het scherm staat: geen mobiel bereik.
+Je kunt voorlopig niemand met je telefoon bereiken.","你拿出手机，尝试联系外界。
+手机屏幕显示：没有手机信号。
+你暂时无法通过手机与任何人取得联系。
+手机目前没有信号，暂时不能发送短信。请返回 Action 区，选择其他可以检查的东西。","Je haalt je telefoon boven en probeert iemand buiten het kasteel te bereiken.
+Op het scherm staat: geen mobiel bereik.
+Je kunt voorlopig niemand met je telefoon bereiken.
+Je telefoon heeft nu geen bereik; je kunt nog geen berichten versturen. Kies bij Action iets anders dat je kunt onderzoeken.",APPEND_GUARD,检查当前 ACT1 phone consequence 是否仍有可选项；不可提前声明 signal restored。
+ANNA-005,Anna,1,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你检查通风口，感觉一股不寻常的暖风从里面吹出来。
+通风口里还传来很轻的摩擦声。
+你看不见声音的来源。","Je onderzoekt het ventilatierooster. Er komt een ongewoon warme luchtstroom uit.
+Van binnen hoor je een heel zacht schurend geluid.
+Je kunt niet zien waar het geluid vandaan komt.","你检查通风口，感觉一股不寻常的暖风从里面吹出来。
+通风口里还传来很轻的摩擦声。
+你看不见声音的来源。
+你暂时无法确定摩擦声来自哪里。请在 Action 区选择下一项调查。","Je onderzoekt het ventilatierooster. Er komt een ongewoon warme luchtstroom uit.
+Van binnen hoor je een heel zacht schurend geluid.
+Je kunt niet zien waar het geluid vandaan komt.
+Je kunt nog niet bepalen waar het schurende geluid vandaan komt. Kies bij Action wat je verder wilt onderzoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-006,Anna,2,1;4,VERIFY_LIVE_PHASE,—,PPT第1页显示弱信号时旧指令仍指向 Action；第4页 restored signal 另需 Discussion 明确指令。,"你发现手机出现了一点信号，但连接很不稳定。
+你可以尝试联系另外两位伙伴。请在 Action 区选择你现在想发送的信息。","Je merkt dat je telefoon weer een zwak signaal heeft, maar de verbinding is erg onstabiel.
+Je kunt proberen contact te leggen met de twee andere meisjes. Kies bij Action welk bericht je nu wilt versturen.",,,,ACT2 weak signal 初次联系与 signal restored + 阅读群消息是两个不同触发事件；不可用第4页文字覆盖第一阶段。
+ANNA-007,Anna,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在图书馆会合。
+你的目标地点已更新为图书馆。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de bibliotheek te ontmoeten.
+Je bestemming is nu de bibliotheek. Pas je route aan via de keuzes bij Action.",,,,
+ANNA-008,Anna,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在大厅会合。
+你的目标地点已更新为大厅。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de grote zaal te ontmoeten.
+Je bestemming is nu de grote zaal. Pas je route aan via de keuzes bij Action.",,,,
+ANNA-009,Anna,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在主门会合。
+你的目标地点已更新为主门。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar bij de hoofdpoort te ontmoeten.
+Je bestemming is nu de hoofdpoort. Pas je route aan via de keuzes bij Action.",,,,
+ANNA-010,Anna,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在西塔会合。
+你的目标地点已更新为西塔。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar bij de westtoren te ontmoeten.
+Je bestemming is nu de westtoren. Pas je route aan via de keuzes bij Action.",,,,
+ANNA-011,Anna,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在礼拜堂会合。
+你的目标地点已更新为礼拜堂。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de kapel te ontmoeten.
+Je bestemming is nu de kapel. Pas je route aan via de keuzes bij Action.",,,,
+ANNA-012,Anna,2,5,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。","Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.","沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。
+请阅读指示牌，然后点击 Action 区的“跟随指示牌”，沿指示方向前进。","Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.
+Lees de wegwijzer en klik daarna bij Action op ‘Volg het bord’ om verder te gaan.",REPLACE_PAGE_EXACT,PPT第5页：Scene 在点击跟随指示牌之前不应出现图书馆图；CA负责图像时机，GA仅拟提示。
+ANNA-013,Anna,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。","Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.","沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。
+请观察眼前的铁门，再按 Action 区当前可用的选项继续。","Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.
+Bekijk de ijzeren poort en ga verder met de beschikbare keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-014,Anna,2,,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。","Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.","在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。
+通往主门的路被蛇群堵住了。请在 Action 区选择沿指示牌前往图书馆。","Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.
+De slangen versperren de weg naar de hoofdpoort. Kies bij Action om de wegwijzers naar de bibliotheek te volgen.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-015,Anna,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。","De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.","通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。
+西塔入口无法通行。请按 Action 区当前可用的路线选择继续寻找其他通道。","De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.
+De toegang tot de westtoren is afgesloten. Kies bij Action een beschikbare route om een andere doorgang te zoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-016,Anna,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.","你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。
+礼拜堂门后有不明摩擦声。请按 Action 区当前可用的选项继续。","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.
+Achter de kapeldeur klinkt een onbekend schurend geluid. Ga verder via de beschikbare keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-017,Anna,3,6,VERIFY_THEN_REVISE,P1,PPT第6页要求开盒前明确输入密码；已批准 ANNA/GITTE/LINDA-017 文案有提示，但实测画面显示的文本像开盒成功。,"你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.","你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。
+请在 Action 区输入你认为正确的五位数字密码，尝试打开盒子。","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.
+Voer bij Action de vijf cijfers in die volgens jou de juiste code vormen om het kistje te openen.",CONDITIONAL_APPEND,先核对锁定阶段的实际 Runtime 是否出现了该文案，并确保开盒成功之后不再显示输入指令。
+ANNA-018,Anna,3,6,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。","Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.","盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。
+密码箱还没打开。请继续尝试输入密码；如果需要，请先检查 Pocket 中的线索，并与伙伴讨论。","Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.
+Het kistje is nog niet open. Probeer opnieuw een code in te voeren; bekijk zo nodig de aanwijzingen in je Pocket en overleg met je team.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-019,Anna,3,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"盒子仍然锁着。
+新提示提醒你们：有人从一开始就带着的某样东西可能很重要。
+请检查各自的 Pocket，并交流相关线索。","Het kistje zit nog op slot.
+Een nieuwe hint zegt dat iets wat een van jullie vanaf het begin bij zich had, belangrijk kan zijn.
+Bekijk ieder je eigen Pocket en bespreek de relevante aanwijzingen.",,,,
+ANNA-020,Anna,3,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"盒子仍然锁着。
+新的提示是：寻找一串由五个数字组成的信息。
+请回想你们已经看到的线索。","Het kistje zit nog op slot.
+De nieuwe hint luidt: zoek een reeks van vijf cijfers.
+Denk terug aan de aanwijzingen die jullie al hebben gezien.",,,,
+ANNA-021,Anna,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。","Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.","第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。
+第一个转轮已正确。请继续调整剩下的密码转轮。","Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.
+Het eerste wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-022,Anna,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。","Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.","第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。
+第二个转轮已正确。请继续调整剩下的密码转轮。","Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.
+Het tweede wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-023,Anna,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。","Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.","第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。
+第三个转轮已正确。请继续调整剩下的密码转轮。","Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.
+Het derde wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-024,Anna,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。","Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.","第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。
+第四个转轮已正确。请调整最后一个密码转轮。","Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.
+Het vierde wieltje staat goed. Stel nu het laatste cijferwieltje in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-025,Anna,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。
+最后一个转轮已正确，密码箱正在打开。请查看 Runtime 中随后出现的新发现。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.
+Ook het laatste wieltje staat goed; het kistje gaat open. Bekijk de nieuwe ontdekking die hierna in Runtime verschijnt.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-026,Anna,4,7;12,PASS_BUT_DUPLICATED_SURFACE,—,第7、12页显示相同剧情文字同时出现在 Scene 卡片和 Runtime；Runtime 原文保留。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",,,,CA/CD 删除 Scene 图片说明中的整段叙事文字，而非删除 Runtime 或 Scene 图片。
+ANNA-027,Anna,5,8;10,PASS_BUT_DUPLICATED_SURFACE,—,第8、10页显示此 Runtime 已有 Discussion 说明，问题是另一个区域重复呈现，不应该重写/删除本条。,"你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
+请先在 Discussion 区分享各自已知的信息，再进行路线投票。","Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,CA/CD 只删除 Discussion 面板复制的故事文本，保留 Runtime 内这段文字。
+ANNA-028,Anna,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们决定先把地图上没有标出的那扇门打开一点点。
+门后的通道黑暗狭窄，潮湿腐败的气息扑面而来，但似乎可以通行。
+你们仍然看不到通道尽头。请在 Action 区重新选择路线。","Jullie besluiten de deur die niet op de kaart staat eerst een klein stukje te openen.
+De doorgang erachter is donker en smal. Er komt een vochtige, bedompte geur uit, maar je lijkt erdoor te kunnen.
+Het einde van de doorgang is nog niet te zien. Kies bij Action opnieuw een route.",,,,
+ANNA-029,Anna,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选择地图上较熟悉的路线，走进一条宽阔但漫长的走廊。
+越往城堡深处走，墙上的肖像看起来越新。
+最后，你们来到一条两侧挂满肖像的长廊。
+请使用 Action 区的按钮进入长廊。","Jullie kiezen de bekende route op de kaart en komen in een brede, maar lange gang.
+Hoe dieper jullie het kasteel ingaan, hoe nieuwer de portretten aan de muren lijken.
+Uiteindelijk bereiken jullie een lange gang met aan beide kanten portretten.
+Gebruik de knop bij Action om de portrettengalerij binnen te gaan.",,,,
+ANNA-030,Anna,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选择了地图上没有标出的通道。
+Linda 用带★标记的银钥匙打开了门锁。
+狭窄的通道沿图书馆的墙后向下延伸，石墙上粘着旧蛇蜕，但眼前没有活蛇。
+这条路比地图上的路线短。最后，你们来到一条挂满肖像的长廊。
+请使用 Action 区的按钮进入长廊。","Jullie kiezen de doorgang die niet op de kaart staat.
+Linda opent het slot met haar zilveren sleutel met het ★-teken.
+De smalle doorgang daalt af achter de muur van de bibliotheek. Aan de stenen kleven oude slangenhuiden, maar er zijn geen levende slangen te zien.
+Deze route is korter dan de route op de kaart. Uiteindelijk komen jullie bij een gang vol portretten.
+Gebruik de knop bij Action om de portrettengalerij binnen te gaan.",,,,
+ANNA-031,Anna,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’","画像回答：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”","Het portret antwoordt:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+ANNA-032,Anna,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了，带着一丝嘲讽：
+“太慢了。去找时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw, met een spottende ondertoon:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“太慢了。去找时间停止的房间。”","Het portret antwoordt:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+ANNA-033,Anna,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“大门不是起点。先找到时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’","画像回答：
+“大门不是起点。先找到时间停止的房间。”","Het portret antwoordt:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+ANNA-034,Anna,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’","画像回答：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”","Het portret antwoordt:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+ANNA-035,Anna,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”","Het portret antwoordt:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+ANNA-036,Anna,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"现在是23:54。
+房间里有三只状态不同的钟：一只显示当前时间，一只倒着走，还有一只与停走的怀表有关。
+请比较你们已经找到的线索，讨论后选择正确的钟。","Het is nu 23.54 uur.
+In de kamer hangen drie klokken die zich verschillend gedragen: één toont de huidige tijd, één loopt achteruit en één heeft te maken met het stilgevallen zakhorloge.
+Vergelijk de aanwijzingen die jullie hebben gevonden, overleg en kies de juiste klok.",,,,
+ANNA-037,Anna,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选了一只钟，但什么也没有发生。
+请重新比较房间里的钟与此前获得的线索，再作选择。","Jullie kiezen een klok, maar er gebeurt niets.
+Vergelijk de klokken opnieuw met de aanwijzingen die jullie eerder hebben gevonden en maak dan een nieuwe keuze.",,,,
+ANNA-038,Anna,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"这次选择仍未解开谜题。
+新的提示提醒你们：有人随身带着一只停走的怀表。
+请互相交流相关信息，再作选择。","Ook deze keuze lost het raadsel niet op.
+Een nieuwe hint herinnert jullie eraan dat iemand een stilgevallen zakhorloge bij zich heeft.
+Wissel daarover informatie uit en kies opnieuw.",,,,
+ANNA-039,Anna,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"这次选择仍未解开谜题。
+提示进一步要求你们把停走怀表上的时间与房间里的钟进行比较。
+请讨论后重新选择。","Ook deze keuze lost het raadsel niet op.
+De volgende hint vraagt jullie het tijdstip op het stilgevallen zakhorloge te vergelijken met de klokken in de kamer.
+Overleg en kies opnieuw.",,,,
+ANNA-040,Anna,8,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+指示信息显示：主门的控制装置位于大厅。
+你们需要先前往大厅。","Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
+Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
+Jullie moeten eerst naar de grote zaal.","你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+指示信息显示：主门的控制装置位于大厅。
+你们需要先前往大厅。
+通往主门的这条路不能从这里操作机关。请按 Action 区现有的路线选项前往大厅。","Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
+Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
+Jullie moeten eerst naar de grote zaal.
+Vanaf deze kant kun je het poortmechanisme niet bedienen. Kies bij Action de beschikbare route naar de grote zaal.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-041,Anna,8,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。","Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
+De doorgang leidt naar de grote zaal. Volg deze route verder.","你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。
+你们认出了通往大厅的旧仆人通道。请按 Action 区的继续选项沿通道前进。","Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
+De doorgang leidt naar de grote zaal. Volg deze route verder.
+Jullie herkennen de oude dienstgang naar de grote zaal. Ga via de beschikbare vervolgkeuze bij Action verder.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-042,Anna,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"大厅里有几扇不同颜色的门。你得到一条只对你可见的线索：
+“一扇门可以先启动，而不必马上进去。第一扇门不安全。”
+请根据自己的判断，选择是否与伙伴分享这条信息。","In de grote zaal staan deuren in verschillende kleuren. Je krijgt een aanwijzing die alleen jij kunt zien:
+‘Je kunt een deur activeren zonder er meteen doorheen te gaan. De eerste deur is gevaarlijk.’
+Beslis zelf of je deze informatie met je teamgenoten wilt delen.",,,,
+ANNA-043,Anna,9,,PASS_EXPLICIT_WAIT,—,说明未形成共识及等待 Teacher 开票，注意不要把2:1误写为平局。,"这轮投票没有形成共识，所以系统没有执行开门或进入的动作。
+请继续讨论，等待 Teacher 开放下一轮投票。","Bij deze stemming werd geen overeenstemming bereikt. Daarom heeft het systeem geen deur geactiveerd en is niemand door een deur gegaan.
+Overleg verder en wacht tot de leerkracht de volgende stemronde opent.",,,,
+ANNA-044,Anna,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。","De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.","红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。
+红门已经启动，但尚未决定是否进入。请先在 Discussion 区讨论，然后按 Action 区进行下一步选择。","De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.
+De rode deur is geactiveerd, maar jullie hebben nog niet besloten om naar binnen te gaan. Overleg eerst bij Discussion en maak daarna je volgende keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-045,Anna,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们没有进入红门。
+一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
+请讨论下一步。","Jullie zijn niet door de rode deur gegaan.
+Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
+Bespreek de volgende stap.","你们没有进入红门。
+一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
+请讨论下一步。
+红门已经启动，蓝门现在可以启动。请在 Discussion 区讨论下一步，等待投票开放。","Jullie zijn niet door de rode deur gegaan.
+Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
+Bespreek de volgende stap.
+De rode deur is geactiveerd en de blauwe deur kan nu worden geactiveerd. Overleg bij Discussion over de volgende stap en wacht tot de stemming opent.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-046,Anna,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"蓝门已经启动。
+请在 Action 区决定下一步是否进入蓝门。","De blauwe deur is geactiveerd.
+Beslis bij Action of jullie nu door de blauwe deur gaan.",,,,
+ANNA-047,Anna,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们选择暂时留在原地。
+请等待游戏显示下一步状态。","Jullie besluiten voorlopig te blijven staan.
+Wacht tot het spel de volgende toestand toont.","你们选择暂时留在原地。
+请等待游戏显示下一步状态。
+你们决定暂时不进入。当前不需要再次点击；请等待游戏显示新的步骤。","Jullie besluiten voorlopig te blijven staan.
+Wacht tot het spel de volgende toestand toont.
+Jullie besluiten voorlopig niet naar binnen te gaan. Je hoeft nu niets aan te klikken; wacht tot het spel de volgende stap toont.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-048,Anna,9,,REVISE_AFTER_RULE_CHECK,P2,Teacher 批准的 ACT9 first-vote 蓝/黑错误反馈核心为“门没有反应。”，必须由 GA-149 的 act09.022 保持权威；不强制替换旧剧情分支。,"这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。","Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.","这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。
+门没有反应。请先讨论，再重新参加第一轮投票。","Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.
+De deur reageert niet. Overleg en stem daarna opnieuw in de eerste ronde.",CONTEXT_WRAPPER_ONLY,保留 act09.022 原文；仅在失败后确实开放第一轮重投时加附句。
+ANNA-049,Anna,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。","Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.","红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。
+红门后出现蛇影，门随即关闭。请先在 Discussion 区讨论线索，再按 Action 区重新选择。","Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.
+Achter de rode deur verschijnt een slangachtige schaduw en de deur valt dicht. Overleg eerst bij Discussion en kies daarna opnieuw bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-050,Anna,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。","De volgorde is niet juist.
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.","当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。
+当前顺序不正确。请在 Discussion 区讨论，并按 Action 区重新选择开门顺序。","De volgorde is niet juist.
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.
+De volgorde is niet juist. Overleg bij Discussion en kies bij Action opnieuw de volgorde waarin de deuren worden geopend.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-051,Anna,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"门后出现一道蛇一样的影子，红门砰地关闭。
+请查看 Action 区当前允许的下一步选择。","Achter de deur verschijnt een slangachtige schaduw en de rode deur slaat met een klap dicht.
+Bekijk welke volgende keuze bij Action beschikbaar is.",,,,
+ANNA-052,Anna,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"蓝门打开了，后面是一间狭窄的石室。
+石室里的小基座上放着一件金色的东西。
+请观察这件物品，再决定下一步。","De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
+Op een kleine sokkel staat iets goudkleurigs.
+Bekijk het voorwerp en beslis wat jullie nu doen.","蓝门打开了，后面是一间狭窄的石室。
+石室里的小基座上放着一件金色的东西。
+请观察这件物品，再决定下一步。
+蓝门后面有一间石室，基座上放着金色物品。请在 Discussion 区讨论是否取走，再参加 Action 区的团队选择。","De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
+Op een kleine sokkel staat iets goudkleurigs.
+Bekijk het voorwerp en beslis wat jullie nu doen.
+Achter de blauwe deur ligt een stenen kamer met een goudkleurig voorwerp. Overleg bij Discussion of jullie het meenemen en maak daarna de groepskeuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-053,Anna,10,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你得到一条只有自己能看到的建议：
+“不要拿走金钥匙。否则警报会响，它们可能更快来到这里。”
+请在讨论中决定是否告诉伙伴，再参与团队选择。","Je krijgt een advies dat alleen jij kunt zien:
+‘Neem de gouden sleutel niet mee. Anders gaat het alarm af en kunnen ze hier sneller zijn.’
+Beslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.",,,,
+ANNA-054,Anna,10,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。","Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.","你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。
+你们拿走了金色物品，警铃突然响起。请等待游戏显示接下来的后果，不必重复选择。","Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.
+Jullie hebben het gouden voorwerp meegenomen en plotseling klinkt het alarm. Wacht op het gevolg dat het spel nu toont; kies niet opnieuw.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-055,Anna,10,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。","Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.","你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。
+你们决定留下金色物品，正沿通道前往主门。请等待新场景出现，再根据 Action 区提示继续。","Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.
+Jullie laten het gouden voorwerp liggen en gaan naar de hoofdpoort. Wacht op de nieuwe scène en volg daarna de instructies bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+ANNA-056,Anna,11,21,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"现在是23:58，你们来到主门的控制区域。
+这里有三个操作位置：
+A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
+请在 Discussion 区协调分工，再按 Action 区的提示操作。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Hier zijn drie werkposten:
+Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
+Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
+这里有三个操作位置：
+A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
+请在 Discussion 区协调分工，再按 Action 区的提示操作。
+你们来到主门机关前。请先在 Discussion 区协调每个人的工作位置，再在 Action 区选择当前游戏允许的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Hier zijn drie werkposten:
+Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
+Verdeel de taken bij Discussion en volg daarna de instructies bij Action.
+Jullie staan voor het mechanisme van de hoofdpoort. Verdeel eerst de taken bij Discussion en kies daarna bij Action de posten die het spel nu aanbiedt.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。
+ANNA-057,Anna,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"A站的数字轮盘卡住了，暂时无法正常转动。
+请根据 Action 区当前提供的选项作出反应。","Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+ANNA-058,Anna,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"B站的杠杆卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。","De hefboom bij post B zit vast en kan voorlopig niet worden gebruikt.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+ANNA-059,Anna,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"C站的钥匙机构卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。","Het sleutelmechanisme bij post C is vastgelopen en werkt voorlopig niet.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+ANNA-060,Anna,12,20,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。","Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.","机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。
+机关仍未恢复正常，危险正在逼近。请根据 Action 区当前仍可使用的操作继续尝试。","Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.
+Het mechanisme werkt nog steeds niet en het gevaar komt dichterbij. Blijf proberen met de handelingen die bij Action nog beschikbaar zijn.",REPLACE_PAGE_EXACT,第20页错误钥匙反馈应单独增加古堡之声嘲讽句，不要将文字硬加在所有 ACT12 失败情况。
+ANNA-061,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"周围的走廊里不断传来湿黏的摩擦声，像有什么东西在石面上移动。
+声音越来越近，从四面八方传来。
+但你们仍然看不到它是什么。","Uit de gangen om jullie heen klinkt een nat, schurend geluid, alsof er iets over de stenen beweegt.
+Het geluid komt steeds dichterbij, vanuit alle richtingen.
+Maar jullie kunnen nog niet zien wat het is.",,,,
+ANNA-062,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"现在，你们甚至能闻到某些东西潮湿的气息。
+它们似乎已经非常靠近。","Nu kunnen jullie zelfs de vochtige adem van iets ruiken.
+Het lijkt al heel dichtbij te zijn.",,,,
+ANNA-063,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,5,5,,,,
+ANNA-064,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,4,4,,,,
+ANNA-065,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,3,3,,,,
+ANNA-066,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,2,2,,,,
+ANNA-067,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,1,1,,,,
+ANNA-068,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"逃脱成功
+主门轰然打开。
+你们三人一起冲了出去。
+时间 — 00:00
+手机信号已恢复。","ONTSNAPT!
+De hoofdpoort vliegt met een dreun open.
+Jullie rennen met z’n drieën naar buiten.
+TIJD — 00:00
+Het mobiele signaal is hersteld.",,,,结束画面按本轮已批准的独立 Next 和自动场景处理，不因通用行动规则添加投票/操作。
+ANNA-069,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"走廊里已经有什么东西靠近了。
+你们还看不清它是什么。","Er bevindt zich al iets in de gang.
+Jullie kunnen nog niet zien wat het is.",,,,
+ANNA-070,Anna,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,声音越来越近，从四面八方传来。,"Het geluid komt steeds dichterbij, vanuit alle richtingen.",,,,
+ANNA-071,Anna,13,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"逃脱成功
+主门轰然打开。
+你们三人一起冲了出去。
+时间 — 00:00
+手机信号已恢复。","ONTSNAPT!
+De hoofdpoort vliegt met een dreun open.
+Jullie rennen met z’n drieën naar buiten.
+TIJD — 00:00
+Het mobiele signaal is hersteld.",,,,结束画面按本轮已批准的独立 Next 和自动场景处理，不因通用行动规则添加投票/操作。
+ANNA-072,Anna,14,,EXEMPT_AUTO_OR_LOCKED,—,ACT14 结尾已锁定：不在正式文案中新增动作指令。,"任务完成。
+你们逃出来了。
+但是城堡记住了你们做的一切。
+他们知道你们是谁。
+结束","Missie voltooid.
+Jullie zijn ontsnapt.
+Maar het kasteel herinnerde zich alles wat jullie deden.
+ZIJ weten wie jullie zijn.
+Einde",,,,禁止修改 ACT14 结尾 canonical 文字与翻页机制。
+GITTE-001,Gitte,1,,PASS_OPENING_ACTION,—,角色开场已有调查 Action 指引。,"一个低沉、冰冷的声音在耳边响起。它似乎来自四面八方，又似乎来自你自己的内心深处。
+那个声音低语道：“礼拜堂里的蛇王……很生气。”
+你在一张旧木床上醒来。那个声音消失了。
+现在是23:47，手机没有信号。
+桌上的小纸条写着“4 – 1 – 7 – 3 – 9”，另一处提示写着“午夜前离开”。
+墙上还挂着一张古堡地图。
+突然传来“咚”的一声，像有什么东西撞上了墙。
+请在 Action 区选择你想先做什么。","Een lage, koude stem klinkt aan je oor. Het lijkt alsof ze van alle kanten komt, maar ook diep uit je eigen gedachten.
+De stem fluistert: ‘De Slangenkoning in de kapel… is erg boos.’
+Je wordt wakker in een oud houten bed. De stem is verdwenen.
+Het is 23.47 uur en je telefoon heeft geen bereik.
+Op een briefje op tafel staat ‘4 – 1 – 7 – 3 – 9’. Op een andere plek lees je: ‘Vertrek vóór middernacht.’
+Aan de muur hangt een kasteelkaart.
+Plotseling klinkt een doffe bons, alsof er iets tegen de muur is gebotst.
+Kies bij Action wat je eerst wilt doen.",,,,
+GITTE-002,Gitte,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你仔细研究墙上的古堡地图，看到图书馆与其他区域之间的路线，以及大厅附近的一道内部铁门。
+地图说明了地点和路线，但没有告诉你西塔为什么被封闭。","Je bestudeert de kasteelkaart aan de muur en ziet de routes tussen de bibliotheek en andere delen van het kasteel, en een ijzeren binnendeur vlak bij de grote zaal.
+De kaart toont plaatsen en routes, maar vertelt je niet waarom de westtoren is afgesloten.",地图上可以看到各区域路线，但没有说明西塔被封的原因。请记住地图线索，再在 Action 区选择下一项调查。,"Op de kaart staan routes, maar niet waarom de westtoren is afgesloten. Onthoud deze aanwijzing en kies daarna bij Action wat je verder onderzoekt.",REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+GITTE-003,Gitte,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你走到门边向外看，发现走廊尽头有一个模糊的人影快速闪过。
+几秒钟后，远处又传来金属摩擦声。
+你还不知道那个影子是谁。","Je loopt naar de deur en kijkt naar buiten. Helemaal aan het einde van de gang schiet een vage schaduw voorbij.
+Enkele seconden later hoor je in de verte metaal schuren.
+Je weet niet wie of wat die schaduw was.",走廊尽头闪过模糊的影子，远处传来金属摩擦声。请在 Action 区选择下一项调查。,Aan het einde van de gang verdwijnt een vage schaduw en je hoort metaal schuren. Kies bij Action wat je verder onderzoekt.,REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+GITTE-004,Gitte,1,1,REVISE_ACTION_CLARITY,P1,ACT1 手机无信号，不可让玩家误以为现在可发送短信。,"你仔细研究桌上的旧纸条。
+纸条正面写着“4 – 1 – 7 – 3 – 9”，翻到背面还能看到一颗手绘五角星（★）。
+请记住这张纸条正反两面的线索。","Je onderzoekt het oude briefje op tafel.
+Op de voorkant staan vijf cijfers: ‘4 – 1 – 7 – 3 – 9’. Op de achterkant zie je een handgetekende vijfpuntige ster (★).
+Onthoud beide aanwijzingen.","你仔细研究桌上的旧纸条。
+纸条正面写着“4 – 1 – 7 – 3 – 9”，翻到背面还能看到一颗手绘五角星（★）。
+请记住这张纸条正反两面的线索。
+手机目前没有信号，暂时不能发送短信。请返回 Action 区，选择其他可以检查的东西。","Je onderzoekt het oude briefje op tafel.
+Op de voorkant staan vijf cijfers: ‘4 – 1 – 7 – 3 – 9’. Op de achterkant zie je een handgetekende vijfpuntige ster (★).
+Onthoud beide aanwijzingen.
+Je telefoon heeft nu geen bereik; je kunt nog geen berichten versturen. Kies bij Action iets anders dat je kunt onderzoeken.",APPEND_GUARD,检查当前 ACT1 phone consequence 是否仍有可选项；不可提前声明 signal restored。
+GITTE-005,Gitte,1,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你搜索床下，找到了一只旧手电筒。
+请记住这个发现，留意它随后是否出现在 Pocket 中。","Je zoekt onder het bed en vindt een oude zaklamp.
+Onthoud je vondst en kijk of de zaklamp daarna in je Pocket verschijnt.","你搜索床下，找到了一只旧手电筒。
+请记住这个发现，留意它随后是否出现在 Pocket 中。
+你暂时无法确定摩擦声来自哪里。请在 Action 区选择下一项调查。","Je zoekt onder het bed en vindt een oude zaklamp.
+Onthoud je vondst en kijk of de zaklamp daarna in je Pocket verschijnt.
+Je kunt nog niet bepalen waar het schurende geluid vandaan komt. Kies bij Action wat je verder wilt onderzoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-006,Gitte,2,1;4,VERIFY_LIVE_PHASE,—,PPT第1页显示弱信号时旧指令仍指向 Action；第4页 restored signal 另需 Discussion 明确指令。,"你发现手机出现了一点信号，但连接很不稳定。
+你可以尝试联系另外两位伙伴。请在 Action 区选择你现在想发送的信息。","Je merkt dat je telefoon weer een zwak signaal heeft, maar de verbinding is erg onstabiel.
+Je kunt proberen contact te leggen met de twee andere meisjes. Kies bij Action welk bericht je nu wilt versturen.",,,,ACT2 weak signal 初次联系与 signal restored + 阅读群消息是两个不同触发事件；不可用第4页文字覆盖第一阶段。
+GITTE-007,Gitte,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在图书馆会合。
+你的目标地点已更新为图书馆。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de bibliotheek te ontmoeten.
+Je bestemming is nu de bibliotheek. Pas je route aan via de keuzes bij Action.",,,,
+GITTE-008,Gitte,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在大厅会合。
+你的目标地点已更新为大厅。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de grote zaal te ontmoeten.
+Je bestemming is nu de grote zaal. Pas je route aan via de keuzes bij Action.",,,,
+GITTE-009,Gitte,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在主门会合。
+你的目标地点已更新为主门。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar bij de hoofdpoort te ontmoeten.
+Je bestemming is nu de hoofdpoort. Pas je route aan via de keuzes bij Action.",,,,
+GITTE-010,Gitte,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在西塔会合。
+你的目标地点已更新为西塔。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar bij de westtoren te ontmoeten.
+Je bestemming is nu de westtoren. Pas je route aan via de keuzes bij Action.",,,,
+GITTE-011,Gitte,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在礼拜堂会合。
+你的目标地点已更新为礼拜堂。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de kapel te ontmoeten.
+Je bestemming is nu de kapel. Pas je route aan via de keuzes bij Action.",,,,
+GITTE-012,Gitte,2,5,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。","Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.","沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。
+请阅读指示牌，然后点击 Action 区的“跟随指示牌”，沿指示方向前进。","Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.
+Lees de wegwijzer en klik daarna bij Action op ‘Volg het bord’ om verder te gaan.",REPLACE_PAGE_EXACT,PPT第5页：Scene 在点击跟随指示牌之前不应出现图书馆图；CA负责图像时机，GA仅拟提示。
+GITTE-013,Gitte,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。","Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.","沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。
+请观察眼前的铁门，再按 Action 区当前可用的选项继续。","Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.
+Bekijk de ijzeren poort en ga verder met de beschikbare keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-014,Gitte,2,,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。","Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.","在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。
+通往主门的路被蛇群堵住了。请在 Action 区选择沿指示牌前往图书馆。","Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.
+De slangen versperren de weg naar de hoofdpoort. Kies bij Action om de wegwijzers naar de bibliotheek te volgen.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-015,Gitte,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。","De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.","通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。
+西塔入口无法通行。请按 Action 区当前可用的路线选择继续寻找其他通道。","De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.
+De toegang tot de westtoren is afgesloten. Kies bij Action een beschikbare route om een andere doorgang te zoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-016,Gitte,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.","你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。
+礼拜堂门后有不明摩擦声。请按 Action 区当前可用的选项继续。","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.
+Achter de kapeldeur klinkt een onbekend schurend geluid. Ga verder via de beschikbare keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-017,Gitte,3,6,VERIFY_THEN_REVISE,P1,PPT第6页要求开盒前明确输入密码；已批准 ANNA/GITTE/LINDA-017 文案有提示，但实测画面显示的文本像开盒成功。,"你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.","你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。
+请在 Action 区输入你认为正确的五位数字密码，尝试打开盒子。","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.
+Voer bij Action de vijf cijfers in die volgens jou de juiste code vormen om het kistje te openen.",CONDITIONAL_APPEND,先核对锁定阶段的实际 Runtime 是否出现了该文案，并确保开盒成功之后不再显示输入指令。
+GITTE-018,Gitte,3,6,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。","Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.","盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。
+密码箱还没打开。请继续尝试输入密码；如果需要，请先检查 Pocket 中的线索，并与伙伴讨论。","Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.
+Het kistje is nog niet open. Probeer opnieuw een code in te voeren; bekijk zo nodig de aanwijzingen in je Pocket en overleg met je team.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-019,Gitte,3,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"盒子仍然锁着。
+新提示提醒你们：有人从一开始就带着的某样东西可能很重要。
+请检查各自的 Pocket，并交流相关线索。","Het kistje zit nog op slot.
+Een nieuwe hint zegt dat iets wat een van jullie vanaf het begin bij zich had, belangrijk kan zijn.
+Bekijk ieder je eigen Pocket en bespreek de relevante aanwijzingen.",,,,
+GITTE-020,Gitte,3,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"盒子仍然锁着。
+新的提示是：寻找一串由五个数字组成的信息。
+请回想你们已经看到的线索。","Het kistje zit nog op slot.
+De nieuwe hint luidt: zoek een reeks van vijf cijfers.
+Denk terug aan de aanwijzingen die jullie al hebben gezien.",,,,
+GITTE-021,Gitte,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。","Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.","第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。
+第一个转轮已正确。请继续调整剩下的密码转轮。","Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.
+Het eerste wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-022,Gitte,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。","Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.","第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。
+第二个转轮已正确。请继续调整剩下的密码转轮。","Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.
+Het tweede wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-023,Gitte,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。","Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.","第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。
+第三个转轮已正确。请继续调整剩下的密码转轮。","Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.
+Het derde wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-024,Gitte,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。","Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.","第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。
+第四个转轮已正确。请调整最后一个密码转轮。","Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.
+Het vierde wieltje staat goed. Stel nu het laatste cijferwieltje in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-025,Gitte,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。
+最后一个转轮已正确，密码箱正在打开。请查看 Runtime 中随后出现的新发现。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.
+Ook het laatste wieltje staat goed; het kistje gaat open. Bekijk de nieuwe ontdekking die hierna in Runtime verschijnt.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-026,Gitte,4,7;12,PASS_BUT_DUPLICATED_SURFACE,—,第7、12页显示相同剧情文字同时出现在 Scene 卡片和 Runtime；Runtime 原文保留。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",,,,CA/CD 删除 Scene 图片说明中的整段叙事文字，而非删除 Runtime 或 Scene 图片。
+GITTE-027,Gitte,5,8;10,PASS_BUT_DUPLICATED_SURFACE,—,第8、10页显示此 Runtime 已有 Discussion 说明，问题是另一个区域重复呈现，不应该重写/删除本条。,"你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
+请先在 Discussion 区分享各自已知的信息，再进行路线投票。","Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,CA/CD 只删除 Discussion 面板复制的故事文本，保留 Runtime 内这段文字。
+GITTE-028,Gitte,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们决定先把地图上没有标出的那扇门打开一点点。
+门后的通道黑暗狭窄，潮湿腐败的气息扑面而来，但似乎可以通行。
+你们仍然看不到通道尽头。请在 Action 区重新选择路线。","Jullie besluiten de deur die niet op de kaart staat eerst een klein stukje te openen.
+De doorgang erachter is donker en smal. Er komt een vochtige, bedompte geur uit, maar je lijkt erdoor te kunnen.
+Het einde van de doorgang is nog niet te zien. Kies bij Action opnieuw een route.",,,,
+GITTE-029,Gitte,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选择地图上较熟悉的路线，走进一条宽阔但漫长的走廊。
+越往城堡深处走，墙上的肖像看起来越新。
+最后，你们来到一条两侧挂满肖像的长廊。
+请使用 Action 区的按钮进入长廊。","Jullie kiezen de bekende route op de kaart en komen in een brede, maar lange gang.
+Hoe dieper jullie het kasteel ingaan, hoe nieuwer de portretten aan de muren lijken.
+Uiteindelijk bereiken jullie een lange gang met aan beide kanten portretten.
+Gebruik de knop bij Action om de portrettengalerij binnen te gaan.",,,,
+GITTE-030,Gitte,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选择了地图上没有标出的通道。
+Linda 用带★标记的银钥匙打开了门锁。
+狭窄的通道沿图书馆的墙后向下延伸，石墙上粘着旧蛇蜕，但眼前没有活蛇。
+这条路比地图上的路线短。最后，你们来到一条挂满肖像的长廊。
+请使用 Action 区的按钮进入长廊。","Jullie kiezen de doorgang die niet op de kaart staat.
+Linda opent het slot met haar zilveren sleutel met het ★-teken.
+De smalle doorgang daalt af achter de muur van de bibliotheek. Aan de stenen kleven oude slangenhuiden, maar er zijn geen levende slangen te zien.
+Deze route is korter dan de route op de kaart. Uiteindelijk komen jullie bij een gang vol portretten.
+Gebruik de knop bij Action om de portrettengalerij binnen te gaan.",,,,
+GITTE-031,Gitte,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’","画像回答：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”","Het portret antwoordt:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+GITTE-032,Gitte,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了，带着一丝嘲讽：
+“太慢了。去找时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw, met een spottende ondertoon:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“太慢了。去找时间停止的房间。”","Het portret antwoordt:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+GITTE-033,Gitte,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“大门不是起点。先找到时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’","画像回答：
+“大门不是起点。先找到时间停止的房间。”","Het portret antwoordt:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+GITTE-034,Gitte,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’","画像回答：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”","Het portret antwoordt:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+GITTE-035,Gitte,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”","Het portret antwoordt:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+GITTE-036,Gitte,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"现在是23:54。
+房间里有三只状态不同的钟：一只显示当前时间，一只倒着走，还有一只与停走的怀表有关。
+请比较你们已经找到的线索，讨论后选择正确的钟。","Het is nu 23.54 uur.
+In de kamer hangen drie klokken die zich verschillend gedragen: één toont de huidige tijd, één loopt achteruit en één heeft te maken met het stilgevallen zakhorloge.
+Vergelijk de aanwijzingen die jullie hebben gevonden, overleg en kies de juiste klok.",,,,
+GITTE-037,Gitte,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选了一只钟，但什么也没有发生。
+请重新比较房间里的钟与此前获得的线索，再作选择。","Jullie kiezen een klok, maar er gebeurt niets.
+Vergelijk de klokken opnieuw met de aanwijzingen die jullie eerder hebben gevonden en maak dan een nieuwe keuze.",,,,
+GITTE-038,Gitte,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"这次选择仍未解开谜题。
+新的提示提醒你们：有人随身带着一只停走的怀表。
+请互相交流相关信息，再作选择。","Ook deze keuze lost het raadsel niet op.
+Een nieuwe hint herinnert jullie eraan dat iemand een stilgevallen zakhorloge bij zich heeft.
+Wissel daarover informatie uit en kies opnieuw.",,,,
+GITTE-039,Gitte,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"这次选择仍未解开谜题。
+提示进一步要求你们把停走怀表上的时间与房间里的钟进行比较。
+请讨论后重新选择。","Ook deze keuze lost het raadsel niet op.
+De volgende hint vraagt jullie het tijdstip op het stilgevallen zakhorloge te vergelijken met de klokken in de kamer.
+Overleg en kies opnieuw.",,,,
+GITTE-040,Gitte,8,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+指示信息显示：主门的控制装置位于大厅。
+你们需要先前往大厅。","Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
+Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
+Jullie moeten eerst naar de grote zaal.","你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+指示信息显示：主门的控制装置位于大厅。
+你们需要先前往大厅。
+通往主门的这条路不能从这里操作机关。请按 Action 区现有的路线选项前往大厅。","Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
+Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
+Jullie moeten eerst naar de grote zaal.
+Vanaf deze kant kun je het poortmechanisme niet bedienen. Kies bij Action de beschikbare route naar de grote zaal.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-041,Gitte,8,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。","Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
+De doorgang leidt naar de grote zaal. Volg deze route verder.","你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。
+你们认出了通往大厅的旧仆人通道。请按 Action 区的继续选项沿通道前进。","Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
+De doorgang leidt naar de grote zaal. Volg deze route verder.
+Jullie herkennen de oude dienstgang naar de grote zaal. Ga via de beschikbare vervolgkeuze bij Action verder.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-042,Gitte,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"大厅里有几扇不同颜色的门。你得到一条只对你可见的线索：
+“一扇门可以先启动，而不必马上进去。红门应该先启动。”
+请根据自己的判断，选择是否与伙伴分享这条信息。","In de grote zaal staan deuren in verschillende kleuren. Je krijgt een aanwijzing die alleen jij kunt zien:
+‘Je kunt een deur activeren zonder er meteen doorheen te gaan. De rode deur moet eerst worden geactiveerd.’
+Beslis zelf of je deze informatie met je teamgenoten wilt delen.",,,,
+GITTE-043,Gitte,9,,PASS_EXPLICIT_WAIT,—,说明未形成共识及等待 Teacher 开票，注意不要把2:1误写为平局。,"这轮投票没有形成共识，所以系统没有执行开门或进入的动作。
+请继续讨论，等待 Teacher 开放下一轮投票。","Bij deze stemming werd geen overeenstemming bereikt. Daarom heeft het systeem geen deur geactiveerd en is niemand door een deur gegaan.
+Overleg verder en wacht tot de leerkracht de volgende stemronde opent.",,,,
+GITTE-044,Gitte,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。","De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.","红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。
+红门已经启动，但尚未决定是否进入。请先在 Discussion 区讨论，然后按 Action 区进行下一步选择。","De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.
+De rode deur is geactiveerd, maar jullie hebben nog niet besloten om naar binnen te gaan. Overleg eerst bij Discussion en maak daarna je volgende keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-045,Gitte,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们没有进入红门。
+一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
+请讨论下一步。","Jullie zijn niet door de rode deur gegaan.
+Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
+Bespreek de volgende stap.","你们没有进入红门。
+一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
+请讨论下一步。
+红门已经启动，蓝门现在可以启动。请在 Discussion 区讨论下一步，等待投票开放。","Jullie zijn niet door de rode deur gegaan.
+Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
+Bespreek de volgende stap.
+De rode deur is geactiveerd en de blauwe deur kan nu worden geactiveerd. Overleg bij Discussion over de volgende stap en wacht tot de stemming opent.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-046,Gitte,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"蓝门已经启动。
+请在 Action 区决定下一步是否进入蓝门。","De blauwe deur is geactiveerd.
+Beslis bij Action of jullie nu door de blauwe deur gaan.",,,,
+GITTE-047,Gitte,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们选择暂时留在原地。
+请等待游戏显示下一步状态。","Jullie besluiten voorlopig te blijven staan.
+Wacht tot het spel de volgende toestand toont.","你们选择暂时留在原地。
+请等待游戏显示下一步状态。
+你们决定暂时不进入。当前不需要再次点击；请等待游戏显示新的步骤。","Jullie besluiten voorlopig te blijven staan.
+Wacht tot het spel de volgende toestand toont.
+Jullie besluiten voorlopig niet naar binnen te gaan. Je hoeft nu niets aan te klikken; wacht tot het spel de volgende stap toont.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-048,Gitte,9,,REVISE_AFTER_RULE_CHECK,P2,Teacher 批准的 ACT9 first-vote 蓝/黑错误反馈核心为“门没有反应。”，必须由 GA-149 的 act09.022 保持权威；不强制替换旧剧情分支。,"这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。","Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.","这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。
+门没有反应。请先讨论，再重新参加第一轮投票。","Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.
+De deur reageert niet. Overleg en stem daarna opnieuw in de eerste ronde.",CONTEXT_WRAPPER_ONLY,保留 act09.022 原文；仅在失败后确实开放第一轮重投时加附句。
+GITTE-049,Gitte,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。","Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.","红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。
+红门后出现蛇影，门随即关闭。请先在 Discussion 区讨论线索，再按 Action 区重新选择。","Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.
+Achter de rode deur verschijnt een slangachtige schaduw en de deur valt dicht. Overleg eerst bij Discussion en kies daarna opnieuw bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-050,Gitte,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。","De volgorde is niet juist.
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.","当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。
+当前顺序不正确。请在 Discussion 区讨论，并按 Action 区重新选择开门顺序。","De volgorde is niet juist.
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.
+De volgorde is niet juist. Overleg bij Discussion en kies bij Action opnieuw de volgorde waarin de deuren worden geopend.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-051,Gitte,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"门后出现一道蛇一样的影子，红门砰地关闭。
+请查看 Action 区当前允许的下一步选择。","Achter de deur verschijnt een slangachtige schaduw en de rode deur slaat met een klap dicht.
+Bekijk welke volgende keuze bij Action beschikbaar is.",,,,
+GITTE-052,Gitte,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"蓝门打开了，后面是一间狭窄的石室。
+石室里的小基座上放着一件金色的东西。
+请观察这件物品，再决定下一步。","De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
+Op een kleine sokkel staat iets goudkleurigs.
+Bekijk het voorwerp en beslis wat jullie nu doen.","蓝门打开了，后面是一间狭窄的石室。
+石室里的小基座上放着一件金色的东西。
+请观察这件物品，再决定下一步。
+蓝门后面有一间石室，基座上放着金色物品。请在 Discussion 区讨论是否取走，再参加 Action 区的团队选择。","De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
+Op een kleine sokkel staat iets goudkleurigs.
+Bekijk het voorwerp en beslis wat jullie nu doen.
+Achter de blauwe deur ligt een stenen kamer met een goudkleurig voorwerp. Overleg bij Discussion of jullie het meenemen en maak daarna de groepskeuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-053,Gitte,10,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你得到一条只有自己能看到的建议：
+“带走金钥匙。没有它，打开主门可能需要更多时间。”
+请在讨论中决定是否告诉伙伴，再参与团队选择。","Je krijgt een advies dat alleen jij kunt zien:
+‘Neem de gouden sleutel mee. Zonder die sleutel kan het langer duren om de hoofdpoort te openen.’
+Beslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.",,,,
+GITTE-054,Gitte,10,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。","Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.","你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。
+你们拿走了金色物品，警铃突然响起。请等待游戏显示接下来的后果，不必重复选择。","Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.
+Jullie hebben het gouden voorwerp meegenomen en plotseling klinkt het alarm. Wacht op het gevolg dat het spel nu toont; kies niet opnieuw.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-055,Gitte,10,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。","Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.","你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。
+你们决定留下金色物品，正沿通道前往主门。请等待新场景出现，再根据 Action 区提示继续。","Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.
+Jullie laten het gouden voorwerp liggen en gaan naar de hoofdpoort. Wacht op de nieuwe scène en volg daarna de instructies bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+GITTE-056,Gitte,11,21,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"现在是23:58，你们来到主门的控制区域。
+这里有三个操作位置：
+A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
+请在 Discussion 区协调分工，再按 Action 区的提示操作。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Hier zijn drie werkposten:
+Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
+Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
+这里有三个操作位置：
+A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
+请在 Discussion 区协调分工，再按 Action 区的提示操作。
+你们来到主门机关前。请先在 Discussion 区协调每个人的工作位置，再在 Action 区选择当前游戏允许的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Hier zijn drie werkposten:
+Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
+Verdeel de taken bij Discussion en volg daarna de instructies bij Action.
+Jullie staan voor het mechanisme van de hoofdpoort. Verdeel eerst de taken bij Discussion en kies daarna bij Action de posten die het spel nu aanbiedt.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。
+GITTE-057,Gitte,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"A站的数字轮盘卡住了，暂时无法正常转动。
+请根据 Action 区当前提供的选项作出反应。","Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+GITTE-058,Gitte,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"B站的杠杆卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。","De hefboom bij post B zit vast en kan voorlopig niet worden gebruikt.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+GITTE-059,Gitte,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"C站的钥匙机构卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。","Het sleutelmechanisme bij post C is vastgelopen en werkt voorlopig niet.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+GITTE-060,Gitte,12,20,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。","Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.","机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。
+机关仍未恢复正常，危险正在逼近。请根据 Action 区当前仍可使用的操作继续尝试。","Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.
+Het mechanisme werkt nog steeds niet en het gevaar komt dichterbij. Blijf proberen met de handelingen die bij Action nog beschikbaar zijn.",REPLACE_PAGE_EXACT,第20页错误钥匙反馈应单独增加古堡之声嘲讽句，不要将文字硬加在所有 ACT12 失败情况。
+GITTE-061,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"周围的走廊里不断传来湿黏的摩擦声，像有什么东西在石面上移动。
+声音越来越近，从四面八方传来。
+但你们仍然看不到它是什么。","Uit de gangen om jullie heen klinkt een nat, schurend geluid, alsof er iets over de stenen beweegt.
+Het geluid komt steeds dichterbij, vanuit alle richtingen.
+Maar jullie kunnen nog niet zien wat het is.",,,,
+GITTE-062,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"现在，你们甚至能闻到某些东西潮湿的气息。
+它们似乎已经非常靠近。","Nu kunnen jullie zelfs de vochtige adem van iets ruiken.
+Het lijkt al heel dichtbij te zijn.",,,,
+GITTE-063,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,5,5,,,,
+GITTE-064,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,4,4,,,,
+GITTE-065,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,3,3,,,,
+GITTE-066,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,2,2,,,,
+GITTE-067,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,1,1,,,,
+GITTE-068,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"逃脱成功
+主门轰然打开。
+你们三人一起冲了出去。
+时间 — 00:00
+手机信号已恢复。","ONTSNAPT!
+De hoofdpoort vliegt met een dreun open.
+Jullie rennen met z’n drieën naar buiten.
+TIJD — 00:00
+Het mobiele signaal is hersteld.",,,,结束画面按本轮已批准的独立 Next 和自动场景处理，不因通用行动规则添加投票/操作。
+GITTE-069,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"走廊里已经有什么东西靠近了。
+你们还看不清它是什么。","Er bevindt zich al iets in de gang.
+Jullie kunnen nog niet zien wat het is.",,,,
+GITTE-070,Gitte,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,声音越来越近，从四面八方传来。,"Het geluid komt steeds dichterbij, vanuit alle richtingen.",,,,
+GITTE-071,Gitte,13,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"逃脱成功
+主门轰然打开。
+你们三人一起冲了出去。
+时间 — 00:00
+手机信号已恢复。","ONTSNAPT!
+De hoofdpoort vliegt met een dreun open.
+Jullie rennen met z’n drieën naar buiten.
+TIJD — 00:00
+Het mobiele signaal is hersteld.",,,,结束画面按本轮已批准的独立 Next 和自动场景处理，不因通用行动规则添加投票/操作。
+GITTE-072,Gitte,14,,EXEMPT_AUTO_OR_LOCKED,—,ACT14 结尾已锁定：不在正式文案中新增动作指令。,"任务完成。
+你们逃出来了。
+但是城堡记住了你们做的一切。
+他们知道你们是谁。
+结束","Missie voltooid.
+Jullie zijn ontsnapt.
+Maar het kasteel herinnerde zich alles wat jullie deden.
+ZIJ weten wie jullie zijn.
+Einde",,,,禁止修改 ACT14 结尾 canonical 文字与翻页机制。
+LINDA-001,Linda,1,,PASS_OPENING_ACTION,—,角色开场已有调查 Action 指引。,"你在一间小书房里醒来。
+现在是23:49，手机没有信号。
+你看到一只停在23:49的怀表，旁边还有一把带五角星（★）标记的银钥匙。
+你起身时撞到桌边，一本厚书掉到地上，从书页间滑出一张泛黄的旧纸。
+这是一份1897年的市政府封闭令，标题写着“西塔关闭，直至另行通知”。
+请先观察这些线索，再在 Action 区选择要仔细检查的物品。","Je wordt wakker in een kleine studeerkamer.
+Het is 23.49 uur en je telefoon heeft geen bereik.
+Je ziet een zakhorloge dat op 23.49 uur is blijven staan, met daarnaast een zilveren sleutel met een vijfpuntige ster (★).
+Wanneer je opstaat, stoot je tegen de tafel. Een dik boek valt op de grond en er glijdt een vergeeld vel papier tussen de bladzijden uit.
+Het is een gemeentelijk sluitingsbevel uit 1897, met als titel: ‘Westtoren gesloten tot nader order’.
+Bekijk deze aanwijzingen en kies bij Action welk voorwerp je nader wilt onderzoeken.",,,,
+LINDA-002,Linda,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你仔细阅读从厚书中掉出来的1897年市政府封闭令。
+公告写明：因墙体结构不安全，并有毒蛇出没报告，西塔和附近的西侧服务通道被关闭，直至另行通知。
+公告最后写着“禁止进入”。
+这是旧公告记载的危险信息，不代表你已经亲眼看到西塔现状。","Je leest het gemeentelijke sluitingsbevel uit 1897 dat uit het dikke boek is gevallen.
+Volgens de bekendmaking zijn de westtoren en de aangrenzende westelijke dienstgangen tot nader order gesloten vanwege onveilig metselwerk en meldingen van giftige slangen.
+Onderaan staat: ‘Toegang verboden’.
+Dit is een waarschuwing uit een oud document; je hebt zelf nog niet gezien hoe het er nu bij de westtoren uitziet.",你读到了1897年市政府封闭西塔的旧公告。请记住这份警告，再在 Action 区选择下一项调查。,Je leest de gemeentelijke bekendmaking uit 1897 over de afgesloten westtoren. Onthoud de waarschuwing en kies daarna bij Action wat je verder onderzoekt.,REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+LINDA-003,Linda,1,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你仔细查看怀表，发现表针停在23:49。
+翻到背面，上面写着：“记住你醒来的时间。”
+请留意这个时间线索。","Je bekijkt het zakhorloge aandachtig en ziet dat de wijzers op 23.49 uur zijn blijven staan.
+Op de achterkant staat: ‘Onthoud het tijdstip waarop je wakker werd.’
+Let op deze aanwijzing over de tijd.","你仔细查看怀表，发现表针停在23:49。
+翻到背面，上面写着：“记住你醒来的时间。”
+请留意这个时间线索。
+请记住这条路线线索，并在 Action 区选择下一项调查。","Je bekijkt het zakhorloge aandachtig en ziet dat de wijzers op 23.49 uur zijn blijven staan.
+Op de achterkant staat: ‘Onthoud het tijdstip waarop je wakker werd.’
+Let op deze aanwijzing over de tijd.
+Onthoud deze aanwijzing over de route en kies bij Action wat je verder wilt onderzoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-004,Linda,1,1,REVISE_ACTION_CLARITY,P1,ACT1 手机无信号，不可让玩家误以为现在可发送短信。,"你把带五角星（★）标记的银钥匙插进房门锁孔。
+钥匙可以插进去，但无法转动，因此打不开这扇门。
+这并不能证明它在其他地方也没有用。","Je steekt de zilveren sleutel met het ★-teken in het slot van de kamerdeur.
+De sleutel past, maar je kunt hem niet omdraaien. Je kunt deze deur er dus niet mee openen.
+Dat betekent niet dat de sleutel nergens anders voor dient.","你把带五角星（★）标记的银钥匙插进房门锁孔。
+钥匙可以插进去，但无法转动，因此打不开这扇门。
+这并不能证明它在其他地方也没有用。
+银钥匙无法打开你房间的门，但可能在别处派上用场。请在 Action 区选择下一项调查。","Je steekt de zilveren sleutel met het ★-teken in het slot van de kamerdeur.
+De sleutel past, maar je kunt hem niet omdraaien. Je kunt deze deur er dus niet mee openen.
+Dat betekent niet dat de sleutel nergens anders voor dient.
+De zilveren sleutel opent je kamerdeur niet, maar kan elders nog nuttig zijn. Kies bij Action wat je verder onderzoekt.",APPEND_GUARD,检查当前 ACT1 phone consequence 是否仍有可选项；不可提前声明 signal restored。
+LINDA-005,Linda,1,,REVISE_ACTION_CLARITY,P2,角色专属调查结果缺少明确的后续操作；不得泄露其他人的线索。,"你检查破裂镜子后面，发现镜框后的石墙上刻着一句警告：
+“当最后的钟声响起时，不要跟随暖空气。”
+你还不知道这句话是谁留下的。","Je kijkt achter de gebarsten spiegel en ontdekt een waarschuwing die in de stenen muur achter de lijst is gekrast:
+‘Wanneer de laatste klok slaat, volg dan de warme lucht niet.’
+Je weet nog niet wie deze woorden heeft achtergelaten.",镜子后面的警告提到最后的钟声和暖空气。请记住线索，再在 Action 区选择下一项调查。,De waarschuwing achter de spiegel noemt de laatste klokslag en warme lucht. Onthoud deze aanwijzing en kies bij Action wat je verder onderzoekt.,REPLACE_PAGE_EXACT,仅本角色可见；Action 是否仍有调查选项需 CD 核对。
+LINDA-006,Linda,2,1;4,VERIFY_LIVE_PHASE,—,PPT第1页显示弱信号时旧指令仍指向 Action；第4页 restored signal 另需 Discussion 明确指令。,"你发现手机出现了一点信号，但连接很不稳定。
+你可以尝试联系另外两位伙伴。请在 Action 区选择你现在想发送的信息。","Je merkt dat je telefoon weer een zwak signaal heeft, maar de verbinding is erg onstabiel.
+Je kunt proberen contact te leggen met de twee andere meisjes. Kies bij Action welk bericht je nu wilt versturen.",,,,ACT2 weak signal 初次联系与 signal restored + 阅读群消息是两个不同触发事件；不可用第4页文字覆盖第一阶段。
+LINDA-007,Linda,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在图书馆会合。
+你的目标地点已更新为图书馆。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de bibliotheek te ontmoeten.
+Je bestemming is nu de bibliotheek. Pas je route aan via de keuzes bij Action.",,,,
+LINDA-008,Linda,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在大厅会合。
+你的目标地点已更新为大厅。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de grote zaal te ontmoeten.
+Je bestemming is nu de grote zaal. Pas je route aan via de keuzes bij Action.",,,,
+LINDA-009,Linda,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在主门会合。
+你的目标地点已更新为主门。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar bij de hoofdpoort te ontmoeten.
+Je bestemming is nu de hoofdpoort. Pas je route aan via de keuzes bij Action.",,,,
+LINDA-010,Linda,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在西塔会合。
+你的目标地点已更新为西塔。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar bij de westtoren te ontmoeten.
+Je bestemming is nu de westtoren. Pas je route aan via de keuzes bij Action.",,,,
+LINDA-011,Linda,2,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们已经决定在礼拜堂会合。
+你的目标地点已更新为礼拜堂。请按照 Action 区的选项改变路线。","Jullie hebben besloten elkaar in de kapel te ontmoeten.
+Je bestemming is nu de kapel. Pas je route aan via de keuzes bij Action.",,,,
+LINDA-012,Linda,2,5,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。","Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.","沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。
+请阅读指示牌，然后点击 Action 区的“跟随指示牌”，沿指示方向前进。","Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.
+Lees de wegwijzer en klik daarna bij Action op ‘Volg het bord’ om verder te gaan.",REPLACE_PAGE_EXACT,PPT第5页：Scene 在点击跟随指示牌之前不应出现图书馆图；CA负责图像时机，GA仅拟提示。
+LINDA-013,Linda,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。","Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.","沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。
+请观察眼前的铁门，再按 Action 区当前可用的选项继续。","Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.
+Bekijk de ijzeren poort en ga verder met de beschikbare keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-014,Linda,2,,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。","Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.","在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。
+通往主门的路被蛇群堵住了。请在 Action 区选择沿指示牌前往图书馆。","Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.
+De slangen versperren de weg naar de hoofdpoort. Kies bij Action om de wegwijzers naar de bibliotheek te volgen.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-015,Linda,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。","De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.","通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。
+西塔入口无法通行。请按 Action 区当前可用的路线选择继续寻找其他通道。","De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.
+De toegang tot de westtoren is afgesloten. Kies bij Action een beschikbare route om een andere doorgang te zoeken.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-016,Linda,2,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.","你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。
+礼拜堂门后有不明摩擦声。请按 Action 区当前可用的选项继续。","Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.
+Achter de kapeldeur klinkt een onbekend schurend geluid. Ga verder via de beschikbare keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-017,Linda,3,6,VERIFY_THEN_REVISE,P1,PPT第6页要求开盒前明确输入密码；已批准 ANNA/GITTE/LINDA-017 文案有提示，但实测画面显示的文本像开盒成功。,"你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.","你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。
+请在 Action 区输入你认为正确的五位数字密码，尝试打开盒子。","In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.
+Voer bij Action de vijf cijfers in die volgens jou de juiste code vormen om het kistje te openen.",CONDITIONAL_APPEND,先核对锁定阶段的实际 Runtime 是否出现了该文案，并确保开盒成功之后不再显示输入指令。
+LINDA-018,Linda,3,6,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。","Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.","盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。
+密码箱还没打开。请继续尝试输入密码；如果需要，请先检查 Pocket 中的线索，并与伙伴讨论。","Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.
+Het kistje is nog niet open. Probeer opnieuw een code in te voeren; bekijk zo nodig de aanwijzingen in je Pocket en overleg met je team.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-019,Linda,3,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"盒子仍然锁着。
+新提示提醒你们：有人从一开始就带着的某样东西可能很重要。
+请检查各自的 Pocket，并交流相关线索。","Het kistje zit nog op slot.
+Een nieuwe hint zegt dat iets wat een van jullie vanaf het begin bij zich had, belangrijk kan zijn.
+Bekijk ieder je eigen Pocket en bespreek de relevante aanwijzingen.",,,,
+LINDA-020,Linda,3,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"盒子仍然锁着。
+新的提示是：寻找一串由五个数字组成的信息。
+请回想你们已经看到的线索。","Het kistje zit nog op slot.
+De nieuwe hint luidt: zoek een reeks van vijf cijfers.
+Denk terug aan de aanwijzingen die jullie al hebben gezien.",,,,
+LINDA-021,Linda,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。","Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.","第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。
+第一个转轮已正确。请继续调整剩下的密码转轮。","Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.
+Het eerste wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-022,Linda,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。","Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.","第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。
+第二个转轮已正确。请继续调整剩下的密码转轮。","Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.
+Het tweede wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-023,Linda,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。","Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.","第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。
+第三个转轮已正确。请继续调整剩下的密码转轮。","Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.
+Het derde wieltje staat goed. Stel de overige cijferwieltjes verder in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-024,Linda,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。","Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.","第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。
+第四个转轮已正确。请调整最后一个密码转轮。","Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.
+Het vierde wieltje staat goed. Stel nu het laatste cijferwieltje in.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-025,Linda,3,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。
+最后一个转轮已正确，密码箱正在打开。请查看 Runtime 中随后出现的新发现。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.
+Ook het laatste wieltje staat goed; het kistje gaat open. Bekijk de nieuwe ontdekking die hierna in Runtime verschijnt.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-026,Linda,4,7;12,PASS_BUT_DUPLICATED_SURFACE,—,第7、12页显示相同剧情文字同时出现在 Scene 卡片和 Runtime；Runtime 原文保留。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",,,,CA/CD 删除 Scene 图片说明中的整段叙事文字，而非删除 Runtime 或 Scene 图片。
+LINDA-027,Linda,5,8;10,PASS_BUT_DUPLICATED_SURFACE,—,第8、10页显示此 Runtime 已有 Discussion 说明，问题是另一个区域重复呈现，不应该重写/删除本条。,"你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
+请先在 Discussion 区分享各自已知的信息，再进行路线投票。","Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,CA/CD 只删除 Discussion 面板复制的故事文本，保留 Runtime 内这段文字。
+LINDA-028,Linda,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们决定先把地图上没有标出的那扇门打开一点点。
+门后的通道黑暗狭窄，潮湿腐败的气息扑面而来，但似乎可以通行。
+你们仍然看不到通道尽头。请在 Action 区重新选择路线。","Jullie besluiten de deur die niet op de kaart staat eerst een klein stukje te openen.
+De doorgang erachter is donker en smal. Er komt een vochtige, bedompte geur uit, maar je lijkt erdoor te kunnen.
+Het einde van de doorgang is nog niet te zien. Kies bij Action opnieuw een route.",,,,
+LINDA-029,Linda,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选择地图上较熟悉的路线，走进一条宽阔但漫长的走廊。
+越往城堡深处走，墙上的肖像看起来越新。
+最后，你们来到一条两侧挂满肖像的长廊。
+请使用 Action 区的按钮进入长廊。","Jullie kiezen de bekende route op de kaart en komen in een brede, maar lange gang.
+Hoe dieper jullie het kasteel ingaan, hoe nieuwer de portretten aan de muren lijken.
+Uiteindelijk bereiken jullie een lange gang met aan beide kanten portretten.
+Gebruik de knop bij Action om de portrettengalerij binnen te gaan.",,,,
+LINDA-030,Linda,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选择了地图上没有标出的通道。
+Linda 用带★标记的银钥匙打开了门锁。
+狭窄的通道沿图书馆的墙后向下延伸，石墙上粘着旧蛇蜕，但眼前没有活蛇。
+这条路比地图上的路线短。最后，你们来到一条挂满肖像的长廊。
+请使用 Action 区的按钮进入长廊。","Jullie kiezen de doorgang die niet op de kaart staat.
+Linda opent het slot met haar zilveren sleutel met het ★-teken.
+De smalle doorgang daalt af achter de muur van de bibliotheek. Aan de stenen kleven oude slangenhuiden, maar er zijn geen levende slangen te zien.
+Deze route is korter dan de route op de kaart. Uiteindelijk komen jullie bij een gang vol portretten.
+Gebruik de knop bij Action om de portrettengalerij binnen te gaan.",,,,
+LINDA-031,Linda,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’","画像回答：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”","Het portret antwoordt:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+LINDA-032,Linda,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了，带着一丝嘲讽：
+“太慢了。去找时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw, met een spottende ondertoon:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“太慢了。去找时间停止的房间。”","Het portret antwoordt:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+LINDA-033,Linda,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“大门不是起点。先找到时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’","画像回答：
+“大门不是起点。先找到时间停止的房间。”","Het portret antwoordt:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+LINDA-034,Linda,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’","画像回答：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”","Het portret antwoordt:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+LINDA-035,Linda,6,14,REVISE_SPEAKER_LABEL,P1,试玩报告p14：画像的回答需要说话者标签；应保留原答复，不增加未确认的行动。,"那幅巨大的肖像注视着你们。
+那个神秘的声音又出现了：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”","Het grote portret kijkt jullie aan.
+Die mysterieuze stem klinkt opnieuw:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”","Het portret antwoordt:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’",REPLACE_PAGE_EXACT,仅在画像回答事件显示；首次发声 intro 仍独立保留。
+LINDA-036,Linda,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"现在是23:54。
+房间里有三只状态不同的钟：一只显示当前时间，一只倒着走，还有一只与停走的怀表有关。
+请比较你们已经找到的线索，讨论后选择正确的钟。","Het is nu 23.54 uur.
+In de kamer hangen drie klokken die zich verschillend gedragen: één toont de huidige tijd, één loopt achteruit en één heeft te maken met het stilgevallen zakhorloge.
+Vergelijk de aanwijzingen die jullie hebben gevonden, overleg en kies de juiste klok.",,,,
+LINDA-037,Linda,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们选了一只钟，但什么也没有发生。
+请重新比较房间里的钟与此前获得的线索，再作选择。","Jullie kiezen een klok, maar er gebeurt niets.
+Vergelijk de klokken opnieuw met de aanwijzingen die jullie eerder hebben gevonden en maak dan een nieuwe keuze.",,,,
+LINDA-038,Linda,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"这次选择仍未解开谜题。
+新的提示提醒你们：有人随身带着一只停走的怀表。
+请互相交流相关信息，再作选择。","Ook deze keuze lost het raadsel niet op.
+Een nieuwe hint herinnert jullie eraan dat iemand een stilgevallen zakhorloge bij zich heeft.
+Wissel daarover informatie uit en kies opnieuw.",,,,
+LINDA-039,Linda,7,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"这次选择仍未解开谜题。
+提示进一步要求你们把停走怀表上的时间与房间里的钟进行比较。
+请讨论后重新选择。","Ook deze keuze lost het raadsel niet op.
+De volgende hint vraagt jullie het tijdstip op het stilgevallen zakhorloge te vergelijken met de klokken in de kamer.
+Overleg en kies opnieuw.",,,,
+LINDA-040,Linda,8,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+指示信息显示：主门的控制装置位于大厅。
+你们需要先前往大厅。","Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
+Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
+Jullie moeten eerst naar de grote zaal.","你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+指示信息显示：主门的控制装置位于大厅。
+你们需要先前往大厅。
+通往主门的这条路不能从这里操作机关。请按 Action 区现有的路线选项前往大厅。","Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
+Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
+Jullie moeten eerst naar de grote zaal.
+Vanaf deze kant kun je het poortmechanisme niet bedienen. Kies bij Action de beschikbare route naar de grote zaal.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-041,Linda,8,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。","Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
+De doorgang leidt naar de grote zaal. Volg deze route verder.","你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。
+你们认出了通往大厅的旧仆人通道。请按 Action 区的继续选项沿通道前进。","Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
+De doorgang leidt naar de grote zaal. Volg deze route verder.
+Jullie herkennen de oude dienstgang naar de grote zaal. Ga via de beschikbare vervolgkeuze bij Action verder.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-042,Linda,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"大厅里有几扇不同颜色的门。你得到一条只对你可见的线索：
+“一扇门可以先启动，而不必马上进去。蓝门必须在红门之后才能启动。”
+请根据自己的判断，选择是否与伙伴分享这条信息。","In de grote zaal staan deuren in verschillende kleuren. Je krijgt een aanwijzing die alleen jij kunt zien:
+‘Je kunt een deur activeren zonder er meteen doorheen te gaan. De blauwe deur kan pas na de rode deur worden geactiveerd.’
+Beslis zelf of je deze informatie met je teamgenoten wilt delen.",,,,
+LINDA-043,Linda,9,,PASS_EXPLICIT_WAIT,—,说明未形成共识及等待 Teacher 开票，注意不要把2:1误写为平局。,"这轮投票没有形成共识，所以系统没有执行开门或进入的动作。
+请继续讨论，等待 Teacher 开放下一轮投票。","Bij deze stemming werd geen overeenstemming bereikt. Daarom heeft het systeem geen deur geactiveerd en is niemand door een deur gegaan.
+Overleg verder en wacht tot de leerkracht de volgende stemronde opent.",,,,
+LINDA-044,Linda,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。","De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.","红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。
+红门已经启动，但尚未决定是否进入。请先在 Discussion 区讨论，然后按 Action 区进行下一步选择。","De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.
+De rode deur is geactiveerd, maar jullie hebben nog niet besloten om naar binnen te gaan. Overleg eerst bij Discussion en maak daarna je volgende keuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-045,Linda,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们没有进入红门。
+一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
+请讨论下一步。","Jullie zijn niet door de rode deur gegaan.
+Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
+Bespreek de volgende stap.","你们没有进入红门。
+一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
+请讨论下一步。
+红门已经启动，蓝门现在可以启动。请在 Discussion 区讨论下一步，等待投票开放。","Jullie zijn niet door de rode deur gegaan.
+Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
+Bespreek de volgende stap.
+De rode deur is geactiveerd en de blauwe deur kan nu worden geactiveerd. Overleg bij Discussion over de volgende stap en wacht tot de stemming opent.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-046,Linda,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"蓝门已经启动。
+请在 Action 区决定下一步是否进入蓝门。","De blauwe deur is geactiveerd.
+Beslis bij Action of jullie nu door de blauwe deur gaan.",,,,
+LINDA-047,Linda,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们选择暂时留在原地。
+请等待游戏显示下一步状态。","Jullie besluiten voorlopig te blijven staan.
+Wacht tot het spel de volgende toestand toont.","你们选择暂时留在原地。
+请等待游戏显示下一步状态。
+你们决定暂时不进入。当前不需要再次点击；请等待游戏显示新的步骤。","Jullie besluiten voorlopig te blijven staan.
+Wacht tot het spel de volgende toestand toont.
+Jullie besluiten voorlopig niet naar binnen te gaan. Je hoeft nu niets aan te klikken; wacht tot het spel de volgende stap toont.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-048,Linda,9,,REVISE_AFTER_RULE_CHECK,P2,Teacher 批准的 ACT9 first-vote 蓝/黑错误反馈核心为“门没有反应。”，必须由 GA-149 的 act09.022 保持权威；不强制替换旧剧情分支。,"这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。","Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.","这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。
+门没有反应。请先讨论，再重新参加第一轮投票。","Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.
+De deur reageert niet. Overleg en stem daarna opnieuw in de eerste ronde.",CONTEXT_WRAPPER_ONLY,保留 act09.022 原文；仅在失败后确实开放第一轮重投时加附句。
+LINDA-049,Linda,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。","Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.","红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。
+红门后出现蛇影，门随即关闭。请先在 Discussion 区讨论线索，再按 Action 区重新选择。","Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.
+Achter de rode deur verschijnt een slangachtige schaduw en de deur valt dicht. Overleg eerst bij Discussion en kies daarna opnieuw bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-050,Linda,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。","De volgorde is niet juist.
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.","当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。
+当前顺序不正确。请在 Discussion 区讨论，并按 Action 区重新选择开门顺序。","De volgorde is niet juist.
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.
+De volgorde is niet juist. Overleg bij Discussion en kies bij Action opnieuw de volgorde waarin de deuren worden geopend.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-051,Linda,9,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"门后出现一道蛇一样的影子，红门砰地关闭。
+请查看 Action 区当前允许的下一步选择。","Achter de deur verschijnt een slangachtige schaduw en de rode deur slaat met een klap dicht.
+Bekijk welke volgende keuze bij Action beschikbaar is.",,,,
+LINDA-052,Linda,9,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"蓝门打开了，后面是一间狭窄的石室。
+石室里的小基座上放着一件金色的东西。
+请观察这件物品，再决定下一步。","De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
+Op een kleine sokkel staat iets goudkleurigs.
+Bekijk het voorwerp en beslis wat jullie nu doen.","蓝门打开了，后面是一间狭窄的石室。
+石室里的小基座上放着一件金色的东西。
+请观察这件物品，再决定下一步。
+蓝门后面有一间石室，基座上放着金色物品。请在 Discussion 区讨论是否取走，再参加 Action 区的团队选择。","De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
+Op een kleine sokkel staat iets goudkleurigs.
+Bekijk het voorwerp en beslis wat jullie nu doen.
+Achter de blauwe deur ligt een stenen kamer met een goudkleurig voorwerp. Overleg bij Discussion of jullie het meenemen en maak daarna de groepskeuze bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-053,Linda,10,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你得到一条只有自己能看到的建议：
+“不带走这把金钥匙，也能打开主门。那么，为什么一定要带走它？”
+请在讨论中决定是否告诉伙伴，再参与团队选择。","Je krijgt een advies dat alleen jij kunt zien:
+‘Ook zonder deze gouden sleutel kun je de hoofdpoort openen. Waarom zou je hem dan toch meenemen?’
+Beslis tijdens het overleg of je dit aan de anderen vertelt en neem daarna deel aan de groepskeuze.",,,,
+LINDA-054,Linda,10,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。","Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.","你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。
+你们拿走了金色物品，警铃突然响起。请等待游戏显示接下来的后果，不必重复选择。","Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.
+Jullie hebben het gouden voorwerp meegenomen en plotseling klinkt het alarm. Wacht op het gevolg dat het spel nu toont; kies niet opnieuw.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-055,Linda,10,,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。","Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.","你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。
+你们决定留下金色物品，正沿通道前往主门。请等待新场景出现，再根据 Action 区提示继续。","Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.
+Jullie laten het gouden voorwerp liggen en gaan naar de hoofdpoort. Wacht op de nieuwe scène en volg daarna de instructies bij Action.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
+LINDA-056,Linda,11,21,REVISE_ACTION_CLARITY,P1,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"现在是23:58，你们来到主门的控制区域。
+这里有三个操作位置：
+A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
+请在 Discussion 区协调分工，再按 Action 区的提示操作。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Hier zijn drie werkposten:
+Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
+Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
+这里有三个操作位置：
+A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
+请在 Discussion 区协调分工，再按 Action 区的提示操作。
+你们来到主门机关前。请先在 Discussion 区协调每个人的工作位置，再在 Action 区选择当前游戏允许的岗位。","Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
+Hier zijn drie werkposten:
+Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
+Verdeel de taken bij Discussion en volg daarna de instructies bij Action.
+Jullie staan voor het mechanisme van de hoofdpoort. Verdeel eerst de taken bij Discussion en kies daarna bij Action de posten die het spel nu aanbiedt.",REPLACE_PAGE_EXACT,实际是否应出现 C 站属于 CA 的钥匙分支/控件问题；在确认 A/B/C 或 WATCHER 分配前，不强迫玩家去不可用的岗位。
+LINDA-057,Linda,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"A站的数字轮盘卡住了，暂时无法正常转动。
+请根据 Action 区当前提供的选项作出反应。","Het cijferwiel bij post A is vastgelopen en kan voorlopig niet meer draaien.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+LINDA-058,Linda,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"B站的杠杆卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。","De hefboom bij post B zit vast en kan voorlopig niet worden gebruikt.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+LINDA-059,Linda,12,,PASS_ACTION_IF_AVAILABLE,—,原文指引根据 Action 区可用操作继续；要核查此时是否真的有可点击的下一步。,"C站的钥匙机构卡住了，暂时无法正常使用。
+请根据 Action 区当前提供的选项作出反应。","Het sleutelmechanisme bij post C is vastgelopen en werkt voorlopig niet.
+Reageer via de keuzes die nu bij Action verschijnen.",,,,CA/CD 确认发生机关卡死时 Action 不会处于无可操作的死状态。
+LINDA-060,Linda,12,20,REVISE_ACTION_CLARITY,P2,未明确说明可执行的下一步，或所指动作/场景需要进一步具体化。,"机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。","Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.","机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。
+机关仍未恢复正常，危险正在逼近。请根据 Action 区当前仍可使用的操作继续尝试。","Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.
+Het mechanisme werkt nog steeds niet en het gevaar komt dichterbij. Blijf proberen met de handelingen die bij Action nog beschikbaar zijn.",REPLACE_PAGE_EXACT,第20页错误钥匙反馈应单独增加古堡之声嘲讽句，不要将文字硬加在所有 ACT12 失败情况。
+LINDA-061,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"周围的走廊里不断传来湿黏的摩擦声，像有什么东西在石面上移动。
+声音越来越近，从四面八方传来。
+但你们仍然看不到它是什么。","Uit de gangen om jullie heen klinkt een nat, schurend geluid, alsof er iets over de stenen beweegt.
+Het geluid komt steeds dichterbij, vanuit alle richtingen.
+Maar jullie kunnen nog niet zien wat het is.",,,,
+LINDA-062,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"现在，你们甚至能闻到某些东西潮湿的气息。
+它们似乎已经非常靠近。","Nu kunnen jullie zelfs de vochtige adem van iets ruiken.
+Het lijkt al heel dichtbij te zijn.",,,,
+LINDA-063,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,5,5,,,,
+LINDA-064,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,4,4,,,,
+LINDA-065,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,3,3,,,,
+LINDA-066,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,2,2,,,,
+LINDA-067,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,倒计时/纯数值：交互不应被文案中断。,1,1,,,,
+LINDA-068,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"逃脱成功
+主门轰然打开。
+你们三人一起冲了出去。
+时间 — 00:00
+手机信号已恢复。","ONTSNAPT!
+De hoofdpoort vliegt met een dreun open.
+Jullie rennen met z’n drieën naar buiten.
+TIJD — 00:00
+Het mobiele signaal is hersteld.",,,,结束画面按本轮已批准的独立 Next 和自动场景处理，不因通用行动规则添加投票/操作。
+LINDA-069,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"走廊里已经有什么东西靠近了。
+你们还看不清它是什么。","Er bevindt zich al iets in de gang.
+Jullie kunnen nog niet zien wat het is.",,,,
+LINDA-070,Linda,12,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,声音越来越近，从四面八方传来。,"Het geluid komt steeds dichterbij, vanuit alle richtingen.",,,,
+LINDA-071,Linda,13,,EXEMPT_AUTO_OR_LOCKED,—,电影式叙事、自动转场或危险提示：若无可执行动作则无需强塞指令。,"逃脱成功
+主门轰然打开。
+你们三人一起冲了出去。
+时间 — 00:00
+手机信号已恢复。","ONTSNAPT!
+De hoofdpoort vliegt met een dreun open.
+Jullie rennen met z’n drieën naar buiten.
+TIJD — 00:00
+Het mobiele signaal is hersteld.",,,,结束画面按本轮已批准的独立 Next 和自动场景处理，不因通用行动规则添加投票/操作。
+LINDA-072,Linda,14,,EXEMPT_AUTO_OR_LOCKED,—,ACT14 结尾已锁定：不在正式文案中新增动作指令。,"任务完成。
+你们逃出来了。
+但是城堡记住了你们做的一切。
+他们知道你们是谁。
+结束","Missie voltooid.
+Jullie zijn ontsnapt.
+Maar het kasteel herinnerde zich alles wat jullie deden.
+ZIJ weten wie jullie zijn.
+Einde",,,,禁止修改 ACT14 结尾 canonical 文字与翻页机制。
+LIVE-RESTORED-SIGNAL,Shared,2,4,REVISE_NEW_LIVE_RUNTIME,P0,第4页 Runtime 只说信号恢复，未说明应该如何通信。,信号已恢复。,SIGNAAL HERSTELD,信号已恢复，你看到了其他伙伴发给你的信息。此时你可以通过手机短信和她们通信了。请在右边 Discussion Room 里输入你想说的话。,Het signaal is hersteld. Je ziet de berichten die je teamgenoten je hebben gestuurd. Je kunt nu met hen sms'en. Typ in de Discussion Room rechts wat je tegen hen wilt zeggen.,NEW_PHASE_SPECIFIC_TEXT,仅在 Discussion 已开放且真实消息已送达时显示；如果没有消息，删除‘看到了其他伙伴…’的断言。
+LIVE-ACT5-TRUE-TIE,Shared,5,9,REVISE_NEW_LIVE_RUNTIME,P1,票数真正持平时必须告知重投；2:1并非 tie。,（当前 PPT 未显示独立平局 Runtime）,,投票出现平局，本轮没有形成决定。请先在 Discussion 区讨论，等待重新投票。,De stemming is geëindigd in een gelijkspel. Er is deze ronde geen beslissing genomen. Overleg eerst bij Discussion en wacht op de nieuwe stemming.,NEW_OUTCOME_TEXT,仅真正 tie/no-consensus 使用。3人投3选项可能1:1:1；第9页2:1复投由 CA 查脚本/投票权威，不应靠修改文案掩盖。
+LIVE-ACT6-PORTRAIT-INTRO,Shared,6,13;15,REVISE_NEW_LIVE_RUNTIME,P0,肖像只说‘一个问题’，未说明在哪里讨论和如何投票。,一个问题。只能问一个。,Eén vraag. Slechts één.,"一个问题。只能问一个。
+请先在 Discussion 区讨论你们最想问的问题，然后在投票开放后到 Action 区选择问题。","Eén vraag. Slechts één.
+Overleg eerst bij Discussion welke vraag jullie willen stellen. Kies daarna bij Action een vraag zodra de stemming opent.",APPEND_TO_VOICE_EVENT,须尊重 ACT6 voice introduction acknowledgement：未确认不可开始投票，第15页 ACK 错误属 CA；不把一条对话替换成技术系统提示。
+LIVE-ACT6-PORTRAIT-ANSWER,Shared,6,14,REVISE_NEW_LIVE_RUNTIME,P1,回答应标记肖像发言者，避免与旁白/系统指令混淆。,大门不是起点。先找到时间停止的房间。,De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.,"画像回答：
+“大门不是起点。先找到时间停止的房间。”","Het portret antwoordt:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’",SPEAKER_PREFIX_ONLY,引用的具体答案依实际投票选择变更；不要所有分支都塞这一条具体答案。
+LIVE-ACT11-WRONG-KEY-VOICE,Shared,11,20,REVISE_NEW_LIVE_RUNTIME,P1,失败反馈只有系统口吻的‘错的人，错的钥匙’，Teacher 要求增添冰冷嘲讽声。,错的人。错的钥匙。真厉害。,Verkeerd meisje. Verkeerde sleutel. Indrukwekkend.,"错的人。错的钥匙。真厉害。
+那个低沉、冰冷、带着嘲讽的声音又出现了：“你们真的以为这么容易就能逃出去吗？”
+请根据 Action 区当前可用的选项重新分工或操作。","Verkeerd meisje. Verkeerde sleutel. Indrukwekkend.
+Die lage, koude stem klinkt opnieuw, vol spot: ‘Dachten jullie werkelijk dat ontsnappen zo eenvoudig zou zijn?’
+Overleg opnieuw over de taken of handelingen die bij Action beschikbaar zijn.",CONDITIONAL_WRONG_KEY_RESULT,嘲讽原话为 GA 草稿，不是 Teacher 已批准台词；须核对这个错误事件是否可重新分工/操作，若无则用‘等待下一状态’。
+LIVE-ACT11-LEAVE-KEY-STATION,Shared,11,21,VERIFY_FUNCTIONAL_FIRST,P0,选择留下钥匙后仍出现 A/B/C 岗位选项，可能是选项逻辑与提示脱节。,（ACT11 Runtime 见报告图）,,你们决定不带走金钥匙。请先在 Discussion 区确定当前可操作的岗位，再按照 Action 区显示的实际选项继续。,Jullie hebben besloten de gouden sleutel niet mee te nemen. Spreek bij Discussion af welke posten nu bediend kunnen worden en volg alleen de opties die bij Action werkelijk beschikbaar zijn.,BLOCKED_BY_CA_GAMEPLAY_CHECK,CA 判定此支该出现 A/B/C 还是 A/B/WATCHER，GA 不修改岗位规则。
