@@ -1026,9 +1026,9 @@ export const LOCALIZATION_CATALOG = {
   "act04-05.002": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "This door is not shown on the Castle Map.",
-    "nl": "In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.\nDe doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",
-    "zh": "你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。\n眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。"
+    "englishMaster": "You discover an unmapped door. Which route do you personally prefer? Choose in Action. Your friends do not know your private choice yet.",
+    "nl": "In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.\nDe doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Welke route heeft jouw persoonlijke voorkeur? Maak je keuze in het Action-gedeelte. Let op: dit is alleen jouw persoonlijke mening. Je vriendinnen kennen jouw keuze nog niet.",
+    "zh": "你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。\n眼前的通道可能与地图上已知的路线不同。你个人倾向于走哪个通道？在 Action 区做出选择。注意，这只是你私下的意见，你的朋友并不知道。"
   },
   "act04-05.003": {
     "textType": "static",
@@ -2401,6 +2401,20 @@ export const LOCALIZATION_CATALOG = {
     "englishMaster": "The huge portrait stares at you. That mysterious voice returns:",
     "nl": "Het grote portret kijkt jullie aan. Die mysterieuze stem klinkt opnieuw:",
     "zh": "那幅巨大的肖像注视着你们。那个神秘的声音又出现了："
+  },
+  "act04-05.runtime.group_ballot_open": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Voting starts now. Vote in Action. Everyone follows the choice that receives a majority.",
+    "nl": "De stemming begint nu. Breng je stem uit in het Action-gedeelte. Iedereen volgt de keuze die de meerderheid van de stemmen krijgt.",
+    "zh": "现在开始投票。请在 Action 区投票，所有人按照获得多数票的选择行动。"
+  },
+  "act04-05.runtime.no_majority": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "There is no majority. Discuss again in Discussion, then vote again.",
+    "nl": "Er is geen meerderheid. Overleg opnieuw in het Discussion-gedeelte en stem daarna opnieuw.",
+    "zh": "没有形成多数票，请在 Discussion 区重新讨论，然后再次投票。"
   }
 };
 
