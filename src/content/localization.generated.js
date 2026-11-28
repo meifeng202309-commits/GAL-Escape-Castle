@@ -2405,9 +2405,9 @@ export const LOCALIZATION_CATALOG = {
   "act04-05.runtime.group_ballot_open": {
     "textType": "static",
     "displayPolicy": "bilingual",
-    "englishMaster": "Voting starts now. Vote in Action. Everyone follows the choice that receives a majority.",
-    "nl": "De stemming begint nu. Breng je stem uit in het Action-gedeelte. Iedereen volgt de keuze die de meerderheid van de stemmen krijgt.",
-    "zh": "现在开始投票。请在 Action 区投票，所有人按照获得多数票的选择行动。"
+    "englishMaster": "Voting starts now. Vote in Discussion Room. Everyone follows the majority.",
+    "nl": "De stemming begint nu. Breng je stem uit in de Discussion Room. Iedereen volgt de keuze die de meerderheid van de stemmen krijgt.",
+    "zh": "现在开始投票。请在 Discussion Room 投票，所有人按照获得多数票的选择行动。"
   },
   "act04-05.runtime.no_majority": {
     "textType": "static",
@@ -2415,6 +2415,55 @@ export const LOCALIZATION_CATALOG = {
     "englishMaster": "There is no majority. Discuss again in Discussion, then vote again.",
     "nl": "Er is geen meerderheid. Overleg opnieuw in het Discussion-gedeelte en stem daarna opnieuw.",
     "zh": "没有形成多数票，请在 Discussion 区重新讨论，然后再次投票。"
+  },
+  "runtime.signal.restored_messages": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Signal restored; received messages; type in Discussion Room.",
+    "nl": "Het signaal is hersteld. Je ziet de berichten die je teamgenoten je hebben gestuurd. Je kunt nu met hen sms'en. Typ in de Discussion Room rechts wat je tegen hen wilt zeggen.",
+    "zh": "信号已恢复，你看到了其他伙伴发给你的信息。此时你可以通过手机短信和她们通信了。请在右边 Discussion Room 里输入你想说的话。"
+  },
+  "runtime.signal.restored_no_messages": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Signal restored; type in Discussion Room.",
+    "nl": "Het signaal is hersteld. Je kunt nu met je teamgenoten sms'en. Typ in de Discussion Room rechts wat je tegen hen wilt zeggen.",
+    "zh": "信号已恢复。此时你可以通过手机短信和伙伴通信了。请在右边 Discussion Room 里输入你想说的话。"
+  },
+  "runtime.portrait.discussion_guidance": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Discuss the question; vote once open.",
+    "nl": "Overleg eerst bij Discussion welke vraag jullie willen stellen. Stem zodra de stemming is geopend.",
+    "zh": "请先在 Discussion 区讨论你们最想问的问题，等待投票开放后投票。"
+  },
+  "runtime.portrait.vote_open": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Vote for the question.",
+    "nl": "Stem nu in de Discussion Room op de vraag die jullie willen stellen.",
+    "zh": "请现在在 Discussion Room 投票，选择你们想问的问题。"
+  },
+  "runtime.act11.wrong_key_voice": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Wrong key feedback and returning mocking voice; wait or follow available action.",
+    "nl": "Verkeerd meisje. Verkeerde sleutel. Indrukwekkend.\nDie lage, koude stem klinkt opnieuw, vol spot: ‘Dachten jullie werkelijk dat ontsnappen zo eenvoudig zou zijn?’\nWacht op de volgende stap. Als er bij Action een handeling beschikbaar is, volg dan de aanwijzing.",
+    "zh": "错的人。错的钥匙。真厉害。\n那个低沉、冰冷、带着嘲讽的声音又出现了：“你们真的以为这么容易就能逃出去吗？”\n请等待游戏显示下一步；如果 Action 区出现可用操作，请按照提示继续。"
+  },
+  "runtime.act11.leave_key_guidance": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Left golden key; coordinate stations.",
+    "nl": "Jullie hebben besloten de gouden sleutel niet mee te nemen. Spreek bij Discussion af welke posten nu bediend kunnen worden en volg alleen de opties die bij Action werkelijk beschikbaar zijn.",
+    "zh": "你们决定不带走金钥匙。请先在 Discussion 区确定当前可操作的岗位，再按照 Action 区显示的实际选项继续。"
+  },
+  "runtime.action.accepted_waiting": {
+    "textType": "static",
+    "displayPolicy": "bilingual",
+    "englishMaster": "Your choice is locked; wait for the other players.",
+    "nl": "Je keuze is ontvangen en vastgelegd. Wacht op de andere spelers.",
+    "zh": "你的选择已提交并锁定。请等待其他玩家。"
   }
 };
 
