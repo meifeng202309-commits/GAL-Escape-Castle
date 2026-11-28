@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-28T07:59:00Z
+> Last refreshed: 2026-11-28T08:33:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = CA-361 — Teacher approves ALL Nov27 Runtime manuscript; GA full delivery required
-CURRENT_GATE          = GA_FULL_RUNTIME_CANONICALIZATION_TEACHER_APPROVED / CD_PRIOR_SOURCE_WORK / NO_PRODUCTION_GO
-CURRENT_OWNER         = GA — complete all approved Runtime bilingual canonical text + generated artifacts to one full formal CA/CD handoff; CD continues existing source tasks
-NEXT_REQUIRED_ACTION  = GA finish ALL approved GA153/154 Runtime manuscript, QA, Action Log, complete GA→CA/CD handoff without pauses or new Teacher approvals. CD join full GA package with CA357/CA359 fixes; CA concentrated audit, separate Teacher production go. CA360 claim other Runtime drafts unapproved is superseded.
+CURRENT_SPRINT        = CA-362 — GA156 full Runtime source accepted; consolidated CD integration
+CURRENT_GATE          = GA156_ALL_RUNTIME_CANONICAL_SOURCE_COMPLETE / CD_CONSOLIDATED_CONSUMER_INTEGRATION / NO_PRODUCTION_GO
+CURRENT_OWNER         = CD — integrate all GA156 approved Runtime text with existing CA357/CA359/CA358 fixes; CA reviews final source
+NEXT_REQUIRED_ACTION  = CD finish one integrated source package including GA156 exact role/phase/trigger Runtime consumer matrix, existing finale Next, post-library share, timeout and Teacher Console/P1 visual changes; send CD→CA source/test handoff. GA copy complete; no Teacher wording approval due. No live publication authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
