@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-28T05:42:00Z
+> Last refreshed: 2026-11-28T08:12:00Z
 > Updated by: CA
 
 ---
@@ -11,9 +11,9 @@
 
 ```text
 CURRENT_SPRINT        = CA-359 — Nov28 Teacher five-point correction following CA358 trial analysis
-CURRENT_GATE          = GA_RUNTIME_TEXT_REVIEW + CD_CA357_NEXT_AND_QUEUED_NOV28_SOURCE_BATCH / NO_PRODUCTION_GO
+CURRENT_GATE          = GA154_ACT4_ACT5_TEACHER_APPROVED_SOURCE_QUEUED / CD_CA357_AND_CA359_BATCH / NO_PRODUCTION_GO
 CURRENT_OWNER         = GA — ACT4/5 copy and 222 Runtime review; CD — ongoing CA357 Next plus queued Nov28 share/timeout/console; CA — functional integration
-NEXT_REQUIRED_ACTION  = GA integrate Teacher's ACT4 private choice, ACT5 official ballot, ACT5 true no-majority Runtime copy into ongoing single GA review; CD finish CA357 then handle library-only sharing with recipient labels, once-only statement timeout diagnosis / bounded processing fallback and delete UNKNOWN debug line; CA consolidate when CD hands off. Golden Key TAKE is group found item, not individual physical owner. No production writes authorized.
+NEXT_REQUIRED_ACTION  = CD finish CA357 then one consolidated source batch including GA-approved ACT4 personal-choice guidance, ACT5 ballot-open and genuine tie Runtime messages plus earlier CA359 share/timeout/console fixes; GA separately works remaining draft review; CA source-check and Teacher production GO later. No release authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
