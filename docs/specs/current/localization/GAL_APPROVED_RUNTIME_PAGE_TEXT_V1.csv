@@ -10,19 +10,25 @@ Kijk eerst rond en kies bij Action wat je wilt onderzoeken.","你在冰冷的地
 请先观察房间，再在 Action 区选择你想检查的东西。",act01-a.001 | act01-g.004 | act01-g.005 | act01-a.003 | act01-a.004 | act01-a.005,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.002,ANNA-002,"Je opent het oude dagboek van een bediende op tafel en leest:
 ‘Rond middernacht worden de oude verwarmingsgangen weer warm. De slangen verlaten de lagere tunnels.’
-Dit is een aanwijzing uit het dagboek. Onthoud ze.","你打开桌上的旧仆人日记，看到其中写着：
+Dit is een aanwijzing uit het dagboek. Onthoud ze.
+Klik op Doorgaan bij Action om verder te gaan.","你打开桌上的旧仆人日记，看到其中写着：
 “接近午夜时，旧暖气通道会再次变暖。蛇会离开地下通道。”
-这是日记中留下的线索，请记住它。",act01-a.010,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+这是日记中留下的线索，请记住它。
+请点击 Action 区的“继续”，进入下一步。",act01-a.010,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.003,ANNA-003,"Je onderzoekt de houten deur en ontdekt dat je het slot van binnenuit kunt openen.
 Op de achterkant van het slot staan oude krassen. Naast de deur wijst een bordje ‘Bibliotheek — centrale gang’ aan.
-Onthoud deze aanwijzing over de weg naar de bibliotheek.","你检查了木门，发现门锁可以从里面打开。
+Onthoud deze aanwijzing over de weg naar de bibliotheek.
+Klik op Doorgaan bij Action om verder te gaan.","你检查了木门，发现门锁可以从里面打开。
 锁背面有旧刻痕，门旁还有“图书馆 — 中央通道”的方向标记。
-请记住通向图书馆的线索。",act01-a.011 | act01-a.012 | act01-a.013,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+请记住通向图书馆的线索。
+请点击 Action 区的“继续”，进入下一步。",act01-a.011 | act01-a.012 | act01-a.013,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.004,ANNA-005,"Je onderzoekt het ventilatierooster. Er komt een ongewoon warme luchtstroom uit.
 Van binnen hoor je een heel zacht schurend geluid.
-Je kunt niet zien waar het geluid vandaan komt.","你检查通风口，感觉一股不寻常的暖风从里面吹出来。
+Je kunt niet zien waar het geluid vandaan komt.
+Klik op Doorgaan bij Action om verder te gaan.","你检查通风口，感觉一股不寻常的暖风从里面吹出来。
 通风口里还传来很轻的摩擦声。
-你看不见声音的来源。",act01-a.015 | act01-a.016,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+你看不见声音的来源。
+请点击 Action 区的“继续”，进入下一步。",act01-a.015 | act01-a.016,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.005,ANNA-007;GITTE-007;LINDA-007,"Jullie hebben besloten elkaar in de bibliotheek te ontmoeten.
 Je bestemming is nu de bibliotheek. Pas je route aan via de keuzes bij Action.","你们已经决定在图书馆会合。
 你的目标地点已更新为图书馆。请按照 Action 区的选项改变路线。",act02.032 | act02.033,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
@@ -79,12 +85,16 @@ Overleg en kies opnieuw.","这次选择仍未解开谜题。
 请讨论后重新选择。",act07.001 | act07.002 | act07.003 | act07.004 | act07.005 | act07.006 | act07.007 | act07.014,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.017,ANNA-040;GITTE-040;LINDA-040,"Jullie volgen de route op de kaart tot aan de hoofdpoort, maar vanaf deze kant kunnen jullie het mechanisme niet bedienen.
 Een aanwijzing geeft aan dat de bediening van de hoofdpoort zich in de grote zaal bevindt.
-Jullie moeten eerst naar de grote zaal.","你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
+Jullie moeten eerst naar de grote zaal.
+Vanaf deze kant kun je het poortmechanisme niet bedienen. Kies bij Action de beschikbare route naar de grote zaal.","你们沿地图路线来到主门，但这一侧无法启动它的内部机关。
 指示信息显示：主门的控制装置位于大厅。
-你们需要先前往大厅。",act08.005 | act08.006 | act08.007,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+你们需要先前往大厅。
+通往主门的这条路不能从这里操作机关。请按 Action 区现有的路线选项前往大厅。",act08.005 | act08.006 | act08.007,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.018,ANNA-041;GITTE-041;LINDA-041,"Jullie herkennen de oude doorgang van de foto uit 1897: het is de vroegere dienstgang.
-De doorgang leidt naar de grote zaal. Volg deze route verder.","你们认出眼前的旧通道与1897年照片里的仆人通道相符。
-通道指向大厅。请沿这条路线继续。",act08.010 | act08.011,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+De doorgang leidt naar de grote zaal. Volg deze route verder.
+Jullie herkennen de oude dienstgang naar de grote zaal. Ga via de beschikbare vervolgkeuze bij Action verder.","你们认出眼前的旧通道与1897年照片里的仆人通道相符。
+通道指向大厅。请沿这条路线继续。
+你们认出了通往大厅的旧仆人通道。请按 Action 区的继续选项沿通道前进。",act08.010 | act08.011,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.019,ANNA-042,"In de grote zaal staan deuren in verschillende kleuren. Je krijgt een aanwijzing die alleen jij kunt zien:
 ‘Je kunt een deur activeren zonder er meteen doorheen te gaan. De eerste deur is gevaarlijk.’
 Beslis zelf of je deze informatie met je teamgenoten wilt delen.","大厅里有几扇不同颜色的门。你得到一条只对你可见的线索：
@@ -92,33 +102,41 @@ Beslis zelf of je deze informatie met je teamgenoten wilt delen.","大厅里有�
 请根据自己的判断，选择是否与伙伴分享这条信息。",act09.004 | act09.006,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.020,ANNA-045;GITTE-045;LINDA-045,"Jullie zijn niet door de rode deur gegaan.
 Een zwak blauw controlelampje begint te knipperen: de blauwe deur kan nu worden geactiveerd.
-Bespreek de volgende stap.","你们没有进入红门。
+Bespreek de volgende stap.
+Overleg bij Discussion en wacht op de volgende keuze.","你们没有进入红门。
 一盏暗蓝色指示灯开始闪烁，这表示蓝门现在可以启动。
-请讨论下一步。",act09.017 | act09.018,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+请讨论下一步。
+请在 Discussion 区讨论下一步，等待新的选择开放。",act09.017 | act09.018,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.021,ANNA-047;GITTE-047;LINDA-047,"Jullie besluiten voorlopig te blijven staan.
-Wacht tot het spel de volgende toestand toont.","你们选择暂时留在原地。
-请等待游戏显示下一步状态。",act09.021,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+Wacht tot het spel de volgende toestand toont.
+Jullie besluiten voorlopig niet naar binnen te gaan. Je hoeft nu niets aan te klikken; wacht tot het spel de volgende stap toont.","你们选择暂时留在原地。
+请等待游戏显示下一步状态。
+你们决定暂时不进入。当前不需要再次点击；请等待游戏显示新的步骤。",act09.021,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.022,ANNA-049;GITTE-049;LINDA-049,"Achter de rode deur verschijnt een schaduw die op een slang lijkt. De rode deur slaat meteen weer dicht.
-De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.","红门后出现一道蛇一样的影子，红门随即砰地关闭。
-这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。",act09.023 | act09.024 | act09.006,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+De eerdere waarschuwing dat de eerste deur gevaarlijk is, lijkt belangrijk. Overleg opnieuw.
+Overleg bij Discussion en maak opnieuw een keuze zodra die bij Action beschikbaar is.","红门后出现一道蛇一样的影子，红门随即砰地关闭。
+这说明先前关于第一扇门不安全的警告值得注意。请重新讨论。
+请在 Discussion 区重新讨论，待 Action 区开放选项后再次选择。",act09.023 | act09.024 | act09.006,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.023,ANNA-050;GITTE-050;LINDA-050,"De volgorde is niet juist.
-De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.","当前顺序不正确。
-蓝门必须在红门启动后才能打开。请重新选择。",act09.007,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+De blauwe deur kan pas worden geopend nadat de rode deur is geactiveerd. Kies opnieuw.
+Overleg bij Discussion en maak opnieuw een keuze zodra die bij Action beschikbaar is.","当前顺序不正确。
+蓝门必须在红门启动后才能打开。请重新选择。
+请在 Discussion 区重新讨论，待 Action 区开放选项后再次选择。",act09.007,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.024,ANNA-051;GITTE-051;LINDA-051,"Achter de deur verschijnt een slangachtige schaduw en de rode deur slaat met een klap dicht.
 Bekijk welke volgende keuze bij Action beschikbaar is.","门后出现一道蛇一样的影子，红门砰地关闭。
 请查看 Action 区当前允许的下一步选择。",act09.023 | act09.024,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.025,ANNA-052;GITTE-052;LINDA-052,"De blauwe deur gaat open. Daarachter ligt een smalle stenen kamer.
 Op een kleine sokkel staat iets goudkleurigs.
-Bekijk het voorwerp en beslis wat jullie nu doen.","蓝门打开了，后面是一间狭窄的石室。
+Bekijk het voorwerp en beslis wat jullie nu doen.
+Achter de blauwe deur ligt een stenen kamer met een goudkleurig voorwerp. Overleg bij Discussion of jullie het meenemen en maak daarna de groepskeuze bij Action.","蓝门打开了，后面是一间狭窄的石室。
 石室里的小基座上放着一件金色的东西。
-请观察这件物品，再决定下一步。",act09.026 | act09.027,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
-runtime.page.v1.026,ANNA-056;GITTE-056;LINDA-056,"Het is nu 23.58 uur. Jullie staan bij de bediening van de hoofdpoort.
-Hier zijn drie werkposten:
-Post A bedient het cijferwiel; post B bedient de hefboom; post C bedient het sleutelmechanisme.
-Verdeel de taken bij Discussion en volg daarna de instructies bij Action.","现在是23:58，你们来到主门的控制区域。
-这里有三个操作位置：
-A站负责数字轮盘；B站负责杠杆；C站负责钥匙机构。
-请在 Discussion 区协调分工，再按 Action 区的提示操作。",act11.001 | act11.002 | act11.003 | act11.004,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+请观察这件物品，再决定下一步。
+蓝门后面有一间石室，基座上放着金色物品。请在 Discussion 区讨论是否取走，再参加 Action 区的团队选择。",act09.026 | act09.027,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+runtime.page.v1.026,ANNA-056;GITTE-056;LINDA-056,"Het is 23.58 uur. Jullie bereiken de bediening van de hoofdpoort.
+Welke posten beschikbaar zijn, hangt af van jullie eerdere keuze.
+Overleg eerst bij Discussion en kies bij Action een post zodra de keuze beschikbaar is.","现在是23:58，你们来到主门的控制区域。
+可选岗位取决于你们此前的决定。
+请先在 Discussion 区协调分工，待岗位选择开放后在 Action 区选择。",act11.001 | act11.002 | act11.003 | act11.004,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.027,ANNA-061;GITTE-061;LINDA-061,"Uit de gangen om jullie heen klinkt een nat, schurend geluid, alsof er iets over de stenen beweegt.
 Het geluid komt steeds dichterbij, vanuit alle richtingen.
 Maar jullie kunnen nog niet zien wat het is.","周围的走廊里不断传来湿黏的摩擦声，像有什么东西在石面上移动。
@@ -150,21 +168,29 @@ Kies bij Action wat je eerst wilt doen.","一个低沉、冰冷的声音在耳�
 突然传来“咚”的一声，像有什么东西撞上了墙。
 请在 Action 区选择你想先做什么。",act01-g.001 | act01-g.002 | act01-g.003 | act01-g.004 | act01-g.005 | act01-g.007 | act01-g.008 | act01-g.016 | act01-g.017 | act01-g.018,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.031,GITTE-002,"Je bestudeert de kasteelkaart aan de muur en ziet de routes tussen de bibliotheek en andere delen van het kasteel, en een ijzeren binnendeur vlak bij de grote zaal.
-De kaart toont plaatsen en routes, maar vertelt je niet waarom de westtoren is afgesloten.","你仔细研究墙上的古堡地图，看到图书馆与其他区域之间的路线，以及大厅附近的一道内部铁门。
-地图说明了地点和路线，但没有告诉你西塔为什么被封闭。",act01-g.023 | act01-g.024,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+De kaart toont plaatsen en routes, maar vertelt je niet waarom de westtoren is afgesloten.
+Klik op Doorgaan bij Action om verder te gaan.","你仔细研究墙上的古堡地图，看到图书馆与其他区域之间的路线，以及大厅附近的一道内部铁门。
+地图说明了地点和路线，但没有告诉你西塔为什么被封闭。
+请点击 Action 区的“继续”，进入下一步。",act01-g.023 | act01-g.024,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.032,GITTE-003,"Je loopt naar de deur en kijkt naar buiten. Helemaal aan het einde van de gang schiet een vage schaduw voorbij.
 Enkele seconden later hoor je in de verte metaal schuren.
-Je weet niet wie of wat die schaduw was.","你走到门边向外看，发现走廊尽头有一个模糊的人影快速闪过。
+Je weet niet wie of wat die schaduw was.
+Klik op Doorgaan bij Action om verder te gaan.","你走到门边向外看，发现走廊尽头有一个模糊的人影快速闪过。
 几秒钟后，远处又传来金属摩擦声。
-你还不知道那个影子是谁。",act01-g.025 | act01-g.026 | act01-g.027,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+你还不知道那个影子是谁。
+请点击 Action 区的“继续”，进入下一步。",act01-g.025 | act01-g.026 | act01-g.027,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.033,GITTE-004,"Je onderzoekt het oude briefje op tafel.
 Op de voorkant staan vijf cijfers: ‘4 – 1 – 7 – 3 – 9’. Op de achterkant zie je een handgetekende vijfpuntige ster (★).
-Onthoud beide aanwijzingen.","你仔细研究桌上的旧纸条。
+Onthoud beide aanwijzingen.
+Klik op Doorgaan bij Action om verder te gaan.","你仔细研究桌上的旧纸条。
 纸条正面写着“4 – 1 – 7 – 3 – 9”，翻到背面还能看到一颗手绘五角星（★）。
-请记住这张纸条正反两面的线索。",act01-g.007 | act01-g.028 | act01-g.029,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+请记住这张纸条正反两面的线索。
+请点击 Action 区的“继续”，进入下一步。",act01-g.007 | act01-g.028 | act01-g.029,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.034,GITTE-005,"Je zoekt onder het bed en vindt een oude zaklamp.
-Onthoud je vondst en kijk of de zaklamp daarna in je Pocket verschijnt.","你搜索床下，找到了一只旧手电筒。
-请记住这个发现，留意它随后是否出现在 Pocket 中。",act01-g.030,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+Onthoud je vondst en kijk of de zaklamp daarna in je Pocket verschijnt.
+Klik op Doorgaan bij Action om verder te gaan.","你搜索床下，找到了一只旧手电筒。
+请记住这个发现，留意它随后是否出现在 Pocket 中。
+请点击 Action 区的“继续”，进入下一步。",act01-g.030,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.035,GITTE-042,"In de grote zaal staan deuren in verschillende kleuren. Je krijgt een aanwijzing die alleen jij kunt zien:
 ‘Je kunt een deur activeren zonder er meteen doorheen te gaan. De rode deur moet eerst worden geactiveerd.’
 Beslis zelf of je deze informatie met je teamgenoten wilt delen.","大厅里有几扇不同颜色的门。你得到一条只对你可见的线索：
@@ -184,27 +210,154 @@ Bekijk deze aanwijzingen en kies bij Action welk voorwerp je nader wilt onderzoe
 runtime.page.v1.037,LINDA-002,"Je leest het gemeentelijke sluitingsbevel uit 1897 dat uit het dikke boek is gevallen.
 Volgens de bekendmaking zijn de westtoren en de aangrenzende westelijke dienstgangen tot nader order gesloten vanwege onveilig metselwerk en meldingen van giftige slangen.
 Onderaan staat: ‘Toegang verboden’.
-Dit is een waarschuwing uit een oud document; je hebt zelf nog niet gezien hoe het er nu bij de westtoren uitziet.","你仔细阅读从厚书中掉出来的1897年市政府封闭令。
+Dit is een waarschuwing uit een oud document; je hebt zelf nog niet gezien hoe het er nu bij de westtoren uitziet.
+Klik op Doorgaan bij Action om verder te gaan.","你仔细阅读从厚书中掉出来的1897年市政府封闭令。
 公告写明：因墙体结构不安全，并有毒蛇出没报告，西塔和附近的西侧服务通道被关闭，直至另行通知。
 公告最后写着“禁止进入”。
-这是旧公告记载的危险信息，不代表你已经亲眼看到西塔现状。",act01-l.016,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+这是旧公告记载的危险信息，不代表你已经亲眼看到西塔现状。
+请点击 Action 区的“继续”，进入下一步。",act01-l.016,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.038,LINDA-003,"Je bekijkt het zakhorloge aandachtig en ziet dat de wijzers op 23.49 uur zijn blijven staan.
 Op de achterkant staat: ‘Onthoud het tijdstip waarop je wakker werd.’
-Let op deze aanwijzing over de tijd.","你仔细查看怀表，发现表针停在23:49。
+Let op deze aanwijzing over de tijd.
+Klik op Doorgaan bij Action om verder te gaan.","你仔细查看怀表，发现表针停在23:49。
 翻到背面，上面写着：“记住你醒来的时间。”
-请留意这个时间线索。",act01-l.004 | act01-g.028 | act01-l.017,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+请留意这个时间线索。
+请点击 Action 区的“继续”，进入下一步。",act01-l.004 | act01-g.028 | act01-l.017,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.039,LINDA-004,"Je steekt de zilveren sleutel met het ★-teken in het slot van de kamerdeur.
 De sleutel past, maar je kunt hem niet omdraaien. Je kunt deze deur er dus niet mee openen.
-Dat betekent niet dat de sleutel nergens anders voor dient.","你把带五角星（★）标记的银钥匙插进房门锁孔。
+Dat betekent niet dat de sleutel nergens anders voor dient.
+Klik op Doorgaan bij Action om verder te gaan.","你把带五角星（★）标记的银钥匙插进房门锁孔。
 钥匙可以插进去，但无法转动，因此打不开这扇门。
-这并不能证明它在其他地方也没有用。",act01-l.018 | act01-l.019,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+这并不能证明它在其他地方也没有用。
+请点击 Action 区的“继续”，进入下一步。",act01-l.018 | act01-l.019,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.040,LINDA-005,"Je kijkt achter de gebarsten spiegel en ontdekt een waarschuwing die in de stenen muur achter de lijst is gekrast:
 ‘Wanneer de laatste klok slaat, volg dan de warme lucht niet.’
-Je weet nog niet wie deze woorden heeft achtergelaten.","你检查破裂镜子后面，发现镜框后的石墙上刻着一句警告：
+Je weet nog niet wie deze woorden heeft achtergelaten.
+Klik op Doorgaan bij Action om verder te gaan.","你检查破裂镜子后面，发现镜框后的石墙上刻着一句警告：
 “当最后的钟声响起时，不要跟随暖空气。”
-你还不知道这句话是谁留下的。",act01-l.020 | act01-l.021,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+你还不知道这句话是谁留下的。
+请点击 Action 区的“继续”，进入下一步。",act01-l.020 | act01-l.021,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
 runtime.page.v1.041,LINDA-042,"In de grote zaal staan deuren in verschillende kleuren. Je krijgt een aanwijzing die alleen jij kunt zien:
 ‘Je kunt een deur activeren zonder er meteen doorheen te gaan. De blauwe deur kan pas na de rode deur worden geactiveerd.’
 Beslis zelf of je deze informatie met je teamgenoten wilt delen.","大厅里有几扇不同颜色的门。你得到一条只对你可见的线索：
 “一扇门可以先启动，而不必马上进去。蓝门必须在红门之后才能启动。”
 请根据自己的判断，选择是否与伙伴分享这条信息。",act09.004 | act09.007,GA-approved Page-ID exact Runtime presentation; CD must use role/phase/trigger checks; never use to replace Pocket/Action or object inscription
+runtime.page.v1.042,ANNA-004,"Je haalt je telefoon boven en probeert iemand buiten het kasteel te bereiken.
+Op het scherm staat: geen mobiel bereik.
+Je kunt voorlopig niemand met je telefoon bereiken.
+Klik op Doorgaan bij Action om verder te gaan.","你拿出手机，尝试联系外界。
+手机屏幕显示：没有手机信号。
+你暂时无法通过手机与任何人取得联系。
+请点击 Action 区的“继续”，进入下一步。",act01-a.014 | act01-g.005,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.043,ANNA-012;GITTE-012;LINDA-012,"Terwijl je de gekozen route volgt, zie je een oude messing wegwijzer.
+Lees welke richting de wegwijzer aangeeft en ga dan verder.
+Volg de wegwijzer via de beschikbare vervolgknop bij Action.","沿着选定路线前进时，你看见一块旧黄铜路牌。
+请阅读路牌指示的方向，然后继续前进。
+请通过 Action 区当前显示的继续按钮，沿指示牌前进。",act03.001,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.044,ANNA-013;GITTE-013;LINDA-013,"Op de gekozen route komen jullie bij een ijzeren doorgangspoort.
+Bekijk de poort voor jullie en let op wat er vervolgens gebeurt.
+Klik op de beschikbare vervolgknop bij Action.","沿着选定的路线，你们来到一道铁制通行门前。
+请观察眼前的门，留意后续提示。
+请点击 Action 区当前显示的继续按钮。",act02.038,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.045,ANNA-014;GITTE-014;LINDA-014,"Op weg naar de hoofdpoort lijkt de stenen vloer voor jullie te kronkelen.
+Plotseling kruipt een groep slangen uit de spleten tussen de stenen en verspert de gang.
+Jullie kunnen de afgesproken ontmoetingsplek niet bereiken. Zoek via de wegwijzers in het kasteel de weg naar de bibliotheek.
+Klik op de beschikbare vervolgknop bij Action.","在通往主门的路上，你们发现前方的石地面似乎在蠕动。
+突然，一群蛇从石缝中钻出，堵住了走廊。
+你们无法到达原定的会合地点，只能沿着城堡里的方向牌寻找通往图书馆的路。
+请点击 Action 区当前显示的继续按钮。",act02.043,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.046,ANNA-015;GITTE-015;LINDA-015,"De toegang tot de westtoren is afgesloten.
+Jullie zien een trap die met bakstenen is dichtgemetseld. Ernaast hangt nog een oud gemeentelijk zegel.
+Langs deze weg kunnen jullie voorlopig niet verder.
+Klik op de beschikbare vervolgknop bij Action.","通往西塔的入口被封住了。
+你们看见一道用砖堵死的楼梯，旁边还有旧市政封条。
+这条路目前无法直接通过。
+请点击 Action 区当前显示的继续按钮。",act02.046,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.047,ANNA-016;GITTE-016;LINDA-016,"Jullie staan voor de deur van de kapel.
+Achter de deur klinkt een langzaam, vochtig schurend geluid. Jullie kunnen nog niet onderscheiden waar het vandaan komt.
+Klik op de beschikbare vervolgknop bij Action.","你们来到礼拜堂门外。
+从门后传来缓慢、湿黏的摩擦声，你们还辨不清声音的来源。
+请点击 Action 区当前显示的继续按钮。",act02.049,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.048,ANNA-017;GITTE-017;LINDA-017,"In de bibliotheek ontdekken jullie een afgesloten kistje.
+Er staat een raadsel op gegraveerd:
+‘Wat je als eerste kreeg, opent wat hierna komt.’
+Probeer met de aanwijzingen die jullie al hebben gevonden het kistje te openen.
+Voer bij Action de vijf cijfers in die volgens jou de juiste code vormen om het kistje te openen.","你们在图书馆发现一个上锁的盒子。
+盒子上刻着一句谜语：
+“最先得到的东西，打开接下来之物。”
+请结合此前发现的线索，尝试打开盒子。
+请在 Action 区输入你认为正确的五位数字密码，尝试打开盒子。",act03.008,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.049,ANNA-018;GITTE-018;LINDA-018,"Het kistje zit nog op slot.
+Jullie hebben nog niet ontdekt hoe je het kunt openen.
+Het kistje is nog niet open. Probeer opnieuw een code in te voeren; bekijk zo nodig de aanwijzingen in je Pocket en overleg met je team.","盒子仍然锁着。
+你们还没有找到能让它打开的正确方法。
+密码箱还没打开。请继续尝试输入密码；如果需要，请先检查 Pocket 中的线索，并与伙伴讨论。",act03.011,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.050,ANNA-021;GITTE-021;LINDA-021,"Het eerste cijferwieltje klikt op de juiste plaats.
+Het kistje is nog niet helemaal open.
+Voer bij Action de resterende cijfers van de code in.","第一个密码转轮发出咔哒一声，卡在了正确位置。
+盒子还没有完全打开。
+请在 Action 区输入密码中尚未锁定的剩余数字。",act03.014,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.051,ANNA-022;GITTE-022;LINDA-022,"Ook het tweede cijferwieltje klikt op de juiste plaats.
+Er zijn nog wieltjes die moeten worden ingesteld.
+Voer bij Action de resterende cijfers van de code in.","第二个密码转轮也卡到了正确位置。
+还有转轮需要调整。
+请在 Action 区输入密码中尚未锁定的剩余数字。",act03.017,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.052,ANNA-023;GITTE-023;LINDA-023,"Het derde cijferwieltje klikt op de juiste plaats.
+Het kistje is nog steeds niet helemaal open.
+Voer bij Action de resterende cijfers van de code in.","第三个密码转轮也卡到了正确位置。
+盒子仍未完全打开。
+请在 Action 区输入密码中尚未锁定的剩余数字。",act03.018,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.053,ANNA-024;GITTE-024;LINDA-024,"Het vierde cijferwieltje klikt op de juiste plaats.
+Er blijft nog één wieltje over.
+Voer bij Action de resterende cijfers van de code in.","第四个密码转轮也卡到了正确位置。
+只剩下最后一个转轮。
+请在 Action 区输入密码中尚未锁定的剩余数字。",act03.019,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.054,ANNA-025;GITTE-025;LINDA-025,"Het laatste cijferwieltje draait en klikt op de juiste plaats.
+Let op wat er nu met het kistje gebeurt.
+Wacht op de volgende aanwijzing in Runtime.","最后一个密码转轮转动，咔哒一声卡到了正确位置。
+请注意盒子的下一步变化。
+请等待 Runtime 显示下一步提示。",act03.020,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.055,ANNA-031;GITTE-031;LINDA-031,"Het portret antwoordt:
+‘In 1897 sloten ze het westen af, maar ze konden de klokken het verleden niet laten vergeten.’","画像回答：
+“1897年，他们封闭了西侧，却无法让钟表忘记过去。”",act06.008,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.056,ANNA-032;GITTE-032;LINDA-032,"Het portret antwoordt:
+‘Te traag. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“太慢了。去找时间停止的房间。”",act06.006,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.057,ANNA-033;GITTE-033;LINDA-033,"Het portret antwoordt:
+‘De poort is niet het begin. Zoek eerst de kamer waar de tijd stilstond.’","画像回答：
+“大门不是起点。先找到时间停止的房间。”",act06.007,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.058,ANNA-034;GITTE-034;LINDA-034,"Het portret antwoordt:
+‘Volg de gang met twaalf klokken. Eén ervan herinnert zich een zakhorloge dat stilstond.’","画像回答：
+“沿着有十二只钟的走廊走。其中一只钟记得一只停下的怀表。”",act06.009,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.059,ANNA-035;GITTE-035;LINDA-035,"Het portret antwoordt:
+‘Het kasteel houdt zijn antwoorden verborgen. Ontsnap eerst. Zoek de kamer waar de tijd stilstond.’","画像回答：
+“城堡把答案藏着。先逃出去。去找时间停止的房间。”",act06.010,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.060,ANNA-044;GITTE-044;LINDA-044,"De rode deur is geactiveerd.
+Let op: een deur activeren betekent niet dat je er ook doorheen moet gaan. Bespreek wat jullie nu doen.
+Overleg bij Discussion en kies bij Action zodra de volgende keuze beschikbaar is.","红门已经启动。
+请注意：启动一扇门并不等于必须从门中进入。请讨论接下来要采取的行动。
+请先在 Discussion 区讨论，待下一步选项开放后在 Action 区做出选择。",act09.014,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.061,ANNA-048;GITTE-048;LINDA-048,"Deze volgorde is niet juist.
+De systeemmelding zegt dat jullie eerst de rode deur moeten activeren. Overleg opnieuw.
+De deur reageert niet. Overleg en stem daarna opnieuw in de eerste ronde.","这次开门顺序不正确。
+系统提示：必须先启动红门。请重新讨论。
+门没有反应。请先讨论，再重新参加第一轮投票。",act09.022,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.062,ANNA-054;GITTE-054;LINDA-054,"Jullie kiezen ervoor het gouden voorwerp mee te nemen.
+Plotseling klinkt er ergens binnen de kasteelmuren een schelle alarmbel.
+Let op wat er daarna gebeurt.
+Klik bij Action op de beschikbare vervolgknop om verder te gaan.","你们选择拿走金色物品。
+突然，城堡墙壁内部响起刺耳的警铃。
+请留意警报带来的后续变化。
+请点击 Action 区当前显示的继续按钮，进入下一步。",act10.008,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.063,ANNA-055;GITTE-055;LINDA-055,"Jullie besluiten het gouden voorwerp niet mee te nemen.
+Samen verlaten jullie de stenen kamer en volgen de binnendoorgang naar de hoofdpoort.
+Klik bij Action op de beschikbare vervolgknop om verder te gaan.","你们决定不拿走金色物品。
+大家离开石室，沿内部通道前往主门。
+请点击 Action 区当前显示的继续按钮，进入下一步。",act10.009,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
+runtime.page.v1.064,ANNA-060;GITTE-060;LINDA-060,"Het mechanisme werkt nog steeds niet zoals het moet.
+Het gevaar komt dichterbij en er is geen tijd meer om een andere vluchtroute te zoeken.
+Jullie kunnen alleen blijven proberen.
+Wacht op het vervolg van de scène.","机关仍未恢复正常。
+危险正在逼近，而你们已来不及另找逃生路线。
+现在只能尽力完成眼前的操作。
+请等待接下来的剧情。",act12.016,GA-156 exact Runtime role/phase/trigger only; preserve separate voice intro and controls.
