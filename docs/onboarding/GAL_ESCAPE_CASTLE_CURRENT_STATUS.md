@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-28T08:12:00Z
+> Last refreshed: 2026-11-28T07:59:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = CA-359 — Nov28 Teacher five-point correction following CA358 trial analysis
-CURRENT_GATE          = GA154_ACT4_ACT5_TEACHER_APPROVED_SOURCE_QUEUED / CD_CA357_AND_CA359_BATCH / NO_PRODUCTION_GO
-CURRENT_OWNER         = GA — ACT4/5 copy and 222 Runtime review; CD — ongoing CA357 Next plus queued Nov28 share/timeout/console; CA — functional integration
-NEXT_REQUIRED_ACTION  = CD finish CA357 then one consolidated source batch including GA-approved ACT4 personal-choice guidance, ACT5 ballot-open and genuine tie Runtime messages plus earlier CA359 share/timeout/console fixes; GA separately works remaining draft review; CA source-check and Teacher production GO later. No release authorized.
+CURRENT_SPRINT        = CA-361 — Teacher approves ALL Nov27 Runtime manuscript; GA full delivery required
+CURRENT_GATE          = GA_FULL_RUNTIME_CANONICALIZATION_TEACHER_APPROVED / CD_PRIOR_SOURCE_WORK / NO_PRODUCTION_GO
+CURRENT_OWNER         = GA — complete all approved Runtime bilingual canonical text + generated artifacts to one full formal CA/CD handoff; CD continues existing source tasks
+NEXT_REQUIRED_ACTION  = GA finish ALL approved GA153/154 Runtime manuscript, QA, Action Log, complete GA→CA/CD handoff without pauses or new Teacher approvals. CD join full GA package with CA357/CA359 fixes; CA concentrated audit, separate Teacher production go. CA360 claim other Runtime drafts unapproved is superseded.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
