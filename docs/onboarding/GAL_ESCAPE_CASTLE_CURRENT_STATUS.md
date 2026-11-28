@@ -2,7 +2,7 @@
 
 > L3 operational snapshot.  
 > Not a canonical gameplay/spec source.  
-> Last refreshed: 2026-11-27T14:05:00Z
+> Last refreshed: 2026-11-28T05:42:00Z
 > Updated by: CA
 
 ---
@@ -10,10 +10,10 @@
 ## 1. Project dashboard
 
 ```text
-CURRENT_SPRINT        = CA-358 — 27 Nov 21-slide Teacher live report: GA Runtime queue + CA functional root-cause investigation
-CURRENT_GATE          = CA358_GA_RUNTIME_REVIEW_AND_CA_NON_RUNTIME_DIAGNOSIS / NO_NEW_PRODUCTION_GO
-CURRENT_OWNER         = GA for 27 Nov Runtime text/placement; CA for other bug coordination; CD retains isolated CA357 finale Next source task
-NEXT_REQUIRED_ACTION  = GA review 27 Nov Runtime content and wording with Teacher; CA source/database root-cause report CA358 ready; CD continues ONLY previously assigned CA357 Next fix. Any additional CD fixes require one consolidated CA handoff after coordination. No production writes authorized.
+CURRENT_SPRINT        = CA-359 — Nov28 Teacher five-point correction following CA358 trial analysis
+CURRENT_GATE          = GA_RUNTIME_TEXT_REVIEW + CD_CA357_NEXT_AND_QUEUED_NOV28_SOURCE_BATCH / NO_PRODUCTION_GO
+CURRENT_OWNER         = GA — ACT4/5 copy and 222 Runtime review; CD — ongoing CA357 Next plus queued Nov28 share/timeout/console; CA — functional integration
+NEXT_REQUIRED_ACTION  = GA integrate Teacher's ACT4 private choice, ACT5 official ballot, ACT5 true no-majority Runtime copy into ongoing single GA review; CD finish CA357 then handle library-only sharing with recipient labels, once-only statement timeout diagnosis / bounded processing fallback and delete UNKNOWN debug line; CA consolidate when CD hands off. Golden Key TAKE is group found item, not individual physical owner. No production writes authorized.
 
 MEMORY_SYSTEM         = ACTIVE
 MEMORY_SYSTEM_START   = GA-001 / 2026-09-20
