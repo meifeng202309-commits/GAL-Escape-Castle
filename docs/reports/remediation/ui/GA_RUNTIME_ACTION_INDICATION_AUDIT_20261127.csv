@@ -180,12 +180,14 @@ Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔�
 最后一个转轮已正确，密码箱正在打开。请查看 Runtime 中随后出现的新发现。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
 Let op wat er nu met het kistje gebeurt.
 Ook het laatste wieltje staat goed; het kistje gaat open. Bekijk de nieuwe ontdekking die hierna in Runtime verschijnt.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
-ANNA-026,Anna,4,7;12,PASS_BUT_DUPLICATED_SURFACE,—,第7、12页显示相同剧情文字同时出现在 Scene 卡片和 Runtime；Runtime 原文保留。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+ANNA-026,Anna,4,7;12,TEACHER_DIRECTED_CANONICAL,P1,Teacher 28 Nov: 明确私下个人选择，不泄露其他人选择；保留 Runtime 并删除 Scene 重复叙事。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
 眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
-De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",,,,CA/CD 删除 Scene 图片说明中的整段叙事文字，而非删除 Runtime 或 Scene 图片。
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.","你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。你个人倾向于走哪个通道？在 Action 区做出选择。注意，这只是你私下的意见，你的朋友并不知道。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Welke route heeft jouw persoonlijke voorkeur? Maak je keuze in het Action-gedeelte. Let op: dit is alleen jouw persoonlijke mening. Je vriendinnen kennen jouw keuze nog niet.",CANONICAL_PRIVATE_CHOICE,act04-05.002; private_route_choice only; Scene duplicate removal remains CA/CD.
 ANNA-027,Anna,5,8;10,PASS_BUT_DUPLICATED_SURFACE,—,第8、10页显示此 Runtime 已有 Discussion 说明，问题是另一个区域重复呈现，不应该重写/删除本条。,"你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
 请先在 Discussion 区分享各自已知的信息，再进行路线投票。","Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
-Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,CA/CD 只删除 Discussion 面板复制的故事文本，保留 Runtime 内这段文字。
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,Keep discussion narrative unchanged; remove duplicate Discussion narrative. Formal ballot uses LIVE-ACT5-GROUP-BALLOT-OPEN only once actual controls available. CA verified TEST-1 private 2:1 vs formal 1:1:1 then 2:1.
 ANNA-028,Anna,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们决定先把地图上没有标出的那扇门打开一点点。
 门后的通道黑暗狭窄，潮湿腐败的气息扑面而来，但似乎可以通行。
 你们仍然看不到通道尽头。请在 Action 区重新选择路线。","Jullie besluiten de deur die niet op de kaart staat eerst een klein stukje te openen.
@@ -626,12 +628,14 @@ Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔�
 最后一个转轮已正确，密码箱正在打开。请查看 Runtime 中随后出现的新发现。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
 Let op wat er nu met het kistje gebeurt.
 Ook het laatste wieltje staat goed; het kistje gaat open. Bekijk de nieuwe ontdekking die hierna in Runtime verschijnt.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
-GITTE-026,Gitte,4,7;12,PASS_BUT_DUPLICATED_SURFACE,—,第7、12页显示相同剧情文字同时出现在 Scene 卡片和 Runtime；Runtime 原文保留。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+GITTE-026,Gitte,4,7;12,TEACHER_DIRECTED_CANONICAL,P1,Teacher 28 Nov: 明确私下个人选择，不泄露其他人选择；保留 Runtime 并删除 Scene 重复叙事。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
 眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
-De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",,,,CA/CD 删除 Scene 图片说明中的整段叙事文字，而非删除 Runtime 或 Scene 图片。
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.","你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。你个人倾向于走哪个通道？在 Action 区做出选择。注意，这只是你私下的意见，你的朋友并不知道。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Welke route heeft jouw persoonlijke voorkeur? Maak je keuze in het Action-gedeelte. Let op: dit is alleen jouw persoonlijke mening. Je vriendinnen kennen jouw keuze nog niet.",CANONICAL_PRIVATE_CHOICE,act04-05.002; private_route_choice only; Scene duplicate removal remains CA/CD.
 GITTE-027,Gitte,5,8;10,PASS_BUT_DUPLICATED_SURFACE,—,第8、10页显示此 Runtime 已有 Discussion 说明，问题是另一个区域重复呈现，不应该重写/删除本条。,"你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
 请先在 Discussion 区分享各自已知的信息，再进行路线投票。","Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
-Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,CA/CD 只删除 Discussion 面板复制的故事文本，保留 Runtime 内这段文字。
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,Keep discussion narrative unchanged; remove duplicate Discussion narrative. Formal ballot uses LIVE-ACT5-GROUP-BALLOT-OPEN only once actual controls available. CA verified TEST-1 private 2:1 vs formal 1:1:1 then 2:1.
 GITTE-028,Gitte,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们决定先把地图上没有标出的那扇门打开一点点。
 门后的通道黑暗狭窄，潮湿腐败的气息扑面而来，但似乎可以通行。
 你们仍然看不到通道尽头。请在 Action 区重新选择路线。","Jullie besluiten de deur die niet op de kaart staat eerst een klein stukje te openen.
@@ -1080,12 +1084,14 @@ Let op wat er nu met het kistje gebeurt.","最后一个密码转轮转动，咔�
 最后一个转轮已正确，密码箱正在打开。请查看 Runtime 中随后出现的新发现。","Het laatste cijferwieltje draait en klikt op de juiste plaats.
 Let op wat er nu met het kistje gebeurt.
 Ook het laatste wieltje staat goed; het kistje gaat open. Bekijk de nieuwe ontdekking die hierna in Runtime verschijnt.",REPLACE_PAGE_EXACT,CD/CA 必须验证该状态是否真的提供相应 Action/Discussion 操作；若无操作应改 WAIT 文案，不要生成虚构按钮。
-LINDA-026,Linda,4,7;12,PASS_BUT_DUPLICATED_SURFACE,—,第7、12页显示相同剧情文字同时出现在 Scene 卡片和 Runtime；Runtime 原文保留。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+LINDA-026,Linda,4,7;12,TEACHER_DIRECTED_CANONICAL,P1,Teacher 28 Nov: 明确私下个人选择，不泄露其他人选择；保留 Runtime 并删除 Scene 重复叙事。,"你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
 眼前的通道可能与地图上已知的路线不同。请在 Action 区决定下一步。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
-De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.",,,,CA/CD 删除 Scene 图片说明中的整段叙事文字，而非删除 Runtime 或 Scene 图片。
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Beslis bij Action wat je nu doet.","你们发现图书馆里的一扇门没有标在此前找到的古堡地图上。
+眼前的通道可能与地图上已知的路线不同。你个人倾向于走哪个通道？在 Action 区做出选择。注意，这只是你私下的意见，你的朋友并不知道。","In de bibliotheek ontdekken jullie een deur die niet op de kasteelkaart staat.
+De doorgang achter deze deur kan afwijken van de bekende routes op de kaart. Welke route heeft jouw persoonlijke voorkeur? Maak je keuze in het Action-gedeelte. Let op: dit is alleen jouw persoonlijke mening. Je vriendinnen kennen jouw keuze nog niet.",CANONICAL_PRIVATE_CHOICE,act04-05.002; private_route_choice only; Scene duplicate removal remains CA/CD.
 LINDA-027,Linda,5,8;10,PASS_BUT_DUPLICATED_SURFACE,—,第8、10页显示此 Runtime 已有 Discussion 说明，问题是另一个区域重复呈现，不应该重写/删除本条。,"你们对于应该走哪条路的想法不同，每个人掌握的线索也可能不同。
 请先在 Discussion 区分享各自已知的信息，再进行路线投票。","Jullie denken niet allemaal hetzelfde over de route en hebben mogelijk verschillende aanwijzingen gevonden.
-Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,CA/CD 只删除 Discussion 面板复制的故事文本，保留 Runtime 内这段文字。
+Deel eerst bij Discussion wat je zelf weet. Stem daarna over de route.",,,,Keep discussion narrative unchanged; remove duplicate Discussion narrative. Formal ballot uses LIVE-ACT5-GROUP-BALLOT-OPEN only once actual controls available. CA verified TEST-1 private 2:1 vs formal 1:1:1 then 2:1.
 LINDA-028,Linda,5,,PASS_EXPLICIT_ACTION,—,原文已说明本步骤可做的动作/讨论/选择，暂不改动,"你们决定先把地图上没有标出的那扇门打开一点点。
 门后的通道黑暗狭窄，潮湿腐败的气息扑面而来，但似乎可以通行。
 你们仍然看不到通道尽头。请在 Action 区重新选择路线。","Jullie besluiten de deur die niet op de kaart staat eerst een klein stukje te openen.
@@ -1348,7 +1354,7 @@ Maar het kasteel herinnerde zich alles wat jullie deden.
 ZIJ weten wie jullie zijn.
 Einde",,,,禁止修改 ACT14 结尾 canonical 文字与翻页机制。
 LIVE-RESTORED-SIGNAL,Shared,2,4,REVISE_NEW_LIVE_RUNTIME,P0,第4页 Runtime 只说信号恢复，未说明应该如何通信。,信号已恢复。,SIGNAAL HERSTELD,信号已恢复，你看到了其他伙伴发给你的信息。此时你可以通过手机短信和她们通信了。请在右边 Discussion Room 里输入你想说的话。,Het signaal is hersteld. Je ziet de berichten die je teamgenoten je hebben gestuurd. Je kunt nu met hen sms'en. Typ in de Discussion Room rechts wat je tegen hen wilt zeggen.,NEW_PHASE_SPECIFIC_TEXT,仅在 Discussion 已开放且真实消息已送达时显示；如果没有消息，删除‘看到了其他伙伴…’的断言。
-LIVE-ACT5-TRUE-TIE,Shared,5,9,REVISE_NEW_LIVE_RUNTIME,P1,票数真正持平时必须告知重投；2:1并非 tie。,（当前 PPT 未显示独立平局 Runtime）,,投票出现平局，本轮没有形成决定。请先在 Discussion 区讨论，等待重新投票。,De stemming is geëindigd in een gelijkspel. Er is deze ronde geen beslissing genomen. Overleg eerst bij Discussion en wacht op de nieuwe stemming.,NEW_OUTCOME_TEXT,仅真正 tie/no-consensus 使用。3人投3选项可能1:1:1；第9页2:1复投由 CA 查脚本/投票权威，不应靠修改文案掩盖。
+LIVE-ACT5-TRUE-TIE,Shared,5,9,TEACHER_DIRECTED_CANONICAL,P1,CA 已核实首次正式投票 1:1:1，第二次 2:1；服务器正确。,（当前 PPT 未显示独立平局 Runtime）,,没有形成多数票，请在 Discussion 区重新讨论，然后再次投票。,Er is geen meerderheid. Overleg opnieuw in het Discussion-gedeelte en stem daarna opnieuw.,CANONICAL_OUTCOME_TEXT,act04-05.runtime.no_majority; genuine completed 1:1:1 only; before new formal vote opens; 2:1 never tie.
 LIVE-ACT6-PORTRAIT-INTRO,Shared,6,13;15,REVISE_NEW_LIVE_RUNTIME,P0,肖像只说‘一个问题’，未说明在哪里讨论和如何投票。,一个问题。只能问一个。,Eén vraag. Slechts één.,"一个问题。只能问一个。
 请先在 Discussion 区讨论你们最想问的问题，然后在投票开放后到 Action 区选择问题。","Eén vraag. Slechts één.
 Overleg eerst bij Discussion welke vraag jullie willen stellen. Kies daarna bij Action een vraag zodra de stemming opent.",APPEND_TO_VOICE_EVENT,须尊重 ACT6 voice introduction acknowledgement：未确认不可开始投票，第15页 ACK 错误属 CA；不把一条对话替换成技术系统提示。
@@ -1361,3 +1367,4 @@ LIVE-ACT11-WRONG-KEY-VOICE,Shared,11,20,REVISE_NEW_LIVE_RUNTIME,P1,失败反馈�
 Die lage, koude stem klinkt opnieuw, vol spot: ‘Dachten jullie werkelijk dat ontsnappen zo eenvoudig zou zijn?’
 Overleg opnieuw over de taken of handelingen die bij Action beschikbaar zijn.",CONDITIONAL_WRONG_KEY_RESULT,嘲讽原话为 GA 草稿，不是 Teacher 已批准台词；须核对这个错误事件是否可重新分工/操作，若无则用‘等待下一状态’。
 LIVE-ACT11-LEAVE-KEY-STATION,Shared,11,21,VERIFY_FUNCTIONAL_FIRST,P0,选择留下钥匙后仍出现 A/B/C 岗位选项，可能是选项逻辑与提示脱节。,（ACT11 Runtime 见报告图）,,你们决定不带走金钥匙。请先在 Discussion 区确定当前可操作的岗位，再按照 Action 区显示的实际选项继续。,Jullie hebben besloten de gouden sleutel niet mee te nemen. Spreek bij Discussion af welke posten nu bediend kunnen worden en volg alleen de opties die bij Action werkelijk beschikbaar zijn.,BLOCKED_BY_CA_GAMEPLAY_CHECK,CA 判定此支该出现 A/B/C 还是 A/B/WATCHER，GA 不修改岗位规则。
+LIVE-ACT5-GROUP-BALLOT-OPEN,Shared,5,9,TEACHER_DIRECTED_CANONICAL,P1,正式投票与个人选择分离，实际投票开放后才提示。,（原讨论阶段文案不区分正式开放）,,现在开始投票。请在 Action 区投票，所有人按照获得多数票的选择行动。,De stemming begint nu. Breng je stem uit in het Action-gedeelte. Iedereen volgt de keuze die de meerderheid van de stemmen krijgt.,CANONICAL_PHASE_TEXT,act04-05.runtime.group_ballot_open; real formal voting controls available; 3 live votes required; never countdown/private choice.
